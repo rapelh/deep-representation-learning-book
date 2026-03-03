@@ -1,0 +1,84 @@
+\providecommand{\toplevelprefix}{../..}  %
+\documentclass[../../book-main.tex]{subfiles}
+
+\begin{document}
+
+\chapter*{Preface to Version 2.0}
+
+% \begin{center}
+%     ``{\em All roads lead to Rome}.''
+
+% \end{center}
+% \vspace{5mm}
+
+As an open-source book, the first version, entitled ``{\em Learning Deep Representations of Data Distributions}'', released on August 18, 2025 has been frequently and constantly updated in the past six months. Meanwhile, based on
+our experience from using the book for a new course taught at the University of
+Hong Kong in Fall 2025 and feedback that we have received from colleagues, teaching assistants and students, we have identified numerous points throughout the book that merit further revision and expansion.
+
+Hence, we have decided to make some substantial changes and upgrades of the content and organization of the book with a new \textit{Version 2.0} and changed its title to:
+\begin{quote}
+    \centering 
+    {\em Principles and Practice of Deep Representation Learning} \\
+    {\em or A Mathematical Theory of Memory}
+\end{quote}
+The new version also allows us to explicitly reveal strong conceptual and technical connections among materials across different chapters and sections within the book, so that the overall pedagogical value of the book, we believe, has been improved significantly over the first version. 
+
+In our opinion, the new version gives a much more unified, complete, and stream-lined presentation of this subject. The new version also incorporates newly developed theoretical insights as well as a growing number of practical applications for real-world data that have not been properly documented and systematically explained elsewhere. The Version 2.0 serves as a timely remedy to this situation.
+
+\subsection*{Major Changes in Version 2.0}
+\begin{itemize}
+    \item We have split Chapter 3 in the first version into to two chapters, now
+        Chapter \ref{ch:denoising} and \ref{ch:lossy-compression}. The new
+        Chapter \ref{ch:denoising} focuses on the denoising process for learning
+        low-dimensional distributions. We have added a new section that
+        characterizes conditions under which the process leads to generalization
+        or memorization. The new Chapter \ref{ch:lossy-compression} focuses on
+        representation learning based on a lossy coding approach and the
+        principle of maximizing information gain. Since the old version only
+        illustrated how to apply the principle to learn image representations in
+        the supervised setting, the new version has added a case study with the
+        unsupervised setting. It also provides theoretical justification for
+        popular unsupervised learning methods such as contrastive learning and DINO in particular.
+    \item In the updated Chapter \ref{ch:deep-networks} on designing deep representations via unrolled optimization, we have added a principled  derivation of a causal version for the white-box transformer architecture CRATE, which is important for processing sequential data such as texts as we often see in applications.
+    \item In the updated Chapter \ref{ch:consistent-representations} on consistent
+        representation learning, we added a new section that further elucidates
+        the relationships between distribution learning and representation
+        learning. This provides theoretical clarification and justification for
+        popular practical autoencoding methods such as variational autoencoding
+        and representation autoencoders.
+    \item In the updated Chapter \ref{ch:conditional-inference}, we have added
+        a section that provides a principled explanation of representation
+        learning with paired data and conditioned generation through the
+        perspective of mutual information. It provides theoretical justification
+        for popular practical methods such as CLIP and cross attention.
+    \item The expanded application Chapter \ref{ch:applications} now features
+        many more detailed implementations of distribution learning and representation learning for real-world data, including natural 2D images,  natural 3D objects, human body motions, and natural languages, under almost all popular and practical settings, supervised, weakly supervised, unsupervised, and conditioned. 
+    \item The final Chapter \ref{ch:future} about open directions has also been
+        significantly rewritten. We attempt to give a clearer taxonomy of
+        different levels of intelligence so that we can clarify what we have
+        done and understood about intelligence (with this book) and what we have not. We believe that open problems associated with more advanced forms of intelligence can be well posed so that they can be studied qualitatively and quantitatively via scientific and mathematical means, instead of remaining as a mysterious subject or merely a philosophical topic.
+\end{itemize}
+
+
+\subsection*{Contributors for Version 2.0}
+Besides the authors, many students and colleagues have joined this project and contributed valuable content to different parts of the book during the preparation of {\em Version 2.0}. Below is an incomplete list of people and their specific contributions, in alphabetical order:
+\begin{itemize}
+    \item Tianzhe Chu: Experiments in Section \ref{sec:image_classification}, and AI tooling for the book.
+    \item Prof. Shenghua Gao: Sections \ref{sec:Michelangelo} and \ref{sec:CUPID}.
+    \item Bingbing Huang: Sections \ref{sec:Michelangelo} and \ref{sec:CUPID}.
+    \item Kerui Min: Chinese translation.
+    \item Prof. Qing Qu: Section \ref{sec:diffusion_memorization}.
+    \item Shengbang Peter Tong: Sections \ref{sec:continuous} and \ref{sec:RAE-implement}.
+    \item Chengyu Wang: Sections \ref{sec:Michelangelo} and \ref{sec:CUPID}.
+    \item Ziyang Robin Wu: Section \ref{sec:CLIP} and website development.
+    \item Chun-Hsiao Daniel Yeh: Sections \ref{sec:auto-encode-img-gen} and \ref{sec:cond_gen}.
+    \item Brent Yi: Section \ref{sec:egoallo}.
+    \item Jingfeng Yang: Section \ref{sec:CLIP}.
+    \item Dr. Yaodong Yu: Chapter \ref{ch:deep-networks} is based on his PhD thesis.
+    \item Dr. Zibo Zhao: Section \ref{sec:Michelangelo}.
+\end{itemize}
+We also thank Dr. Kevin Murphy and Dr. Bill Mark, for extensive technical feedback on the
+manuscript; Jan Cavel, for contributing an unofficial Romanian translation;
+and Stephen Butterfill and Jeroen Van Goey, for contributing corrections and fixes to the manuscript.
+
+\end{document}

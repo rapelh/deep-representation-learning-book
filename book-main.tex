@@ -1,14 +1,29 @@
 \documentclass{book}
+% \documentclass{EngC}
 
-
-\usepackage[margin=1in]{geometry}
+\makeatletter
+\@ifclassloaded{EngC}{
+    % Ensure standard size switches exist for packages expecting them
+    \providecommand{\LARGE}{\Large}
+    \providecommand{\Huge}{\huge}
+}{
+    % \usepackage[margin=1in]{geometry}
+    \usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \fancyhf{}
+    \fancyhead[LE]{\thepage}
+    \fancyhead[RE]{\ifnum\value{chapter}>0 \@chapapp\ \thechapter\fi}
+    \fancyhead[LO]{\ifnum\value{chapter}>0 \S\thesection\fi}
+    \fancyhead[RO]{\thepage}
+}
+\makeatother
 
 % Font packages
 \usepackage[utf8]{inputenc}
 \usepackage{bbold}
 \usepackage{pifont}
 
-% Math packages 
+% Math packages
 \usepackage{amsmath}
 \usepackage{amssymb}
 
@@ -23,47 +38,52 @@
 \usepackage{tikz} % General diagram software
 \usepackage{tikz-cd} % Commutative diagrams
 \usepackage{pgfplots} % PGF plots; used to plot functions
-\usetikzlibrary{automata, arrows, angles, calc, intersections, math, decorations.pathmorphing, decorations.markings}
+\usetikzlibrary{automata, arrows, angles, calc, intersections, math,
+decorations.pathmorphing, decorations.markings}
 \usetikzlibrary{positioning}
 %% the following commands are needed for some matlab2tikz features
 \usetikzlibrary{plotmarks}
 \usetikzlibrary{arrows.meta}
 \pgfplotsset{compat=1.16}
-\usepgfplotslibrary{groupplots} % This lets you put multiple functions together in a single plot
+\usepgfplotslibrary{groupplots} % This lets you put multiple
+% functions together in a single plot
 \usepgfplotslibrary{patchplots}
 
 % Tables
 \usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{multirow}
 
 % References and bibliography
 \usepackage[
-backend=biber,
-style=alphabetic,
-sorting=nyt,
-doi=false,
-hyperref=true,
-isbn=false,
-sortcites,
-url=false,
-maxbibnames=99,
-maxalphanames=3,
-minalphanames=3,
-maxcitenames=2,
-mincitenames=1,
-backref=false,
-natbib=true,
+    backend=biber,
+    style=alphabetic,
+    sorting=nyt,
+    doi=false,
+    hyperref=true,
+    isbn=false,
+    sortcites,
+    url=false,
+    maxbibnames=99,
+    maxalphanames=3,
+    minalphanames=3,
+    maxcitenames=2,
+    mincitenames=1,
+    backref=false,
+    natbib=true,
 ]{biblatex}
 \renewbibmacro{in:}{}
 \AtEveryBibitem{%
-  \clearlist{language}%
+    \clearlist{language}%
 }
-\providecommand{\toplevelprefix}{.}  % necessary for subfile compilation to work with bibliography
-\makeatletter
 % Hack to accommodate texlab users
+\providecommand{\toplevelprefix}{.}  % necessary for subfile
+% compilation to work with bibliography
+\makeatletter
 \@ifundefined{thiscommandisneverdefined}{
-  \addbibresource{\toplevelprefix/book-references.bib}
+    \addbibresource{\toplevelprefix/book-references.bib}
 }{
-  \addbibresource{book-references.bib}
+    \addbibresource{book-references.bib}
 }
 \makeatother
 
@@ -79,10 +99,9 @@ natbib=true,
 \Crefname{exercise}{Exercise}{Exercises}
 
 \hyphenation{line-break line-breaks docu-ment triangle cambridge amsthdoc
-  cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
+cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
 
 \setcounter{tocdepth}{2}% list subsections in the table of contents
-
 % Algorithm packages -- should go after hyperref
 \usepackage{algorithm}
 % \usepackage[spaceRequire=false]{algpseudocodex}
@@ -94,7 +113,9 @@ natbib=true,
 
 % Text formatting
 \usepackage[shortlabels]{enumitem}
+\setlist[enumerate]{label=\arabic*., leftmargin=*}
 \usepackage{fancyvrb}
+\usepackage{soul}
 \VerbatimFootnotes
 \allowdisplaybreaks
 
@@ -106,110 +127,154 @@ natbib=true,
 % Add subfiles --- each chapter can now be compiled by itself!
 \usepackage{subfiles}
 
-% Title page customization using titling package
-\usepackage{titling}
-\pretitle{\begin{center}\LARGE\bfseries}
-\posttitle{\end{center}\vskip 0.5em}
-\preauthor{\begin{center}\large}
-\postauthor{\end{center}}
-\predate{\begin{center}\large}
-\postdate{\end{center}}
+\makeatletter
+\@ifclassloaded{EngC}{}{
+    % Title page customization using titling package
+    \usepackage{titling}
+    \pretitle{
+        \vspace{-2in}
+    \begin{center}\LARGE\bfseries}
+        \posttitle{
+    \end{center}\vskip 0.5em}
+    \preauthor{
+    \begin{center}\large}
+        \postauthor{
+    \end{center}}
+    \predate{
+    \begin{center}\large}
+        \postdate{
+    \end{center}}
 
-% Customize vertical spacing
-\setlength{\droptitle}{-4em}
+    % Customize vertical spacing
+    \setlength{\droptitle}{-4em}
 
-% Add a rule under the title
-\renewcommand{\maketitlehooka}{%
-  \vspace{1em}%
-  \noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}%
-  \vspace{1.5em}%
+    % Add a rule under the title
+    \renewcommand{\maketitlehooka}{%
+        % \vspace{-2.75em}%
+        \noindent\makebox[\linewidth]{\rule{\textwidth}{1pt}}%
+        \vspace{3.5em}%
+    }
+
+    % Add space after author block
+    \renewcommand{\maketitlehookb}{%
+        \vspace{2em}%
+    }
+
+    % Add space before date
+    \renewcommand{\maketitlehookc}{%
+        \vspace{2em}%
+    }
+
+    % Add footnote content below date
+    \renewcommand{\maketitlehookd}{%
+        \vspace{6em}\footnotesize $^*$\,These authors contributed equally.
+    }
 }
-
-% Add space after author block
-\renewcommand{\maketitlehookb}{%
-  \vspace{2em}%
-}
-
-% Add space before date
-\renewcommand{\maketitlehookc}{%
-  \vspace{2em}%
-}
-
-% Add footnote content below date
-\renewcommand{\maketitlehookd}{%
-  \vspace{8em}\footnotesize $^*$\,These authors contributed equally.
-}
+\makeatother
 
 \begin{document}
 
-\title{Learning Deep Representations of Data Distributions}
+\makeatletter
+\@ifclassloaded{EngC}{
+    \title{\Huge Principles and Practice of Deep Representation
+    Learning \\ {{\LARGE or A Mathematical Theory of Memory}}}
+    \author{
+        \textbf{Sam Buchanan}$^*$,
+        University of California, Berkeley \& TTIC  \\[\baselineskip]
+        \textbf{Druv Pai}$^*$, University of California, Berkeley
+        \\[\baselineskip]
+        \textbf{Peng Wang},
+        University of Macau \& University of Michigan  \\[\baselineskip]
+        \textbf{Yi Ma},
+        University of Hong Kong \& University of California, Berkeley \\[3in]
+        \footnotesize
+        This manuscript is prepared for a course on the principles of
+        deep learning
+        and intelligence in general, to be taught by the authors at
+        the respective
+        institutions. This pre-publication version is free to view
+        and download for
+        personal use only, and is not for redistribution, re-sale or
+        use in derivative
+        works.\\  Copyright \Pisymbol{psy}{227} 2026 Sam Buchanan,
+        Druv Pai, Peng Wang, Yi
+        Ma \\[2\baselineskip]
+        $^*$\,These authors contributed equally.
+        %\footnotesize Copyright \Pisymbol{psy}{227}2020 Reserved \\ No
+        %parts of this draft may be reproduced or distributed without
+        % written permission
+        %from the authors.\\
+    }
+}{
+    \title{\huge Principles and Practice of \\
+        \huge Deep Representation Learning \\ \vspace{0.125in} \Large
+        or A Mathematical
+    Theory of Memory}
 
-\author{\vspace{0.5cm}
-\textbf{Sam Buchanan}$^*$, Toyota Technological Institute at Chicago \vspace{3mm}\\
-    \textbf{Druv Pai}$^*$, University of California, Berkeley \vspace{3mm} \\
-    \textbf{Peng Wang}, University of Michigan \& 
-    University of Macau  \vspace{3mm} \\
-    \textbf{Yi Ma},   University of California, Berkeley \& University of Hong Kong
-	\vspace{8cm}\\
-	\footnotesize
-	This manuscript is prepared for a course on the principles of deep learning
-  and intelligence in general, to be taught by the authors at the respective
-  institutions. This pre-publication version is free to view and download for
-  personal use only, and is not for redistribution, re-sale or use in derivative
-  works.\\  Copyright \Pisymbol{psy}{227} 2025 Sam Buchanan, Druv Pai, Peng Wang, Yi
-  Ma
-	%\footnotesize Copyright \Pisymbol{psy}{227}2020 Reserved \\ No
-	%parts of this draft may be reproduced or distributed without written permission
-	%from the authors.\\
+    \author{\vspace{0.5cm}
+        \textbf{Sam Buchanan}$^*$,
+        UC Berkeley \& TTIC  \\[\baselineskip]
+        \textbf{Druv Pai}$^*$, UC Berkeley
+        \\[\baselineskip]
+        \textbf{Peng Wang},
+        University of Macau \& University of Michigan  \\[\baselineskip]
+        \textbf{Yi Ma},
+        University of Hong Kong \& UC Berkeley
+        \vspace{5cm}\\
+        \footnotesize
+        This manuscript is prepared for a course on the principles of
+        deep learning
+        and intelligence in general, to be taught by the authors at
+        the respective
+        institutions. This pre-publication version is free to view
+        and download for
+        personal use only, and is not for redistribution, re-sale or
+        use in derivative
+        works.\\  Copyright \Pisymbol{psy}{227} 2026 Sam Buchanan,
+        Druv Pai, Peng Wang, Yi
+        Ma
+        %\footnotesize Copyright \Pisymbol{psy}{227}2020 Reserved \\ No
+        %parts of this draft may be reproduced or distributed without
+        % written permission
+        %from the authors.\\
+    }
+
+    %Version 1.0: \date{\large January 18, 2025}
+    %Version 2.0:
+    \date{\large March 1st, 2026}
 }
-
-\date{\large August 18, 2025}
+\makeatother
 
 \frontmatter
-\titlepage
-\thispagestyle{empty}
+\makeatletter
+\@ifclassloaded{EngC}{}{
+    \titlepage
+    \thispagestyle{empty}
+}
+\makeatother
 \maketitle
 
-\cleardoublepage
-
-% \input{dedication.tex}
-% \cleardoublepage
-
-% \chapter*{Foreword}
-% \addcontentsline{toc}{chapter}{Foreword}
-% %\addcontentsline{toc}{chapter}{\numberline{}Foreword}
-% \input{chapters/Foreword/foreword.tex}
-% \cleardoublepage
-
-% \addcontentsline{toc}{chapter}{Notation}
-% \input{chapters/notation.tex}
-% \cleardoublepage
-
-\addcontentsline{toc}{chapter}{Preface}
+\phantomsection\addcontentsline{toc}{chapter}{\numberline{}Preface}
 \subfile{chapters/preface/preface.tex}
-\cleardoublepage
 
-\addcontentsline{toc}{chapter}{Declaration of Open Source}
+\phantomsection\addcontentsline{toc}{chapter}{\numberline{}Preface
+to Version 2.0}
+\subfile{chapters/preface/preface-v2.tex}
+
+\phantomsection\addcontentsline{toc}{chapter}{\numberline{}Declaration
+of Open Source}
 \subfile{chapters/declaration/declaration.tex}
-\cleardoublepage
 
-\addcontentsline{toc}{chapter}{Acknowledgment}
+\phantomsection\addcontentsline{toc}{chapter}{\numberline{}Acknowledgment}
 \subfile{chapters/acknowledgment/acknowledgment.tex}
-\cleardoublepage
 
-% \chapter*{Acknowledgements}
-% %\addcontentsline{toc}{chapter}{Acknowledgements}
- % \addcontentsline{toc}{chapter}{\numberline{}Acknowledgements}
-% \input{chapters/Acknowledgement/acknowledgement.tex}
-% \cleardoublepage
+\phantomsection\addcontentsline{toc}{chapter}{\numberline{}Notation}
+\subfile{chapters/notation.tex}
 
 \tableofcontents
-\cleardoublepage
-
 
 \setcounter{page}{1}
 \pagenumbering{arabic}
-
 
 \mainmatter
 
@@ -217,36 +282,44 @@ natbib=true,
 
 \subfile{chapters/chapter2/classic-models}
 
-\subfile{chapters/chapter3/compression-principle}
+\subfile{chapters/chapter3/denoising}
 
-\subfile{chapters/chapter4/deep-networks}
+\subfile{chapters/chapter4/lossy-compression}
 
-\subfile{chapters/chapter5/consistent}
+\subfile{chapters/chapter5/deep-networks}
 
-\subfile{chapters/chapter6/conditional}
+\subfile{chapters/chapter6/consistent-representations}
 
-\subfile{chapters/chapter7/applications}
+\subfile{chapters/chapter7/conditional-inference}
 
-\subfile{chapters/chapter8/future}
+\subfile{chapters/chapter8/applications}
 
-\newpage
+\subfile{chapters/chapter9/future}
 
-\appendix
-%\part*{Appendices}
-\addcontentsline{toc}{chapter}{Appendices}
+\makeatletter
+\@ifclassloaded{EngC}{\backmatter}{\newpage}
+\makeatother\appendix
+\makeatletter
+\@ifclassloaded{EngC}{}{
+    \part*{Appendices}
+    \addcontentsline{toc}{part}{Appendices}
+}
+\makeatother
 
 \subfile{chapters/appendixA/optimization}
 
 \subfile{chapters/appendixB/entropy}
 
+\makeatletter
+\@ifclassloaded{EngC}{\endappendix}{}
+\makeatother
 
-\backmatter
-%insert a blank line to the toc list
-%\addtocontents{toc}{\vspace{\baselineskip}}
+\addtocontents{toc}{\vspace{\baselineskip}}
 
 \addcontentsline{toc}{chapter}{Bibliography}
 \printbibliography
-\cleardoublepage
 
+% \printindex{authors}{Author index}
+% \printindex{subject}{Subject index}
 
 \end{document}

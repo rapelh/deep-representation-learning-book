@@ -12,8 +12,8 @@
 
         // Table of Contents
         toc: {
-            preface: "第一版序言",
-            prefaceV2: "第二版序言",
+            preface: "前言",
+            prefaceV2: "2.0版前言",
             chapter: "第",
             appendix: "附录",
             chapters: {

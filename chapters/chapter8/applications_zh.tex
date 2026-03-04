@@ -4403,7 +4403,7 @@ ToST & \underline{37.25}    & \textbf{66.75}    & \textbf{79.46}
 此外，所提出的名为ToST（代表“词元统计Transformer”，Token
 Statistics Transformer）的架构在视觉任务（即\Cref{tab:tost_linear_probing}）和语言任务（即\Cref{tab:tost_lm}）上表现良好。对于长序列长度任务（参见\Cref{tab:tost_lra_results}）尤其如此，在这些任务中，它比传统的Transformer和所有其他类Transformer架构性能更好且效率高得多。
 
-\subsection{纯注意力Transformer（Attention-Only Transformers）} \label{sub:aot_experiments}
+\subsection{纯注意力Transformer} \label{sub:aot_experiments}
 
 深度学习模型（特别是类Transformer架构）中需要消除的另一个瓶颈是MLP中大规模矩阵乘法带来的内存瓶颈，其中内部维度远大于特征维度 \(d\)。因此，提出一个有趣且重要的问题：我们\textit{真的}需要Transformer内部的MLP吗？如果没有它，性能能达到多好？为了探索这个问题，我们使用了纯注意力Transformer（attention-only-transformer, AoT）架构（见\Cref{sub:aot}），如\Cref{fig:aot_backbone}所示。也就是说，每一层的形式简单如下：
 \begin{equation}

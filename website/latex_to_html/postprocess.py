@@ -953,14 +953,25 @@ def main():
     parser.add_argument("--input", "-i", required=True, help="Build directory with make4ht output")
     parser.add_argument("--output", "-o", required=True, help="Final output directory (website/html/)")
     parser.add_argument("--aux", help="Reference .aux file for eqref recovery", default=None)
+    parser.add_argument(
+        "--shared-asset-prefix",
+        default=None,
+        help=(
+            "Override prefix for shared assets (common.css/js, chapter.css/js). "
+            "Use empty string for same-directory assets."
+        ),
+    )
     args = parser.parse_args()
 
     build_dir = Path(args.input).resolve()
     output_dir = Path(args.output).resolve()
-    shared_asset_root = Path(__file__).resolve().parent.parent / "html"
-    shared_asset_prefix = os.path.relpath(shared_asset_root, output_dir)
-    if shared_asset_prefix == ".":
-        shared_asset_prefix = ""
+    if args.shared_asset_prefix is not None:
+        shared_asset_prefix = args.shared_asset_prefix
+    else:
+        shared_asset_root = Path(__file__).resolve().parent.parent / "html"
+        shared_asset_prefix = os.path.relpath(shared_asset_root, output_dir)
+        if shared_asset_prefix == ".":
+            shared_asset_prefix = ""
 
     if not build_dir.exists():
         print(f"Error: build directory {build_dir} does not exist", file=sys.stderr)

@@ -13,8 +13,9 @@
 #   2. Run make4ht → 20_make4ht_raw/
 #   3. Generate MathJax macros → 30_macros/macros.json
 #   4. Inject macros into copied HTML → 40_mathjax_injected/
-#   5. Post-process copied HTML → 50_postprocess_output/
-#   6. Publish stage output into output_dir/
+#   5. Snapshot copied HTML for post-process → 50_postprocess_input/
+#   6. Post-process copied HTML → 60_postprocess_output/
+#   7. Publish stage output into output_dir/
 
 set -euo pipefail
 
@@ -51,8 +52,8 @@ STAGE_AUX="$RUN_DIR/10_aux"
 STAGE_MAKE4HT="$RUN_DIR/20_make4ht_raw"
 STAGE_MACROS="$RUN_DIR/30_macros"
 STAGE_MATHJAX="$RUN_DIR/40_mathjax_injected"
-STAGE_POST_INPUT="$RUN_DIR/45_postprocess_input"
-STAGE_POST_OUTPUT="$RUN_DIR/50_postprocess_output"
+STAGE_POST_INPUT="$RUN_DIR/50_postprocess_input"
+STAGE_POST_OUTPUT="$RUN_DIR/60_postprocess_output"
 MANIFEST_PATH="$RUN_DIR/manifest.json"
 
 SNAPSHOT_TEX_PATH="$SOURCE_SNAPSHOT/$TEX_REL"
@@ -205,11 +206,16 @@ uv run python3 "$PIPELINE_DIR/inject_mathjax_macros.py" "$STAGE_MATHJAX" "$MACRO
 echo ""
 
 # ---------------------------------------------------------------------------
-# Stage 5: Post-processing from copied input
+# Stage 5: Snapshot copied HTML for post-processing
 # ---------------------------------------------------------------------------
-echo "[Stage 5] Post-processing..."
+echo "[Stage 5] Snapshotting post-process input..."
 
 rsync -a --delete "$STAGE_MATHJAX/" "$STAGE_POST_INPUT/"
+
+# ---------------------------------------------------------------------------
+# Stage 6: Post-processing from copied input
+# ---------------------------------------------------------------------------
+echo "[Stage 6] Post-processing..."
 
 uv run python3 "$PIPELINE_DIR/postprocess.py" \
     --input "$STAGE_POST_INPUT" \
@@ -220,9 +226,9 @@ uv run python3 "$PIPELINE_DIR/postprocess.py" \
 echo ""
 
 # ---------------------------------------------------------------------------
-# Stage 6: Publish to output directory
+# Stage 7: Publish to output directory
 # ---------------------------------------------------------------------------
-echo "[Stage 6] Publishing stage output to $OUTPUT_DIR..."
+echo "[Stage 7] Publishing stage output to $OUTPUT_DIR..."
 mkdir -p "$OUTPUT_DIR"
 rsync -a "$STAGE_POST_OUTPUT/" "$OUTPUT_DIR/"
 

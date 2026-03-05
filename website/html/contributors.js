@@ -69,7 +69,7 @@
             id: "shenghua-gao",
             name: "Shenghua Gao",
             url: "https://datascience.hku.hk/people/shenghua-gao/",
-            affil: "ShanghaiTech University",
+            affil: "University of Hong Kong",
         },
         {
             id: "bingbing-huang",

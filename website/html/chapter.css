@@ -114,7 +114,7 @@ td.equation-label {
   border: 1px solid var(--thm-border, #e2e8f0);
   border-left: 6px solid var(--thm-accent, #94a3b8);
   border-radius: 10px;
-  padding: 12px 14px;
+  padding: 4px 14px;
   margin: 1rem auto;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 }
@@ -203,7 +203,7 @@ td.equation-label {
   border: 1px solid #a5f3fc;
   border-left: 6px solid #06b6d4;
   border-radius: 10px;
-  padding: 12px 14px;
+  padding: 0;
   margin: 1rem auto;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
   text-align: left;
@@ -218,6 +218,23 @@ td.equation-label {
 .algorithm-container figure,
 .algorithm-container .algorithmic {
   text-align: left;
+}
+
+/* Suppress make4ht empty spacer paragraph before algorithm figure */
+.algorithm-container > p.indent {
+  margin: 0;
+}
+
+/* Remove generic figure card styling from algorithm inner wrapper */
+.algorithm-container figure,
+.algorithm-container .figure,
+.algorithm-container div.figure {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0 12px 10px;
 }
 
 /* Algorithmic pseudocode */
@@ -282,6 +299,27 @@ div.figure > p.noindent > img {
 figure > p.noindent > img + img,
 .figure > p.noindent > img + img,
 div.figure > p.noindent > img + img {
+  margin-left: 12px;
+}
+
+/* Some make4ht figures wrap image rows as <figure><div class="center"><p class="noindent"><img ... */
+figure .center > p.noindent,
+.figure .center > p.noindent,
+div.figure .center > p.noindent {
+  text-align: center;
+  margin: 0;
+}
+
+figure .center > p.noindent > img,
+.figure .center > p.noindent > img,
+div.figure .center > p.noindent > img {
+  display: inline-block;
+  vertical-align: top;
+}
+
+figure .center > p.noindent > img + img,
+.figure .center > p.noindent > img + img,
+div.figure .center > p.noindent > img + img {
   margin-left: 12px;
 }
 
@@ -558,7 +596,7 @@ pre,
   }
 
   .theorem-env {
-    padding: 10px 12px;
+    padding: 3px 12px;
   }
 
   figure .figure-row-item,

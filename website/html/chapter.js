@@ -3,6 +3,18 @@
 document.addEventListener("DOMContentLoaded", function () {
   "use strict";
 
+  function prependAnchor(host, targetId, ariaLabel, className) {
+    if (!host || !targetId) return;
+    if (host.querySelector(".heading-anchor, .heading-anchor-outside")) return;
+
+    var a = document.createElement("a");
+    a.href = "#" + targetId;
+    a.className = className || "heading-anchor";
+    a.setAttribute("aria-label", ariaLabel);
+    a.textContent = "\uD83D\uDD17"; // 🔗
+    host.insertBefore(a, host.firstChild);
+  }
+
   // =========================================================================
   // 1. Heading anchor links (sections, subsections, paragraphs)
   // =========================================================================
@@ -14,63 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
       var sec = h.closest("section[id], div[id]");
       if (sec) targetId = sec.id;
     }
-    if (!targetId || h.querySelector(".heading-anchor")) return;
-
-    var a = document.createElement("a");
-    a.href = "#" + targetId;
-    a.className = "heading-anchor";
-    a.setAttribute("aria-label", "Copy link to this section");
-    a.textContent = "\uD83D\uDD17"; // 🔗
-    h.insertBefore(a, h.firstChild);
+    prependAnchor(h, targetId, "Copy link to this section", "heading-anchor");
   });
-
-  // =========================================================================
-  // 1a. Theorem environment anchor links
-  // =========================================================================
-
-  document.querySelectorAll(".theorem-env[id]").forEach(function (thm) {
-    var head = thm.querySelector(".head");
-    if (!head || head.querySelector(".heading-anchor")) return;
-
-    var a = document.createElement("a");
-    a.href = "#" + thm.id;
-    a.className = "heading-anchor";
-    a.setAttribute("aria-label", "Copy link to this environment");
-    a.textContent = "\uD83D\uDD17";
-    head.insertBefore(a, head.firstChild);
-  });
-
-  // =========================================================================
-  // 1b. Equation anchor links
-  // =========================================================================
-
-  document.querySelectorAll(".equation[id], table.equation[id]").forEach(function (eq) {
-    if (eq.querySelector(".heading-anchor-outside")) return;
-
-    var a = document.createElement("a");
-    a.href = "#" + eq.id;
-    a.className = "heading-anchor-outside";
-    a.setAttribute("aria-label", "Copy link to this equation");
-    a.textContent = "\uD83D\uDD17";
-    eq.appendChild(a);
-  });
-
-  // =========================================================================
-  // 1c. Figure / table / algorithm anchor links
-  // =========================================================================
-
-  document
-    .querySelectorAll("figure[id], .figure[id], .algorithm-container[id]")
-    .forEach(function (el) {
-      if (el.querySelector(".heading-anchor")) return;
-
-      var a = document.createElement("a");
-      a.href = "#" + el.id;
-      a.className = "heading-anchor";
-      a.setAttribute("aria-label", "Copy link to this figure/table/algorithm");
-      a.textContent = "\uD83D\uDD17";
-      el.insertBefore(a, el.firstChild);
-    });
 
   // =========================================================================
   // 2. Footnote hover popovers

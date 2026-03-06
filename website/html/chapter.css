@@ -415,12 +415,48 @@ figure img {
 
 :is(figure, .figure, div.figure).subfigure-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(var(--subfigure-count, 1), minmax(0, 1fr));
   gap: 12px 16px;
   align-items: start;
+  justify-items: center;
+  position: relative;
 }
 
 :is(figure, .figure, div.figure).subfigure-grid > .subfigure-item {
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+:is(figure, .figure, div.figure).subfigure-grid > :not(.subfigure-item):not(.caption) {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+:is(figure, .figure, div.figure).subfigure-grid > [id]:not(.subfigure-item):not(.caption) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+:is(figure, .figure, div.figure).subfigure-grid > .subfigure-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+:is(figure, .figure, div.figure).subfigure-grid > .subfigure-grid-meta {
+  grid-column: 1 / -1;
   margin: 0;
 }
 
@@ -727,6 +763,12 @@ pre,
     max-width: 100%;
   }
 
+  :is(figure, .figure, div.figure).subfigure-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
   :is(figure, .figure, div.figure).subfigure-grid {
     grid-template-columns: 1fr;
   }

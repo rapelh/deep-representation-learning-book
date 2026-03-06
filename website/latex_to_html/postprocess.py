@@ -845,6 +845,39 @@ def enhance_subfigure_layouts(soup: BeautifulSoup):
         if "subfigure-grid" not in figure_classes:
             figure["class"] = figure_classes + ["subfigure-grid"]
 
+        figure_style = figure.get("style", "").strip()
+        figure_style = re.sub(r"--subfigure-count\s*:\s*\d+\s*;?", "", figure_style).strip()
+        if figure_style and not figure_style.endswith(";"):
+            figure_style += ";"
+        figure["style"] = f"{figure_style} --subfigure-count: {len(subfigures)};".strip()
+
+        for child in list(figure.children):
+            if isinstance(child, NavigableString):
+                if not str(child).strip():
+                    child.extract()
+                continue
+            if not isinstance(child, Tag):
+                continue
+
+            child_classes = child.get("class", [])
+            if "subfigure" in child_classes or "caption" in child_classes:
+                continue
+
+            is_blank = (
+                not child.get_text(" ", strip=True)
+                and child.find(["img", "svg", "picture", "video", "iframe"]) is None
+            )
+            if is_blank:
+                if child.get("id"):
+                    if "subfigure-anchor" not in child_classes:
+                        child["class"] = child_classes + ["subfigure-anchor"]
+                else:
+                    child.extract()
+                continue
+
+            if "subfigure-grid-meta" not in child_classes:
+                child["class"] = child_classes + ["subfigure-grid-meta"]
+
         for subfigure in subfigures:
             subfigure_classes = subfigure.get("class", [])
             if "subfigure-item" not in subfigure_classes:

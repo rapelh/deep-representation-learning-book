@@ -26,6 +26,15 @@
 
 % Chinese language support
 \usepackage[UTF8]{ctex}
+% For tex4ht/make4ht HTML builds, map full-width punctuation to ASCII
+\ifdefined\HCode
+  % Map full-width comma (U+FF0C) to ASCII comma in tex4ht builds
+  \catcode"FF0C=\active
+  \def^^^^ff0c{,}
+  % Map full-width colon (U+FF1A) to ASCII colon in tex4ht builds
+  \catcode"FF1A=\active
+  \def^^^^ff1a{:}
+\fi
 
 % Font packages
 \usepackage{bbold}

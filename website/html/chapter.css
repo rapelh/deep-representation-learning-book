@@ -284,6 +284,13 @@ td.equation-label {
 .algorithmic-label {
   color: var(--muted);
   white-space: nowrap;
+  min-width: 4.5em;
+  width: max-content;
+  text-align: right;
+}
+
+.algorithmic-label > :is(.label, [class^="label-"], [class*=" label-"]) {
+  display: inline-block;
 }
 
 .algorithmic-content {

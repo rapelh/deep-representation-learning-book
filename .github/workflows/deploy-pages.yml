@@ -14,16 +14,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - lang: en
+            tex_file: book-main.tex
+            artifact: build-en
+          - lang: zh
+            tex_file: book-main_zh.tex
+            artifact: build-zh
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build PDFs and HTML in TeX Live 2025
+      - name: Build PDF and HTML
         uses: xu-cheng/texlive-action@475ab07999e9709e524c3708488c8c170d3a6611
         with:
           docker_image: ghcr.io/xu-cheng/texlive-debian@sha256:394f96c67d6c0db340897848a34c99391e7be469d05f24f6ba1430173d1323f5
@@ -88,136 +95,44 @@ jobs:
             echo "uv:"
             uv --version
 
-            # XeTeX bakes main_memory into xelatex.fmt at format-build time;
-            # extra_mem_bot in texmf.cnf is ignored at runtime. The default
-            # (~261M words) is barely enough for the English book under tex4ht
-            # and too small for the Chinese book (ctex + tex4ht). Rebuild a
-            # user-level format using the larger main_memory in repo texmf.cnf.
-            # This must run BEFORE the build sequences to avoid race conditions.
-            export TEXMFCNF="$PWD:"
-            fmtutil-user --byfmt xelatex
+            bash website/latex_to_html/build.sh ${{ matrix.tex_file }} _output
 
-            # Disable exit-on-error; we handle errors manually below
-            set +e
-            # Define functions for English and Chinese build sequences
-            build_english() {
-              echo "Starting English build (make4ht pipeline)..."
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: _output/
+          retention-days: 1
 
-              # Build PDF first
-              latexmk -pdf -interaction=nonstopmode -shell-escape -f book-main.tex || true
-              if [ -f book-main.pdf ]; then
-                EN_PDF_EXIT=0
-              else
-                EN_PDF_EXIT=1
-              fi
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: website/html
 
-              # Build HTML via make4ht pipeline
-              echo "Starting English HTML build (make4ht + MathJax)..."
-              bash website/latex_to_html/build.sh book-main.tex
-              EN_HTML_EXIT=$?
+      - name: Download English build
+        uses: actions/download-artifact@v4
+        with:
+          name: build-en
+          path: website/html/
 
-              if [ $EN_PDF_EXIT -eq 0 ]; then
-                echo "Moving English PDF to assets..."
-                mv book-main.pdf website/html/assets/book-main.pdf
-              else
-                echo "English PDF build failed"
-              fi
+      - name: Download Chinese build
+        uses: actions/download-artifact@v4
+        with:
+          name: build-zh
+          path: website/html/zh/
 
-              echo "English build complete: PDF=$EN_PDF_EXIT, HTML=$EN_HTML_EXIT"
-              return $((EN_PDF_EXIT + EN_HTML_EXIT))
-            }
-
-            build_chinese() {
-              echo "Starting Chinese build (make4ht pipeline)..."
-
-              # Build PDF first
-              latexmk -pdf -interaction=nonstopmode -shell-escape -f book-main_zh.tex || true
-              if [ -f book-main_zh.pdf ]; then
-                ZH_PDF_EXIT=0
-              else
-                ZH_PDF_EXIT=1
-              fi
-
-              # Build HTML via make4ht pipeline
-              echo "Starting Chinese HTML build (make4ht + MathJax)..."
-              bash website/latex_to_html/build.sh book-main_zh.tex website/html/zh
-              ZH_HTML_EXIT=$?
-
-              if [ $ZH_PDF_EXIT -eq 0 ]; then
-                echo "Moving Chinese PDF to assets..."
-                mv book-main_zh.pdf website/html/assets/book-main_zh.pdf
-              else
-                echo "Chinese PDF build failed"
-              fi
-
-              echo "Chinese build complete: PDF=$ZH_PDF_EXIT, HTML=$ZH_HTML_EXIT"
-              return $((ZH_PDF_EXIT + ZH_HTML_EXIT))
-            }
-
-            # build_romanian() {
-            #   echo "Starting Romanian PDF build..."
-            #   latexmk -lualatex -pdf -interaction=nonstopmode -shell-escape -f book-main_ro.tex || true
-            #   if [ -f book-main_ro.pdf ]; then
-            #     RO_PDF_EXIT=0
-            #   else
-            #     RO_PDF_EXIT=1
-            #   fi
-
-            #   if [ $RO_PDF_EXIT -eq 0 ]; then
-            #     echo "Romanian PDF build successful, moving PDF to assets..."
-            #     mv book-main_ro.pdf website/html/assets/book-main_ro.pdf
-            #   else
-            #     echo "Romanian PDF build failed"
-            #   fi
-
-            #   echo "Romanian build complete: PDF=$RO_PDF_EXIT"
-            #   return $((RO_PDF_EXIT))
-            # }
-
-
-            # # Start build sequences in parallel
-            # build_english &
-            # EN_PID=$!
-
-            # build_chinese &
-            # ZH_PID=$!
-
-            # build_romanian &
-            # RO_PID=$!
-
-            # # Wait for English build
-            # echo "Waiting for English build sequence..."
-            # wait $EN_PID
-            # EN_TOTAL_EXIT=$?
-
-            # # Wait for Chinese build
-            # echo "Waiting for Chinese build sequence..."
-            # wait $ZH_PID
-            # ZH_TOTAL_EXIT=$?
-
-            # # Wait for Romanian build
-            # echo "Waiting for Romanian build sequence..."
-            # wait $RO_PID
-            # RO_TOTAL_EXIT=$?
-            build_english
-            EN_TOTAL_EXIT=$?
-
-            build_chinese
-            ZH_TOTAL_EXIT=$?
-
-            # RO_TOTAL_EXIT=0
-            # build_romanian
-
-            echo "Final build results:"
-            echo "  English: $([ $EN_TOTAL_EXIT -eq 0 ] && echo 'SUCCESS' || echo 'FAILED')"
-            echo "  Chinese: $([ $ZH_TOTAL_EXIT -eq 0 ] && echo 'SUCCESS' || echo 'FAILED')"
-            # echo "  Romanian: $([ $RO_TOTAL_EXIT -eq 0 ] && echo 'SUCCESS' || echo 'FAILED')"
-
-            # Fail the step if any build failed
-            if [ $EN_TOTAL_EXIT -ne 0 ] || [ $ZH_TOTAL_EXIT -ne 0 ]; then
-              echo "One or more builds failed"
-              exit 1
-            fi
+      - name: Move PDFs to shared assets directory
+        run: |
+          mkdir -p website/html/assets
+          [ -f website/html/book-main.pdf ] && mv website/html/book-main.pdf website/html/assets/book-main.pdf
+          [ -f website/html/zh/book-main_zh.pdf ] && mv website/html/zh/book-main_zh.pdf website/html/assets/book-main_zh.pdf
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

@@ -761,12 +761,6 @@ Low-Dimensional Models: Principles, Computation, and Applications}）
     如条件图像生成，严重依赖于这一原理，
 正如我们将在\Cref{ch:conditional-inference}中讨论的那样。}
 
-Many prior works have studied the properties of data sets whose distributions 
-are supported on a low-dimensional surface or submanifold, e.g., 
-\cite{ALLARD2012435,LITTLE2017504}. We here would like to single out its
-ultimate importance and claims it as the single assumption on which this book
-bases its deductive approach to understanding deep networks and intelligence 
-in general:
 
 有不少以前的工作深入研究了以低维曲面或者低维流型为支撑的分布上的数据集的性质，比如\cite{ALLARD2012435,LITTLE2017504}。
 这里我们希望鲜明的指出低维结构无可比拟的重要性，认为它是我们通过演绎的方法理解深度网络甚至智能所需要的唯一假设：
@@ -1096,7 +1090,9 @@ iteration）\cite{Zhai-2020}
 David Mumford 在 20 世纪 90 年代花费了大量精力试图理解和建模自然图像的统计特性
 \cite{Mumford1996TheSD}。他及其学生（包括 Song-Chun
 Zhu）从统计物理学中汲取灵感和技术，提出了许多用于自然图像分布的统计和随机模型，例如随机场或随机过程
-\cite{Zhu-Entropy-1997,Zhu1997LearningGP,Zhu1997Prior,Huang-Mumford,Mumford-1999,Lee-Mumford}。然而，这些分析模型在生成与自然图像高度相似的样本方面只取得了有限的成功。显然，对于像图像这样的真实世界数据，我们需要开发更强大、更统一的方法来追求它们更一般的低维结构。
+\cite{Zhu-Entropy-1997,Zhu1997LearningGP,Zhu1997Prior,Huang-Mumford,Mumford-1999,Lee-Mumford}。
+然而，这些分析模型在生成与自然图像高度相似的样本方面只取得了有限的成功。显然，对于像图像这样的真实世界数据，我们需要开发更强大、更统一的方法来寻求它们更一般的低维结构,
+得到高效的表征，以用于对这些数据进行编码和解码等 \cite{ALLARD2012435,LITTLE2017504}。
 
 在实践中，对于真实世界数据的一般分布，我们通常只有来自该分布的大量样本——即所谓的\textit{经验分布}（empirical
 distribution）。在这种情况下，我们通常不能指望它们的低维结构有一个清晰的解析形式，也不能指望由此产生的去噪算子有解析形式。\footnote{这与

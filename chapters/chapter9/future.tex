@@ -106,11 +106,14 @@ and applies knowledge in an open world. We believe that
         large; \\ closed-loop systems are for an open world, however small.}
     \end{center}
 \end{quote}
-In fact, ``general intelligence'' can never be achieved by simply
-memorizing all existing data and knowledge of the world. Instead,
-general intelligence requires mechanisms to improve existing memory
-so as to adapt to new environments and tasks. This is precisely the
-essence of the Cybernetics program laid out by Norbert Wiener in the
+Hence, the so-called ``artifical general intelligence'' (AGI) can never be 
+achieved by simply having a system to memorize all existing data and knowledge 
+of the world. No knowledge, however much, is not truly generalizable.\footnote{According to Sir Karl Popper, 
+an influential Philosopher of Science, all scientific theory and knowledge are falsifiable!} Nevertheless, 
+it is the ability to improve one's exisiting memory or knowledge and adapt to any new environments that is 
+truly generalizable. Hence, truly genuine intelligence is itself generalizble if realized 
+completely and correctly.\footnote{In our opinion, AGI should represent ``artificial genuine intelligence.''} 
+This is precisely the essence of the Cybernetics program laid out by Norbert Wiener in the
 1940s that we discussed at the very beginning of this book.
 
 \begin{figure}[t]
@@ -177,11 +180,12 @@ and should be updatable through highly localized and sparse forward
 or backward optimization.\footnote{For learning a distribution, a
     simple instantiation of these desiderata is in the simplest case of
     PCA, with the online PCA method introduced in
-    \Cref{ch:consistent-representations}.
-    The easier task of learning an online predictive model does not
-    necessarily require learning the data distribution, and can be
-    accomplished by existing methods such as the Kalman filter, etc.
-\citep{peng2025mathematics}.}
+    \Cref{ch:consistent-representations}. Once the linear model for the 
+    distribution is learned, the easier task of conducting online prediction 
+    with noisy observations can then be easily accomplished by least-square
+    type methods, such as the Wiener filter \cite{Wiener-1942,Wiener-1949}. 
+    In the case of linear dynamical systems, that becomes the famous
+    the Kalman filter, see \cite[Appendix B]{MaY2003} or \citep{peng2025mathematics}.}
 
 \begin{figure}[t]
     \centering

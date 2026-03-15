@@ -1,0 +1,191 @@
+\providecommand{\toplevelprefix}{../..}  %
+\documentclass[../../book-main.tex]{subfiles}
+
+\begin{document}
+
+\chapter*{Prefacio}
+% \vspace{-2cm}
+\begin{center}
+    «{\em Todos los caminos conducen a Roma}.»
+
+\end{center}
+\vspace{5mm}
+
+\paragraph{Objectivo.}
+Este libro revela y analiza un problema común y fundamental que subyace
+a casi todas las prácticas modernas inteligencia artificial.
+Se trata de {\em ¿cómo aprender de manera efectiva y eficiente una
+    distribución de datos de dimensionalidad baja en un espacio de dimensionalidad alta y
+    luego transformar est distribución en una representación compacta y 
+estructurada?} Para cualquier sistema inteligente, natural o artificial,
+ una representación de este tipo puede considerarse en general como {\em memoria} o
+{\em conocimiento} (empírico) aprendidos a partir de datos percibidos del mondo externo. En
+años recientes, con frecuencia esto se ha denominado informalmente un «modelo del mundo.»
+
+\paragraph{Público objetivo.}
+Este libro de texto intenta proveer una introduccón sistematica a los
+principios matemáticos y computacionales del aprendizaje de representaciones 
+(profundas) de tales distribuciones de datos, como forma computable de
+memoria, para {\em estudiantes de último año de licenciatura y estudiantes 
+de posgrado que están comenzando sus estudios}. Los principales
+prerequisitos para este libro son el álgebra lineal de nivel pregraduado, 
+probabilidades y estadísticas, así como optimización. Cierta familiaridad con 
+los conceptos básicos del procesamiento de señales (representaciones dispersas y detección
+comprimidos en particular), de teoría de la información, así como de control por
+retroalimentación ayudarían a apreciar el libro.
+
+\paragraph{Motivación.}
+La principal motivación para escribir este libro es el hecho de que han habido
+tremendos avances en estos últimos años, tanto por los autores como por
+numerosos colegas, que se orientan a establecer un enfoque riguroso y basado en
+principios para entender las redes neuronales profundas y - más en general - la
+inteligencia como tal. La metodología deductiva defendida por este nuevo 
+enfoque, siendo altamente complementaria, se ubica en contraste directo con la 
+metodología dominante que subyace a las prácticas contemporáneas en inteligencia 
+artificial, que son inductivas y de intento y error. La falta de comprensión
+de esos poderosos modelos y sistemas de IA ha llevado a un aumento tanto del
+entusiasmo como de los temores en el seno de la sociedad. Creemos es más urgente
+que nunca antes un esfuerzo serio por establecer un enfoque basado en principios 
+para comprender lo que es la inteligencia. Un objetivo general de este libro es 
+proporcionar pruebas teóricas y experimentales sólidas que demuestren que es ahora
+posible estudiar la inteligencia como materia científica y matemática. Argumentaremos
+que la inteligencia es la capacidad fundamental de desarrollar nuevas memorias (o
+conocimientos) o de corregir las o los existentes. Por tanto es posible ver a este
+libro como un primer intento de desarfrollar {\em una teoría matemática de la 
+inteligencia}, al nivel de aprender conocimientos empíricos en forma de memoria, 
+tal como sugiere el subtítulo del libro.
+
+A nivel técnico, el marco teórico presentado en este libro ayuda a 
+reconciliar una brecha antigua entre el enfoque clásico del
+modelamiento de estructuras de datos principalmente basado en
+modelos analíticaos geométricos, algebráicos y probabilísticos 
+(p.ej. subespacios, gaussianas y ecuaciones) y el enfoque «moderno»
+basado en modelos no paramétricos basados en datos empíricamente 
+diseñados (p.ej. redes profundas). Resulta que la unificación de
+estas dos metodologías aparentemente separadas se hace posible e
+incluso natural si se entiende que todas tratan de aprender y
+representar estructuras {\em de baja dimensionalidad} en la
+distribución de datos de que se trate. Son simplemente maneras
+diferentes de perseguir, representar y explotar estas estructuras 
+de baja dimensionalidad. Desde esta perspectiva, incluso muchas
+técnicas computacionales sin relación aparente entre ellas, 
+desarrolladas independientemente en campos separados y en distintos
+momentos, pueden comprenderse mejor ahora en un marco teórico
+y computacional común y es probable que puedan estudiarse en su
+conjunto de ahora en adelante. Como veremos en este libro, estas 
+técnicas, entre otras, incluyen: 
+\begin{enumerate}
+    \item La codificación y decodificación compresiva con pérdidas
+        desarrollada en la teoría de la información clásica y la
+        teoría de la codificación frente al aprendizaje de 
+        representaciones moderno;
+    \item La reducción de ruido y la reducción de dimensionalidad
+        en el procesamiento clásico de señales frente a los modelos
+        de difusión y reducción de ruido de los métodos generativos
+        modernos;
+    \item La inferencia bayesiana por vía del máximo a posteriori o
+        el muestreo condicionado frente a la optimización con 
+        restricciones por vía de técnicas de continuación
+        \footnote{como el método del lagrangiano aumentado}.
+\end{enumerate}
+
+\paragraph{Contenido principal.}
+Creemos que el marco conceptual y computacional unificado que se
+presenta en este libro será de gran provecho para aquellos lectores
+que verdaderamente quieran aclarar los misterios y malentendidos
+de las redes neuronales profundas y la inteligencia (artificial).
+más allá de lo anterior, este marco pretende equipar a los lectores 
+con principios rectores para desarrollar sistemas significativamente
+mejores y verdaderamente inteligentes en el futuro. Más específicamente,
+aparte de una introducción (capítulo) informal, el contenido técnico
+principal del libro se organizará en forma de seis materias (capítulos)
+íntimamente relacionadas:
+\begin{enumerate}
+    \item Comenzaremos con los modelos clásicos y más básicos del
+        análisis de componentes principales (PCA), del análisis de
+        componentes independientes (ICA) y del aprendizaje de 
+        diccionarios (DL), las que suponen que las distribuciones
+        de baja dimensionalidad que interesan poseen estructuras
+        lineales e independientes. A partir de estos modelos simples
+        idealizados que han sido ampliamente estudiados y comprendidos
+        en procesamiento de señales y detección comprimida, 
+        introduciremos las ideas más básicas e importantes\footnote{tales 
+        como a reducción de ruidos y la reducción de dimensionalidad} en
+        cuanto a cómo aprender y cómo representar distribuciones de baja
+        dimensionalidad.
+
+    \item A fin de generalizar estos modelos clásicos y extender
+        sus soluciones a distribuciones de baja dimensionalidad que no
+        puedan ser representadas fácilmente por algún modelo analítco
+        simple, introducimos un principio computacional universal para
+        el aprendizaje de tales distribuciones: {\em la compresión}.
+        Como veremos, la compresión de datos provee una perspectiva 
+        unificadora de todos los enfoques clásicos y modernos aparentemente
+        diferentes para el aprendizaje de distribuciones o representaciones,
+        incluyendo la minimización de entropía, la reducción de ruido por
+        coincidencia de puntajes, compresión con pérdidas y distorsión de
+        tasas, así como el aprendizaje discriminativo de representaciones
+        por vía de maximizar la ganancia de información.
+
+    \item En este marco unificador, las redes neuronales profundas (DNNs),
+        tales como ResNet, CNN y transformadores, pueden ser todas 
+        interpretadas matemáticamente como algoritmos de optimización
+        (desplegados) que iterativamente logran mejor compresión
+        y mejor representación al reducir el largo o la tasa de la 
+        codificación o al ganar información. Este marco no solo ayuda
+        a explicar las arquitecturas de redes profundas empíricamente
+        diseñadas hasta ahora, sino que también conduce a nuevos
+        diseños arquitectónicos que pueden ser significativamente 
+        más simples y más eficientes.
+
+    \item Más allá de lo anterior, a fin de asegurar que la representación
+        aprendida para una distribución de datos sea correcta y consistente,
+        se hacen necesarias las arquitecturas de {\em autocodificadores}
+        que incluyen tanto codificadores como decodificadores. Para que
+        un sistema de aprendizaje sea plenamente automático y de operación
+        contínua, introduciremos un poderoso {\em esquema de transcripción
+        en circuito cerrado} que habilita a un sistema autocodificador para
+        corregirse a si mismo y, por tanto, mejorarse a si mismo, por medio
+        de un juego minimax entre codificador y decodificador.
+
+    \item Para conectar la teoría con la práctica, luego estudiaremos cómo
+        la distribución de datos y su representación aprendidas pueden
+        utilizarse como un potente a priori para llevar a cabo inferencias
+        bayesianas u optimizaciones con restricciones que se manifiestan
+        en casi todos los tipos de tareas y de contextos más populares en
+        la práctica de la inteligencia artificial moderna, incluyendo la 
+        estimación, el completamiento y la generación condicionales de datos
+        del mundo real y de alta dimensionalidad, tales como imágenes y textos.     
+
+    \item Por último, pero no menos importante, traremos paso a paso como 
+        aprender de manera efectiva y eficiente las representaciones profundas
+        de distribuciones de baja dimensionalidad a partir de grandes conjuntos
+        de datos del mundo real, incluyendo datos visuales, movimiento de
+        cuerpos y datos en forma de texto, usándolos en numerosas aplicaciones
+        prácticas, tales como clasificación, completamiento, segmentación, 
+        generación de imágenes, estimación de movimiento y tareas similares
+        para datos de texto.
+\end{enumerate}
+
+\paragraph{Resumen.}
+Para resumir, el contenido técnico presentado en este libro
+establece fuertes conexiones conceptuales y técnicas entre
+el enfoque analítico clásico y el enfoque moderno basado en
+datos, entre unos modelos paramétricos simplpes y los modelos
+no paramétricos profundos, entre las diversas prácticas inductivas
+y un enfoque deductivo unificado basado en principios básicos.
+Revelaremos que numerosos enfoques aparentemente no relacionados
+o incluso contradictorios entre sí, aunque desarrollados en áreas
+separadas, con terminologías diferentes y en momentos distintos
+de la historia, sin embargo todos aspiran a lograr un objetivo 
+común:
+\begin{quote}
+    \centering{\em perseguir y explotar las estructuras intrínsecas
+    de baja dimensionalidad de distribuciones de datos embebidas
+    en espacios de alta dimensionalidad.}
+\end{quote}
+Con este propósito, el libro nos llevará en un viaje completo desde
+la formulación teórica a la deducción matemátca y luego a la 
+implementación computacional y las aplicaciones prácticas.
+
+\end{document}

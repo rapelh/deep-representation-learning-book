@@ -1,0 +1,184 @@
+\chapter*{Notation}\label{ch:notation}
+
+En este libro utilizamos la notación de una variedad de disciplinas matemáticas,
+que se resumen a continuación. Se recomienda al lector que consulte esta lista como referencia a medida de que vaya leyendo los diversos capítulos del libro.
+Hemos tratado de mantener un empleo consistente de estas notaciones a lo largo
+de los capítulos.
+
+Como un primer ejemplo, para un número natural \(n\) el conjunto 
+\(\{1, 2, \dots, n\}\) se denota por \([n]\).
+
+\section*{Notación de álgebra lineal}
+\begin{itemize}
+    \item Los escalares (ya sean deterministas o aleatorios) no están en negrita
+        p.ej., \(x\), \(X\).
+    \item Los vectores (ya sea deterministas o aleatorios) están en negritas
+        minúsculas, p.ej., \(\vx\), \(\vpi\). Los elementos de vectores se 
+        denotan \(x_{i}\) o \(\pi_{i}\), alternativamente \((\vx)_{i}\).
+        Los términos genéricos (que pueden ser escalares, vectores, matrices o
+        tensores de orden superior) también están en negritas minúsculas.
+    \item Las matrices (ya sean deterministas o aleatorios) están en negritas 
+        mayúsculas, p.ej., \(\vX, \vPi\). Los elementos de matrices se denotan
+        \(X_{ij}\) o \(\Pi_{ij}\), alternativamente \((\vX)_{ij}\).
+        Las columnas de matrices son vectores en negritas y minúsculas, p.ej.,
+        \(\vx_{i}\) es la \(i\th\) columna de \(\vX\), a no ser que se defina 
+        de otra manera.
+    \item La transpuesta de una matriz es \(\top\), p.ej.,
+        \(\vA^{\top}\). La adjunta es \(\adj\), p.ej., \(\vA\adj\).
+        La pseudo-inversa es \(\dagger\), p.ej., \(\vA^{\dagger}\).
+    \item El rango de una matriz es \(\rank(\vA)\), la traza es
+        \(\tr(\vA)\), el determinante es \(\det(\vA)\) y su
+        determinante logarítmico es \(\logdet(\vA)\).
+    \item La multiplicación elemento por elemento de matrices es \(\vA \hada
+        \vB\). La elevación al cuadrado elemento por elemento es 
+        \(\vA^{\hada 2}\), etc. De manera similar, el producto Kronecker de
+        matrices es \(\vA \kron \vB\). El producto Kronecker iterado
+        es \(\vA^{\kron 2}\), etc.
+    \item Para una función \(f \colon \R \to \R\), su aplicación elemento por
+        elemento a una matriz \(\vX\) es \(f[\vX]\), esto es, con
+        paréntesis cuadrados. Para una función \(f \colon \R^{d} \to
+        \R^{k}\) y una matriz \(\vX \in \R^{d \times n}\), podemos
+        difundir \(f\) a fin de aplicarla a cada columna sin una
+        notación especial, esto es, \(f(\vX) = [f(\vx_{1}), \dots, f(\vx_{n})]
+        \in \R^{k \times n}\).
+    \item La esfera unitaria (euclidiana) es \(\Sphere^{n - 1} \subseteq
+        \R^{n}\). la bola unitaria (euclidiana) es \(\Ball^{n} \subseteq \R^{n}\).
+    \item El conjunto de matricas ortogonales es \(\O(m, n) \subseteq
+        \R^{m \times n}\) o \(\O(n) = \O(n, n)\).
+    \item Las matrices simétricas son \(\Sym(n)\), las matrices PSD simétricas
+        son \(\PSD(n)\), las matrices PD simétricas son \(\PD(n)\).
+    \item Los valores propios de una matriz simétrica \(\vS \in \Sym(n)\) son
+        todos reales según el teorema espectral; se denotan
+        \(\lambda_{i}(\vS)\) y se ordenan de modo que \(\lambda_{1}(\vS)
+        \geq \cdots \geq \lambda_{n}(\vS)\).
+    \item Los valores singulares de \(\vA \in \R^{m \times n}\) con
+        \(\rank(\vA) = r\) se denotan  \(\sigma_{i}(\vA)\) y se
+        ordenan de modo que \(\sigma_{1}(\vA) \geq \cdots \geq
+        \sigma_{r}(\vA) > 0\). Por convención, definimos \(\sigma_{r +
+        1}(\vA) = \sigma_{r + 2}(\vA) = \cdots = 0\).
+    \item La proyección sobre un conjunto \(\cK\) se denota \(\proj_{\cK}\).
+    \item Las normas \(\ell^{p}\) de vectores se denotan por
+        \(\norm{\vx}_{p}\), \(p \in [0, \infty]\).
+    \item La norma euclidiana de operadores sobre matrices es is \(\norm{\vA} =
+        \sigma_{1}(\vA)\).
+    \item La norma Frobenius de matrices es \(\norm{\vA}_{F} =
+        \tr(\vA^{\top}\vA)\).
+    \item El producto interno euclidiano de vectores es \(\ip{\vx}{\vy} =
+        \vy^{\top} \vx\).
+    \item El producto interno Frobenius de matrices es \(\ip{\vX}{\vY}
+        = \tr(\vY^{\top}\vX)\).
+    \item Un vector o matriz de elementos unitarios se denota \(\vone\) 
+        (la dimensión debería ser obvia por contexto). De manera similar, 
+        un vector o matriz de elementos nulos se denota \(\vzero\). La matriz 
+        identidad se denota como \(\vI\).
+\end{itemize}
+
+\section*{Notación de probabilidades}
+
+\begin{itemize}
+    \item La medida de probabilidad base es \(\Pr\), es decir, la
+        probabilidad de que ocurra un evento \(A\) es \(\Pr[A]\). Podemos
+        especificar la distribución de una variable aleatoria usando
+        subíndices, es decir, \(\Pr_{\vx \sim \mu}[\vx \in S]\), describe
+        las probabilidades asociadas con una variable aleatoria $\vx$ con
+        distribución (medida) $\mu$. Si dos variables aleatorias $\vx$ y $\vx'$
+        tienen la misma distribución, escribimos $\vx \equid \vx'$.
+    \item El operador esperanza es \(\Ex\), con la misma advertencia sobre el 
+        uso de subíndices. 
+    \item El operador covarianza es \(\Cov\), con la misma advertencia sobre 
+        el uso de subíndices.
+    \item El operador correlación es \(\Corr\), con la misma advertencia sobre 
+        el uso de subíndices.
+    \item  en ciertos contextos de modelamiento probabilístico donde 
+        se supone una densidad (especialmente en
+        \Cref{ch:denoising,ch:conditional-inference}), también usamos la 
+        notación $p_{\vx}$ para la densidad de una variable aleatoria $\vx$. 
+        Esto se extiende a las densidades condicionales, p.ej. 
+        $p_{\vx \mid \vy}$ para la densidad de $\vx$ condicionada por $\vy$.
+    \item En general usamos letras griegas para denotar las realizaciones
+        de variables aleatorias (en contraste on las propias variables 
+        aleatorias). Por ejemplo, $p_{\vx}(\vxi)$, $p_{\vx \mid
+        \vy}(\vxi \mid \vnu)$, $\Ex[\vx \mid \vy=\vnu]$, etc.
+    \item El conjunto de distribuciones probabilísticas sobre un conjunto finito        %
+        %\footnote{Esto
+        %    debería ser un espacio medible para evitar problemas en teoría
+        %    de la meddida y teoría de conjuntos. Si usted no ha estudiado
+        %    teoría de la medida puede ignorar esto con relativa seguridad.}
+        \(\cX\) se denota
+        \(\Delta(\cX)\). (Para \(\cX = [n]\), esto es el simplex probabilistico
+        que se puede incrustar en \(\R^{n}\)).
+    \item La distribución gaussiana con media \(\vmu\) y covarianza
+        \(\vSigma\) se denota \(\dNorm(\vmu, \vSigma)\).
+    \item La distribución uniforme sobre un conjunto compacto \(\cX\) se
+        denota \(\dUnif(\cX)\).
+\end{itemize}
+
+
+
+\section*{Notación de aprendizaje automático}
+
+\begin{itemize}
+    \item Los codificadores y reductores de ruido normalmente se denotan por 
+        \(f\) y usualmente tienen parámetros \(\theta \in \Theta\). Usualmente
+        escribiremos las características como \(\vz = f_{\theta}(\vx)\).
+    \item Los decodificadores normalmente se denotan por \(g\) y usualmente 
+        tienen parámetros \(\eta\). Usualmente escribiremos la auto-codificación
+        como \(\hat{\vx} = g_{\eta}(\vz)\) correspondiente a \(\vx\).
+    \item Cuando \(f\) y \(g\) se implementan como redes neurales,
+        tendrán el mismo número de capas sin pérdida de generalidad;
+        we write them as \(f = f^{L} \circ f^{L - 1}
+        \circ \cdots \circ f^{2} \circ f^{1} \circ f^{\pre}\) and \(g
+            = g^{\post} \circ g^{L} \circ g^{ L - 1} \circ \cdots \circ
+        g^{2} \circ g^{1}\).
+    \item We write the features at the input to layer \(\ell\) as
+        \(\vz^{\ell}\) such that \(\vz^{\ell + 1} =
+        f^{\ell}(\vz^{\ell})\) with \(\vz^{1} = f^{\pre}(\vx)\) and
+        \(\vz = \vz^{L + 1}\). Similarly the autoencoding features
+        are \(\hat{\vx}^{\ell}\) with \(\hat{\vx}^{\ell + 1} =
+        g^{\ell}(\hat{\vx}^{\ell})\) with \(\hat{\vx}^{1} = \vz\) and
+        \(\hat{\vx} = g^{\post}(\hat{\vx}^{L + 1})\).
+    \item For denoising, optimization, and processes which have a
+        continuous time index, the time is almost always a subscript,
+        e.g., \(\vx_{t}\). Discrete sequences can have the index be a
+        superscript or subscript.
+\end{itemize}
+
+\section*{Modeling and Optimization Notation}
+\begin{itemize}
+    \item As in the Probability and Machine Learning Notation sections above,
+        when we have a model, say for the realizations of
+        a data distribution supported on $\bR^D$, we always denote it with
+        ``plain'' accented variables, say $\vx$.
+    \item In cases where we assume our data $\vx$ is generated by a model from
+        a restricted class of \textit{parametric models}, say with
+        a parameter $\vmu$, we also denote the \textit{true parameter} with
+        plain accenting.\footnote{This could arise either due to us making an
+        assumption about our data, or due to our data being synthetically
+        generated. This convention allows us to adopt a concise notation across
+        both `probabilistic' and `analytical' modeling setups. Readers more
+        familiar with the latter kinds of frameworks may be used to using
+        notation such as $\vmu_{\sharp}$ or $\vmu_o$ for this case; contrast
+        with our accented decision variable notation.}
+    \item \textit{Decision variables} (or learnable parameters) of a model fit
+        to observed data are denoted with ``tilde'' accenting, e.g.\
+        $\tilde{\vx}$, in cases where there is an underlying model $\vx$, or
+        with plain notation in cases where no confusion is possible (e.g., if
+        an empirically-fit model for \textit{nonparametric} data $\vx$ involves
+        ``mean'' parameters $\vmu$).
+    \item \textit{Optimal solutions} to optimization problems are denoted with
+        ``star'' accenting, either as a superscript or a subscript (say
+        $\vx_\star$ or $\vx^\star$).
+    \item \textit{Estimators} for data that correspond to a specific statistical
+        model, especially for the mean of that statistical model, are denoted
+        with ``bar'' accenting, say $\bar{\vx}$ (especially for minimum
+        mean-squared error denoising in \Cref{ch:denoising}).
+    \item \textit{Approximations} associated to computational procedures for
+        modeling data are denoted with ``hat'' accenting, say $\hat{\vx}$ for
+        the output of an autoencoder or a generative model that approximates
+        data $\vx$.\footnote{We generally distinguish these cases from optimal
+        solutions $\vx_{\star}$, although in some special cases they are
+        equal (e.g., in several examples in \Cref{ch:classic-models}). Think of
+        the distinction between the parameter $\vmu$ of a model, which might be
+        fit with optimization, and the results of sampling with that learned
+        parameter.}
+\end{itemize}

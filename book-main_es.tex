@@ -1,0 +1,325 @@
+\documentclass{book}
+% \documentclass{EngC}
+
+\makeatletter
+\@ifclassloaded{EngC}{
+    % Ensure standard size switches exist for packages expecting them
+    \providecommand{\LARGE}{\Large}
+    \providecommand{\Huge}{\huge}
+}{
+    % \usepackage[margin=1in]{geometry}
+    \usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \fancyhf{}
+    \fancyhead[LE]{\thepage}
+    \fancyhead[RE]{\ifnum\value{chapter}>0 \@chapapp\ \thechapter\fi}
+    \fancyhead[LO]{\ifnum\value{chapter}>0 \S\thesection\fi}
+    \fancyhead[RO]{\thepage}
+}
+\makeatother
+
+% Font packages
+\usepackage[utf8]{inputenc}
+\usepackage{bbold}
+\usepackage{pifont}
+
+% Math packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Figures and colors
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{subcaption}
+
+% Diagrams and images
+\usepackage{tikz} % General diagram software
+\usepackage{tikz-cd} % Commutative diagrams
+\usepackage{pgfplots} % PGF plots; used to plot functions
+\usetikzlibrary{automata, arrows, angles, calc, intersections, math,
+decorations.pathmorphing, decorations.markings}
+\usetikzlibrary{positioning}
+%% the following commands are needed for some matlab2tikz features
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{arrows.meta}
+\pgfplotsset{compat=1.16}
+\usepgfplotslibrary{groupplots} % This lets you put multiple
+% functions together in a single plot
+\usepgfplotslibrary{patchplots}
+
+% Tables
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{multirow}
+
+% References and bibliography
+\usepackage[
+    backend=biber,
+    style=alphabetic,
+    sorting=nyt,
+    doi=false,
+    hyperref=true,
+    isbn=false,
+    sortcites,
+    url=false,
+    maxbibnames=99,
+    maxalphanames=3,
+    minalphanames=3,
+    maxcitenames=2,
+    mincitenames=1,
+    backref=false,
+    natbib=true,
+]{biblatex}
+\renewbibmacro{in:}{}
+\AtEveryBibitem{%
+    \clearlist{language}%
+}
+% Hack to accommodate texlab users
+\providecommand{\toplevelprefix}{.}  % necessary for subfile
+% compilation to work with bibliography
+\makeatletter
+\@ifundefined{thiscommandisneverdefined}{
+    \addbibresource{\toplevelprefix/book-references.bib}
+}{
+    \addbibresource{book-references.bib}
+}
+\makeatother
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    citecolor={blue!80!black},
+}
+\usepackage{cleveref}
+\crefname{assumption}{assumption}{assumptions}
+\Crefname{assumption}{Assumption}{Assumptions}
+\crefname{exercise}{exercise}{exercises}
+\Crefname{exercise}{Exercise}{Exercises}
+
+\hyphenation{line-break line-breaks docu-ment triangle cambridge amsthdoc
+cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
+
+\setcounter{tocdepth}{2}% list subsections in the table of contents
+% Algorithm packages -- should go after hyperref
+\usepackage{algorithm}
+% \usepackage[spaceRequire=false]{algpseudocodex}
+\usepackage{algpseudocode}
+
+% Math formatting
+\usepackage{mathtools}
+\usepackage{grffile}
+
+% Text formatting
+\usepackage[shortlabels]{enumitem}
+\setlist[enumerate]{label=\arabic*., leftmargin=*}
+\usepackage{fancyvrb}
+\usepackage{soul}
+\VerbatimFootnotes
+\allowdisplaybreaks
+
+% Custom packages for the book
+\usepackage{math-macros}  % Custom package
+\usepackage{math-theorems}  % Custom package
+\usepackage{book-macros}  % Custom package for macros in the book
+
+% Add subfiles --- each chapter can now be compiled by itself!
+\usepackage{subfiles}
+
+\makeatletter
+\@ifclassloaded{EngC}{}{
+    % Title page customization using titling package
+    \usepackage{titling}
+    \pretitle{
+        \vspace{-2in}
+    \begin{center}\LARGE\bfseries}
+        \posttitle{
+    \end{center}\vskip 0.5em}
+    \preauthor{
+    \begin{center}\large}
+        \postauthor{
+    \end{center}}
+    \predate{
+    \begin{center}\large}
+        \postdate{
+    \end{center}}
+
+    % Customize vertical spacing
+    \setlength{\droptitle}{-4em}
+
+    % Add a rule under the title
+    \renewcommand{\maketitlehooka}{%
+        % \vspace{-2.75em}%
+        \noindent\makebox[\linewidth]{\rule{\textwidth}{1pt}}%
+        \vspace{3.5em}%
+    }
+
+    % Add space after author block
+    \renewcommand{\maketitlehookb}{%
+        \vspace{2em}%
+    }
+
+    % Add space before date
+    \renewcommand{\maketitlehookc}{%
+        \vspace{2em}%
+    }
+
+    % Add footnote content below date
+    \renewcommand{\maketitlehookd}{%
+        \vspace{6em}\footnotesize $^*$\,These authors contributed equally.
+    }
+}
+\makeatother
+
+\begin{document}
+
+\makeatletter
+\@ifclassloaded{EngC}{
+    \title{\Huge Principios y práctica del aprendizaje profundo de
+    representaciones \\ {{\LARGE o Una teoría matemática de la memoria}}}
+    \author{
+        \textbf{Sam Buchanan}$^*$,
+        Universidad de California, Berkeley \& TTIC  \\[\baselineskip]
+        \textbf{Druv Pai}$^*$, Universidad de California, Berkeley
+        \\[\baselineskip]
+        \textbf{Peng Wang},
+        Universidad de Macau \& Universidad de Michigan  \\[\baselineskip]
+        \textbf{Yi Ma},
+        Universidad de Hong Kong \& Universidad de California, Berkeley \\[3in]
+        \footnotesize
+        Este manuscrito se ha preparado para un curso sobre los principios del
+        aprendizaje profundo
+        y la inteligencia en general, a entregarse por los autores en
+        sus respectivas
+        instituciones. Esta versión previa a su publicación es de libre acceso para
+        ver y descargar solo para
+        uso personal y no se permiten su redistribución, su reventa ni su
+        uso en obras
+        derivadas.\\  Copyright \Pisymbol{psy}{227} 2026 Sam Buchanan,
+        Druv Pai, Peng Wang, Yi
+        Ma \\[2\baselineskip]
+        $^*$\,Estos autores han contribuido en igual medida.
+        %\footnotesize Copyright \Pisymbol{psy}{227}2020 Reserved \\ Ninguna
+        %parte de este borrador se podrá reproducir o distribuir sin
+        % autorización escrita
+        %de los autores.\\
+    }
+}{
+    \title{\huge Principios y práctica del \\
+        \huge aprendizaje profundo de representaciones \\ \vspace{0.125in} \Large
+        o Una teoría
+    matemática de la memoria}
+
+    \author{\vspace{0.5cm}
+        \textbf{Sam Buchanan}$^*$,
+        UC Berkeley \& TTIC  \\[\baselineskip]
+        \textbf{Druv Pai}$^*$, UC Berkeley
+        \\[\baselineskip]
+        \textbf{Peng Wang},
+        Universidad de Macau \& Universidad de Michigan  \\[\baselineskip]
+        \textbf{Yi Ma},
+        Universidad de Hong Kong \& UC Berkeley
+        \vspace{5cm}\\
+        \footnotesize
+        Este manuscrito se ha preparado para un curso sobre los principios del
+        aprendizaje profundo
+        y la inteligencia en general, a entregarse por los autores en
+        sus respectivas
+        instituciones. Esta versión previa a su publicación es de libre acceso para
+        ver y descargar solo para
+        uso personal y no se permiten su redistribución, su reventa ni su
+        uso en obras
+        derivadas.\\  Copyright \Pisymbol{psy}{227} 2026 Sam Buchanan,
+        Druv Pai, Peng Wang, Yi
+        Ma
+        %\footnotesize Copyright \Pisymbol{psy}{227}2020 Reserved \\ Ninguna
+        %parte de este borrador se podrá reproducir o distribuir sin
+        % autorización escrita
+        %de los autores.\\
+    }
+
+    %Version 1.0: \date{\large 18 de enero de 2025}
+    %Version 2.0:
+    \date{\large 1° de marzo de 2026}
+}
+\makeatother
+
+\frontmatter
+\makeatletter
+\@ifclassloaded{EngC}{}{
+    \titlepage
+    \thispagestyle{empty}
+}
+\makeatother
+\maketitle
+
+\phantomsection\addcontentsline{toc}{chapter}{\numberline{}Preface}
+\subfile{chapters/preface/preface_es.tex}
+
+\phantomsection\addcontentsline{toc}{chapter}{\numberline{}Preface
+to Version 2.0}
+\subfile{chapters/preface/preface-v2_es.tex}
+
+\phantomsection\addcontentsline{toc}{chapter}{\numberline{}Declaration
+of Open Source}
+\subfile{chapters/declaration/declaration_es.tex}
+
+\phantomsection\addcontentsline{toc}{chapter}{\numberline{}Acknowledgment}
+\subfile{chapters/acknowledgment/acknowledgment_es.tex}
+
+\phantomsection\addcontentsline{toc}{chapter}{\numberline{}Notation}
+\subfile{chapters/notation_es.tex}
+
+\tableofcontents
+
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\mainmatter
+
+\subfile{chapters/chapter1/introduction_es}
+
+\subfile{chapters/chapter2/classic-models_es}
+
+\subfile{chapters/chapter3/denoising_es}
+
+\subfile{chapters/chapter4/lossy-compression_es}
+
+\subfile{chapters/chapter5/deep-networks_es}
+
+\subfile{chapters/chapter6/consistent-representations_es}
+
+\subfile{chapters/chapter7/conditional-inference_es}
+
+\subfile{chapters/chapter8/applications_es}
+
+\subfile{chapters/chapter9/future_es}
+
+\makeatletter
+\@ifclassloaded{EngC}{\backmatter}{\newpage}
+\makeatother\appendix
+\makeatletter
+\@ifclassloaded{EngC}{}{
+    \part*{Appendices}
+    \addcontentsline{toc}{part}{Appendices}
+}
+\makeatother
+
+\subfile{chapters/appendixA/optimization}
+
+\subfile{chapters/appendixB/entropy}
+
+\makeatletter
+\@ifclassloaded{EngC}{\endappendix}{}
+\makeatother
+
+\addtocontents{toc}{\vspace{\baselineskip}}
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\printbibliography
+
+% \printindex{authors}{Author index}
+% \printindex{subject}{Subject index}
+
+\end{document}

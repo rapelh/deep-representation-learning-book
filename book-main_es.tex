@@ -1,6 +1,8 @@
 \documentclass{book}
 % \documentclass{EngC}
 
+\renewcommand{\figurename}{Figura}
+
 \makeatletter
 \@ifclassloaded{EngC}{
     % Ensure standard size switches exist for packages expecting them
@@ -93,10 +95,13 @@ decorations.pathmorphing, decorations.markings}
     citecolor={blue!80!black},
 }
 \usepackage{cleveref}
-\crefname{assumption}{assumption}{assumptions}
-\Crefname{assumption}{Assumption}{Assumptions}
-\crefname{exercise}{exercise}{exercises}
-\Crefname{exercise}{Exercise}{Exercises}
+\crefname{assumption}{supuesto}{supuestos}
+\Crefname{assumption}{Supuesto}{Supuestos}
+\crefname{exercise}{ejercicio}{ejercicios}
+\Crefname{exercise}{Ejercicio}{Ejercicios}
+\Crefname{figure}{Figura}{Figuras}
+\Crefname{chapter}{Capítulo}{Capítulos}
+\Crefname{section}{Sección}{Secciones}
 
 \hyphenation{line-break line-breaks docu-ment triangle cambridge amsthdoc
 cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}

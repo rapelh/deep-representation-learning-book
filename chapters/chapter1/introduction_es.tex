@@ -813,8 +813,8 @@ superficies. Sin embargo, en la práctica, los datos siempre contienen cierta in
 o aleatoriedad. En este caso, podemos suponer que los datos siguen una
 distribución probabilística con densidad \(p(\vx)\). Una distribución se
 considera «de baja dimensión» si su densidad se concentra en torno a una
-estructura geométrica de baja dimensión —un subespacio, una superficie o una
-combinación de ambos—, tal y como se muestra en la \Cref{fig:mixture-models}.
+estructura geométrica de baja dimensión---un subespacio, una superficie o una
+combinación de ambos--- tal y como se muestra en la \Cref{fig:mixture-models}.
 Esta estructura también se conoce como el «soporte» de la distribución.
 Una vez aprendida, dicha densidad \(p(\vx)\) sirve como una potente distribución 
 a priori para estimar \(\vx\) a partir de observaciones parciales, ruidosas o 
@@ -1282,97 +1282,96 @@ pero al menos que se pueda calcular de manera eficiente. Si lo hacemos correctam
 las soluciones de los modelos lineales antes mencionados deberían convertirse en sus 
 casos particulares.
 
-\paragraph{Denoising.} In the 1950s, statisticians became interested
-in the problem of denoising data drawn from an arbitrary
-distribution. Let \(\vx_{o}\) be a random variable with probability
-density function \(p_{o}(\cdot)\). Suppose we observe a noisy version
-of \(\vx_{o}\):
+\paragraph{Reducción de ruido.} En la década de 1950, los estadísticos comenzaron 
+a interesarse por el problema de reducir el ruido en los datos extraídos de una 
+distribución arbitraria. Sea \(\vx_{o}\) una variable aleatoria con función de densidad de probabilidad
+\(p_{o}(\cdot)\). Supongamos que observamos una versión ruidosa de \(vx_{o}\):
 \begin{equation}
     \vx = \vx_{o} + \sigma \vg,
 \end{equation}
-where \(\vg \sim \dNorm(\vzero, \vI)\) is standard Gaussian noise and
-\(\sigma\) is the noise level of the observation. Let \(p(\cdot)\) be
-the probability density function of \(\vx\).\footnote{That is,
+donde \(\vg \sim \dNorm(\vzero, \vI)\) es un ruido gaussiano estándar y
+\(\sigma\) es el nivel de ruido de la observación. Sea \(p(\cdot)\)
+la función de densidad de probabilidad de \(\vx\).\footnote{Es decir,
     \(p(\vx) = \int_{-\infty}^{\infty} \phi_{\sigma}(\vx - \vz)p_{o}(\vz)
-    \odif{\vz}\), where \(\phi_{\sigma}\) is the density function of the
-Gaussian distribution \(\mathcal{N}(\vzero, \sigma^{2} \vI)\).}
-Remarkably, the posterior expectation of \(\vx_{o}\) given \(\vx\)
-can be calculated by an elegant formula, known as Tweedie's formula
-\cite{Robbins1956AnEB}:\footnote{Herbert Robbins gave the credit for
-this formula to Maurice Kenneth Tweedie from their personal correspondence.}
+    \odif{\vz}\), donde \(\phi_{\sigma}\) es la función de densidad de la
+distribución gaussiana \(\mathcal{N}(\vzero, \sigma^{2} \vI)\).}
+Cabe destacar que la esperanza a posteriori de \(\vx_{o}\) dada \(\vx\) 
+se puede calcular mediante una elegante fórmula, conocida como fórmula de Tweedie
+\cite{Robbins1956AnEB}:\footnote{Herbert Robbins atribuyó el mérito de
+esta fórmula a Maurice Kenneth Tweedie, según se desprende de su correspondencia personal.}
 \begin{equation}
     \hat{\vx}_{o} = \Ex[\vx_{o}\mid \vx] = \vx + \sigma^{2} \nabla \log p(\vx).
 \end{equation}
-As can be seen from the formula, the function \(\nabla \log p(\vx)\)
-plays a very special role in denoising the observation \(\vx\) here.
-The noise \(\vg\) can be explicitly estimated as
+Como se puede observar en la fórmula, la función \(\nabla \log p(\vx)\)
+desempeña un papel muy especial en la reducción del ruido de la observación \(\vx\) en este caso.
+El ruido \(\vg\) se puede estimar explícitamente como
 \begin{equation}
     \hat{\vg} = \frac{\vx - \hat{\vx}_{o}}{\sigma} = -\sigma \nabla \log p(\vx),
 \end{equation}
-for which we only need to know the distribution \(p(\cdot)\) of
-\(\vx\), not the ground truth \(p_{o}(\cdot)\) for \(\vx_{o}\). An
-important implication of this result is that if we add Gaussian noise
-to any distribution, the denoising process can be done easily if we
-can somehow obtain the function \(\nabla \log p(\vx)\).
+para lo cual solo necesitamos conocer la distribución \(p(\cdot)\) de
+\(\vx\), y no la distribución real \(p_{o}(\cdot)\) para \(\vx_{o}\). Una
+consecuencia importante de este resultado es que, si añadimos ruido gaussiano
+a cualquier distribución, el proceso de reducción de ruido puede llevarse a cabo fácilmente si
+logramos obtener de alguna manera la función \(\nabla \log p(\vx)\).
 
-Because this is such an important and useful result, it has been
-rediscovered and used in many different contexts and areas. For
-example, after Tweedie's formula \cite{Robbins1956AnEB}, it was
-rediscovered a few years later by \cite{Miyasawa61} where it was
-termed ``empirical Bayesian denoising.'' In the early 2000s, the
-function \(\nabla \log p(\vx)\) was rediscovered again in the context
-of learning a general distribution and was named the ``score
-function'' by Aapo Hyv\"{a}rinen \cite{hyvarinen05a}. Its connection
-to (empirical Bayesian) denoising was soon recognized by \cite{Vincent2011}.
-Generalizations to other measurement distributions (beyond Gaussian
-noise) have been made by Eero Simoncelli's group \cite{Raphan10}.
-Today, the most direct application of Tweedie's formula and denoising
-is image generation via iterative denoising
+Dado que se trata de un resultado tan importante y útil, ha sido
+redescubierto y utilizado en muchos contextos y ámbitos diferentes. Por
+ejemplo, tras la fórmula de Tweedie \cite{Robbins1956AnEB}, fue
+redescubierta unos años más tarde por \cite{Miyasawa61}, donde se
+denominó «reducción de ruido bayesiana empírica». A principios de la 
+década de 2000, la función \(\nabla \log p(\vx)\) fue redescubierta en el contexto
+del aprendizaje de una distribución general y Aapo Hyv\"{a}rinen \cite{hyvarinen05a} 
+la denominó «función de puntaje». Su relación con la reducción de ruido 
+(bayesiana empírica) fue reconocida poco después por \cite{Vincent2011}.
+El grupo de Eero Simoncelli ha realizado generalizaciones a otras distribuciones 
+de medición (más allá del ruido gaussiano) \cite{Raphan10}. Hoy en día, la aplicación 
+más directa de la fórmula de Tweedie y la reducción de ruido
+es la generación de imágenes mediante la reducción iterativa de ruido
 \cite{Kadkhodaie21a,ho2020denoising}.
 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{\toplevelprefix/chapters/chapter1/figs/Density-compress.png}
-    \caption{Geometric interpretation of a score function \(\nabla
-        \log p(\vx)\) for a distribution with density \(p(\vx)\) on the
-        left. The operation generated by the score function pushes the
-        distribution towards areas of higher density. The goal is that,
-        by a certain measure of compactness (e.g. entropy or coding
-        length), the resulting distribution is more ``compressed''.
-        Eventually, the distribution converges to one that has a
-    lower-dimensional support, as \(p^{*}(\vx)\) shown on the right.}
+    \caption{Interpretación geométrica de una función de puntuación \(\nabla
+        \log p(\vx)\) para una distribución con densidad \(p(\vx)\) a la
+        izquierda. La operación generada por la función de puntaje empuja la
+        distribución hacia las zonas de mayor densidad. El objetivo es que,
+        según un determinado indicador de compacidad (por ejemplo, la entropía 
+        o la longitud de codificación), la distribución resultante esté más «comprimida».
+        Finalmente, la distribución converge hacia una que tiene un
+    soporte de menor dimensión, como \(p^{*}(\vx)\) que se muestra a la derecha.}
     \label{fig:score-function}
 \end{figure}
 
-\paragraph{Entropy minimization.} The score has an intuitive
-information-theoretic and geometric interpretation. In information
-theory, \(-\log p(\vx)\) corresponds to the number of bits needed to
-encode \(\vx\)\footnote{at least for discrete variables, as detailed
-in \Cref{ch:denoising}.}. The gradient \(\nabla \log p(\vx)\) points
-toward higher-probability-density regions, as shown in
-\Cref{fig:score-function} (left). Moving in this direction reduces
-the number of bits required to encode \(\vx\). Thus, the operator
-\(\nabla \log p(\vx)\) pushes the distribution to ``shrink'' toward
-high-density regions. Formally, one can show that the (differential) entropy
+\paragraph{Minimización de entropía.} La puntaje tiene una interpretación intuitiva
+desde el punto de vista de la teoría de la información y la geometría. En teoría de la información,
+\(-\log p(\vx)\) corresponde al número de bits que se necesitan para
+codificar \(\vx\)\footnote{al menos para variables discretas, como se detalla
+en el \Cref{ch:denoising}.}. El gradiente \(\nabla \log p(\vx)\) apunta
+hacia regiones de mayor densidad de probabilidad, como se muestra en la
+\Cref{fig:score-function} (izquierda). Moverse en esta dirección reduce
+el número de bits necesarios para codificar \(\vx\). Por lo tanto, el operador
+\(\nabla \log p(\vx)\) empuja a la distribución a «encogerse» hacia
+regiones de alta densidad. Formalmente, se puede demostrar que la entropía (diferencial)
 \begin{equation}
     H(\vx) = - \int p(\vw) \log p(\vw) \odif{\vw}
 \end{equation}
-decreases under this operation (see \Cref{ch:denoising} and
-\Cref{app:entropy}). With an optimal codebook, the
-resulting distribution achieves a lower coding rate and is thus more
-compressed. Repeating this denoising process indefinitely produces a
-distribution whose probability mass is concentrated on a support of
-lower dimension. For instance, the distribution \(p(\vx)\) in
-\Cref{fig:score-function} (left) converges to \(p^{*}(\vx)\)
-(right):\footnote{Strictly speaking, \(p^{*}(\vx)\) is a generalized
-    function: \(p^{*}(\vx) = p^{*}(\vx_{1})\delta(\vx-\vx_{1}) +
-    p^{*}(\vx_{2}) \delta(\vx-\vx_{2})\) with \(p^{*}(\vx_{1}) +
-p^{*}(\vx_{2}) = 1\).}\footnote{Notice that in this section we
-    discuss the process of iteratively denoising and compressing a
-    high-entropy noise distribution until it converges to the low-entropy
-    data distribution. As we will see in \Cref{ch:denoising}, this
-    problem is dual to the problem of learning an optimal encoding for
-    the data distribution, which is also a useful application
+disminuye con esta operación (véanse el \Cref{ch:denoising} y el
+\Cref{app:entropy}). Con un libro de códigos óptimo, la
+distribución resultante alcanza una tasa de codificación más baja y, por lo tanto, está más
+comprimida. Si se repite este proceso de reducción de ruido indefinidamente, se obtiene una
+distribución cuya masa de probabilidad se concentra en un soporte de
+menor dimensión. Por ejemplo, la distribución \(p(\vx)\) en la
+\Cref{fig:score-function} (izquierda) converge a \(p^{*}(\vx)\)
+(derecha):\footnote{En sentido estricto, \(p^{*}(\vx)\) es una función generalizada:
+    \(p^{*}(\vx) = p^{*}(\vx_{1})\delta(\vx-\vx_{1}) +
+    p^{*}(\vx_{2}) \delta(\vx-\vx_{2})\) con \(p^{*}(\vx_{1}) +
+p^{*}(\vx_{2}) = 1\).}\footnote{Obsérvese que en esta sección
+    analizamos el proceso de reducir el ruido y comprimir de forma iterativa una
+    distribución de ruido de alta entropía hasta que converge a la distribución de datos de baja entropía.
+    Como veremos en el \Cref{ch:denoising}, este
+    problema es dual al problema de aprender una codificación óptima para
+    la distribución de datos, lo cual también es una aplicación útil
 \cite{relic2024lossy}.}
 \begin{equation}
     \scalebox{0.85}{\(\displaystyle H(\vx) = - \int p(\vw) \log p(\vw)
@@ -1380,454 +1379,440 @@ p^{*}(\vx_{2}) = 1\).}\footnote{Notice that in this section we
             \xrightarrow{\hspace{1mm} \text{decreasing} \hspace{1mm}} \quad
     H^{*}(\vx) = - \int p^{*}(\vw) \log p^{*}(\vw) \odif{\vw}.\)}
 \end{equation}
-As the distribution converges to \(p^{*}(\vx)\), its differential
-entropy approaches negative infinity due to a technical difference
-between continuous and discrete entropy definitions.
-\Cref{ch:denoising} resolves this using a unified
-\textit{rate-distortion} measure.
+A medida que la distribución converge hacia \(p^{*}(\vx)\), su entropía diferencial
+se aproxima al infinito negativo debido a una diferencia técnica
+entre las definiciones de entropía continua y discreta.
+El \Cref{ch:denoising} resuelve esto utilizando una medida unificada
+de \textit{distorsión de tasa}.
 
-Later in this chapter and in
-\Cref{ch:denoising,ch:lossy-compression}, we explore how this simple
-denoising-compression framework unifies
-powerful methods for learning low-dimensional distributions in
-high-dimensional spaces, including natural image distributions.
+Más adelante en este capítulo y en el
+\Cref{ch:denoising,ch:lossy-compression}, exploramos cómo este sencillo
+marco de compresión con reducción de ruido unifica varios
+potentes métodos para el aprendizaje de distribuciones de baja dimensión en
+espacios de alta dimensión, incluidas las distribuciones de imágenes naturales.
 
-\subsection{Empirical Data-Driven Approaches}
-In practice, it is difficult to model important real-world
-data---such as images, sounds, and text---with the idealized linear,
-piecewise-linear, or other analytical models discussed in the
-previous section. Historically, many non-parametric models and
-methods have therefore been proposed to model or capture the
-empirical distribution of the data and then use such ``models'' for
-inference. These models, especially deep neural networks, often drew
-inspiration from the biological nervous system, because the brain of
-an animal or human processes such data with remarkable efficiency and
-effectiveness. Compared to the analytical models introduced in the
-previous section, these data-driven models are the least understood
-despite the fact that they have very much dominated the practice of
-AI technology  in the past decade or so. Hence, one of the main goals
-of this book is to provide a principled and unified framework (very
-    much through Chapters \ref{ch:deep-networks} to
-\ref{ch:applications}) to understand both these ``modern'' empirical
-models and the classic analytical models and reveal fundamental
-connections between them.
+\subsection{Enfoques empíricos basados en datos}
+En la práctica, resulta difícil modelar datos importantes del mundo real
+---como imágenes, sonidos y texto---con los modelos lineales idealizados,
+lineales por tramos u otros modelos analíticos que se han comentado en
+la sección anterior. Por ello, a lo largo de la historia se han propuesto muchos modelos y
+métodos no paramétricos para modelar o reflejar la
+distribución empírica de los datos y, posteriormente, utilizar dichos «modelos» para
+la inferencia. Estos modelos, especialmente las redes neuronales profundas, a menudo se han
+inspirado en el sistema nervioso biológico, ya que el cerebro de
+un animal o de un ser humano procesa esos datos con una eficiencia y
+eficacia notables. En comparación con los modelos analíticos presentados en la
+sección anterior, estos modelos basados en datos son los menos comprendidos,
+a pesar de que han dominado en gran medida la aplicación de la
+tecnología de IA durante la última década aproximadamente. Por lo tanto, 
+uno de los principales objetivos de este libro es ofrecer un marco conceptual 
+coherente y unificado (en gran parte a través de los capítulos \ref{ch:deep-networks} a
+\ref{ch:applications}) para comprender tanto estos modelos empíricos «modernos»
+como los modelos analíticos clásicos, y poner de manifiesto las conexiones fundamentales
+entre ellos.
 
-\subsubsection{Classic Artificial Neural Networks}
-\paragraph{Artificial neuron.}
+\subsubsection{Redes neuronales artificiales clásicas}
+\paragraph{La neurona artificial.}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.55\linewidth]{\toplevelprefix/chapters/chapter1/figs/neuron.png}
     \hspace{3mm}
     \includegraphics[width=0.40\linewidth]{\toplevelprefix/chapters/chapter1/figs/Artificial_neuron.png}
-    \caption{The first mathematical model of an artificial neuron
-    (right) that emulates how a neuron (left) processes signals.}
+    \caption{El primer modelo matemático de una neurona artificial
+    (derecha) que emula la forma en que una neurona (izquierda) procesa las señales.}
     \label{fig:neuron}
 \end{figure}
 
-Inspired by the nervous system in the brain, the first mathematical
-model of an artificial neuron\footnote{known as the Linear Threshold
-Unit, or perceptron.} was proposed by Warren McCulloch\footnote{a
-professor of psychiatry at the University of Chicago at the time} and
-Walter Pitts in 1943 \cite{McCulloch-Pitts}. It describes the
-relationship between the input $x_i$ and output $o_j$ as:
+Inspirándose en el sistema nervioso del cerebro, el primer modelo matemático
+de una neurona artificial\footnote{conocida como «unidad de umbral lineal»
+o «perceptrón»} fue propuesto por Warren McCulloch\footnote{un
+profesor de psiquiatría de la Universidad de Chicago en aquella época} y
+Walter Pitts en 1943 \cite{McCulloch-Pitts}. Describe la
+relación entre la entrada $x_i$ y la salida $o_j$ de la siguiente manera:
 \begin{equation}
     o_j = \varphi\Big( \sum_i w_{ji}x_i\Big),
 \end{equation}
-where $\varphi(\cdot)$ is some nonlinear activation, typically
-modeled by a threshold function. This model is illustrated in
-\Cref{fig:neuron}. As we can see, this form already shares the main
-characteristics of a basic unit in modern deep neural networks. The
-model is derived from observations of how a single neuron works in
-our nervous system. However, researchers did not know exactly what
-functions a collection of such neurons could realize and perform. On
-a more technical level, they were also unsure which nonlinear
-activation function $\varphi(\cdot)$ should be used. Hence,
-historically many variants have been proposed.\footnote{Step
-    function, hard or soft thresholding, rectified linear unit (ReLU),
-sigmoid, etc. \cite{dubey2022activation}.}
+donde $\varphi(\cdot)$ es una función de activación no lineal, que suele
+representarse mediante una función umbral. Este modelo se ilustra en la
+\Cref{fig:neuron}. Como podemos ver, esta estructura ya comparte las principales
+características de una unidad básica en las redes neuronales profundas modernas.
+El modelo se basa en observaciones sobre el funcionamiento de una neurona individual en
+nuestro sistema nervioso. Sin embargo, los investigadores no sabían exactamente qué
+funciones podría realizar y llevar a cabo un conjunto de neuronas de este tipo. En
+un plano más técnico, tampoco tenían claro qué función de activación no lineal
+$\varphi(\cdot)$ debían utilizar. Por lo tanto,
+a lo largo de la historia se han propuesto muchas variantes.\footnote{Función escalonada,
+    umbral duro o blando, unidad lineal rectificada (ReLU),
+sigmoide, etc. \cite{dubey2022activation}.}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.85\linewidth]{\toplevelprefix/chapters/chapter1/figs/single-deep.png}
-    \caption{A network with one hidden layer (left) versus a deep
-    network (right).}
+    \caption{Una red con una capa oculta (izquierda) frente a una red profunda
+    (derecha).}
     \label{fig:single-deep}
 \end{figure}
 
-\paragraph{Artificial neural network.}
-In the 1950s, Frank Rosenblatt was the first to build a machine with
-a \textit{network} of such artificial neurons, shown in
-\Cref{fig:perceptron}. The machine, called Mark I Perceptron,
-consists of an input layer, an output layer, and a single hidden
-layer of 512 artificial neurons, as shown in \Cref{fig:perceptron}
-left, which is similar to what is illustrated in
-\Cref{fig:single-deep} (left). It was designed to classify optical
-images of letters. However, the capacity of a single-layer network is
-limited and can only learn linearly separable patterns. In the 1969
-book \textit{Perceptrons: An Introduction to Computational Geometry}
-by Marvin Minsky and Seymour Papert \cite{Minsky-1969}, it was shown
-that the single-layer architecture of Mark I Perceptron cannot learn
-an XOR function. This result significantly dampened interest in
-artificial neural networks, even though it was later proven that a
-multi-layer network can learn an XOR function \cite{Rumelhart1986}.
-In fact, a sufficiently large multi-layer network, as shown in
-\Cref{fig:single-deep} (right), consisting of such simple neurons can
-simulate any finite-state machine, even the universal Turing
-machine.\footnote{Do not confuse what neural networks are capable of
-    doing in principle with whether it is tractable or easy to learn a
-neural network that realizes certain desired functions.}
-Nevertheless, the study of artificial neural networks subsequently
-entered its first winter in the 1970s.
+\paragraph{La red neuronal artificial.}
+En la década de 1950, Frank Rosenblatt fue el primero en construir una máquina con
+una \textit{red} de este tipo de neuronas artificiales, tal y como se muestra en la
+\Cref{fig:perceptron}. La máquina, denominada Mark I Perceptron,
+consta de una capa de entrada, una capa de salida y una única capa oculta
+de 512 neuronas artificiales, tal y como se muestra en la \Cref{fig:perceptron}
+(izquierda), que es similar a lo que se ilustra en
+\Cref{fig:single-deep} (izquierda). Se diseñó para clasificar
+imágenes ópticas de letras. Sin embargo, la capacidad de una red de una sola capa es
+limitada y solo puede aprender patrones linealmente separables. En el libro de 1969
+\textit{Perceptrons: An Introduction to Computational Geometry}
+de Marvin Minsky y Seymour Papert \cite{Minsky-1969}, se demostró
+que la arquitectura de una sola capa del Perceptrón Mark I no puede aprender
+una función XOR. Este resultado frenó considerablemente el interés por
+las redes neuronales artificiales, aunque más tarde se demostró que una
+red multicapa puede aprender una función XOR \cite{Rumelhart1986}.
+De hecho, una red multicapa lo suficientemente grande, como se muestra en la
+\Cref{fig:single-deep} (a la derecha), compuesta por neuronas simples de este tipo, puede
+simular cualquier máquina de estados finitos, incluso la máquina universal de 
+Turing.\footnote{No hay que confundir lo que las redes neuronales son capaces de
+    hacer en teoría con el hecho de que sea factible o fácil entrenar una
+red neuronal que realice determinadas funciones deseadas.} Sin embargo, el estudio 
+de las redes neuronales artificiales entró posteriormente en su primer invierno 
+en la década de 1970.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.45\linewidth]{\toplevelprefix/chapters/chapter1/figs/visu-large.jpg}
     \hspace{2mm}
     \includegraphics[width=0.45\linewidth]{\toplevelprefix/chapters/chapter1/figs/Original-Mark-I-perceptron-as-seen-in-its-operators-manual-20.ppm.png}
-    \caption{The Mark I Perceptron machine developed by Frank
-    Rosenblatt in the late 1950s.}
+    \caption{La máquina Perceptron Mark I desarrollada por Frank
+    Rosenblatt a finales de la década de 1950.}
     \label{fig:perceptron}
 \end{figure}
 
-\paragraph{Convolutional neural networks.}
-Early experiments with artificial neural networks such as the Mark I
-Perceptron in the 1950s and 1960s were somewhat disappointing. They
-suggested that simply connecting neurons in a general fashion, as in
-multi-layer perceptrons (MLPs), might not suffice. To build effective
-and efficient networks, it is extremely helpful to understand the
-collective purpose or function neurons in the network must achieve so
-that they can be organized and learned in a specialized way. Thus, at
-this juncture, once again the study of machine intelligence turned to
-the animal nervous system for inspiration.
+\paragraph{Redes neuronales convolucionales.}
+Los primeros experimentos con redes neuronales artificiales, como el Perceptrón Mark I,
+en las décadas de 1950 y 1960 resultaron algo decepcionantes. Sugirieron
+que el simple acto de conectar neuronas de manera general, como en
+los perceptrones multicapa (MLP), podría no ser suficiente. Para construir redes eficaces
+y eficientes, resulta de gran ayuda comprender el
+propósito o la función colectiva que deben cumplir las neuronas de la red, de modo
+que se puedan organizar y aprender de manera especializada. Así pues, en
+ese momento, el estudio de la inteligencia artificial volvió a
+buscar inspiración en el sistema nervioso animal.
 
-It is known that most of our brain is dedicated to processing visual
-information \cite{PalmerS1999}. In the 1950s and 1960s, David Hubel
-and Torsten Wiesel systematically studied the visual cortices of
-cats. They discovered that the visual cortex contains different types
-of cells---simple cells and complex cells---which are sensitive to
-visual stimuli of different orientations and locations
-\cite{Hubel-Wiesel-1959}. Hubel and Wiesel won the 1981 Nobel Prize
-in Physiology or Medicine for this groundbreaking discovery.
+Se sabe que la mayor parte de nuestro cerebro se dedica a procesar información visual
+\cite{PalmerS1999}. En las décadas de 1950 y 1960, David Hubel
+y Torsten Wiesel estudiaron sistemáticamente las cortezas visuales de
+los gatos. Descubrieron que la corteza visual contiene diferentes tipos
+de células---células simples y células complejas---que son sensibles a
+estímulos visuales de diferentes orientaciones y ubicaciones
+\cite{Hubel-Wiesel-1959}. Hubel y Wiesel ganaron el Premio Nobel de
+Fisiología o Medicina de 1981 por este descubrimiento revolucionario.
 
-On the artificial neural network side, Hubel and Wiesel's work
-inspired Kunihiko Fukushima to design the ``neocognitron'' network in
-1980, which consists of artificial neurons that emulate biological
-neurons in the visual cortices \cite{Fukushima1980NeocognitronAS}.
-This is known as the first \textit{convolutional neural network}
-(CNN), and its architecture is illustrated in
-\Cref{fig:neocognitron}. Unlike the perceptron, the neocognitron had
-more than one hidden layer and could be viewed as a deep network, as
-shown in \Cref{fig:single-deep} (right).
+En el ámbito de las redes neuronales artificiales, el trabajo de Hubel y Wiesel
+inspiró a Kunihiko Fukushima a diseñar la red «neocognitron» en
+1980, la cual consiste en neuronas artificiales que emulan a las neuronas biológicas
+de la corteza visual \cite{Fukushima1980NeocognitronAS}. Esta se conoce como la 
+primera \textit{red neuronal convolucional} (CNN), y su arquitectura se ilustra en la
+\Cref{fig:neocognitron}. A diferencia del perceptrón, el neocognitrón tenía
+más de una capa oculta y podía considerarse una red profunda, tal y como
+se muestra en la \Cref{fig:single-deep} (a la derecha).
 
-Also inspired by how neurons work in the cat's visual cortex,
-Fukushima was the first to introduce the \textit{rectified linear unit} (ReLU):
+Inspirándose también en el funcionamiento de las neuronas de la corteza visual del gato,
+Fukushima fue el primero en introducir la \textit{unidad lineal rectificada} (ReLU):
 \begin{equation}
     \varphi(x) = \max\{0, x\} = \casework{x, & \text{if } x > 0,
     \\ 0, & \text{if } x \leq 0,}
 \end{equation}
-as the activation function \(\varphi(\cdot)\) in 1969
-\cite{Fukushima-1969}. However, it was not until recent years that
-ReLU became widely used in modern deep (convolutional) neural
-networks. This book will explain why ReLU is a good choice once we
-discuss the main operations deep networks implement: compression.
+como función de activación \(\varphi(\cdot)\) en 1969
+\cite{Fukushima-1969}. Sin embargo, no fue hasta los últimos años que
+ReLU comenzó a utilizarse ampliamente en las redes neuronales profundas (convolucionales)
+modernas. En este libro se explicará por qué ReLU es una buena opción una vez que
+analicemos la principal operación que llevan a cabo las redes profundas: la compresión.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.6\linewidth]{\toplevelprefix/chapters/chapter1/figs/neocognitron.png}
-    \caption{Origin of convolutional neural networks: the
-        Neocognitron by Kunihiko Fukushima in 1980. Notice that the
-        interleaving layers of convolutions and pooling emulate the
-        functions of simple cells and complex cells discovered in the
-    visual cortices of cats.}
+    \caption{El origen de las redes neuronales convolucionales: el
+        Neocognitron, creado por Kunihiko Fukushima en 1980. Cabe destacar que la
+        alternancia de capas de convoluciones y de agrupación emula las
+        funciones de las células simples y las células complejas descubiertas en la
+    corteza visual de los gatos.}
     \label{fig:neocognitron}
 \end{figure}
 
-CNN-type networks continued to evolve in the 1980s, and many
-different variants were introduced and studied. However, despite the
-remarkable capacities of deep networks and the improved architectures
-inspired by neuroscience, it remained extremely difficult to train
-such deep networks for real tasks such as image classification.
-Getting a network to work depended on many unexplainable heuristics
-and tricks, which limited the appeal and applicability of neural
-networks. A major breakthrough came around 1989 when Yann LeCun
-successfully used \textit{back propagation} (BP) to learn a deep
-convolutional neural network for recognizing handwritten digits
-\cite{LeCun-1989}, later known as LeNet (see \Cref{fig:LeNet-5}).
-After several years of persistent development, his perseverance paid
-off: LeNet's performance eventually became good enough for practical
-use in the late 1990s \cite{LeCun-1998}. It was used by the US Post
-Office for recognizing handwritten digits (for zip codes). LeNet was
-considered the ``prototype'' network for all modern deep neural
-networks, such as AlexNet \cite{krizhevsky2012imagenet} and ResNet
-\cite{he2016deep}, which we will discuss later. For this work, Yann
-LeCun was awarded the 2018 Turing Award.\footnote{Together with two
-other pioneers of deep networks, Yoshua Bengio and Geoffrey Hinton.}
+Las redes del tipo CNN siguieron evolucionando en la década de 1980 y se introdujeron y estudiaron
+muchas variantes diferentes. Sin embargo, a pesar de las
+notables capacidades de las redes profundas y de las arquitecturas mejoradas
+inspiradas en la neurociencia, seguía siendo extremadamente difícil entrenar
+esas redes profundas para tareas reales, como la clasificación de imágenes.
+Para que una red funcionara, era necesario recurrir a muchas heurísticas
+y trucos inexplicables, lo que limitaba el atractivo y la aplicabilidad de las
+redes neuronales. Un avance significativo se produjo alrededor de 1989, cuando 
+Yann LeCun utilizó con éxito la \textit{retropropagación} (BP) para entrenar una 
+red neuronal convolucional profunda destinada al reconocimiento de dígitos escritos a mano
+\cite{LeCun-1989}, conocida posteriormente como LeNet (véase la \Cref{fig:LeNet-5}).
+Tras varios años de desarrollo constante, su perseverancia dio
+sus frutos: el rendimiento de LeNet acabó siendo lo suficientemente bueno como para su uso práctico
+a finales de la década de 1990 \cite{LeCun-1998}. El Servicio Postal de los Estados Unidos
+lo utilizaba para reconocer dígitos escritos a mano (en los códigos postales). LeNet se
+consideraba la red «prototipo» de todas las redes neuronales profundas modernas,
+tales como AlexNet \cite{krizhevsky2012imagenet} y ResNet
+\cite{he2016deep}, de las que hablaremos más adelante. Por este trabajo, Yann
+LeCun recibió el Premio Turing de 2018.\footnote{Junto con otros dos
+pioneros de las redes profundas, Yoshua Bengio y Geoffrey Hinton.}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.95\linewidth]{\toplevelprefix/chapters/chapter1/figs/LeNet-5.png}
-    \caption{The LeNet-5 convolutional neural network designed by
-    Yann LeCun in 1989.}
+    \caption{La red neuronal convolucional LeNet-5, diseñada por
+    Yann LeCun en 1989.}
     \label{fig:LeNet-5}
 \end{figure}
 
-\paragraph{Backpropagation.}
-Throughout history, the fate of deep neural networks has been tied to
-how easily and efficiently they can be trained. Backpropagation (BP)
-was introduced for this purpose. A multilayer perceptron can be
-expressed as a composition of linear mappings and nonlinear activations:
+\paragraph{Retropropagación.}
+A lo largo de la historia, el futuro de las redes neuronales profundas ha estado ligado a
+la facilidad y la eficiencia con que pueden entrenarse. La retropropagación (BP)
+se introdujo con este fin. Un perceptrón multicapa puede expresarse como una 
+composición de transformaciones lineales y activaciones no lineales:
 \begin{equation}
     h(\vW_{1}, \ldots, \vW_{L}) = f^{L}(\vW_{L}f^{L-1}(\vW_{L-1}
     \cdots f^{2}(\vW_{2}f^{1}(\vW_{1}\vx)))).
 \end{equation}
-To train the network weights \(\{\vW_{l}\}_{l=1}^{L}\) via gradient
-descent, we must evaluate the gradient \(\partial h/\partial
-\vW_{l}\). The chain rule in calculus shows that gradients can be
-computed efficiently for such functions---a technique later termed
-backpropagation or BP; see \Cref{app:optimization} for details. BP
-was already known in optimal control and dynamic programming during
-the 1960s and 1970s, appearing in Paul Werbos's 1974 PhD thesis
-\cite{Werbos-1974, Werbos1994TheRO}. In 1986, David Rumelhart et al.
-were the first to apply it to train a multilayer perceptron (MLP)
-\cite{Rumelhart1986}. Since then, BP has become the dominant
-technique for training deep networks, as it is scalable and can be
-efficiently implemented on parallel and distributed computing
-platforms. However, nature likely does not use BP,\footnote{As we
-    have discussed earlier, nature almost ubiquitously learns to correct
-errors via closed-loop feedback.} as the mechanism is too expensive
-for physical implementation.\footnote{End-to-end BP is
-    computationally intractable for neural structures as complex as the
-    brain, especially if the updates need to happen in real time.
-    Instead, localized updates to small sections of the neural circuitry
-    are much more biologically feasible. There is a relatively small
-    amount of work on transplanting such ``local learning'' rules to
-    training deep networks, circumventing BP
-    \cite{baldi2016theory,millidge2022predictive,li2025noprop}. We
-    believe this is an exciting opportunity to improve the scalability of
-training deep networks.} This leaves ample room for future improvement.
+Para entrenar los pesos de la red \(\{\vW_{l}\}_{l=1}^{L}\) mediante el
+descenso por gradiente, debemos calcular el gradiente \(\partial h/\partial
+\vW_{l}\). La regla de la cadena en cálculo demuestra que los gradientes pueden
+calcularse de manera eficiente para este tipo de funciones, una técnica que más tarde se denominó
+retropropagación o BP; véase \Cref{app:optimization} para más detalles. BP
+ya era conocido en el ámbito del control óptimo y la programación dinámica durante
+las décadas de 1960 y 1970 y apareció en la tesis doctoral de Paul Werbos de 1974
+\cite{Werbos-1974, Werbos1994TheRO}. En 1986, David Rumelhart y otros
+fueron los primeros en aplicarlo para entrenar un perceptrón multicapa (MLP)
+\cite{Rumelhart1986}. Desde entonces, el BP se ha convertido en la técnica predominante
+para entrenar redes profundas, ya que es escalable y puede
+implementarse de manera eficiente en plataformas informáticas
+paralelas y distribuidas. Sin embargo, es probable que la naturaleza no utilice el BP,\footnote{Como
+    hemos comentado anteriormente, la naturaleza aprende casi de forma generalizada a corregir
+los errores mediante la retroalimentación en bucle cerrado.} ya que el mecanismo resulta demasiado costoso
+para su implementación física.\footnote{El procesamiento de señales de extremo a extremo
+    resulta computacionalmente inmanejable para estructuras neuronales tan complejas como el
+    cerebro, especialmente si las actualizaciones deben realizarse en tiempo real.
+    En cambio, las actualizaciones localizadas en pequeñas secciones del circuito neuronal
+    son mucho más factibles desde el punto de vista biológico. Existen relativamente pocos
+    trabajos sobre la aplicación de estas reglas de «aprendizaje local» al
+    entrenamiento de redes profundas, eludiendo el BP
+    \cite{baldi2016theory,millidge2022predictive,li2025noprop}. Creemos
+    que esta es una oportunidad emocionante para mejorar la escalabilidad del
+entrenamiento de redes profundas.} Esto deja un amplio margen para mejoras futuras.
+El auge de las máquinas de vectores de soporte marcó el inicio de un segundo 
+invierno para las redes neuronales a principios de la década de 2000.
 
-Despite the aforementioned algorithmic advances, training deep
-networks remained finicky and computationally expensive in the 1980s
-and 1990s. By the late 1990s, support vector machines (SVMs)
-\cite{SVM-1995} had gained popularity as a superior alternative for
-classification tasks.\footnote{Similar ideas for classification
-    problems trace back to Thomas Cover's 1964 PhD dissertation, which
-was condensed and published in a paper in 1964 \cite{Cover-1964}.}
-SVMs offered two advantages: a rigorous statistical learning
-framework known as the Vapnik--Chervonenkis (VC) theory and efficient
-convex optimization algorithms \cite{BoydVa04}. The rise of SVMs
-ushered in a second winter for neural networks in the early 2000s.
-
-\paragraph{Compressive auto-encoding.}
-In the late 1980s and 1990s, artificial neural networks were already
-being used to learn low-dimensional representations of
-high-dimensional data such as images. It had been shown that neural
-networks could learn PCA directly from data
-\cite{Oja1982SimplifiedNM,Baldi89}, rather than using the classic
-methods discussed in \Cref{sec:PCA-ICA}. It was also argued during
-this period that, due to their ability to model nonlinear
-transformations, neural networks could learn low-dimensional
-representations for data with nonlinear distributions. Similar to the
-linear PCA case, one can simultaneously learn a nonlinear
-dimension-reduction encoder \(f\) and a decoder \(g\), each modeled
-by a deep neural network \cite{Rumelhart1986,Kramer1991NonlinearPC}:
+\paragraph{Autocodificación compresiva.}
+A finales de las décadas de 1980 y 1990, las redes neuronales artificiales ya se
+usaban para aprender representaciones de baja dimensión para datos de alta
+dimensión tales como imágenes. Se había mostrado que las redes neuronales podían
+aprender PCA directamente a artir de los datos \cite{Oja1982SimplifiedNM,Baldi89},
+en lugar de usar los métodos clásicos que hemos comentado en la \Cref{sec:PCA-ICA}.
+Durante ese período también se argumentó
+que, gracias a su capacidad para modelar transformaciones no lineales,
+las redes neuronales podían aprender representaciones de baja dimensión
+para datos con distribuciones no lineales. De manera similar al caso del PCA
+lineal, es posible aprender simultáneamente un codificador no lineal de reducción
+de dimensiones \(f\) y un decodificador \(g\), ambos modelados por medio de una
+red neuronal profunda \cite{Rumelhart1986,Kramer1991NonlinearPC}:
 \begin{equation}
     \vX   \xrightarrow{\hspace{2mm} f \hspace{2mm}} \vZ
     \xrightarrow{\hspace{2mm} g \hspace{2mm}} \hat{\vX}.
     \label{eqn:auto-encoding-deep-networks}
 \end{equation}
-By enforcing consistency between the decoded data \(\hat{\vX}\) and
-the original \(\vX\)---for example, by minimizing a MSE-type
-reconstruction error\footnote{MSE-type errors are known to be
-    problematic for imagery data with complex nonlinear structures. As we
-    will soon discuss, much recent work in generative methods, including
-    GANs, has focused on finding better surrogate distance functions
-between the original data \(\vX\) and the regenerated \(\hat{\vX}\).}:
+Al garantizar la coherencia entre los datos decodificados \(\hat{\vX}\) y
+los originales \(\vX\)---por ejemplo, minimizando un error de reconstrucción
+del tipo MSE\footnote{Se sabe que los errores de tipo MSE son
+    problemáticos para datos de imágenes con estructuras no lineales complejas. Como
+    veremos en breve, gran parte de la investigación reciente sobre métodos generativos, incluidas
+    las GAN, se ha centrado en encontrar mejores funciones de distancia sustitutivas
+entre los datos originales \(\vX\) y los regenerados \(\hat{\vX}\).}:
 \begin{equation}
     \min_{f,g} \|\vX - \hat{\vX}\|_{2}^{2}, \qquad \text{where} \quad
     \hat{\vX} = g(f(\vX)),
 \end{equation}
-an autoencoder can be learned directly from the data \(\vX\).
+un autocodificador puede aprenderse directamente a partir de los datos \(\vX\).
 
-But how can we guarantee that such an auto-encoding indeed captures
-the true low-dimensional structures in \(\vX\) rather than yielding a
-trivial redundant representation? For instance, one could simply
-choose \(f\) and \(g\) to be identity maps and set \(\vZ = \vX\). To
-ensure the auto-encoding is worthwhile, the resulting representation
-should be compressive according to some computable measure of
-complexity. In 1993, Geoffrey Hinton and colleagues proposed using
-coding length as such a measure, transforming the auto-encoding
-objective into finding a representation that minimizes coding length
-\cite{Hinton-1993}. This work established a fundamental connection
-between the principle of minimum description length
-\cite{Rissanen-1978} and free (Helmholtz) energy minimization. Later
-work from Hinton's group \cite{Hinton504} empirically demonstrated
-that such auto-encoding can learn meaningful low-dimensional
-representations for real-world images. Pierre Baldi provided a
-comprehensive survey of autoencoders in 2011 \cite{Baldi2011}, just
-before deep networks gained widespread popularity. We will discuss
-measures of complexity and auto-encoding further in
-\Cref{sec:unifying-approach}, and present a systematic study of
-compressive auto-encoding in \Cref{ch:consistent-representations}
-from a more unified
-perspective.
+¿Pero cómo podemos garantizar que una autocodificación de este tipo realmente
+capture las verdaderas estructuras de baja dimensión en \(\vX\) en lugar de
+arrojar una representación trivial redundante? Por ejemplo, uno podría simplemente
+elegir que \(f\) y \(g\) sean mapeos de identidad y definir \(\vZ = \vX\). Para
+asegurar que la autocodificación valga la pena, la representación resultante
+debería ser compresiva, de acuerdo a alguna medida calculable de complejidad.
+En 1993, Geoffrey Hinton y sus colegas propusieron usar la longitud de código
+como tal medida, transformando el objetivo de autocodificación en el objetivo
+de hallar una representación que minimice la longitud de código \cite{Hinton-1993}.
+Este trabajo estableció una conexión fundamental entre el principio de longitud
+mínima de descripción\cite{Rissanen-1978} y la minimización de la energía libre
+(Helmholtz). Los trabajos posteriores del grupo de Hinton \cite{Hinton504}
+demostraron empíricamente que esa autocodificación es capaz de aprender
+representaciones significativas de baja dimension para imágenes del mundo real.
+Pierre Baldi presentó un estudio exhaustivo sobre los autocodificadores en 2011 
+\cite{Baldi2011}, justo antes de que las redes profundas alcanzaran una gran 
+popularidad. Analizaremos las medidas de complejidad y la autocodificación con 
+más detalle en la \Cref{sec:unifying-approach} y presentaremos un estudio 
+sistemático de la autocodificación compresiva en el \Cref{ch:consistent-representations}
+desde una perspectiva más unificada.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{\toplevelprefix/chapters/chapter1/figs/Comparison_image_neural_networks.svg.png}
-    \caption{Architecture of LeNet \cite{LeCun-1989} versus AlexNet
+    \caption{Las arquitecturas de LeNet \cite{LeCun-1989} versus AlexNet
     \cite{krizhevsky2012imagenet}.}
     \label{fig:LeNet-AlexNet}
 \end{figure}
 
-\subsubsection{Modern Deep Neural Networks}
-For nearly 30 years---from the 1980s to the 2010s---neural networks
-were not taken seriously by the mainstream machine learning
-community. Early deep networks such as LeNet showed promising
-performance on small-scale classification problems like digit
-recognition, yet their design was largely empirical, the available
-datasets were tiny, and back-propagation was computationally
-prohibitive for the hardware of the era. These factors led to waning
-interest and stagnant progress, with only a handful of researchers persisting.
+\subsubsection{Las redes neuronales profundas modernas}
+Por cerca de 30 años---desde la década de 1980 hasta la de 2010---las redes
+neuronales no fueron tomadas en serio por la comunidad mayoritaria del aprendizaje 
+automático. Las primeras redes profundas, como LeNet, mostraron un rendimiento prometedor
+en problemas de clasificación a pequeña escala, como el reconocimiento de dígitos,
+pero su diseño era en gran medida empírico, los conjuntos de datos disponibles
+eran muy reducidos y la retropropagación resultaba computacionalmente
+prohibitiva para el hardware de la época. Estos factores provocaron una disminución
+del interés y un estancamiento en los avances y solo un puñado de investigadores siguió adelante.
 
-\paragraph{Classification and recognition.}
-The tremendous potential of deep networks could be unleashed only
-once sufficient data and computational power became available. By the
-2010s, large datasets such as ImageNet had emerged, and GPUs had
-become powerful enough to make back-propagation affordable even for
-networks far larger than LeNet. In 2012, the deep convolutional
-network AlexNet --- named for Alex Krizhevsky, one of the authors
-\cite{krizhevsky2012imagenet} --- attracted widespread attention by
-surpassing existing classification methods on ImageNet by a
-significant margin.\footnote{Deep networks had already achieved
-    state-of-the-art results on speech-recognition tasks, but these
-    successes received far less attention than the breakthrough on image
-classification.} \Cref{fig:LeNet-AlexNet} compares AlexNet with
-LeNet. AlexNet retains many characteristics of LeNet---it is simply
-larger and replaces LeNet's sigmoid activations with ReLUs. This work
-contributed to Geoffrey Hinton's 2018 Turing Award.
+\paragraph{Clasificación y reconocimiento.}
+El enorme potencial de las redes profundas solo pudo ponerse de manifiesto
+una vez que se dispuso de datos y potencia computacional suficientes. En la
+década de 2010 habían surgido grandes conjuntos de datos y las GPU se habían
+hecho suficientemente poderosas como para que la retropropagación resultara 
+viable incluso para redes mucho más grandes que LeNet. En 2012, la red convolucional
+profunda AlexNet --- cuyo nombre refiere a Alex Krizhevsky, uno de los autores
+\cite{krizhevsky2012imagenet} --- atrajo amplia atención al superar a los métodos
+de clasificación existentes operando sobre ImageNet por una margen significativo.
+\footnote{Las redes profundas ya habían logrado
+    resultados de vanguardia en tareas de reconocimiento de voz, pero estos
+    éxitos recibieron mucha menos atención que el avance en la clasificación
+de imágenes.} La \Cref{fig:LeNet-AlexNet} compara a AlexNet con LeNet. AlexNet
+retiene muchas características de LeNet---simplemente es más grande y reemplaza
+las activaciones por sigmoide de LeNet con ReLUs. Este trabajo contribuyó a que
+se le otorgara el Premio Turing 2018 a Geoffrey Hinton.
 
-This early success inspired the machine intelligence community to
-explore new neural network architectures, variations, and
-improvements. Empirically, it was discovered that larger and deeper
-networks yield better performance on tasks such as image
-classification. Notable architectures that emerged include VGG
-\cite{Simonyan15}, GoogLeNet \cite{Szegedy2014GoingDW}, ResNet
-\cite{He2016-lc}, and, more recently, Transformers
-\cite{vaswani2017attention}. Despite rapid empirically-driven
-performance improvements, theoretical explanations for these
-architectures---and the relationships among them, if any ---remained
-scarce. One goal of this book is to uncover the common objective
-these networks optimize and to explain their shared characteristics,
-such as multiple layers of linear operators interleaved with
-nonlinear activations (see \Cref{ch:deep-networks}).
+Este éxito temprano inspiró a la comunidad de la inteligencia artificial para
+explorar nuevas arquitecturas, variaciones y perfeccionamientos para redes 
+neuronales. De manera empírica, se descubrió que las redes más grandes y más
+profundas arrojan un mejor desempeño en tareas como la clasificación de
+imágenes. Entre las notables arquitecturas que aparecieron se cuentan
+VGG\cite{Simonyan15}, GoogLeNet \cite{Szegedy2014GoingDW}, ResNet
+\cite{He2016-lc} y, más recientemente, los transformadores\cite{vaswani2017attention}.
+Pese al rápido mejoramiento empírico del desempeño, las explicaciones teóricas
+de esas arquitecturas---y las relaciones existentes entre ellas, de existir---siguieron
+siendo escasas. Una meta de este libro consiste en develar el objetivo común para
+el que estas redes se optimizan y explicar sus caracter´isticas compartidas, tales
+como múltiples capas de operadores lineales intercalados con activaciones no lineales
+(véase el \Cref{ch:deep-networks}).
 
-\paragraph{Reinforcement learning.}
-Early deep network successes were mainly in supervised classification
-tasks such as speech and image recognition. Later, deep networks were
-adopted to learn decision-making or control policies for game
-playing. In this context, deep networks model the optimal
-decision/control policy (i.e., a probability distribution over
-actions to take in order to maximize the expected reward) or the
-associated optimal value function (an estimate of the expected reward
-from the given state), as shown in \Cref{fig:Alpha-Go}. Network
-parameters are incrementally optimized\footnote{Typically via
-back-propagation (BP).} based on rewards returned from the success or
-failure of playing the game with the current policy. This learning
-paradigm is called \textit{reinforcement learning}
-\cite{Sutton-Barto}; it originated in control-systems practice of the
-late 1960s \cite{Waltz1965AHA,Mendel1970ReinforcementlearningCA} and
-traces back through a long and rich history to Richard Bellman's
-\textit{dynamic programming} \cite{Bellman-DP} and Marvin Minsky's
-\textit{trial-and-error learning} \cite{Minsky-1954} in the 1950s.
+\paragraph{Aprendizaje por refuerzo.}
+Los primeros éxitos de las redes profundas se dieron principalmente en tareas de clasificación supervisada,
+como el reconocimiento de voz y de imágenes. Más tarde, se empezaron a
+utilizar las redes profundas para aprender políticas de toma de decisiones o de control para los juegos.
+En este contexto, las redes profundas modelan la política óptima 
+de decisión/control (es decir, una distribución de probabilidad sobre
+las acciones que se deben realizar para maximizar la recompensa esperada) o la
+función de valor óptima asociada (una estimación de la recompensa esperada
+partiendo de un estado dado), tal y como se muestra en la \Cref{fig:Alpha-Go}.
+Los parámetros de la red se optimizan de forma incremental\footnote{Normalmente mediante
+retropropagación (BP)} en función de las recompensas obtenidas por el éxito o
+el fracaso al jugar la partida con la política actual. Este paradigma de aprendizaje
+se denomina \textit{aprendizaje por refuerzo} \cite{Sutton-Barto}; tiene su origen en 
+la práctica de los sistemas de control de finales de la década de 1960 
+\cite{Waltz1965AHA,Mendel1970ReinforcementlearningCA} y se remonta, a través 
+de una larga y rica historia, a la \textit{programación dinámica} \cite{Bellman-DP} y el
+\textit{aprendizaje por ensayo y error} \cite{Minsky-1954} de Marvin Minsky en la década de 1950.
 
-From an implementation standpoint, the marriage of deep networks and
-reinforcement learning proved powerful: deep networks can approximate
-control policies and value functions for real-world environments that
-are difficult to model analytically. This culminated in DeepMind's
-AlphaGo system, which stunned the world in 2016 by defeating top Go
-player Lee Sedol and, in 2017, world champion Jie Ke.\footnote{In
-    1996, IBM's Deep Blue made history by defeating Russian grandmaster
-    Garry Kasparov in chess using traditional machine learning techniques
-    such as tree search and pruning, methods that have proven less
-scalable and unsuccessful for more complex games like Go.}
+Desde el punto de vista de la implementación, la combinación de redes profundas y
+aprendizaje por refuerzo resultó ser muy potente: las redes profundas pueden aproximar
+políticas de control y funciones de valor para entornos del mundo real que
+resultan difíciles de modelar analíticamente. Esto culminó en el sistema
+AlphaGo de DeepMind, que sorprendió al mundo en 2016 al derrotar al destacado jugador de Go
+Lee Sedol y, en 2017, al campeón mundial Jie Ke.\footnote{En
+    1996, Deep Blue, de IBM, hizo historia al derrotar al gran maestro ruso
+    Garry Kasparov en una partida de ajedrez utilizando técnicas tradicionales de aprendizaje automático
+    como la búsqueda y poda de árboles, métodos que han demostrado ser menos
+escalables y poco eficaces para juegos más complejos como el Go.}
 
-AlphaGo's success surprised the computing community, which had long
-regarded the game's state space as too vast for any efficient
-solution in terms of computation and sample size. The only plausible
-explanation is that the optimal value and policy function of Go
-possess significant favorable structure: qualitatively speaking,
-their intrinsic dimensions are low enough so that they can be well
-approximated by neural networks learnable from a manageable number of samples.
+El éxito de AlphaGo sorprendió a la comunidad informática, la que durante largo
+tiempo había considerado que el espacio de estados de ese juego era demasiado vasto
+para cualquiera solución eficiente en términos de cálculo y tamaño de muestra. La
+única explicación plausible es que el valor óptimo y la función de política del Go
+poseen una estructura favorable significativa: en términos cualitativos, sus dimensiones 
+intrínsecas son lo suficientemente bajas como para que puedan ser bien aproximadas por 
+redes neuronales que se pueden entrenar a partir de un número manejable de muestras.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter1/figs/Policy-Value.png}
-    \caption{AlphaGo: using deep neural networks to model the optimal
-    policy or value function for the game Go.}
+    \caption{AlphaGo: el uso de redes neuronales profundas para modelar la política
+    o función de valor óptimas para el juego Go.}
     \label{fig:Alpha-Go}
 \end{figure}
 
-\paragraph{Generation and prediction.}
-From a certain perspective, the early practice of deep networks in
-the 2010s was focused on extracting relevant information from the
-data \(\vX\) and encoding it into a task-specific representation
-\(\vZ\) (say \(\vZ\) denotes class labels in classification
-    tasks\footnote{This is a highly atypical notation for labels --- the
-        usual notation is \(\vy\) --- but it is useful for our purposes to
-        consider labels as highly compressed and sparse representations of
-        the data. See \Cref{example:image_classification_feature_learning}
-for more details.}):
+\paragraph{Generación y predicción.}
+Desde cierta perspectiva, las primeras aplicaciones de las redes profundas en
+la década de 2010 se centraban en extraer información relevante de los
+datos \(\vX\) y codificarla en una representación específica para cada tarea
+\(\vZ\) (supongamos que \(\vZ\) denota las etiquetas de clase en tareas de clasificación
+    \footnote{Esta es una notación muy atípica para las etiquetas --- la
+        notación habitual es \(\vy\) --- pero resulta útil para nuestros propósitos
+        considerar las etiquetas como representaciones muy comprimidas y dispersas de
+        los datos. Véase el \Cref{example:image_classification_feature_learning}
+para más detalles.}):
 \begin{equation}
     \vX   \xrightarrow{\hspace{2mm} f \hspace{2mm}} \vZ.
     \label{eqn:encoding-deep-networks}
 \end{equation}
-Here the learned mapping \(f\) needs not preserve most distributional
-information about \(\vX\); it suffices to retain only the sufficient
-statistics for the task. For example, a sample \(\vx \in \vX\) might
-be an image of an apple, mapped by \(f\) to the class label \(\vz =
-\text{``apple''}\).
+En este caso, la función de mapeo \(f\) no necesita conservar la mayor parte de la información distributiva
+sobre \(\vX\); basta con retener solo las estadísticas suficientes
+para la tarea. Por ejemplo, una muestra \(\vx \in \vX\) podría
+ser la imagen de una manzana, a la que \(f\) asigna la etiqueta de clase \(\vz =
+\text{``manzana''}\).
 
-In many modern settings---such as the so-called large general-purpose
-(``foundation'') models---we may need to also decode \(\vZ\) to
-recover the corresponding \(\vX\) to a prescribed precision:
+En muchos entornos modernos---como los denominados grandes modelos de propósito general
+(«fundamentales»)---es posible que también tengamos que decodificar \(\vZ\) para
+recuperar el \(\vX\) correspondiente con una precisión preestablecida:
 \begin{equation}
     \vZ   \xrightarrow{\hspace{2mm} g  \hspace{2mm}} \hat{\vX}.
     \label{eqn:decoding-deep-networks}
 \end{equation}
-Because \(\vX\) typically represents data observed from the external
-world, a good decoder allows us to simulate or predict what happens
-in the world. In a ``text-to-image'' or ``text-to-video'' task, for
-instance, \(\vz\) is the text describing the desired image \(\vx\),
-and the decoder should generate an \(\hat{\vx}\) whose content
-matches \(\vx\). Given an object class \(\vz = \text{``apple''}\),
-the decoder \(g\) should produce an image \(\hat{\vx}\) that looks
-like an apple, though not necessarily identical to the original \(\vx\).
+Como \(\vX\) típicamente representa datos observados en el mundo exterior,
+un buen decodificador nos permite simular o predecir lo que sucede en el
+mundo. En una tarea de «texto a imagen» o «texto a video», por 
+ejemplo, \(\vz\) es el texto que describe la imagen deseada \(\vx\),
+y el decodificador debe generar un \(\hat{\vx}\) cuyo contenido 
+concuerde con \(\vx\). Dado una clase de objetos \(\vz = \text{``manzana''}\),
+el decodificador \(g\) debería producir una imagen \(\hat{\vx}\) que se vea
+como una manzana, aunque no necesariamente idéntica al original \(\vx\).
 
-\paragraph{Generation via discriminative approaches.}
-For the generated images \(\hat{\vX}\) to resemble true natural
-images \(\vX\), we must be able to evaluate and minimize some distance:
+\paragraph{Generación por la vía de enfoques discriminativos.}
+Para que las imágenes generadas \(\hat{\vX}\) parezcan imágenes naturales
+verdaderas \(\vX\), debemos se capaces de evaluar y minimizar alguna distancia:
 \begin{equation}
     \min \operatorname{dist}(\vX, \hat{\vX}).
 \end{equation}
-As it turns out, most theoretically motivated distances are extremely
-difficult---if not impossible---to compute and optimize for
-distributions in high-dimensional space with low intrinsic
-dimension.\footnote{This remains true even when a parametric family
-    of distributions for \(\vX\) is specified. The distance often becomes
-    ill-conditioned or ill-defined for distributions with low-dimensional
-    supports. Worse still, the chosen family might poorly approximate the
-true distribution of interest.}
+Resulta que la mayoría de las distancias basadas en la teoría son extremadamente
+difíciles---si no imposibles---de calcular y optimizar para
+distribuciones en espacios de alta dimensión con baja
+dimensión intrínseca.\footnote{Esto sigue siendo cierto incluso cuando se 
+    especifica una familia paramétrica de distribuciones para \(\vX\). 
+    La distancia suele volverse mal condicionada o mal definida para 
+    distribuciones con soportes de baja dimensión.  Peor aún, la familia 
+    elegida podría aproximar de forma deficiente la verdadera 
+distribución de interés.}
 
-In 2007, Zhuowen Tu, disappointed by early analytical attempts to
-model and generate natural images, decided to try a drastically
-different approach. In a paper published at CVPR 2007 \cite{Tu-2007},
-he first suggested learning a generative model for images via a
-discriminative approach. The idea is simple: if evaluating the
-distance \(\operatorname{dist}(\vX, \hat{\vX})\) proves difficult,
-one can instead learn a discriminator \(d\) to separate \(\hat{\vX}\)
-from \(\vX\):
+En 2007, Zhuowen Tu, decepcionado por los primeros intentos analíticos de
+modelar y generar imágenes naturales, decidió probar un enfoque
+radicalmente diferente. En un artículo publicado en CVPR 2007 \cite{Tu-2007},
+sugirió por primera vez el aprendizaje de un modelo generativo para imágenes mediante un
+enfoque discriminativo. La idea es simple: si la evaluación de la
+distancia \(\operatorname{dist}(\vX, \hat{\vX})\) resulta difícil,
+se puede, en su reemplazo, entrenar un discriminador \(d\) para
+separar \(\hat{\vX}\) de \(\vX\): 
 
 \begin{figure}[h!]
     \centering
@@ -1844,471 +1829,477 @@ from \(\vX\):
     \label{fig:gan-networks}
 \end{figure}
 
-where labels \(0\) and \(1\) indicate whether an image is generated or real.
-Intuitively, the harder it becomes to separate \(\hat{\vX}\) and
-\(\vX\), the closer they likely are.
+donde los rótulos \(0\) y \(1\) indican si acaso una imagen es generada o real.
+En forma intuitiva, mientras más difícil se hace separar \(\hat{\vX}\) de 
+\(\vX\), más simlares son, probablemente. 
 
-Tu's work \cite{Tu-2007} first demonstrated the feasibility of
-learning a generative model from a discriminative approach. However,
-the work employed traditional methods for image generation and
-distribution classification (such as boosting), which proved slow and
-difficult to implement. After 2012, deep neural networks gained
-popularity for image classification. In 2014, Ian Goodfellow and
-colleagues again proposed generating natural images with a
-discriminative approach \cite{Goodfellow-2014}. They suggested
-modeling both the generator \(g\) and discriminator \(d\) with deep
-neural networks. Moreover, they proposed learning \(g\) and \(d\) via
-a minimax game:
+El trabajo de Tu \cite{Tu-2007} demostró por primera vez la viabilidad de
+aprender un modelo generativo a partir de un enfoque discriminativo. Sin embargo,
+el trabajo utilizaba métodos tradicionales para la generación de imágenes y
+la clasificación de la distribución (como el boosting), que resultaron ser lentos y
+difíciles de implementar. A partir de 2012, las redes neuronales profundas ganaron
+popularidad para la clasificación de imágenes. En 2014, Ian Goodfellow y
+sus colegas volvieron a proponer la generación de imágenes naturales mediante un
+enfoque discriminativo \cite{Goodfellow-2014}. Sugirieron
+modelar tanto el generador \(g\) como el discriminador \(d\) mediante
+redes neuronales profundas. Además, propusieron aprender \(g\) y \(d\) a través de
+un juego minimax:
 \begin{equation}
     \min_{g} \max_{d} \ell(\vX, \hat{\vX}),
 \end{equation}
-where \(\ell(\cdot)\) is some natural loss function associated with
-the classification task. In this formulation, the discriminator \(d\)
-maximizes its success in separating \(\vX\) and \(\hat{\vX}\), while
-the generator \(g\) does the opposite. This approach is named
-\textit{generative adversarial networks} (GANs). It was shown that
-once trained on a large dataset, GANs can indeed generate
-photo-realistic images. Partially due to this work's influence,
-Yoshua Bengio received the 2018 Turing Award.
+donde \(\ell(\cdot)\) es alguna función de pérdidas natural asociada con
+la tarea de clasificación. En esta formulación, el discriminador \(d\)
+maximiza su éxito al separar \(\vX\) y \(\hat{\vX}\), mientras el
+generador \(g\) hace lo contrario. Este enfoque  se denomina
+\textit{redes generativas adversativas} (GANs). Se demostró que,
+una vez entrenadas con un gran conjunto de datos, las GAN pueden generar
+imágenes fotorrealistas. En parte gracias a la influencia de este trabajo,
+Yoshua Bengio recibió el Premio Turing 2018.
 
-The discriminative approach appears to cleverly bypass a fundamental
-difficulty in distribution learning. However, rigorously speaking,
-this approach does not fully resolve the fundamental difficulty. It
-is shown in \cite{Goodfellow-2014} that with a properly chosen loss,
-the minimax formulation becomes mathematically equivalent to
-minimizing the Jensen-Shannon distance (see \cite{Cover-Thomas})
-between \(\vX\) and \(\hat{\vX}\). This remains a hard problem for
-two low-dimensional distributions in high-dimensional space.
-Consequently, GANs typically rely on many heuristics and engineering
-tricks and often suffer from instability issues such as mode
-collapsing.\footnote{Nevertheless, such a minimax formulation
-    provides a practical approximation of the distance. It simplifies
-implementation and avoids certain caveats in directly computing the distance.}
+El enfoque discriminativo parece sortear hábilmente una dificultad fundamental
+en el aprendizaje de distribuciones. Sin embargo, hablando en forma rigorosa,
+este enfoque no resuelve plenamente la dificultad fundamental. En
+\cite{Goodfellow-2014} se demuestra que, si se elige adecuadamente la función de pérdida,
+la formulación minimax resulta matemáticamente equivalente a
+minimizar la distancia de Jensen-Shannon (véase \cite{Cover-Thomas})
+entre \(\vX\) y \(\hat{\vX}\). Esto sigue siendo un problema difícil
+para dos distribuciones de baja dimensión en un espacio de alta dimensión.
+Por lo tanto, las GAN suelen basarse en numerosas heurísticas y
+trucos de ingeniería, y a menudo adolecen de problemas de inestabilidad, como el
+colapso de modos.\footnote{No obstante, esta formulación minimax
+    ofrece una aproximación práctica de la distancia. Simplifica
+    la implementación y evita ciertas dificultades que surgen al 
+calcular directamente la distancia.}
 
-\paragraph{Generation via denoising and diffusion.}
-In 2015, shortly after GANs were introduced and gained popularity,
-Surya Ganguli and his students proposed that an iterative denoising
-process modeled by a deep network could be used to learn a general
-distribution, such as that of natural images
-\cite{Sohl-Dickstein2015}. Their method was inspired by properties of
-special Gaussian and binomial processes studied by William Feller in
-1949 \cite{Feller1949OnTT}.\footnote{Again, in the magical era of the 1940s!}
+\paragraph{Generación por vía de la reducción de ruido y la difusión.}
+En 2015, poco después de que se introdujeran las redes GAN y ganaran popularidad,
+Surya Ganguli y sus estudiantes propusieron que un proceso iterativo de reducción de ruido
+modelado por una red profunda podría utilizarse para aprender una distribución general,
+como la de las imágenes naturales \cite{Sohl-Dickstein2015}. Su método se inspiró en las 
+propiedades de unos procesos gaussianos y binomiales especiales estudiados por William 
+Feller en 1949 \cite{Feller1949OnTT}.\footnote{¡De nuevo, en la mágica década de los 40!}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter1/figs/diffusion_pipeline.png}
-    \caption{Illustration of an iterative denoising and compressing
-        process that, starting from a Gaussian distribution \(q^{0} =
-        \mathcal{N}(\vzero, \vI)\), converges to an arbitrary
-    low-dimensional data distribution \(q^{L} = p\).}
+    \caption{Ilustración de un proceso iterative de reducción de ruido y compresión 
+        que, a partir de una distribución gaussiana \(q^{0} = \mathcal{N}(\vzero, \vI)\), 
+        converge a una distribución de datos arbitraria de baja dimensión
+    \(q^{L} = p\).}
     \label{fig:diffusion}
 \end{figure}
 
-Soon, denoising operators based on the score function
-\cite{hyvarinen05a}, briefly introduced in
-\Cref{sec:denoising-intro}, were shown to be more general and unified
-the denoising and diffusion processes and algorithms
-\cite{song2019,song2020score,ho2020denoising}. \Cref{fig:diffusion}
-illustrates the process that transforms a generic Gaussian
-distribution \(q^{0} = \mathcal{N}(\vzero, \vI)\) to an (arbitrary)
-empirical distribution \(p(\vx)\) by performing a sequence of
-iterative denoising (or compressing) operations:
+Poco después, se demostró que los operadores de reducción de ruido basados en la función de puntaje
+\cite{hyvarinen05a}, presentados brevemente en
+\Cref{sec:denoising-intro}, eran más generales y unificaban
+los procesos y algoritmos de reducción de ruido y difusión
+\cite{song2019,song2020score,ho2020denoising}. La \Cref{fig:diffusion}
+ilustra el proceso que transforma una distribución gaussiana genérica
+\(q^{0} = \mathcal{N}(\vzero, \vI)\) en una distribución empírica
+(arbitraria) \(p(\vx)\) ejecutando una secuencia de operaciones 
+iterativas de reducción de ruido (o compresión):
 \begin{equation}
     \vz^{0} \sim  \mathcal{N}(\vzero, \vI) \xrightarrow{\hspace{2mm}
     g^{0} \hspace{2mm}} \vz^{1} \xrightarrow{\hspace{2mm} g^{1}
     \hspace{2mm}} \cdots \xrightarrow{\hspace{2mm} g^{L-1}
     \hspace{2mm}} \vz^{L} \sim p(\vx).
 \end{equation}
-By now, denoising (and diffusion) has replaced GANs and become the
-mainstream method for learning distributions of images and videos,
-leading to popular commercial image generation engines such as
-Midjourney and Stability.ai.
-In \Cref{ch:denoising} we will systematically introduce and study
-the denoising and diffusion method for learning a general
-low-dimensional distribution.
+A estas alturas, la reducción de ruido (y la difusión) ha sustituido a las GAN y se ha convertido en el
+método predominante para el aprendizaje de distribuciones de imágenes y vídeos,
+lo que ha dado lugar a populares motores comerciales de generación de imágenes como
+Midjourney y Stability.ai. En el \Cref{ch:denoising} presentaremos y estudiaremos de forma sistemática
+el método de reducción de ruido y difusión para aprender una distribución general
+de baja dimensión.
 
-\section{A Unifying Approach}\label{sec:unifying-approach}
+\section{Un enfoque unificador}\label{sec:unifying-approach}
 % Start of Selection
-So far, we have given a brief account of the main objective and
-history of machine intelligence, along with many important ideas and
-approaches associated with it. In recent years, following the
-empirical success of deep neural networks, tremendous efforts have
-been made to develop theoretical frameworks that help us understand
-empirically designed deep networks---whether specific seemingly
-necessary components (e.g., dropout \cite{srivastava2014dropout},
-    normalization \cite{ioffe2015batch,ba2016layer}, attention
-\cite{vaswani2017attention}) or their overall behaviors (e.g., double
-    descent \cite{belkin2019reconciling}, neural collapse
+Hasta ahora, hemos ofrecido una breve descripción del objetivo principal y
+la historia de la inteligencia artificial, junto con muchas ideas y
+enfoques importantes relacionados con ella. En los últimos años, tras el
+éxito empírico de las redes neuronales profundas, se han
+realizado enormes esfuerzos para desarrollar marcos teóricos que nos ayuden a comprender
+las redes profundas diseñadas empíricamente, ya sea en lo que respecta a componentes específicos que parecen
+necesarios (por ejemplo, el dropout \cite{srivastava2014dropout},
+    la normalización \cite{ioffe2015batch,ba2016layer}, la atención
+\cite{vaswani2017attention}) o sus comportamientos generales (por ejemplo, el doble
+    descenso \cite{belkin2019reconciling}, el colapso neuronal
 \cite{papyan2020prevalence}).
 
-Motivated in part by this trend, this book pursues several important
-and challenging goals:
+Impulsado en parte por esta tendencia, este libro persigue varios objetivos importantes
+y ambiciosos:
 \begin{itemize}
-    \item Develop a theoretical framework that yields rigorous
-        mathematical interpretations of deep neural networks.
-    \item Ensure correctness of the learned data distribution and
-        consistency with the learned representation.
-    \item Demonstrate that the framework leads to performant
-        architectures and guides further practical improvements.
+    \item Desarrollar un marco teórico que permita obtener interpretaciones matemáticas rigurosas
+        de las redes neuronales profundas.
+    \item Asegurar la corrección de la distribución de los datos aprendida y
+        su coherencia con la representación aprendida.
+    \item Demostrar que el marco permite crear arquitecturas de alto rendimiento
+        y sirve de guía para futuras mejoras prácticas.
 \end{itemize}
-In recent years, mounting evidence suggests these goals can indeed be
-achieved by leveraging the theory and solutions of the classical
-analytical low-dimensional models discussed earlier (treated more
-thoroughly in \Cref{ch:classic-models}) and by integrating fundamental ideas
-from related fields---namely information/coding theory, control/game
-theory, and optimization. This book aims to provide a systematic
-introduction to this new approach.
+En los últimos años, cada vez hay más indicios de que estos objetivos pueden alcanzarse
+aprovechando la teoría y las soluciones de los modelos analíticos clásicos
+de baja dimensión mencionados anteriormente (que se tratan con mayor
+detalle en el \Cref{ch:classic-models}) e integrando ideas fundamentales
+de campos relacionados, a saber, la teoría de la información y la codificación, 
+la teoría de control y de juegos, así como la optimización. El objetivo de este 
+libro es ofrecer una introducción sistemática a este nuevo enfoque.
 
-\subsection{Learning Parsimonious Representations}
+\subsection{Aprendizaje de representaciones parsimoniosas}
 \label{sec:computational-approach-compression}
-One necessary condition for any learning task to be possible is that
-the sequences of interest must be \textit{computable}, at least in
-the sense of Alan Turing \cite{Turing-1936}. That is, a sequence can
-be computed via a program on a typical computer.\footnote{There are
-indeed well-defined sequences that are not computable.} In addition
-to being computable, we require computation to be
-\textit{tractable}.\footnote{We do not need to consider predicting
-    things whose computational complexity is intractable---say, grows
-exponentially in the length or dimension of the sequence.} That is,
-the computational cost (space and time) for learning and computing
-the sequence should not grow exponentially in length. Furthermore, as
-we see in nature (and in the modern practice of machine
-intelligence), for most practical tasks an intelligent system needs
-to learn what is predictable from massive data in a very
-high-dimensional space, such as from vision, sound, and touch. Hence,
-for intelligence we do not need to consider all computable and
-tractable sequences or structures; we should focus only on
-predictable sequences and structures that admit \textit{scalable}
-realizations of their learning and computing algorithms:
+Una condición necesaria para que cualquier tarea de aprendizaje resulte factible es que
+las secuencias de interés sean \textit{calculables}, al menos en el
+sentido de Alan Turing \cite{Turing-1936}. Es decir, una secuencia puede
+calcularse mediante un programa en una computadora común.\footnote{De hecho,
+hay secuencias bien definidas que no son computables.} Además
+de ser computable, exigimos que el cálculo sea
+\textit{manejable}.\footnote{No es necesario que nos planteemos predecir
+    cosas cuya complejidad computacional sea inmanejable, es decir, que crezca
+exponencialmente con la longitud o la dimensión de la secuencia.} Es decir,
+el costo computacional (espacial y temporal) de aprender y calcular
+la secuencia no debería crecer exponencialmente con la longitud. Además, tal y como
+vemos en la naturaleza (y en la práctica moderna de la inteligencia
+artificial), para la mayoría de las tareas prácticas, un sistema inteligente necesita
+aprender qué es lo predecible a partir de grandes volúmenes de datos en un espacio de
+muy alta dimensión, como los datos de visión, sonido y tacto. Por lo tanto,
+para hablar de inteligencia no es necesario considerar todas las secuencias y
+estructuras computables y manejables; debemos centrarnos únicamente en
+las secuencias y estructuras predecibles que admiten realizaciones \textit{escalables}
+de sus algoritmos de aprendizaje y computación:
 \begin{equation}
     \text{\textbf{computable}} \;
     \Longrightarrow \; \text{\textbf{tractable}} \; \Longrightarrow \;
     \text{\textbf{scalable}}.
 \end{equation}
 
-This is because whatever algorithms intelligent beings use to learn
-useful information must be \textit{scalable}. More specifically, the
-computational complexity of the algorithms should scale
-gracefully---typically linear or even sublinear---in the size and
-dimension of the data. On the technical level, this requires that the
-operations the algorithms rely on to learn can only utilize oracle
-information that can be efficiently computed from the data. More
-specifically, when the dimension is high and the scale is large, the
-only oracle one can afford to compute is either the first-order
-geometric information about the data\footnote{such as approximating a
-    nonlinear structure locally with linear subspaces and computing the
-gradient of an objective function.} or the second-order statistical
-information\footnote{such as covariance or correlation of the data or
-    their features. As we will see, popular deep architectures such as
-Transformers rely on this type of information.}.
-The main goal of this book is to develop a theoretical and
-computational framework within which we can systematically develop
-efficient and effective solutions or algorithms with such scalable
-oracles and operations to \textit{learn} low-dimensional structures
-from the sampled data and subsequently the predictive function.
+Esto es porque cualquiera que sea el algoritmo que los seres inteligentes usen para aprender
+información útil éste tiene que ser \textit{escalable}. Más concretamente, la
+complejidad computacional de los algoritmos debería escalar de forma adecuada---por 
+lo general, de manera lineal o incluso sublineal---en función del tamaño y
+la dimensión de los datos. En un nivel técnico, esto requiere que las operaciones
+en las que se basan los algoritmos para aprender sólo pueden utilizar información
+de oráculo que pueda calcularse de manera eficiente a partir de los datos. Más
+específicamente, cuando la dimensión es alta y la escala es grande,el único oráculo 
+que se puede permitir calcular es o bien la información geométrica de primer orden
+sobre los datos\footnote{como aproximar una estructura no lineal localmente con 
+    subespacios lineales y calcular el gradiente de una 
+función objetivo.} o bien la información estadística de segundo orden\footnote{como 
+    la covarianza o la correlación de los datos o sus características. Como veremos, 
+    las arquitecturas profundas más populares, como
+los Transformers, se basan en este tipo de información.}.
+El objetivo principal de este libro es desarrollar un marco teórico y
+computacional en el que podamos desarrollar sistemáticamente
+soluciones o algoritmos eficientes y eficaces con oráculos y operaciones
+escalables para \textit{aprender} estructuras de baja dimensión
+a partir de los datos muestreados y, posteriormente, la función predictiva.
 
-\paragraph{Pursuing low-dimensionality via compression.}
-From the examples of sequences we gave in \Cref{sec:predictability},
-it is clear that some sequences are easy to model and compute, while
-others are more difficult. The computational cost of a sequence
-depends on the complexity of the predicting function \(f\). The
-higher the degree of regression \(d\), the more costly it is to
-compute. The function \(f\) could be a simple linear function, or it
-could be a nonlinear function that is arbitrarily difficult to
-specify and compute.
+\paragraph{Búsqueda de una baja dimensionalidad mediante compresión.}
+A partir de los ejemplos de secuencias que ofrecimos en la \Cref{sec:predictability},
+queda claro que algunas secuencias son fáciles de modelar y calcular, mientras que
+otras son más difíciles. El costo computacional de una secuencia
+depende de la complejidad de la función predictora \(f\). Cuanto
+mayor sea el grado de regresión \(d\), más costoso resulta
+calcularlo. La función \(f\) podría ser una simple función lineal, o bien
+una función no lineal cuya especificación y cálculo
+resulten arbitrariamente difíciles.
 
-It is reasonable to believe that if a sequence is harder---by
-whatever measure we choose---to specify and compute, then it will
-also be more difficult to learn from its sampled segments.
-Nevertheless, for any given predictable sequence, there are in fact
-many, often infinitely many, ways to specify it. For example, for the
-simple sequence \(x_{n+1} = a x_{n}\), we could also define the same
-sequence with \(x_{n+1} = a x_{n} + b x_{n-1} - b x_{n-1}\).
-Hence it would be very useful to develop an objective and rigorous
-notion of ``complexity'' for any given computable sequence.
+Es razonable pensar que si una secuencia es más difícil —según
+cualquier criterio que elijamos— de especificar y calcular, entonces
+también será más difícil de aprender a partir de sus segmentos muestreados.
+Sin embargo, para cualquier secuencia predecible, existen de hecho
+muchas formas, a menudo infinitas, de especificarla. Por ejemplo, para la
+secuencia simple \(x_{n+1} = a x_{n}\), también podríamos definir la misma
+secuencia como \(x_{n+1} = a x_{n} + b x_{n-1} - b x_{n-1}\).
+Por lo tanto, sería muy útil desarrollar un concepto objetivo y riguroso
+de «complejidad» para cualquier secuencia computable dada.
 
+Andrey Kolmogorov, un matemático ruso, fue uno de los primeros en 
+definir la complejidad para cualquiera secuencia computable.\footnote{Muchos
+    contribuyeron a esta noción de complejidad de secuencias, entre los que destacan Ray
+    Solomonoff y Greg Chaitin. Los tres desarrollaron la teoría algorítmica
+    de la información por separado: Solomonoff en 1960, Kolmogorov en
+    1965 \cite{Kolmogorov1998OnTO} y Chaitin alrededor de 1966
+\cite{Chaitin-1966}.}
 Andrey Kolmogorov, a Russian mathematician, was one of the first to
 define complexity for any computable sequence.\footnote{Many
     contributed to this notion of sequence complexity, most notably Ray
     Solomonoff and Greg Chaitin. All three developed algorithmic
     information theory independently---Solomonoff in 1960, Kolmogorov in
     1965 \cite{Kolmogorov1998OnTO}, and Chaitin around 1966
-\cite{Chaitin-1966}.} He proposed that among all programs computing
-the same sequence, the length of the shortest program measures its
-complexity. This aligns with Occam's Razor---\textit{choose the
-simplest theory explaining the same observation}. Formally, let \(p\)
-be a program generating sequence \(S\) on universal computer \(\cU\).
-The Kolmogorov complexity of \(S\) is:
+\cite{Chaitin-1966}.} Propuso que, entre todos los programas que calculan
+la misma secuencia, la longitud del programa más corto mide su
+complejidad. Esto concuerda con la navaja de Occam: \testit{elegir la
+teoría más simple que explique la misma observación}. Formalmente, sea \(p\)
+un programa que genera una secuencia \(S\) en el ordenador universal \(\cU\).
+La complejidad de Kolmogorov de \(S\) es:
 \begin{equation}
     K(S) = \min_{p\,:\, \cU(p) = S} L(p).
 \end{equation}
-Thus, complexity measures how parsimoniously we can specify or
-compute the sequence. This definition is conceptually important and
-historically inspired profound studies in computational complexity
-and theoretical computer science.
+Por lo tanto, la complejidad mide con qué grado de parsimonia podemos especificar o
+calcular la secuencia. Esta definición es conceptualmente importante e
+históricamente inspiró profundos estudios en complejidad computacional
+e informática teórica.
 
-The shortest program length represents the ultimate compression of
-the sequence, quantifying our gain from learning its generative
-mechanism. However, Kolmogorov complexity is generally {\em
-uncomputable} \cite{Cover-Thomas} and intractable to approximate.
-Consequently, it has little practical use---it cannot predict
-learning difficulty or assess how well we have learned.
+La longitud más corta del programa representa la compresión extrema de
+la secuencia, lo que cuantifica el beneficio que obtenemos al aprender 
+su mecanismo generativo. Sin embargo, la complejidad de Kolmogorov es, por lo general, {\em
+incalculable} \cite{Cover-Thomas} y su aproximación resulta prácticamente imposible.
+Por lo tanto, tiene poca utilidad práctica: no permite predecir
+las dificultades del aprendizaje ni evaluar lo bien que hemos aprendido.
 
-\paragraph{Computable measure of parsimony.}
-For practical purposes, we need an efficiently computable measure of
-complexity for sequences generated by the same predicting
-function.\footnote{In practice, we typically care about learning the
-    predicting function \(f\), rather than any particular sequence
-generated by \(f\).} Note that part of the reason Kolmogorov
-complexity is not computable is that its definition is non-constructive.
+\paragraph{Una medida computable de parsimonia.}
+Para fines prácticos, necesitamos una medida eficientemente computable
+de complejidad para secuencias generadas por la misma función predictiva.\footnote{En 
+la práctica, lo que típicamente nos preocupa es aprender la función predictiva \(f\),
+    en lugar de cualquiera secuencia particular generada por \(f\).} Cabe señalar que 
+parte de la razón por la que la complejidad de Kolmogorov
 
-To introduce a computable measure of complexity, we may take a more
-constructive approach, as advocated by Claude Shannon through the
-framework of information theory
-\cite{Shannon-1948,Cover-Thomas}.\footnote{This framework has
-    successfully guided engineering practice in the communication
-industry for over 80 years.} By assuming the sequence \(S\) is drawn
-from a probabilistic distribution \(p(S)\), the entropy of the
-distribution:\footnote{Here we consider differential entropy as we
-    assume the sequence consists of continuous variables. For discrete
-variables, we would use \(H(S) = - \sum_{i}p(s_{i}) \log p(s_{i})\).}
+Para introducir una medida computable de la complejidad, podemos adoptar un enfoque más
+constructivo, tal y como proponía Claude Shannon en el
+marco de la teoría de la información
+\cite{Shannon-1948,Cover-Thomas}.\footnote{Este marco ha
+    guiado con éxito la práctica ingenieril en la industria de las comunicaciones
+durante más de 80 años.} Suponiendo que la secuencia \(S\) se extrae
+de una distribución probabilística \(p(S)\), la entropía de la
+distribución:\footnote{Aquí consideramos la entropía diferencial, ya que
+    suponemos que la secuencia está formada por variables continuas. Para variables discretas,
+utilizaríamos \(H(S) = - \sum_{i}p(s_{i}) \log p(s_{i})\).}
 \begin{equation}
     h(S) \doteq -\int p(s) \log p(s) \odif{s}
     \label{eqn:entropy-definition}
 \end{equation}
-provides a natural measure of its complexity. This measure also has a
-natural interpretation as the average number of binary bits needed to
-encode such a sequence, as we will see in \Cref{ch:denoising}.
+provee una medida natural de su complejidad. Esta medida también tiene
+una interpretación natural como número medio de bits binarios que se
+requieren para codificar tal secuencia, como veremos en el \Cref{ch:denoising}.
 
-To illustrate the main ideas of this view, let us take a large number
-of long sequence segments:
+Para ilustrar las principales ideas de este enfoque, tomemos un gran número
+de largos segmentos de secuencia:
 \begin{equation}
     \{S_{1}, S_{2}, \ldots, S_{i}, \ldots, S_{N}\} \subset \R^{D},
 \end{equation}
-generated by a predicting function \(f\). Without loss of generality,
-we assume all sequences have the same length \(D\), so each sequence
-can be viewed as a vector in \(\R^{D}\). We introduce a coding scheme
-(with a codebook), denoted \(\cE\), that maps every segment \(S_{i}\)
-to a unique stream of binary bits \(\cE(S_{i})\), and a corresponding
-decoding scheme \(\cD\) that maps binary bit strings back to sequence
-segments (say subject to error \(\epsilon \geq 0\) as such an
-encoding scheme can be lossy). The simplest scheme fills the space
-spanned by all segments with \(\epsilon\)-balls, as shown in
-\Cref{fig:coding-schemes}. We then number the balls, and each
-sequence is encoded as the binary index of its closest ball, while
-each binary index is decoded back to the center of the corresponding
-ball. Thus, each segment can be recovered up to precision
-\(\epsilon\) from its bit stream.
+generado por una función predictiva \(f\). Sin pérdida de generalidad,
+suponemos que todas las secuencias tienen la misma longitud \(D\), de modo que
+cada secuencia puede ser vista como vector en \(\R^{D}\). Introducimos un esquema de codificación
+(con un libro de códigos), denotado \(\cE\), que mapea cada segmento \(S_{i}\) 
+a una secuencia de bits binarios \(\cE(S_{i})\) y un esquema de decodificación
+correspondiente \(\cD\) que mapea las cadenas de bits binarios de vuelta a segmentos
+de secuencias (digamos que sujetos a un error \(\epsilon \geq 0\) ya que tal
+esquema de codificación puede tener pérdidas). El esquema más sencillo consiste en llenar el espacio
+abarcado por todos los segmentos con esferas de radio \(\epsilon\), tal como se muestra en
+\Cref{fig:coding-schemes}. A continuación, numeramos las bolas, y cada
+secuencia se codifica como el índice binario de la bola más cercana, mientras que
+cada índice binario se decodifica de nuevo para obtener el centro de la bola
+correspondiente. Por lo tanto, cada segmento puede recuperarse con una precisión de
+\(\epsilon\) a partir de su secuencia de bits.
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter1/figs/Coding-schemes.png}
-    \caption{Comparison of two coding schemes. Imagine the true data
-        distribution lies along the two arrowed lines. Samples from these
-        lines can be encoded with a codebook of all blue balls, or with a
-        codebook of only the green balls. The second scheme yields a much
-    lower coding length/rate subject to the same precision.}
+    \caption{Comparación de dos esquemas de codificación. Imaginemos que la
+        distribución verdadera de los datos se ubica a lo largo de las dos líneas de flecha.
+        Las muestras de estas líneas pueden codificarse con un libro de códigos de todas las
+        esferas azules, o bien con un libro de códigos de las esferas verdes. El segundo esquema
+    arroja una longitud/tasa de codificación mucho menor para la misma precisión.}
     \label{fig:coding-schemes}
 \end{figure}
 
-Then, for an encoding \(\cE\), the complexity of the predicting
-function \(f\) can be evaluated as the average coding length
-\(L(\cE(S))\) of all sequences \(S\) that it generates, known as the
-coding rate:\footnote{One may make this more precise by taking \(R(S
-    \mid \cE)\) to be the expected coding length for all segments \(S\)
-of length \(D\).}
+Luego, para una codificación \(\cE\), la complejidad de la función
+predictiva \(f\) puede evaluarse como la longitud de codificación media
+\(L(\cE(S))\) de todas las secuencias \(S\) que genera, conocida como la
+tasa de codificación:\footnote{Se puede hacer esto más preciso tomando \(R(S
+    \mid \cE)\) como la longitud de codificación esperada para todos los segmentos \(S\)
+de longitud \(D\).}
 \begin{equation}
     R(S \mid \cE) = \Ex[L(\cE(S))] \approx \frac{1}{N}\sum_{i=1}^{N}
     L(\cE(S_{i})).
     \label{eqn:coding-rate}
 \end{equation}
-The coding rate measure will change if we use a different coding
-scheme (or codebook). In practice, the better we know the
-low-dimensional structure around which the segments are distributed,
-the more efficient a codebook we can design, as illustrated in
-\Cref{fig:coding-schemes}. Astute readers may recognize that
-conceptually the denoising process illustrated in
-\Cref{fig:diffusion} closely resembles going from the coding scheme
-with the blue balls to that with the green ones.
+La medida de la tasa de codificación cambiará si utilizamos un esquema de codificación
+(o libro de códigos) diferente. En la práctica, cuanto mejor conozcamos la
+estructura de baja dimensión en torno a la cual se distribuyen los segmentos,
+más eficiente será el libro de códigos que podamos diseñar, tal como se ilustra en la
+\Cref{fig:coding-schemes}. Los lectores más perspicaces se darán cuenta de que,
+desde el punto de vista conceptual, el proceso de reducción de ruido ilustrado en la
+\Cref{fig:diffusion} se asemeja mucho al paso del esquema de codificación
+con las bolas azules al de las bolas verdes.
 
-Given two coding schemes \(\cE_{1}\) and \(\cE_{2}\) for the
-segments, if the difference in the coding rates is positive:
+Dados dos esquemas de codificación \(\cE_{1}\) y \(\cE_{2}\) para los
+segmentos, si la diferencia entre las tasas de codificación es positiva:
 \begin{equation}
     R(S \mid \cE_{1}) -  R(S \mid \cE_{2}) > 0,
 \end{equation}
-we may say the coding scheme \(\cE_{2}\) is better. This difference
-can be viewed as a measure of how much more information \(\cE_{2}\)
-has over \(\cE_{1}\) about the distribution of the data. To a large
-extent, the goal of learning the data distribution is equivalent to
-finding the most efficient encoding and decoding scheme that
-minimizes the coding rate subject to a desired precision:
+podríamos decir que el esquema de codificación \(\cE_{2}\) es mejor. Esta diferencia
+puede ser vista como una medida de cuánta más información tiene \(\cE_{2}\) en 
+comparación con \(\cE_{1}\) acerca de la distribución de los datos. En gran medida,
+el objetivo de aprender la distribución de los datos es equivalente al de
+hallar el esquema de codificación y decodificación más eficiente que
+minimiza la tasa de codificación para una precisión deseada:
 \begin{equation}
     \min_{\cE, \cD} R(S \mid \cE) \quad \text{subject to} \quad
     \operatorname{dist}(S, \cD(\cE(S))) \leq \epsilon.
 \end{equation}
-As we will see in \Cref{ch:lossy-compression}, the achievable minimal rate is
-closely related to the notion of entropy \(H(S)\)
+Como veremos en el \Cref{ch:lossy-compression}, la tasa mínima que se puede lograr está
+estrechamente relacionada con la noción de entropía \(H(S)\)
 \eqref{eqn:entropy-definition}.
 
 \begin{remark}\label{rem:computable-complexity}
-    The perspective of measuring data complexity with explicit
-    encoding schemes has motivated several learning objectives
-    proposed to revise Kolmogorov complexity for better computability
-    \cite{WallaceC1999}, including the minimum message length (MML)
-    proposed in 1968 \cite{WallaceC1968} and the minimum description
-    length (MDL) in 1978 \cite{Rissanen-1978,HansenM2001}. These
-    objectives normally count the coding length for the coding scheme
-    \(\cE\) itself (including its codebook) in addition to the data
-    \(S\) of interest: \(L(\cE(S)) + L(\cE)\). However, if the goal
-    is to learn a finite-sized codebook and apply it to a large
-    number of sequences, the amortized cost of the codebook can be ignored since
+    La idea de medir la complejidad de los datos mediante
+    esquemas de codificación explícitos ha motivado varios objetivos de investigación
+    propuestos para revisar la complejidad de Kolmogorov con el fin de mejorar su computabilidad
+    \cite{WallaceC1999}, entre ellos la longitud mínima del mensaje (MML)
+    propuesta en 1968 \cite{WallaceC1968} y la longitud mínima de descripción
+    (MDL) en 1978 \cite{Rissanen-1978,HansenM2001}.
+    Estos objetivos suelen tener en cuenta la longitud de codificación del esquema de codificación
+    \(\cE\) en sí mismo (incluido su libro de códigos), además de los datos
+    \(S\) de interés: \(L(\cE(S)) + L(\cE)\). Sin embargo, si el objetivo
+    es aprender un libro de códigos de tamaño finito y aplicarlo a un gran
+    número de secuencias, el costo amortizado del libro de códigos puede ignorarse, ya que
     \begin{equation}
         \frac{1}{N}\left( L(\cE) + \sum_{i=1}^{N}
         L(\cE(S_{i}))\right) \approx \frac{1}{N}\sum_{i=1}^{N} L(\cE(S_{i}))
     \end{equation}
-    as \(N\) becomes large.
+    a medida que \(N\) se hace grande.
 \end{remark}
 
-Again, one may view the resulting optimal coding scheme as the one
-that achieves the best compression of the observed data. In general,
-compared to the Kolmogorov complexity, the coding length given by any
-encoding scheme will always be larger:
+Una vez más, se puede considerar que el esquema de codificación óptimo resultante es aquel
+que logra la mejor compresión de los datos observados. En general,
+en comparación con la complejidad de Kolmogorov, la longitud de codificación dada por cualquier
+esquema de codificación siempre será mayor:
 \begin{equation}
     K(S) < L(\cE(S)).
 \end{equation}
-Therefore, minimizing the coding rate/length essentially minimizes an
-upper bound of the otherwise uncomputable Kolmogorov complexity.
+Por lo tanto, minimizar la relación tasa/longitud de codificación equivale, en esencia, a minimizar una
+cota superior de la complejidad de Kolmogorov, que de otro modo sería imposible de calcular.
 
 \subsection{Learning Informative Representations}
-If the goal were simply to compress the given data for its own sake,
-the optimal codes approaching Kolmogorov complexity would in theory
-become nearly random or structureless
-\cite{Chaitin-1966}.\footnote{Any codes with structure can be further
-compressed.} However, our true purpose in learning the data
-distribution of sequences $S$ is to use it repeatedly with ease in
-future predictions. Hence, while compression allows us to identify
-the low-dimensional distribution in the data, we would like to encode
-this distribution in a \textit{structured and organized} way so that
-the resulting representation is informative and efficient to
-use\footnote{For example, to sample the distribution under different
-conditions.}, as a ``memory''. \Cref{fig:expansion} illustrates
-intuitively why such a transformation is desirable.
+Si el objetivo fuera simplemente comprimir los datos dados por el mero hecho de hacerlo,
+los códigos óptimos que se acercan a la complejidad de Kolmogorov se convertirían, en teoría,
+en algo casi aleatorio o carente de estructura
+\cite{Chaitin-1966}.\footnote{Cualquier código con estructura puede comprimirse aún más.}
+Sin embargo, nuestro verdadero objetivo al aprender la distribución de datos
+de las secuencias $S$ es poder utilizarla repetidamente y con facilidad en
+predicciones futuras. Por lo tanto, aunque la compresión nos permite identificar
+la distribución de baja dimensión en los datos, nos gustaría codificar
+esta distribución de una manera \textit{estructurada y organizada} para que
+la representación resultante sea informativa y eficiente de
+utilizar\footnote{Por ejemplo, para obtener muestras de la distribución bajo diferentes
+condiciones.}, a modo de «memoria». La \Cref{fig:expansion} ilustra
+de manera intuitiva por qué es deseable dicha transformación.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.98\linewidth]{\toplevelprefix/chapters/chapter1/figs/coding-transform.png}
-    \caption{Transforming the identified low-dimensional data
-    distribution into a more informative and structured representation.}
+    \caption{Transformación de la distribución de baja dimensión de los datos 
+    en una representación más informativa y estructurada.} 
     \label{fig:expansion}
 \end{figure}
-As we will show in \Cref{ch:lossy-compression}, these desired
-structures in the final representation can be precisely promoted by
-choosing a natural measure of \textit{information gain} based on the
-coding rates of the chosen coding schemes.\footnote{The information
-    gain is a pervasive idea in algorithmic information theory and has
-    been incorporated in several approaches to this topic, most recently
-    \(\mathcal{V}\)-information \cite{xu2020theory}. This particular
-    instantiation, similarly to many other measures of complexity we
-    discussed, suffers from being increasingly poorly-conditioned as the
-    data support becomes more compact and low-dimensional, and so is not
-suitable for our needs.} Throughout this book, such an explicit and
-constructive coding approach provides a powerful computational
-framework for learning good representations of low-dimensional
-structures in real-world data. In many cases of practical importance,
-the coding length function can be efficiently computed or accurately
-approximated. In some benign cases, we can even obtain closed-form
-formulae---for example, subspace and Gaussian models.
+Como veremos en el \Cref{ch:lossy-compression}, estas estructuras
+deseadas en la representación final pueden promoverse de manera precisa al
+elegir una medida natural de \textit{ganancia de información} basada en
+las tasas de codificación de los esquemas de codificación elegidos.\footnote{La ganancia de información
+    es un concepto muy extendido en la teoría algorítmica de la información y se ha
+    incorporado en varios enfoques de este tema, siendo el más reciente
+    la teoría de la información \(\mathcal{V}\) \cite{xu2020}. Esta
+    instanciación concreta, al igual que muchas otras medidas de complejidad que
+    hemos comentado, adolece de un empeoramiento progresivo de las condiciones a medida que
+    el conjunto de datos se vuelve más compacto y de baja dimensión, por lo que no
+resulta adecuada para nuestras necesidades.} A lo largo de este libro, un enfoque de 
+codificación tan explícito y constructivo ofrece un potente marco computacional
+para aprender buenas representaciones de estructuras de baja dimensión
+en datos del mundo real. En muchos casos de importancia práctica,
+la función de longitud de codificación puede calcularse de manera eficiente o
+aproximarse con precisión. En algunos casos sencillos, incluso podemos obtener 
+fórmulas en forma cerrada, como, por ejemplo, modelos de subespacio y gaussianos.
+    
+Además, este marco computacional da lugar a un enfoque basado en principios
+que revela de forma natural el papel que desempeñan las redes profundas en este
+proceso de aprendizaje. Como demostraremos sistemáticamente en el
+\Cref{ch:deep-networks}, las capas de una red profunda realizan
+operaciones que optimizan de forma incremental la función objetivo de
+interés. Desde esta perspectiva, el papel de las redes profundas puede
+interpretarse precisamente como la emulación de un determinado algoritmo de optimización iterativa
+---por ejemplo, el descenso por gradiente---para optimizar el objetivo de
+ganancia de información. Las capas de las arquitecturas profundas resultantes pueden
+dotarse de interpretaciones estadísticas y geométricas precisas,
+es decir, realizar operaciones incrementales de codificación y decodificación
+compresivas. En consecuencia, las redes profundas derivadas se convierten en
+«cajas blancas» transparentes que son totalmente explicables desde el punto de vista matemático.
 
-Moreover, this computational framework leads to a principled approach
-that naturally reveals the role deep networks play in this learning
-process. As we will derive systematically in
-\Cref{ch:deep-networks}, the layers of a deep network perform
-operations that incrementally optimize the objective function of
-interest. From this perspective, the role of deep networks can be
-precisely interpreted as emulating a certain iterative optimization
-algorithm---say, gradient descent---to optimize the objective of
-information gain. Layers of the resulting deep architectures can be
-endowed with precise statistical and geometric interpretations,
-namely performing incremental compressive encoding and decoding
-operations. Consequently, the derived deep networks become
-transparent ``white boxes'' that are mathematically fully explainable.
-
-\subsection{Learning Consistent Representations}
+\subsection{Aprendizaje de representaciones consistentes}
 
 \label{sec:consistency}
 
-To summarize our discussions so far, let us denote the data as
+Para resumir lo que hemos comentado hasta ahora, denotemos los datos como
 \begin{equation}
     \vX = \{S_{1}, S_{2}, \ldots, S_{i}, \ldots, S_{N}\} \subset \R^{D},
 \end{equation}
-and let \(\vZ = \cE(\vX)\) be the codes of \(\vX\) via some encoder \(\cE\):
+y sea \(\vZ = \cE(\vX)\) el código de \(\vX\) mediante algún codificador \(\cE\):
 \begin{equation}
     \vX  \xrightarrow{\hspace{2mm} \cE\hspace{2mm}} \vZ.
     \label{eqn:open-loop}
 \end{equation}
-In the machine learning context, \(\vZ\) is often called the
-``features'' of \(\vX\). Note that without knowing the underlying
-distribution of \(\vX\), we do not know which encoder \(\cE\) should
-be used to retain the most useful information about the distribution
-of \(\vX\). In practice, people often start by trying a compact
-encoding scheme that serves a specific task well. In particular, they
-try to learn an encoder that optimizes a certain (empirical) measure
-of parsimony for the learned representation:
+En el contexto del aprendizaje automático, a \(\vZ\) se le suele llamar las
+«características» de \(\vX\). Nótese que sin conocer la distribución subyacente
+de \(\vX\), no sabemos qué codificador \(\cE\) se debe
+utilizar para conservar la información más útil sobre la distribución
+de \(\vX\). En la práctica, la gente suele empezar probando un
+esquema de codificación compacto que se adapte bien a una tarea concreta.
+En concreto, se intenta entrenar un codificador que optimice una determinada 
+medida (empírica) de parsimonia para la representación aprendida:
 \begin{equation}
     \min \rho(\vZ).
 \end{equation}
 
 \begin{example}\label{example:image_classification_feature_learning}
-    For example, image classification is such a case: we assign all
-    images in the same class to a single code and images in different
-    classes to different codes, say ``one-hot'' vectors:
+    Por ejemplo, la clasificación de imágenes es un caso así: asignamos a todas
+    las imágenes de una misma clase un único código y a las imágenes de diferentes
+    clases códigos distintos, es decir, vectores «one-hot»:
     \begin{equation}
         \vx \mapsto \vz \in \{  [1, 0, 0, \ldots , 0, 0], \;  [0, 1,
         0 \ldots, 0, 0], \; \ldots, \;  [0,0,0, \ldots, 0, 1].\}
         \label{eqn:class-labels}
     \end{equation}
-    Now, a classifier \(f(\cdot)\) can be modeled as a function that
-    predicts the probability of a given \(\vx\) belonging to each of
-    the \(k\) classes: \(\hat{\vz} = f(\vx) \in \R^{K}\). Then the
-    ``goodness'' of a classifier can be measured by the so-called
-    {\em cross entropy}:\footnote{The cross entropy can be viewed as
-        a distance measure between the ground truth distribution of
-        \(\vz\) and that of the prediction \(\hat{\vz}\). It can also be
-        viewed as the expected coding length of \(\vz\) if we use the
-        optimal code book for \(\hat{\vz}\) to encode \(\vz\). The cross
-        entropy reaches its minimum when \(\vz\) and \(\hat{\vz}\) have
-    the same distribution.}
+    Ahora bien, un clasificador \(f(\cdot)\) puede modelarse como una función que
+    predice la probabilidad de que un \(\vx\) dado pertenezca a cada una de
+    las \(k\) clases: \(\hat{\vz} = f(\vx) \in \R^{K}\). Entonces, la
+    «calidad» de un clasificador se puede medir mediante la denominada
+    {\em entropía cruzada}:\footnote{La entropía cruzada puede considerarse como
+        una medida de distancia entre la distribución real de
+        \(\vz\) y la de la predicción \(\hat{\vz}\). También puede
+        considerarse como la longitud de codificación esperada de \(\vz\) si utilizamos el
+        libro de códigos óptimo para \(\hat{\vz}\) a fin de codificar \(\vz\). La entropía cruzada
+        alcanza su mínimo cuando \(\vz\) y \(\hat{\vz}\) tienen
+    la misma distribución.}
     \begin{equation}
         \ell(\hat{\vz}, \vz) = \sum_{k=1}^{K} - z_{k} \log \hat{z}_{k},
     \end{equation}
-    where \(z_{k}\) indicates the \(k\)-th entry of the vector
-    \(\vz\). As the early practice of deep networks indicated
-    \cite{krizhevsky2012imagenet}, if enough data are given, such an
-    encoding scheme can often be represented by a deep network and
-    learned in an end-to-end fashion by optimizing the cross-entropy.
+    donde \(z_{k}\) indica la \(k\)-ésima entrada del vector
+    \(\vz\). Como indicaban las primeras prácticas con redes profundas
+    \cite{krizhevsky2012imagenet}, si se dispone de suficientes datos, un
+    esquema de codificación de este tipo a menudo puede representarse mediante una red profunda y
+    aprenderse de forma integral mediante la optimización de la entropía cruzada.
 \end{example}
 
-The cross-entropy loss \(\ell(\hat{\vz}, \vz)\) can be viewed as a
-special measure of parsimony \(\rho(\vz)\) associated with a
-particular family of encoding schemes that are suitable for
-classification. However, such an encoding is obviously \textit{very
-lossy}. The learned \(\vz\) does not contain any other information
-about \(\vx\) except for its class type. For example, by assigning an
-image with (a code representing) the class label ``apple'', we no
-longer know which specific type of apple is in the original image
-from the label alone.
+La entropía cruzada \(\ell(\hat{\vz}, \vz)\) puede verse como una
+medida especial de parsimonia \(\rho(\vz)\) asociada con una
+familia particular de esquemas de codificación que son apropiados
+para la clasificación. Sin embargo, una codificación de este tipo
+obviamente tiene \textit{grandes pérdidas}. El \(\vz\) aprendido
+no contiene ninguna otra información acerca de \(\vx\) excepto su
+tipo de clase. Por ejemplo, al asignarle a una imagen (un código que 
+representa) la clase «manzana», ya no sabemos que tipo específico
+de manzana se representa en la imagen original en base sólo a ese
+rótulo.
 
-Of course, the other extreme is to require the coding scheme to be
-\textit{lossless}. That is, there is a one-to-one mapping between
-\(\vx\) and its code \(\vz\). However, as we will see in
-\Cref{ch:lossy-compression}, lossless coding (or compression) is
-impractical unless \(\vx\) is discrete. For a continuous random
-variable, we may only consider lossy coding schemes so that the
-coding length for the data can be finite. That is, we only encode the
-data up to a certain prescribed precision. As we will elaborate more
-in \Cref{ch:lossy-compression}, lossy coding is not merely a
-practical choice; it plays a fundamental role in making learning of
-the underlying continuous distribution possible from finite samples
-of the distribution.
+Por supuesto, el otro extremo es exigir que el esquema de codificación sea
+\textit{sin pérdidas}. Es decir, que existe una correspondencia biunívoca entre
+\(\vx\) y su código \(\vz\). Sin embargo, como veremos en
+\Cref{ch:lossy-compression}, la codificación sin pérdidas (o compresión) resulta
+poco práctica a menos que \(\vx\) sea discreta. En el caso de una variable aleatoria continua,
+solo podemos considerar esquemas de codificación con pérdida, de modo que
+la longitud de codificación de los datos sea finita. Es decir, solo codificamos los
+datos hasta una precisión determinada. Como explicaremos con más detalle
+en \Cref{ch:lossy-compression}, la codificación con pérdida no es solo una
+opción práctica, sino que desempeña un papel fundamental a la hora de hacer 
+posible el aprendizaje de la distribución continua subyacente a partir de 
+muestras finitas de dicha distribución.
 
 For many learning purposes, we want the feature \(\vz\), although
 \textit{lossy}, to retain more information about \(\vx\) than just

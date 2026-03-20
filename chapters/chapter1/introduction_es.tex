@@ -2168,7 +2168,7 @@ esquema de codificación siempre será mayor:
 Por lo tanto, minimizar la relación tasa/longitud de codificación equivale, en esencia, a minimizar una
 cota superior de la complejidad de Kolmogorov, que de otro modo sería imposible de calcular.
 
-\subsection{Learning Informative Representations}
+\subsection{Aprendizaje de representaciones informativas}
 Si el objetivo fuera simplemente comprimir los datos dados por el mero hecho de hacerlo,
 los códigos óptimos que se acercan a la complejidad de Kolmogorov se convertirían, en teoría,
 en algo casi aleatorio o carente de estructura
@@ -2196,7 +2196,7 @@ elegir una medida natural de \textit{ganancia de información} basada en
 las tasas de codificación de los esquemas de codificación elegidos.\footnote{La ganancia de información
     es un concepto muy extendido en la teoría algorítmica de la información y se ha
     incorporado en varios enfoques de este tema, siendo el más reciente
-    la teoría de la información \(\mathcal{V}\) \cite{xu2020}. Esta
+    la teoría de la información \(\mathcal{V}\) \cite{xu2020theory}. Esta
     instanciación concreta, al igual que muchas otras medidas de complejidad que
     hemos comentado, adolece de un empeoramiento progresivo de las condiciones a medida que
     el conjunto de datos se vuelve más compacto y de baja dimensión, por lo que no
@@ -2301,292 +2301,288 @@ opción práctica, sino que desempeña un papel fundamental a la hora de hacer
 posible el aprendizaje de la distribución continua subyacente a partir de 
 muestras finitas de dicha distribución.
 
-For many learning purposes, we want the feature \(\vz\), although
-\textit{lossy}, to retain more information about \(\vx\) than just
-its class type. In this book, we will introduce a more general
-measure of parsimony based on coding length/rate associated with a
-more general family of coding schemes---coding with a mixture of
-subspaces or Gaussians. This family has the capability to closely
-approximate arbitrary real-world distributions up to a certain
-precision. As we will see in \Cref{ch:lossy-compression} and
-\Cref{ch:deep-networks}, such a measure will not only preserve most
-information about the distribution of \(\vX\) but will also promote
-certain desirable geometric and statistical structures for the
-learned representation \(\vZ\).
+Para muchos fines de aprendizaje, queremos que la característica \(\vz\), aunque
+\textit{con pérdidas}, conserve más información sobre \(\vx\) que simplemente
+su tipo de clase. En este libro, presentaremos una medida de parsimonia más general
+basada en la longitud o tasa de codificación asociada a una
+familia más general de esquemas de codificación: la codificación con una mezcla de
+subespacios o gaussianas. Esta familia tiene la capacidad de aproximarse con gran exactitud 
+a distribuciones arbitrarias del mundo real hasta un cierto
+grado de precisión. Como veremos en el \Cref{ch:lossy-compression} y
+\Cref{ch:deep-networks}, dicha medida no solo conservará la mayor parte
+de la información sobre la distribución de \(\vX\), sino que también favorecerá
+ciertas estructuras geométricas y estadísticas deseables para la
+representación aprendida \(\vZ\).
 
-\paragraph{Bidirectional auto-encoding for consistency.}
-In a broader learning context, the main goal of a compressive coding
-scheme \(\cE\) is to identify the low-dimensional structures in the
-data \(\vX\) so that they can be used to predict things in the
-original data space. This requires that the learned encoding scheme
-\(\cE\) admits an efficient decoding scheme, denoted \(\cD\), which
-maps the feature or encoded data \(\vZ\) back to the data space:
+\paragraph{Autocodificación bidireccional para la consistencia.}
+En un contexto de aprendizaje más amplio, el objetivo principal de un esquema de codificación compresiva
+\(\cE\) es identificar las estructuras de baja dimensión en los
+datos \(\vX\) para que puedan utilizarse para realizar predicciones en el
+espacio de datos original. Esto requiere que el esquema de codificación aprendido
+\(\cE\) admita un esquema de decodificación eficiente, denotado por \(\cD\), que
+mapea la característica o los datos codificados \(\vZ\) de vuelta al espacio de datos:
 \begin{equation}
     \vX   \xrightarrow{\hspace{2mm} \cE\hspace{2mm}} \vZ
     \xrightarrow{\hspace{2mm} \cD \hspace{2mm}} \hat{\vX}.
     \label{eqn:auto-encoding}
 \end{equation}
-We call such an encoding--decoding pair \((\cE, \cD)\) an
-\textit{auto-encoding}. \Cref{fig:autoencoder} illustrates this process.
+A este par de codificación-decodificación \((\cE, \cD)\) lo denominamos
+\textit{autocodificador}. La \Cref{fig:autoencoder} ilustra este proceso.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth]{\toplevelprefix/chapters/chapter1/figs/Autoencoder.jpg}
-    \caption{Illustration of the architecture of an autoencoder.}
+    \caption{Ilustration de la arquitectura de un autocodificador.}
     \label{fig:autoencoder}
 \end{figure}
 
-Ideally, the decoding is approximately an ``inverse'' of the
-encoding, so that the data (distribution) \(\hat{\vX}\) decoded from
-\(\vZ\) is similar to the original data (distribution) \(\vX\) to
-some extent.\footnote{We will make precise what we mean by
-``similar'' later.} If this holds, we can recover or predict from
-\(\vZ\) what occurs in the original data space. In this case, we say
-the pair \((\cE, \cD)\) provides a \textit{consistent} auto-encoding.
-For most practical purposes, we not only need such a decoding to
-exist, but also need it to be efficiently realizable and physically
-implementable. For example, if \(\vx\) is real-valued, quantization
-is required for any decoding scheme to be realizable on a
-finite-state machine, as we will explain in
-\Cref{ch:lossy-compression}. Thus, in general, realizable encoding
-and decoding schemes are necessarily lossy. A central question is how
-to learn a compact (lossy) representation \(\vZ\) that can still
-predict \(\vX\) well.
+En teoría, la decodificación es aproximadamente una «inversa» de la
+codificación, de modo que los datos (la distribución) \(\hat{\vX}\) decodificados a partir de
+\(\vZ\) se asemejan a los datos originales (la distribución) \(\vX\) en
+cierta medida.\footnote{Más adelante aclararemos qué entendemos por
+«similar».} Si esto se cumple, podemos recuperar o predecir a partir de
+\(\vZ\) lo que ocurre en el espacio de datos original. En este caso, decimos que
+el par \((\cE, \cD)\) proporciona una autoencodificación \textit{consistente}.
+A efectos prácticos, no solo necesitamos que exista tal decodificación,
+sino que también sea posible llevarla a cabo de manera eficiente y
+implementarla físicamente. Por ejemplo, si \(\vx\) es una variable de valor real, se requiere la cuantificación
+para que cualquier esquema de decodificación sea realizable en una
+máquina de estados finitos, tal como explicaremos en el
+\Cref{ch:lossy-compression}. Por lo tanto, en general, los esquemas de codificación
+y decodificación viables conllevan necesariamente pérdidas. Una cuestión fundamental es cómo
+aprender una representación compacta (con pérdidas) \(\vZ\) que, aun así,
+pueda predecir bien \(\vX\).
 
-Generally speaking, both the encoder and decoder can be modeled and
-realized by deep networks and learned by solving an optimization
-problem of the following form:
+En términos generales, tanto el codificador como el decodificador pueden modelarse y
+implementarse mediante redes profundas y aprenderse resolviendo un problema de optimización
+de la siguiente forma:
 \begin{equation}
     \min_{f, g} [\ell(\vX, \hat{\vX}) + \rho(\vZ)], \qquad
     \text{where} \quad \vZ = f(\vX), \quad \hat{\vX} = g(\vZ)
     \label{eqn:auto-encoding-objective}
 \end{equation}
-where \(\ell(\cdot, \cdot)\) is a distance function that promotes
-similarity between \(\vX\) and \(\hat{\vX}\)\footnote{Either
-    sample-wise or distribution-wise, depending on the choice of
-\(\ell\).} and \(\rho(\vZ)\) is a measure that promotes parsimony and
-information richness of \(\vZ\). The classic principal component
-analysis (PCA) \cite{JolliffeI2002} is a typical example of a
-consistent auto-encoding, which we will study in great detail in
-\Cref{ch:classic-models}, as a precursor to more general low-dimensional
-structures. In \Cref{ch:consistent-representations}, we will study how to learn
-consistent auto-encoding for general (say nonlinear) low-dimensional
-distributions.
+donde \(\ell(\cdot, \cdot)\) es una función de distancia que favorece
+la similitud entre \(\vX\) y \(\hat{\vX}\footnote{Ya sea
+    a nivel de muestras o a nivel de distribución, dependiendo de la elección de
+\(\ell\)} y \(\rho(\vZ\)\) es una medida que favorece la parsimonia y
+la riqueza de información de \(\vZ\). El análisis de componentes principales
+clásico (PCA) \cite{JolliffeI2002} es un ejemplo típico de
+autoencodificación consistente, que estudiaremos en detalle en el
+\Cref{ch:classic-models}, como precursor de estructuras de baja dimensión
+más generales. En \Cref{ch:consistent-representations}, estudiaremos cómo aprender
+una autocodificación consistente para distribuciones generales (por ejemplo, no 
+lineales) de baja dimensión.
 
-\subsection{Learning Self-Consistent Representations}
-In the auto-encoding objective above, one must evaluate how close the
-decoded data \(\hat{\vX}\) is to the original \(\vX\). This typically
-requires external supervision or knowledge of an appropriate
-similarity measure. Computing similarity between \(\hat{\vX}\) and
-\(\vX\) can be prohibitively expensive, or even
-impossible.\footnote{For instance, minimizing a distributional
-    distance between the two random variables is statistically and
-computationally difficult.} In nature, animals learn autonomously
-without comparing their estimate \(\hat{\vX}\) with the ground truth
-\(\vX\) in the data space; they typically lack that
-option.\footnote{In animals and humans, the eyes process visual data
-    long before it arrives at the brain; the brain does not have a
-    mechanism to process raw visual data and must rely on the eyes'
-features to do any learning.}
+\subsection{Aprendizaje de representaciones autoconsistentes}
+En el objetivo de autoencodificación anterior, hay que evaluar cuán cerca están los
+datos decodificados \(\hat{\vX}\) de los originales \(\vX\). Esto suele
+requerir una supervisión o un conocimiento externos de una medida de
+similitud adecuada. El cálculo de la similitud entre \(\hat{\vX}\) y
+\(\vX\) puede resultar excesivamente costoso, o incluso
+imposible. \footnote{Por ejemplo, minimizar la distancia de distribución
+    entre las dos variables aleatorias resulta difícil tanto desde el punto de vista estadístico como
+computacional.} En la naturaleza, los animales aprenden de forma autónoma
+sin comparar su estimación \(\hat{\vX}\) con la verdad de terreno
+\(\vX\) en el espacio de datos; por lo general, carecen de esa
+opción.\footnote{Tanto en los animales como en los seres humanos, los ojos procesan la información visual
+    mucho antes de que llegue al cerebro; el cerebro no cuenta con un
+    mecanismo para procesar la información visual en bruto y debe basarse en las
+   capacidades de los ojos para aprender.}
 
-How, then, can a system learn without external supervision or
-comparison? How can it know that \(\hat{\vX}\) is consistent with
-\(\vX\) without direct comparison? This leads to the idea of
-``closing the loop.'' Under mild conditions (made precise in
-\Cref{ch:consistent-representations}), ensuring consistency between \(\vX\) and
-\(\hat{\vX}\) reduces to encoding \(\hat{\vX}\) as \(\hat{\vZ}\) and
-checking consistency between \(\vZ\) and \(\hat{\vZ}\). We call this
-notion \textit{self-consistency}, illustrated by:
+¿Cómo, entonces, puede un sistema aprender sin supervisión externa ni
+comparación? ¿Cómo puede saber que \(\hat{\vX}\) es consistente con
+\(\vX\) sin una comparación directa? Esto nos lleva a la idea de
+«cerrar el bucle». Bajo condiciones suaves (especificadas con precisión en el
+\Cref{ch:consistent-representations}), garantizar la consistencia entre \(\vX\) y
+\(\hat{\vX}\) se reduce a codificar \(\hat{\vX}\) como \(\hat{\vZ}\) y
+verificar la consistencia entre \(\vZ\) y \(\hat{\vZ}\). A este
+concepto lo llamamos \textit{autoconsistencia}, como se ilustra a continuación:
 \begin{equation}
     \vX   \xrightarrow{\hspace{2mm} \cE\hspace{2mm}} \vZ
     \xrightarrow{\hspace{2mm} \cD \hspace{2mm}} \hat{\vX}
     \xrightarrow{\hspace{2mm} \cE\hspace{2mm}} \hat{\vZ},
     \label{eqn:closed-loop}
 \end{equation}
-We call this process \textit{closed-loop
-transcription},\footnote{Inspired by transcription between DNA and
-RNA or other proteins.} depicted in \Cref{fig:closed-loop}.
+A este proceso lo denominamos \textit{transcripción en bucle cerrado
+},\footnote{Inspirado en la transcripción entre el ADN y
+el ARN u otras proteínas.}, tal y como se muestra en la \Cref{fig:closed-loop}.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\linewidth]{\toplevelprefix/chapters/chapter1/figs/diagrams_redu_gan_2.pdf}
-    \caption{Illustration of a closed-loop transcription. Here we use
-        a mapping \(f\) to represent the encoder \(\cE\) and \(g\) to
-    represent the decoder \(\cD\).}  \label{fig:closed-loop}
+    \caption{Ilustración de una transcripción en bucle cerrado. Aquí usamos
+        un mapeo \(f\) para representar al codificador \(\cE\) y \(g\) para
+    representar al decodificador \(\cD\).}
+    \label{fig:closed-loop}
 \end{figure}
 
-It is arguably true that any autonomous intelligent being only needs
-to learn a self-consistent representation \(\vZ\) of the observed
-data \(\vX\), because checking consistency in the original data
-space---often meaning in the external world---is either too expensive
-or even physically infeasible. The closed-loop formulation allows one
-to learn an optimal encoding \(f(\cdot, \vtheta)\) and decoding
-\(g(\cdot, \veta)\) via a min-max game that depends only on the
-internal (learned) feature \(\vZ\):
+Podría decirse que es cierto que cualquier ser inteligente autónomo solo necesita
+aprender una representación autoconsistente \(\vZ\) de los datos observados
+\(\vX\), ya que verificar la consistencia en el espacio de datos original
+---lo que a menudo significa en el mundo externo---resulta demasiado costoso
+o incluso físicamente inviable. La formulación en bucle cerrado permite
+aprender una codificación óptima \(f(\cdot, \vtheta)\) y una decodificación
+\(g(\cdot, \veta)\) mediante un juego min-max que depende únicamente de la
+característica interna (aprendida) \(\vZ\):
 \begin{equation}
     \max_{\vtheta}\min_{\veta} [\ell( \vZ, \hat{\vZ}) + \rho(\vZ)],
     \qquad \text{where} \quad \vZ = f(\vX), \quad \hat{\vX} = g(\vZ),
     \quad \hat{\vZ} = f(\hat{\vX})
     \label{eqn:closed-loop-objective}
 \end{equation}
-where \(\ell( \vZ, \hat{\vZ})\) is a loss function based on coding
-rates of the features \(\vZ\) and \(\hat{\vZ}\), which, as we will
-see, can be much easier to compute. Here again, \(\rho(\vZ)\) is some
-measure that promotes parsimony and information richness of \(\vZ\).
-Somewhat surprisingly, as we will see in
-\Cref{ch:consistent-representations}, under
-rather mild conditions such as \(\vX\) being sufficiently
-low-dimensional, self-consistency between \((\vZ, \hat{\vZ})\)
-implies consistency in \((\vX, \hat{\vX})\)! In addition, we will
-also see that a closed-loop system will allow us to learn the
-distribution in a \textit{continuous and incremental}
-manner,\footnote{That is, to learn with one class at a time or even
-one sample at a time.} without suffering from problems such as
-catastrophic forgetting associated with open-loop models.
+donde \(\ell( \vZ, \hat{\vZ})\) es una función de pérdida basada en las tasas de codificación
+de las características \(\vZ\) y \(\hat{\vZ}\), lo cual, como veremos,
+puede resultar mucho más fácil de calcular. Una vez más, \(\rho(\vZ)\) es alguna
+medida que favorece la parsimonia y la riqueza de información de \(\vZ\).
+De manera algo sorprendente, como veremos en el \Cref{ch:consistent-representations}, bajo
+condiciones bastante moderadas, como que \(\vX\) sea suficientemente
+baja en dimensión, ¡la autoconsistencia entre \((\vZ, \hat{\vZ})\)
+implica consistencia en \((\vX, \hat{\vX})\)! Además,también veremos 
+que un sistema en bucle cerrado nos permitirá aprender la
+distribución de manera \textit{continua e incremental}
+,\footnote{Es decir, aprender una clase a la vez o incluso
+una muestra a la vez.} sin sufrir problemas como
+el olvido catastrófico asociado a los modelos de bucle abierto.
 
 % Start of Selection
-\section{Bridging Theory and Practice for Machine Intelligence}
-So far, we have introduced several related frameworks for learning a
-compact and structured representation \(\vZ\) for a given data
-distribution \(\vX\):
+\section{Unir la teoría y la práctica en el campo de la inteligencia artificial}
+Hasta ahora, hemos presentado varios marcos relacionados para aprender una
+representación compacta y estructurada \(\vZ\) de una distribución de datos
+dada \(\vX\):
 \begin{itemize}
-    \item the open-ended encoding \eqref{eqn:open-loop};
-    \item the bi-directional auto-encoding \eqref{eqn:auto-encoding};
-    \item the closed-loop transcription \eqref{eqn:closed-loop}.
+    \item la codificación en circuito abierto \eqref{eqn:open-loop};
+    \item la autocodificación bidireccional \eqref{eqn:auto-encoding};
+    \item la transcripción en bucle cerrado \eqref{eqn:closed-loop}.
 \end{itemize}
-In this book, we will systematically study all three frameworks, one
-after another:
+En este libro, estudiaremos de forma sistemática los tres marcos, uno
+tras otro:
 \begin{equation}
-    \text{\textbf{open-ended}} \; \Longrightarrow \;
-    \text{\textbf{bi-directional}} \; \Longrightarrow \;
-    \text{\textbf{closed-loop}},
+    \text{\textbf{circuito abierto}} \; \Longrightarrow \;
+    \text{\textbf{bidireccional}} \; \Longrightarrow \;
+    \text{\textbf{en bucle cerrado}},
 \end{equation}
-in \Cref{ch:deep-networks}, \Cref{sec:consistent-representation},
-and \Cref{sec:self-consistency}, respectively.
+en el \Cref{ch:deep-networks}, el \Cref{sec:consistent-representation},
+y el \Cref{sec:self-consistency}, respectivamente.
 
-As we will see in this book, these frameworks, including many
-discussed earlier in the chapter, can now be viewed as attempts to
-address {\em partially} the problem of learning a {\em complete and
-computable} representation of the distribution of the data $\X$:
+Como veremos en este libro, estos marcos, incluidos muchos
+de los que se han comentado anteriormente en este capítulo, pueden considerarse ahora como intentos de
+abordar {\em parcialmente} el problema de aprender una representación {\em completa y
+computable} de la distribución de los datos $\X$:
 \begin{equation}
     \X \longleftrightarrow \Z \longleftrightarrow \boldsymbol{G},
 \end{equation}
-which includes two sets of mappings:
+en los que se incluyen dos conjuntos de mapeos:
 \begin{enumerate}
-    \item an autoencoding between the data $\X$ and its informative
-        feature representation $\Z$,
-    \item a diffusion and denoising process between the learned
-        representation $\Z$ and a simple distribution
-        $\boldsymbol{G}$, say Gaussian.
+    \item una autocodificación entre los datos $\X$ y la representación $\Z$ de sus 
+        características informativas,
+    \item un proceso de difusión de reducción de ruido entre la representación
+        aprendida $\Z$ y una distribución simple 
+        $\boldsymbol{G}$, por ejemplo, gaussiana.
 \end{enumerate}
-The later process allows us to access and sample the learned
-structured low-dimensional features $\Z$ for tasks such as
-regenerating the original data $\hat \X$.\footnote{Notice that even
-    if the learned features lie on a single low-dimensional linear
-    subspace, the most efficient ways to identify the subspace is
-    essentially through a denoising process: the power iteration that we
-will elaborate in Chapter \ref{ch:classic-models}.} The overall
-geometric picture associated with these two (transforming) processes
-is  illustrated in Figure \ref{fig:mental-picture}.
+Este último proceso nos permite acceder y tomar muestras de las 
+características estructuradas de baja dimensión aprendidas $\Z$ para tareas 
+como la regeneración de los datos originales $\hat\X$.\footnote{Nótese que, incluso
+    si las características aprendidas se encuentran en un único subespacio lineal de baja dimensión,
+    la forma más eficaz de identificar dicho subespacio es,
+    en esencia, mediante un proceso de reducción de ruido: el método de potencias que
+desarrollaremos en el \ref{ch:classic-models}.} El panorama geométrico general
+asociado a estos dos procesos (de transformación)
+se ilustra en la \ref{fig:mental-picture}.
 
-As we will see in  Chapter \ref{ch:deep-networks}, the role of modern
-deep networks can be precisely interpreted as to realize the
-operators\footnote{via unrolled optimization, as we will see} needed
-to conduct the above transformations among distributions. Popular
-architectures of deep neural networks (including CNNs, ResNet or
-Transformers) that were developed empirically  will be mathematically
-interpreted, justified and improved through this approach.
+Como veremos en el \ref{ch:deep-networks}, la función de las redes profundas modernas
+puede interpretarse precisamente como la realización de los
+operadores\footnote{mediante optimización desplegada, como veremos} necesarios
+para llevar a cabo las transformaciones anteriores entre distribuciones.
+Las arquitecturas populares de redes neuronales profundas (como las CNN, ResNet o
+Transformers) que se desarrollaron de forma empírica
+se interpretarán matemáticamente, se justificarán y se mejorarán mediante este enfoque.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.6\linewidth]{\toplevelprefix/chapters/chapter1/figs/book-cover-2.jpg}
-    \caption{Illustration of a learned informative and structured
-        feature representation $\Z$ for the data $\X$ that can be
-        efficiently accessed through a denoising process from
-    $\boldsymbol{G}$.}  \label{fig:mental-picture}
+    \caption{Ilustración de una representación aprendida informativa y estructurada
+        de características $\Z$ para los datos $\X$ a la que se puede acceder
+        de manera eficiente por medio de un proceso de reducción de ruido a partir de
+    $\boldsymbol{G}$.}
+    \label{fig:mental-picture}
 \end{figure}
 
-In recent years, many theoretical frameworks have been proposed to
-help understand deep networks. However, most have failed to provide
-scalable solutions that match the performance of empirical methods on
-real-world data and tasks. Many theories offer little practical
-guidance for further empirical improvement.
-\Cref{ch:conditional-inference} and \Cref{ch:applications} will
-demonstrate how the framework presented in this book can bridge the
-gap between theory and practice. \Cref{ch:conditional-inference} will
-show how to use the learned distribution and its representation to
-conduct (Bayesian) inference for practical tasks involving
-(conditional) generation, estimation, and prediction.
-\Cref{ch:applications} will provide compelling experimental evidence
-that networks and systems designed from first principles can achieve
-competitive---and potentially superior---performance on tasks such as
-visual representation learning, image classification, image
-completion, segmentation, and text generation.
+En los últimos años, se han propuesto muchos marcos teóricos para
+ayudar a comprender las redes profundas. Sin embargo, la mayoría no ha logrado ofrecer
+soluciones escalables que igualen el rendimiento de los métodos empíricos aplicados a
+datos y tareas del mundo real. Muchas teorías ofrecen poca orientación práctica
+para seguir mejorando empíricamente los resultados. El \Cref{ch:conditional-inference} 
+y el \Cref{ch:applications} demostrarán cómo el marco presentado en este libro puede salvar la
+brecha entre la teoría y la práctica. El \Cref{ch:conditional-inference} mostrará
+cómo utilizar la distribución aprendida y su representación para
+realizar inferencias (bayesianas) en tareas prácticas relacionadas con
+la generación (condicional), la estimación y la predicción. El \Cref{ch:applications} 
+aportará pruebas experimentales convincentes de que las redes y los sistemas diseñados 
+a partir de principios fundamentales pueden alcanzar un rendimiento competitivo---y 
+potencialmente superior---en tareas como el aprendizaje de representaciones visuales, 
+la clasificación de imágenes, su completación, su segmentación y la generación de texto.
 
-\paragraph{Back to Intelligence.}
-As mentioned at the beginning, a fundamental task of any intelligent
-being is to learn predictable information from sensed data. We now
-understand the computational nature of this task and recognize that
-it is a never-ending process for two reasons:
+\paragraph{De vuelta a la inteligencia.}
+Como se mencionó al principio, una tarea fundamental de cualquier ser inteligente
+es extraer información predecible a partir de los datos percibidos. Ahora
+comprendemos la naturaleza computacional de esta tarea y reconocemos que
+se trata de un proceso interminable por dos razones:
 \begin{itemize}
-    \item Memory or knowledge learned from data, say via encoding and decoding
-        schemes, is unlikely to be correct or optimal. Intelligence
-        must be able to improve when predictions of new observations
-        contain errors.
-    \item Observed data do not yet cover all predictable information.
-        Intelligence must recognize when current memory or  knowledge is
-        inadequate and acquire new information whenever it becomes available.
+    \item Es poco probable que la memoria o el conocimiento adquirido a partir 
+        de datos---por ejemplo, mediante esquemas de codificación y 
+        decodificación---sea correcto u óptimo. La inteligencia
+        debe ser capaz de perfeccionarse cuando las predicciones de nuevas observaciones
+        contengan errores.
+    \item Los datos observados aún no abarcan toda la información predecible.
+        La inteligencia debe reconocer cuándo la memoria o el conocimiento actuales son
+           inadecuados y adquirir nueva información cada vez que esté disponible.
 \end{itemize}
 
-Thus, intelligence is \textit{not} about collecting all informative
-data in advance and training a model to memorize their
-(low-dimensional) distribution. Instead, it requires computational
-mechanisms that can continuously improve current knowledge of the
-distribution and acquire new information when needed. A fundamental
-characteristic of any intelligent being or system---whether an
-animal, a human, a civilization, or the entire scientific
-community---is \textit{the ability to continuously improve or gain
-new information or knowledge on its own} through a closed-loop
-feedback about how good its current memory or knowledge is at explaining or
-predicting its observations. Hence, to some extent, we can
-symbolically express the relationship between intelligence and
-knowledge\footnote{Here we mean ``knowledge'' in the broadest
-    possible sense, including both empirical memory and scientific
-knowledge.} as:
+Por lo tanto, la inteligencia \textit{no} consiste en recopilar todos los datos informativos
+por adelantado y entrenar un modelo para que memorice su
+distribución (de baja dimensión). En cambio, requiere mecanismos computacionales
+capaces de mejorar continuamente el conocimiento actualizado acerca de la
+distribución y de adquirir nueva información cuando sea necesario. Una 
+característica fundamental de cualquier ser o sistema inteligente---ya sea un
+animal, un ser humano, una civilización o toda la comunidad científica---es 
+\textit{la capacidad de mejorar continuamente o de adquirir
+nueva información o conocimientos por sí mismo} a través de un bucle cerrado
+de retroalimentación sobre la eficacia con la que su memoria o sus conocimientos 
+actuales logran explicar o predecir sus observaciones. Por lo tanto, en cierta 
+medida, podemos expresar simbólicamente la relación entre la inteligencia y
+el conocimiento\footnote{Aquí entendemos «conocimiento» en el sentido más amplio
+    posible, incluyendo tanto la memoria empírica como el conocimiento científico.} 
+de la siguiente manera:
 \begin{eqnarray*}
-    \operatorname{Intelligence}(t) &=&
-    \odv*{\operatorname{Knowledge}}{t}(t), \\
-    \operatorname{Knowledge}(t)  &=& \int_{0}^{t}
-    \operatorname{Intelligence}(s) \odif{s}.
+    \operatorname{Inteligencia}(t) &=&
+    \odv*{\operatorname{Conocimiento}}{t}(t), \\
+    \operatorname{Conocimiento}(t)  &=& \int_{0}^{t}
+    \operatorname{Inteligencia}(s) \odif{s}.
 \end{eqnarray*}
-A closed-loop feedback framework is a universal mechanism for any
-system capable of self-improvement and self-learning---reinforcement
-being a primitive form, as in natural selection---or gaming, with
-scientific inquiry representing its most advanced form through
-hypothesizing or conjecturing and falsification or verification. All
-intelligent beings and systems in nature employ such closed-loop
-mechanisms for learning at
-every level and scale. This ubiquity inspired early attempts to model
-intelligence with autonomous machines or semi-autonomous computers,
-particularly the
-Cybernetics movement pioneered and advocated by Norbert Wiener in the 1940s.
+Un marco de retroalimentación en bucle cerrado es un mecanismo universal para cualquier
+sistema capaz de superarse a sí mismo y de aprender por sí mismo---siendo el refuerzo
+una forma primitiva, como en la selección natural---o de competir, siendo
+la investigación científica su forma más avanzada a través de
+la formulación de hipótesis o conjeturas y la falsificación o verificación. Todos los
+seres y sistemas inteligentes de la naturaleza utilizan este tipo de mecanismos de
+bucle cerrado para aprender en todos los niveles y a todas las escalas. Esta 
+omnipresencia inspiró los primeros intentos de modelar la inteligencia mediante 
+máquinas autónomas u ordenadores semiautónomos, en particular el movimiento 
+cibernético iniciado y promovido por Norbert Wiener en la década de 1940.
 
-We hope this book helps readers better understand the scientific
-objectives, mathematical  principles, and computational mechanisms
-underlying intelligence, at least the part for forming useful memory
-or empirical knowledge. We
-believe that this work not only bridges the theory and practice, but
-also connects the current to the future: It clarifies what we have
-done so far and at the same time reveals what we have not. Hence it
-lays the groundwork for
-future study of possibly new mechanisms behind higher-level
-intelligence that is unique to human---true ``Artificial
-Intelligence'' meant by the 1956 Dartmouth program. Such mechanisms
-can create abstract concepts and conduct deductive inference that, we
-believe, go beyond compression for memory from empirical data and
-conduct inductive inference that are studied and explained in this
-book and are being exploited in current ``AI'' technology. We will
-discuss open problems
-towards understanding and potentially realizing more advanced
-intelligence in the final \Cref{ch:future}.
+Esperamos que este libro ayude a los lectores a comprender mejor los objetivos científicos,
+los principios matemáticos y los mecanismos computacionales que subyacen a la 
+inteligencia, al menos en lo que respecta a la formación de la memoria útil
+o el conocimiento empírico. Creemos que este trabajo no solo tiende un puente 
+entre la teoría y la práctica, sino que también conecta el presente con el futuro: 
+aclara lo que hemos hecho hasta ahora y, al mismo tiempo, revela lo que no hemos hecho.
+Por lo tanto, sienta las bases para el estudio futuro de posibles nuevos mecanismos 
+que subyacen a la inteligencia de alto nivel propia del ser humano: la verdadera 
+«inteligencia artificial» a la que se refería el programa de Dartmouth de 1956.
+Dichos mecanismos pueden crear conceptos abstractos y realizar inferencias deductivas 
+que, en nuestra opinión, van más allá de la compresión de datos empíricos para la memoria, 
+así como realizar inferencias inductivas que se estudian y explican en este
+libro y que se están aprovechando en la tecnología actual de la «IA». Analizaremos
+los problemas pendientes para comprender y, posiblemente, hacer realidad una inteligencia 
+más avanzada en el \Cref{ch:future} final.
 
 \end{document}

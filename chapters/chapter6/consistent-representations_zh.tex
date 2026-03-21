@@ -47,7 +47,9 @@
 \begin{equation}
     d(\X, \hat \X).
 \end{equation}
-这引出了{\em 一致表征}（consistent representation）的概念。正如我们在\Cref{ch:intro}中简要提到的（见\Cref{fig:autoencoder}），将编码和解码过程结合在一起的{\em 自编码}（autoencoding）是学习这种表征的自然框架。我们在\Cref{ch:classic-models}中研究了一些重要的特例，其中分布的支撑是分段线性的。在
+这引出了{\em 一致表征}（consistent representation）的概念。\footnote{请注意，这里“自洽”是经验或者归纳意义上的。有别于数学里的逻辑”自洽“的希尔伯特原理。
+我们在第\ref{ch:future}会有更多的讨论。}
+正如我们在\Cref{ch:intro}中简要提到的（见\Cref{fig:autoencoder}），将编码和解码过程结合在一起的{\em 自编码}（autoencoding）是学习这种表征的自然框架。我们在\Cref{ch:classic-models}中研究了一些重要的特例，其中分布的支撑是分段线性的。在
 本章的\Cref{sec:consistent-representation}中，我们将研究如何将自编码扩展到支撑为非线性的更一般的分布类别（如图 \ref{fig:manifold-autoencoding} 所示），同时强制保证 $\X$ 和 $\hat \X$ 之间的一致性。
 \begin{figure}
     \centering

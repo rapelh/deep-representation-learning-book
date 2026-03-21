@@ -20,7 +20,8 @@
 \vspace{5mm}
 
 This manuscript systematically introduces mathematical principles and
-computational mechanisms for how memory or empirical knowledge can be developed from observed high-dimensional data. The ability to seek parsimony in a seemingly random world is a fundamental characteristic of any
+computational mechanisms for how memory or empirical knowledge can be developed from observed high-dimensional data. 
+The ability to seek parsimony in a seemingly random world is a fundamental characteristic of any
 intelligence, natural or artificial. We believe the principles and
 mechanisms presented in this book are unifying and universal, applicable to both animals and machines.
 
@@ -31,11 +32,12 @@ low-dimensional distributions from high-dimensional data. With this
 understanding, the capabilities and limitations of existing AI models
 and systems become clear:
 \begin{enumerate}
-    \item Existing open-loop models and systems fall short of being complete memory systems capable of self-learning and self-improving.
-    \item Existing realizations of representation learning remain primitive and brute-force, far from optimal in terms of network architectures or optimization strategies.
+    \item Existing open-loop models and systems fall short of being complete memory systems capable 
+    of self-learning and self-improving.
+    \item Existing realizations of representation learning remain primitive and brute-force, 
+    far from optimal in terms of network architectures or optimization strategies.
     \item Existing AI models only learn data distributions and
-    conduct inductive Bayesian inference, which differs from
-    high-level human intelligence.
+    conduct inductive Bayesian inference, which differs from high-level human intelligence.
 \end{enumerate}
 
 One goal of this book is to help readers establish an objective and
@@ -304,27 +306,28 @@ As we now know, humans have achieved two quantum leaps in intelligence.
 \end{enumerate}
 The language of mathematics freed us from summarizing knowledge from
 observations only in empirical form and allowed us to formalize
-knowledge as theories verifiable or falsifiable through mathematical
+knowledge as theories verifiable or falsifiable through mathematical 
 deduction or experimentation. Through hypothesis formulation, logical
 deduction, and experimental verification or falsification, we can now
 proactively discover and develop new knowledge that is far beyond
 what can be learned from the distributions of observed
-data.\footnote{For example, causal relationships cannot be learned
-from distributions alone \citep{Pearl-2009}.}
+data. For example, causal relationships cannot be learned
+from distributions alone \citep{Pearl-2009}. 
 
 Despite the seeming differences among these different stages of
 intelligence, the evolution of intelligence shares a common
 characteristic: \textit{they all use certain forms of
     feedback\footnote{Loss for error and reward for success.} to create
     and correct information learned, and the feedback and correction are
-    becoming increasingly frequent and efficient through evolution---from open-loop reinforcement to closed-loop self-supervision, from
+    becoming increasingly frequent and efficient through evolution---from 
+    open-loop reinforcement to closed-loop self-supervision, from
 collective trial and error to proactive hypothesizing and falsification.}
 
 \subsection{From Inductive to Deductive Intelligence}
 As discussed in the introduction (\Cref{ch:intro}), the 1956
 ``artificial intelligence'' (AI) program aimed precisely to study how
 to endow machines with scientific intelligence, i.e., high-level
-functions such as mathematical abstraction, logical inference, and
+functions such as mathematical abstraction, causal inference, logical deduction, and
 problem solving that are believed to differentiate humans from animals:
 \begin{equation}
     \text{\textbf{low-level} (animal) intelligence} \; \Longrightarrow \;
@@ -380,9 +383,13 @@ rigorously verify whether an intelligent model or system has truly
 understood an abstract concept such as:
 \begin{enumerate}
     \item the notion of equality between two quantities,
-    \item the notion of numbers (natural, rational, or real),
-    \item the notion of infinity,
-    \item and the notion of mathematical induction,
+    \item the notion of numbers (natural, rational, real, or imaginary),
+    \item the notion of infinity and mathematical induction,
+    \item the notion of logic consistency\footnote{In mathematics, if a set of axioms and their deduced results are consistent and 
+    do not contradict one another, then they exist. This is known as Hilber's Principle. This is different from the 
+    notion of ``consistency'' in Chapter \ref{ch:consistent-representations}, which requires the learned
+    representations to be consistent with the empirical data distributions. One notion of consistency is inductive in nature 
+    and the other is deductive.} and proof by contradition,
 \end{enumerate}
 just to name a few? Or has it simply memorized a massive number of
 examples of such notions? Note that state-of-the-art large language
@@ -421,6 +428,7 @@ The connection between understanding and creating can be rather fundamental, as 
     \centering
     \textit{``What I cannot create, I do not understand.''}
 \end{quote}
+
 
 \subsection{Scientific Tests of Intelligence}
 Hence, it is high time we develop scientifically sound evaluation

@@ -756,49 +756,48 @@ solo hay un vector en la recta que pasa por esa coordenada. De este modo, podemo
 reconstruir \(\vX\) con total precisión, para lo que solo necesitamos un número 
 lineal de observaciones \(D + N - 1\).
 
-In the real world, actual problems are somewhere in between the two
-limiting cases discussed above. Yet the differences between these two
-extremes, as well as the earlier discussion of PCA, reveal a general
-kernel of truth:
+En el mundo real, los problemas reales se sitúan en algún punto intermedio entre los dos
+casos extremos mencionados anteriormente. Sin embargo, las diferencias entre estos dos
+extremos, así como el análisis anterior sobre el PCA, revelan un
+núcleo general de verdad:
 \begin{quote}
     \centering
-    \textit{The lower-dimensional and more structured the data
-        distribution is, the easier it is to process, and the fewer
-        observations are needed---provided that the algorithm effectively
-    utilizes this low-dimensional structure.}
+    \textit{Cuanto menor sea la dimensión y más estructurada sea la distribución de los datos,
+        tanto más fácil resulta procesarlos y menos
+        observaciones se necesitan, siempre y cuando el algoritmo aproveche eficazmente
+    esta estructura de baja dimensión.}
 \end{quote}
-As is perhaps predictable, we will encounter this motif repeatedly in
-the remainder of the manuscript, starting in the very next
-section.\footnote{In later chapters, we will see that one can
-    complete real-world data such as images with only a fraction of
-    unmasked observations, e.g., the masked autoencoding of images in
-    \Cref{sec:image_completion}. This is also because the distribution of
-    natural images has rather low-dimensional (albeit nonlinear)
-structures in the space of all images.}
+Como era de esperar, nos encontraremos con este motivo una y otra vez en
+el resto del manuscrito, empezando por la siguiente sección.\footnote{En capítulos 
+    posteriores, veremos que es posible completar datos del mundo real, como imágenes, 
+    con solo una fracción de observaciones sin enmascarar; por ejemplo, la autoencodificación 
+    enmascarada de imágenes en la \Cref{sec:image_completion}. Esto se debe también a que la 
+    distribución de las imágenes naturales presenta estructuras de dimensiones bastante bajas 
+    (aunque no lineales) en el espacio de todas las imágenes.}
 
-\section{A Mixture of Complete Low-Dimensional Subspaces}%
+\section{Una mezcla de subespacios completos dw baja dimensión}%
 \label{sec:ica}
-As we have seen, low-rank signal models are rich enough to provide a
-full picture of the interplay between low-dimensionality in data and
-efficient and scalable computational algorithms for representation
-and recovery under errors.
-These models imply a \textit{linear} and symmetric representation
-learning pipeline \eqref{eqn:autoencoding-PCA}:
+Como hemos visto, los modelos de señales de rango bajo son lo suficientemente 
+ricos en estructura como para ofrecer una visión global de la interacción entre 
+la baja dimensionalidad de los datos y los algoritmos computacionales eficientes 
+y escalables para la representación y recuperación en presencia de errores.
+Estos modelos implican un proceso de aprendizaje de representaciones \textit{lineal} y simétrico
+\eqref{eqn:autoencoding-PCA}:
 \begin{equation*}
     \vz = \cE(\vx) = \vU^\top \vx, \quad \hat{\vx} = \cD(\vz) = \vU \vz,
 \end{equation*}
-which can be provably learned from finite samples of $\vx$ with
-principal component analysis (solved efficiently, say, with the power
-method) whenever the distribution of $\vx$ truly is linear.
-This is a restrictive assumption---for as Harold Hotelling, the
-distinguished 20th century statistician,\footnote{By coincidence,
-    also famous for his contributions to the development and naming of
-Principal Component Analysis \cite{Hotelling1933}.} objected
-following George Dantzig's presentation of his theory of linear
-programming for the first time \cite{Dantzig2002-eh},
+de la que se puede demostrar que se aprende a partir de muestras finitas de $\vx$ mediante
+el análisis de componentes principales (resuelto de manera eficiente, por ejemplo, con el 
+método de potencias) siempre que la distribución de $\vx$ sea realmente lineal.
+Se trata de una hipótesis restrictiva, pues, tal y como objetó Harold Hotelling, el
+distinguido estadístico del siglo XX,\footnote{Por casualidad,
+    también famoso por sus contribuciones al desarrollo y la denominación del
+el Análisis de Componentes Principales \cite{Hotelling1933}.} 
+tras la presentación por parte de George Dantzig de su teoría de la
+programación lineal por primera vez \cite{Dantzig2002-eh},
 \begin{quote}
     \centering
-    \textit{``...we all know the world is nonlinear.''}
+    \textit{``...todos sabemos que el mundo es no lineal.''}
 \end{quote}
 
 \begin{figure}
@@ -806,123 +805,120 @@ programming for the first time \cite{Dantzig2002-eh},
     \includegraphics[height=0.35\linewidth]{\toplevelprefix/chapters/chapter2/figs/motion.png}
     \hspace{5mm}
     \includegraphics[height=0.349\linewidth]{\toplevelprefix/chapters/chapter2/figs/segment.png}
-    \caption{\textbf{Left:} features tracked on independently moving
-        objects in a scene. \textbf{Right:} image patches associated with
-    different regions of an image.}
+    \caption{\textbf{Izquierda:} características detectadas en objetos que se mueven de forma independiente
+        dentro de una escena. \textbf{Derecha:} fragmentos de imagen asociados a
+    diferentes regiones de una imagen.}
     \label{fig:multiple-subspaces}
 \end{figure}
-Even accounting for its elegance and simplicity, the low-rank
-assumption is too restrictive to be broadly applicable to modeling
-real-world data.
-A key limitation is the assumption of a \textit{single} linear
-subspace that is responsible for generating the structured observations.
-In many practical applications, structure generated by a \textit{mixture} of
-distinct low-dimensional subspaces provides a more realistic model.
-For example, consider a video sequence that captures the motion of
-several distinct objects, each subject to its own independent
-displacement (\Cref{fig:multiple-subspaces} left).
-Under suitable assumptions on the individual motions, each object
-becomes responsible for an independent low-dimensional subspace in
-the concatenated sequence of video frames \cite{VidalR2004-ECCV}.
-As another example, consider modeling natural images via learning a model for
-the distribution of \textit{patches}, spatially-contiguous collections of
-pixels, within an image (\Cref{fig:multiple-subspaces} right). Unlike in
-the simplistic setting of \Cref{fig:faces-digits}, where images of
-faces with matched poses can be well-approximated by a single
-low-dimensional subspace, the patch at a specific location in a
-natural image can correspond to objects with very different
-properties---for example, distinct color or shape due to occlusion
-boundaries. Therefore, modeling the distribution of patches with a
-single subspace is futile, but a \textit{mixture} of subspaces, one
-for each region, performs surprisingly well in practice, say for
-segmenting or compressing purposes
-\cite{Mobahi-IJCV2011}.\footnote{We will return to this observation
-    in \Cref{ch:deep-networks}, where we will show it can be significantly
-    generalized to learn representations for large-scale modern
-datasets.} We will see a concrete example in a later chapter
-(\Cref{eg:image-segmentation}).
+Aun teniendo en cuenta su elegancia y simplicidad, la suposición de rango bajo
+es demasiado restrictiva como para ser ampliamente aplicable al modelado
+de datos del mundo real.
+Una limitación clave es la suposición de un \textit{único} subespacio lineal
+responsable de generar las observaciones estructuradas. En muchas aplicaciones 
+prácticas, la estructura generada por una \textit{mezcla} de
+subespacios distintos de baja dimensión ofrece un modelo más realista.
+Por ejemplo, consideremos una secuencia de vídeo que captura el movimiento de
+varios objetos distintos, cada uno de los cuales está sujeto a su propio 
+desplazamiento independiente (\Cref{fig:multiple-subspaces} izquierda).
+Bajo supuestos adecuados sobre los movimientos individuales, cada objeto
+se convierte en responsable de un subespacio independiente de baja dimensión en
+la secuencia concatenada de fotogramas de vídeo \cite{VidalR2004-ECCV}.
+Como otro ejemplo, pensemos en la modelización de imágenes naturales mediante el aprendizaje de un modelo para
+la distribución de \textit{parches}, conjuntos de píxeles espacialmente contiguos 
+dentro de una imagen (\Cref{fig:multiple-subspaces} a la derecha). A diferencia del
+entorno simplificado de la \Cref{fig:faces-digits}, donde las imágenes de
+rostros con poses similares pueden aproximarse bien mediante un único
+subespacio de baja dimensión, el fragmento situado en una ubicación específica de una
+imagen natural puede corresponder a objetos con propiedades muy diferentes,
+por ejemplo, colores o formas distintos debido a los límites de oclusión.
+Por lo tanto, modelar la distribución de los parches con un único subespacio 
+resulta inútil, pero una \textit{mezcla} de subespacios, uno para cada región, 
+ofrece unos resultados sorprendentemente buenos en la práctica, por ejemplo, para
+fines de segmentación o compresión \cite{Mobahi-IJCV2011}.\footnote{Volveremos 
+    sobre esta observación en \Cref{ch:deep-networks}, donde demostraremos que 
+    puede generalizarse de manera significativa para aprender representaciones de 
+conjuntos de datos modernos a gran escala.} Veremos un ejemplo concreto en un capítulo posterior
+(\Cref{ejemplo:segmentación de imágenes}).
 
 % \begin{figure}
 %     \centering
 %     \includegraphics[height=0.35\linewidth]{\toplevelprefix/chapters/chapter2/figs/subspaces.png}
-%     \caption{Data on a mixture of low-dimensional subspaces, say
+%     \caption{Datoa en una mezcla de subespacios de baja dimensión, por ejemplo,
 % $\mathcal{S}_j
 %     = \mathop{\mathrm{col}}(\vU_j)$.}
 %     \label{fig:subspaces}
 % \end{figure}
 
-In this section, we will begin by discussing the conceptual and algorithmic
-foundations for structured representation learning when the data distribution
-can be modeled by {\em a mixture of low-dimensional subspaces}, as
-illustrated in \Cref{fig:subspaces}. In this setting, the decoder
-mapping will be almost as simple as the case of a single subspace: we
-simply represent via
+En esta sección, comenzaremos analizando los fundamentos conceptuales y algorítmicos
+del aprendizaje de representaciones estructuradas cuando la distribución de los datos
+puede modelarse mediante {\em una mezcla de subespacios de baja dimensión}, tal y como
+se ilustra en la \Cref{fig:subspaces}. En este contexto, el mapeo del decodificador
+será casi tan sencilla como en el caso de un único subespacio:
+simplemente lo representamos mediante
 \begin{equation}\label{eq:mixture-subspaces-decoder-first-cut}
     \hat{\x} = \cD(\vz) = \left( \sum_{k=1}^K \pi_k(\vz)\vU_k \right) \vz,
 \end{equation}
-where $\pi_k : \R^d \to \set{0,1}$ are a set of \textit{sparse} weighting random
-variables, such that only a single subspace $\mathcal{S}_k
-= \mathop{\mathrm{col}}(\vU_k) $ is selected in the sum.
-However, the task of encoding such data $\vx$ to suitable
-representations $\vz$, and learning such an encoder-decoder pair from
-data, will prove to be more involved.
+donde $\pi_k : \R^d \to \{0,1\}$ es un conjunto de variables aleatorias de ponderación \textit{dispersas},
+de tal manera que en la suma solo se selecciona un único subespacio $\mathcal{S}_k
+= \mathop{\mathrm{col}}(\vU_k)$. Sin embargo, la tarea de codificar dichos datos $\vx$ en representaciones adecuadas
+$\vz$ y de aprender dicho par codificador-decodificador a partir de los datos, resultará más compleja.
 
-We will see how ideas from the rich literature on \textit{sparse representation}
-and \textit{independent component analysis} lead to a natural reformulation of
-the above decoder architecture through the lens of sparsity, the corresponding
-encoder architecture (obtained through a power-method-like algorithm analogous
-to that of principal component analysis), and strong guarantees of correctness
-and efficiency for learning such encoder-decoder pairs from data. In this sense,
-the case of mixed linear low-dimensional structure already leads to many of the
-key conceptual components of structured representation learning that
-we will develop in
-far greater generality in this book.
+Veremos cómo las ideas extraídas de la amplia bibliografía sobre \textit{representación dispersa}
+y \textit{análisis de componentes independientes} conducen a una reformulación natural de
+la arquitectura del decodificador anterior desde la perspectiva de la dispersión, la arquitectura
+correspondiente del codificador (obtenida mediante un algoritmo similar al método de potencias, análogo
+al del análisis de componentes principales) y garantías sólidas de corrección
+y eficiencia para el aprendizaje de dichos pares codificador-decodificador a partir de los datos.
+En este sentido, el caso de las estructuras lineales mixtas de baja dimensión ya nos lleva a muchos de los
+componentes conceptuales clave del aprendizaje de representaciones estructuradas que
+desarrollaremos con una generalidad mucho mayor en este libro.
 
-\subsection{Mixtures of Subspaces and Sparsely-Used
-Dictionaries}\label{sec:mixture-and-dict}
+\subsection{Mezclas de subespacios y diccionarios
+utilizados en forma dispersa}
+\label{sec:mixture-and-dict}
 
-Let $\vU_1, \dots, \vU_K$, each of size $D \times d$, denote a
-collection of orthonormal bases for $K$ subspaces of dimension $d$ in $\R^D$.
-To say that $\vx$ follows a mixture-of-subspaces distribution
-parameterized by $\vU_1, \dots, \vU_K$ means, geometrically speaking,
-that
+Sea $\vU_1, \dots, \vU_K$, cada uno de tamaño $D \times d$, una 
+colección de bases ortonormales para $K$ subespacios de dimensión $d$ en $\R^D$.
+Decir que $\vx$ sigue una distribución de mezcla de subespacios
+parametrizada por $\vU_1, \dots, \vU_K$ significa, en términos geométricos,
+que
 \begin{equation}\label{eq:mixture-of-subspaces-geometric}
     \vx = \vU_k \vz  \quad \text{for some} \enspace k \in
     [K],\enspace \vz \in \R^d.
 \end{equation}
-The statistical analogue of this geometric model, as we saw for the
-case of PCA and linear structure,
-is that $\vx$ follows a \textit{mixture of Gaussians} distribution: that is,
+El análogo estadístico de este modelo geométrico, tal como vimos en el
+caso del PCA y la estructura lineal,
+es que $\vx$ sigue una distribución de \textit{mezcla de gaussianas}: es decir,
 \begin{equation}\label{eq:mixture-of-subspaces-statistical}
     \vx \sim \sum_{k=1}^K \pi_k \cN(\mathbf{0}, \vU_k\vU_k^\top),
     \quad \text{for some} \enspace \pi_k \geq 0,\enspace \sum_{k=1}^K \pi_k = 1.
 \end{equation}
-In other words, for each $k \in [K]$, $\vx$ is Gaussian on the low-dimensional
-subspace $\mathop{\mathrm{col}}(\vU_k)$  with probability $\pi_k$.
+En otras palabras, para cada $k \in [K]$, $\vx$ es gaussiano en el subespacio de baja dimensión
+$\mathop{\mathrm{col}}(\vU_k)$ con probabilidad $\pi_k$.
 
-\begin{remark}[A Mixture of Gaussians v.s. A Superposition of Gaussians]
-    One should be aware that the above model
-    \eqref{eq:mixture-of-subspaces-statistical} is a \textit{mixture} of
-    Gaussian distributions, not to be confused with a mixture of Gaussian
-    variables by superposition, say
+\begin{remark}[Mezcla de gaussianas vs superposición de gaussianas]
+    Hay que tener en cuenta que el modelo anterior
+    \eqref{eq:mixture-of-subspaces-statistical} es una \textit{mezcla} de
+    distribuciones gaussianas, que no debe confundirse con una mezcla de variables gaussianas
+    por superposición, por ejemplo
     \begin{equation}
         \vx = \sum_{i=1}^n w_i \vx_i, \quad \vx_i \sim
         \cN(\mathbf{0}, \vU_i\vU_i^\top),
     \end{equation}
-    where $\vx_i$ are independent random Gaussian vectors and $w_i$
-    are a set of fixed weights. As we know from the properties of
-    Gaussian vectors, such a superposition $\vx$ will remain a
-    Gaussian distribution.
+    donde $\vx_i$ son vectores gaussianos aleatorios independientes y $w_i$
+    son un conjunto de pesos fijos. Como sabemos por las propiedades de
+    los vectores gaussianos, dicha superposición $\vx$ seguirá siendo una
+    distribución gaussiana.
 \end{remark}
 
-For now, we focus on the geometric perspective offered by
+Por ahora, nos centramos en la perspectiva geométrica que ofrece
 \eqref{eq:mixture-of-subspaces-geometric}.
-There is an algebraically convenient alternative to this conditional
-representation. Consider a \textit{lifted} representation vector $\vz
-= [\vz_1^\top, \dots, \vz_K^\top]^\top \in \R^{dK}$, such that $\vz$
-is \textit{$d$-sparse} with support on one of the $K$ consecutive
-non-overlapping blocks of $d$ coordinates out of $dK$.
-Then \eqref{eq:mixture-of-subspaces-geometric} can be written equivalently as
+Existe una alternativa algebraicamente más conveniente a esta
+representación condicional. Consideremos un vector de representación \textit{elevado} $\vz
+= [\vz_1^\top, \dots, \vz_K^\top]^\top \in \R^{dK}$, tal que $\vz$
+es \textit{$d$-disperso} y tiene su soporte en uno de los $K$ bloques consecutivos
+no superpuestos de $d$ coordenadas de entre las $dK$. Entonces, 
+\eqref{eq:mixture-of-subspaces-geometric} puede escribirse de forma equivalente como
 \begin{equation}\label{eq:mixture-of-subspaces-dictionary-pre}
     \vx =
     \underbrace{
@@ -942,167 +938,164 @@ Then \eqref{eq:mixture-of-subspaces-geometric} can be written equivalently as
         \end{bmatrix}
     }_0 = 1.
 \end{equation}
-Here, the $\ell^0$ ``norm'' $\norm{\,\cdot\,}_0$ measures sparsity by
-counting the number of nonzero entries:
+Aquí, la «norma» $\ell^0$ $\norm{\,\cdot\,}_0$ mide la dispersión
+contando el número de entradas distintas de cero:
 \begin{equation}\label{eq:ell-zero-norm}
     \norm{\vz}_0 = \abs*{\set{i \given z_i \neq 0}},
 \end{equation}
-and the matrix $\vU \in \R^{D \times Kd}$ is called a
-\textit{dictionary} with all the $\{\vU_i\}_{i=1}^K$ as code words.
-In general, if the number of subspaces in the mixture $K$ is large
-enough, there is no bound on the number of columns contained in the
-dictionary $\vU$. In the case where $Kd < D$, $\vU$ is called
-\textit{undercomplete};
-when $Kd = D$, it is called \textit{complete}; and when $Kd > D$, it
-is called \textit{overcomplete}.
+y la matriz $\vU \in \R^{D \times Kd}$ se denomina \textit{diccionario}, 
+siendo todos los elementos $\{\vU_i\}_{i=1}^K$ palabras de código.
+En general, si el número de subespacios en la mezcla $K$ es lo suficientemente
+grande, no hay ninguna cota en cuanto al número de columnas que contiene el
+diccionario $\vU$. En el caso de que $Kd < D$, $\vU$ se denomina
+\textit{subcompleta}, cuando $Kd = D$, se denomina \textit{completa} y cuando $Kd > D$,
+se denomina \textit{sobrecompleta}.
 
-Now, \eqref{eq:mixture-of-subspaces-dictionary-pre} suggests a
-convenient relaxation for tractability of analysis: rather than
-modeling $\vx$ as coming from a mixture of $K$ \textit{specific}
-subspaces $\vU_1, \dots, \vU_K$, we may instead start with a
-dictionary $\vU \in \R^{D \times m}$, where $m$ may be smaller or
-larger than $D$, and simply seek to represent $\vx = \vU \vz$ with
-the sparsity $\norm{\vz}_0$ sufficiently small.
-This leads to the \textit{sparse dictionary model} for $\vx$:
+Ahora bien, \eqref{eq:mixture-of-subspaces-dictionary-pre} sugiere una
+relajación conveniente para facilitar el análisis: en lugar de
+modelar $\vx$ como procedente de una mezcla de $K$ subespacios {específicos}
+$\vU_1, \dots, \vU_K$, podemos, en su lugar, comenzar con un
+diccionario $\vU \in \R^{D \times m}$, donde $m$ puede ser menor o
+mayor que $D$, y simplemente buscar representar $\vx = \vU \vz$ con
+la dispersión $\norm{\vz}_0$ suficientemente pequeña.
+Esto nos lleva al \textit{modelo de diccionario disperso} para $\vx$:
 \begin{equation}\label{eq:mixture-of-subspaces-dictionary}
     \vx =  \vU \vz + \veps,
     \quad
     \norm{\vz}_0 \ll d,
 \end{equation}
-where $\veps$ represents an unknown noise vector.
-Geometrically, this implies that $\vx$ lies close to the span of a
-subset of $\norm{\vz}_0$ columns of $\vU$,
-making this an instantiation of the mixture-of-subspaces model
-\eqref{eq:mixture-of-subspaces-geometric} with a very large value of
-$K$, and specific correlations between the subspaces $\vU_k$.
+donde $\veps$ representa un vector de ruido desconocido. Desde el punto de 
+vista geométrico, esto implica que $\vx$ se encuentra cerca del espacio 
+generado por un subconjunto de columnas de $\vU$ con norma $\norm{\vz}_0$,
+lo que convierte esto en una instancia del modelo de mezcla de subespacios
+\eqref{eq:mixture-of-subspaces-geometric} con un valor muy grande de
+$K$ y correlaciones específicas entre los subespacios $\vU_k$.
 
-\paragraph{Orthogonal dictionary for sparse coding.}
-Now we can formulate the structured representation learning problem
-for mixtures of low-dimensional subspaces that we will study in this section.
-We assume that we have samples $\vX = [\vx_1, \dots, \vx_N]$ from an
-unknown sparse dictionary model
-\eqref{eq:mixture-of-subspaces-dictionary}, possibly with added
-noises $\veps_i$.
-Let us begin from the assumption that the dictionary $\vU$ in the sparse
-dictionary model \eqref{eq:mixture-of-subspaces-dictionary} is complete and
-orthogonal,\footnote{It can be shown that for the complete case, we
-    do not lose any generality by making the orthogonal assumption
-(\Cref{exercise:whitening}).} and that each coefficient vector $\vz$
-is $d$-sparse, with $d \ll D$.
-In this setting, representation learning amounts to correctly
-learning the orthogonal dictionary $\vU$ via optimization: we
-can then take $\cE(\vx) = \vU^\top \vx$ as the encoder and $\cD(\vz) = \vU \vz$
-as the decoder, and $\cD = \cE^{-1}$. In diagram form:
+\paragraph{Diccionario ortogonal para una codificación dispersa.}
+Ahora podemos formular el problema del aprendizaje de representaciones estructuradas
+para mezclas de subespacios de baja dimensión que estudiaremos en esta sección.
+Suponemos que disponemos de muestras $\vX = [\vx_1, \dots, \vx_N]$ procedentes de un
+modelo de diccionario disperso desconocido
+\eqref{eq:mixture-of-subspaces-dictionary}, posiblemente con
+ruidos añadidos $\veps_i$.
+Partamos de la suposición de que el diccionario $\vU$ en el modelo de diccionario
+disperso \eqref{eq:mixture-of-subspaces-dictionary} es completo y
+ortogonal,\footnote{Se puede demostrar que, para el caso completo,
+    no perdemos generalidad al hacer la suposición de ortogonalidad
+(\Cref{ejercicio:blanqueo}).} y que cada vector de coeficientes $\vz$
+es $d$-disperso, con $d \ll D$.
+En este contexto, el aprendizaje de representaciones equivale a
+aprender correctamente el diccionario ortogonal $\vU$ mediante optimización:
+entonces podemos tomar $\cE(\vx) = \vU^\top \vx$ como codificador y $\cD(\vz) = \vU \vz$
+como decodificador y $\cD = \cE^{-1}$. En forma de diagrama:
 \begin{equation}
     \vx \xrightarrow{\hspace{2mm} \mathcal{E} = \vU^\top
     \hspace{2mm}}  \vz \xrightarrow{\hspace{2mm} \mathcal{D} = \vU
     \hspace{2mm}}   \hat{\vx}.
     \label{eqn:autoencoding-DL}
 \end{equation}
-We see that the autoencoding pair $(\cE, \cD)$ for complete
-dictionary learning is symmetric, as in the case of a single linear
-subspace, making the computational task of encoding and decoding no
-more difficult than in the linear case. On the other hand, the task
-of learning the dictionary $\vU$ is strictly more difficult than
-learning a single linear subspace by PCA.
-To see why we cannot simply use PCA to learn the orthogonal
-dictionary $\vU$ correctly, note that the
-loss function that gave rise to PCA, namely \eqref{eq:pca_equals_denoising}, is
-completely invariant to rotations of the rows of the matrix $\vU$: that is, if
-$\vQ$ is any $d \times d$ orthogonal matrix, then $\vU$ and $\vU \vQ$ are both
-feasible and have an identical loss for \eqref{eq:pca_equals_denoising}. The
-sparse dictionary model is decidedly not invariant to such transformations: if
-we replaced $\vU$ by $\vU \vQ$ and made a corresponding rotation $\vQ^\top \vz$
-of the representation coefficients $\vz$, we would in general destroy
-the sparsity structure of $\vz$, violating the modeling assumption.
-Thus, we need new algorithms for learning orthogonal dictionaries.
+Observamos que el par de autoencodificadores $(\cE, \cD)$ para el aprendizaje
+completo de un diccionario es simétrico, al igual que en el caso de un único
+subespacio lineal, lo que hace que la tarea computacional de codificación y decodificación no
+sea más difícil que en el caso lineal. Por otro lado, la tarea
+de aprender el diccionario $\vU$ es claramente más difícil que
+aprender un único subespacio lineal mediante el PCA.
+Para comprender por qué no podemos limitarnos a utilizar el PCA para aprender correctamente el
+diccionario ortogonal $\vU$, observemos que la
+función de pérdida que dio origen al PCA, es decir, \eqref{eq:pca_equals_denoising}, es
+completamente invariante ante las rotaciones de las filas de la matriz $\vU$: es decir, si
+$\vQ$ es cualquier matriz ortogonal $d \times d$, entonces tanto $\vU$ como $\vU \vQ$ son
+viables y tienen una pérdida idéntica para \eqref{eq:pca_equals_denoising}. El
+modelo de diccionario disperso no es, en absoluto, invariante ante tales transformaciones: si
+reemplazáramos $\vU$ por $\vU \vQ$ y realizáramos la rotación correspondiente $\vQ^\top \vz$
+de los coeficientes de representación $\vz$, en general destruiríamos
+la estructura de dispersión de $\vz$, lo que violaría la suposición del modelo.
+Por lo tanto, necesitamos nuevos algoritmos para aprender diccionarios ortogonales.
 
-\subsection{Complete Dictionary Learning}
+\subsection{Aprendizaje de diccionarios completos}
 \label{sec:complete-dictionary}
 
-In this section, we will derive algorithms for solving the orthogonal
-dictionary learning problem. To be more precise,  we assume that the
-observed vector $\vx \in \R^D$ follows a statistical model
+En esta sección, derivaremos algoritmos para resolver el problema del
+aprendizaje ortogonal de diccionarios. Para ser más precisos, suponemos que el
+vector observado $\vx \in \R^D$ sigue un modelo estadístico
 \begin{equation}
     \vx = \vU \vz + \veps,
     \label{eq:ica-model-ch2}
 \end{equation}
-where $\vU \in \R^{D \times D}$ is an unknown orthogonal dictionary,
-$\vz$ is a random vector with statistically independent components
-$z_i$, each with zero mean, and $\veps \in \R^D$ is an independent
-random vector of small (Gaussian) noises. The goal is to recover
-$\vU$ (and hence $\vz$) from samples of $\vx$.
+donde $\vU \in \R^{D \times D}$ es un diccionario ortogonal desconocido,
+$\vz$ es un vector aleatorio con componentes
+$z_i$ estadísticamente independientes, cada una con media cero, y $\veps \in \R^D$ es un vector aleatorio independiente
+de pequeños ruidos (gaussianos). El objetivo es recuperar
+$\vU$ (y, por lo tanto, $\vz$) a partir de muestras de $\vx$.
 
-Here we assume that each independent component $z_i$ is distributed
-as $$z_i \sim \dBern(\theta) \cdot \cN(0, 1/\theta).$$ That
-is, it is the product of a Bernoulli random variable with probability
-$\theta$ of being $1$ and $1-\theta$ of being $0$, and an independent
-Gaussian random variable with variance $1/\theta$. This distribution
-is formally known as the {\em Bernoulli-Gaussian} distribution.
-The normalization is chosen so that $\Var(z_i) = 1$ and hence
-$\bE[\norm{\vz}_2^2]=d$.
-This modeling assumption implies that the vector of independent
-components $\vz$ is typically very sparse:
-we calculate $\bE\left[\norm{\vz}_0\right] = d\theta$, which is small
-when $\theta$ is inversely proportional to $d$.
+Aquí suponemos que cada componente independiente $z_i$ sigue una distribución
+de la forma $$z_i \sim \dBern(\theta) \cdot \cN(0, 1/\theta).$$ Es decir,
+es el producto de una variable aleatoria de Bernoulli con una probabilidad
+de $\theta$ de ser $1$ y de $1-\theta$ de ser $0$ y una variable aleatoria gaussiana independiente
+con varianza $1/\theta$. Esta distribución se conoce formalmente como distribución {\em Bernoulli-Gaussiana}.
+La normalización se elige de tal manera que $\Var(z_i) = 1$ y, por lo tanto,
+$\bE[\norm{\vz}_2^2]=d$. Esta suposición del modelo implica que el vector de componentes independientes
+$\vz$ suele ser muy disperso:
+calculamos $\bE\left[\norm{\vz}_0\right] = d\theta$, que es pequeño
+cuando $\theta$ es inversamente proporcional a $d$.
 
-\begin{remark}[The Orthogonal Assumption]
-    At first sight, the assumption that the dictionary $\vU$ is
-    orthogonal might seem to be somewhat restrictive. But there is
-    actually no loss of generality. One may consider a complete
-    dictionary to be any square invertible matrix $\vU$. With samples
-    generated from this dictionary: $\vX = \vU \vZ \in
-    \mathbb{R}^{D\times N}$, it is easy to show that with some
-    preconditioning of the data matrix $\vX$:
+\begin{remark}[La suposición de ortononalidad]
+    A primera vista, la suposición de que el diccionario $\vU$ es
+    ortogonal podría parecer algo restrictiva. Pero, en realidad,
+    no hay ninguna pérdida de generalidad. Se puede considerar como un diccionario completo
+    a cualquier matriz cuadrada invertible $\vU$. Con muestras
+    generadas a partir de este diccionario: $\vX = \vU \vZ \in
+    \mathbb{R}^{D\times N}$, es fácil demostrar que, con cierto
+    preacondicionamiento de la matriz de datos $\vX$:
     \begin{equation}
         \bar{\vX} = \Big(\frac{1}{N\theta} \vX\vX^\top\Big)^{-\frac{1}{2}}\vX,
     \end{equation}
-    then there exists an orthogonal matrix $\vU_{o} \in \O(D)$ such that
+    entonces existe una matriz ortogonal $\vU_{o} \in \O(D)$ tal que
     \begin{equation}
         \bar{\vX} = \vU_{o}\vZ.
     \end{equation}
-    See \Cref{exercise:whitening} or \cite{sun2017completeI} for more details.
+    Véase el \Cref{exercise:whitening} o \cite{sun2017completeI} para más detalles.
 \end{remark}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.6\linewidth]{\toplevelprefix/chapters/chapter2/figs/2DL4Sphere.png}\vspace{-0.1in}
-    \caption{Maximizing $\ell^4$ norm or minimizing $\ell^1$ norm
-    promotes sparsity (for vectors on the sphere).}
+    \caption{Maximizar la norma $\ell^4$ o minimizar la norma $\ell^1$ 
+    promueve la dispersión (para vectores sobre la esfera).}
     \label{fig:L4-sphere}
 \end{figure}
 
-\paragraph{Dictionary learning via the MSP algorithm.}
+\paragraph{Aprendizaje de diccionarios mediante el algoritmo MSP.}
 
-Now suppose that we are given a set of observations:
+Supongamos ahora que se nos da un conjunto de observaciones:
 \begin{equation}
     \vx_i = \vU \vz_i + \veps_i,\ \forall i \in [N].
 \end{equation}
-Let $\vX = [\vx_1, \dots, \vx_N]$ and $\vZ = [\vz_1, \dots, \vz_N]$.
-The goal is to recover $\vU$ from the data $\vX$. Therefore, given
-any orthogonal matrix $\vA \in \O(D)$,
+Sea $\vX = [\vx_1, \dots, \vx_N]$ y $\vZ = [\vz_1, \dots, \vz_N]$.
+El objetivo es recuperar $\vU$ a partir de los datos $\vX$. Por lo tanto, dada
+cualquier matriz ortogonal $\vA \in \O(D)$,
 \begin{equation}
     \vA\vx_i = \vA\vU \vz_i + \vA\veps_i
 \end{equation}
-would be nearly sparse if $\vA = \vU^\top$ (as by assumption the noise
-$\veps_i$ is of small magnitude).
+sería casi dispersa si $\vA = \vU^\top$ (puesto que, según la hipótesis, el ruido
+$\veps_i$ es de pequeña magnitud).
 
-Also, given $\vU$ is orthogonal and the fact $\veps$ is small, the
-vector $\vx$ has a predictable expected norm, i.e.,
-$\bE[\norm{\vx}_2^2] \approx \bE[\norm{\vz}_2^2]=d$. It is a known
-fact that for vectors on a sphere, maximizing the $\ell^4$ norm is
-equivalent to minimizing the $\ell^0$ norm (for promoting sparsity),
+Además, dado que $\vU$ es ortogonal y que $\veps$ es pequeño, el
+vector $\vx$ tiene una norma esperada predecible, es decir,
+$\bE[\norm{\vx}_2^2] \approx \bE[\norm{\vz}_2^2]=d$. Es un hecho
+conocido que, para vectores en una esfera, maximizar la norma $\ell^4$ es
+equivalente a minimizar la norma $\ell^0$ (para favorecer la dispersión),
 \begin{equation}
     \argmax_{\vz \in
     \mathbb{S}^n}\|\vz\|_{4}\quad\Leftrightarrow\quad \argmin_{\vz
     \in \mathbb{S}^n}\|\vz\|_{0}.
 \end{equation}
-This is illustrated in \Cref{fig:L4-sphere}.
+Esto se ilustra en la \Cref{fig:L4-sphere}.
 
-An orthogonal matrix $\vA$ preserves the Euclidean (\(\ell^{2}\))
-norm: $\|\vA \vx\|_2^2 = \|\vx\|_2^2$. Therefore, to find the correct
-orthogonal dictionary $\vU$ from $\vX$, we may try to solve the
-following optimization program:
+Una matriz ortogonal $\vA$ conserva la norma euclidiana (\(\ell^{2}\)):
+$\|\vA \vx\|_2^2 = \|\vx\|_2^2$. Por lo tanto, para hallar el
+diccionario ortogonal correcto $\vU$ a partir de $\vX$, podemos intentar resolver el
+siguiente programa de optimización:
 \begin{equation}\label{eq0:orthogonal-dictionary-learning-l4}
     \max_{\tilde{\vA} \in \O(D)}\,
     \frac{1}{4} \norm*{
@@ -1111,211 +1104,212 @@ following optimization program:
         \tilde{\vA} \vx_i
     }_4^4
 \end{equation}
-This is known as the $\ell^4$ maximization problem \cite{Zhai-2020}. After we
-find the solution \(\vA^{\star}\), we can take the transpose \(\vU^{\star}
+Esto se conoce como el problema de maximización de $\ell^4$ \cite{Zhai-2020}. Una vez que
+encontramos la solución \(\vA^{\star}\), podemos calcular la transpuesta \(\vU^{\star}
 = (\vA^{\star})^{\top}\).
 \begin{remark}
-    It is also known that for vectors on a sphere, minimizing the
-    $\ell^1$ norm is equivalent to minimizing the $\ell^0$ norm (for
-    promoting sparsity),
+    También se sabe que, para vectores en una esfera, minimizar la
+    norma $\ell^1$ equivale a minimizar la norma $\ell^0$ (para
+    favorecer la dispersión),
     \begin{equation*}
         \argmin_{\vz \in
         \mathbb{S}^n}\|\vz\|_{1}\quad\Leftrightarrow\quad
         \argmin_{\vz \in \mathbb{S}^n}\|\vz\|_{0},
     \end{equation*}
-    which is also illustrated in \Cref{fig:L4-sphere}. This fact can
-    also be exploited to learn the dictionary $\vA$ effectively and
-    efficiently. This was actually explored earlier than the $\ell^4$
-    norm used here. Interested readers may refer to the work of
+    lo cual también se ilustra en la \Cref{fig:L4-sphere}. Este hecho también puede
+    aprovecharse para aprender el diccionario $\vA$ de manera eficaz y
+    eficiente. En realidad, esto ya se había estudiado antes de que se utilizara la norma $\ell^4$
+    que se emplea aquí. Los lectores interesados pueden consultar el trabajo de
     \cite{qu2020findingsparsestvectorssubspace}.
 \end{remark}
 
-Note that the above problem is equivalent to the following
-constrained optimization problem:
+Tenga en cuenta que el problema anterior equivale al siguiente
+problema de optimización con restricciones:
 \begin{equation}\label{eq:orthogonal-dictionary-learning-l4}
     \min\,
     -   \frac{1}{4} \norm*{
         \tilde{\vA} \vX
     }_4^4 \quad \mbox{subject to} \quad  \tilde{\vA}^\top\tilde{\vA} = \vI.
 \end{equation}
-As shown in \cite{Wright-Ma-2022}, using the Lagrange multiplier
-method, one can derive that the optimal solution to the problem
-should satisfy the following
-``fixed point'' condition:
+Como se muestra en \cite{Wright-Ma-2022}, utilizando el método de los multiplicadores de Lagrange,
+se puede deducir que la solución óptima al problema
+debe satisfacer la siguiente condición de «punto fijo»:
 \begin{equation}
     \vA^{\star} = \mathcal{P}_{\mathrm O(D)}[( {\vA^{\star}
     \vX})^{\hada 3}\vX^\top],
 \end{equation}
-where $\mathcal{P}_{\mathrm O(D)}[\,\cdot\,]$ is a projection onto the space of
-orthogonal matrices $\mathrm O(D)$.\footnote{For any matrix $\vM$
-    with SVD $\vM = \vU\bm \Sigma \vV^\top$, $\mathcal{P}_{\mathrm
-O(D)}[\vM] = \vU \vV^\top$. We leave this as an exercise for the reader.}
+donde $\mathcal{P}_{\mathrm O(D)}[\,\cdot\,]$ es una proyección sobre el espacio de
+matrices ortogonales $\mathrm O(D)$.\footnote{Para cualquier matriz $\vM$
+    con SVD $\vM = \vU\bm \Sigma \vV^\top$, $\mathcal{P}_{\mathrm
+O(D)}[\vM] = \vU \vV^\top$. Dejamos esto como ejercicio para el lector.}
 
-To compute the fixed point for the above equation, similar to how we computed
-eigenvectors for PCA \eqref{eqn:PCA-fixed-point}, we may take the following
-power iteration:
+Para calcular el punto fijo de la ecuación anterior, de forma similar a como calculamos
+los vectores propios para el PCA \eqref{eqn:PCA-fixed-point}, podemos utilizar la siguiente
+iteración de potencias:
 \begin{equation}\label{eq:msp_iteration}
     \tilde{\vA}_{t+1} = \mathcal{P}_{\mathrm O(D)}[( {\tilde{\vA}_t
     \vX})^{\hada 3}\vX^\top].
 \end{equation}
-This is known as the {\em matching, stretching, and projection} (MSP)
-algorithm proposed by \cite{Zhai-2020}. It was shown that under broad
-conditions such a greedy algorithm indeed converges to the correct
-solution at a superlinear rate.
+Esto se conoce como el algoritmo de {\em coincidencia, estiramiento y proyección} (MSP)
+propuesto por \cite{Zhai-2020}. Se demostró que, en condiciones generales,
+un algoritmo voraz de este tipo converge efectivamente hacia la solución correcta
+a un ritmo superlineal.
 
-\begin{remark}[Global Optimality of $\ell^4$ Maximization]\label{rem:L4-global}
-    The constrained $\ell^4$ maximization problem is a nonconvex
-    program. In general one should \textit{not} expect that any
-    greedy (say gradient-descent type) algorithms would converge to
-    the globally optimal solution. Surprisingly, one can show that,
-    unlike general nonconvex programs, the landscape of $\ell^4$
-    maximization over a sphere
+\begin{remark}[Optimicidad global de la maximización de $\ell^4$]\label{rem:L4-global}
+    El problema de maximización con restricciones de $\ell^4$ es un programa
+    no convexo. En general, \textit{no} se debe esperar que ningún
+    algoritmo voraz (por ejemplo, del tipo de descenso por gradiente) converja hacia
+    la solución óptima global. Sorprendentemente, se puede demostrar que,
+    a diferencia de los programas no convexos generales, el landscape de la maximización de $\ell^4$
+    sobre una esfera
     \begin{equation}\label{eq:l4-maximization-sphere}
         \min\,
         -   \frac{1}{4} \norm*{
             \tilde{\vq}^\top \vX
         }_4^4 \quad \mbox{subject to} \quad  \tilde{\vq}^\top\tilde{\vq} = 1.
     \end{equation}
-    is very benign: All local minima are close to the global optima
-    and all critical points are saddle points with a direction of
-    negative curvature. Hence, any descent method with the ability of
-    escaping strict saddle points provably finds global optimal
-    solutions. For more precise statements, interested readers may
-    refer to \cite{Qu2020Geometric}.
+    es muy benigno: todos los mínimos locales están cerca de los óptimos globales
+    y todos los puntos críticos son puntos de silla con una dirección de
+    curvatura negativa. Por lo tanto, cualquier método de descenso capaz de
+    evitar los puntos de silla estrictos encuentra, de manera demostrable,
+    soluciones óptimas globales. Para obtener información más detallada, los 
+    lectores interesados pueden consultar \cite{Qu2020Geometric}.
 \end{remark}
 
-\begin{remark}[Stable Deep Linear Network]
-    The above iterative process of computing the dictionary has a
-    natural incremental ``deep learning'' interpretation. Let us define
-    $\delta \vA_{t+1} = \tilde{\vA}_{t+1}\tilde{\vA}_{t}^\top$ and $\vZ_t
-    = \tilde{\vA}_t \vX$, then it is easy to show that
+\begin{remark}[Red profunda lineal estable]
+    El proceso iterativo anterior de cálculo del diccionario tiene una
+    interpretación natural e incremental de «aprendizaje profundo». Definamos
+    $\delta \vA_{t+1} = \tilde{\vA}_{t+1}\tilde{\vA}_{t}^\top$ y $\vZ_t
+    = \tilde{\vA}_t \vX$, entonces es fácil demostrar que
     $$\delta \vA_{t+1} = \mathcal{P}_{\mathrm O(D)}[(\vZ_t)^{\hada 3}
     \vZ_t^\top].$$
-    If $\tilde{\vA}_t$ converges to the correct dictionary $\vU$, then the
-    above iterative encoding process is essentially equivalent to a
-    ``deep linear network'':
+    Si $\tilde{\vA}_t$ converge hacia el diccionario correcto $\vU$, entonces el
+    proceso de codificación iterativo anterior es esencialmente equivalente a una
+    «red lineal profunda»:
     $$\vZ \; \longleftarrow \; \vZ_{t+1} =  \underbrace{\delta
     \vA_{t+1} \delta \vA_{t} \ldots \delta \vA_{1}}_{\color{red}
-    \text{forward constructed layers}} \vX.$$
-    Note that the computation of the increment transforms $\delta
-    \vA_{t+1}$ at each layer depends only on the feature output from
-    the previous layer $\vZ_t$. The network is naturally stable as
-    each layer is a norm-preserving orthogonal transform. Despite its
-    resemblance to a linear deep network, backpropagation is
-    unnecessary to learn each layer. All layers are learned in one forward pass!
+    \text{capas construidas hacia adelante}} \vX.$$
+    Téngase en cuenta que el cálculo de las transformaciones de incremento $\delta
+    \vA_{t+1}$ en cada capa depende únicamente de la salida de características de
+    la capa anterior $\vZ_t$. La red es estable por naturaleza, ya que
+    cada capa es una transformación ortogonal que conserva la norma. A pesar de su
+    semejanza con una red profunda lineal, la retropropagación no es
+    necesaria para el aprendizaje de cada capa. ¡Todas las capas se entrenan en una 
+    sola pasada hacia adelante!
 \end{remark}
 
-\subsection{Connection to ICA and Kurtosis}
-With the Bernoulli-Gaussian model, the variables $z_i$ are
-independent and non-Gaussian. Then, there is a clear correspondence
-between the dictionary learning and the classic independent component
-analysis (ICA), to the extent that algorithms to solve one problem
-can be used to solve the other.\footnote{We explore this issue in
-    more depth in \Cref{exercise:symmetry-identifiability}, where a
-    connection between non-Gaussianity of the independent components and
-    the purely geometric notion of symmetry is made. This issue is
-    related to our observation above that PCA does not work for
-    recovering sparsely-used orthogonal dictionaries: in the statistical
-    setting, it can be related to rotational invariance of the Gaussian
-distribution (\Cref{exercise:gaussian-rot-invar}).}
+\subsection{Relación con ICA y la curtosis}
+En el modelo de Bernoulli-Gauss, las variables $z_i$ son
+independientes y no gaussianas. Además, existe una clara correspondencia
+entre el aprendizaje por diccionario y el análisis clásico de componentes independientes
+(ICA), hasta el punto de que los algoritmos diseñados para resolver un problema
+pueden utilizarse para resolver el otro.\footnote{Analizamos este tema con
+    mayor profundidad en \Cref{ejercicio:simetría-identificabilidad}, donde se
+    establece una relación entre la no gaussianidad de los componentes independientes y
+    el concepto puramente geométrico de simetría. Este problema está
+    relacionado con nuestra observación anterior de que el PCA no sirve para
+    recuperar diccionarios ortogonales de uso disperso: en el contexto
+    estadístico, puede relacionarse con la invariancia rotacional de la distribución gaussiana
+(\Cref{exercise:gaussian-rot-invar}).}
 
-Towards deriving an algorithm based on ICA, we focus on an objective
-function known as \textit{kurtosis}, which is used in ICA as a direct
-consequence of the non-Gaussianity of the components. The
-\textit{kurtosis}, or fourth-order cumulant, of a zero-mean random
-variable $X$ is defined as
+Con el fin de derivar un algoritmo basado en ICA, nos centramos en una función objetivo
+conocida como \textit{curtosis}, que se utiliza en el ICA como consecuencia directa
+de la naturaleza no gaussiana de los componentes. La \textit{curtosis}, o cumulante de 
+cuarto orden, de una variable aleatoria $X$ de media cero se define como
 \begin{equation}\label{eq:kurtosis}
     \kurt(X) = \Ex{X^4} - 3 (\Ex{X^2})^2.
 \end{equation}
-If we have only finite samples from the random variable $X$ arranged
-into a vector $\vx = [x_1, \dots, x_N]$, we define kurtosis through
-their empirical average, which yields
+Si solo disponemos de un número finito de muestras de la variable aleatoria $X$ organizadas
+en un vector $\vx = [x_1, \dots, x_N]$, definimos la curtosis a través de su media empírica, 
+lo que da como resultado
 \begin{equation}\label{eq:kurtosis-vector}
     \kurt(\vx) = \frac{1}{N} \norm{\vx}_4^4 - \frac{3}{N^2} \norm{\vx}_2^4.
 \end{equation}
+Por último, en el caso de los vectores aleatorios, definimos su curtosis como la suma de
+la curtosis escalar de cada componente.
+
 Finally, for random vectors, we define their kurtosis as the sum of
-each component's scalar kurtosis.
-Kurtosis is a natural loss function for ICA because for Gaussian $X$,
-kurtosis is zero; the reader can verify further that the
-Bernoulli-Gaussian distribution has positive kurtosis.
-Thus a natural procedure for seeking non-Gaussian independent
-components is to search for a set of mutually-orthogonal directions
-$\tilde{\vU} \in \R^{d \times k}$, such that $\tilde{\vU}^\top \vX$ has maximal
-kurtosis, where $\vX = \vU \vZ \in \R^{D \times N}$ is the
-Bernoulli-Gaussian ICA data matrix (such that $\tilde{\vU}$ approximates
-$\vU$ up to permutations of the columns).
-Formally, we seek to solve the problem
+each component's scalar kurtosis. La curtosis es una función de pérdida natural para ICA, 
+ya que, para una variable $X$ gaussiana, la curtosis es cero; el lector puede comprobar 
+además que la distribución de Bernoulli-Gauss tiene una curtosis positiva.
+Por lo tanto, un procedimiento natural para buscar componentes independientes no gaussianas
+consiste en buscar un conjunto de direcciones mutuamente ortogonales
+$\tilde{\vU} \in \R^{d \times k}$, de tal manera que $\tilde{\vU}^\top \vX$ tenga la máxima
+curtosis, donde $\vX = \vU \vZ \in \R^{D \times N}$ es la
+matriz Bernoulli-gaussiana de datos ICA (de tal manera que $\tilde{\vU}$ aproxima
+$\vU$ salvo permutaciones de las columnas).
+Formalmente, nuestro objetivo es resolver el problema
 \begin{equation}
     \max_{\tilde{\vU}^\top \tilde{\vU} = \vI} \kurt(\tilde{\vU}^\top \vX).
 \end{equation}
-At one extreme, we may set $k = D$ and seek to recover the entire dictionary
-$\vU$ in a single shot.  It can be shown that this problem can be solved with
-the MSP algorithm we have seen previously.
-At the other extreme, we may set $k=1$ and seek to recover a single
-direction (column of $\vU$) at a time, performing \textit{deflation},
-i.e., replacing the data matrix $\vX$ by $(\vI - \vu\vu^\top) \vX$,
-after each step before finding another direction.
-There is a natural tradeoff between the scalability of the $k=1$
-incremental approach and the efficiency and robustness of the $k=D$ approach.
+En un extremo, podemos establecer $k = D$ e intentar recuperar todo el diccionario
+$\vU$ de una sola vez. Se puede demostrar que este problema se puede resolver con
+el algoritmo MSP que hemos visto anteriormente.
+En el otro extremo, podemos fijar $k=1$ y tratar de recuperar una sola
+dirección (columna de $\vU$) a la vez, realizando una \textit{deflación},
+es decir, sustituyendo la matriz de datos $\vX$ por $(\vI - \vu\vu^\top) \vX$,
+después de cada paso antes de buscar otra dirección.
+Existe una disyuntiva natural entre la escalabilidad del enfoque incremental $k=1$
+y la eficiencia y solidez del enfoque $k=D$.
 
-\paragraph{Incremental ICA: correctness and FastICA algorithm.}
-The FastICA algorithm, advanced by Hyv\"{a}rinen and Oja
-\cite{hyvarinen-1997}, is a fast fixed-point algorithm for solving
-the $k=1$ kurtosis maximization scheme for ICA.
-The problem at hand is
+\paragraph{ICA incremental: corrección y algoritmo FastICA.}
+El algoritmo FastICA, propuesto por Hyvärinen y Oja
+\cite{hyvarinen-1997}, es un algoritmo rápido de punto fijo para resolver
+el esquema de maximización de la curtosis con $k=1$ para ICA.
+El problema en cuestión es
 \begin{equation}\label{eq:kurtosis-maximization-sphere-finitesample}
     \max_{\norm{\tilde{\vu}}_2^2 = 1}\, \kurt(\vX^\top \tilde{\vu}).
 \end{equation}
-First, we will perform some very basic analysis of this objective to
-verify its correctness. Notice by the change of variables $\tilde{\vw} =
-\vU^\top \tilde{\vu}$ that this problem is equivalent to
+En primer lugar, realizaremos un análisis muy básico de este objetivo para
+verificar su corrección. Obsérvese que, mediante el cambio de variables $\tilde{\vw} =
+\vU^\top \tilde{\vu}$, este problema es equivalente a
 \begin{equation*}
     \max_{\norm{\tilde{\vw}}_2^2 = 1}\,
     \mathrm{kurt}(\vZ^\top \tilde{\vw}).
 \end{equation*}
-This objective is simple enough that we can make strong statements
-about its correctness as a formulation for recovering the dictionary $\vU$.
-For example, in the population setting where $N \to \infty$,
-we may use additivity properties of the kurtosis
-(\Cref{exercise:kurtosis-linearity-properties}) and our assumed
-normalization on the independent components to write the previous
-problem equivalently as
+Este objetivo es tan sencillo que podemos hacer afirmaciones contundentes
+sobre su corrección como formulación para recuperar el diccionario $\vU$.
+Por ejemplo, en el contexto poblacional donde $N \to \infty$,
+podemos utilizar las propiedades de aditividad de la curtosis
+(\Cref{ejercicio:propiedades-de-linealidad-de-la-curtosis}) y nuestra suposición
+de normalización de los componentes independientes para expresar el problema anterior
+de forma equivalente como
 \begin{equation}\label{eq:kurtosis-maximization-sphere-population-simple}
     \max_{\norm{\tilde{\vw}}_2^2 = 1}\,
     \sum_{i=1}^d \mathrm{kurt}(z_i) \tilde{w}_i^4.
 \end{equation}
-It can be shown that under the Bernoulli-Gaussian assumption, the
-optimization landscape of this problem is ``benign''
-(\Cref{exercise:kurtosis-sphere-landscape})---meaning that all local
-maxima of the objective function correspond to the recovery of one of
-the independent components.
+Se puede mostrar que, bajo el supuesto Bernoulli-gaussiano, el
+landscape de optimización de este problema es «benigno»
+(\Cref{ejercicio:esfera-de-curtosis})---lo que significa que todos los máximos locales
+de la función objetivo corresponden a la recuperación de uno de
+los componentes independientes.
 
-In practice, we cannot directly compute the change of variables sending
-$\tilde{\vu}$ to $\tilde{\vw}$ because it requires the ground-truth dictionary
-$\vU$, so we develop algorithms directly for the $\tilde{\vu}$ parameterization
-and the data matrix $\vX$.
-Then one efficient and scalable way to compute one of these maxima is via
-first-order optimization algorithms, which iteratively follow the
-gradient of the objective function and project onto the constraint
-set $\set{\tilde{\vu} \given \norm{\tilde{\vu}}_2^2 = 1}$.
-Since we have assumed that each $z_i$ satisfies $\Var(z_i)=1$, we
-have for any $\tilde{\vu}$, for large enough $N$
+En la práctica, no podemos calcular directamente el cambio de variables que lleva de
+$\tilde{\vu}$ a $\tilde{\vw}$, ya que requiere el diccionario de referencia
+$\vU$, por lo que desarrollamos algoritmos directamente para la parametrización de $\tilde{\vu}$
+y la matriz de datos $\vX$.
+Entonces, una forma eficaz y escalable de calcular uno de estos máximos es mediante
+algoritmos de optimización de primer orden, que siguen de forma iterativa el
+gradiente de la función objetivo y se proyectan sobre el conjunto de restricciones
+$\set{\tilde{\vu} \given \norm{\tilde{\vu}}_2^2 = 1}$.
+Dado que hemos supuesto que cada $z_i$ cumple que $\Var(z_i)=1$, tenemos
+que, para cualquier $\tilde{\vu}$ y para un $N$ suficientemente grande
 \begin{equation}\label{eq:kurtosis-approximation-l4}
     \kurt(\vX^\top \tilde{\vu})
     \approx
     \tfrac{1}{N} \norm{\vX^\top \tilde{\vu}}_4^4 - 3 \norm{\tilde{\vu}}_2^4.
 \end{equation}
-We can then derive a corresponding approximation to the gradient:
+De este modo, podemos obtener una aproximación correspondiente al gradiente:
 \begin{equation*}
     \nabla_{\tilde{\vu}} \kurt(\vX^\top \tilde{\vu})
     \approx
     \tfrac{4}{N} \vX (\vX^\top \tilde{\vu})^{\hada 3}
     - 12 \norm{\tilde{\vu}}_2^2 \tilde{\vu}.
 \end{equation*}
-The FastICA algorithm uses a fixed-point method to compute directions
-of maximum kurtosis. It starts from the first-order optimality
-conditions for the kurtosis maximization problem, given the preceding
-gradient approximation and the constraint set, which read
+El algoritmo FastICA utiliza un método de punto fijo para calcular las direcciones
+de máxima curtosis. Se parte de las condiciones de optimalidad de primer orden
+para el problema de maximización de la curtosis, dadas la aproximación del gradiente anterior
+y el conjunto de restricciones, que son las siguientes:
 \begin{align}\label{eq:kurtosis-max-sphere-stationarity}
     \vX (\vX^\top \tilde{\vu})^{\hada 3}
     =
@@ -1324,16 +1318,16 @@ gradient approximation and the constraint set, which read
             \vX (\vX^\top \tilde{\vu})^{\hada 3}
     }}_{\lambda} \tilde{\vu},
 \end{align}
-where the specific value of $\lambda$ is determined using the unit
-norm constraint on $\tilde{\vu}$.
-\Cref{exercise:sphere-calculus} describes the mathematical background
-necessary to derive these optimality conditions from first principles.
-Equation \eqref{eq:kurtosis-max-sphere-stationarity} is satisfied by
-\textit{any} critical point of the kurtosis maximization problem; we
-want to derive an equation satisfied by only the maximizers.
-After noticing that $\lambda = \norm{\vX^\top \tilde{\vu}}_4^4$, we
-equivalently re-express \eqref{eq:kurtosis-max-sphere-stationarity}
-as the modified equation
+donde el valor concreto de $\lambda$ se determina utilizando la restricción de norma unitaria
+sobre $\tilde{\vu}$.
+El \Cref{exercise:sphere-calculus} describe los fundamentos matemáticos
+necesarios para derivar estas condiciones de optimalidad a partir de los principios básicos.
+La ecuación \eqref{eq:kurtosis-max-sphere-stationarity} es satisfecha por
+\textit{cualquier} punto crítico del problema de maximización de la curtosis; queremos
+derivar una ecuación que sea satisfecha únicamente por los maximizadores.
+Tras observar que $\lambda = \norm{\vX^\top \tilde{\vu}}_4^4$,
+reexpresamos de forma equivalente la ecuación \eqref{eq:kurtosis-max-sphere-stationarity}
+como la ecuación modificada
 \begin{align}\label{eq:kurtosis-max-sphere-stationarity-modified}
     \frac{1}{N}\vX (\vX^\top \tilde{\vu})^{\hada 3}
     -
@@ -1344,14 +1338,14 @@ as the modified equation
     \right)
     \tilde{\vu},
 \end{align}
-and realize that any maximizer of
+y constatamos que cualquier maximizador de
 \eqref{eq:kurtosis-maximization-sphere-finitesample}
-must satisfy $\lambda / N - 3 > 0$,
-assuming that $N$ is sufficiently large.
-Hence, we may \textit{normalize} both sides of
+debe satisfacer $\lambda / N - 3 > 0$,
+suponiendo que $N$ sea suficientemente grande.
+Por lo tanto, podemos \textit{normalizar} ambos lados de
 \eqref{eq:kurtosis-max-sphere-stationarity-modified},
-giving the following fixed-point equation satisfied by every
-maximizer of \eqref{eq:kurtosis-maximization-sphere-finitesample}:
+lo que nos da la siguiente ecuación de punto fijo que cumple todo
+maximizador de \eqref{eq:kurtosis-maximization-sphere-finitesample}:
 \begin{align}\label{eq:kurtosis-max-sphere-fxp}
     \frac{
         \frac{1}{N}\vX (\vX^\top \tilde{\vu})^{\hada 3}
@@ -1367,9 +1361,9 @@ maximizer of \eqref{eq:kurtosis-maximization-sphere-finitesample}:
     =
     \tilde{\vu}.
 \end{align}
-Iterating the mapping defined by the lefthand side of this fixed
-point expression then yields the FastICA algorithm of Hyv\"{a}rinen
-and Oja \cite{hyvarinen-1997}:
+Al iterar la aplicación definida por el lado izquierdo de esta expresión de punto fijo,
+se obtiene el algoritmo FastICA de Hyvärinen
+y Oja \cite{hyvarinen-1997}:
 \begin{equation}
     \begin{split}\label{eq:fast-ica}
         \tilde{\vv}^+ &= \tfrac{1}{N}\vX (\vX^\top
@@ -1378,48 +1372,48 @@ and Oja \cite{hyvarinen-1997}:
         \tilde{\vu}^+ &= \tilde{\vv}^+ / \norm*{\tilde{\vv}^+}_2.
     \end{split}
 \end{equation}
-It turns out that the FastICA algorithm converges extremely rapidly (actually at
-a \textit{cubic} rate) to columns of the dictionary $\vU$; interested readers
-may consult \cite{hyvarinen-1997} for details.
-Comparing the FastICA algorithm \eqref{eq:fast-ica} to the power method studied
-in \Cref{sub:pca} for the PCA problem and the MSP algorithm
-\eqref{eq:msp_iteration}, we notice a striking similarity. Indeed,
-FastICA is essentially a modified power method, involving the
-gradient of the empirical kurtosis rather than the simpler linear
-gradient of the PCA objective.
+Resulta que el algoritmo FastICA converge con extrema rapidez (de hecho, a
+una velocidad \textit{cúbica}) hacia las columnas del diccionario $\vU$; los lectores interesados
+pueden consultar \cite{hyvarinen-1997} para obtener más detalles.
+Al comparar el algoritmo FastICA \eqref{eq:fast-ica} con el método de potencias estudiado
+en \Cref{sub:pca} para el problema del PCA y el algoritmo MSP
+\eqref{eq:msp_iteration}, observamos una sorprendente similitud. De hecho,
+FastICA es, en esencia, un método de potencias modificado, que utiliza el
+gradiente de la curtosis empírica en lugar del gradiente lineal más simple
+del objetivo del PCA.
 
-\section{A Mixture of Overcomplete Low-Dimensional Subspaces}
+\section{Una mezcla de subespacios sobrecompletos de baja dimensión}
 \label{sec:dictionary_learning}
-As we have seen, complete dictionary learning enjoys an elegant
-computational theory in which we maintain a symmetric autoencoding
-structure $\cE(\vx) = \vU^\top \vx$, $\cD(\vz) = \vU \vz$, with a
-scalable power-method-like algorithm (the MSP algorithm) for learning
-an orthogonal dictionary/codebook $\vU$ from data. Nevertheless, for
-learning representations of general high-dimensional data
-distributions, one must expand the size of the codebook beyond the
-orthogonality requirement---meaning that we must have $\vA \in \R^{D
-\times m}$, with $m \gg D$, corresponding to the case of an
-\textit{overcomplete} dictionary/codebook,\footnote{We change the
-    notation here from $\vU$ to $\vA$ in order to emphasize the
-    non-orthogonality and non-square-shape of the overcomplete dictionary
-$\vA$.} and the signal model
+Como hemos visto, el aprendizaje de diccionarios completos se basa en una elegante
+teoría computacional en la que se mantiene una estructura de autoencodificación simétrica
+$\cE(\vx) = \vU^\top \vx$, $\cD(\vz) = \vU \vz$, junto con un
+algoritmo escalable similar al método de potencias (el algoritmo MSP) para aprender
+un diccionario ortogonal $\vU$ a partir de los datos. No obstante, para
+aprender representaciones de distribuciones generales de datos de alta dimensión,
+es necesario ampliar el tamaño del libro de códigos más allá del
+requisito de ortogonalidad, lo que significa que debemos tener $\vA \in \R^{D
+\times m}, con $m \gg D$, lo que corresponde al caso de un
+diccionario/libro de códigos \textit{sobrecompleto},\footnote{Cambiamos la
+    notación aquí de $\vU$ a $\vA$ para enfatizar la
+    no ortogonalidad y la forma no cuadrada del diccionario sobrecompleto
+$\vA$.} y el modelo de señal
 \begin{equation}\label{eq:model-DL-overcomplete}
     \vx =  \vA \vz + \veps,
     \quad
     \norm{\vz}_0 = d \ll m.
 \end{equation}
-There are both geometric and physical/modeling motivations for
-passing to the overcomplete case.
-Geometrically, recall that in our original reduction from the mixture
-of subspace data model to the sparse dictionary model, a mixture of
-$K$ subspaces in $\R^D$, each of dimension $d$, led to a dictionary
-of shape $\vA \in \R^{D \times Kd}$.
-In other words, overcomplete dictionaries correspond to
-\textit{richer} mixtures of subspaces, with more distinct modes of
-variability for modeling the high-dimensional data distribution.
-On the modeling side, we may run a computational experiment on
-real-world data that reveals the additional modeling power conferred
-by an overcomplete representation.
+Existen motivos tanto geométricos como físicos y de modelización para
+pasar al caso sobrecompleto.
+Desde el punto de vista geométrico, recordemos que en nuestra reducción original del modelo de datos de mezcla
+de subespacios al modelo de diccionario disperso, una mezcla de
+$K$ subespacios en $\R^D$, cada uno de dimensión $d$, dio lugar a un diccionario
+de forma $\vA \in \R^{D \times Kd}$. 
+En otras palabras, los diccionarios sobrecompletos corresponden a
+mezclas \textit{más ricas} de subespacios, con más modos distintos de
+variabilidad para modelar la distribución de datos en espacios de alta dimensión.
+En lo que respecta al modelado, podríamos realizar un experimento computacional con
+datos del mundo real que ponga de manifiesto la capacidad de modelado adicional que aporta
+una representación sobrecompleta.
 
 \begin{figure}[t]
     \centering
@@ -1433,177 +1427,173 @@ by an overcomplete representation.
         \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter2/figs/palm_atoms_patches_new.png}
         \caption{}
     \end{subfigure}
-    \caption{Comparison of learned dictionary atoms for complete (orthogonal)
-        and overcomplete dictionaries, trained to reconstruct $8$ by
-        $8$ patches taken from
-        MNIST digits. Both dictionaries are trained for $6000$ epochs
-        on $10^4$ random patches with
-        nontrivial content, and sparse codes are computed with the
-        LASSO objective
-        and $\lambda=0.1$ (see \eqref{eq:sparse_dl_lasso}). Colormaps
-        have black for negative values, and white for
-        positive values. \textbf{Top:} An orthogonal dictionary learned with the
-        MSP algorithm \eqref{eq:msp_iteration} is constrained to
-        have no more than $64$ atoms; the learned atoms roughly correspond to
-        a ``spike and slab'' dictionary, and achieve relatively poor
-        reconstruction sparsity
-        levels on held-out test data (codes are approximately $17$-sparse on
-        average, with respect to a threshold of $10^{-1}$).
-        \textbf{Bottom:} In contrast, an overcomplete dictionary
-        (here, with $8^3$
-        atoms; we visualize a random subset of $64$) learns
-        semantically-meaningful dictionary atoms corresponding to
-        signed oriented
-        edges, which can be pieced together to create digit patches and achieve
-        superior reconstruction and sparsity levels. Codes are approximately
-        $20$-sparse on
-        average, while being $8$ times larger than those of the orthogonal
-        dictionary. To compute the
-        dictionary, we use an optimizer based on proximal alternating linearized
-        minimization on a suitably-regularized version of
+    \caption{Comparación de los átomos de diccionario aprendidos para diccionarios completos (ortogonales)
+        y sobrecompletos, entrenados para reconstruir fragmentos de 8 × 8 tomados de los dígitos del MNIST.
+        Ambos diccionarios se entrenan durante 6000 épocas en 10 000 fragmentos aleatorios con
+        contenido no trivial y los códigos dispersos se calculan con el objetivo LASSO
+        y $\lambda=0.1$ (véase \eqref{eq:sparse_dl_lasso}). Las escalas de colores
+        utilizan el negro para los valores negativos y el blanco para
+        los valores positivos. \textbf{Arriba:} Un diccionario ortogonal aprendido con el
+        algoritmo MSP \eqref{eq:msp_iteration} está limitado a
+        tener un máximo de $64$ átomos; Los átomos aprendidos se corresponden aproximadamente con
+        un diccionario de tipo «pico y placa», y alcanzan niveles relativamente bajos
+        de dispersión en la reconstrucción
+        en los datos de prueba no utilizados (los códigos tienen una dispersión de aproximadamente 17
+        en promedio, con respecto a un umbral de 10⁻¹). \textbf{Abajo:} Por el contrario, un diccionario sobrecompleto
+        (en este caso, con $8^3$
+        átomos; visualizamos un subconjunto aleatorio de 64) aprende
+        átomos de diccionario semánticamente significativos correspondientes a
+        aristas orientadas con signo,
+        que pueden ensamblarse para crear fragmentos de dígitos y lograr
+        niveles superiores de reconstrucción y dispersión. Los códigos tienen una dispersión de aproximadamente
+        $20$ en promedio, aunque son $8$ veces más grandes que los del
+        diccionario ortogonal. Para calcular el
+        diccionario, utilizamos un optimizador basado en la minimización linealizada
+        alternante proximal sobre una versión adecuadamente regularizada de
     \eqref{eqn:DL-overcomplete}.}
     \label{fig:ReconMNIST}
 \end{figure}
 
 \begin{example}
-    Given sampled images of hand-written digits,
-    \Cref{fig:ReconMNIST}(a) shows the result of fitting an
-    orthogonal dictionary to the dataset.
-    In contrast, \Cref{fig:ReconMNIST}(b) shows the result of running an
-    optimization algorithm for learning overcomplete dictionaries (which we will
-    present in detail later in the Chapter) on these samples.
-    Notice that the representations become far sparser and the
-    codebooks far more interpretable---they consist of fundamental
-    primitives for the strokes composing the digits, i.e.\ oriented edges.
+    A partir de una muestra de imágenes de dígitos escritos a mano,
+    \Cref{fig:ReconMNIST}(a) muestra el resultado de ajustar un
+    diccionario ortogonal al conjunto de datos.
+    Por el contrario, \Cref{fig:ReconMNIST}(b) muestra el resultado de aplicar un 
+    algoritmo de optimización para el aprendizaje de diccionarios sobrecompletos (que
+    presentaremos en detalle más adelante en este capítulo) a estas muestras.
+    Nótese que las representaciones se vuelven mucho más dispersas y los
+    libros de códigos mucho más interpretables: consisten en primitivas fundamentales
+    para los trazos que componen los dígitos, es decir, aristas orientadas.
 \end{example}
 
-In fact, overcomplete dictionary learning was originally proposed as
-a biologically plausible algorithm for image representation based on
-empirical evidence of how early stages of the visual cortex represent
-visual stimuli \cite{Olshausen1996-ap,Olshausen1997-yv}.
+De hecho, el aprendizaje de diccionarios sobrecompleto se propuso originalmente como
+un algoritmo biológicamente plausible para la representación de imágenes, basado en
+evidencia empírica sobre cómo las primeras capas de la corteza visual representan
+los estímulos visuales \cite{Olshausen1996-ap,Olshausen1997-yv}.
 
-In the remainder of this section, we will overview the conceptual and
-computational foundations of overcomplete dictionary learning.
-Supposing that the model \eqref{eq:model-DL-overcomplete} is satisfied with
-sparse codes \(\vz\), overcomplete dictionary \(\vA\), and sparsity level \(d\),
-and given samples \(\vX = [\vx_1, \dots, \vx_N]\) of \(\vx\), we want to learn
-an encoder \(\cE : \R^D \to \R^m\) mapping each \(\vx\) to its {sparse code}
-\(\vz\), and a decoder \(\cD(\vz) = \vA \vz\) reconstructing each \(\vx\) from
-its sparse code. %
-In diagram form:
+En el resto de esta sección, repasaremos los fundamentos conceptuales y
+computacionales del aprendizaje de diccionarios sobrecompletos.
+Suponiendo que el modelo \eqref{eq:model-DL-overcomplete} se cumple con
+códigos dispersos \(\vz\), un diccionario sobrecompleto \(\vA\) y un nivel de dispersión \(d\),
+y dadas las muestras \(\vX = [\vx_1, \dots, \vx_N]\) de \(\vx\), queremos aprender
+un codificador \(\cE : \R^D \to \R^m\) que asigne a cada \(\vx\) su {código disperso}
+\(\vz\), y un decodificador \(\cD(\vz) = \vA \vz\) que reconstruya cada \(\vx\) a partir de
+su código disperso. %
+En forma de diagrama:
 \begin{equation}
     \x \xrightarrow{\hspace{4mm} \mathcal{E} \hspace{4mm}}  \z
     \xrightarrow{\hspace{2mm} \mathcal{D} = \vA \hspace{2mm}}   \hat{\x}.
     \label{eqn:autoencoding-DL-overcomplete}
 \end{equation}
 
-We will start from the construction of the encoder $\cE$.
-We will work incrementally: first, \textit{given the true dictionary
-$\vA$}, we will show how the problem of \textit{sparse coding} gives
-an elegant, scalable, and provably-correct algorithm for recovering
-the sparse code $\vz$ of $\vx$.
-Although this problem is NP-hard in the worst case, it can be solved
-efficiently and scalably for dictionaries $\vA$ which are
-\textit{incoherent}, i.e.\ having columns that are not too correlated.
-The encoder architecture encompassed by this solution will no longer
-be symmetric: we will see it has the form of a primitive deep
-network, which depends on the dictionary $\vA$.
+Comenzaremos por la construcción del codificador $\cE$.
+Trabajaremos por etapas: en primer lugar, \textit{partiendo del diccionario verdadero
+$\vA$}, mostraremos cómo el problema de la \textit{codificación dispersa} ofrece
+un algoritmo elegante, escalable y de corrección demostrable para recuperar
+el código disperso $\vz$ de $\vx$.
+Aunque este problema es NP-difícil en el peor de los casos, puede resolverse
+de manera eficiente y escalable para diccionarios $\vA$ que sean
+\textit{incoherentes}, es decir, que tengan columnas que no estén demasiado correlacionadas.
+La arquitectura del codificador que abarca esta solución ya no
+será simétrica: veremos que tiene la forma de una red profunda
+primitiva, que depende del diccionario $\vA$.
 
-Then we will proceed to the task of learning the decoder $\cD$, or
-equivalently the overcomplete dictionary $\vA$.
-We will derive an algorithm for overcomplete dictionary learning that allows us
-to simultaneously learn the codebook $\vA$ and the sparse codes
-$\vz$, using ideas from sparse coding.
-Finally, we will discuss a more modern perspective on learnable
-sparse coding that leads us to a fully asymmetric encoder-decoder
-structure, as an alternative to \eqref{eqn:autoencoding-DL-overcomplete}.
-Here, the decoder will correspond to an incremental solution to the
-sparse dictionary learning problem, and yield a pair of deep
-network-like encoder decoders for sparse dictionary learning.
-This structure will foreshadow many developments to come in the remainder of the
-monograph, as we progress from analytical models to modern neural networks.
+A continuación, pasaremos a la tarea de aprender el decodificador $\cD$, o
+lo que es lo mismo, el diccionario sobrecompleto $\vA$.
+Derivaremos un algoritmo para el aprendizaje de diccionarios sobrecompletos que nos permita
+aprender simultáneamente el libro de códigos $\vA$ y los códigos dispersos
+$\vz$, utilizando ideas de la codificación dispersa.
+Por último, analizaremos una perspectiva más moderna sobre la codificación
+dispersa aprendible que nos lleva a una estructura de codificador-decodificador
+totalmente asimétrica, como alternativa a \eqref{eqn:autoencoding-DL-overcomplete}.
+En este caso, el decodificador corresponderá a una solución incremental al
+problema del aprendizaje de diccionarios dispersos y dará como resultado un par de
+codificador y decodificador similar a una red profunda para el aprendizaje de 
+diccionarios dispersos. Esta estructura anticipará muchos de los avances que se 
+tratarán en el resto de la monografía, a medida que pasemos de los modelos 
+analíticos a las redes neuronales modernas.
 
-\subsection{Sparse Coding with an Overcomplete Dictionary}
+\subsection{Codificación dispersa con diccionario sobrecompleto}
 
-In this section, we will consider the data model
-\eqref{eq:model-DL-overcomplete}, which accommodates sparse linear combinations
-of many motifs, or \textit{atoms}. Given data \(\{\vx_{i}\}_{i =
+En esta sección, analizaremos el modelo de datos
+\eqref{eq:model-DL-overcomplete}, que da cabida a combinaciones lineales dispersas
+de numerosos motivos, o \textit{átomos}. Dados los datos \(\{\vx_{i}\}_{i =
     1}^{N} \subseteq
-\R^{D}\) satisfying this model, i.e.\ expressible as
+\R^{D}\) que satisfacen este modelo, es decir, que pueden expresarse como
 \begin{equation}\label{eq:vectorized_sparse_dl_dgp}
     \vx_{i} = \vA\vz_{i} + \veps_{i}, \qquad \forall i \in [N]
 \end{equation}
-for some dictionary $\vA \in \bR^{D \times m}$ with $m$ atoms, sparse codes
-$\vz_i$ such that $\norm{\vz_i}_0 \leq d$, and small errors $\veps_i$,
-the sparse coding problem is to recover the codes $\vz_i$ as accurately as
-possible from the data $\vx_i$, given the dictionary $\vA$.
-Efficient algorithms to solve this problem succeed when
-the dictionary \(\vA\) is \textit{incoherent} in the sense that the inner
-products \(\va_{i}^{\top}\va_{j}\) are uniformly small, hence the atoms are
-nearly orthogonal.\footnote{As it turns out, in a high-dimensional space, it is
-    rather easy to pack a number of nearly orthogonal vectors that is
-    much larger
-than the ambient dimension \cite{Wright-Ma-2022}. }
+para algún diccionario $\vA \in \bR^{D \times m}$ con $m$ átomos, códigos dispersos
+$\vz_i$ tales que $\norm{\vz_i}_0 \leq d$ y pequeños errores $\veps_i$,
+el problema de la codificación dispersa consiste en recuperar los códigos $\vz_i$ con la mayor precisión
+posible a partir de los datos $\vx_i$, dado el diccionario $\vA$.
+Los algoritmos eficientes para resolver este problema tienen éxito cuando
+el diccionario \(\vA\) es \textit{incoherente} en el sentido de que los
+productos internos \(\va_{i}^{\top}\va_{j}\) son uniformemente pequeños, por lo que los átomos son
+casi ortogonales.\footnote{Resulta que, en un espacio de alta dimensión, es
+    bastante fácil agrupar un número de vectores casi ortogonales que es
+    mucho mayor
+que la dimensión del espacio \cite{Wright-Ma-2022}.}
 
-Note that we can collect the \(\vx_{i}\) into \(\vX = \mat{\vx_{1},
-\dots, \vx_{N}} \in \R^{D \times N}\), collect the \(\vz_{i}\) into
-\(\vZ = \mat{\vz_{1}, \dots, \vz_{N}} \in \R^{d  \times N}\), and
-collect the \(\veps_{i}\) into \(\vE = \mat{\veps_{1}, \dots,
-\veps_{N}} \in \R^{D \times N}\), to rewrite
-\eqref{eq:vectorized_sparse_dl_dgp} as
+Nótese que podemos agrupar los \(\vx_{i}\) en \(\vX = \mat{\vx_{1},
+\dots, \vx_{N}} \in \R^{D \times N}\), agrupar los \(\vz_{i}\) en
+\(\vZ = \mat{\vz_{1}, \dots, \vz_{N}} \in \R^{d  \times N}\) y
+agrupar los \(\veps_{i}\) en \(\vE = \mat{\veps_{1}, \dots,
+\veps_{N}} \in \R^{D \times N}\), para reescribir
+\eqref{eq:vectorized_sparse_dl_dgp} como
 \begin{equation}\label{eq:sparse_dl_dgp}
     \vX = \vA\vZ + \vE.
 \end{equation}
-A natural approach to solving the sparse coding problem is to seek the sparsest
-signals that are consistent with our observations, and this naturally leads to
-the following optimization problem:
+Un enfoque natural para resolver el problema de la codificación dispersa consiste en buscar las señales más dispersas
+que sean compatibles con nuestras observaciones, lo que nos lleva naturalmente al
+siguiente problema de optimización:
 \begin{equation}\label{eq:sparse_dl_lasso}
     \min_{\tilde{\vZ} \in \R^{d \times N}}\bc{\norm{\vX -
         \vA\tilde{\vZ}}_{F}^{2} +
     \lambda \norm{\tilde{\vZ}}_{1}},
 \end{equation}
-where the \(\ell^1\) norm \(\norm{\tilde{\vZ}}_{1}\), taken elementwise, is
-known to promote sparsity of the solution \cite{Wright-Ma-2022}.
-This optimization problem is known as the LASSO problem.
+donde se sabe que la norma \(\ell^1\) \(\norm{\tilde{\vZ}}_{1}\), tomada elemento por elemento,
+fomenta la dispersión de la solución \cite{Wright-Ma-2022}.
+Este problema de optimización se conoce como el problema LASSO.
 
-However, unlike PCA or the
-complete dictionary learning problem, there is no clear power iteration-type
-algorithm to compute the optimal \(\vZ^{\star}\). A natural
-alternative is to consider
-solving the above optimization problem with gradient descent type algorithms.
-Let \(\cL(\tilde{\vZ}) = \norm{\vX - \vA\tilde{\vZ}}_{2}^{2} + \lambda
+Sin embargo, a diferencia del PCA o del problema del aprendizaje de diccionarios completos, 
+no existe un algoritmo claro del tipo de iteración de potencias
+para calcular el \(\vZ^{\star}\) óptimo. Una alternativa natural es plantearse
+resolver el problema de optimización anterior con algoritmos del tipo de descenso por gradiente.
+Sea \(\cL(\tilde{\vZ}) = \norm{\vX - \vA\tilde{\vZ}}_{2}^{2} + \lambda
 \norm{\tilde{\vZ}}_{1}\).
-Conceptually, we could try to compute \(\vZ^{\star}\) with the following
-iterations:
+En teoría, podríamos intentar calcular \(\vZ^{\star}\) mediante las siguientes
+iteraciones:
 \begin{equation}
     \tilde{\vZ}_{t+1} \leftarrow \tilde{\vZ}_t + \eta \nabla \cL(\tilde{\vZ}_t).
 \end{equation}
-However, because the term associated with the \(\ell^1\) norm
+Sin embargo, dado que el término asociado a la norma \(\ell^1\)
 \(\norm{\tilde{\vZ}}_{1}\)
-is non-smooth, we cannot just run gradient descent. For this type of function,
-we need to replace the gradient \(\nabla \cL(\tilde{\vZ})\) with something that
-generalizes the notion of gradient, known as the subgradient \(\partial
+no es suave, no podemos limitarnos a aplicar el método del descenso por gradiente.
+Para este tipo de función,
+necesitamos sustituir el gradiente \(\nabla \cL(\tilde{\vZ})\) por algo que
+generalice el concepto de gradiente, conocido como subgradiente \(\partial
 \cL(\tilde{\vZ})\):
 \begin{equation}
     \tilde{\vZ}_{t+1} \leftarrow \tilde{\vZ}_t + \eta \partial
     \cL(\tilde{\vZ}_t).
 \end{equation}
-However, it is known that the convergence of subgradient descent is usually very
-slow. Hence, for this type of optimization problems, it is conventional to adopt
-a so-called {\em proximal gradient descent}-type algorithm. We give a technical
-overview of this method in \Cref{subsec:pgd}.
+Sin embargo, se sabe que la convergencia del descenso por subgradiente suele ser muy
+lenta. Por lo tanto, para este tipo de problemas de optimización, lo habitual es utilizar
+un algoritmo denominado «descenso de gradiente proximal». Ofrecemos una descripción técnica
+de este método en la \Cref{subsec:pgd}.
 
-Applying proximal gradient to the LASSO objective function
-\eqref{eq:sparse_dl_lasso} leads to the classic \textit{iterative
-shrinkage-thresholding algorithm} (ISTA), which implements the iteration
+La aplicación del gradiente proximal a la función objetivo de LASSO
+\eqref{eq:sparse_dl_lasso} da lugar al clásico \textit{algoritmo iterativo
+de contracción y umbralización} (ISTA), que implementa la iteración
 \begin{eqnarray}
     \tilde{\vZ}_{1} &\sim& \dNorm(\vzero, \vI), \\
     \tilde{\vZ}_{t + 1} &=& S_{\eta\lambda}\rp{\tilde{\vZ}_{t} - 2\eta
     \vA^{\top}(\vA\tilde{\vZ}_{t} - \vX)}, \quad \forall t \geq
     1,\label{eq:ista_update}
 \end{eqnarray}
-with step size \(\eta \geq 0\), and the soft-thresholding operator
-\(S_{\alpha}\) defined on scalars by
+con un paso \(\eta \geq 0\) y el operador de umbral suave
+\(S_{\alpha}\) definido para escalares mediante
 \begin{align}
     S_{\alpha}(x) &
     \doteq
@@ -1614,10 +1604,10 @@ with step size \(\eta \geq 0\), and the soft-thresholding operator
     &=
     \sign(x) \max \set{\abs{x} - \alpha, 0},
 \end{align}
-and applied element-wise to the input matrix.  As a proximal gradient descent
-algorithm applied to a convex problem, convergence to a global optimum is
-assured, and a precise convergence rate can be derived straightforwardly
-\cite{Wright-Ma-2022}.
+y se aplica elemento por elemento a la matriz de entrada. Al tratarse de un 
+algoritmo de descenso por gradiente proximal aplicado a un problema convexo, 
+la convergencia hacia un óptimo global está garantizada y es posible derivar 
+directamente una tasa de convergencia precisa \cite{Wright-Ma-2022}.
 
 \begin{figure}
     \centering
@@ -1646,351 +1636,312 @@ assured, and a precise convergence rate can be derived straightforwardly
 
         \end{axis}
     \end{tikzpicture}
-    \caption{The graph of the soft thresholding function
-        \(S_{\lambda}\) (solid) compared to the ReLU activation
-        \(x \mapsto \max\set{x, 0}\) (dashed).
-        Between \(-\lambda\) and \(+\lambda\), the value
-        of \(S_{\lambda}\) is clipped to \(0\), while large inputs'
-        (absolute) value is simply shrunk by \(\lambda\).
-        Unlike ReLU, \(S_{\lambda}\) is symmetric and acts on both
-    positive and negative inputs.}
+    \caption{Gráfico de la función de umbral suave
+        \(S_{\lambda}\) (línea continua) comparada con la función de activación ReLU
+        \(x \mapsto \max\set{x, 0}\) (línea discontinua).
+        Entre \(-\lambda\) y \(+\lambda\), el valor
+        de \(S_{\lambda}\) se limita a \(0\), mientras que el valor
+        (absoluto) de las entradas grandes simplemente se reduce en \(\lambda\).
+        A diferencia de ReLU, \(S_{\lambda}\) es simétrica y actúa tanto sobre
+    las entradas positivas como sobre las negativas.}
     \label{fig:soft-thresholding}
 \end{figure}
 
-We now take a moment to remark on the functional form of the update
-operator in \eqref{eq:ista_update}. It takes the form
+Ahora nos detendremos un momento para comentar la forma funcional del operador de actualización
+en \eqref{eq:ista_update}. Adopta la forma de
 \begin{equation}
     \tilde{\vZ}_{t + 1} = \texttt{nonlinearity}(\tilde{\vZ}_{t} +
     \texttt{linear}^{\top}(\texttt{linear}(\tilde{\vZ}_{t}) + \texttt{bias})).
 \end{equation}
-This functional form is very similar to that of a residual network
-layer, namely,
+Esta forma funcional es muy similar a la de una capa de red residual,
+es decir,
 \begin{equation}
     \tilde{\vZ}_{t + 1} = \tilde{\vZ}_{t} +
     \texttt{linear}_{1}^{\top}(\texttt{nonlinearity}(\texttt{linear}_{2}(\tilde{\vZ}_{t})
         + \texttt{bias}_{1}) + \texttt{bias}_{2},
     \end{equation}
-    only decoupling the linear maps (i.e., matrix multiplications),
-    adding a bias, and moving the nonlinearity.
-    The nonlinearity in \eqref{eq:ista_update} is notably similar to the
-    commonly-used ReLU activation function $x \mapsto \max\set{x, 0}$ in deep
-    learning---as visualized in \Cref{fig:soft-thresholding}, the
-    soft-thresholding operator is like a ``signed''
-    ReLU activation, which is also shifted by a bias.
-    The ISTA, then, can be viewed as a forward pass of a primitive
-    (recurrent one-layer) neural network. We argue in
-    \Cref{ch:deep-networks} that such operations are essential to
-    deep representation learning.
+simplemente desacoplando las transformaciones lineales (es decir, las multiplicaciones matriciales),
+añadiendo un sesgo y desplazando la no linealidad.
+La no linealidad en \eqref{eq:ista_update} es notablemente similar a la
+función de activación ReLU de uso común $x \mapsto \max\set{x, 0}$ en el aprendizaje profundo
+---como se muestra en \Cref{fig:soft-thresholding}, el operador de umbral suave es como una 
+activación ReLU «con signo», que además se desplaza mediante un sesgo.
+Por lo tanto, la ISTA puede considerarse como una pasada hacia adelante de una red neuronal primitiva 
+(recurrente de una sola capa). En el \Cref{ch:deep-networks} defendemos que este tipo de operaciones 
+son esenciales para el aprendizaje de representaciones profundas.
 
-    \subsection{Overcomplete Dictionary Learning}
+\subsection{Aprendizaje de diccionarios sobrecompletos}
 
-    Recall that we have the data model
-    \begin{equation}\label{eq:overcomplete-dl-section-data-model}
-        \vX = \vA\vZ + \vE,
-    \end{equation}
-    where \(\vZ\) is sparse, and our goal previously was to estimate
-    \(\vZ\) given
-    knowledge of the data \(\vX\) and the dictionary atoms \(\vA\).
-    Now we turn to
-    the more practical and more difficult case where we do not know
-    either \(\vA\) or \(\vZ\) and seek to learn them from a large dataset.
+Recordemos que tenemos el modelo de datos
+\begin{equation}\label{eq:overcomplete-dl-section-data-model}
+    \vX = \vA\vZ + \vE,
+\end{equation}
+donde \(\vZ\) es un vector disperso y nuestro objetivo anterior era estimar
+\(\vZ\) a partir de la información de los datos \(\vX\) y los átomos del 
+diccionario \(\vA\).
+Ahora pasamos al caso más práctico y más difícil, en el que no conocemos
+ni \(\vA\) ni \(\vZ\) y tratamos de determinarlos a partir de un gran conjunto de datos.
 
-    A direct generalization of \Cref{eq:sparse_dl_lasso} suggests
-    solving the problem
-    \begin{equation}
-        \min_{\tilde{\vA}, \tilde{\vZ}}\bc{\norm{\vX -
-        \tilde{\vA}\tilde{\vZ}}_{F}^{2} + \lambda \norm{\tilde{\vZ}}_{1}}.
-        \label{eqn:DL-overcomplete-try}
-    \end{equation}
-    However, the bilinear term in \Cref{eqn:DL-overcomplete-try}
-    introduces a scale
-    ambiguity that hinders convergence: given any point $(\tilde{\vA},
-    \tilde{\vZ})$ and any constant $c>0$, the substitution
-    $(c^{-1}\tilde{\vA}, c\tilde{\vZ})$ gives loss value
-    \begin{equation}
-        \norm{\vX - \tilde{\vA}\tilde{\vZ}}_{F}^{2} + c\lambda
-        \norm{\tilde{\vZ}}_{1}.
-    \end{equation}
-    This loss is evidently minimized over $c$ by taking $c \to 0$,
-    which corresponds
-    to making the rescaled dictionary $c^{-1} \tilde{\vA}$ go `to infinity'. In
-    particular, the iterates of any optimization algorithm solving
-    \eqref{eqn:DL-overcomplete-try} will not converge.
+Una generalización directa de \Cref{eq:sparse_dl_lasso} sugiere
+resolver el problema
+\begin{equation}
+    \min_{\tilde{\vA}, \tilde{\vZ}}\bc{\norm{\vX -
+    \tilde{\vA}\tilde{\vZ}}_{F}^{2} + \lambda \norm{\tilde{\vZ}}_{1}}.
+    \label{eqn:DL-overcomplete-try}
+\end{equation}
+Sin embargo, el término bilineal en \Cref{eqn:DL-overcomplete-try}
+introduce una ambigüedad de escala
+que dificulta la convergencia: dado cualquier punto $(\tilde{\vA},
+\tilde{\vZ})$ y cualquier constante $c>0$, la sustitución
+$(c^{-1}\tilde{\vA}, c\tilde{\vZ})$ da lugar a un valor de pérdida 
+\begin{equation}
+    \norm{\vX - \tilde{\vA}\tilde{\vZ}}_{F}^{2} + c\lambda
+    \norm{\tilde{\vZ}}_{1}.
+\end{equation}
+Es evidente que esta pérdida se minimiza sobre $c$ al hacer que $c \to 0$,
+lo que equivale a hacer que el diccionario reescalado $c^{-1} \tilde{\vA}$ 
+tienda «al infinito». En particular, las iteraciones de cualquier algoritmo 
+de optimización que resuelva \eqref{eqn:DL-overcomplete-try} no convergerán.
 
-    This issue with \eqref{eqn:DL-overcomplete-try} is dealt with by adding
-    a constraint on the scale of the columns of the dictionary $\tilde{\vA}$.
-    For example, it is common to assume that each column $\vA_j$ of
-    the dictionary
-    $\vA$ in \eqref{eq:overcomplete-dl-section-data-model} has bounded $\ell^2$
-    norm---say, without loss of generality, by $1$.
-    We then enforce this as a constraint, giving the objective
-    \begin{equation}
-        \min_{\tilde{\vZ}, \tilde{\vA} \,:\, \norm{\tilde{\vA}_j}_2 \leq 1}
-        \bc{\norm{\vX - \tilde{\vA}\tilde{\vZ}}_{F}^{2} + \lambda
-        \norm{\tilde{\vZ}}_{1}}.
-        \label{eqn:DL-overcomplete}
-    \end{equation}
-    Constrained optimization problems such as \eqref{eqn:DL-overcomplete}
-    can be solved by a host of sophisticated algorithms
-    \cite{nocedal2006numerical}. However, a simple and scalable one is actually
-    furnished by the same proximal gradient descent algorithm that we
-    used to solve
-    the sparse coding problem in the previous section.
-    We can encode each constraint as additional regularization term, via the
-    characteristic function for the constraint set---details are given in
-    \Cref{example:prox-of-characteristic-function}.
-    Applying proximal gradient descent to the resulting regularized problem is
-    equivalent to \textit{projected gradient descent}, in which, at
-    each iteration,
-    the iterates after taking a gradient descent step are projected onto the
-    constraint set.
+Este problema con \eqref{eqn:DL-overcomplete-try} se resuelve añadiendo
+una restricción a la escala de las columnas del diccionario $\tilde{\vA}$.
+Por ejemplo, es habitual suponer que cada columna $\vA_j$ del
+diccionario $\vA$ en \eqref{eq:overcomplete-dl-section-data-model} tiene una norma $\ell^2$
+acotada---digamos, sin pérdida de generalidad, en $1$.
+A continuación, lo aplicamos como una restricción, estableciendo el objetivo
+\begin{equation}
+    \min_{\tilde{\vZ}, \tilde{\vA} \,:\, \norm{\tilde{\vA}_j}_2 \leq 1}
+    \bc{\norm{\vX - \tilde{\vA}\tilde{\vZ}}_{F}^{2} + \lambda
+    \norm{\tilde{\vZ}}_{1}}.
+    \label{eqn:DL-overcomplete}
+\end{equation}
+Los problemas de optimización con restricciones, como el de la ecuación \eqref{eqn:DL-overcomplete},
+pueden resolverse mediante una gran variedad de algoritmos sofisticados
+\cite{nocedal2006numerical}. Sin embargo, una solución sencilla y escalable es, de hecho,
+la que ofrece el mismo algoritmo de descenso por gradiente proximal que
+utilizamos para resolver el problema de la codificación dispersa en la sección anterior.
+Podemos codificar cada restricción como un término de regularización adicional, mediante la
+función característica del conjunto de restricciones---los detalles se ofrecen en
+\Cref{example:prox-of-characteristic-function}.
+La aplicación del descenso por gradiente proximal al problema regularizado resultante es
+equivalente al \textit{descenso por gradiente proyectado}, en el que, en
+cada iteración, las iteraciones, tras dar un paso de descenso por gradiente, se proyectan sobre el
+conjunto de restricciones.
 
-    \begin{remark}[$\ell^4$ maximization versus $\ell^1$ minimization]
-        Note that the above problem formulation follows naturally from the LASSO
-        formulation \eqref{eq:sparse_dl_lasso} for sparse coding. We promote the
-        sparsity of the solution via the \(\ell^1\) norm.
-        Nevertheless, if we are only interested in recovering the
-        over-complete dictionary \(\vA\), the \(\ell^4\) maximization
-        scheme introduced in \Cref{sec:complete-dictionary} also
-        generalizes to the over-complete case, without any
-        significant modification. Interested readers may refer to the
-        work of \cite{Qu2020Geometric}.
-    \end{remark}
+\begin{remark}[Maximización de $\ell^4$ vs minimización de $\ell^1$]
+    Cabe señalar que la formulación del problema anterior se deriva naturalmente de la formulación LASSO
+    \eqref{eq:sparse_dl_lasso} para la codificación dispersa. Promovemos la
+    dispersión de la solución mediante la norma \(\ell^1\).
+    No obstante, si solo nos interesa recuperar el
+    diccionario sobrecompleto \(\vA\), el esquema de maximización de \(\ell^4\)
+    presentado en la \Cref{sec:complete-dictionary} también
+    se generaliza al caso sobrecompleto, sin ninguna
+    modificación significativa. Los lectores interesados pueden consultar el
+    trabajo de \cite{Qu2020Geometric}.
+\end{remark}
 
-    The above problem \eqref{eqn:DL-overcomplete}, which we call
-    \textit{overcomplete dictionary learning}, is nonconvex as here
-    both \(\vA\) and
-    \(\vZ\) are unknown. It cannot be solved easily by the standard convex
-    optimization toolkit. Nevertheless, because it is interesting,
-    simple to state,
-    and practically important, there have been many important works dedicated to
-    different algorithms and theoretical analysis for this problem.
-    Here, for the
-    interest of this manuscript, we present an idiomatic approach to
-    solve this problem
-    which is closer to the spirit of deep learning.
+El problema anterior \eqref{eqn:DL-overcomplete}, al que denominamos
+\textit{aprendizaje de diccionarios sobrecompletos}, es no convexo, ya que en este caso
+tanto \(\vA\) como \(\vZ\) son desconocidos. No se puede resolver fácilmente con las 
+herramientas estándar de optimización convexa. No obstante, dado que es interesante,
+fácil de formular y de gran relevancia práctica, se han dedicado numerosos trabajos importantes a
+los distintos algoritmos y análisis teóricos relacionados con este problema.
+En este trabajo, presentamos un enfoque idiomático para resolver este problema
+que se ajusta más al espíritu del aprendizaje profundo.
 
-    From our experience with the LASSO problem above, it is easy to
-    see that, for
-    the two unknowns \(\vA\) and \(\vZ\), if we fix one and optimize
-    the other, each
-    subproblem is in fact convex and easy to solve. This naturally
-    suggests that we
-    could attempt to solve the above program \eqref{eqn:DL-overcomplete} by
-    minimizing against \(\vZ\) or \(\vA\) alternatively, say using
-    gradient descent.
-    Coupled with a natural choice of initialization, this leads to the following
-    iterative scheme:
-    \begin{align}
-        &\tilde{\vZ}^{\ell + 1} = S_{\eta\lambda}\rp{\tilde{\vZ}^{\ell}
-        - 2\eta\vA_{+}^{\top}(\vA_{+}\tilde{\vZ}^{\ell} - \vX)},
-        \quad \tilde{\vZ}^1 = \Zero,
-        \quad \forall \ell \in [L] \label{eqn:ISTA-update}\\
-        &\vZ^+ = \tilde{\vZ}^L,\\
-        &\tilde{\vA}_{t + 1} = \proj_{\norm{(\,\cdot\,)_j}_2 \leq
-        1,\,\forall j}\left(
-            \tilde{\vA}_{t} - 2\nu (\tilde{\vA}_{t}\vZ^+ - \vX)(\vZ^+)^\top
-        \right), \nonumber \\
-        &\quad\mbox{where} \quad (\tilde{\vA}_{1})_j \simiid \dNorm(\vzero,
-        \tfrac{1}{D}\vI), \enspace \forall
-        j \in [m],
-        \quad\;\; \forall t \in [T],\label{eqn:DL-update}\\
-        &\vA_+ = \tilde{\vA}_T,
-    \end{align}
-    where the projection operation in the update for $\vA$ ensures
-    each column has
-    at most unit $\ell^2$ norm, via $\vA_j \mapsto \vA_j / \max
-    \set{\norm{\vA_j}_2,
-    1}$, and where $\vA_+$ is initialized with each column i.i.d.\ $\cN(\Zero,
-    \tfrac{1}{D} \vI)$.
-    The above consists of one `block' of alternating minimization,
-    and we repeatedly
-    perform such blocks, each with independent initializations, until
-    convergence.
-    Above, we have used two separate indices $\{t\}$ and $\{\ell\}$
-    to indicate the
-    iterations. As we will see later, this allows us to interpret the
-    two updates
-    separately in the context of deep learning.
+A partir de nuestra experiencia con el problema LASSO anterior, es fácil
+ver que, para las dos incógnitas \(\vA\) y \(\vZ\), si fijamos una y optimizamos
+la otra, cada subproblema es, de hecho, convexo y fácil de resolver.
+Esto sugiere, naturalmente, que podríamos intentar resolver el programa anterior 
+\eqref{eqn:DL-overcomplete} minimizando alternativamente con respecto a \(\vZ\) 
+o \(\vA\), por ejemplo, utilizando el descenso por gradiente.
+Si a esto le sumamos una elección natural de inicialización, se obtiene el siguiente
+esquema iterativo:
+\begin{align}
+    &\tilde{\vZ}^{\ell + 1} = S_{\eta\lambda}\rp{\tilde{\vZ}^{\ell}
+    - 2\eta\vA_{+}^{\top}(\vA_{+}\tilde{\vZ}^{\ell} - \vX)},
+    \quad \tilde{\vZ}^1 = \Zero,
+    \quad \forall \ell \in [L] \label{eqn:ISTA-update}\\
+    &\vZ^+ = \tilde{\vZ}^L,\\
+    &\tilde{\vA}_{t + 1} = \proj_{\norm{(\,\cdot\,)_j}_2 \leq
+    1,\,\forall j}\left(
+        \tilde{\vA}_{t} - 2\nu (\tilde{\vA}_{t}\vZ^+ - \vX)(\vZ^+)^\top
+    \right), \nonumber \\
+    &\quad\mbox{where} \quad (\tilde{\vA}_{1})_j \simiid \dNorm(\vzero,
+    \tfrac{1}{D}\vI), \enspace \forall
+    j \in [m],
+    \quad\;\; \forall t \in [T],\label{eqn:DL-update}\\
+    &\vA_+ = \tilde{\vA}_T,
+\end{align}
+donde la operación de proyección en la actualización de $\vA$ garantiza
+que cada columna tenga una norma $\ell^2$ máxima de la unidad, 
+mediante $\vA_j \mapsto \vA_j / \max \set{\norm{\vA_j}_2,1}$ y 
+donde $\vA_+$ se inicializa con cada columna independiente e 
+idénticamente distribuida \$\cN(\Zero, \tfrac{1}{D} \vI)$.
+Lo anterior consiste en un «bloque» de minimización alterna,
+repitiéndose dichos bloques, cada uno con inicializaciones 
+independientes, hasta alcanzar la convergencia.
+Arriba, hemos utilizado dos índices distintos, $\{t\}$ y $\{\ell\}$
+para indicar las iteraciones. Como veremos más adelante, esto nos 
+permite interpretar las dos actualizaciones por separado en el 
+contexto del aprendizaje profundo.
 
-    Despite the dictionary learning problem being a nonconvex
-    problem, it has been
-    shown that alternating minimization type algorithms indeed converge to
-    the correct solution, at least locally. See, for example, \cite{alekh-2016}.
-    As a practical demonstration, the above algorithm (with $L = T =
-    1$) was used to
-    generate the results for overcomplete dictionary learning in
-    \Cref{fig:ReconMNIST}.
+A pesar de que el problema del aprendizaje de diccionarios es un problema no convexo,
+se ha demostrado que los algoritmos de tipo de minimización alterna convergen efectivamente hacia
+la solución correcta, al menos localmente. Véase, por ejemplo, \cite{alekh-2016}.
+A modo de demostración práctica, se utilizó el algoritmo anterior (con $L = T =
+1$) para generar los resultados del aprendizaje de diccionarios sobrecompletos que se muestran en
+\Cref{fig:ReconMNIST}.
 
-    \subsection{Learned Deep Sparse Coding}
-    \label{sec:LISTA}
-    The main insight from the alternating minimization algorithm for
-    overcomplete dictionary learning in the previous section
-    (\Cref{eqn:ISTA-update,eqn:DL-update}) is to notice that \textit{when we
-        fix \(\vA\), the ISTA update for $\vZ^\ell$
-        \eqref{eqn:ISTA-update} looks like
-        the forward pass of a deep neural network with weights given
-        by \(\vA\) (and
-    \(\vA^{\top}\))}. But in general, we do not know the true $\vA$,
-    and the current
-    estimate $\vA_+$ could be erroneous. Hence it needs to be further
-    updated using
-    \eqref{eqn:DL-update} based on the residual of using the current
-    estimate of the
-    sparse codes $\vZ^+$ to reconstruct $\vX$. The alternating minimization
-    algorithm iterates these two procedures until convergence. But we
-    can instead
-    extrapolate, and design other learning procedures by combining
-    these insights
-    with techniques from deep learning. This leads to more interpretable network
-    architectures, which will be a recurring theme throughout this manuscript.
+\subsection{Codificación dispersa profunda aprendida}
+\label{sec:LISTA}
+La idea principal del algoritmo de minimización alterna para
+el aprendizaje de diccionarios sobrecompletos en la sección anterior
+(\Cref{eqn:ISTA-update,eqn:DL-update}) es observar que \textit{cuando
+    fijamos \(\vA\), la actualización ISTA para $\vZ^\ell$
+    \eqref{eqn:ISTA-update} se asemeja
+    al paso hacia adelante de una red neuronal profunda con pesos dados
+    por \(\vA\) (y
+\(\vA^{\top}\))}. Pero, en general, no conocemos el verdadero $\vA$,
+y la estimación actual $\vA_+$ podría ser errónea. Por lo tanto, es 
+necesario actualizarla utilizando \eqref{eqn:DL-update} a partir del 
+residuo obtenido al utilizar la estimación actual de los
+códigos dispersos $\vZ^+$ para reconstruir $\vX$. El algoritmo de minimización alterna
+repite estos dos procedimientos hasta alcanzar la convergencia. Pero, en su lugar,
+podemos extrapolar y diseñar otros procedimientos de aprendizaje combinando
+estas ideas con técnicas del aprendizaje profundo. Esto da lugar a arquitecturas 
+de red más interpretables, lo cual será un tema recurrente a lo largo de este manuscrito.
 
-    \paragraph{Learned ISTA.} The above deep-network  interpretation of the
-    alternating minimization is more conceptual than practical, as
-    the process could
-    be rather inefficient and take many layers or iterations to converge.
-    But this
-    is mainly because we try to infer both \(\vZ\) and \(\vA\) from \(\vX\).
-    The problem can be significantly simplified and the above
-    iterations can be made
-    much more efficient in the \textit{supervised} setting, where we
-    have a dataset of input
-    and output pairs \((\vX, \vZ)\) distributed according to
-    \eqref{eq:overcomplete-dl-section-data-model} and we only seek to learn
-    \(\vA^\ell\) for the layerwise learnable sparse coding iterations
-    \eqref{eq:ISTA-update-layerwise}:\footnote{We drop the ``tilde'' accents
-        here for concision, as the indexing makes the
-    optimization-dependence clear.}
-    \begin{align}
-        & \vZ^{\ell + 1} = S_{\eta\lambda}\rp{\vZ^{\ell} -
-        2\eta(\vA^{\ell})^{\top}(\vA^\ell\vZ^{\ell} - \vX)}, \quad
-        \forall \ell \in [L].
-    \end{align}
-    If we denote the operator for each iteration as $\vZ^{\ell + 1} =
-    f(\vA^\ell, \vZ^\ell)$, the above iteration can be illustrated in
-    terms of a diagram:
-    \begin{equation*}
-        \vX, \vZ^1 \xrightarrow{\hspace{1mm} f(\vA^1,\,\cdot\,)
-        \hspace{1mm}}  \vZ^2 \xrightarrow{\hspace{1mm}
-        f(\vA^2,\,\cdot\,) \hspace{1mm}}  \vZ^3
-        \xrightarrow{\hspace{1mm} f(\vA^3,\,\cdot\,) \hspace{1mm}}
-        \cdots \vZ^{L}  \xrightarrow{\hspace{1mm}
-        f(\vA^{L},\,\cdot\,) \hspace{1mm}} \vZ^{L + 1} \approx \vZ.
-        \label{eqn:deep-sparse-encoding}
-    \end{equation*}
-    Thus, given the sequential architecture, to learn the operator
-    \(\vA^\ell\) at
-    each layer, it is completely natural to learn it, say via back propagation
-    (BP),\footnote{See \Cref{sec:autodiff} for a brief description of
-    BP.} by minimizing the error between the final code $\vZ^L$ and
-    the ground truth $\vZ$:
-    \begin{equation}\label{eq:lista-training}
-        \min_{\{\vA^\ell\}} \big\|\vZ^L(\vA^1, \ldots, \vA^{L}) - \vZ\big\|_2^2.
-    \end{equation}
-    This is the basis of the Learned ISTA (LISTA) algorithm
-    \cite{gregor2010learning}, which can be viewed as the learning
-    algorithm for a deep  neural network, which tries to emulate the
-    sparse encoding process from $\vX$ to $\vZ$. In particular, it
-    can be viewed as a \textit{simple representation learning algorithm}.
-    In fact, this same methodology can be used as a basis to understand the
-    representations computed in more powerful network architectures, such as
-    transformers. We develop these implications in detail in
-    \Cref{ch:deep-networks}.
+\paragraph{ISTA aprendido.} La interpretación anterior, en términos de redes profundas, de la
+minimización alterna es más conceptual que práctica, ya que el proceso podría
+resultar bastante ineficiente y requerir muchas capas o iteraciones para converger.
+Pero esto se debe principalmente a que intentamos deducir tanto \(\vZ\) como \(\vA\) 
+a partir de \(\vX\). El problema puede simplificarse considerablemente y las iteraciones 
+anteriores pueden hacerse mucho más eficientes en el contexto \textit{supervisado}, donde
+disponemos de un conjunto de datos de pares de entrada y salida \((\vX, \vZ)\) distribuidos 
+según \eqref{eq:overcomplete-dl-section-data-model} y solo buscamos aprender
+\(\vA^\ell\) para las iteraciones de codificación dispersa aprendible por capas
+\eqref{eq:ISTA-update-layerwise}:\footnote{Omitimos los acentos de «tilde»
+    aquí por motivos de concisión, ya que la indexación deja
+clara la dependencia de la optimización.}
+\begin{align}
+    & \vZ^{\ell + 1} = S_{\eta\lambda}\rp{\vZ^{\ell} -
+    2\eta(\vA^{\ell})^{\top}(\vA^\ell\vZ^{\ell} - \vX)}, \quad
+    \forall \ell \in [L].
+\end{align}
+Si denotamos el operador para cada iteración como $\vZ^{\ell + 1} =
+f(\vA^\ell, \vZ^\ell)$, la iteración anterior puede ilustrarse
+mediante un diagrama:
+\begin{equation*}
+    \vX, \vZ^1 \xrightarrow{\hspace{1mm} f(\vA^1,\,\cdot\,)
+    \hspace{1mm}}  \vZ^2 \xrightarrow{\hspace{1mm}
+    f(\vA^2,\,\cdot\,) \hspace{1mm}}  \vZ^3
+    \xrightarrow{\hspace{1mm} f(\vA^3,\,\cdot\,) \hspace{1mm}}
+    \cdots \vZ^{L}  \xrightarrow{\hspace{1mm}
+    f(\vA^{L},\,\cdot\,) \hspace{1mm}} \vZ^{L + 1} \approx \vZ.
+    \label{eqn:deep-sparse-encoding}
+\end{equation*}
+Por lo tanto, dada la arquitectura secuencial, para aprender el operador
+\(\vA^\ell\) en cada capa, resulta totalmente natural hacerlo, por ejemplo, 
+mediante la retropropagación (BP),\footnote{Véase \Cref{sec:autodiff} para 
+    una breve descripción de
+la retropropagación.} minimizando el error entre el código final $\vZ^L$ y
+la verdad fundamental $\vZ$:
+\begin{equation}\label{eq:lista-training}
+    \min_{\{\vA^\ell\}} \big\|\vZ^L(\vA^1, \ldots, \vA^{L}) - \vZ\big\|_2^2.
+\end{equation}
+Esta es la base del algoritmo Learned ISTA (LISTA)
+\cite{gregor2010learning}, que puede considerarse como el algoritmo de aprendizaje
+de una red neuronal profunda, que intenta emular el
+proceso de codificación dispersa de $\vX$ a $\vZ$. En concreto,
+se puede considerar como un \textit{algoritmo simple de aprendizaje de representaciones}.
+De hecho, esta misma metodología puede servir de base para comprender las
+representaciones calculadas en arquitecturas de red más potentes, como
+los transformadores. Desarrollamos estas implicaciones en detalle en
+el \Cref{ch:deep-networks}.
 
-    \paragraph{Sparse Autoencoders.}
-    The original motivation for overcomplete dictionary learning was to provide
-    a simple generative model for high-dimensional data. We have seen
-    with LISTA that, in
-    addition, iterative algorithms for learning sparsely-used overcomplete
-    dictionaries provide an interpretation for ReLU-like deep networks, which we
-    will generalize in later chapters to more complex data distributions than
-    \eqref{eq:overcomplete-dl-section-data-model}.
-    But it is also worth noting that even in the modern era of large
-    models, the data
-    generating model \eqref{eq:overcomplete-dl-section-data-model}
-    provides a useful
-    practical basis for
-    \textit{interpreting features in pretrained large-scale deep
-    networks}, such as
-    transformers, following the hypothesis that the
-    (non-interpretable, \textit{a
-    priori}) features in these networks consist of sparse ``superpositions'' of
-    underlying features, which are themselves interpretable
-    \cite{elhage2022superposition}. These \textit{unsupervised}
-    learning paradigms
-    are generally more data friendly than LISTA, as well, which
-    requires large amounts
-    of labeled $(\vX, \vZ)$ pairs for supervised training.
+\paragraph{Autocodificadores dispersos.}
+La motivación original del aprendizaje de diccionarios sobrecompletos era proporcionar
+un modelo generativo sencillo para datos de alta dimensión. Hemos visto
+con LISTA que, además, los algoritmos iterativos para el aprendizaje de diccionarios sobrecompletos
+utilizados de manera dispersa ofrecen una interpretación de las redes profundas de tipo ReLU, que
+generalizaremos en capítulos posteriores a distribuciones de datos más complejas que
+\eqref{eq:overcomplete-dl-section-data-model}.
+Pero también cabe señalar que, incluso en la era moderna de los grandes
+modelos, el modelo de generación de datos
+\eqref{eq:overcomplete-dl-section-data-model}
+ofrece una base práctica y útil
+para
+\textit{interpretar características en redes profundas preentrenadas a gran escala}, 
+tales como los transformadores, siguiendo la hipótesis de que las
+características (no interpretables, \textit{a priori}) en estas redes consisten 
+en «superposiciones» dispersas de características subyacentes, las cuales son 
+a su vez interpretables \cite{elhage2022superpositiion}. Estos paradigmas de 
+aprendizaje \textit{sin supervisión} suelen ser también más eficientes en 
+cuanto al uso de datos que LISTA, que requiere grandes cantidades
+de pares etiquetados $(\vX, \vZ)$ para el entrenamiento supervisado.
 
-    We can use our development of the LISTA algorithm above to understand common
-    practices in this field of research.
-    In the most straightforward instantiation (see \citep{huben2024sparse,
-    gao2025scaling}), a large number of features from a pretrained
-    deep network $h$
-    are collected from different inputs $\vx_i$, which themselves are
-    chosen based
-    on a desired interpretation task.\footnote{For example, the
-        inputs $\vx_i$ could
-        correspond to texts containing samples of computer code in
-        different programming
-        languages, with our task being to try to identify
-        interpretable features in
-        a transformer feature map $h$ corresponding to different
-        salient aspects of the
-        input, such as the specific programming language (distinct across input
-        ``classes'') or the need to insert a matching parenthesis at the current
-        position (common across input ``classes''). We discuss the
-        use of deep networks,
-        and in particular transformers, for text representation
-    learning in greater detail in \Cref{ch:applications}.} For
-    simplicity, we will use $h$ to denote the pre-selected feature
-    map in question,
-    with $D$-dimensional features; given $N$ sample inputs, let $\vH \in \bR^{D
-    \times N}$ denote the full matrix of features of $h$.
-    Then a so-called sparse autoencoder $f : \bR^D \to \bR^d$, with
-    decoder $g : \bR^d \to
-    \bR^D$, is trained via the LASSO loss \eqref{eq:sparse_dl_lasso}:
-    \begin{equation}\label{eq:sae-loss}
+Podemos utilizar el desarrollo del algoritmo LISTA que acabamos de ver 
+para comprender las prácticas habituales en este campo de investigación.
+En su aplicación más sencilla (véase \citep{huben2024sparse,
+gao2025scaling}), se recopila un gran número de características de una 
+red profunda preentrenada $h$ a partir de diferentes entradas $\vx_i$, 
+las cuales se seleccionan en función de la tarea de interpretación deseada.\footnote{Por ejemplo, 
+    las entradas $\vx_i$ podrían corresponder a textos que contengan fragmentos de código informático en
+    diferentes lenguajes de programación , siendo nuestra tarea tratar de identificar
+    características interpretables en
+    un mapa de características del transformador $h$ que correspondan a diferentes
+    aspectos destacados de la entrada, tales como el lenguaje de programación específico (distinto entre las
+    «clases» de la entrada) o la necesidad de insertar un paréntesis de cierre en la posición actual
+    (común entre las «clases» de la entrada). Analizamos el
+    uso de redes profundas, y en particular de los transformadores, para el aprendizaje de representaciones de texto
+con mayor detalle en el\Cref{ch:applications}.} Para simplificar, utilizaremos $h$ para denotar el mapa de 
+características preseleccionado en cuestión, con características de dimensión $D$; dadas $N$ entradas de 
+muestra, sea $\vH \in \bR^{D \times N}$ la matriz completa de características de $h$.
+A continuación, se entrena un autocodifcador disperso $f : \bR^D \to \bR^d$, con
+un decodificador $g : \bR^d \to \bR^D$, mediante la función de pérdida 
+LASSO \eqref{eq:sparse_dl_lasso}:
+\begin{equation}\label{eq:sae-loss}
     \min_{f, g} \| \vH - g(f(\vH))) \|_F^2 + \lambda \|f(\vH)\|_1 ,
 \end{equation}
-where the sparse autoencoder $f$ takes the form of a one-layer neural
-network, i.e.\ $f(\vh_i) = \sigma(\vW_{\mathrm{enc}}(\vh_i - \vb)
-+ \vb_{\mathrm{enc}})$, where $\sigma(x) = \max \{x, 0\}$ is the ReLU activation
-function, and the decoder $g$ is linear, so that $g(\vz_i)
-= \vW_{\mathrm{dec}}\vz + \vb$.\footnote{Since \(f\) is a sparsifying
-    operator, we denote it analogously to the previously used \(f\), say
-    in LISTA where \(f\) denotes an optimization algorithm to sparsely
-    encode the input. Throughout the book, \(f\) will be used to denote
-    such sparse and otherwise structured transformations, including those
-    of \textit{deep network encoders}
+donde el autocodificador disperso $f$ adopta la forma de una red neuronal de una sola capa,
+es decir, $f(\vh_i) = \sigma(\vW_{\mathrm{enc}}(\vh_i - \vb)
++ \vb_{\mathrm{enc}})$, donde $\sigma(x) = \max \{x, 0\}$ es la función de activación ReLU
+y el decodificador $g$ es lineal, de modo que $g(\vz_i)
+= \vW_{\mathrm{dec}}\vz + \vb$.\footnote{Dado que \(f\) es un operador de
+    dispersión, lo denotamos de manera análoga al \(f\) utilizado anteriormente, por ejemplo,
+    en LISTA, donde \(f\) denota un algoritmo de optimización para codificar de forma
+    dispersa la entrada. A lo largo del libro, se utilizará \(f\) para referirse a
+    esas transformaciones dispersas y estructuradas de otro modo, incluidas las
+    de los \textit{codificadores de redes profundas}
 (\Cref{ch:lossy-compression,ch:deep-networks}).}
 
-The parameterization and training procedure \eqref{eq:sae-loss} may initially
-seem to be an arbitrary application of deep learning to the sparse coding
-problem, but it is actually highly aligned with the algorithms we have studied
-above for layerwise sparse coding with a learned dictionary.
-In particular, recall the LISTA %
-architecture $\vZ^{L} = f(\vA^L, f(\vA^{L-1}, \cdots, f(\vA^1, \vX) \cdots ))$.
-In the special case $L=2$, we have
+El procedimiento de parametrización y entrenamiento \eqref{eq:sae-loss} puede parecer inicialmente
+una aplicación arbitraria del aprendizaje profundo al problema de la codificación
+dispersa, pero en realidad está muy en consonancia con los algoritmos que hemos estudiado
+anteriormente para la codificación dispersa por capas con un diccionario aprendido.
+En particular, recordemos la arquitectura LISTA %
+$\vZ^{L} = f(\vA^L, f(\vA^{L-1}, \cdots, f(\vA^1, \vX) \cdots )$.
+En el caso especial de $L=2$, tenemos
 \begin{equation}
     \vZ^2 = f(\vA^1, \vX)
     =S_{\eta\lambda}\rp{\vZ^{1} - 2\eta(\vA^{1})^{\top}(\vA^1\vZ^{1} - \vX)}.
 \end{equation}
-Let us assume that the sparse codes $\vZ$ in question are nonnegative, i.e.,
-that $\vZ \geq \Zero$.\footnote{In the data generating model
-    \eqref{eq:overcomplete-dl-section-data-model}, an arbitrary
-    dictionary-and-sparse-code pair $(\vA, \vZ)$ can be replaced by one in which
-    $\vZ \geq \Zero$ simply by doubling the number of columns in $\vA$, so from
-a modeling perspective, this is a very mild assumption.}
-Then (see \Cref{example:prox-of-nonnegative-l1}), we can consider an equivalent
-LISTA architecture obtained from the sparse coding objective with an additional
-nonnegativity constraint on $\vZ$ as
+Supongamos que los códigos dispersos $\vZ$ en cuestión son no negativos, es decir,
+que $\vZ \geq \Zero$.\footnote{En el modelo de generación de datos
+    \eqref{eq:overcomplete-dl-section-data-model}, un par arbitrario
+    de diccionario y código disperso $(\vA, \vZ)$ puede sustituirse por uno en el que
+    $\vZ \geq \Zero$ simplemente duplicando el número de columnas en $\vA$, por lo que,
+desde el punto de vista del modelado, se trata de una suposición muy moderada.}
+Entonces (véase \Cref{example:prox-of-nonnegative-l1}), podemos considerar una arquitectura LISTA equivalente
+obtenida a partir del objetivo de codificación dispersa con una restricción adicional
+de no negatividad sobre $\vZ$ como
 \begin{equation}
     \vZ^2 = f(\vA^1, \vX)
     =\max \set*{\vZ^{1} - 2\eta(\vA^{1})^{\top}(\vA^1\vZ^{1} - \vX)
     - \lambda\eta \mathbf{1}, 0},
 \end{equation}
-and after some algebra, express this as
+y, tras algunas operaciones algebraicas, expresarlo como
 \begin{equation}
     \vZ^2 = f(\vA^1, \vX)
     =\max \set*{
@@ -2001,49 +1952,48 @@ and after some algebra, express this as
         \right), 0
     }.
 \end{equation}
-Given the ability to change the sparse code initialization $\vZ^1$ as
-a learnable parameter (which, in the current framework, must have all columns
-equal to the same learnable vector), this has the form of a ReLU neural network
-with learnable bias---identical to the sparse autoencoder $f$!
-Moreover, to \textit{decode} the learned sparse codes $\vZ^2$, it is natural to
-apply the learned dictionary $\vZ^2 \mapsto \vA^1 \vZ^2$. Then the only
-difference between this and the SAE decoder $g$ is the additional bias $\vb$,
-which can technically be absorbed into $\vH$ and $f$ in the training objective
+Dada la posibilidad de modificar la inicialización del código disperso $\vZ^1$ como
+un parámetro aprendible (que, en el marco actual, debe tener todas las columnas
+iguales al mismo vector aprendible), esto adopta la forma de una red neuronal ReLU
+con sesgo aprendible, ¡idéntica al autocodificador disperso $f$!
+Además, para \textit{decodificar} los códigos dispersos aprendidos $\vZ^2$, lo más natural es
+aplicar el diccionario aprendido $\vZ^2 \mapsto \vA^1 \vZ^2$. Entonces, la única
+diferencia entre esto y el decodificador SAE $g$ es el sesgo adicional $\vb$,
+que técnicamente puede absorberse en $\vH$ y $f$ en el objetivo de entrenamiento
 \eqref{eq:sae-loss}.
 
-Thus, the SAE parameterization and training procedure coincides with
-LISTA training with $L=1$, and a modified training objective---using the
-LASSO objective \eqref{eq:sparse_dl_lasso}, which remains {\em
-unsupervised}, instead
-of the supervised reconstruction loss \eqref{eq:lista-training} used in vanilla
-LISTA. In particular, we can understand the SAE architecture in terms of our
-interpretation of the LISTA architecture in terms of layerwise sparse coding in
-\eqref{eq:ISTA-update-layerwise}. This connection is suggestive of a host of new
-design strategies for improving practical interpretability methodology, many of
-which remain tantalizingly unexplored. We begin to lay out some connections to
-broader autoencoding methodology in \Cref{ch:consistent-representations}.
+Por lo tanto, el procedimiento de parametrización y entrenamiento de SAE coincide con
+el entrenamiento de LISTA con $L=1$ y un objetivo de entrenamiento modificado---utilizando el
+objetivo LASSO \eqref{eq:sparse_dl_lasso}, que sigue siendo {\em no supervisado}, en lugar 
+de la pérdida de reconstrucción supervisada \eqref{eq:lista-training} utilizada en el método
+LISTA estándar. En concreto, podemos entender la arquitectura SAE a partir de nuestra
+interpretación de la arquitectura LISTA en términos de codificación dispersa por capas, tal 
+y como se describe en \eqref{eq:ISTA-update-layerwise}. Esta conexión sugiere una gran variedad de nuevas
+estrategias de diseño para mejorar la metodología de la interpretabilidad práctica, muchas de
+las cuales siguen sin haberse explorado, lo cual resulta tentador. Comenzamos a establecer 
+algunas conexiones con la metodología más amplia de la autocodificación en 
+el \Cref{ch:consistent-representations}.
 
-\paragraph{Layerwise learned sparse coding?}
+\paragraph{¿Codificación dispersa aprendida por capas?}
 
-In the supervised setting, LISTA provides a deep neural network analogue of
-the sparse coding iteration, with layerwise-learned dictionaries, inspired by
-alternating minimization; even in the unsupervised setting, the same methodology
-can be applied to learning, as with sparse autoencoders.
-But the connection between low-dimensional-structure-seeking
-optimization algorithms
-and deep network architectures goes much deeper than this, and suggests an array
-of scalable and natural neural learning architectures which may even be usable
-without backpropagation.
+En el contexto supervisado, LISTA ofrece un análogo de red neuronal profunda de
+la iteración de codificación dispersa, con diccionarios aprendidos por capas, inspirado en
+la minimización alterna; incluso en el contexto no supervisado, se puede aplicar la misma metodología
+al aprendizaje, al igual que con los autocodificadores dispersos.
+Pero la relación entre los algoritmos de optimización
+que buscan estructuras de baja dimensión y las arquitecturas de redes profundas es mucho más 
+profunda que eso y sugiere una variedad de arquitecturas de aprendizaje neuronal escalables 
+y naturales que podrían incluso utilizarse sin retropropagación.
 
-As a simple illustration, we return the alternating minimization iterations
-\eqref{eqn:ISTA-update} and \eqref{eqn:DL-update}.
-This scheme randomly re-initializes the dictionary $\vA_1$ on every such update.
-An improvement uses instead \textit{warm starting}, where the residual is
-generated using the previous estimate $\vA_+$ for the dictionary.
-If we then view each ISTA update \eqref{eqn:ISTA-update} as a layer and allow
-the associated dictionary, now coupled with the sparse code updates as
-$\vA_\ell$, to update in time, this leads to a  ``layerwise-learnable'' sparse
-coding scheme:
+A modo de ejemplo sencillo, volvemos a las iteraciones de minimización alternadas
+\eqref{eqn:ISTA-update} y \eqref{eqn:DL-update}.
+Este esquema reinicializa aleatoriamente el diccionario $\vA_1$ en cada una de esas actualizaciones.
+Una mejora utiliza en su lugar el «inicio en caliente», en el que el residuo
+se genera utilizando la estimación anterior $\vA_+$ para el diccionario.
+Si consideramos entonces cada actualización ISTA \eqref{eqn:ISTA-update} como una capa y permitimos
+que el diccionario asociado, ahora acoplado a las actualizaciones del código disperso como
+$\vA_\ell$, se actualice con el tiempo, esto da lugar a un esquema de codificación dispersa
+«aprendible por capas»:
 \begin{align}
     & \vZ^{1}
     = \Zero, \quad (\vA_{1})_j
@@ -2054,320 +2004,312 @@ coding scheme:
     & \vA_{\ell + 1} = \vA_{\ell}- 2\nu (\vA_{\ell}\vZ^{\ell + 1}
     - \vX)(\vZ^{\ell + 1})^\top.
 \end{align}
-Note that this iteration %
-corresponds to a relabeling of \eqref{eqn:ISTA-update} and \eqref{eqn:DL-update}
-for $T = L = 1$, over infinitely many blocks.
-Each of the `inner' steps updating $\vZ$ can be considered as a one-layer
-forward pass, while each of the `outer' steps updating $\vA$ can be considered
-as a one-layer  backward pass, of a primitive deep neural network. In
-particular, this algorithm is the simplest case in which a clear divide between
-forward optimization and backward learning manifests. This
-distinction between forward updates to the ephemeral ``features''
-$\vZ$ of data $\vX$ versus backward updates to the persistent
-parameters $\vA$  is still observed in current neural networks and
-autoencoders---we will have much more to say about it in
-\Cref{ch:deep-networks} and in \Cref{ch:consistent-representations}.
+Tenga en cuenta que esta iteración %
+corresponde a un reetiquetamiento de \eqref{eqn:ISTA-update} y \eqref{eqn:DL-update}
+para $T = L = 1$, sobre un número infinito de bloques.
+Cada uno de los pasos «internos» que actualizan $\vZ$ puede considerarse como una pasada 
+hacia adelante de una sola capa, mientras que cada uno de los pasos «externos» que 
+actualizan $\vA$ puede considerarse como una pasada hacia atrás de una sola capa, 
+de una red neuronal profunda primitiva. En particular, este algoritmo constituye el 
+caso más sencillo en el que se manifiesta una clara distinción entre
+la optimización hacia adelante y el aprendizaje hacia atrás. Esta
+distinción entre las actualizaciones hacia adelante de las «características» efímeras
+$\vZ$ de los datos $\vX$ y las actualizaciones hacia atrás de los parámetros
+persistentes $\vA$  sigue observándose en las redes neuronales y los
+autocodificadores actuales; hablaremos mucho más sobre ello en
+el \Cref{ch:deep-networks} y el \Cref{ch:consistent-representations}.
 
-Notice that the above layer-wise scheme also suggests a plausible
-alternative to the current end-to-end optimization strategy that
-primarily relies on back propagation (BP) detailed in
-\Cref{app:BP-section}. Freeing training large networks from BP would
-be one of the biggest challenges and opportunities in the future, as
-we will discuss more at the end of the book in \Cref{ch:future}.
+Obsérvese que el esquema por capas anterior también sugiere una alternativa plausible
+a la actual estrategia de optimización de extremo a extremo, que
+se basa principalmente en la retropropagación (BP), tal como se detalla en
+\Cref{app:BP-section}. Liberar el entrenamiento de redes grandes de la dependencia de BP sería
+uno de los mayores retos y oportunidades del futuro, tal y como
+analizaremos con más detalle al final del libro en el \Cref{ch:future}.
 
-\section{Summary and Notes}
+\section{Resumen y notas}
 
-\paragraph{Key Messages.} The idealistic models we have presented in
-this chapter---PCA, ICA, and
-dictionary learning---were developed over the course of the twentieth century.
-Many books have been written solely about each method, so we only attempted
-here to give a broad overview of the key concepts and results. As we
-will see in coming chapters, although these are arguably rather
-idealistic simple models for low-dimensional data distributions, the
-basic ideas and even resulting algorithms to identify such
-distributions can be naturally generalized or extended to arbitrary
-low-dimensional distributions -- the thesis of this book. In
-addition, as we will see in coming chapters, these basic (linear)
-models, to a large extent, can also serve as local prototypes to
-effectively approximately model general distributions with nonlinear
-low-dimensional structures.
+\paragraph{Mensajes clave.} Los modelos idealizados que hemos presentado en
+este capítulo---el PCA, el ICA y el aprendizaje de diccionarios---se 
+desarrollaron a lo largo del siglo XX.  Se han escrito muchos libros dedicados 
+exclusivamente a cada uno de estos métodos, por lo que aquí solo hemos intentado
+ofrecer una visión general de los conceptos y resultados clave. Como
+veremos en los próximos capítulos, aunque podría decirse que se trata de
+modelos bastante idealizados y sencillos para distribuciones de datos de baja dimensión, las
+ideas básicas e incluso los algoritmos resultantes para identificar tales
+distribuciones pueden generalizarse o ampliarse de forma natural a cualquier
+distribución de baja dimensión: esa es la tesis de este libro. Además,
+como veremos en los próximos capítulos, estos modelos básicos (lineales)
+pueden servir, en gran medida, como prototipos locales para
+aproximar de manera eficaz distribuciones generales con estructuras no lineales
+de baja dimensión.
 
-\paragraph{More History and References.}
-Jolliffe \cite{Jolliffe1986} attributes principal component analysis to Pearson
-\cite{Pearson1901}, and independently Hotelling \cite{Hotelling1933}. In
-mathematics, the main result on the related problem of low-rank approximation in
-unitarily invariant norms is attributed to Eckart and Young
-\cite{Eckart1936-ep}, and to Mirsky for full generality \cite{Mirsky1960-ek}.
-PCA continues to play an important role in research as perhaps the simplest
-model problem for unsupervised representation learning: as early as the 1980s,
-works such as \textcite{Oja1982SimplifiedNM} and \textcite{Baldi89} used the
-problem to understand learning in primitive neural networks, and more recently,
-it has served as a tool for understanding more complex representation learning
-frameworks, such as diffusion models \cite{wang2024diffusion}.
+\paragraph{Más información histórica y referencias.}
+Jolliffe \cite{Jolliffe1986} atribuye el análisis de componentes principales a Pearson
+\cite{Pearson1901} y, en forma independiente, a Hotelling \cite{Hotelling1933}. En
+matemáticas, el resultado principal sobre el problema relacionado de la aproximación de rango bajo en
+normas unitariamente invariantes se atribuye a Eckart y Young
+\cite{Eckart1936-ep}, así como a Mirsky en su forma más general \cite{Mirsky1960-ek}.
+El PCA sigue desempeñando un papel importante en la investigación, ya que es quizás el
+modelo más simple para el problema de aprendizaje de representaciones no supervisado: ya en la década de 1980,
+trabajos como \textcite{Oja1982SimplifiedNM} y \textcite{Baldi89} utilizaron el
+problema para comprender el aprendizaje en redes neuronales primitivas y, más recientemente,
+ha servido como herramienta para comprender marcos de aprendizaje de representaciones más complejos,
+como los modelos de difusión \cite{wang2024diffusion}.
 
-Independent component analysis was proposed by \textcite{Ans-1985}
-and pioneered by
-Aapo Hyv\"{a}rinen in the 1990s and early 2000s in a series of influential
-works: see \textcite{Hyvrinen-2000} for a summary. As a simple model for
-structure that arises in practical data, it initially saw significant use in
-applications such as blind source separation, where each independent component
-$z_i$ represents an independent source (such as sound associated to a distinct
-instrument in a musical recording) that is superimposed to produce the
-observation $\vx = \vU \vz$.
+El análisis de componentes independientes fue propuesto por \textcite{Ans-1985}
+y desarrollado por primera vez por Aapo Hyv\"{a}rinen en la década de 1990 y principios 
+de la de 2000 en una serie de influyentes trabajos: véase \textcite{Hyvrinen-2000} para un resumen.
+Como modelo sencillo para la estructura que surge en los datos reales, inicialmente se utilizó ampliamente en
+aplicaciones como la separación ciega de fuentes, donde cada componente independiente
+$z_i$ representa una fuente independiente (como el sonido asociado a un instrumento distinto
+en una grabación musical) que se superpone para producir la observación $\vx = \vU \vz$.
 
-The problem of
-dictionary learning can, in the complete or orthogonal case, be seen as one of
-the foundational problems of twentieth-century signal processing, particularly
-in linear systems theory, where the Fourier basis plays the key role; from the
-1980s onward, the field of computational harmonic analysis crystallized around
-the study of alternate such dictionaries for classes of signals in which optimal
-approximation could only be realized in a basis other than Fourier
-(e.g., wavelets)
-\cite{Donoho1998-zf}. However, the importance of the case of redundant bases, or
-overcomplete dictionaries, was only highlighted following the pioneering work of
-Olshausen and Field \cite{Olshausen1996-ap,Olshausen1997-yv}. Early
-subsequent work
-established the conceptual and algorithmic foundations for learning
-sparsely-used overcomplete dictionaries, often aimed at representing natural
-images
+El problema del aprendizaje de diccionarios puede considerarse, en el caso completo u ortogonal, como uno de
+los problemas fundamentales del procesamiento de señales del siglo XX, especialmente
+en la teoría de los sistemas lineales, donde la base de Fourier desempeña un papel clave;
+a partir de la década de 1980, el campo del análisis armónico computacional se consolidó en torno
+al estudio de dichos diccionarios alternativos para clases de señales en las que la aproximación óptima
+solo podía realizarse en una base distinta de la de Fourier (por ejemplo, las ondículas)
+\cite{Donoho1998-zf}. Sin embargo, la importancia del caso de las bases redundantes, o
+los diccionarios sobrecompletos, solo se puso de relieve tras el trabajo pionero de
+Olshausen y Field \cite{Olshausen1996-ap,Olshausen1997-yv}. Los primeros
+trabajos posteriores establecieron las bases conceptuales y algorítmicas para el aprendizaje
+de diccionarios sobrecompletos dispersos, a menudo destinados a representar
+imágenes naturales
 \cite{Donoho2001-tl,DonohoD2003-PNAS,Elad2006-yi,Murray2007-cw,aharon2006k,Mairal2014-nq,Gribonval2015-fy}.
-Later, a significant amount of theoretical interest in the problem, as an
-important and nontrivial model problem for unsupervised representation learning,
-led to its study by the signal processing, theoretical machine learning, and
-theoretical computer science communities, in particular focused on conditions
-under which the problem could be provably and efficiently solved.
-A non-exhaustive list of notable works in this line include those of
-\textcite{Spielman2012-tl} and \textcite{sun2017complete_a} on the complete
-case; \textcite{pmlr-v40-Arora15}; \textcite{Barak2015-uu}; and
-\textcite{Qu2020Geometric}. Many deep theoretical questions about this
-simple-to-state problem remain open, perhaps in part due to a tension with the
-problem's worst-case NP-hardness (e.g., see \textcite{Tillmann2015-up}).
+Más tarde, el gran interés teórico que suscitó el problema, como
+un problema modelo importante y no trivial para el aprendizaje de representaciones sin supervisión,
+llevó a que fuera estudiado por las comunidades de procesamiento de señales, aprendizaje automático teórico y
+informática teórica, centrándose en particular en las condiciones
+bajo las cuales el problema podía resolverse de manera demostrable y eficiente.
+Una lista no exhaustiva de trabajos destacados en esta línea incluye los de
+\textcite{Spielman2012-tl} y \textcite{sun2017complete_a} en el caso completo;
+\textcite{pmlr-v40-Arora15}; \textcite{Barak2015-uu}; y
+\textcite{Qu2020Geometric}. Muchas cuestiones teóricas profundas sobre este
+problema, que es fácil de formular, siguen sin resolverse, quizá en parte debido a una tensión con la
+dificultad NP del problema en el peor de los casos (véase, por ejemplo, \textcite{Tillmann2015-up}).
 
 \begin{table}[tb]
     \centering
-    \caption{Summary of (generalized) power methods presented in this chapter.}
+    \caption{Resumen de los métodos (generalizados) de potencias presentados en este capítulo.}
     \label{tab:power-method-summary}
     \resizebox{\textwidth}{!}{
         \begin{tabular}{llll}
             \toprule
-            Problem & Algorithm & Iteration & Type of Structure Enforced \\
+            Problema & Algoritmo & Iteración & Tipo de estructura impuesta \\
             \midrule
-            PCA & Power Method & $\vu_{t} = \frac{\vX\vX^\top
+            PCA & Método de las potencias & $\vu_{t} = \frac{\vX\vX^\top
             \vu_{t}}{\norm{\vX\vX^\top \vu_{t}}_2}$ &
-            $1$-dim.\ subspace (unit vector) \\
+            $1$-dim.\ subespacio (vector unitario) \\
             \addlinespace
             ICA & FastICA &
             $\vu_{t+1} = \frac{\tfrac{1}{N}\vX (\vX^\top \vu_{t})^{\hada 3}-
             3 \vu_{t}}{\norm*{\tfrac{1}{N}\vX (\vX^\top \vu_{t})^{\hada 3}-
             3 \vu_{t}}_2}$
-            & $1$-dim.\ subspace (unit vector) \\
+            & $1$-dim.\ subespacio (vector unitario) \\
             \addlinespace
-            Complete DL & MSP Algorithm &
+            DL completo & Algoritmo MSP &
             $\vU_{t+1} = \mathcal{P}_{\mathrm O(D)}[( {\vU_t
             \vX})^{\hada 3}\vX^\top]$
-            & $D$-dim.\ subspace (ortho. matrix) \\
+            & $D$-dim.\ subespacio (matriz orto.) \\
             \bottomrule
         \end{tabular}
     }
 \end{table}
 
-One point that we wish to highlight from the study of these classical
-analytical models for low-dimensional structure is the common role played by
-various \textit{generalized power methods}---algorithms that very rapidly
-converge, at
-least locally, to various types of low-dimensional structures. The terminology
-for this class of algorithms follows the work of \textcite{JourneeM2010}.
-At a high level, modeled on the classical power iteration for
-computation of the top
-eigenvector of a semidefinite matrix $\vA \in \bR^{n \times n}$, that is
+Un aspecto que deseamos destacar del estudio de estos modelos analíticos clásicos
+para estructuras de baja dimensión es el papel común que desempeñan
+los diversos \textit{métodos de potencia generalizados}: algoritmos que convergen muy rápidamente,
+al menos localmente, hacia diversos tipos de estructuras de baja dimensión. La terminología
+utilizada para esta clase de algoritmos se basa en el trabajo de \textcite{JourneeM2010}.
+A grandes rasgos, siguiendo el modelo de la iteración clásica de potencias para
+el cálculo del vector propio principal de una matriz semidefinida $\vA \in \bR^{n \times n}$, es decir
 \begin{equation}
     \vu_{t+1} = \frac{\vA \vu_{t}}{\norm{\vA \vu_{t}}_2},
 \end{equation}
-this class of algorithms consists of a ``powering'' operation involving a matrix
-$\vA$ associated to the data, along with a ``projection'' operation that
-enforces a desired type of structure. \Cref{tab:power-method-summary} presents
-a summary of the algorithms we have studied in this chapter that follow this
-structure. The reader may appreciate the applicability of this methodology to
-different types of low-dimensional structure, and different losses (i.e., both
-the quadratic loss from PCA, and the kurtosis-type losses from ICA), as well as
-the lack of such an algorithm for overcomplete dictionary learning, despite the
-breadth of the literature on these algorithms. We see the development of power
-methods for further families of low-dimensional structures, particularly those
-relevant to applications where deep learning is prevalent, as one of the more
-important (and open) research questions suggested by this chapter.
+esta clase de algoritmos consiste en una operación de «elevación a una potencia» que involucra una matriz
+$\vA$ asociada a los datos, junto con una operación de «proyección» que
+impone el tipo de estructura deseado. La \Cref{tab:power-method-summary} presenta
+un resumen de los algoritmos que hemos estudiado en este capítulo y que siguen esta
+estructura. El lector podrá apreciar la aplicabilidad de esta metodología a
+diferentes tipos de estructuras de baja dimensión y a diferentes funciones de pérdida (es decir, tanto
+la pérdida cuadrática del PCA como las pérdidas de tipo curtosis del ICA), así como
+la ausencia de un algoritmo de este tipo para el aprendizaje de diccionarios sobrecompletos, a pesar de la
+amplitud de la bibliografía existente sobre estos algoritmos. Consideramos que el desarrollo de métodos de 
+potencias para otras familias de estructuras de baja dimensión, en particular aquellas
+relevantes para aplicaciones en las que predomina el aprendizaje profundo, constituye 
+una de las cuestiones de investigación más importantes (y aún sin resolver) que se 
+plantean en este capítulo.
 
-The connection we make in \Cref{sec:mixture-and-dict} between the
-geometric mixture-of-subspaces distributional assumption and the more
-analytically-convenient sparse dictionary assumption has been mentioned in prior
-work, especially by those focused on generalized principal component analysis
-and applications such as subspace clustering, e.g., work of \textcite{GPCA}.
-The mixture of subspaces assumption will continue to play a significant role
-throughout this manuscript, both as an analytical test case for different
-algorithmic paradigms, and as a foundation for deriving different deep network
-architectures, as with LISTA in \Cref{sec:LISTA}, but which can scale to more
-complex data distributions.
+La relación que establecemos en \Cref{sec:mixture-and-dict} entre la
+hipótesis de distribución de la mezcla geométrica de subespacios y la hipótesis del
+diccionario disperso, más conveniente desde el punto de vista analítico, ya se ha mencionado en trabajos anteriores,
+especialmente en aquellos centrados en el análisis de componentes principales generalizado
+y en aplicaciones como la agrupación de subespacios; véase, por ejemplo, el trabajo de \textcite{GPCA}.
+La hipótesis de la mezcla de subespacios seguirá desempeñando un papel importante
+a lo largo de este trabajo, tanto como caso de prueba analítico para diferentes
+paradigmas algorítmicos y como base para derivar diferentes arquitecturas de redes profundas,
+tal como ocurre con LISTA en \Cref{sec:LISTA}, pero que puede adaptarse a distribuciones de datos
+más complejas.
 
-\section{Exercises and Extensions}
+\section{Ejercicios y ampliaciones}
 
 \begin{exercise}\label{exercise:principal-components-derivation}
-    Prove that, for any symmetric matrix \(\vA\), the solution to the problem
-    \(\max_{\vU \in \O(D, d)}\tr\left(\vU^{\top}\vA\vU\right)\) is the matrix
-    \(\vU^{\star}\) whose columns are the top \(d\) unit eigenvectors
-    of \(\vA\).
+    Demuestre que, para cualquier matriz simétrica \(\vA\), la solución al problema
+    \(\max_{\vU \in \O(D, d)}\tr\left(\vU^{\top}\vA\vU\right)\) es la matriz
+    \(\vU^{\star}\), cuyas columnas son los primeros \(d\) vectores propios unitarios
+    de \(\vA\).
 \end{exercise}
 
 \begin{exercise}\label{exercise:gaussian-rot-invar}
-    Let $\vz \sim \cN(\Zero, \sigma^2 \vI)$ be a Gaussian random
-    variable with independent components, each with variance $\sigma^2$.
-    Prove that for any orthogonal matrix $\vQ$ (i.e., $\vQ^\top \vQ =
-    \vI$), the random variable $\vQ \vz$ is distributed identically to $\vz$.
-    \textit{(Hint: recall the formula for the Gaussian probability
-            density function, and the formula for the density of a linear
-    function of a random variable.) }
+    Sea $\vz \sim \cN(\Zero, \sigma^2 \vI)$ una variable aleatoria gaussiana
+    con componentes independientes, cada uno con varianza $\sigma^2$.
+    Demuestre que, para cualquier matriz ortogonal $\vQ$ (es decir, $\vQ^\top \vQ =
+    \vI$), la variable aleatoria $\vQ \vz$ tiene la misma distribución que $\vz$.
+    \textit{(Pista: recuerde la fórmula de la función de densidad de probabilidad gaussiana
+            y la fórmula de la densidad de una función lineal
+    de una variable aleatoria.) }
 \end{exercise}
 
 \begin{exercise}\label{exercise:symmetry-identifiability}
-    The notion of statistical identifiability discussed above can be
-    related to \textit{symmetries} of the model class, allowing
-    estimation to be understood in a purely deterministic fashion
-    without any statistical assumptions.
+    El concepto de identificabilidad estadística analizado anteriormente puede
+    relacionarse con las \textit{simetrías} de la clase de modelos, lo que permite
+    entender la estimación de una manera puramente determinista
+    sin ningún supuesto estadístico.
 
-    Consider the model $\vX = \vU \vZ$ for matrices $\vX, \vU, \vZ$
-    of compatible sizes.
+    Consideremos el modelo $\vX = \vU \vZ$ para matrices $\vX, \vU, \vZ$
+    de tamaños compatibles.
     \begin{enumerate}
-        \item Show that if $\vA$ is any square invertible matrix of
-            compatible size, then the pair
-            $(\vU \vA, \vA^{-1} \vZ)$ also equals $\vX$ under the
-            model. We call this a \textit{$\GL(d)$ symmetry}.
-        \item Suppose each column of $\vZ$ is an independent and
-            identically distributed observation from a common
-            statistical model $\vz$, which moreover has zero mean and
-            independent components $z_i$ with positive variance.
-            Show that for any square invertible matrix $\vA$, if $\vA
-            \vz$ has uncorrelated components, then $\vA$ can be
-            written as $\vD_1 \vQ \vD_2$, where $\vQ$ is an
-            orthogonal matrix and $\vD_1$, $\vD_2$ are diagonal matrices.
-            \textit{This links the ``independence'' assumption in ICA
-                to a ``symmetry breaking'' effect, which only allows
-            scale and rotational symmetries.}
+        \item Muestre que si $\vA$ es cualquier matriz cuadrada invertible de
+            tamaño compatible, entonces el par
+            $(\vU \vA, \vA^{-1} \vZ)$ también es igual a $\vX$ según el
+            modelo. A esto lo llamamos una \textit{simetría de $\GL(d)$}. 
+        \item Supongamos que cada columna de $\vZ$ es una observación independiente e
+            identicamente distribuida procedente de un modelo estadístico común
+            $\vz$, que además tiene media cero y
+            componentes independientes $z_i$ con varianza positiva.
+            Muestre que, para cualquier matriz cuadrada invertible $\vA$, si $\vA
+            \vz$ tiene componentes no correlacionadas, entonces $\vA$ puede
+            escribirse como $\vD_1 \vQ \vD_2$, donde $\vQ$ es una
+            matriz ortogonal y $\vD_1$ y $\vD_2$ son matrices diagonales. 
+            \textit{Esto vincula la suposición de «independencia» en el ICA
+                con un efecto de «ruptura de simetría», que solo permite
+            simetrías de escala y rotacionales.}
     \end{enumerate}
 
 \end{exercise}
 
 \begin{exercise}\label{exercise:whitening}
-    Consider the model $\vx = \vU \vz$, where $\vU \in \R^{D \times
-    d}$ with $D \geq d$ is fixed and has rank $d$, and $\vz$ is a
-    zero-mean random variable. Let $\vx_1, \dots, \vx_N$ denote
-    i.i.d.\ observations from this model.
+    Consideremos el modelo $\vx = \vU \vz$, donde $\vU \in \R^{D \times
+    d}$ con $D \geq d$ es fijo y tiene rango $d$, mientras que $\vz$ es una
+    variable aleatoria de media cero. Sea $\vx_1, \dots, \vx_N$ el conjunto de
     \begin{enumerate}
-        \item Show that the matrix $\vX = [\vx_1, \dots, \vx_N]$ has
-            rank no larger than $d$, and therefore there is an
-            orthonormal matrix $\vV \in \R^{D \times d}$ so that $\vX
-            = \vV \vY$, where $\vY \in \R^{d \times N}$.
-            (\textit{Hint: use PCA.})
-        \item Show that the \textit{whitened matrix} $(\vY
-            \vY^\top)^{-1/2}\vY$ exists in expectation whenever
-            $\Cov(\vz)$ is nonsingular, and that it has identity
-            empirical covariance.\footnote{In particular, it can be
-                proved mathematically that this is enough to guarantee
-                that the whitened matrix exists with high probability
-                whenever $\vz$ satisfies a suitable concentration
-            inequality and $N$ is sufficiently large.}
-        \item Show, by using the singular value decomposition of
-            $\vU$, that the matrix $\vV$ can be chosen so that the
-            whitened matrix satisfies $(\vY \vY^\top)^{-1/2} \vY =
-            \vW [\vz_1, \dots, \vz_N]$, where $\vW$ is an orthonormal matrix.
+        \item Muestre que la matriz $\vX = [\vx_1, \dots, \vx_N]$ tiene
+            un rango no mayor que $d$ y que por lo tanto existe una
+            matriz ortonormal $\vV \in \R^{D \times d}$ tal que $\vX
+            = \vV \vY$, donde $\vY \in \R^{d \times N}$.
+            (\textit{Pista: usar el PCA.})
+        \item Demuestre que la \textit{matriz blanqueada} $(\vY
+            \vY^\top)^{-1/2}\vY$ existe en cuanto a la esperanza siempre que
+            $\Cov(\vz)$ sea no singular y que tiene una covarianza
+            empírica igual a la identidad.\footnote{En particular, se puede
+                demostrar matemáticamente que esto basta para garantizar
+                que la matriz blanqueada exista con alta probabilidad
+                siempre que $\vz$ satisfaga una desigualdad de concentración
+            adecuada y $N$ sea suficientemente grande.}
+        \item Muestre, utilizando la descomposición en valores singulares de
+            $\vU$, que la matriz $\vV$ puede elegirse de tal manera que la
+            matriz blanqueada satisfaga $(\vY \vY^\top)^{-1/2} \vY =
+            \vW [\vz_1, \dots, \vz_N]$, donde $\vW$ es una matriz ortonormal. 
     \end{enumerate}
 \end{exercise}
 
 \begin{exercise}\label{exercise:kurtosis-linearity-properties}
-    Let $X$ and $Y$ be zero-mean independent random variables.
+    Sean $X$ e $Y$ variables aleatorias independientes de media cero.
     \begin{enumerate}
-        \item Show that $\kurt(X + Y) = \kurt(X) + \kurt(Y)$.
-        \item For any $\alpha \in \R$, show that $\kurt(\alpha X) =
-            \alpha^4 \kurt(X)$.
+        \item Demuestre que $\kurt(X + Y) = \kurt(X) + \kurt(Y)$. 
+        \item Para cualquier $\alpha \in \R$, demuestre que $\kurt(\alpha X) =
+            \alpha^4 \kurt(X)$. 
     \end{enumerate}
 \end{exercise}
 
 \begin{exercise}\label{exercise:sphere-calculus}
-    Let $f : \R^d \to \R$ be a given
-    twice-continuously-differentiable objective function. Consider
-    the spherically-constrained optimization problem
+    Sea $f : \R^d \to \R$ una función objetivo dada
+    que sea dos veces continuamente diferenciable. Consideremos
+    el problema de optimización con restricciones esféricas
     \begin{equation}\label{eq:exercise-sphere-constrained-max}
         \max_{\norm{\vu}_2^2 = 1}\, f(\vu).
     \end{equation}
-    In this exercise, we will derive the expressions we gave in the
-    FastICA derivation for maximizing kurtosis over the sphere via a
-    gradient ascent algorithm.
-    These expressions are special cases of a rich theory of calculus
-    and optimization on manifolds, of which the sphere is a
-    particular example. A deep technical study of this field is
-    out-of-scope for our purposes, so we only mention two key
-    references for the interested reader: the pioneering textbook by
-    Absil, Mahony, and Sepulchre
-    \cite{Absil2009-nc}, and a more recent introductory treatise by
+    En este ejercicio, derivaremos las expresiones que proporcionamos en la
+    derivación de FastICA para maximizar la curtosis sobre la esfera mediante un
+    algoritmo de ascenso por gradiente.
+    Estas expresiones son casos especiales de una amplia teoría del cálculo
+    y la optimización en variedades, de las cuales la esfera es un
+    ejemplo concreto. Un estudio técnico en profundidad de este campo
+    queda fuera del alcance de nuestro trabajo, por lo que solo mencionamos dos referencias clave
+    para el lector interesado: el libro de texto pionero de
+    Absil, Mahony y Sepulchre \cite{Absil2009-nc} y un tratado introductorio más reciente de
     Boumal \cite{Boumal2023-rj}.
     \begin{enumerate}
-        \item For any constraint set $\cM$ that is a differentiable
-            submanifold of $\R^d$, the
-            \textit{tangent space} at a point $\vu \in \cM$ is,
-            informally, the best local linear approximation to the
-            manifold $\cM$ at the point $\vu$.
-            In the important special case where $\cM$ is defined
-            locally at $\vu$ as a level set of a function $F : \R^d \to \R$,
-            that is
+        \item Para cualquier conjunto de restricciones $\cM$ que sea una subvariedad diferenciable
+            de $\R^d$, el \textit{espacio tangente} en un punto $\vu \in \cM$ es,
+            en términos informales, la mejor aproximación lineal local a la
+            variedad $\cM$ en el punto $\vu$.
+            En el importante caso especial en el que $\cM$ se define
+            localmente en $\vu$ como un conjunto de nivel de una función $F : \R^d \to \R$,
+            es decir
             \begin{equation*}
                 U \cap \cM = F^{-1}(\set{0})
             \end{equation*}
-            for some open set $U \subset \cM$ with $\vu \in U$,
-            the tangent space to $\cM$ at $\vu$ can be calculated
-            via differentiation:
+            para un conjunto abierto $U \subset \cM$ tal que $\vu \in U$,
+            el espacio tangente a $\cM$ en $\vu$ se puede calcular
+            mediante la derivación:
             \begin{equation*}
                 T_{\vu} \cM = \Ker(DF_{\vu}).
             \end{equation*}
-            It is easily seen that the sphere has the defining
-            equation $F(\vu) = \norm{\vu}_2^2 - 1$.
-            Show, using these facts, that the tangent space to the
-            sphere at $\vu$ is given by
+            Es fácil ver que la esfera tiene la ecuación definitoria
+            $F(\vu) = \norm{\vu}_2^2 - 1$.
+            Demuestre, utilizando estos datos, que el espacio tangente a la
+            esfera en $\vu$ viene dado por
             \begin{equation*}
                 T_{\vu} \bS^{d-1} = \set{\vv \in \R^d \given \ip{\vv}{\vu} = 0},
             \end{equation*}
-            and that the orthogonal projection onto this subspace is
+            y que la proyección ortogonal sobre este subespacio es
             $\vP_{\vu}^\perp = \vI - \vu\vu^\top$.
-        \item The vector field
+        \item El campo vectorial 
             \begin{equation}\label{eq:exercise-riemann-grad-sphere}
                 \mathrm{grad}\, f(\vu) = \vP_{\vu}^\perp \nabla f
             \end{equation}
-            is known as the \textit{Riemannian gradient} of the
-            function $f$ restricted to the sphere.
-            The \textit{first order optimality conditions} for the
-            optimization problem
-            \eqref{eq:exercise-sphere-constrained-max} can be
-            expressed in terms of the Riemann gradient:
+            se conoce como el \textit{gradiente riemanniano} de la
+            función $f$ restringida a la esfera.
+            Las \textit{condiciones de optimalidad de primer orden} para el
+            problema de optimización
+            \eqref{eq:exercise-sphere-constrained-max} pueden
+            expresarse en términos del gradiente de Riemann:
             \begin{equation*}
                 \mathrm{grad}\, f(\vu) = \mathbf{0}.
             \end{equation*}
-            Geometrically, this says that the Euclidean gradient of
-            $f$ at $\vu$ must be orthogonal to the tangent space to
-            the sphere at $\vu$.
-            Now suppose $\vv \in \R^d$ is nonzero. Show that
+            Desde el punto de vista geométrico, esto significa que el gradiente euclidiano de
+            $f$ en $\vu$ debe ser ortogonal al espacio tangente a
+            la esfera en $\vu$.
+            Supongamos ahora que $\vv \in \R^d$ es distinto de cero. Demuestre que
             \begin{equation*}
                 \mathrm{proj}_{\bS^{d-1}}(\vv) \doteq
                 \min_{\norm{\vu}_2^2 = 1}\, \norm{\vu - \vv}_2
                 =
                 \frac{\vv}{\norm{\vv}_2},
             \end{equation*}
-            using the first-order optimality conditions.
-        \item In optimization over $\R^d$, one checks the
-            second-order optimality conditions (to determine whether
-                a critical point is a maximizer, a minimizer, or a saddle
-            point) using the \textit{Hessian matrix} $\nabla^2 f(\vu)$.
-            Show, by differentiating the Riemann gradient
-            $\mathrm{grad}\, f(\vu)$ for the sphere with respect to
-            $\vu$ as in the first part of this exercise, that the
-            corresponding object for determining second-order
-            optimality conditions for sphere-constrained optimization
-            is the \textit{Riemannian Hessian}, defined as
+            utilizando las condiciones de optimalidad de primer orden.
+        \item Al optimizar en $\R^d$, se comprueban las
+            condiciones de optimalidad de segundo orden (para determinar si
+                un punto crítico es un punto máximo, un punto mínimo o un punto de silla
+            ) utilizando la \textit{matriz hessiana} $\nabla^2 f(\vu)$.
+            Muestre, derivando el gradiente de Riemann
+            $\mathrm{grad}\, f(\vu)$ para la esfera con respecto a
+            $\vu$, tal como se hizo en la primera parte de este ejercicio, que el
+            objeto correspondiente para determinar las condiciones de
+            optimalidad de segundo orden en la optimización con restricciones esféricas
+            es el \textit{Hessiano riemanniano}, definido como
             \begin{equation}\label{eq:exercise-riemann-hess-sphere}
                 \mathrm{Hess}\, f(\vu) = \vP_{\vu}^\perp \left(
                     \nabla^2 f(\vu) - \ip{\nabla f(\vu)}{\vu} \vI
@@ -2377,199 +2319,198 @@ complex data distributions.
 \end{exercise}
 
 \begin{exercise}\label{exercise:kurtosis-sphere-landscape}
-    In this exercise, we sketch an argument referred to in the
-    literature as a \textit{landscape analysis} for the
-    spherically-constrained population kurtosis maximization problem
-    \eqref{eq:kurtosis-maximization-sphere-population-simple}. We
-    will show that when there is at least one independent component
-    with positive kurtosis, its
-    global maximizers indeed lead to the recovery of one column of
-    the dictionary $\vU$.
-    For simplicity, we will assume that $\kurt(z_i) \neq 0$ for each
+    En este ejercicio, esbozamos un argumento conocido en la
+    literatura como \textit{análisis de landscape} para el
+    problema de maximización de la curtosis de una población con restricción esférica
+    \eqref{eq:kurtosis-maximization-sphere-population-simple}. Demostraremos
+    que, cuando hay al menos un componente independiente
+    con curtosis positiva, sus maximizadores globales conducen efectivamente 
+    a la recuperación de una columna del diccionario $\vU$.
+    Para simplificar, supondremos que $\kurt(z_i) \neq 0$ para cada
     $i = 1, \dots, d$.
     \begin{enumerate}
-        \item Using the results of Part 1 of \Cref{exercise:sphere-calculus},
-            show that the first-order optimality condition for
-            \eqref{eq:kurtosis-maximization-sphere-population-simple} is
+        \item Utilizando los resultados de la Parte 1 de \Cref{ejercicio:cálculo-esférico},
+            demuestre que la condición de optimalidad de primer orden para
+            \eqref{eq:maximización-curtosis-población-esférica-simple} es 
             \begin{equation}\label{eq:kurtosis-sphere-landscape-stationarity}
                 \left(\sum_{i=1}^d \kurt(z_i) w_i^4 \right)
                 \vw = \kurt(\vz) \hada \vw^{\hada 3},
             \end{equation}
-            where the kurtosis is calculated elementwise, $\hada$
-            denotes elementwise multiplication of vectors and
-            $\vw^{\hada 3}$ denotes the elementwise cube of its argument.
-        \item Show that the vectors $\vw$ with unit norm that also
-            satisfy \eqref{eq:kurtosis-sphere-landscape-stationarity}
-            all take the following form.
-            Let $S^+ = \set{i \in [d] \given \kurt(z_i) > 0}$, and
-            $S^- = \set{i \in [d] \given \kurt(z_i) < 0}$.
-            Let $S$ be a subset either of $S^+$ or $S^-$.
-            Then
+            donde la curtosis se calcula elemento por elemento, $\hada$
+            denota la multiplicación elemento por elemento de vectores y
+            $\vw^{\hada 3}$ denota el cubo elemento por elemento de su argumento.
+        \item Demuestra que los vectores $\vw$ de norma unitaria que además
+            satisfacen \eqref{eq:kurtosis-sphere-landscape-stationarity}
+            adoptan todos la siguiente forma.
+            Sea $S^+ = \{i \in [d] \mid \kurt(z_i) > 0\}$ y
+            $S^- = \{i \in [d] \mid \kurt(z_i) < 0\}$.
+            Sea $S$ un subconjunto de $S^+$ o de $S^-$.
+            Entonces 
             \begin{equation}\label{eq:kurtosis-sphere-landscape-cps}
                 \vw_S = \sum_{i \in S} \pm \sqrt{\frac{1}{\kurt(z_i)
                 \sum_{j \in S} \frac{1}{\kurt(z_j)}}} \ve_i
             \end{equation}
-            satisfies \eqref{eq:kurtosis-sphere-landscape-stationarity},
-            where $\ve_i$ is the vector with a $1$ in the $i$-th
-            position and $0$s elsewhere, and the $\pm$ sign denotes
-            the choice of either a positive or negative sign.
-        \item Assume that there is at least one $i$ such that
-            $\kurt(z_i) > 0$. Using the results of Part 2 of
-            \Cref{exercise:sphere-calculus}, show that the only local
-            maxima of the objective of
+            satisface \eqref{eq:kurtosis-sphere-landscape-stationarity},
+            donde $\ve_i$ es el vector que contiene un $1$ en la posición $i$
+            y $0$ en todas las demás y el signo $\pm$ indica
+            la elección de un signo positivo o negativo.
+        \item Supongamos que existe al menos un $i$ tal que
+            $\kurt(z_i) > 0$. Utilizando los resultados de la Parte 2 de
+            \Cref{exercise:sphere-calculus}, demuestre que los únicos máximos locales
+            de la función objetivo de
             \eqref{eq:kurtosis-maximization-sphere-population-simple}
-            are the signed one-sparse vectors $\pm \ve_i$ with $i \in
-            S^+$. Conclude that the global maximizers of
+            son los vectores con un solo elemento distinto de cero y signo $\pm \ve_i$, donde $i \in
+            S^+$. Se concluye que los maximizadores globales de
             \eqref{eq:kurtosis-maximization-sphere-population-simple}
-            are the signed one-sparse vectors corresponding to
-            components with maximum kurtosis. %
-            (\textit{Hint: count the number of positive and negative
-                    eigenvalues of the Riemannian Hessian
-            \eqref{eq:exercise-riemann-hess-sphere} at each critical point.})
-        \item Now assume that $\kurt(z_j) < 0$ for every $j =1,
-            \dots, d$. This corresponds to an ``over-deflated''
-            instantiation of the kurtosis maximization problem. Using
-            again the results of Part 2 of
-            \Cref{exercise:sphere-calculus}, show that the only local
-            maxima of the objective of
+            son los vectores con un solo elemento distinto de cero y signo, correspondientes a
+            los componentes con máxima curtosis. %
+            (\textit{Pista: cuente el número de valores propios positivos y negativos
+                    de la matriz hessiana riemanniana
+            \eqref{eq:exercise-riemann-hess-sphere} en cada punto crítico.})
+        \item Supongamos ahora que $\kurt(z_j) < 0$ para todo $j = 1,
+            \dots, d$. Esto corresponde a una instanciación «sobredeflacionada»
+            del problema de maximización de la curtosis. Utilizando
+            de nuevo los resultados de la Parte 2 de
+            \Cref{exercise:sphere-calculus}, muestre que los únicos máximos locales
+            de la función objetivo de
             \eqref{eq:kurtosis-maximization-sphere-population-simple}
-            are the signed dense vectors $\sum_{i=1}^d \pm \ve_i$.
-            This shows that the optimization formulation
+            son los vectores densos con signo $\sum_{i=1}^d \pm \ve_i$.
+            Esto demuestra que la formulación de optimización
             \eqref{eq:kurtosis-maximization-sphere-population-simple}
-            cannot be applied naively.
+            no puede aplicarse sin más en forma ingenua.
     \end{enumerate}
 \end{exercise}
 
 \begin{exercise}\label{exercise:orthogonal-group-calculus}
-    This exercise follows the structure and formalism introduced in
-    \Cref{exercise:sphere-calculus}, but applies it instead to the
-    orthogonal group $\O(d) = \set{\vU \in \R^{d \times d} \given
+    Este ejercicio sigue la estructura y el formalismo presentados en
+    \Cref{exercise:sphere-calculus}, pero los aplica en este caso al
+    grupo ortogonal $\O(d) = \set{\vU \in \R^{d \times d} \dado que
     \vU^\top \vU = \vI}$.
-    Consult the description of \Cref{exercise:sphere-calculus} for
-    the necessary conceptual background; the formalism applies
-    identically to the case where the ambient space is the set of $d
-    \times d$ matrices as long as one recalls that the relevant inner
-    product on matrices is $\ip{\vX}{\vY} = \tr(\vX^\top \vY)$.
-    An excellent general reference for facts about optimization on
-    the orthogonal group is Edelman, Arias, and Smith \cite{Edelman1998-lg}.
+    Consulte la descripción de \Cref{ejercicio:cálculo-esférico} para
+    obtener los fundamentos conceptuales necesarios; el formalismo se aplica
+    de manera idéntica al caso en el que el espacio envolvente es el conjunto de matrices $d
+    \times d$, siempre y cuando se tenga en cuenta que el producto interno
+    pertinente para matrices es $\ip{\vX}{\vY} = \tr(\vX^\top \vY)$.
+    Una excelente referencia general sobre la optimización en
+    el grupo ortogonal es la obra de Edelman, Arias y Smith \cite{Edelman1998-lg}.
 
-    Let $f : \R^{d\times d} \to \R$ be a given
-    twice-continuously-differentiable objective function. Consider
-    the orthogonally-constrained optimization problem
+    Sea $f : \R^{d\times d} \to \R$ una función objetivo dada
+    que sea dos veces continuamente diferenciable. Consideremos
+    el problema de optimización con restricciones ortogonales
     \begin{equation}\label{eq:exercise-orthogonal-group-constrained-max}
         \max_{\vQ^\top \vQ = \vI}\, f(\vQ).
     \end{equation}
     \begin{enumerate}
-        \item  It is easily seen that the orthogonal group has the
-            defining equation $F(\vQ) = \vQ^\top \vQ = \vI$.
-            Show, using this fact, that the tangent space to the
-            orthogonal group at $\vQ$ is given by
+        \item Es fácil ver que el grupo ortogonal tiene la
+            ecuación definitoria $F(\vQ) = \vQ^\top \vQ = \vI$.
+            Demuestre, a partir de este hecho, que el espacio tangente al
+            grupo ortogonal en $\vQ$ viene dado por
             \begin{equation*}
                 T_{\vQ} \O(d) = \set{\vQ \vOmega \in \R^{d\times d}
                 \given \vOmega^\top = - \vOmega},
             \end{equation*}
-            and that the orthogonal projection onto this subspace is
+            y que la proyección ortogonal sobre este subespacio es
             \begin{equation*}
                 \cP_{T_{\vQ}\O(d)}(\vDelta) =  \vQ \Skew(\vQ^\top \vDelta),
             \end{equation*}
-            where $\Skew(\vDelta) = \tfrac{1}{2} ( \vDelta -
-            \vDelta^\top)$ is the orthogonal projection onto the set
-            of skew-symmetric matrices.
-            The vector field
+            donde $\Skew(\vDelta) = \tfrac{1}{2} ( \vDelta -
+            \vDelta^\top)$ es la proyección ortogonal sobre el conjunto
+            de matrices antisimétricas.
+            El campo vectorial
             \begin{equation}\label{eq:exercise-riemann-grad-orthogonal-group}
                 \mathrm{grad}\, f(\vQ) = \cP_{T_{\vQ} \O(d)} \left(
                 \nabla f(\vQ) \right)
             \end{equation}
-            is known as the \textit{Riemannian gradient} of the
-            function $f$ restricted to the orthogonal group.
-            The \textit{first order optimality conditions} for the
-            optimization problem
-            \eqref{eq:exercise-orthogonal-group-constrained-max} can
-            be expressed in terms of the Riemann gradient:
+            se conoce como el \textit{gradiente riemanniano} de la
+            función $f$ restringida al grupo ortogonal.
+            Las \textit{condiciones de optimalidad de primer orden} para el
+            problema de optimización
+            \eqref{eq:exercise-orthogonal-group-constrained-max} pueden
+            expresarse en términos del gradiente de Riemann:
             \begin{equation*}
                 \mathrm{grad}\, f(\vQ) = \mathbf{0}.
             \end{equation*}
-        \item Show, by differentiating the Riemann gradient
-            $\mathrm{grad}\, f(\vQ)$ for the orthogonal group with
-            respect to $\vQ$ as in the first part of this exercise,
-            that the \textit{Riemannian Hessian} is given by
+        \item Demuestre, derivando el gradiente de Riemann
+            $\mathrm{grad}\, f(\vQ)$ para el grupo ortogonal con
+            respecto a $\vQ$, tal como se hizo en la primera parte de este ejercicio,
+            que la \textit{Hessiana riemanniana} viene dada por 
             \begin{equation}\label{eq:exercise-riemann-hess-orthogonal-group}
                 \mathrm{Hess}\, f(\vQ) = \cP_{T_{\vQ}\O(d)} \left(
                     \nabla^2 f(\vQ) - \Symm(\vQ^\top \nabla f(\vQ)) \kron \vI
                 \right) \cP_{T_{\vQ}\O(d)},
             \end{equation}
-            where $\Symm(\vDelta) = \tfrac{1}{2}(\vDelta +
-            \vDelta^\top)$ denotes the orthogonal projection onto the
-            set of symmetric matrices, and $\kron$ denotes the
-            Kronecker product of matrices.
-            Take care to interpret the operators appearing in the
-            previous expression as \textit{linear transformations on
-            ${d \times d}$ matrices}, \textbf{not} as $d \times d$
-            matrices themselves.
-            The \textit{second-order optimality conditions} for the
-            optimization problem
-            \eqref{eq:exercise-orthogonal-group-constrained-max} can
-            be expressed in terms of the Riemann Hessian:
+            donde $\Symm(\vDelta) = \tfrac{1}{2}(\vDelta +
+            \vDelta^\top)$ denota la proyección ortogonal sobre el
+            conjunto de matrices simétricas y $\kron$ denota el
+            producto de Kronecker de matrices.
+            Tenga cuidado de interpretar los operadores que aparecen en la
+            expresión anterior como \textit{transformaciones lineales sobre
+            matrices ${d \times d}$}, \textbf{y no} como matrices $d \times d$
+            en sí mismas.
+            Las \textit{condiciones de optimalidad de segundo orden} para el
+            problema de optimización
+            \eqref{eq:exercise-orthogonal-group-constrained-max} pueden
+            expresarse en términos de la hessiana de Riemann:
             \begin{equation*}
                 \mathrm{Hess}\, f(\vQ) \preceq \mathbf{0}.
             \end{equation*}
-            For a minimization problem, the sign is reversed.
+            En un problema de minimización, el signo se invierte.
 
-            (\textit{Hint: The key is to manipulate one's
-                    calculations to obtain the form
+            (\textit{Pista: La clave está en manipular los
+                    cálculos para obtener la forma
                     \eqref{eq:exercise-riemann-hess-orthogonal-group},
-                    which is as compact as possible. To this end,
-                    make use of the following isomorphism of the
-                    Kronecker product: if $\vA$, $\vX$, and $\vB$ are
-                    matrices of compatible sizes, then one has
+                    que es lo más compacta posible. Para ello,
+                    utiliza el siguiente isomorfismo del
+                    producto de Kronecker: si $\vA$, $\vX$ y $\vB$ son
+                    matrices de tamaños compatibles, entonces se tiene que
                     \begin{equation*}
                         (\vB^\top \kron \vA) \Vec(\vX) = \Vec(\vA \vX \vB),
                     \end{equation*}
-                    where $\Vec(\vX)$ denotes the ``left-to-right'' stacking
-                    of the columns of the matrix argument into a vector. We
-                    use this isomorphism in
-                    \eqref{eq:exercise-riemann-hess-orthogonal-group} in
-                    order to define the Kronecker product of two matrices as
-            an operator on matrices in a canonical way.})
+                    donde $\Vec(\vX)$ denota la «apilamiento de izquierda a derecha»
+                    de las columnas del argumento matricial en un vector. Utilizamos
+                    este isomorfismo en
+                    \eqref{eq:exercise-riemann-hess-orthogonal-group} con el
+                    fin de definir el producto de Kronecker de dos matrices como
+            un operador sobre matrices de forma canónica.})
 
-        \item Now suppose $\vX \in \R^{d\times d}$ is full-rank. In
-            this and the next part of the exercise, we consider the
-            projection onto the orthogonal group of $\vX$:
+        \item Supongamos ahora que $\vX \in \R^{d\times d}$ es de rango completo. En
+            esta y la siguiente parte del ejercicio, consideramos la
+            proyección de $\vX$ sobre el grupo ortogonal:
             \begin{equation}\label{eq:projection-onto-ogrp-defn}
                 \mathrm{proj}_{\O(d)}(\vX) \doteq
                 \min_{\vQ \in \O(d)
                 }\, \norm{\vQ - \vX}_F^2.
             \end{equation}
-            We will prove that the solution to this problem is given by
+            Demostraremos que la solución a este problema viene dada por
             \begin{equation*}
                 \mathrm{proj}_{\O(d)}(\vX)
                 =
                 \vU \vV^\top,
             \end{equation*}
-            where $\vX = \vU \vS \vV^\top$ is a singular value
-            decomposition of $\vX$.
+            donde $\vX = \vU \vS \vV^\top$ es una descomposición en valores singulares
+            de $\vX$.
 
             \begin{enumerate}
-                \item Using the first and second-order optimality
-                    conditions, show that every local minimizer $\vQ$
-                    of \eqref{eq:projection-onto-ogrp-defn} satisfies
+                \item Utilizando las condiciones de optimalidad de primer y segundo orden,
+                    demuestre que todo mínimo local $\vQ$
+                    de \eqref{eq:projection-onto-ogrp-defn} satisface 
                     \begin{align*}
                         \left( \vQ^\top \vX \right)^\top &= \vQ^\top \vX, \\
                         \vQ^\top \vX &\succeq \mathbf{0}.
                     \end{align*}
-                    (\textit{Hint: use linearity of the Kronecker
-                            product in either of its two arguments when the
-                    other is fixed.})
-                \item Using these conditions, argue that at every
-                    local minimizer $\vQ$ of
-                    \eqref{eq:projection-onto-ogrp-defn}, one has
-                    $\vQ^\top \vX = (\vX^\top \vX)^{1/2}$.
-                    (\textit{Hint: Use %
-                            the fact from linear algebra that if $\vS \succeq
-                            \mathbf{0}$ is a symmetric positive semidefinite
-                    matrix, then $(\vS^\top\vS)^{1/2} = \vS$.})
-                \item Using the singular value decomposition $\vX =
-                    \vU \vS \vV^\top$, conclude that
+                    (\textit{Sugerencia: utilizar la linealidad del producto de Kronecker
+                            en cualquiera de sus dos argumentos cuando el
+                    otro es fijo.})
+                \item A partir de estas condiciones, muestre que para todo
+                    minimo local $\vQ$ de
+                    \eqref{eq:projection-onto-ogrp-defn}, se cumple que
+                    $\vQ^\top \vX = (\vX^\top \vX)^{1/2}$. 
+                    (\textit{Pista: Utiliza %
+                            el resultado de álgebra lineal según el cual, si $\vS \succeq
+                            \mathbf{0}$ es una matriz simétrica semidefinida positiva,
+                    entonces $(\vS^\top\vS)^{1/2} = \vS$.})
+                \item Utilizando la descomposición en valores singulares $\vX =
+                    \vU \vS \vV^\top$, deduzca que 
                     \begin{equation*}
                         \vU \vV^\top
                         =

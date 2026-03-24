@@ -200,297 +200,296 @@ de baja dimensión a la que pertenece \(p(\vx)\). Por lo tanto, comprobar
 si la entropía es baja parece ser la única pauta en la que podemos
 basarnos para identificar y modelar la distribución.
 
-Now, given the samples alone without knowing what \(p(\vx)\) is, in
-theory they could be interpreted as samples from any generic
-distribution. In particular, they could be interpreted as any of the following:
+Ahora bien, si solo se tienen las muestras sin saber cuál es \(p(\vx)\), en
+teoría podrían interpretarse como muestras de cualquier distribución
+genérica. En particular, podrían interpretarse como cualquiera de las siguientes:
 \begin{enumerate}
-    \item as samples from the empirical distribution \(p^{\vX}\)
-        itself, which assigns probability \(1/N\) to each of the
-        \(N\) samples \(\vx_{i}, i \in [N]\);
-    \item as samples from a standard normal distribution \(\vx^{n}
-        \sim p^{n} \doteq \dNorm(\vzero, \sigma^{2} \vI)\) with
-        variance \(\sigma^{2}\) large enough (say larger than the
-        squared sample norms);
-    \item as samples from a normal distribution \(\vx^{e} \sim p^{e}
-        \doteq \dNorm(\vzero, \hat{\vSigma})\) with covariance
-        \(\hat{\vSigma} = \frac{1}{N} \vX \vX^{\top}\) being the
-        empirical covariance of the samples;
-    \item as samples from a distribution \(\hat{\vx} \sim
-        \hat{q}(\vx)\) that closely approximates the ground-truth
-        distribution \(p\).
+    \item como muestras de la propia distribución empírica \(p^{\vX}\),
+        que asigna una probabilidad de \(1/N\) a cada una de las
+        \(N\) muestras \(\vx_{i}, i \in [N]\); 
+    \item como muestras de una distribución normal estándar \(\vx^{n}
+        \sim p^{n} \doteq \dNorm(\vzero, \sigma^{2} \vI)\) con
+        una varianza \(\sigma^{2}\) lo suficientemente grande (digamos, mayor que las
+        normas al cuadrado de las muestras); 
+    \item como muestras de una distribución normal \(\vx^{e} \sim p^{e}
+        \doteq \dNorm(\vzero, \hat{\vSigma})\), siendo la covarianza
+        \(\hat{\vSigma} = \frac{1}{N} \vX \vX^{\top}\) la
+        covarianza empírica de las muestras; 
+    \item como muestras de una distribución \(\hat{\vx} \sim
+        \hat{q}(\vx)\) que se aproxima mucho a la distribución
+        verdadera \(p\). 
 \end{enumerate}
-The question is: which interpretation is better, and in what sense? Suppose
-that you believe these data \(\vX\) are drawn from a particular
-distribution \(q(\vx)\), which may be one of the above. Then we could
-encode the data points with the optimal codebook for the distribution
-\(q(\vx)\). Then, as the number of samples \(N\) becomes large, the
-required average coding length (or coding rate) is given by the
-so-called \textit{cross-entropy}:
+La pregunta es: ¿qué interpretación es mejor y en qué sentido? Supongamos
+que crees que estos datos \(\vX\) provienen de una distribución concreta
+\(q(\vx)\), que podría ser una de las anteriores. Entonces podríamos
+codificar los puntos de datos con el libro de códigos óptimo para la distribución
+\(q(\vx)\). Entonces, a medida que el número de muestras \(N\) aumenta, la
+longitud media de codificación requerida (o tasa de codificación) viene dada por la
+denominada \textit{entropía cruzada}:
 \begin{equation}
     \CE(p \mmid q) \doteq \Ex_{\vx \sim p}[-\log q(\vx)].
 \end{equation}
-If we have identified
-the correct distribution \(p(\vx)\), the coding rate is given by the
-entropy \(h(p) = \Ex_{\vx \sim p}[-\log p(\vx)]\). It turns out
-that the above coding length \(\CE(p \mmid q)\) is always greater than
-or equal to the entropy \(h(\vx)\) unless \(p = q\).
+Si hemos identificado
+la distribución correcta \(p(\vx)\), la tasa de codificación viene dada por la
+entropía \(h(p) = \Ex_{\vx \sim p}[-\log p(\vx)]\). Resulta
+que la longitud de codificación anterior \(\CE(p \mmid q)\) es siempre mayor
+o igual que la entropía \(h(\vx)\), a menos que \(p = q\).
 
-Hence, given a set of sampled data \(\vX\), to determine which
-distribution best characterizes the data among
-\(p^{n}\), \(p^{e}\), and \(\hat{q}\), we may compare their coding
-rates for \(\vX\) and see which yields the lowest rate. We know
-from the above that the (theoretically achievable) coding rate for a
-distribution is closely related to its entropy. In general,
+Por lo tanto, dado un conjunto de datos muestreados \(\vX\), para determinar qué
+distribución caracteriza mejor los datos entre
+\(p^{n}\), \(p^{e}\) y \(\hat{q}\), podemos comparar sus tasas de codificación
+para \(\vX\) y ver cuál ofrece la tasa más baja. Sabemos
+por lo anterior que la tasa de codificación (teóricamente alcanzable) de una
+distribución está estrechamente relacionada con su entropía. En general,
 \begin{equation}
     h(p^{n}) > h(p^{e}) > h(\hat{q}).
 \end{equation}
-If the data \(\vX\) were encoded by the codebook associated
-with each of these distributions, the coding rate for \(\vX\) would
-therefore decrease in the same order:
+Si los datos \(\vX\) se codificaran mediante el libro de códigos asociado
+a cada una de estas distribuciones, la tasa de codificación de \(\vX\)
+disminuiría, por lo tanto, en el mismo orden:
 \begin{equation}
     \CE(p \mmid p^{n}) > \CE(p \mmid p^{e}) > \CE(p \mmid \hat{q}).
 \end{equation}
 
-This observation gives a general guideline for pursuing a
-distribution \(p(\vx)\) that has low-dimensional structure. It
-suggests two possible approaches:
+Esta observación ofrece una pauta general para buscar una
+distribución \(p(\vx)\) que tenga una estructura de baja dimensión.
+Sugiere dos posibles enfoques:
 \begin{enumerate}[label={A\arabic*.}, leftmargin=*]
-    \item Starting with a general distribution (say a normal
-        distribution) with high entropy, gradually transform the
-        distribution toward the (empirical) distribution of the data
-        by reducing entropy;
-    \item Among a large family of (parametric or non-parametric)
-        distributions with explicit coding schemes that encode the
-        given data, progressively search for better coding schemes
-        that give lower coding rates.
+    \item Partiendo de una distribución general (por ejemplo, una distribución
+        normal) con alta entropía, transformar gradualmente la
+        distribución hacia la distribución (empírica) de los datos
+        mediante la reducción de la entropía; 
+    \item Dentro de una amplia familia de distribuciones (paramétricas o no paramétricas)
+        con esquemas de codificación explícitos que codifican los
+        datos dados, buscar progresivamente mejores esquemas de codificación
+        que ofrezcan tasas de codificación más bajas. 
 \end{enumerate}
-Conceptually, both approaches A1 and A2 try to do the same thing.
-For A1, we need to ensure such a path of transformation exists and is
-computable. For A2, it is necessary that the chosen family is rich
-enough and can closely approximate (or contain) the ground-truth
-distribution. For either approach, we need to ensure that solutions
-with lower entropy or better coding rates can be efficiently computed
-and converge to the desired distribution quickly.\footnote{Say the
-distribution of real-world data such as images and texts.} We will
-explore both approaches in the remaining sections of this chapter.
+En teoría, tanto el enfoque A1 como el A2 pretenden lograr lo mismo.
+Para A1, debemos asegurarnos de que exista tal ruta de transformación y de que sea
+computable. Para A2, es necesario que la familia elegida sea lo suficientemente amplia
+y pueda aproximarse bastante (o abarcar) la distribución real. En cualquiera de 
+los dos enfoques, debemos asegurarnos de que las soluciones con menor entropía 
+o mejores tasas de codificación puedan calcularse de manera eficiente
+y converjan rápidamente hacia la distribución deseada.\footnote{Por ejemplo, 
+la distribución de datos del mundo real, como imágenes y textos.} Exploraremos
+ambos enfoques en las secciones restantes de este capítulo.
 
-\section{Compression via Denoising}\label{sub:compression_denoising}
+\section{Compresión mediante reducción de ruido}
+\label{sub:compression_denoising}
 
-In this section we describe a \textit{natural} and
-\textit{computationally tractable} way to learn a distribution
-\(p_{\vx}\) by learning a parametric encoding that minimizes the
-entropy or coding rate of the representation, then using this encoding
-to transform high-entropy samples from a standard Gaussian into
-low-entropy samples from the target distribution, as illustrated in
-\Cref{fig:diffusion-chapter3}.  This methodology combines approaches
-A1 and A2 above to learn and sample from the distribution.
+En esta sección describimos una forma \textit{natural} y
+\textit{computacionalmente manejable} de aprender una distribución
+\(p_{\vx}\) mediante el aprendizaje de una codificación paramétrica que minimice la
+entropía o la tasa de codificación de la representación y luego utilizando esta codificación
+para transformar muestras de alta entropía de una distribución gaussiana estándar en
+muestras de baja entropía de la distribución objetivo, tal como se ilustra en
+la \Cref{fig:diffusion-chapter3}. Esta metodología combina los enfoques
+A1 y A2 mencionados anteriormente para aprender y obtener muestras de la distribución.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter3/figs/diffusion_pipeline.png}
-    \caption{Illustration of an iterative denoising process that,
-        starting from an isotropic Gaussian distribution, converges to an
-    arbitrary data distribution.}
+    \caption{Ilustración de un proceso iterativo de eliminación de ruido que,
+        partiendo de una distribución gaussiana isotrópica, converge hacia una
+    distribución de datos arbitraria.}
     \label{fig:diffusion-chapter3}
 \end{figure}
 
-\subsection{Diffusion and Denoising Processes}
+\subsection{Procesos de difusión y de reducción de ruido}
 \label{sub:intro_diffusion_denoising}
 
-We first want a procedure that reduces the entropy of a very noisy
-random variable, producing a lower-entropy sample from the data distribution.
-Here we describe one potential approach, perhaps the most natural.
-First, we devise a way to \textit{gradually increase} the entropy of
-samples already drawn from the data distribution.  Next, we seek an
-\textit{approximate inverse} of this process.  In general, increasing
-entropy has no inverse, because information from the original
-distribution may be destroyed.  We therefore restrict ourselves to a
-special case in which (1) the entropy-increasing operation is simple,
-computable, and reversible, and (2) we have a (parametric) encoding of
-the data distribution, as alluded to above.  As we will see, these two
-conditions make our approach feasible.
+En primer lugar, queremos un procedimiento que reduzca la entropía de una variable 
+aleatoria con mucho ruido, generando una muestra de menor entropía a partir de la 
+distribución de los datos. Aquí describimos un posible enfoque, quizá el más natural.
+En primer lugar, ideamos una forma de \textit{aumentar gradualmente} la entropía de
+las muestras ya extraídas de la distribución de datos. A continuación, buscamos una
+\textit{inversa aproximada} de este proceso. En general, el aumento de
+la entropía no tiene inverso, ya que parte de la información de la distribución original
+puede destruirse. Por lo tanto, nos limitamos a un caso especial en el que (1) la 
+operación que aumenta la entropía es simple, computable y reversible, así como (2) 
+contamos con una codificación (paramétrica) de la distribución de los datos, tal como 
+se ha mencionado anteriormente. Como veremos, estas dos
+condiciones hacen que nuestro enfoque sea viable.
 
-\subsubsection{Diffusion Processes}
+\subsubsection{Procesos de difusión}
 
-We will increase the entropy in arguably the simplest possible way,
-i.e., \textit{adding isotropic Gaussian noise}. More precisely, given
-the random variable \(\vx\), we can consider the \textit{stochastic
-process} \((\vx_{t})_{t \in [0, T]}\) that adds gradual noise to it, i.e.,
+Aumentaremos la entropía de la forma más sencilla posible,
+es decir, \textit{añadiendo ruido gaussiano isotrópico}. Más concretamente, dada
+la variable aleatoria \(\vx\), podemos considerar el \textit{proceso estocástico
+\((\vx_{t})_{t \in [0, T]}\) que le añade ruido gradualmente, es decir,
 \begin{equation}\label{eq:additive_gaussian_noise_model}
     \vx_{t} \doteq \vx + t\vg, \qquad \forall t \in [0, T],
 \end{equation}
-where \(T \in [0, \infty)\) is a time horizon and \(\vg \sim
-\dNorm(\vzero, \vI)\) is drawn independently of \(\vx\). This process
-is an example of a \textit{diffusion process}, so named because it
-spreads (i.e., \textit{diffuses}) the probability mass over all
-of \(\R^{D}\) as time goes on, increasing the entropy. This
-intuition is confirmed graphically by \Cref{fig:ve_forward_density},
-and rigorously via the following theorem.
-\begin{theorem}[Simplified version of \Cref{thm:diffusion_entropy_increases}]
-    Suppose that \((\vx_{t})_{t \in [0, T]}\) follows the model
-    \eqref{eq:additive_gaussian_noise_model}. For any \(t \in (0,
-    T]\), the random variable \(\vx_{t}\) has a probability density
-    \(p_{t}\) and differential entropy
-    \(h(\vx_{t}) > -\infty\). Moreover, under certain technical
-    conditions on \(\vx\),
+donde \(T \in [0, \infty)\) es un horizonte temporal y \(\vg \sim
+\dNorm(\vzero, \vI)\) se extrae independientemente de \(\vx\). Este proceso
+es un ejemplo de \textit{proceso de difusión}, llamado así porque
+distribuye (es decir, \textit{difunde}) la masa de probabilidad por todo
+\(\R^{D}\) a medida que pasa el tiempo, aumentando la entropía. Esta
+intuición queda confirmada gráficamente en la \Cref{fig:ve_forward_density},
+así como de forma rigurosa mediante el siguiente teorema.
+\begin{theorem}[Versión simplificada del \Cref{thm:diffusion_entropy_increases}]
+    Supongamos que \((\vx_{t})_{t \in [0, T]}\) sigue el modelo
+    \eqref{eq:additive_gaussian_noise_model}. Para cualquier \(t \in (0,
+    T]\), la variable aleatoria \(\vx_{t}\) tiene una densidad de probabilidad
+    \(p_{t}\) y una entropía diferencial
+    \(h(\vx_{t}) > -\infty\). Además, bajo ciertas condiciones técnicas
+    sobre \(\vx\),
     \begin{equation}
         \odv*{h(\vx_{t})}{t} > 0, \qquad \forall t \in (0, T],
     \end{equation}
-    i.e., the entropy of the distribution of \(\vx_{t}\) increases
-    over time \(t\).
+    es decir, la entropía de la distribución de \(\vx_{t}\) aumenta
+    con el paso del tiempo \(t\).
 \end{theorem}
-The proof is elementary, but it is rather long, so we postpone it to
-\Cref{sub:diffusion_entropy_increases}. The main as-yet unstated
-implication of this result is that \(h(\vx_{t}) > h(\vx_{s})\) for every
-\(t > s \geq 0\). To see this, note that if \(s = 0\) and \(h(\vx) =
-h(\vx_{0}) = -\infty\) then \(h(\vx_{t}) > -\infty\) for all \(t >
-0\), so the conclusion is true; otherwise \(h(\vx_{t}) = h(\vx_{s}) +
-\int_{s}^{t} \bs{\odv*{h(\vx_{u})}{u}} \odif{u} > h(\vx_{s})\) by the
-fundamental theorem of calculus, so in both cases \(h(\vx_{t}) >
-h(\vx_{s})\) for every \(t > s \geq 0\).
+La demostración es elemental, pero bastante extensa, por lo que la posponemos hasta
+\Cref{sub:diffusion_entropy_increases}. La principal consecuencia, aún no expresada,
+de este resultado es que \(h(\vx_{t}) > h(\vx_{s})\) para todo
+\(t > s \geq 0\). Para comprobarlo, nótese en que si \(s = 0\) y \(h(\vx) =
+h(\vx_{0}) = -\infty\), entonces \(h(\vx_{t}) > -\infty\) para todo \(t >
+0\), por lo que la conclusión es verdadera; de lo contrario, \(h(\vx_{t}) = h(\vx_{s}) +
+\int_{s}^{t} \bs{\odv*{h(\vx_{u})}{u}} \odif{u} > h(\vx_{s})\) por el
+teorema fundamental del cálculo, por lo que en ambos casos \(h(\vx_{t}) >
+h(\vx_{s})\) para todo \(t > s \geq 0\).
 
 \begin{figure}
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter3/figs/ve_forward_diffusion_density.png}
-    \caption{\small\textbf{Diffusing a mixture of Gaussians \(\vx\).}
-        From left to right, we observe the evolution of the density
-        \(p_{t}\) of \(\vx_{t}\) as \(t\) grows from \(0\) to \(10\),
-        along with some representative samples (red). The plane is
-        colored by the probability density \(p_{t}\); high-density
-        regions are colored darker blue. We observe that the probability
-        mass becomes less concentrated as \(t\) increases, signaling that
-    entropy increases.}
+    \caption{\small\textbf{Difusión de una mezcla de distribuciones gaussianas \(\vx\).}
+        De izquierda a derecha, observamos la evolución de la densidad
+        \(p_{t}\) de \(\vx_{t}\) a medida que \(t\) varía de \(0\) a \(10\),
+        junto con algunas muestras representativas (en rojo). El plano está
+        coloreado según la densidad de probabilidad \(p_{t}\); las regiones de alta densidad
+        aparecen en un azul más oscuro. Observamos que la masa de
+        probabilidad se vuelve menos concentrada a medida que aumenta \(t\), lo que indica que
+    la entropía aumenta.}
     \label{fig:ve_forward_density}
 \end{figure}
 
-\begin{example}[Adding noise to a mixture of
-    Gaussians]\label{ex:gaussian_mixture}
-    In this example, we consider adding noise to a mixture of \(K\)
-    Gaussians. Choose \(K\) means
-    \(\vmu_{1}, \dots, \vmu_{K} \in \R^{D}\), \(K\) covariance
-    matrices \(\vSigma_{1}, \dots, \vSigma_{K} \in \PSD(D)\), and
-    probabilities \(\pi_{1}, \dots, \pi_{K} \in [0, 1]\) such that
-    \(\sum_{k = 1}^{K}\pi_{k} = 1\). Then \(\vx\) is sampled as
-    follows.
+\begin{example}[Añadir ruido a una mezcla de
+    distribuciones gaussianas]\label{ex:gaussian_mixture}
+    En este ejemplo, consideramos añadir ruido a una mezcla de \(K\)
+    distribuciones gaussianas. Elegir \(K\) significa
+    \(\vmu_{1}, \dots, \vmu_{K} \in \R^{D}\), \(K\) matrices de covarianza
+    \(\vSigma_{1}, \dots, \vSigma_{K} \in \PSD(D)\) y
+    probabilidades \(\pi_{1}, \dots, \pi_{K} \in [0, 1]\) tales que
+    \(\sum_{k = 1}^{K}\pi_{k} = 1\). Entonces, \(\vx\) se muestrea de la
+    siguiente manera.
     \begin{itemize}
-        \item First, an index (or \textit{label}) \(y \in [K]\) is
-            sampled s.t.~\(y = k\) with probability \(\pi_{k}\).
-        \item Second, \(\vx\) is sampled from the Gaussian
-            \(\dNorm(\vmu_{y}, \vSigma_{y})\); i.e., if \(y = k\) then
-            \(\vx \sim \dNorm(\vmu_{k}, \vSigma_{k})\).
+        \item En primer lugar, se toma una muestra de un índice (o \textit{etiqueta}) \(y \in [K]\)
+            de tal manera que \(y = k\) con probabilidad \(\pi_{k}\). 
+        \item En segundo lugar, \(\vx\) se obtiene mediante muestreo de la distribución gaussiana
+            \(\dNorm(\vmu_{y}, \vSigma_{y})\); es decir, si \(y = k\), entonces
+            \(\vx \sim \dNorm(\vmu_{k}, \vSigma_{k})\). 
     \end{itemize}
-    Thus \(\vx\) has the Gaussian mixture distribution
+    Por lo tanto, \(\vx\) sigue una distribución de mezcla gaussiana
     \begin{equation}
         \vx \sim \sum_{k = 1}^{K}\pi_{k}\dNorm(\vmu_{k}, \vSigma_{k}).
     \end{equation}
-    Gaussian mixture models are relevant because they can approximate
-    many distributions: given any distribution for \(\vx\), there
-    exists a Gaussian mixture that approximates it arbitrarily well.
-    For this reason, Gaussian mixture models are a popular,
-    analytically tractable surrogate for multi-modal and complex data
-    distributions. In this book we use them extensively as a ``model
-    problem'' to understand and develop almost every concept. For now,
-    we represent the data \(\vx\) by a Gaussian mixture. After adding
-    noise, the distribution of \(\vx_{t}\) is again a Gaussian
-    mixture:
+    Los modelos de mezcla gaussiana son relevantes porque pueden aproximar
+    muchas distribuciones: dada cualquier distribución para \(\vx\), existe
+    una mezcla gaussiana que la aproxima con una precisión arbitraria.
+    Por este motivo, los modelos de mezcla gaussiana son una alternativa popular y
+    analíticamente manejable para las distribuciones de datos multimodales y complejas.
+    En este libro los utilizamos ampliamente como «problema modelo» para comprender 
+    y desarrollar casi todos los conceptos. Por ahora, representamos los datos \(\vx\) 
+    mediante una mezcla gaussiana. Tras añadir
+    ruido, la distribución de \(\vx_{t}\) vuelve a ser una mezcla gaussiana:
     \begin{equation}
         \vx_{t} = \vx + t\vg \sim \sum_{k =
         1}^{K}\pi_{k}\dNorm(\vmu_{k}, \vSigma_{k} + t^{2}\vI).
     \end{equation}
-    To see by example how the entropy evolves, suppose \(K = 1\), so
-    \(\vx \sim \dNorm(\vmu, \vSigma)\). By
-    \eqref{eqn:entropy-Gaussian-multi}, the entropy of \(\vx_{t}\) is
+    Para ver con un ejemplo cómo evoluciona la entropía, supongamos que \(K = 1\), de modo que
+    \(\vx \sim \dNorm(\vmu, \vSigma)\). Según
+    \eqref{eqn:entropy-Gaussian-multi}, la entropía de \(\vx_{t}\) es
     \begin{equation}
         h(\vx_{t}) = \frac{D}{2}(1 + \log(2\pi)) +
         \frac{1}{2}\logdet(\vSigma + t^{2}\vI).
     \end{equation}
-    Differentiating with respect to time (see \Cref{app:optimization})
-    gives
+    Al derivar con respecto al tiempo (véase el \Cref{app:optimization})
+    se obtiene
     \begin{equation}
         \odv*{h(\vx_{t})}{t} = t\tr((\vSigma + t^{2}\vI)^{-1}) =
         \sum_{i = 1}^{D}\frac{t}{\lambda_{i}(\vSigma) + t^{2}} > 0,
     \end{equation}
-    where \(\lambda_{i}(\vSigma)\) are the (non-negative) eigenvalues of
-    \(\vSigma\). Because this derivative is positive, the entropy
-    \(h(\vx_{t})\) of the noised distribution increases over time.
+    donde \(\lambda_{i}(\vSigma)\) son los valores propios (no negativos) de
+    \(\vSigma\). Dado que esta derivada es positiva, la entropía
+    \(h(\vx_{t})\) de la distribución con ruido aumenta con el tiempo.
 \end{example}
 
-\subsubsection{Denoising Processes}
-The inverse operation to adding noise is known as \textit{denoising}.
-It is a classical and well-studied topic in signal processing and
-system theory, instantiated (for example) as the Wiener filter and
-the Kalman filter (see \Cref{sec:analytical}). Several problems discussed in
-\Cref{ch:classic-models}, such as PCA, ICA, and Dictionary Learning, are
-specific instances of the denoising problem. For a fixed \(t\) and
-the additive Gaussian noise model
-\eqref{eq:additive_gaussian_noise_model}, the denoising problem can
-be formulated as attempting to learn a function \(\bar{\vx}^{\star}(t,
-\cdot)\) that forms the best possible approximation (in expectation)
-of the true random variable \(\vx\), given both \(t\) and \(\vx_{t}\):
+\subsubsection{Procesos de reducción de ruido}
+La operación inversa a la adición de ruido se conoce como \textit{eliminación o reducción de ruido}.
+Se trata de un tema clásico y ampliamente estudiado en el procesamiento de señales y
+la teoría de sistemas, que se materializa (por ejemplo) en el filtro de Wiener y
+el filtro de Kalman (véase la \Cref{sec:analytical}). Varios problemas tratados en
+el \Cref{ch:classic-models}, como el PCA, el ICA y el aprendizaje de diccionarios, son
+casos concretos del problema de la eliminación de ruido. Para un \(t\) fijo y
+el modelo de ruido gaussiano aditivo
+\eqref{eq:additive_gaussian_noise_model}, el problema de eliminación de ruido puede
+formularse como el intento de aprender una función \(\bar{\vx}^{\star}(t,
+\cdot)\) que constituya la mejor aproximación posible (en esperanza)
+de la variable aleatoria verdadera \(\vx\), dados tanto \(t\) como \(\vx_{t}\):
 \begin{equation}\label{eq:denoising_loss}
     \bar{\vx}^{\star}(t, \cdot) \in \argmin_{\bar{\vx}(t,
     \cdot)} \Ex \norm{\vx - \bar{\vx}(t, \vx_{t})}_{2}^{2}.
 \end{equation}
-The solution to this problem, when optimizing \(\bar{\vx}(t, \cdot)\)
-over all possible (square-integrable) functions, is the so-called
-\textit{Bayes optimal denoiser}, and turns out to be the conditional
-expectation:
+La solución a este problema, al optimizar \(\bar{\vx}(t, \cdot)\)
+sobre todas las funciones posibles (integrables en el cuadrado), es el así llamado
+\textit{filtro óptimo de reducción de ruido de Bayes} y resulta ser la esperanza condicional:
 \begin{equation}\label{eq:optimal_denoiser}
     \bar{\vx}^{\star}(t, \vxi) \doteq \Ex[\vx \mid \vx_{t} = \vxi].
 \end{equation}
 
-This expression justifies the notation \(\bar{\vx}\), which computes
-a conditional expectation (i.e., conditional mean or conditional
-average). In short, it attempts to remove the noise from the noisy
-input, outputting the best possible guess (in expectation and with
-respect to the \(\ell^{2}\) distance) of the denoised original random variable.
+Esta expresión justifica la notación \(\bar{\vx}\), que calcula
+una esperanza condicional (es decir, la media condicional o el promedio
+condicional). En resumen, intenta eliminar el ruido de la entrada ruidosa
+y genera la mejor estimación posible (en términos de esperanza y con
+respecto a la distancia \(\ell^{2}\)) de la variable aleatoria original sin ruido.
 
-\begin{example}[Denoising Gaussian Noise from a Mixture of
-    Gaussians]\label{example:denoising_gaussian_mixture}
-    In this example we compute the Bayes optimal denoiser for an
-    important class of distributions, the Gaussian mixture
-    model in \Cref{ex:gaussian_mixture}. Let us define \(\phi(\vx ;
-    \vmu, \vSigma)\) as the probability density of \(\dNorm(\vmu,
-    \vSigma)\) evaluated at \(\vx\). In this notation, the density of
-    \(\vx_{t}\) is
+\begin{example}[Eliminación del ruido gaussiano a partir de una mezcla de
+    distribuciones gaussianas]\label{example:denoising_gaussian_mixture}
+    En este ejemplo calculamos el filtro óptimo de reducción de ruido de Bayes para una
+    clase importante de distribuciones: el modelo de mezcla gaussiana
+    del \Cref{ex:gaussian_mixture}. Definamos \(\phi(\vx ;
+    \vmu, \vSigma)\) como la densidad de probabilidad de \(\dNorm(\vmu,
+    \vSigma)\) evaluada en \(\vx\). Con esta notación, la densidad de
+    \(\vx_{t}\) es
     \begin{equation}
         p_{t}(\vx_{t}) = \sum_{k = 1}^{K}\pi_{k}\phi(\vx_{t} ;
         \vmu_{k}, \vSigma_{k} + t^{2}\vI).
     \end{equation}
 
-    Conditioned on \(y\), the variables are jointly Gaussian: if we
-    write \(\vx = \vmu_{y} + \vSigma_{y}^{1/2}\vu\) where
-    \((\cdot)^{1/2}\) is the matrix square root and \(\vu \sim
-    \dNorm(\vzero, \vI)\) independently of \(y\) (and \(\vg\)), then we have
+    Condicionadas en \(y\), las variables siguen una distribución gaussiana conjunta: si
+    escribimos \(\vx = \vmu_{y} + \vSigma_{y}^{1/2}\vu\), donde
+    \((\cdot)^{1/2}\) es la raíz cuadrada matricial y \(\vu \sim
+    \dNorm(\vzero, \vI)\) independientemente de \(y\) (y de \(\vg\)), entonces tenemos
     \begin{equation}
         \mat{\vx \\ \vx_{t}} = \mat{\vmu_{y} \\ \vmu_{y}} +
         \mat{\vSigma_{y}^{1/2} & \vzero \\ \vSigma_{y}^{1/2} &
         t\vI}\mat{\vu \\ \vg}.
     \end{equation}
-    This shows that \(\vx\) and \(\vx_{t}\) are jointly Gaussian
-    (conditioned on \(y\)) as claimed. Thus we can write
+    Esto muestra que \(\vx\) y \(\vx_{t}\) siguen una distribución gaussiana conjunta
+    (condicionada en \(y\)), tal como se afirmaba. Por lo tanto, podemos escribir
     \begin{equation}
         \mat{\vx \\ \vx_{t}} \sim \dNorm\rp{\mat{\vmu_{y}
             \\ \vmu_{y}}, \mat{\vSigma_{y} & \vSigma_{y} \\ \vSigma_{y} &
         \vSigma_{y} + t^{2}\vI}}.
     \end{equation}
-    Thus the conditional expectation of \(\vx\) given \(\vx_{t}\) (i.e., the
-    Bayes optimal denoiser conditioned on \(y\)) is famously
-    (see also \Cref{exercise:conditional_gaussian})
+    Por lo tanto, la esperanza condicional de \(\vx\) dada \(\vx_{t}\) (es decir, el
+    filtro óptimo de reducción de ruido de Bayes condicionado en \(y\)) es, como es bien sabido,
+    (véase también el \Cref{exercise:conditional_gaussian})
     \begin{equation}
         \Ex[\vx \mid \vx_{t}, y] = \vmu_{y} + \vSigma_{y}(\vSigma_{y}
         + t^{2}\vI)^{-1}(\vx_{t} - \vmu_{y}).
     \end{equation}
-    To find the overall Bayes optimal denoiser, we use the law of
-    iterated expectation, obtaining
+    Para hallar el eliminador de ruido óptimo de Bayes global, utilizamos la ley de
+    la esperanza iterada, obteniendo
     \begin{align}
         \bar{\vx}^{\star}(t, \vx_{t})
         &= \Ex[\vx \mid \vx_{t}] \\
         &= \Ex[\Ex[\vx \mid \vx_{t}, y] \mid \vx_{t}] \\
         &= \sum_{k = 1}^{K}\Pr[y = k \mid \vx_{t}]\Ex[\vx \mid \vx_{t}, y = k].
     \end{align}
-    The probability can be dealt with as follows. Let \(p_{t \mid
-    y}\) be the probability density of \(\vx_{t}\) conditioned on the
-    value of \(y\). Then
+    La probabilidad se puede tratar de la siguiente manera. Sea \(p_{t \mid
+    y}\) la densidad de probabilidad de \(\vx_{t}\) condicionada al
+    valor de \(y\). Entonces
     \begin{align}
         \Pr[y = k \mid \vx_{t}]
         &= \frac{p_{t \mid y}(\vx_{t} \mid k)\pi_{k}}{p_{t}(\vx_{t})} \\
@@ -498,12 +497,12 @@ respect to the \(\ell^{2}\) distance) of the denoised original random variable.
         + t^{2}\vI)}{\sum_{i = 1}^{K}\pi_{i}\phi(\vx_{t} ; \vmu_{i},
         \vSigma_{i} + t^{2}\vI)}.
     \end{align}
-    On the other hand, the conditional expectation is as described before:
+    Por otro lado, la esperanza condicional es la descrita anteriormente:
     \begin{equation}
         \Ex[\vx \mid \vx_{t}, y = k] = \vmu_{k} +
         \vSigma_{k}(\vSigma_{k} + t^{2}\vI)^{-1}(\vx_{t} - \vmu_{k}).
     \end{equation}
-    So putting this all together, the true Bayes optimal denoiser is
+    En resumen, el verdadero filtro de eliminación de ruido óptimo de Bayes es
     \begin{align}\label{eq:gmm_bayes_optimal_denoiser}
         \bar{\vx}^{\star}(t, \vx_{t}) &= \sum_{k =
         1}^{K}\Bigg\{\frac{\pi_{k}\phi(\vx_{t}
@@ -513,15 +512,15 @@ respect to the \(\ell^{2}\) distance) of the denoised original random variable.
             &\qquad \qquad \qquad \qquad   \cdot \bp{\vmu_{k} +
         \vSigma_{k}(\vSigma_{k} + t^{2}\vI)^{-1}(\vx_{t} - \vmu_{k})}\Bigg\}.
     \end{align}
-    This example is particularly important, and several special cases
-    will give us great conceptual insight later. For now, let us
-    attempt to extract some geometric intuition from the functional
-    form of the optimal denoiser \eqref{eq:gmm_bayes_optimal_denoiser}.
+    Este ejemplo es especialmente importante, y varios casos particulares
+    nos proporcionarán una gran comprensión conceptual más adelante. Por ahora, intentemos
+    extraer alguna intuición geométrica a partir de la forma funcional
+    del filtro óptimo de reducción de ruido \eqref{eq:gmm_bayes_optimal_denoiser}.
 
-    To understand \eqref{eq:gmm_bayes_optimal_denoiser}
-    intuitively, let us first set \(K = 1\) (i.e., one Gaussian) such
-    that \(\vx \sim \dNorm(\vmu, \vSigma)\). Let us then diagonalize
-    \(\vSigma = \vV\vLambda \vV^{\top}\). Then the Bayes optimal denoiser is
+    Para comprender \eqref{eq:gmm_bayes_optimal_denoiser}
+    de manera intuitiva, fijemos primero \(K = 1\) (es decir, una sola gaussiana) de tal
+    manera que \(\vx \sim \dNorm(\vmu, \vSigma)\). Diagonalicemos entonces
+    \(\vSigma = \vV\vLambda \vV^{\top}\). Entonces, el filtro óptimo de eliminación de ruido de Bayes es
     \begin{align}
         \bar{\vx}^{\star}(t, \vx_{t}) & = \vmu + \vSigma(\vSigma +
         t^{2}\vI)^{-1}(\vx_{t} - \vmu) \\
@@ -529,80 +528,80 @@ respect to the \(\ell^{2}\) distance) of the denoised original random variable.
             \ddots & \\ & & \lambda_{D}/(\lambda_{D} +
         t^{2})}\vV^{\top}(\vx_{t} - \vmu),\label{eq:gaussian_denoiser}
     \end{align}
-    where \(\lambda_{1}, \dots, \lambda_{D}\) are the eigenvalues of
-    \(\vSigma\). We can observe that this denoiser has three steps:
+    donde \(\lambda_{1}, \dots, \lambda_{D}\) son los valores propios de
+    \(\vSigma\). Podemos observar que este filtro de eliminación de ruido consta de tres pasos:
     \begin{itemize}
-        \item Translate the input \(\vx_{t}\) by \(\vmu\).
-        \item Contract the (translated) input \(\vx_{t} - \vmu\) in
-            each eigenvector direction by a quantity
-            \(\lambda_{i}/(\lambda_{i} + t^{2})\). If the translated
-            input is low-rank and some eigenvalues of \(\vSigma\) are
-            zero, these directions get immediately contracted to
-            \(0\) by the denoiser, ensuring that the output of the
-            contraction is similarly low-rank.
-        \item Translate the output back by \(\vmu\).
+        \item Trasladar la entrada \(\vx_{t}\) en \(\vmu\). 
+        \item Contraer la entrada (trasladada) \(\vx_{t} - \vmu\) en
+            cada dirección de vector propio en una cantidad
+            \(\lambda_{i}/(\lambda_{i} + t^{2})\). Si la entrada trasladada
+            es de rango bajo y algunos valores propios de \(\vSigma\) son
+            cero, el filtro de reducción de ruido contrae inmediatamente estas direcciones hasta
+            \(0\), lo que garantiza que la salida de la
+            contracción sea igualmente de bajo rango.
+        \item Desplazar el resultado hacia atrás en \(\vmu\). 
     \end{itemize}
-    This is the geometric interpretation of the denoiser of a
-    \textit{single} Gaussian. The overall denoiser of the Gaussian
-    mixture model \eqref{eq:gmm_bayes_optimal_denoiser} uses \(K\)
-    such denoisers, weighting their output by the posterior
-    probabilities \(\Pr[y = k \mid \vx_{t}]\). If the means of the
-    Gaussians are well separated, these posterior probabilities are
-    very close to \(0\) or \(1\) near each mean or cluster. In this
-    regime, the overall denoiser
-    \eqref{eq:gmm_bayes_optimal_denoiser} has the same geometric
-    interpretation as the above single Gaussian denoiser.
+    Esta es la interpretación geométrica del filtro de reducción de ruido de una
+    \textit{única} gaussiana. El eliminador de ruido global del modelo de mezcla gaussiana
+    \eqref{eq:gmm_bayes_optimal_denoiser} utiliza \(K\)
+    eliminadores de ruido de este tipo, ponderando su salida mediante las probabilidades a posteriori
+    \(\Pr[y = k \mid \vx_{t}]\). Si las medias de las
+    distribuciones gaussianas están bien separadas, estas probabilidades a posteriori son
+    muy cercanas a \(0\) o \(1\) cerca de cada media o grupo. En este
+    régimen, el eliminador de ruido global
+    \eqref{eq:gmm_bayes_optimal_denoiser} tiene la misma interpretación geométrica
+    que el eliminador de ruido gaussiano único mencionado anteriormente.
 \end{example}
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter3/figs/ve_forward_diffusion_denoising.png}\vspace{-0.15in}
-    \caption{\small \textbf{Bayes-optimal denoiser and score of a
-        Gaussian mixture model.} In the same setting as
-        \Cref{fig:ve_forward_density}, we demonstrate the effect of the
-        Bayes-optimal denoiser \(\bar{\vx}^{\star}\) by plotting
-        \(\vx_{t}\) (red) and \(\bar{\vx}^{\star}(t, \vx_{t})\) (green)
-        for some choice of \(t\) and \(\vx_{t}\). By Tweedie's formula
-        \Cref{thm:tweedie}, the residual between them is proportional to
-        the so-called (Hyv\"arinen) score \(\nabla_{\vx_{t}}\log
-        p_{t}(\vx_{t})\). We can see that the score points toward the
-    modes of the distribution of \(\vx_{t}\).}
+    \caption{\small \textbf{Filtro de eliminación de ruido óptimo de Bayes y puntuación de un
+        modelo de mezcla gaussiana.} En el mismo contexto que
+        \Cref{fig:ve_forward_density}, mostramos el efecto del
+        eliminador de ruido óptimo de Bayes \(\bar{\vx}^{\star}\) representando gráficamente
+        \(\vx_{t}\) (rojo) y \(\bar{\vx}^{\star}(t, \vx_{t})\) (verde)
+        para una selección de \(t\) y \(\vx_{t}\). Según la fórmula de Tweedie
+        \Cref{thm:tweedie}, el residuo entre ambos es proporcional a
+        la denominada puntuación (Hyv\"arinen) \(\nabla_{\vx_{t}}\log
+        p_{t}(\vx_{t})\). Podemos observar que la puntuación apunta hacia los
+    modos de la distribución de \(\vx_{t}\).}
     \label{fig:ve_forward_denoising}
 \end{figure}
 
-Intuitively, and as we can see from
-\Cref{example:denoising_gaussian_mixture}, the Bayes-optimal denoiser
-\(\bar{\vx}^{\star}(t, \cdot)\) should move its input \(\vx_{t}\)
-toward the modes of the distribution of \(\vx\). It turns out that we
-can quantify this by showing that the Bayes-optimal denoiser
-\textit{takes a gradient-ascent step} on the (log-)density
-of \(\vx_{t}\), which (recall) we denoted \(p_{t}\). That is,
-following the denoiser means moving from the input iterate to a
-region of higher probability within this (perturbed) distribution.
-For small \(t\), the perturbation is small, so our initial intuition
-is therefore almost exactly right. The picture is visualized in
-\Cref{fig:ve_forward_denoising} and rigorously formulated as
-Tweedie's formula \cite{Robbins1956AnEB}.
-\begin{theorem}[Tweedie's Formula]\label{thm:tweedie}
-    Suppose that \((\vx_{t})_{t \in [0, T]}\) obeys
-    \eqref{eq:additive_gaussian_noise_model}. Let \(p_{t}\) be the
-    density of \(\vx_{t}\) (as previously declared). Then
+Intuitivamente y como podemos ver en el
+\Cref{example:denoising_gaussian_mixture}, el eliminador de ruido óptimo de Bayes
+\(\bar{\vx}^{\star}(t, \cdot)\) debería desplazar su entrada \(\vx_{t}\)
+hacia los modos de la distribución de \(\vx\). Resulta que podemos
+cuantificar esto mostrando que el reductor de ruido óptimo de Bayes
+\textit{da un paso de ascenso por gradiente} en la densidad (logarítmica)
+de \(\vx_{t}\), que (recordemos) hemos denotado como \(p_{t}\). Es decir,
+aplicar el filtro de eliminación de ruido implica pasar de la iteración de entrada a una
+región de mayor probabilidad dentro de esta distribución (perturbada). Para valores 
+pequeños de \(t\), la perturbación es pequeña, por lo que nuestra intuición inicial 
+es, por lo tanto, casi totalmente correcta. La imagen se muestra en la
+\Cref{fig:ve_forward_denoising} y se formula rigurosamente como
+la fórmula de Tweedie \cite{Robbins1956AnEB}.
+\begin{theorem}[La fórmula de Tweedie]\label{thm:tweedie}
+    Supongamos que \((\vx_{t})_{t \in [0, T]}\) obedece a
+    \eqref{eq:additive_gaussian_noise_model}. Sea \(p_{t}\) la
+    densidad de \(\vx_{t}\) (tal como se ha definido anteriormente). Entonces
     \begin{equation}\label{eq:tweedie}
         \Ex[\vx \mid \vx_{t}] = \vx_{t} + t^{2}\nabla_{\vx_{t}} \log
         p_{t}(\vx_{t}).
     \end{equation}
 \end{theorem}
 \begin{proof}
-    For the proof, suppose that \(\vx\) has a
-    density,\footnote{Note that the
-        theorem is true without this assumption, and it can be proven through
-        a minimal modification of this proof to use probability measures
-    instead of densities.} and call this density \(p\). Let
-    \(p_{0 \mid t}\) and \(p_{t \mid 0}\) be the conditional densities of \(\vx
-    = \vx_{0}\) given \(\vx_{t}\) and \(\vx_{t}\) given \(\vx\) respectively.
-    Let \(\phi(\vx ; \vmu, \vSigma)\) be the density of \(\dNorm(\vmu,
-    \vSigma)\) evaluated at \(\vx\), so that \(p_{t \mid 0}(\vx_{t} \mid \vx)
-    = \phi(\vx_{t} ; \vx, t^{2}\vI)\). Then a simple calculation gives
+    Para demostrarlo, supongamos que \(\vx\) tiene una
+    densidad,\footnote{Obsérvese que el
+        teorema es cierto sin esta suposición y que puede demostrarse mediante
+        una modificación mínima de esta demostración para utilizar medidas de probabilidad
+    en lugar de densidades.} y llamemos a esta densidad \(p\). Sean
+    \(p_{0 \mid t}\) y \(p_{t \mid 0}\) las densidades condicionales de \(\vx
+    = \vx_{0}\) dado \(\vx_{t}\) y de \(\vx_{t}\) dado \(\vx\), respectivamente.
+    Sea \(\phi(\vx ; \vmu, \vSigma)\) la densidad de \(\dNorm(\vmu,
+    \vSigma)\) evaluada en \(\vx\), de modo que \(p_{t \mid 0}(\vx_{t} \mid \vx)
+    = \phi(\vx_{t} ; \vx, t^{2}\vI)\). Entonces, un cálculo sencillo da
     \begin{align}
         \nabla_{\vx_{t}} \log p_{t}(\vx_{t})
         &= \frac{\nabla_{\vx_{t}}p_{t}(\vx_{t})}{p_{t}(\vx_{t})} \\
@@ -637,50 +636,50 @@ Tweedie's formula \cite{Robbins1956AnEB}.
         &= \frac{1}{t^{2}}\Ex[\vx \mid \vx_{t}] - \frac{\vx_{t}}{t^{2}} \\
         &= \frac{\Ex[\vx \mid \vx_{t}] - \vx_{t}}{t^{2}}.
     \end{align}
-    Simple rearrangement of the above equality proves the theorem.
+    Una simple reorganización de la igualdad anterior demuestra el teorema.
 \end{proof}
-This result develops a connection between denoising and optimization:
-the Bayes-optimal denoiser takes a single step of gradient ascent on
-the perturbed data density \(p_{t}\), and the step size adaptively
-becomes smaller (i.e., takes more precise steps) as the perturbation
-to the data distribution grows smaller. The quantity
-\(\nabla_{\vx_{t}}\log p_{t}(\vx_{t})\) is called the
-\textit{(Hyv\"arinen) score} and frequently appears in discussions
-about denoising, etc.; it first appeared in a paper of Aapo
-Hyv\"arinen in the context of ICA \cite{hyvarinen05a}.
+Este resultado establece una conexión entre la eliminación de ruido y la optimización:
+el eliminador de ruido óptimo de Bayes da un único paso de ascenso por gradiente en
+la densidad de datos perturbada \(p_{t}\), y el tamaño del paso se reduce de forma adaptativa
+(es decir, da pasos más precisos) a medida que la perturbación
+de la distribución de datos se va reduciendo. La cantidad
+\(\nabla_{\vx_{t}}\log p_{t}(\vx_{t})\) se denomina
+\textit{puntuación (de Hyv\"arinen)} y aparece con frecuencia en debates
+sobre la eliminación de ruido, etc.; apareció por primera vez en un artículo de Aapo
+Hyv\"arinen en el contexto del ICA \cite{hyvarinen05a}.
 
-Similar to how one step of gradient descent is almost never sufficient to
-minimize an objective in practice when initializing far from the optimum, the
-output of the Bayes-optimal denoiser \(\bar{\vx}^{\star}(t, \cdot)\)
-is almost never contained in a high-probability region of the data
-distribution when \(t\) is large, \textit{especially} when the data
-have low-dimensional structure. We illustrate this point explicitly
-in the following example.
-\begin{example}[Denoising a two-point
-    mixture]\label{example:denoising_twopoints}
-    Let \(x\) be uniform on the two-point set \(\{-1, +1\}\) and let
-    \((x_{t})_{t \in [0, T]}\) follow
-    \eqref{eq:additive_gaussian_noise_model}. This is precisely a
-    degenerate Gaussian mixture model with priors equal to
-    \(\frac{1}{2}\), means \(\{-1, +1\}\), and covariances both equal
-    to \(0\). For a fixed \(t > 0\) we can use the calculation of the
-    Bayes-optimal denoiser in \eqref{eq:gmm_bayes_optimal_denoiser}
-    to obtain (proof as exercise)
+De manera similar a cómo un solo paso de descenso por gradiente casi nunca es suficiente para
+minimizar un objetivo en la práctica cuando se inicia lejos del óptimo, la
+salida del eliminador de ruido óptimo de Bayes \(\bar{\vx}^{\star}(t, \cdot)\)
+casi nunca se encuentra en una región de alta probabilidad de la distribución de datos
+cuando \(t\) es grande, \textit{especialmente} cuando los datos
+tienen una estructura de baja dimensión. Ilustramos este punto de manera explícita
+en el siguiente ejemplo.
+\begin{example}[Eliminación de ruido en una mezcla de
+    dos puntos]\label{example:denoising_twopoints}
+    Sea \(x\) una variable aleatoria uniforme en el conjunto de dos puntos \(\{-1, +1\}\) y sea
+    \((x_{t})_{t \in [0, T]}\) una variable aleatoria que sigue
+    la ecuación \eqref{eq:additive_gaussian_noise_model}. Se trata precisamente de un
+    modelo de mezcla gaussiana degenerada con distribuciones a priori iguales a
+    \(\frac{1}{2}\), medias \(\{-1, +1\}\) y covarianzas ambas iguales
+    a \(0\). Para un valor fijo de \(t > 0\), podemos utilizar el cálculo del
+    liminador óptimo de ruido de Bayes en \eqref{eq:gmm_bayes_optimal_denoiser}
+    para obtener (la demostración se deja como ejercicio)
     \begin{equation}
         \bar{x}^{\star}(t, x_{t}) = \frac{\phi(x_{t} ; +1, t^{2}) - \phi(x_{t}
         ; -1, t^{2})}{\phi(x_{t} ; 1, t^{2}) + \phi(x_{t} ; -1,
         t^{2})} = \tanh\rp{\frac{x_{t}}{t^{2}}}.
     \end{equation}
-    For \(t\) near \(0\), this quantity is near \(\{-1, +1\}\) for
-    almost all inputs \(\bar{x}^{\star}(t, x_{t})\). However, for
-    \(t\) large, this quantity is not necessarily even approximately
-    in the original support of \(x\), which, remember, is \(\{-1,
-    +1\}\). In particular, for \(x_{t} \approx 0\) it holds
-    \(\bar{x}^{\star}(t, x_{t}) \approx 0\), which lies completely in
-    between the two possible points. Thus \(\bar{x}^{\star}\)
-    \textit{will not output ``realistic'' \(x\)}. More rigorously,
-    the distribution of \(\bar{x}^{\star}(t, x_{t})\) is very
-    different from the distribution of \(x\).
+    Para valores de \(t\) cercanos a \(0\), esta cantidad se aproxima a \(\{-1, +1\}\) para
+    casi todas las entradas \(\bar{x}^{\star}(t, x_{t})\). Sin embargo, para
+    \(t\) grande, esta cantidad no se encuentra necesariamente ni siquiera aproximadamente
+    en el soporte original de \(x\), que, como recordaremos, es \(\{-1,
+    +1\}\). En particular, para \(x_{t} \approx 0\) se cumple que
+    \(\bar{x}^{\star}(t, x_{t}) \approx 0\), lo cual se encuentra completamente
+    entre los dos puntos posibles. Por lo tanto, \(\bar{x}^{\star}\)
+    \textit{no dará como resultado un \(x\) «realista»}. Para ser más precisos,
+    la distribución de \(\bar{x}^{\star}(t, x_{t})\) es muy
+    diferente de la distribución de \(x\).
 \end{example}
 
 \subsubsection{Incremental Denoising}

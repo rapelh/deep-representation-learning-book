@@ -1122,7 +1122,7 @@ Hyvärinen \cite{hyvarinen-1997,Hyvrinen-2000} realizaron importantes
 contribuciones teóricas y algorítmicas al ICA. En el \Cref{ch:classic-models}, 
 estudiaremos y ofreceremos una solución al ICA a partir de la cual
 quedará claro el mapeo de codificación \(\cE\). De hecho,  Aapo
-Hyv\"{a}rinen propuso el método general de coincidencia de puntajes en 2005
+Hyv\"{a}rinen propuso el método general de coincidencia de puntuación en 2005
 \cite{hyvarinen05a}, en parte para aprender distribuciones tales como las mezclas
 gaussianas, al igual que en el ICA. Hablaremos más sobre esto más adelante y
 de nuevo en el \ref{ch:denoising} con todo detalle.
@@ -1320,7 +1320,7 @@ redescubierta unos años más tarde por \cite{Miyasawa61}, donde se
 denominó «reducción de ruido bayesiana empírica». A principios de la 
 década de 2000, la función \(\nabla \log p(\vx)\) fue redescubierta en el contexto
 del aprendizaje de una distribución general y Aapo Hyv\"{a}rinen \cite{hyvarinen05a} 
-la denominó «función de puntaje». Su relación con la reducción de ruido 
+la denominó «función de puntuación». Su relación con la reducción de ruido 
 (bayesiana empírica) fue reconocida poco después por \cite{Vincent2011}.
 El grupo de Eero Simoncelli ha realizado generalizaciones a otras distribuciones 
 de medición (más allá del ruido gaussiano) \cite{Raphan10}. Hoy en día, la aplicación 
@@ -1333,7 +1333,7 @@ es la generación de imágenes mediante la reducción iterativa de ruido
     \includegraphics[width=1\linewidth]{\toplevelprefix/chapters/chapter1/figs/Density-compress.png}
     \caption{Interpretación geométrica de una función de puntuación \(\nabla
         \log p(\vx)\) para una distribución con densidad \(p(\vx)\) a la
-        izquierda. La operación generada por la función de puntaje empuja la
+        izquierda. La operación generada por la función de puntuación empuja la
         distribución hacia las zonas de mayor densidad. El objetivo es que,
         según un determinado indicador de compacidad (por ejemplo, la entropía 
         o la longitud de codificación), la distribución resultante esté más «comprimida».
@@ -1342,7 +1342,7 @@ es la generación de imágenes mediante la reducción iterativa de ruido
     \label{fig:score-function}
 \end{figure}
 
-\paragraph{Minimización de entropía.} El puntaje tiene una interpretación intuitiva
+\paragraph{Minimización de entropía.} El puntuación tiene una interpretación intuitiva
 desde el punto de vista de la teoría de la información y la geometría. En teoría de la información,
 \(-\log p(\vx)\) corresponde al número de bits que se necesitan para
 codificar \(\vx\)\footnote{al menos para variables discretas, como se detalla
@@ -1888,7 +1888,7 @@ Feller en 1949 \cite{Feller1949OnTT}.\footnote{¡De nuevo, en la mágica década
     \label{fig:diffusion}
 \end{figure}
 
-Poco después, se demostró que los operadores de reducción de ruido basados en la función de puntaje
+Poco después, se demostró que los operadores de reducción de ruido basados en la función de puntuación
 \cite{hyvarinen05a}, presentados brevemente en
 \Cref{sec:denoising-intro}, eran más generales y unificaban
 los procesos y algoritmos de reducción de ruido y difusión

@@ -3,7 +3,7 @@
 
 \begin{document}
 
-\chapter{El aprendizaje de estructuras lineales e independentes}
+\chapter{El aprendizaje de estructuras lineales e independientes}
 \label{ch:classic-models}
 
 \begin{quote}
@@ -339,7 +339,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
 \end{remark}
 
 \begin{remark}[Selección base mediante valores propios con reducción de ruido]
-    En muchos casos, nuestros datos no se estarán distribuídos realmente
+    En muchos casos, nuestros datos no se estarán distribuidos realmente
     según un modelo de subespacio más ruido, o bien no conoceremos la
     verdadera dimensión subyacente \(d\) del subespacio. En este caso,
     tenemos que elegir \(d\); este problema se denomina \textit{selección
@@ -770,16 +770,16 @@ núcleo general de verdad:
 Como era de esperar, nos encontraremos con este motivo una y otra vez en
 el resto del manuscrito, empezando por la siguiente sección.\footnote{En capítulos 
     posteriores, veremos que es posible completar datos del mundo real, como imágenes, 
-    con solo una fracción de observaciones sin enmascarar; por ejemplo, la autoencodificación 
+    con solo una fracción de observaciones sin enmascarar; por ejemplo, la autocodificación 
     enmascarada de imágenes en la \Cref{sec:image_completion}. Esto se debe también a que la 
     distribución de las imágenes naturales presenta estructuras de dimensiones bastante bajas 
     (aunque no lineales) en el espacio de todas las imágenes.}
 
-\section{Una mezcla de subespacios completos dw baja dimensión}%
+\section{Una mezcla de subespacios completos de baja dimensión}%
 \label{sec:ica}
 Como hemos visto, los modelos de señales de rango bajo son lo suficientemente 
 ricos en estructura como para ofrecer una visión global de la interacción entre 
-la baja dimensionalidad de los datos y los algoritmos computacionales eficientes 
+la baja dimensión de los datos y los algoritmos computacionales eficientes 
 y escalables para la representación y recuperación en presencia de errores.
 Estos modelos implican un proceso de aprendizaje de representaciones \textit{lineal} y simétrico
 \eqref{eqn:autoencoding-PCA}:
@@ -838,7 +838,7 @@ fines de segmentación o compresión \cite{Mobahi-IJCV2011}.\footnote{Volveremos
     sobre esta observación en \Cref{ch:deep-networks}, donde demostraremos que 
     puede generalizarse de manera significativa para aprender representaciones de 
 conjuntos de datos modernos a gran escala.} Veremos un ejemplo concreto en un capítulo posterior
-(\Cref{ejemplo:segmentación de imágenes}).
+(\Cref{eg:image-segmentation}).
 
 % \begin{figure}
 %     \centering
@@ -982,7 +982,7 @@ Partamos de la suposición de que el diccionario $\vU$ en el modelo de diccionar
 disperso \eqref{eq:mixture-of-subspaces-dictionary} es completo y
 ortogonal,\footnote{Se puede demostrar que, para el caso completo,
     no perdemos generalidad al hacer la suposición de ortogonalidad
-(\Cref{ejercicio:blanqueo}).} y que cada vector de coeficientes $\vz$
+(\Cref{exercise:whitening}).} y que cada vector de coeficientes $\vz$
 es $d$-disperso, con $d \ll D$.
 En este contexto, el aprendizaje de representaciones equivale a
 aprender correctamente el diccionario ortogonal $\vU$ mediante optimización:
@@ -994,7 +994,7 @@ como decodificador y $\cD = \cE^{-1}$. En forma de diagrama:
     \hspace{2mm}}   \hat{\vx}.
     \label{eqn:autoencoding-DL}
 \end{equation}
-Observamos que el par de autoencodificadores $(\cE, \cD)$ para el aprendizaje
+Observamos que el par de autocodificadores $(\cE, \cD)$ para el aprendizaje
 completo de un diccionario es simétrico, al igual que en el caso de un único
 subespacio lineal, lo que hace que la tarea computacional de codificación y decodificación no
 sea más difícil que en el caso lineal. Por otro lado, la tarea
@@ -1204,7 +1204,7 @@ independientes y no gaussianas. Además, existe una clara correspondencia
 entre el aprendizaje por diccionario y el análisis clásico de componentes independientes
 (ICA), hasta el punto de que los algoritmos diseñados para resolver un problema
 pueden utilizarse para resolver el otro.\footnote{Analizamos este tema con
-    mayor profundidad en \Cref{ejercicio:simetría-identificabilidad}, donde se
+    mayor profundidad en \Cref{exercise:symmetry-identifiability}, donde se
     establece una relación entre la no gaussianidad de los componentes independientes y
     el concepto puramente geométrico de simetría. Este problema está
     relacionado con nuestra observación anterior de que el PCA no sirve para
@@ -1226,10 +1226,7 @@ lo que da como resultado
     \kurt(\vx) = \frac{1}{N} \norm{\vx}_4^4 - \frac{3}{N^2} \norm{\vx}_2^4.
 \end{equation}
 Por último, en el caso de los vectores aleatorios, definimos su curtosis como la suma de
-la curtosis escalar de cada componente.
-
-Finally, for random vectors, we define their kurtosis as the sum of
-each component's scalar kurtosis. La curtosis es una función de pérdida natural para ICA, 
+la curtosis escalar de cada componente.  La curtosis es una función de pérdida natural para ICA, 
 ya que, para una variable $X$ gaussiana, la curtosis es cero; el lector puede comprobar 
 además que la distribución de Bernoulli-Gauss tiene una curtosis positiva.
 Por lo tanto, un procedimiento natural para buscar componentes independientes no gaussianas
@@ -1271,7 +1268,7 @@ Este objetivo es tan sencillo que podemos hacer afirmaciones contundentes
 sobre su corrección como formulación para recuperar el diccionario $\vU$.
 Por ejemplo, en el contexto poblacional donde $N \to \infty$,
 podemos utilizar las propiedades de aditividad de la curtosis
-(\Cref{ejercicio:propiedades-de-linealidad-de-la-curtosis}) y nuestra suposición
+(\Cref{exercise:kurtosis-linearity-properties}) y nuestra suposición
 de normalización de los componentes independientes para expresar el problema anterior
 de forma equivalente como
 \begin{equation}\label{eq:kurtosis-maximization-sphere-population-simple}
@@ -1280,7 +1277,7 @@ de forma equivalente como
 \end{equation}
 Se puede mostrar que, bajo el supuesto Bernoulli-gaussiano, el
 landscape de optimización de este problema es «benigno»
-(\Cref{ejercicio:esfera-de-curtosis})---lo que significa que todos los máximos locales
+(\Cref{exercise:kurtosis-sphere-landscape})---lo que significa que todos los máximos locales
 de la función objetivo corresponden a la recuperación de uno de
 los componentes independientes.
 
@@ -1876,7 +1873,7 @@ para
 tales como los transformadores, siguiendo la hipótesis de que las
 características (no interpretables, \textit{a priori}) en estas redes consisten 
 en «superposiciones» dispersas de características subyacentes, las cuales son 
-a su vez interpretables \cite{elhage2022superpositiion}. Estos paradigmas de 
+a su vez interpretables \cite{elhage2022superposition}. Estos paradigmas de 
 aprendizaje \textit{sin supervisión} suelen ser también más eficientes en 
 cuanto al uso de datos que LISTA, que requiere grandes cantidades
 de pares etiquetados $(\vX, \vZ)$ para el entrenamiento supervisado.
@@ -1898,7 +1895,7 @@ las cuales se seleccionan en función de la tarea de interpretación deseada.\fo
 con mayor detalle en el\Cref{ch:applications}.} Para simplificar, utilizaremos $h$ para denotar el mapa de 
 características preseleccionado en cuestión, con características de dimensión $D$; dadas $N$ entradas de 
 muestra, sea $\vH \in \bR^{D \times N}$ la matriz completa de características de $h$.
-A continuación, se entrena un autocodifcador disperso $f : \bR^D \to \bR^d$, con
+A continuación, se entrena un autocodificador disperso $f : \bR^D \to \bR^d$, con
 un decodificador $g : \bR^d \to \bR^D$, mediante la función de pérdida 
 LASSO \eqref{eq:sparse_dl_lasso}:
 \begin{equation}\label{eq:sae-loss}
@@ -2329,9 +2326,9 @@ más complejas.
     Para simplificar, supondremos que $\kurt(z_i) \neq 0$ para cada
     $i = 1, \dots, d$.
     \begin{enumerate}
-        \item Utilizando los resultados de la Parte 1 de \Cref{ejercicio:cálculo-esférico},
+        \item Utilizando los resultados de la Parte 1 de \Cref{exercise:sphere-calculus},
             demuestre que la condición de optimalidad de primer orden para
-            \eqref{eq:maximización-curtosis-población-esférica-simple} es 
+            \eqref{eq:kurtosis-maximization-sphere-population-simple} es 
             \begin{equation}\label{eq:kurtosis-sphere-landscape-stationarity}
                 \left(\sum_{i=1}^d \kurt(z_i) w_i^4 \right)
                 \vw = \kurt(\vz) \hada \vw^{\hada 3},
@@ -2386,7 +2383,7 @@ más complejas.
     \Cref{exercise:sphere-calculus}, pero los aplica en este caso al
     grupo ortogonal $\O(d) = \set{\vU \in \R^{d \times d} \dado que
     \vU^\top \vU = \vI}$.
-    Consulte la descripción de \Cref{ejercicio:cálculo-esférico} para
+    Consulte la descripción de \Cref{exercise:sphere-calculus} para
     obtener los fundamentos conceptuales necesarios; el formalismo se aplica
     de manera idéntica al caso en el que el espacio envolvente es el conjunto de matrices $d
     \times d$, siempre y cuando se tenga en cuenta que el producto interno
@@ -2502,7 +2499,7 @@ más complejas.
                             en cualquiera de sus dos argumentos cuando el
                     otro es fijo.})
                 \item A partir de estas condiciones, muestre que para todo
-                    minimo local $\vQ$ de
+                    mínimo local $\vQ$ de
                     \eqref{eq:projection-onto-ogrp-defn}, se cumple que
                     $\vQ^\top \vX = (\vX^\top \vX)^{1/2}$. 
                     (\textit{Pista: Utiliza %

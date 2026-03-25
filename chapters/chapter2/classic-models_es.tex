@@ -699,7 +699,7 @@ de \(\Cov[\vx]\).
     \(\vU^{\star}(\vU^{\star})^{\top}\) es una proyección ortogonal
     sobre \(\cS\), que empuja los puntos con ruido hacia el subespacio de soporte
     de la verdad fundamental. Podemos obtener un resultado técnico similar
-    en el caso de que solo dispongamos de un número finito de muestras como en
+    en el caso de que solo dispongamos de un número finito de muestras como en el
     \Cref{thm:pca}, pero esto requiere más esfuerzo y complejidad técnica.
     En resumen, tenemos el siguiente teorema informal.
 \end{remark}
@@ -1453,9 +1453,9 @@ una representación sobrecompleta.
 
 \begin{example}
     A partir de una muestra de imágenes de dígitos escritos a mano,
-    \Cref{fig:ReconMNIST}(a) muestra el resultado de ajustar un
+    la \Cref{fig:ReconMNIST}(a) muestra el resultado de ajustar un
     diccionario ortogonal al conjunto de datos.
-    Por el contrario, \Cref{fig:ReconMNIST}(b) muestra el resultado de aplicar un 
+    Por el contrario, la \Cref{fig:ReconMNIST}(b) muestra el resultado de aplicar un 
     algoritmo de optimización para el aprendizaje de diccionarios sobrecompletos (que
     presentaremos en detalle más adelante en este capítulo) a estas muestras.
     Nótese que las representaciones se vuelven mucho más dispersas y los
@@ -1661,7 +1661,7 @@ simplemente desacoplando las transformaciones lineales (es decir, las multiplica
 añadiendo un sesgo y desplazando la no linealidad.
 La no linealidad en \eqref{eq:ista_update} es notablemente similar a la
 función de activación ReLU de uso común $x \mapsto \max\set{x, 0}$ en el aprendizaje profundo
----como se muestra en \Cref{fig:soft-thresholding}, el operador de umbral suave es como una 
+---como se muestra en la \Cref{fig:soft-thresholding}, el operador de umbral suave es como una 
 activación ReLU «con signo», que además se desplaza mediante un sesgo.
 Por lo tanto, la ISTA puede considerarse como una pasada hacia adelante de una red neuronal primitiva 
 (recurrente de una sola capa). En el \Cref{ch:deep-networks} defendemos que este tipo de operaciones 
@@ -1788,7 +1788,7 @@ se ha demostrado que los algoritmos de tipo de minimización alterna convergen e
 la solución correcta, al menos localmente. Véase, por ejemplo, \cite{alekh-2016}.
 A modo de demostración práctica, se utilizó el algoritmo anterior (con $L = T =
 1$) para generar los resultados del aprendizaje de diccionarios sobrecompletos que se muestran en
-\Cref{fig:ReconMNIST}.
+la \Cref{fig:ReconMNIST}.
 
 \subsection{Codificación dispersa profunda aprendida}
 \label{sec:LISTA}

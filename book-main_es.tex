@@ -1,6 +1,8 @@
 \documentclass{book}
 % \documentclass{EngC}
 
+\usepackage[spanish]{babel}
+
 \renewcommand{\chaptername}{Capítulo}
 \renewcommand{\figurename}{Figura}
 
@@ -98,6 +100,7 @@ decorations.pathmorphing, decorations.markings}
 \usepackage{cleveref}
 \crefname{assumption}{supuesto}{supuestos}
 \Crefname{assumption}{Supuesto}{Supuestos}
+\Crefname{example}{Ejemplo}{Ejemplos}
 \crefname{exercise}{ejercicio}{ejercicios}
 \Crefname{exercise}{Ejercicio}{Ejercicios}
 \Crefname{equation}{Ecuación}{Ecuaciones}
@@ -106,6 +109,8 @@ decorations.pathmorphing, decorations.markings}
 \Crefname{app}{Apéndice}{Apéndices}
 \Crefname{chapter}{Capítulo}{Capítulos}
 \Crefname{section}{Sección}{Secciones}
+\crefname{thm}{teorema}{teoremas}
+\Crefname{thm}{Teorema}{Teoremas}
 
 \hyphenation{line-break line-breaks docu-ment triangle cambridge amsthdoc
 cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
@@ -180,6 +185,11 @@ cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
     }
 }
 \makeatother
+
+\usepackage{etoolbox}
+% Patches the command names after other packages are loaded
+\patchcmd{\theorem}{Theorem}{Teorema}{}{}
+\patchcmd{\example}{Example}{Ejemplo}{}{}
 
 \begin{document}
 

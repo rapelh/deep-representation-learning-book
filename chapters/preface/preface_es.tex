@@ -15,19 +15,19 @@
 Este libro revela y analiza un problema común y fundamental que subyace
 a casi todas las prácticas modernas inteligencia artificial.
 Se trata de {\em ¿cómo aprender de manera efectiva y eficiente una
-    distribución de datos de dimensionalidad baja en un espacio de dimensionalidad alta y
-    luego transformar est distribución en una representación compacta y 
+    distribución de datos de dimensión baja en un espacio de dimensión alta y
+    luego transformar esta distribución en una representación compacta y 
 estructurada?} Para cualquier sistema inteligente, natural o artificial,
  una representación de este tipo puede considerarse en general como {\em memoria} o
 {\em conocimiento} (empírico) aprendidos a partir de datos percibidos del mondo externo. En
 años recientes, con frecuencia esto se ha denominado informalmente un «modelo del mundo.»
 
 \paragraph{Público objetivo.}
-Este libro de texto intenta proveer una introduccón sistematica a los
+Este libro de texto intenta proveer una introducción sistemática a los
 principios matemáticos y computacionales del aprendizaje de representaciones 
 (profundas) de tales distribuciones de datos, como forma computable de
 memoria, para {\em estudiantes de último año de licenciatura y estudiantes 
-de posgrado que están comenzando sus estudios}. Los principales
+de posgrado que estén comenzando sus estudios}. Los principales
 prerequisitos para este libro son el álgebra lineal de nivel pregraduado, 
 probabilidades y estadísticas, así como optimización. Cierta familiaridad con 
 los conceptos básicos del procesamiento de señales (representaciones dispersas y detección
@@ -44,30 +44,30 @@ enfoque, siendo altamente complementaria, se ubica en contraste directo con la
 metodología dominante que subyace a las prácticas contemporáneas en inteligencia 
 artificial, que son inductivas y de intento y error. La falta de comprensión
 de esos poderosos modelos y sistemas de IA ha llevado a un aumento tanto del
-entusiasmo como de los temores en el seno de la sociedad. Creemos es más urgente
+entusiasmo como de los temores en el seno de la sociedad. Creemos que es más urgente
 que nunca antes un esfuerzo serio por establecer un enfoque basado en principios 
 para comprender lo que es la inteligencia. Un objetivo general de este libro es 
 proporcionar pruebas teóricas y experimentales sólidas que demuestren que es ahora
 posible estudiar la inteligencia como materia científica y matemática. Argumentaremos
 que la inteligencia es la capacidad fundamental de desarrollar nuevas memorias (o
 conocimientos) o de corregir las o los existentes. Por tanto es posible ver a este
-libro como un primer intento de desarfrollar {\em una teoría matemática de la 
+libro como un primer intento de desarrollar {\em una teoría matemática de la 
 inteligencia}, al nivel de aprender conocimientos empíricos en forma de memoria, 
 tal como sugiere el subtítulo del libro.
 
 A nivel técnico, el marco teórico presentado en este libro ayuda a 
 reconciliar una brecha antigua entre el enfoque clásico del
 modelamiento de estructuras de datos principalmente basado en
-modelos analíticaos geométricos, algebráicos y probabilísticos 
+modelos analíticos geométricos, algebráicos y probabilísticos 
 (p.ej. subespacios, gaussianas y ecuaciones) y el enfoque «moderno»
 basado en modelos no paramétricos basados en datos empíricamente 
 diseñados (p.ej. redes profundas). Resulta que la unificación de
 estas dos metodologías aparentemente separadas se hace posible e
 incluso natural si se entiende que todas tratan de aprender y
-representar estructuras {\em de baja dimensionalidad} en la
+representar estructuras {\em de baja dimensión} en la
 distribución de datos de que se trate. Son simplemente maneras
 diferentes de perseguir, representar y explotar estas estructuras 
-de baja dimensionalidad. Desde esta perspectiva, incluso muchas
+de baja dimensión. Desde esta perspectiva, incluso muchas
 técnicas computacionales sin relación aparente entre ellas, 
 desarrolladas independientemente en campos separados y en distintos
 momentos, pueden comprenderse mejor ahora en un marco teórico
@@ -85,7 +85,7 @@ técnicas, entre otras, incluyen:
         modernos;
     \item La inferencia bayesiana por vía del máximo a posteriori o
         el muestreo condicionado frente a la optimización con 
-        restricciones por vía de técnicas de continuación
+        restricciones por la vía de técnicas de continuación
         \footnote{como el método del lagrangiano aumentado}.
 \end{enumerate}
 
@@ -94,7 +94,7 @@ Creemos que el marco conceptual y computacional unificado que se
 presenta en este libro será de gran provecho para aquellos lectores
 que verdaderamente quieran aclarar los misterios y malentendidos
 de las redes neuronales profundas y la inteligencia (artificial).
-más allá de lo anterior, este marco pretende equipar a los lectores 
+Más allá de lo anterior, este marco pretende equipar a los lectores 
 con principios rectores para desarrollar sistemas significativamente
 mejores y verdaderamente inteligentes en el futuro. Más específicamente,
 aparte de una introducción (capítulo) informal, el contenido técnico
@@ -105,25 +105,25 @@ principal del libro se organizará en forma de seis materias (capítulos)
         análisis de componentes principales (PCA), del análisis de
         componentes independientes (ICA) y del aprendizaje de 
         diccionarios (DL), las que suponen que las distribuciones
-        de baja dimensionalidad que interesan poseen estructuras
+        de baja dimensión que interesan poseen estructuras
         lineales e independientes. A partir de estos modelos simples
         idealizados que han sido ampliamente estudiados y comprendidos
         en procesamiento de señales y detección comprimida, 
         introduciremos las ideas más básicas e importantes\footnote{tales 
         como a reducción de ruidos y la reducción de dimensionalidad} en
         cuanto a cómo aprender y cómo representar distribuciones de baja
-        dimensionalidad.
+        dimensión.
 
     \item A fin de generalizar estos modelos clásicos y extender
-        sus soluciones a distribuciones de baja dimensionalidad que no
-        puedan ser representadas fácilmente por algún modelo analítco
+        sus soluciones a distribuciones de baja dimensión que no
+        puedan ser representadas fácilmente por algún modelo analítico
         simple, introducimos un principio computacional universal para
         el aprendizaje de tales distribuciones: {\em la compresión}.
         Como veremos, la compresión de datos provee una perspectiva 
         unificadora de todos los enfoques clásicos y modernos aparentemente
         diferentes para el aprendizaje de distribuciones o representaciones,
         incluyendo la minimización de entropía, la reducción de ruido por
-        coincidencia de puntajes, compresión con pérdidas y distorsión de
+        coincidencia de puntuación, compresión con pérdidas y distorsión de
         tasas, así como el aprendizaje discriminativo de representaciones
         por vía de maximizar la ganancia de información.
 
@@ -157,9 +157,9 @@ principal del libro se organizará en forma de seis materias (capítulos)
         estimación, el completamiento y la generación condicionales de datos
         del mundo real y de alta dimensionalidad, tales como imágenes y textos.     
 
-    \item Por último, pero no menos importante, traremos paso a paso como 
+    \item Por último, pero no menos importante, mostraremos paso a paso como 
         aprender de manera efectiva y eficiente las representaciones profundas
-        de distribuciones de baja dimensionalidad a partir de grandes conjuntos
+        de distribuciones de baja dimensión a partir de grandes conjuntos
         de datos del mundo real, incluyendo datos visuales, movimiento de
         cuerpos y datos en forma de texto, usándolos en numerosas aplicaciones
         prácticas, tales como clasificación, completamiento, segmentación, 
@@ -171,7 +171,7 @@ principal del libro se organizará en forma de seis materias (capítulos)
 Para resumir, el contenido técnico presentado en este libro
 establece fuertes conexiones conceptuales y técnicas entre
 el enfoque analítico clásico y el enfoque moderno basado en
-datos, entre unos modelos paramétricos simplpes y los modelos
+datos, entre unos modelos paramétricos simples y los modelos
 no paramétricos profundos, entre las diversas prácticas inductivas
 y un enfoque deductivo unificado basado en principios básicos.
 Revelaremos que numerosos enfoques aparentemente no relacionados
@@ -181,7 +181,7 @@ de la historia, sin embargo todos aspiran a lograr un objetivo
 común:
 \begin{quote}
     \centering{\em perseguir y explotar las estructuras intrínsecas
-    de baja dimensionalidad de distribuciones de datos embebidas
+    de baja dimensión de distribuciones de datos embebidas
     en espacios de alta dimensionalidad.}
 \end{quote}
 Con este propósito, el libro nos llevará en un viaje completo desde

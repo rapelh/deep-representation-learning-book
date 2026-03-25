@@ -274,8 +274,7 @@ y converjan rápidamente hacia la distribución deseada.\footnote{Por ejemplo,
 la distribución de datos del mundo real, como imágenes y textos.} Exploraremos
 ambos enfoques en las secciones restantes de este capítulo.
 
-\section{Compresión mediante reducción de ruido}
-\label{sub:compression_denoising}
+\section{Compresión mediante reducción de ruido}\label{sub:compression_denoising}
 
 En esta sección describimos una forma \textit{natural} y
 \textit{computacionalmente manejable} de aprender una distribución
@@ -295,8 +294,7 @@ A1 y A2 mencionados anteriormente para aprender y obtener muestras de la distrib
     \label{fig:diffusion-chapter3}
 \end{figure}
 
-\subsection{Procesos de difusión y de reducción de ruido}
-\label{sub:intro_diffusion_denoising}
+\subsection{Procesos de difusión y de reducción de ruido}\label{sub:intro_diffusion_denoising}
 
 En primer lugar, queremos un procedimiento que reduzca la entropía de una variable 
 aleatoria con mucho ruido, generando una muestra de menor entropía a partir de la 
@@ -315,7 +313,7 @@ condiciones hacen que nuestro enfoque sea viable.
 
 Aumentaremos la entropía de la forma más sencilla posible,
 es decir, \textit{añadiendo ruido gaussiano isotrópico}. Más concretamente, dada
-la variable aleatoria \(\vx\), podemos considerar el \textit{proceso estocástico
+la variable aleatoria \(\vx\), podemos considerar el \textit{proceso estocástico}
 \((\vx_{t})_{t \in [0, T]}\) que le añade ruido gradualmente, es decir,
 \begin{equation}\label{eq:additive_gaussian_noise_model}
     \vx_{t} \doteq \vx + t\vg, \qquad \forall t \in [0, T],
@@ -557,7 +555,7 @@ respecto a la distancia \(\ell^{2}\)) de la variable aleatoria original sin ruid
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter3/figs/ve_forward_diffusion_denoising.png}\vspace{-0.15in}
     \caption{\small \textbf{Filtro de eliminación de ruido óptimo de Bayes y puntuación de un
-        modelo de mezcla gaussiana.} En el mismo contexto que
+        modelo de mezcla gaussiana.} En el mismo contexto que en la
         \Cref{fig:ve_forward_density}, mostramos el efecto del
         eliminador de ruido óptimo de Bayes \(\bar{\vx}^{\star}\) representando gráficamente
         \(\vx_{t}\) (rojo) y \(\bar{\vx}^{\star}(t, \vx_{t})\) (verde)
@@ -682,25 +680,25 @@ en el siguiente ejemplo.
     diferente de la distribución de \(x\).
 \end{example}
 
-\subsubsection{Incremental Denoising}
-Therefore, to denoise the very noisy sample \(\vx_{T}\) (where,
-recall, \(T\) is the maximum time), we cannot use the denoiser just
-once. Instead, we must apply it many times, analogously to gradient
-descent with decaying step sizes, to converge to a stationary point
-\(\hat{\vx}\). Namely, we use the denoiser to go from \(\vx_{T}\) to
-\(\hat{\vx}_{T - \delta}\), which approximates \(\vx_{T - \delta}\),
-then from \(\hat{\vx}_{T - \delta}\) to \(\hat{\vx}_{T - 2\delta}\),
-and so on, all the way from \(\hat{\vx}_{\delta}\) to \(\hat{\vx} =
-\hat{\vx}_{0}\). Each denoising step makes the action of the denoiser
-more like a gradient step on the original (log-)density.
+\subsubsection{Reducción de ruido incremental}
+Por lo tanto, para eliminar el ruido de la muestra muy ruidosa \(\vx_{T}\) (donde,
+como recordaremos, \(T\) es el tiempo máximo), no podemos utilizar el filtro de eliminación de ruido solo
+una vez. En cambio, debemos aplicarlo muchas veces, de forma análoga al descenso por gradiente
+con pasos decrecientes, para converger hacia un punto estacionario
+\(\hat{\vx}\). Es decir, utilizamos el filtro de eliminación de ruido para pasar de \(\vx_{T}\) a
+\(\hat{\vx}_{T - \delta}\), que se aproxima a \(\vx_{T - \delta}\),
+luego de \(\hat{\vx}_ {T - \delta}\) a \(\hat{\vx}_{T - 2\delta}\),
+y así sucesivamente, desde \(\hat{\vx}_{\delta}\) hasta \(\hat{\vx} =
+\hat{\vx}_{0}\). Cada paso de eliminación de ruido hace que la acción del filtro de eliminación de ruido
+se parezca más a un paso de gradiente sobre la densidad (logarítmica) original.
 
-More formally, we uniformly discretize \([0, T]\) into \(L + 1\)
-timesteps \(0 = t_{0} < t_{1} < \cdots < t_{L} = T\), i.e.,
+De manera más formal, discretizamos uniformemente el intervalo \([0, T]\) en \(L + 1\)
+pasos temporales \(0 = t_{0} < t_{1} < \cdots < t_{L} = T\), es decir,
 \begin{equation}
     t_{\ell} = \frac{\ell}{L}T, \qquad \ell \in \{0, 1, \dots, L\}.
 \end{equation}
-Then for each \(\ell \in [L] = \{1, 2, \dots, L\}\), going from
-\(\ell = L\) to \(\ell = 1\), we run the iteration
+A continuación, para cada \(\ell \in [L] = \{1, 2, \dots, L\}\), yendo de
+\(\ell = L\) a \(\ell = 1\), ejecutamos la iteración
 \begin{align}
     \hat{\vx}_{t_{\ell - 1}}
     &= \Ex[\vx_{t_{\ell - 1}} \mid \vx_{t_{\ell}} = \hat{\vx}_{t_{\ell}}] \\
@@ -714,45 +712,44 @@ Then for each \(\ell \in [L] = \{1, 2, \dots, L\}\), going from
     \bar{\vx}^{\star}(t_{\ell}, \hat{\vx}_{t_{\ell}}). \label{eq:iter denoise}
 \end{align}
 
-At the beginning of the iteration, when \(\ell\) is large, we barely
-trust the denoiser's output and mostly keep the current iterate.
-This makes sense, as the denoiser can have huge variance (cf.
-\Cref{example:denoising_twopoints}). When \(\ell\) is small, the
-denoiser ``locks on'' to the modes of the data distribution, since a
-denoising step is essentially a gradient step on the true
-distribution's log-density, and we can trust it not to produce
-unreasonable samples; thus the denoising step is dominated by the
-denoiser's output. At \(\ell = 1\) we even discard the
-current iterate and keep only the denoiser's output.
+Al inicio de la iteración, cuando \(\ell\) es grande, apenas
+confiamos en la salida del reductor de ruido y, en su mayor parte, conservamos la iteración actual.
+Esto tiene sentido, ya que el filtro de eliminación de ruido puede presentar una gran varianza (véase
+\Cref{example:denoising_twopoints}). Cuando \(\ell\) es pequeño, el
+reductor de ruido se «fija» en los modos de la distribución de los datos, ya que un
+paso de la eliminación de ruido es, en esencia, un paso de gradiente sobre la
+densidad logarítmica de la distribución verdadera y podemos confiar en que no generará
+muestras poco realistas; por lo tanto, la etapa de eliminación de ruido viene determinada por la
+salida del filtro de ruido. Cuando \(\ell = 1\), incluso descartamos la
+iteración actual y conservamos únicamente la salida del filtro de ruido.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter3/figs/ve_gmm_denoising.png}
-    \caption{\small\textbf{Denoising a low-rank mixture of
-        Gaussians.} Each figure shows samples from the true data
-        distribution (gray, orange, red) and samples undergoing the
-        denoising process \eqref{eq:denoising-iteration-basic} (light
-        blue). At top left, the process has just started and the noise
-        is very large. As the process continues, the noise is pushed
-        further toward the support of the low-rank data distribution.
-        Finally, in the bottom right, the generated samples are perfectly
-        aligned with the support of the data and closely resemble
-    samples drawn from the low-rank Gaussian mixture model.}
+    \caption{\small\textbf{Eliminación del ruido en una mezcla de gaussianas
+        de rango bajo.} Cada figura visualiza muestras de la distribución real de los datos
+        (gris, naranja, rojo) y muestras sometidas al
+        proceso de eliminación de ruido \eqref{eq:denoising-iteration-basic} (azul
+        claro). En la parte superior izquierda, el proceso acaba de comenzar y el ruido
+        es muy intenso. A medida que avanza el proceso, el ruido se desplaza
+        cada vez más hacia el soporte de la distribución de datos de rango bajo.
+        Por último, en la parte inferior derecha, las muestras generadas están perfectamente
+        alineadas con el soporte de los datos y se asemejan mucho a
+    las muestras extraídas del modelo de mezcla gaussiana de rango bajo.}
     \label{fig:ve_gmm_denoising}
 \end{figure}
 
-We visualize the convergence process in \(\R^{3}\) in
-\Cref{fig:ve_gmm_denoising}. While we will develop some rigorous
-results about convergence later, we now give a closed-form example of
-the iterative denoising process applied to denoising a Gaussian data
-distribution.
+Visualizamos el proceso de convergencia en \(\R^{3}\) en la
+\Cref{fig:ve_gmm_denoising}. Aunque más adelante desarrollaremos algunos resultados rigurosos
+sobre la convergencia, ahora ofrecemos un ejemplo en forma cerrada del
+proceso iterativo de eliminación de ruido aplicado a una distribución de datos gaussiana.
 
-\begin{example}[Iterative denoising for a single Gaussian]
+\begin{example}[Reducción de ruido iterativa para una sola gaussiana]
     \label{ex:single_gaussian_denoising}
-    To understand the above iterative denoising iteration
-    intuitively, we apply it to denoise \(\vx_{T}\) defined in
-    \eqref{eq:additive_gaussian_noise_model}, where \(\vx \sim
-    \dNorm(\vmu, \vSigma)\). Using \eqref{eq:iter denoise}, we compute
+    Para comprender de manera intuitiva la iteración de eliminación de ruido anterior,
+    la aplicamos para eliminar el ruido de \(\vx_{T}\), definido en
+    \eqref{eq:additive_gaussian_noise_model}, donde \(\vx \sim
+    \dNorm(\vmu, \vSigma)\). Utilizando \eqref{eq:iter denoise}, calculamos
     \begin{align}
         \hat{\vx}_{t_{\ell - 1}} - \vmu
         &= \bp{1 - \frac{1}{\ell}}\hat{\vx}_{t_{\ell}} +
@@ -762,136 +759,136 @@ distribution.
         \frac{1}{\ell}(\bar{\vx}^{\star}(t_{\ell},
         \hat{\vx}_{t_{\ell}}) - \vmu).
     \end{align}
-    Then, plugging in the form for \(\bar{\vx}^{\star}\) that we
-    obtain from \eqref{eq:gaussian_denoiser} and performing some
-    tedious matrix algebra, we obtain
+    A continuación, al sustituir la expresión de \(\bar{\vx}^{\star}\) que
+    obtenemos de \eqref{eq:gaussian_denoiser} y realizar algunas
+    operaciones tediosas de álgebra matricial, obtenemos
     \begin{equation}
         \vx_{t_{\ell - 1}} - \vmu = \vV\mat{1 - \frac{\ell
             T^{2}}{\lambda_{1}L^{2} + \ell^{2} T^{2}} & & \\ & \ddots &
             \\ & & 1 - \frac{\ell T^{2}}{\lambda_{D}L^{2} +
         \ell^{2}T^{2}}}\vV^{\top}(\vx_{t_{\ell}} - \vmu).
     \end{equation}
-    Notice that all entries in this diagonal matrix are in \((0,
-    1)\). Taking the \(\ell^{2}\)-norm and using a cheap yet tight
-    upper bound, it holds
+    Obsérvese que todas las entradas de esta matriz diagonal están en el intervalo \((0,
+    1)\). Si tomamos la norma \(\ell^{2}\) y utilizamos un límite superior sencillo pero estricto, 
+    se cumple que
     \begin{equation}\label{eq:denoising_contraction_1step}
         \norm{\vx_{t_{\ell - 1}} - \vmu}_{2} \leq \underbrace{\max_{i
             \in [D]}\bc{1 - \frac{\ell T^{2}}{\lambda_{i}L^{2} +
         \ell^{2}T^{2}}}}_{c_{\ell, L}} \cdot \norm{\vx_{t_{\ell}} - \vmu}_{2}.
     \end{equation}
-    At first glance, this inequality seems to imply that the
-    denoising iteration is \textit{very close}, conceptually, to a
-    \textit{contraction mapping} such as power iteration
-    \eqref{eq:power_iteration} sending the iterate \(\vx_{t}\) to
-    the mean \(\vmu\), since \(c_{\ell, L}\) are all in \((0, 1)\)
-    for any \(\ell\) and \(L\). However, this is false. To see why,
-    observe that by iterating \eqref{eq:denoising_contraction_1step} it holds
+    A primera vista, esta desigualdad parece implicar que la
+    iteración de eliminación de ruido es, conceptualmente, \textit{muy similar} a un
+    \textit{mapeo de contracción} como la iteración de potencias
+    \eqref{eq:power_iteration} que envía el iterado \(\vx_{t}\) a
+    la media \(\vmu\), ya que \(c_{\ell, L}\) están todos en \((0, 1)\)
+    para cualquier \(\ell\) y \(L\). Sin embargo, esto es falso. Para ver por qué,
+    fijarse en que, al iterar \eqref{eq:denoising_contraction_1step}, se cumple que
     \begin{equation}
         \norm{\vx_{0} - \vmu}_{2} \leq \prod_{\ell = 1}^{L}c_{\ell,
         L} \cdot \norm{\vx_{T} - \vmu}_{2}.
     \end{equation}
-    If each denoising update had similar properties to a contraction
-    mapping, then \(\prod_{\ell = 1}^{L}c_{\ell, L}\) would go to
-    \(0\) as \(L \to \infty\), and the iterate would converge to
-    \(\vmu\) extremely fast, rendering the sampler completely useless
-    or vacuous. But in reality the denoising iteration is
-    \textit{actually not a contraction mapping} since \(c_{\ell, L}\)
-    changes with both the indices \(\ell\) and \(L\), so that \(\prod_{\ell =
-    1}^{L}c_{\ell, L}\) does not go to \(0\) as \(L \to \infty\), as
-    demonstrated in \Cref{fig:not_contraction_mapping} (it is also
-    possible to compute the limit analytically). In reality, the
-    sampler ensures that the terminal iterates spread out amongst the
-    support of the data distribution, enabling actual sampling from
-    the data distribution, which is quite unlike the objective of
-    power iteration (for example).
+    Si cada actualización de eliminación de ruido tuviera propiedades similares a las de un
+    mapeo de contracción, entonces \(\prod_{\ell = 1}^{L}c_{\ell, L}\) tendería a
+    \(0\) cuando \(L \to \infty\) y la iteración convergería a
+    \(\vmu\) extremadamente rápido, lo que haría que el muestreador fuera completamente inútil
+    o careciera de sentido. Pero, en realidad, la iteración de eliminación de ruido
+    \textit{no es, en realidad, una aplicación de contracción}, ya que \(c_{\ell, L}\)
+    varía con ambos índices \(\ell\) y \(L\), de modo que \(\prod_{\ell =
+    1}^{L}c_{\ell, L}\) no tiende a \(0\) cuando \(L \to \infty\), como
+    se demuestra en \Cref{fig:not_contraction_mapping} (también es
+    posible calcular el límite analíticamente). En realidad, el
+    muestreador garantiza que las iteraciones finales se distribuyan a lo largo del
+    soporte de la distribución de datos, lo que permite un muestreo real a partir de
+    la distribución de datos, algo muy distinto del objetivo de
+    la iteración de potencias (por ejemplo).
     \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter3/figs/not_contraction_mapping.png}
-        \caption{\small\textbf{The denoising iteration from
-                \Cref{ex:single_gaussian_denoising} is not a contraction
-            mapping.} Plot of the contraction coefficient products
-            \(\prod_{\ell = 1}^{L}c_{\ell, L}\) in the case where the
-            data are in \(D = 1\), the time horizon \(T = 1\), and the
-            data variance \(\lambda_{1} = a\), for varying values of
-            \(a\). If the denoising iteration were (conceptually similar
-            to) a contraction mapping, these products would go to \(0\),
-        but instead they converge to non-zero values.}
+        \caption{\small\textbf{La iteración de reducción de ruido en \Cref{ex:single_gaussian_denoising} 
+                no es un mapeo de 
+            contracción.} Gráfico de los productos de los coeficientes de contracción
+            \(\prod_{\ell = 1}^{L}c_{\ell, L}\) en el caso en que los
+            datos se encuentran en \(D = 1\), el horizonte temporal \(T = 1\) y la
+            varianza de los datos \(\lambda_{1} = a\), para distintos valores de
+            \(a\). Si la iteración de eliminación de ruido fuera (conceptualmente similar
+            a) una aplicación de contracción, estos productos tenderían a \(0\),
+        pero, en cambio, convergen hacia valores distintos de cero.}
         \label{fig:not_contraction_mapping}
     \end{figure}
 \end{example}
 
-Recall that we wanted to build the iterative denoising process to
-reduce the entropy of the iterates. While we did this in a roundabout
-way by inverting a process that adds entropy, it is now time to pay the
-piper and confirm that our iterative denoising process reduces the
-entropy.
+Recordemos que queríamos construir el proceso iterativo de eliminación de ruido para
+reducir la entropía de las iteraciones. Aunque lo hemos hecho de forma indirecta,
+invirtiendo un proceso que añade entropía, ahora es el momento de
+pagar las consecuencias y confirmar que nuestro proceso iterativo de eliminación de ruido reduce la
+entropía.
 
-\begin{theorem}[Simplified Version of \Cref{thm:conditioning_reduces_entropy}]
-    Suppose that \((\vx_{t})_{t \in [0, T]}\) obeys
-    \eqref{eq:additive_gaussian_noise_model}. Then, under certain
-    technical conditions on \(\vx\), for every \(s < t\) with \(s, t
+\begin{theorem}[Versión simplifiada del \Cref{thm:conditioning_reduces_entropy}]
+    Supongamos que \((\vx_{t})_{t \in [0, T]}\) obedece a
+    \eqref{eq:additive_gaussian_noise_model}. Entonces, bajo ciertas
+    condiciones técnicas sobre \(\vx\), para todo \(s < t\) con \(s, t
     \in (0, T]\),
     \begin{equation}
         h(\Ex[\vx_{s} \mid \vx_{t}]) < h(\vx_{t}).
     \end{equation}
 \end{theorem}
-The full statement of the theorem and the proof itself require
-some technicality, so they are postponed to
+La formulación completa del teorema y la demostración en sí requieren
+cierto grado de tecnicismo, por lo que se posponen hasta la
 \Cref{sub:denoising_entropy_decreases}.
 
-\subsubsection{Computing the Denoiser}
-The last thing we discuss here is that many times, we will
-\textit{not be able to compute} \(\bar{\vx}^{\star}(t, \cdot)\) for
-any \(t\), since we do not have the distribution \(p_{t}\). But we
-can try to \textit{learn one from data}. Recall that the denoiser
-\(\bar{\vx}^{\star}\) is defined in \eqref{eq:denoising_loss} as
-minimizing the mean-squared error \(\Ex\norm{\bar{\vx}(t, \vx_{t}) -
-\vx}_{2}^{2}\). We can use this mean-squared error as a loss or
-objective function to learn the denoiser. For example, we can
-parameterize \(\bar{\vx}(t, \cdot)\) by a neural network, writing it
-as \(\bar{\vx}_{\theta}(t, \cdot)\), and optimize the loss over the
-parameter space \(\Theta\):
+\subsubsection{Cálculo del reductor de ruido}
+Lo último que comentamos aquí es que, en muchas ocasiones,
+\textit{no podremos calcular} \(\bar{\vx}^{\star}(t, \cdot)\) para
+ningún \(t\), ya que no disponemos de la distribución \(p_{t}\). Pero podemos
+intentar \textit{aprender una a partir de los datos}. Recordemos que el reductor de ruido
+\(\bar{\vx}^{\star}\) se define en \eqref{eq:denoising_loss} como
+la minimización del error cuadrático medio \(\Ex\norm{\bar{\vx}(t, \vx_{t}) -
+\vx_{2}^{2}\). Podemos utilizar este error cuadrático medio como función de pérdida o
+función objetivo para entrenar el filtro de reducción de ruido. Por ejemplo, podemos
+parametrizar \(\bar{\vx}(t, \cdot)\) mediante una red neuronal, escribiéndola
+como \(\bar{\vx}_{\theta}(t, \cdot)\) y optimizar la pérdida en el
+espacio de parámetros \(\Theta\):
 \begin{equation}
     \min_{\theta \in \Theta}\Ex\norm{\bar{\vx}_{\theta}(t, \vx_{t}) -
     \vx}_{2}^{2}.
 \end{equation}
-The solution to this optimization problem, implemented via gradient
-descent or a similar algorithm, will give us a
-\(\bar{\vx}_{\theta^{\star}}(t, \cdot)\) which is a good approximation
-to \(\bar{\vx}^{\star}(t, \cdot)\) (at least if the training works)
-and which we will use as our denoiser.
+La solución a este problema de optimización, implementada mediante descenso por gradiente
+o un algoritmo similar, nos dará un
+\(\bar{\vx}_{\theta^{\star}}(t, \cdot)\) que es una buena aproximación
+a \(\bar{\vx}^{\star}(t, \cdot)\) (al menos si el entrenamiento funciona)
+y que utilizaremos como nuestro reductor de ruido.
 
-What is a good architecture for this neural network
-\(\bar{\vx}_{\theta^{\star}}(t, \cdot)\)? To answer this question, we
-will first attempt to understand the case of data \(\vx\) that are
-\textit{low-rank}, i.e., having low-rank support. The most canonical
-way to represent low-rank data is through a \textit{low-rank
-Gaussian}, and so we start our exploration by assuming that \(\vx\)
-is drawn (approximately) from a low-rank Gaussian:
+¿Cuál sería una buena arquitectura para esta red neuronal
+\(\bar{\vx}_{\theta^{\star}}(t, \cdot)\)? Para responder a esta pregunta,
+intentaremos primero comprender el caso en que los datos \(\vx\) son
+de \textit{bajo rango}, es decir, que tienen un soporte de bajo rango. La forma más canónica
+de representar datos de rango bajo es mediante una \textit{distribución gaussiana de rango bajo
+}, por lo que comenzamos nuestro análisis suponiendo que \(\vx\)
+se extrae (aproximadamente) de una distribución gaussiana de rango bajo:
 \begin{equation}\label{eq:x_gaussian_distribution}
     \vx \sim \dNorm(\vzero, \vU\vU^{\top}),
 \end{equation}
-where \(\vU \in \O(D, P)\) is a tall orthogonal matrix with \(P \leq
-D\) (using zero-mean for essentially notational convenience).  The
-optimal denoiser under \eqref{eq:x_gaussian_distribution} is (from
+donde \(\vU \in \O(D, P)\) es una matriz ortogonal alta con \(P \leq
+D\) (utilizando la media cero básicamente por conveniencia notacional). El
+reductor de ruido óptimo bajo \eqref{eq:x_gaussian_distribution} es (según
 \Cref{example:denoising_gaussian_mixture}):
 \begin{equation}\label{eq:optimal denoiser}
     \bar{\vx}^{\star}(t, \vx_{t}) = \vU\vU^{\top}(\vU\vU^{\top} +
     t^{2}\vI)^{-1}\vx_{t}.
 \end{equation}
-The matrix  \(\vU\vU^{\top} + t^{2}\vI\) is a low-rank perturbation
-of the full-rank matrix \(t^{2}\vI\), and thus ripe for
-simplification via the \textit{Sherman-Morrison-Woodbury identity},
-i.e., for matrices \(\vA, \vC, \vU, \vV\) such that \(\vA\) and
-\(\vC\) are invertible,
+La matriz  \(\vU\vU^{\top} + t^{2}\vI\) es una perturbación de bajo rango
+de la matriz de rango completo \(t^{2}\vI\), por lo que se presta a
+una simplificación mediante la \textit{identidad de Sherman-Morrison-Woodbury},
+es decir, para matrices \(\vA, \vC, \vU, \vV\) tales que \(\vA\) y
+\(\vC\) son invertibles,
 \begin{equation}\label{eq:sherman_morrison_woodbury}
     (\vA + \vU\vC\vV)^{-1} = \vA^{-1} - \vA^{-1}\vU(\vC^{-1} +
     \vV\vA^{-1}\vU)^{-1}\vV\vA^{-1}.
 \end{equation}
-We prove this identity in
-\Cref{exercise:sherman_morrison_woodbury_identity}. For now we apply
-this identity with \(\vA = t^{2}\vI\), \(\vU = \vU\), \(\vV =
-\vU^{\top}\), and \(\vC = \vI\), obtaining
+Demostramos esta identidad en el
+\Cref{exercise:sherman_morrison_woodbury_identity}.  Por ahora, aplicamos
+esta identidad con \(\vA = t^{2}\vI\), \(\vU = \vU\), \(\vV =
+\vU^{\top}\) y \(\vC = \vI\), obteniendo
 \begin{align}
     (\vU\vU^{\top} + t^{2}\vI)^{-1}
     &= \frac{1}{t^{2}}\vI - \frac{1}{t^{4}}\vU\bp{\vI +
@@ -901,7 +898,7 @@ this identity with \(\vA = t^{2}\vI\), \(\vU = \vU\), \(\vV =
     &= \frac{1}{t^{2}}\bp{\vI - \frac{1}{1 +
     t^{2}}\vU\vU^{\top}}.\label{eq:gaussian_lowrank_inverse_perturbation_simplified}
 \end{align}
-This implies
+Esto implica
 \begin{align}
     \vU\vU^{\top}(\vU\vU^{\top} + t^{2}\vI)^{-1}
     &= \frac{1}{t^{2}}\vU\vU^{\top}\bp{\vI - \frac{1}{1 +
@@ -910,28 +907,28 @@ This implies
     &= \frac{1}{1 +
     t^{2}}\vU\vU^{\top}.\label{eq:gaussian_lowrank_denoiser_simplified}
 \end{align}
-Our optimal denoiser is a (rescaled) linear projection onto the
-low-rank subspace supporting our data distribution. This is
-essentially the same thing as probabilistic PCA from
-\Cref{ch:classic-models} (cf.~\Cref{subsec:probabilistic PCA}). We can
-formalize this intuition by considering a class of
-subspace-parameterized denoisers:
+Nuestro filtro de eliminación de ruido óptimo es una proyección lineal (reescalada) sobre el
+subespacio de rango bajo que sustenta la distribución de nuestros datos. Esto es
+básicamente lo mismo que el PCA probabilístico del
+\Cref{ch:classic-models} (véase ~\Cref{subsec:probabilistic PCA}). Podemos
+formalizar esta intuición considerando una clase de
+reductores de ruido parametrizados por subespacios:
 \begin{equation}\label{eq:optimal nn}
     \bar{\vx}_{\vV}(t, \vx_{t}) = \frac{1}{1 + t^{2}}\vV\vV^{\top}\vx_{t},
 \end{equation}
-and showing that the denoising problem \(\min_{\vV \in \O(D,
+y mostrando que el problema de eliminación de ruido \(\min_{\vV \in \O(D,
     P)}\Ex\norm{\bar{\vx}_{\vV}(t, \vx_{t}) -
-\vx}_{2}^{2}\) obtains the same solution as probabilistic PCA
-(\Cref{subsec:probabilistic PCA}). Indeed, plugging our subspace
-denoiser into the training loss \eqref{eq:denoising_loss}, we obtain
+\vx_{2}^{2}\) obtiene la misma solución que el PCA probabilístico
+(\Cref{subsec:probabilistic PCA}). De hecho, al sustituir nuestro eliminador de ruido por subespacios
+en la pérdida de entrenamiento \eqref{eq:denoising_loss}, obtenemos
 \begin{equation}
     \min_{\vV \in \O(D, P)}\Ex\norm{\bar{\vx}_{\vV}(t,
     \vx_{t}) - \vx}_{2}^{2} = \Ex\norm*{\frac{1}{1 +
     t^{2}}\vV\vV^{\top}(\vx + t\vg) - \vx}_{2}^{2},
 \end{equation}
-where the equality is due to
-\eqref{eq:additive_gaussian_noise_model}. Conditioned on \(\vx\)
-(thus integrating over \(\vg\)), we compute
+donde la igualdad se debe a
+\eqref{eq:additive_gaussian_noise_model}. Condicionando respecto a \(\vx\)
+(integrando así sobre \(\vg\)), calculamos
 \begin{align}
     & \Ex_{\vg}\norm*{\frac{1}{1 + t^{2}}\vV\vV^{\top}(\vx + t\vg) -
     \vx}_{2}^{2} \\
@@ -942,12 +939,12 @@ where the equality is due to
     &= \norm*{\frac{1}{1 + t^{2}}\vV\vV^{\top}\vx - \vx}_{2}^{2} +
     \frac{t^2P}{(1+t^2)^2}
 \end{align}
-where the second equality follows from \(\vg \sim \dNorm(\vzero,
-\vI)\) and the fact that \(\vV \in \O(D, P)\) so that \(
+donde la segunda igualdad se deduce de \(\vg \sim \dNorm(\vzero,
+\vI)\) y del hecho de que \(\vV \in \O(D, P)\), de modo que \(
     \Ex_{\vg}\norm{\vV\vV^\top
     \vg}_{2}^{2} =
-\Ex_{\vg}\norm{\vV^\top \vg}_{2}^{2} = P\). Therefore, the denoising
-problem is equivalent to
+\Ex_{\vg}\norm{\vV^\top \vg}_{2}^{2} = P\). Por lo tanto, el problema de eliminación de ruido
+es equivalente a
 \begin{align}
     \min_{\vV \in \O(D, P)} & \Bigg\{\Ex \norm*{\frac{1}{1 +
         t^{2}}\vV\vV^{\top}\vx - \vx}_{2}^{2} \\
@@ -955,15 +952,15 @@ problem is equivalent to
             t^{2})^{2}} - \frac{2}{1 +
     t^{2}}}\Ex\norm{\vV^{\top}\vx}_{2}^{2}\Bigg\},
 \end{align}
-which in turn is equivalent to the problem
+lo cual, a su vez, equivale al problema
 \begin{equation}\label{eq:PCA}
     \max_{\vV \in \O(D, P)}\Ex\norm{\vV^{\top}\vx}_{2}^{2}
 \end{equation}
-which was shown in \Cref{sub:pca} to be equivalent to the problem
+lo cual se demostró en la \Cref{sub:pca} que es equivalente al problema
 \begin{equation}
     \min_{\vV \in \O(D, P)}\Ex\norm{\vx - \vV\vV^{\top}\vx}_{2}^{2},
 \end{equation}
-i.e., the probabilistic PCA formulation \eqref{eq:PPCA}.
+es decir, la formulación probabilística del PCA \eqref{eq:PPCA}.
 
 Thus, if we were to assume our data were drawn from a low-rank
 Gaussian, our denoising algorithm would essentially consist of many
@@ -1627,8 +1624,7 @@ underlying stochastic processes.} as argued heuristically above.
     mean flows \cite{geng2025mean}.
 \end{remark}
 
-\section{Memorization, Generalization, and Coding Rates}
-\label{sec:diffusion_memorization}
+\section{Memorization, Generalization, and Coding Rates}\label{sec:diffusion_memorization}
 
 The calculation presented at the end of
 \Cref{sub:intro_diffusion_denoising} seems to suggest (loosely

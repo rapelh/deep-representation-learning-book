@@ -1,7 +1,7 @@
 \documentclass{book}
 % \documentclass{EngC}
 
-\usepackage[spanish]{babel}
+%\usepackage[spanish]{babel}
 
 \renewcommand{\chaptername}{Capítulo}
 \renewcommand{\figurename}{Figura}
@@ -100,17 +100,22 @@ decorations.pathmorphing, decorations.markings}
 \usepackage{cleveref}
 \crefname{assumption}{supuesto}{supuestos}
 \Crefname{assumption}{Supuesto}{Supuestos}
+\crefname{example}{ejemplo}{ejemplos}
 \Crefname{example}{Ejemplo}{Ejemplos}
 \crefname{exercise}{ejercicio}{ejercicios}
 \Crefname{exercise}{Ejercicio}{Ejercicios}
+\crefname{equation}{ecuación}{ecuaciones}
 \Crefname{equation}{Ecuación}{Ecuaciones}
+\crefname{figure}{figura}{figuras}
 \Crefname{figure}{Figura}{Figuras}
-\Crefname{remark}{Comentario}{Comentarios}
-\Crefname{app}{Apéndice}{Apéndices}
+\crefname{chapter}{capítulo}{capítulos}
 \Crefname{chapter}{Capítulo}{Capítulos}
+\crefname{section}{sección}{secciones}
 \Crefname{section}{Sección}{Secciones}
 \crefname{thm}{teorema}{teoremas}
 \Crefname{thm}{Teorema}{Teoremas}
+\crefname{remark}{observación}{observaciones}
+\Crefname{remark}{Observación}{Observaciones}
 
 \hyphenation{line-break line-breaks docu-ment triangle cambridge amsthdoc
 cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
@@ -326,9 +331,9 @@ de código abierto}
 }
 \makeatother
 
-\subfile{chapters/appendixA/optimization}
+\subfile{chapters/appendixA/optimization_es}
 
-\subfile{chapters/appendixB/entropy}
+\subfile{chapters/appendixB/entropy_es}
 
 \makeatletter
 \@ifclassloaded{EngC}{\endappendix}{}

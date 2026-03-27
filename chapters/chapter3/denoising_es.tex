@@ -804,7 +804,7 @@ proceso iterativo de eliminación de ruido aplicado a una distribución de datos
     \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter3/figs/not_contraction_mapping.png}
-        \caption{\small\textbf{La iteración de reducción de ruido en \Cref{ex:single_gaussian_denoising} 
+        \caption{\small\textbf{La iteración de reducción de ruido en el \Cref{ex:single_gaussian_denoising} 
                 no es un mapeo de 
             contracción.} Gráfico de los productos de los coeficientes de contracción
             \(\prod_{\ell = 1}^{L}c_{\ell, L}\) en el caso en que los
@@ -843,7 +843,7 @@ ningún \(t\), ya que no disponemos de la distribución \(p_{t}\). Pero podemos
 intentar \textit{aprender una a partir de los datos}. Recordemos que el filtro de ruido
 \(\bar{\vx}^{\star}\) se define en \eqref{eq:denoising_loss} como
 la minimización del error cuadrático medio \(\Ex\norm{\bar{\vx}(t, \vx_{t}) -
-\vx_{2}^{2}\). Podemos utilizar este error cuadrático medio como función de pérdida o
+\vx}_{2}^{2}\). Podemos utilizar este error cuadrático medio como función de pérdida o
 función objetivo para entrenar el filtro de reducción de ruido. Por ejemplo, podemos
 parametrizar \(\bar{\vx}(t, \cdot)\) mediante una red neuronal, escribiéndola
 como \(\bar{\vx}_{\theta}(t, \cdot)\) y optimizar la pérdida en el
@@ -918,7 +918,7 @@ filtros de ruido parametrizados por subespacios:
 \end{equation}
 y mostrando que el problema de eliminación de ruido \(\min_{\vV \in \O(D,
     P)}\Ex\norm{\bar{\vx}_{\vV}(t, \vx_{t}) -
-\vx_{2}^{2}\) obtiene la misma solución que el PCA probabilístico
+\vx}_{2}^{2}\) obtiene la misma solución que el PCA probabilístico
 (\Cref{subsec:probabilistic PCA}). De hecho, al sustituir nuestro filtro de ruido por subespacios
 en la pérdida de entrenamiento \eqref{eq:denoising_loss}, obtenemos
 \begin{equation}
@@ -1326,7 +1326,7 @@ ofrece varias ventajas conceptuales y computacionales: no necesitamos
 entrenar múltiples filtros de ruido, podemos entrenar con un solo conjunto de intervalos de tiempo y
 realizar el muestreo utilizando un subconjunto (o incluso otros distintos), etc. El proceso completo se
 analiza en \Cref{alg:learning_denoiser}. Sin duda, este proceso
-funciona en la práctica; comentamos algunos resultados en
+funciona en la práctica; comentamos algunos resultados en las
 \Cref{sec:auto-encode-img-gen,sec:cond_gen,sec:object-generation,sec:shape-and-pose,sec:egoallo}.
 
 \begin{algorithm}
@@ -1428,7 +1428,7 @@ para diferentes tareas, por ejemplo, \(\Ex[\vv_{t} \mid
 predicción \(v\) o predicción de velocidad), etc. Esto resulta ser
 equivalente a la eliminación de ruido y la predicción de ruido, pero también resulta fundamentalmente
 útil para generalizaciones de la difusión, como el flow matching, que
-analizaremos en \Cref{rem:flow_matching}.
+analizaremos en la \Cref{rem:flow_matching}.
 
 \subsubsection{Tasa de error de muestreo del proceso de eliminación de ruido}
 Hemos introducido muchos cambios en nuestro proceso platónico original de generación y eliminación de ruido.
@@ -1589,7 +1589,7 @@ procesos estocásticos subyacentes.} tal y como se ha argumentado de manera heur
     \end{equation}
     donde \(\Delta t = t_{\ell} - t_{\ell - 1}\) es el intervalo de tiempo.
     Tenga en cuenta que la predicción de velocidad es algebraicamente equivalente a
-    la eliminación de ruido (véase \Cref{exercise:velocity_prediction}). Consulte
+    la eliminación de ruido (véase \Cref{exercise:velocity_prediction}). Consulte las
     \Cref{sec:auto-encode-img-gen,sec:shape-and-pose} para ver aplicaciones prácticas
     del flow matching.
 \end{remark}
@@ -2226,7 +2226,7 @@ el «desaprendizaje» \citep{chen2025dual}, aunque esta lista no es exhaustiva.
     \vx_{t}]\) en términos de \(\Ex[\vx \mid \vx_{t}]\) y viceversa,
     demostrando que la predicción de la velocidad es algebraicamente
     equivalente a la eliminación de ruido y, por lo tanto, también a la predicción del ruido
-    (véase \Cref{rem:flow_matching}).
+    (véase la \Cref{rem:flow_matching}).
 \end{exercise}
 
 \end{document}

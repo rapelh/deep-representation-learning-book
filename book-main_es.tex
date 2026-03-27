@@ -5,6 +5,8 @@
 
 \renewcommand{\chaptername}{Capítulo}
 \renewcommand{\figurename}{Figura}
+\renewcommand{\remarkname}{Comentario}
+\renewcommand{\exercisename}{Ejercicio}
 
 \makeatletter
 \@ifclassloaded{EngC}{
@@ -97,7 +99,11 @@ decorations.pathmorphing, decorations.markings}
     colorlinks=true,
     citecolor={blue!80!black},
 }
+
 \usepackage{cleveref}
+
+\crefname{appendix}{apéndice}{apéndices}
+\Crefname{appendix}{Apéndice}{Apéndices}
 \crefname{assumption}{supuesto}{supuestos}
 \Crefname{assumption}{Supuesto}{Supuestos}
 \crefname{example}{ejemplo}{ejemplos}

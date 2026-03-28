@@ -126,7 +126,7 @@ un soporte de baja dimensión, un contexto en el que las medidas clásicas como
 la entropía, la dimensión y el volumen no logran distinguir entre los modelos
 candidatos. En primer lugar, justificamos la necesidad de la codificación con 
 pérdidas en relación con estas patologías (\Cref{sub:rate-dist}); a continuación, 
-demostramos que la función de tasa de distorsión relaciona esta medida de la teoría 
+demostramos que la función de tasa-distorsión relaciona esta medida de la teoría 
 de la codificación con la geometría del soporte de datos
 por medio del recubrimiento esférico (\Cref{thm:covering-number-rate-distortion}).
 Esta conexión constituye el puente entre los enfoques basados en la teoría de la información y los geométricos
@@ -233,15 +233,15 @@ Por lo general, se elige que la distancia \(d\) sea la distancia euclidiana, o l
 norma \(L{2}\).\footnote{De manera más general, podemos sustituir \(d^{2}\) por cualquier
 \textit{divergencia}.} Adoptaremos esta opción en lo sucesivo.
 
-\subsection{La tasa de distorsión y la geometría de los datos}
+\subsection{La tasa-distorsión y la geometría de los datos}
 Por supuesto, de entre todos los esquemas de codificación que satisfacen la restricción anterior,
 nos gustaría elegir aquel que minimice la tasa de codificación resultante. Para
 una variable aleatoria dada $\vx$ y una precisión $\epsilon$, esta tasa se conoce como
-la \textit{tasa de distorsión}, denotada como $\cR_{\epsilon}(\vx)$.
+la \textit{tasa-distorsión}, denotada como $\cR_{\epsilon}(\vx)$.
 
-Para comprender mejor esta tasa de distorsión, recurrimos a un teorema fundamental
+Para comprender mejor esta tasa-distorsión, recurrimos a un teorema fundamental
 de la teoría de la información, demostrado originalmente en
-\textcite{shannon1959coding}, que relaciona esta tasa de distorsión con
+\textcite{shannon1959coding}, que relaciona esta tasa-distorsión con
 otras magnitudes de la teoría de la información. Para comprender este teorema,
 primero debemos definir una medida de \textit{diferencia} entre dos
 distribuciones conocida como la divergencia de \textit{Kullback-Leibler} (KL),
@@ -276,7 +276,7 @@ que es una medida de la \textit{dependencia} entre dos variables aleatorias, com
     I(\vx; \hat{\vx})
     = \KL(p(\vx, \hat{\vx}) \mmid p(\vx) p(\hat{\vx})),
 \end{equation}
-Una vez establecidas las definiciones anteriores, podemos expresar la tasa de distorsión
+Una vez establecidas las definiciones anteriores, podemos expresar la tasa-distorsión
 \(\cR_{\epsilon}\) en términos puramente probabilísticos como
 \begin{equation}
     \cR_{\epsilon}(\vx)
@@ -293,16 +293,16 @@ que satisfacen la restricción de distorsión $\Ex[\norm{\vx-
 \hat \vx}_2^{2}] \le \epsilon^{2}$. Cada una de estas distribuciones condicionales da lugar a una distribución conjunta $p(\vx,
 \hat{\vx}) = p(\hat{\vx} \mid \vx) p(\vx)$, que determina la información mutua
 \eqref{eq:mutual-information}.
-Muchas propiedades convenientes de la información mutua (y, por lo tanto, de la relación
-velocidad-distorsión) se deducen de las propiedades correspondientes de la divergencia de KL.
+Muchas propiedades convenientes de la información mutua (y, por lo tanto, de la 
+tasa-distorsión) se deducen de las propiedades correspondientes de la divergencia de KL.
 Por la definición, sabemos que $\cR_{\epsilon}(\vx)$ es una función {\em
 no creciente} en $\epsilon$.
 
-\begin{example}[Tasa de distorsión de origen gaussiano (Teorema
+\begin{example}[Tasa-distorsión de origen gaussiano (Teorema
     13.3.3, \cite{Cover-Thomas})]\label{ex:gaussian_rate_distortion}
     Consideremos una variable aleatoria gaussiana \(\vx \sim \dNorm(0,
     \sigma^{2})\). En este caso,
-    es bien sabido que la función de tasa de distorsión se puede
+    es bien sabido que la función de tasa-distorsión se puede
     calcular en forma cerrada como:
     \begin{equation}
         \cR_{\epsilon}(x) =
@@ -313,8 +313,8 @@ no creciente} en $\epsilon$.
     Esto se extiende de una manera particularmente interesante al caso de
     \(D\) dimensiones. Supongamos que \(\vx \sim \dNorm(\vzero,
     \vSigma)\), donde  \(\vSigma \in \PSD(D)\) tiene valores propios
-    \(\lambda_{1} \geq \cdots \geq \lambda_{D} \geq 0\). Entonces, la tasa de
-    distorsión se puede obtener mediante el «relleno de agua» como
+    \(\lambda_{1} \geq \cdots \geq \lambda_{D} \geq 0\). Entonces, la 
+    tasa-distorsión se puede obtener mediante el «relleno de agua» como
     \begin{equation}
         \cR_{\epsilon}(\vx) = \frac{1}{2} \sum_{i =
         1}^{D}\log\rp{\frac{\lambda_{i}}{\min\{\kappa, \lambda_{i}\}}},
@@ -329,7 +329,7 @@ no creciente} en $\epsilon$.
 \end{example}
 
 \begin{remark}
-    Resulta que la tasa de distorsión es una aproximación viable
+    Resulta que la tasa-distorsión es una aproximación viable
     a la entropía de $\vx$ en el siguiente sentido.
     Supongamos que $\vx$ y $\hat{\vx}$ son vectores aleatorios continuos.
     Entonces, la información mutua se puede escribir como
@@ -353,7 +353,7 @@ no creciente} en $\epsilon$.
     donde $H(\vx)$ se define en la \eqref{eqn:entropy-discrete} de
     \Cref{sub:min_entropy}.
     En términos más generales, se pueden emplear conceptos matemáticos avanzados de la teoría de la medida
-    para definir la información mutua (y, por lo tanto, la tasa de distorsión) para
+    para definir la información mutua (y, por lo tanto, la tasa-distorsión) para
     cualquier variable aleatoria $\vx$ y $\hat \vx$, incluidas aquellas con distribuciones de baja dimensión bastante
     exóticas; véase \textcite[\S 8.5]{Cover-Thomas}.
 \end{remark}
@@ -377,8 +377,8 @@ no creciente} en $\epsilon$.
     significativamente menor que si se codificara como una distribución 
     uniforme.\footnote{No obstante, para esta distribución uniforme discreta,
         cuando $\epsilon$ es lo suficientemente pequeño, siempre se cumple que $H(\vX) \approx
-    \cR_{\epsilon}(\vX)$.} Obsérvese también que, con el concepto de tasa de
-    distorsión, la dificultad mencionada en
+    \cR_{\epsilon}(\vX)$.} Obsérvese también que, con el concepto de 
+    tasa-distorsión, la dificultad mencionada en
     \Cref{eg:two-inrational} también desaparece: podemos elegir dos
     números racionales que estén lo suficientemente cerca de cada uno de los dos
     números irracionales. El esquema de codificación resultante tendrá una
@@ -439,7 +439,7 @@ no creciente} en $\epsilon$.
 \end{figure}
 
 Resulta ser un problema notoriamente difícil obtener expresiones en forma cerrada
-para la función de tasa de distorsión \eqref{eqn:rate-distortion-general} para distribuciones generales
+para la función de tasa-distorsión \eqref{eqn:rate-distortion-general} para distribuciones generales
 $p(\vx)$. Sin embargo, tal y como
 sugiere \Cref{example:sphere-covering-rate-distortion}, existen casos especiales importantes
 en los que la \textit{geometría} del soporte de la distribución
@@ -496,42 +496,41 @@ propiedad para un caso especial.
     la remitimos a \Cref{app:rate-distortion-covering}.
 \end{proof}
 
+La cota superior de \Cref{thm:covering-number-rate-distortion} solo requiere que
+$\Supp(\vx)$ sea un conjunto compacto, mientras que nuestra demostración de la cota inferior requiere
+supuestos de regularidad más fuertes: concretamente, que $\vx$ esté uniformemente
+distribuido en $\Supp(\vx)$ y que $\Supp(\vx)$ sea una mezcla de
+gaussianas de rango bajo (con la normalización adecuada).\footnote{Más adelante en este capítulo, 
+en la \Cref{subsec:MCR2}, veremos una función objetivo cuyos máximos son mezclas normalizadas 
+de gaussianas de bajo rango que se corresponden con los datos de entrada de cierta manera.
+El \Cref{ch:deep-networks} desarrollará aún más este marco para el aprendizaje profundo,
+demostrando que la suposición estructural que hacemos para demostrar que la cota inferior
+no es excesivamente restrictiva.}
+Bajo estos supuestos, la implicación de
+\Cref{thm:covering-number-rate-distortion} puede resumirse de la siguiente manera: para
+una codificación suficientemente precisa de la distribución de
+$\vx$ (es decir, cuando $\epsilon \to 0$), el marco de codificación de mínima tasa-distorsión
+es equivalente al
+problema del empaquetamiento de esferas en el soporte de $\vx$.
+Así pues, la tasa-distorsión puede considerarse como una forma «sensible a la probabilidad» de
+aproximar el soporte de la distribución de 
+\(\vx\) mediante una mezcla de muchas bolas pequeñas (\Cref{fig:continuation}).
 
-The upper bound in \Cref{thm:covering-number-rate-distortion} requires only that
-$\Supp(\vx)$ is a compact set, while our proof of the lower bound requires
-stronger regularity assumptions: specifically, that $\vx$ is uniformly
-distributed on $\Supp(\vx)$ and that $\Supp(\vx)$ is a mixture of
-low-rank Gaussians (with appropriate normalization).\footnote{Later in this Chapter, in \Cref{subsec:MCR2}, we
-will see an objective function whose maxima are normalized mixtures of low-rank
-Gaussians that correspond to the input data in a certain way.
-\Cref{ch:deep-networks} will further develop this framework for deep learning,
-showing that the structural assumption we make to prove the lower bound is
-not overly restrictive.}
-Under these assumptions, the implication of
-\Cref{thm:covering-number-rate-distortion} can be summarized as follows: for
-sufficiently accurate coding of the distribution of
-$\vx$ (i.e., as $\epsilon \to 0$), the minimum rate distortion coding framework
-is equivalent to
-the sphere packing problem on the support of $\vx$.
-So the rate distortion can be thought of as a ``probability-aware'' way to
-approximate the support of the distribution of
-\(\vx\) by a mixture of many small balls (\Cref{fig:continuation}).
-
-We now discuss another connection between this and the
-denoising-diffusion-entropy complexity hierarchy we discussed earlier in this
-chapter.
+Ahora analizaremos otra relación entre esto y la
+jerarquía de complejidad «ruido-difusión-entropía» que hemos comentado anteriormente en este
+capítulo.
 
 \begin{remark}\label{rem:slb}
-    The key ingredient in the proof of the lower bound in
-    \Cref{thm:covering-number-rate-distortion} is an important result from
-    information theory known as the \textit{Shannon lower bound} for the rate
-    distortion, named after Claude Shannon, who first derived it in a
-    special case
-    \cite{shannon1959coding}. It
-    asserts the following estimate for the rate distortion function,
-    for any random
-    variable $\vx$ with
-    a density $p(\vx)$ and finite expected squared norm \cite{Linder1994-ej}:
+    El ingrediente clave en la demostración de la cota inferior en
+    \Cref{thm:covering-number-rate-distortion} es un resultado importante de
+    la teoría de la información conocido como el \textit{límite inferior de Shannon} para la 
+    tasa-distorsión, que lleva el nombre de Claude Shannon, quien lo derivó por primera vez en un
+    caso especial
+    \cite{shannon1959coding}. En él
+    se establece la siguiente estimación para la función de tasa-distorsión,
+    para cualquier variable aleatoria
+    $\vx$ con
+    una densidad $p(\vx)$ y una norma al cuadrado que se espera finita \cite{Linder1994-ej}:
     \begin{equation}\label{eq:slb}
         \cR_{\epsilon}(\vx)
         \geq
@@ -540,16 +539,16 @@ chapter.
         -
         C_D,
     \end{equation}
-    where $C_D > 0$ is a constant depending only on $D$. Moreover,
-    this lower bound
-    is actually sharp as $\epsilon \to 0$: that is,
+    donde $C_D > 0$ es una constante que depende únicamente de $D$. Además,
+    esta cota inferior
+    es, de hecho, exacto cuando $\epsilon \to 0$: es decir,
     \begin{equation}
         \lim_{\epsilon \to 0} \cR_{\epsilon}(\vx) - \left[ h(\vx) - \log_2
         \volume(B_{\epsilon}) - C_D\right] = 0.
     \end{equation}
-    So when the distortion $\epsilon$ is small, we can think solely in terms of
-    the Shannon lower bound, rather than the (generally intractable)
-    optimization problem defining the rate distortion
+    Así pues, cuando la distorsión $\epsilon$ es pequeña, podemos pensar únicamente en términos de la
+    cota inferior de Shannon, en lugar del problema de optimización (generalmente inmanejable)
+    que define la relación tasa-distorsión
     \eqref{eqn:rate-distortion-general}.
 
     The Shannon lower bound is the bridge between the coding rate, entropy

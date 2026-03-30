@@ -15,7 +15,7 @@
 
 Recapitulemos lo que hemos visto hasta ahora. Hemos mostrado que es
 posible identificar y acceder a una distribución con un soporte de
-dimensiones arbitrariamente bajas, como la que se ilustra en
+dimensiones arbitrariamente bajas, como la que se ilustra en la
 \Cref{fig:representation-learning} (izquierda), transformando gradualmente
 la distribución de ruido puro (alta entropía) en la distribución que 
 se desea aprender mediante \textit{eliminación de ruido iterativo}. Hemos
@@ -67,12 +67,12 @@ medidas de parsimonia que no permiten distinguirlas entre sí en absoluto?
 En este capítulo, analizamos un marco que mitiga la dificultad técnica mencionada anteriormente
 al asociar la distribución aprendida con un
 esquema explícito y computable de codificación y decodificación, siguiendo y
-haciendo más explícito el segundo enfoque sugerido al final de
+haciendo más explícito el segundo enfoque sugerido al final de la
 \Cref{sub:min_entropy}. Como veremos, este enfoque nos permite, en esencia,
 aproximar con precisión la entropía de las distribuciones aprendidas
 en términos de una \textit{tasa de codificación con pérdida} asociada
 al esquema de codificación, tal como se describe y justifica (aunque no se formaliza)
-al final de \Cref{sec:diffusion_memorization}. En términos generales, esta medida 
+al final de la \Cref{sec:diffusion_memorization}. En términos generales, esta medida 
 puede considerarse como una noción generalizada
 del volumen de la distribución de los datos empíricos. Con una medida de este tipo,
 podemos cuantificar con precisión en qué medida se reduce la entropía
@@ -86,12 +86,12 @@ capítulo anterior nos permite, en principio, aprender una distribución
 arbitraria de baja dimensión, no ofrece una representación explícita
 de dicha distribución. Como veremos, se accederá a la distribución
 aprendida en repetidas ocasiones y se utilizará para tareas posteriores
-(por ejemplo, como distribución a priori para la inferencia bayesiana en
+(por ejemplo, como distribución a priori para la inferencia bayesiana en el
 \Cref{ch:conditional-inference}). Por lo tanto, es conveniente que podamos
 transformar la distribución de los datos, por ejemplo mediante una función $f(\vx,\theta)$, a
 alguna forma estructurada estándar que facilite un acceso eficiente, como
 una mezcla de subespacios lineales (incoherentes) o gaussianas de bajo rango, tal y como
-se ilustra en la figura de la derecha de \Cref{fig:representation-learning}. En
+se ilustra en la figura de la derecha de la \Cref{fig:representation-learning}. En
 este capítulo formalizaremos este proceso como «aprendizaje de representaciones».
 
 \begin{figure}
@@ -148,7 +148,7 @@ generar ese número finito de muestras con alta probabilidad? Veamos
 algunas de las dificultades conceptuales y técnicas con ejemplos concretos.
 
 \begin{example}[Volumen, dimensión y entropía]\label{eg:measures-of-complexity}
-    Para el ejemplo que se muestra en la parte superior de \Cref{fig:1d-line}, supongamos
+    Para el ejemplo que se muestra en la parte superior de la \Cref{fig:1d-line}, supongamos
     que hemos tomado algunas muestras de una distribución uniforme en una recta
     (por ejemplo, en un plano bidimensional). El volumen de la línea o de los conjuntos de muestras es cero.
     Desde el punto de vista geométrico, la distribución empírica sobre el conjunto de muestras finito
@@ -167,7 +167,7 @@ algunas de las dificultades conceptuales y técnicas con ejemplos concretos.
 \end{example}
 
 \begin{example}[Densidad]\label{eg:density} Consideremos los dos conjuntos de
-    puntos de datos muestreados que se muestran en \Cref{fig:1d-line}. Geométricamente,
+    puntos de datos muestreados que se muestran en la \Cref{fig:1d-line}. Geométricamente,
     son esencialmente iguales: cada conjunto consta de ocho puntos
     y cada punto ha aparecido con una frecuencia igual a 1/8. La
     única diferencia es que, en el segundo conjunto de datos, algunos puntos están
@@ -247,7 +247,7 @@ primero debemos definir una medida de \textit{diferencia} entre dos
 distribuciones conocida como la divergencia de \textit{Kullback-Leibler} (KL),
 o \textit{entropía relativa}, que se denota por \(\KL(\cdot \mmid
 \cdot)\) y se define en relación con la entropía y la entropía cruzada
-(véase \Cref{sub:min_entropy}) como
+(véase la \Cref{sub:min_entropy}) como
 \begin{align}
     \KL(p \mmid q) &= \CE(p \mmid q) - h(p) = \Ex_{\vx \sim p}[-\log
     q(\vx)] - \Ex_{\vx \sim p}[-\log p(\vx)] \\
@@ -324,7 +324,7 @@ no creciente} en $\epsilon$.
     las direcciones con una varianza \(\lambda_{i}\) mayor que \(\kappa\)
     se codifican de manera efectiva, mientras que las direcciones con una varianza menor
     se descartan, lo que garantiza que la restricción de distorsión se
-    cumpla con una información mutua mínima. Consulte
+    cumpla con una información mutua mínima. Consulte el
     \Cref{exer:KKT} para ver una derivación detallada de esta fórmula cerrada.
 \end{example}
 
@@ -350,7 +350,7 @@ no creciente} en $\epsilon$.
     \begin{equation}\label{eq:mutual}
         I(\vx; \hat\vx) = H(\vx) - H(\vx \mid \hat \vx),
     \end{equation}
-    donde $H(\vx)$ se define en la \eqref{eqn:entropy-discrete} de
+    donde $H(\vx)$ se define en la \eqref{eqn:entropy-discrete} de la
     \Cref{sub:min_entropy}.
     En términos más generales, se pueden emplear conceptos matemáticos avanzados de la teoría de la medida
     para definir la información mutua (y, por lo tanto, la tasa-distorsión) para
@@ -372,13 +372,13 @@ no creciente} en $\epsilon$.
     podría ser significativamente inferior a $H(\vX)$ si estas muestras
     no están tan uniformemente
     distribuidas y muchas se agrupan muy cerca unas de otras. Por lo tanto, para la
-    segunda distribución que se muestra en \Cref{fig:1d-line}, si se elige adecuadamente
+    segunda distribución que se muestra en la \Cref{fig:1d-line}, si se elige adecuadamente
     el error de cuantificación  $\epsilon$, la tasa de codificación con pérdida que se puede alcanzar puede ser
     significativamente menor que si se codificara como una distribución 
     uniforme.\footnote{No obstante, para esta distribución uniforme discreta,
         cuando $\epsilon$ es lo suficientemente pequeño, siempre se cumple que $H(\vX) \approx
     \cR_{\epsilon}(\vX)$.} Obsérvese también que, con el concepto de 
-    tasa-distorsión, la dificultad mencionada en
+    tasa-distorsión, la dificultad mencionada en el
     \Cref{eg:two-inrational} también desaparece: podemos elegir dos
     números racionales que estén lo suficientemente cerca de cada uno de los dos
     números irracionales. El esquema de codificación resultante tendrá una
@@ -421,7 +421,7 @@ no creciente} en $\epsilon$.
     \includegraphics[width=0.6\textwidth]{\toplevelprefix/chapters/chapter4/figs/continuation.png}
     \caption{\small\textbf{La aproximación de una distribución de baja dimensión
         mediante \(\epsilon\) bolas.} Podemos observar que, a medida que el parámetro \(\epsilon\)
-        se reduce, la unión de las esferas de radio \(\epsilon\) se aproxima cada vez mejor al soporte de la
+        se reduce, la unión de las bolas de radio \(\epsilon\) se aproxima cada vez mejor al soporte de la
         distribución real (negra). Además, los
         filtros de eliminación de ruido asociados (cuya correspondencia entre entrada y salida viene dada por las flechas proporcionadas)
         obtenidos al aproximar la distribución real mediante una mezcla
@@ -511,7 +511,7 @@ Bajo estos supuestos, la implicación de
 una codificación suficientemente precisa de la distribución de
 $\vx$ (es decir, cuando $\epsilon \to 0$), el marco de codificación de mínima tasa-distorsión
 es equivalente al
-problema del empaquetamiento de esferas en el soporte de $\vx$.
+problema del empaquetamiento de bolas en el soporte de $\vx$.
 Así pues, la tasa-distorsión puede considerarse como una forma «sensible a la probabilidad» de
 aproximar el soporte de la distribución de 
 \(\vx\) mediante una mezcla de muchas bolas pequeñas (\Cref{fig:continuation}).
@@ -551,10 +551,10 @@ capítulo.
     que define la relación tasa-distorsión
     \eqref{eqn:rate-distortion-general}.
 
-    The Shannon lower bound is the bridge between the coding rate, entropy
-    minimization/denoising, and geometric sphere packing approaches for learning
-    low-dimensional distributions. Notice that in the special case of a uniform
-    density $p(\vx)$, \eqref{eq:slb} becomes
+    La cota inferior de Shannon constituye el nexo entre la tasa de codificación, la minimización de la entropía,
+    la eliminación de ruido y los enfoques de empaquetamiento geométrico de bolas para el aprendizaje
+    de distribuciones de baja dimensión. Obsérvese que, en el caso especial de una densidad uniforme
+    $p(\vx)$, \eqref{eq:slb} se convierte en
     \begin{align}
         \cR_{\epsilon}(\vx) &\geq -\int_K \frac{1}{\volume(K)} \log_2
         \frac{1}{\volume(K)} \odif \vxi
@@ -564,17 +564,17 @@ capítulo.
         \log_2 \volume(K) / \volume(B_{\epsilon})
         - C_D. \label{eq:shannon-lower-bound-uniform}
     \end{align}
-    The ratio $\volume(K) / \volume(B_{\epsilon})$ approximates the number of
-    $\epsilon$-balls needed to cover $K$ by a worst-case argument, which is
-    accurate for sufficiently regular sets $K$ when $\epsilon$ is small (see
-    \Cref{app:rate-distortion-covering} for details).
-    Meanwhile, recall the Gaussian denoising model $\vx_{\epsilon} = \vx
-    + \epsilon \vg$ from
-    earlier in the Chapter, where $\vg \sim \cN(\vzero, \vI)$ is independent of
+    La relación $\volume(K) / \volume(B_{\epsilon})$ aproxima el número de
+    bolas de radio $\epsilon$ necesarias para cubrir $K$ mediante un argumento del peor caso, lo cual es
+    preciso para conjuntos $K$ suficientemente regulares cuando $\epsilon$ es pequeño (véase
+    \Cref{app:rate-distortion-covering} para más detalles).
+    Mientras tanto, recordemos el modelo gaussiano de eliminación de ruido $\vx_{\epsilon} = \vx
+    + \epsilon \vg$ mencionado
+    anteriormente en este capítulo, donde $\vg \sim \cN(\vzero, \vI)$ es independiente de
     $\vx$.
-    Interestingly, the differential entropy of the joint distribution $(\vx,
+    Curiosamente, la entropía diferencial de la distribución conjunta $(\vx,
     \epsilon\vg)$
-    can be calculated as
+    se puede calcular como
     \begin{align}
         h(\vx, \epsilon\vg)
         &=
@@ -584,103 +584,100 @@ capítulo.
         &=
         h(\vx) + h(\epsilon \vg).
     \end{align}
-    We have seen the Gaussian entropy calculated in
-    \Cref{eqn:entropy-Gaussian-multi}: when $\epsilon$ is small, it is equal, up
-    to additive constants, to the quantity $-\log_2
-    \volume(B_{\epsilon})$ we have seen in the Shannon lower bound.
-    In certain special cases (e.g., data supported on incoherent
-    low-rank subspaces),
-    when $\epsilon$ is small and the support of $\vx$ is sufficiently regular,
-    the distribution of $\vx_{\epsilon}$ can even be well-approximated
-    locally by the
-    product of the distributions $p(\vx)$ and $p(\vg)$, justifying the above
-    computation.
-    Hence the Gaussian denoising process yields yet another interpretation of
-    the Shannon lower bound, as arising from the entropy of a noisy version of
-    $\vx$, with noise level proportional to the distortion level $\epsilon$.
+    Hemos visto que la entropía gaussiana calculada en
+    \Cref{eqn:entropy-Gaussian-multi}: cuando $\epsilon$ es pequeño, es igual, salvo
+    por constantes aditivas, a la cantidad $-\log_2
+    \volume(B_{\epsilon})$ que hemos visto en la cota inferior de Shannon.
+    En ciertos casos especiales (por ejemplo, datos apoyados en subespacios incoherentes
+    de bajo rango),
+    cuando $\epsilon$ es pequeño y el soporte de $\vx$ es suficientemente regular,
+    la distribución de $\vx_{\epsilon}$ puede incluso aproximarse bien
+    localmente por el
+    producto de las distribuciones $p(\vx)$ y $p(\vg)$, lo que justifica el cálculo anterior.
+    Por lo tanto, el proceso de eliminación de ruido gaussiano ofrece otra interpretación más de la
+    cota inferior de Shannon, ya que se deriva de la entropía de una versión con ruido de
+    $\vx$, con un nivel de ruido proporcional al nivel de distorsión $\epsilon$.
 
-    Thus, this finite rate distortion approach via sphere covering re-enables or
-    generalizes all previous measures of complexity of the
-    distribution, allowing us
-    to differentiate between and rank different distributions in a unified way.
-    These interrelated viewpoints are visualized in \Cref{fig:continuation}.
+    Por lo tanto, este enfoque de distorsión de tasa finita mediante el recubrimiento de bolas reactiva o
+    generaliza todas las medidas anteriores de complejidad de la
+    distribución, lo que nos permite
+    diferenciar y clasificar las distintas distribuciones de manera unificada.
+    Estos puntos de vista interrelacionados se visualizan en \Cref{fig:continuation}.
 \end{remark}
 
-For a general distribution at finite distortion levels, it is
-typically impossible to find its rate
-distortion function in an analytical form. One must often resort to
-numerical computation\footnote{Interested readers may refer to
-    \cite{Blahut-1972} for a classic algorithm that computes the rate
-distortion function numerically for a discrete distribution.}.
-Nevertheless, as we will see, in our context we often need to know
-the rate distortion as an explicit function of a set of data points
-or their representations. This is because we want to use the coding
-rate as a measure of the goodness of the representations. An explicit
-analytical form makes it easy to determine how to transform the data
-distribution to improve the representation. So, we should work with
-distributions whose rate distortion functions take explicit
-analytical forms. To this end, we start with the simplest, and also
-the most important, family of distributions.
+En el caso de una distribución general con niveles de distorsión finitos, suele
+ser imposible hallar su función de tasa-distorsión
+en forma analítica. A menudo hay que recurrir al
+cálculo numérico\footnote{Los lectores interesados pueden consultar
+    \cite{Blahut-1972} para conocer un algoritmo clásico que calcula numéricamente la
+función de tasa-distorsión para una distribución discreta.}.
+Sin embargo, como veremos, en nuestro contexto a menudo necesitamos conocer
+la tasa-distorsión como una función explícita de un conjunto de puntos de datos
+o de sus representaciones. Esto se debe a que queremos utilizar la tasa de codificación
+como medida de la calidad de las representaciones. Por lo tanto, deberíamos trabajar con
+distribuciones cuyas funciones de tasa-distorsión adopten formas analíticas
+explícitas. Con este fin, comenzaremos con la familia de distribuciones más simple y, al mismo tiempo,
+la más importante.
 
-\subsection{Lossy Coding Rate for a Low-Dimensional
-Gaussian}\label{subsec:lossy DR}
-Now suppose we are given a set of data samples in $\vX = [\vx_1,
-\ldots, \vx_N]$ from any distribution.\footnote{Or these data points
-could be viewed as an (empirical) distribution themselves.} We would
-like to come up with a constructive scheme that can encode the data
-up to certain precision, say
+\subsection{Tasa de codificación con pérdida para una distribución gaussiana
+de baja dimensión}\label{subsec:lossy DR}
+Supongamos ahora que se nos da un conjunto de muestras de datos en $\vX = [\vx_1,
+\ldots, \vx_N]$ procedente de cualquier distribución.\footnote{O bien, estos puntos de datos
+podrían considerarse ellos mismos como una distribución (empírica).} Nos gustaría
+elaborar un esquema constructivo que pueda codificar los datos
+con cierta precisión, digamos
 \begin{equation}
     \vx_i \mapsto \hat \vx_i, \quad \mbox{subject to} \quad \|\vx_i -
     \hat \vx_i\|_2 \le \epsilon.
 \end{equation}
-Notice that this is a sufficient, explicit, and interpretable condition which
-ensures that the data are encoded such that \(\frac{1}{N}\sum_{i = 1}^{N}
-\norm{\vx_i- \hat \vx_i}_2^{2} \le \epsilon^{2}\). This latter
-inequality is exactly the rate distortion constraint for the provided
-empirical distribution and its encoding. For example, in
-\Cref{example:sphere-covering-rate-distortion}, we used this
-simplified criterion to explicitly find the minimum distortion and
-explicit coding scheme for a given coding rate.
+Nótese que se trata de una condición suficiente, explícita e interpretable que
+garantiza que los datos se codifican de tal manera que \(\frac{1}{N}\sum_{i = 1}^{N}
+\norm{\vx_i- \hat \vx_i}_2^{2} \le \epsilon^{2}\). Esta última
+desigualdad es precisamente la restricción de tasa-distorsión para la distribución
+empírica dada y su codificación. Por ejemplo, en
+\Cref{example:sphere-covering-rate-distortion}, utilizamos este
+criterio simplificado para determinar explícitamente la distorsión mínima y
+el esquema de codificación explícito para una tasa de codificación dada.
 
-Without loss of generality, let us assume the mean of $\vX$ is zero,
-i.e., $\frac{1}{N} \sum_{i = 1}^{N} \vx_i = \boldsymbol{0}$. Without
-any prior knowledge about the nature of the distribution behind $\vX$,
-we may view $\vX$ as sampled from a Gaussian distribution
-$\mathcal{N}(\boldsymbol{0}, {\boldsymbol{\Sigma}})$ with the
-covariance\footnote{It is known that given a fixed variance, the
-    Gaussian achieves the maximal entropy. That is, it gives an upper
-bound for what the worst case could be in terms of possible coding rate.}
+Sin pérdida de generalidad, supongamos que la media de $\vX$ es cero,
+es decir, $\frac{1}{N} \sum_{i = 1}^{N} \vx_i = \boldsymbol{0}$. Sin
+ningún conocimiento previo sobre la naturaleza de la distribución subyacente a $\vX$,
+podemos considerar que $\vX$ se ha obtenido a partir de una distribución gaussiana
+$\mathcal{N}(\boldsymbol{0}, {\boldsymbol{\Sigma}})$ con la
+covarianza\footnote{Se sabe que, dada una varianza fija, la
+    distribución gaussiana alcanza la máxima entropía. Es decir, establece un límite superior
+para el peor de los casos en cuanto a la tasa de codificación posible.}
 \begin{equation}
     {\boldsymbol{\Sigma}} = \frac{1}{N} \vX\vX^\top.
 \end{equation}
-Notice that geometrically ${\boldsymbol{\Sigma}}$ characterizes an
-ellipsoidal region where most of the samples $\vx_i$ reside.
+Obsérvese que, desde el punto de vista geométrico, ${\boldsymbol{\Sigma}}$ caracteriza una
+región elipsoidal en la que se encuentran la mayoría de las muestras $\vx_i$.
 
-We may view $\hat \vX = [\hat \vx_1,\ldots, \hat \vx_N]$ as a noisy
-version of $\vX = [\vx_1, \ldots, \vx_N]$:
+Podemos considerar $\hat \vX = [\hat \vx_1,\ldots, \hat \vx_N]$ como una versión con ruido
+de $\vX = [\vx_1, \ldots, \vx_N]$:
 \begin{equation}
     \hat \vx_i = \vx_i + \vw_i,
 \end{equation}
-where $\vw_i  \sim
-\mathcal{N}(\boldsymbol{0} , {\epsilon^2}  \boldsymbol{I}/{D})$ is a
-Gaussian noise
-independent of $\vx_i$. Then the covariance of $\hat \vx_i$ is given by
+donde $\vw_i  \sim
+\mathcal{N}(\boldsymbol{0} , {\epsilon^2}  \boldsymbol{I}/{D})$ es un
+ruido gaussiano
+independiente de $\vx_i$. Entonces, la covarianza de $\hat \vx_i$ viene dada por
 \begin{equation}
     \hat{\boldsymbol{\Sigma}} = \mathbb{E}\left[\hat \vx_i \hat
     \vx_i^\top\right] = \frac{\epsilon^2}{D} \boldsymbol{I} +
     \frac{1}{N} \vX\vX^\top.
 \end{equation}
-Note that the volume of the region spanned by the vectors $\vx_i$ is
-proportional to the square root of the determinant of the
-covariance matrix
+Tenga en cuenta que el volumen de la región delimitada por los vectores $\vx_i$ es
+proporcional a la raíz cuadrada del determinante de la
+matriz de covarianza
 \begin{equation}
     \mbox{volume}(\hat \vx_i) \propto \sqrt{\det
     \big(\hat{\boldsymbol{\Sigma}}\big)} =
     \sqrt{\det\left(\frac{\epsilon^2}{D} \boldsymbol{I} + \frac{1}{N}
     \vX\vX^\top \right)}.
 \end{equation}
-The volume spanned by each random vector $\boldsymbol{w}_i$ is
-proportional to
+El volumen abarcado por cada vector aleatorio $\boldsymbol{w}_i$ es
+proporcional a
 \begin{equation}
     \mbox{volume}(\boldsymbol{w}_i) \propto
     \sqrt{\det\left(\frac{\epsilon^2}{D} \boldsymbol{I} \right)}.
@@ -689,28 +686,28 @@ proportional to
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter4/figs/Gaussian-compression.png}
-    \caption{Covering the region spanned by the data vectors using
-        $\epsilon$-balls. The larger the volume of the space, the more
-        balls are needed, hence the more bits are needed to encode and
-        enumerate the balls. Each real-valued vector $\vx$ can be encoded
-    as the number of the ball which it falls into.}
+    \caption{Cubrir la región abarcada por los vectores de datos utilizando
+        bolas de radio $\epsilon$. Cuanto mayor sea el volumen del espacio, más
+        bolas se necesitarán y, por lo tanto, más bits se necesitarán para codificar y
+        enumerar las bolas. Cada vector de valor real $\vx$ puede codificarse
+    como el número de la bola en la que se encuentra.}
     \label{fig:ball-packing}
 \end{figure}
 
-To encode vectors that fall into the region spanned by $\hat \vx_i$,
-we can cover the region with non-overlapping
-balls of radius $\epsilon$, as illustrated in
-\Cref{fig:ball-packing}. When the volume of the region spanned by
-$\hat \vx_i$ is significantly larger than the volume of the
-$\epsilon$-ball, the total number of balls that we need to cover the region is
-approximately equal to the ratio of the two volumes:
+Para codificar los vectores que se encuentran dentro de la región definida por $\hat \vx_i$,
+podemos cubrir dicha región con bolas no superpuestas
+de radio $\epsilon$, tal como se ilustra en
+\Cref{fig:ball-packing}. Cuando el volumen de la región abarcada por
+$\hat \vx_i$ es significativamente mayor que el volumen de la
+bola de radio $\epsilon$, el número total de bolas que necesitamos para cubrir la región es
+aproximadamente igual a la relación entre ambos volúmenes:
 \begin{equation}
     \# \,\epsilon\mbox{-balls} \approx \frac{\mbox{volume}(\hat
     \vx_i)}{\mbox{volume}(\vw_i)} = \sqrt{\det\left(\boldsymbol{I} +
     \frac{D}{N\epsilon^2} \vX\vX^\top  \right)}.
 \end{equation}
-If we use binary numbers to label all the $\epsilon$-balls in the region of
-interest, the total number of binary bits needed is thus %
+Si utilizamos números binarios para etiquetar todas las bolas de radio $\epsilon$ en la región de
+interés, el número total de bits binarios necesarios es, por lo tanto, %
 \begin{equation}
     \cR_{\epsilon}(\vX) \approx %
     \log_2 (\# \,\epsilon\mbox{-balls}) \approx R_{\epsilon}(\vX)
@@ -718,198 +715,198 @@ interest, the total number of binary bits needed is thus %
     \frac{D}{N\epsilon^2} \vX\vX^\top \right).
     \label{eqn:rate-Gaussian}
 \end{equation}
-Notice that from \Cref{ex:gaussian_rate_distortion} one can show that
-the right-hand side of this formula is the same as the rate
-distortion (up to precision \(\epsilon\)) of a Gaussian source with
-covariance matrix \(\frac{1}{N} \vX\vX^\top + (\epsilon^{2}/D) \vI\)
-(e.g., the empirical covariance matrix of the data plus a noise
-term). In this way, a geometric argument about the volume of the
-enclosed vectors and sphere packing translates into an
-information-theoretic argument about the rate distortion of a
-perturbed Gaussian source.
+Nótese que, a partir de \Cref{ex:gaussian_rate_distortion}, se puede mostrar que
+el lado derecho de esta fórmula es igual a la 
+tasa-distorsión (con una precisión de \(\epsilon\)) de una fuente gaussiana con
+matriz de covarianza \(\frac{1}{N} \vX\vX^\top + (\epsilon^{2}/D) \vI\)
+(por ejemplo, la matriz de covarianza empírica de los datos más un
+término de ruido). De este modo, un argumento geométrico sobre el volumen de los
+vectores encerrados y el empaquetamiento de esferas se traduce en un
+argumento basado en la teoría de la información sobre la tasa-distorsión de una
+fuente gaussiana perturbada.
 
 \begin{example}
-    \Cref{fig:ball-packing} shows an example of a 2D distribution
-    with an ellipsoidal support -- approximating the support of a 2D
-    Gaussian distribution. The region is covered by small balls of
-    size $\epsilon$. All the balls are numbered from $1$ to say $n$.
-    Then given any vector $\vx$ in this region, we
-    only need to determine to which $\epsilon$-ball center it is the
-    closest, denoted as $\operatorname{ball}_{\epsilon}(\vx)$. To
-    remember $\vx$, we only need to remember the number of this ball,
-    which takes $\log(n)$ bits to store. If we need to decode $\vx$
-    from this number, we simply take $\hat \vx$ as the center of the
-    ball. This leads to an explicit encoding and decoding scheme:
+    La \Cref{fig:ball-packing} muestra un ejemplo de una distribución bidimensional
+    con un soporte elipsoidal, que se aproxima al soporte de una distribución gaussiana
+    bidimensional. La región está cubierta por pequeñas bolas de
+    tamaño $\epsilon$. Todas las bolas están numeradas del $1$ al, digamos, $n$.
+    Entonces, dado cualquier vector $\vx$ en esta región,
+    solo necesitamos determinar a qué centro de bolas de $\epsilon$ está
+    más cerca, lo que se denota como $\operatorname{ball}_{\epsilon}(\vx)$. Para
+    recordar $\vx$, solo necesitamos recordar el número de esta bola,
+    cuyo almacenamiento requiere $\log(n)$ bits. Si necesitamos decodificar $\vx$
+    a partir de este número, simplemente tomamos $\hat \vx$ como el centro de la
+    bola. Esto da lugar a un esquema explícito de codificación y decodificación:
     \begin{equation}
         \vx \longrightarrow \operatorname{ball}_{\epsilon}(\vx)
         \longrightarrow \hat \vx = \mbox{center of}
         \operatorname{ball}_{\epsilon}(\vx).
     \end{equation}
-    One may refer to these ball centers as  ``codes'' of a code book
-    or a dictionary for the encoding scheme. It is easy to see that
-    the accuracy of this (lossy) encoding-decoding scheme is about
-    the radius of the ball $\epsilon$.
-    Clearly $\cR_{\epsilon}(\vZ)$ is the average
-    number of bits required to encode the ball number of each vector $\vz$ with
-    this coding scheme, and hence can be called the {\em coding rate}
-    associated with this scheme.
+    Se puede decir que estos centros de las bolas son los «códigos» de un libro de códigos
+    o de un diccionario para el esquema de codificación. Es fácil ver que
+    la precisión de este esquema de codificación-decodificación (con pérdida) es aproximadamente
+    el radio de la bolas $\epsilon$. 
+    Es evidente que $\cR_{\epsilon}(\vZ)$ es el número promedio
+    de bits necesarios para codificar el número de bola de cada vector $\vz$ con
+    este esquema de codificación y, por lo tanto, puede denominarse la {\em tasa de codificación}
+    asociada a este esquema.
 \end{example}
 
-From the above derivation, we know that the coding rate
-$\cR_{\epsilon}(\vX)$ is (approximately) achievable with an explicit
-encoding (and decoding) scheme. It has two interesting  properties:
+A partir de la derivación anterior, sabemos que la tasa de codificación
+$\cR_{\epsilon}(\vX)$ es (aproximadamente) alcanzable mediante un esquema explícito
+de codificación (y decodificación). Presenta dos propiedades interesantes:
 \begin{itemize}
-    \item First, one may notice that $R_{\epsilon}(\vX)$ closely
-        resembles the rate distortion function of a Gaussian source
-        \cite{Cover-Thomas} (see \Cref{ex:gaussian_rate_distortion}). Indeed,
-        when $\epsilon$ is small, the above expression is a close
-        approximation to the rate distortion of a Gaussian source, as
-        pointed out by   \cite{MaY2007-PAMI}.
-    \item Second, the same closed-form coding rate $R_{\epsilon}(\vX)$
-        can be derived as an approximation of \(\cR_{\epsilon}(\vX)\)
-        if the data $\vX$ are assumed to be from a linear subspace.
-        This can be shown by properly quantifying the singular value
-        decomposition (SVD) of $\vX = \boldsymbol{U}
-        \boldsymbol{\Sigma}\boldsymbol{V}^\top$ and constructing a
-        lossy coding scheme for vectors in the subspace spanned by
-        $\boldsymbol{U}$ \cite{MaY2007-PAMI}.
+    \item En primer lugar, se puede observar que $R_{\epsilon}(\vX)$ se asemeja mucho
+        a la función de tasa-distorsión de una fuente gaussiana
+        \cite{Cover-Thomas} (véase \Cref{ex:gaussian_rate_distortion}). De hecho,
+        cuando $\epsilon$ es pequeño, la expresión anterior es una aproximación
+        muy cercana a la tasa-distorsión de una fuente gaussiana, tal como
+        se señala en   \cite{MaY2007-PAMI}. 
+    \item En segundo lugar, la misma tasa de codificación en forma cerrada $R_{\epsilon}(\vX)$
+        puede derivarse como una aproximación de \(\cR_{\epsilon}(\vX)\)
+        si se supone que los datos $\vX$ proceden de un subespacio lineal.
+        Esto se puede demostrar cuantificando adecuadamente la descomposición en valores singulares
+        (SVD) de $\vX = \boldsymbol{U}
+        \boldsymbol{\Sigma}\boldsymbol{V}^\top$ y construyendo un
+        esquema de codificación con pérdidas para vectores en el subespacio generado por
+        $\boldsymbol{U}$ \cite{MaY2007-PAMI}. 
 \end{itemize}
-In our context, the closed-form expression $R_{\epsilon}(\vX)$ is
-rather fundamental: it is the coding rate associated with an explicit
-and natural lossy coding scheme for data drawn from either a Gaussian
-distribution or a linear subspace. As we will see in the next
-chapter, this formula plays an important role in understanding the
-architecture of deep neural networks.
+En nuestro contexto, la expresión en forma cerrada $R_{\epsilon}(\vX)$ es
+bastante fundamental: se trata de la tasa de codificación asociada a un esquema de codificación con pérdidas explícito
+y natural para datos extraídos de una distribución gaussiana
+o de un subespacio lineal. Como veremos en el próximo
+capítulo, esta fórmula desempeña un papel importante en la comprensión de la
+arquitectura de las redes neuronales profundas.
 
-\subsection{Clustering a Mixture of Low-Dimensional Gaussians}
+\subsection{Agrupamiento de una mezcla de gaussianas de baja dimensión}
 \label{sec:clustering-Gaussians}
-As we have discussed before, the given dataset $\vX$ often has
-low-dimensional intrinsic structures. Hence, encoding it as a general
-Gaussian would be very redundant. If we can identify those intrinsic
-structures in $\vX$, we could design much better coding schemes that
-give much lower coding rates. Or equivalently, the codes used to
-encode such $\vX$ can be compressed. We will see that compression
-gives a unifying computable way to identify such structures. In this
-section, we demonstrate this important idea with the most basic
-family of low-dimensional structures: a mixture of (low-dimensional)
-Gaussians or subspaces.
+Como ya hemos comentado anteriormente, el conjunto de datos dado $\vX$ suele tener
+estructuras intrínsecas de baja dimensión. Por lo tanto, codificarlo como una distribución
+gaussiana general resultaría muy redundante. Si logramos identificar esas estructuras intrínsecas
+en $\vX$, podríamos diseñar esquemas de codificación mucho mejores que
+ofrezcan tasas de codificación mucho más bajas. O, dicho de otra forma, los códigos utilizados para
+codificar dicho $\vX$ pueden comprimirse. Veremos que la compresión
+ofrece una forma computable y unificadora de identificar tales estructuras. En esta
+sección, ilustramos esta importante idea con la familia más básica
+de estructuras de baja dimensión: una mezcla de gaussianas (de baja dimensión)
+o subespacios.
 
 \begin{example}
-    \Cref{fig:two-subspaces} shows an example in which the data $\vX$
-    are distributed around two subspaces (or low-dimensional
-    Gaussians). If they are viewed and coded together as one single
-    Gaussian, the associated discrete (lossy) code book, represented
-    by all the blue balls, is obviously very redundant. We can try to
-    identify the locations of the two subspaces, denoted by $S_1$ and
-    $S_2$, and design a code book that only covers the two subspaces,
-    i.e., the green balls. If we can correctly partition samples in
-    the data $\vX$ into the two subspaces: $\vX = [\vX_1, \vX_2]\bm \Pi$
-    with $\vX_1 \in S_1$ and $\vX_2 \in S_2$, where $\bm \Pi$ denotes a
-    permutation matrix, then the resulting coding rate for the data
-    will be much lower. This gives a more parsimonious, hence more
-    desirable, representation of the data.
+    La \Cref{fig:two-subspaces} muestra un ejemplo en el que los datos $\vX$
+    se distribuyen en torno a dos subespacios (o gaussianas de baja dimensión).
+    Si se consideran y se codifican conjuntamente como una sola
+    gaussiana, el libro de códigos discreto (con pérdida) asociado, representado
+    por todas las bolas azules, es obviamente muy redundante. Podemos intentar
+    identificar las ubicaciones de los dos subespacios, denotados por $S_1$ y
+    $S_2$ y diseñar un libro de códigos que abarque únicamente esos dos subespacios,
+    es decir, las bolas verdes. Si logramos dividir correctamente las muestras de
+    los datos $\vX$ en dos subespacios: $\vX = [\vX_1, \vX_2]\bm \Pi$
+    con $\vX_1 \in S_1$ y $\vX_2 \in S_2$, donde $\bm \Pi$ denota una
+    matriz de permutación, entonces la tasa de codificación resultante para los datos
+    será mucho menor. Esto proporciona una representación más parsimoniosa y, por lo tanto, más
+    deseable de los datos.
 \end{example}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter4/figs/Two-subspaces.png}
-    \caption{Comparison of two lossy coding schemes for data that are
-        distributed around two subspaces. One is to pack (blue)
-        $\epsilon$-balls for the entire space spanned by the two
-        subspaces; the other is to pack balls only in a tabular
-        neighborhood around the two subspaces. The latter obviously has a
-        much smaller code book and results in a much lower coding rate
-    for samples on the subspaces.}
+    \caption{Comparación de dos esquemas de codificación con pérdidas para datos que se
+        distribuyen alrededor de dos subespacios. Uno consiste en agrupar (azul)
+        bolas de radio $\epsilon$ para todo el espacio generado por los dos
+        subespacios; el otro consiste en agrupar bolas solo en una vecindad
+        tabular alrededor de los dos subespacios. Este último, obviamente, tiene un
+        libro de códigos mucho más pequeño y da como resultado una tasa de codificación mucho menor
+    para las muestras en los subespacios.}
     \label{fig:two-subspaces}
 \end{figure}
 
-So, more generally speaking, if the data are drawn from any mixture
-of subspaces or low-dimensional Gaussians, it would be desirable to
-identify those components and encode the data based on the intrinsic
-dimensions of those components. It turns out that we do not lose much
-generality by assuming that the data are drawn from a mixture of
-low-dimensional Gaussians. This is because a mixture of Gaussians can
-closely approximate most general distributions \cite{borkar2016gaussian}.
+Por lo tanto, en términos más generales, si los datos proceden de cualquier mezcla
+de subespacios o gaussianas de baja dimensión, sería conveniente
+identificar esos componentes y codificar los datos basándose en las dimensiones intrínsecas
+de dichos componentes. Resulta que no perdemos mucha
+generalidad al suponer que los datos provienen de una mezcla de
+distribuciones gaussianas de baja dimensión. Esto se debe a que una mezcla de distribuciones gaussianas puede
+aproximar con gran precisión a la mayoría de las distribuciones generales \cite{borkar2016gaussian}.
 
-\paragraph{The clustering problem.}
-Now for this specific family of distributions, how can we effectively
-and efficiently identify those low-dimensional components from a set of samples
+\paragraph{El problema de agrupamiento.}
+Ahora bien, en el caso de esta familia concreta de distribuciones, ¿cómo podemos identificar de manera eficaz
+y eficiente esos componentes de baja dimensión a partir de un conjunto de muestras
 \begin{equation}
     \vX = \left[\vx_1, \vx_2, \ldots, \vx_N\right],
 \end{equation}
-drawn from them? In other words, given the whole data set $\vX$, we
-want to partition, or cluster, it into multiple, say $K$, subsets:
+extraído de ellos? En otras palabras, dado el conjunto de datos completo $\vX$,
+queremos dividirlo, o agruparlo, en varios subconjuntos, digamos $K$:
 \begin{equation}
     \vX\bm \Pi = [\vX_1, \vX_2, \dots, \vX_K],
 \end{equation}
-where each subset consists of samples drawn from only one
-low-dimensional Gaussian or subspace and $\bm \Pi$ is a permutation
-matrix to indicate membership of the partition. Note that, depending on
-the situation, the partition could be either deterministic or
-probabilistic. As shown in \cite{ma2007segmentation}, for a mixture of
-Gaussians, probabilistic partition does not lead to a lower coding
-rate. So for simplicity, we here consider a deterministic partition only.
+donde cada subconjunto está formado por muestras extraídas de una sola
+gaussiana o subespacio de baja dimensión y $\bm \Pi$ es una matriz de permutación
+que indica la pertenencia a la partición. Cabe señalar que, dependiendo de
+la situación, la partición podría ser determinista o
+probabilística. Como se muestra en \cite{ma2007segmentation}, en el caso de una mezcla de
+distribuciones gaussianas, la partición probabilística no da lugar a una menor tasa de codificación.
+Por lo tanto, en aras de la simplicidad, aquí consideramos únicamente una partición determinista.
 
-\paragraph{Clustering via lossy compression.}
-The main difficulty in solving the above clustering problem is that
-we normally do not know the number of clusters $K$, nor do we know
-the dimension of each component. There has been a long history for
-the study of this clustering problem. The textbook \cite{GPCA} gives
-a systematic and comprehensive coverage of different approaches to
-this problem. To find an effective approach to this problem, we first
-need to understand and clarify why we want to cluster. In other
-words, what exactly do we gain from clustering the data, compared
-with not to? How do we measure the gain? From the perspective of data
-compression, a correct clustering should lead to a more efficient
-encoding (and decoding) scheme.
+\paragraph{Agrupamiento mediante compresión con pérdidas.}
+La principal dificultad para resolver el problema de agrupamiento mencionado anteriormente radica en que
+normalmente no conocemos el número de agrupamientos $K$, ni tampoco
+la dimensión de cada componente. El estudio de este problema de agrupamiento
+cuenta con una larga trayectoria. El libro de texto \cite{GPCA} ofrece
+una exposición sistemática y exhaustiva de los diferentes enfoques de
+este problema. Para encontrar un enfoque eficaz para este problema, primero
+debemos comprender y aclarar por qué queremos agrupar los datos. En otras
+palabras, ¿qué ganamos exactamente al agrupar los datos, en comparación
+con no hacerlo? ¿Cómo medimos esa ganancia? Desde el punto de vista de la
+compresión de datos, una agrupación correcta debería dar lugar a un esquema de
+codificación (y decodificación) más eficiente.
 
-For any given data set $\vX$, there are already two obvious encoding
-schemes as the baseline. They represent two extreme ways to encode the data:
+Para cualquier conjunto de datos dado $\vX$, ya existen dos esquemas de codificación
+obvios que sirven de referencia. Estos representan dos formas extremas de codificar los datos:
 \begin{itemize}
-    \item Simply view all the samples together drawn as from one
-        single Gaussian. The associated coding rate is, as derived
-        before, given by:
+    \item Basta con considerar todas las muestras juntas como si procedieran de una
+        única distribución gaussiana. La tasa de codificación asociada, tal y como se ha
+        deducido anteriormente, viene dada por: 
         \begin{equation}
             \cR_{\epsilon}(\vX) \approx R_{\epsilon}(\vX) =
             \frac{1}{2} \log \det \left(\boldsymbol{I} +
             \frac{D}{N\epsilon^2} \vX\vX^\top \right).
         \end{equation}
-    \item Simply memorize all the samples separately by assigning a
-        different number to each sample. The coding rate would be:
+    \item Basta con memorizar todas las muestras por separado asignando un
+        número diferente a cada una. La tasa de codificación sería: 
         \begin{equation}
             \cR_0(\vX) = \log(N).
         \end{equation}
 \end{itemize}
 
-Note that either coding scheme can become the ``optimal'' solution
-for certain (extreme) choice of the quantization error $\epsilon$:
+Tenga en cuenta que cualquiera de los dos esquemas de codificación puede convertirse en la solución «óptima»
+para una determinada elección (extrema) del error de cuantificación $\epsilon$:
 \begin{enumerate}
-    \item {\em Lazy Regime}: If we choose $\epsilon$ to be extremely
-        large, all samples in $\vX$ can be covered by a single ball.
-        The rate is  $\lim_{\epsilon \rightarrow \infty} \cR_\epsilon
+    \item {\em Régimen perezoso}: Si elegimos un valor de $\epsilon$ extremadamente
+        grande, todas las muestras de $\vX$ pueden quedar cubiertas por una sola bola.
+        La tasa es  $\lim_{\epsilon \rightarrow \infty} \cR_\epsilon
         \rightarrow \frac{1}{2}\log\det (\boldsymbol{I}) = 0$.
-    \item {\em Memorization Regime}: If $\epsilon$ is extremely
-        small, every sample in $\vX$  is covered by a different
-        $\epsilon$-ball, hence the total is $N$. The rate is
-        $\lim_{\epsilon \rightarrow 0} \cR_\epsilon \rightarrow \log(N)$.
+    \item {\em Régimen de memorización}: Si $\epsilon$ es extremadamente
+        pequeño, cada muestra de $\vX$  queda cubierta por una
+        bola de $\epsilon$ diferente, por lo que el total es $N$. La tasa es
+        $\lim_{\epsilon \rightarrow 0} \cR_\epsilon \rightarrow \log(N)$. 
 \end{enumerate}
-Note that the first scheme corresponds to the scenario when one does
-not care about anything interesting about the distribution at all.
-One does not want to spare any bit for anything informative. We call
-this the ``lazy regime.'' The second scheme corresponds to the
-scenario when one wants to decode every sample with an extremely high
-precision. So one would better ``memorize'' every sample. We call
-this the ``memorization regime.''
+Tenga en cuenta que el primer esquema corresponde al caso en el que
+no nos interesa en absoluto ningún aspecto relevante de la distribución.
+No queremos reservar ningún bit para información relevante. A esto lo llamamos
+el «régimen perezoso». El segundo esquema corresponde al
+caso en el que se desea decodificar cada muestra con una precisión extremadamente alta.
+Por lo tanto, sería mejor «memorizar» cada muestra. A esto lo llamamos
+el «régimen de memorización».
 
-Notice that these asymptotics in terms of \(\epsilon\) are exactly
-those discussed when introducing the lossy coding rate as a quantity
-that realistically-trained diffusion models approximate, as in the
-end of \Cref{sec:diffusion_memorization}. In the current situation, we
-\textit{explicitly} code the distribution up to precision \(\epsilon\); in
-the case of diffusion models, we \textit{implicitly} code the
-distribution. Certain properties of the scheme such as memorization
-and generalization manifest similarly in both cases, and indeed one
-can study one case to understand the other.
+Nótese que estas asintóticas en términos de \(\epsilon\) son exactamente
+las mismas que se analizaron al presentar la tasa de codificación con pérdida como una magnitud
+que los modelos de difusión entrenados de forma realista aproximan, tal como se muestra al
+final de \Cref{sec:diffusion_memorization}. En la situación actual,
+codificamos \textit{explícitamente} la distribución con una precisión de \(\epsilon\); en
+el caso de los modelos de difusión, codificamos \textit{implícitamente} la
+distribución. Ciertas propiedades del esquema, como la memorización
+y la generalización, se manifiestan de manera similar en ambos casos y, de hecho,
+se puede estudiar un caso para comprender el otro.
 
 \begin{figure}
     \centering
@@ -1369,7 +1366,7 @@ That is, features of each class are mapped to a one-dimensional
 vector whereas all other information of the class is suppressed, as
 illustrated in \Cref{chap4-fig:neural-collapse}.\footnote{We will
     observe this phenomenon in experiments with real imagery data later
-in \Cref{eg:Rate-Reduction-CIFAR10}.}
+in el \Cref{eg:Rate-Reduction-CIFAR10}.}
 \begin{remark}[Neural Collapse]
     Neural collapse refers to a phenomenon observed in deep neural
     networks trained for classification, where the learned feature

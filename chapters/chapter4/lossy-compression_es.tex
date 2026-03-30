@@ -441,7 +441,7 @@ no creciente} en $\epsilon$.
 Resulta ser un problema notoriamente difícil obtener expresiones en forma cerrada
 para la función de tasa-distorsión \eqref{eqn:rate-distortion-general} para distribuciones generales
 $p(\vx)$. Sin embargo, tal y como
-sugiere \Cref{example:sphere-covering-rate-distortion}, existen casos especiales importantes
+sugiere el \Cref{example:sphere-covering-rate-distortion}, existen casos especiales importantes
 en los que la \textit{geometría} del soporte de la distribución
 $p(\vx)$ puede relacionarse con la función de tasa-distorsión y, por lo tanto, con la tasa de codificación óptima
 para un nivel de distorsión de $\epsilon$. De hecho, este ejemplo puede generalizarse a cualquier contexto en el que el
@@ -477,11 +477,11 @@ propiedad para un caso especial.
     con un resultado paralelo,
     pero su formulación
     se vuelve mucho más técnica: véase Riegler et al.
-    \cite{Riegler2018-jh,Riegler2023-rr}. En
+    \cite{Riegler2018-jh,Riegler2023-rr}. En el
     \Cref{app:rate-distortion-covering} ofrecemos una demostración sencilla que muestra el resultado
     para uniones de hiperesferas ortogonales, una suposición que equivale a
     una mezcla de distribuciones gaussianas de rango bajo con soportes ortogonales cuando la dimensión
-    de cada subespacio es suficientemente grande. Véase
+    de cada subespacio es suficientemente grande. Véase el
     \Cref{app:rate-distortion-covering} para un análisis más detallado de esta
     hipótesis.}
     entonces se cumple una cota inferior correspondiente:
@@ -493,10 +493,10 @@ propiedad para un caso especial.
 \end{theorem}
 \begin{proof}
     La demostración de este teorema excede el alcance de este libro, por lo que
-    la remitimos a \Cref{app:rate-distortion-covering}.
+    la remitimos al \Cref{app:rate-distortion-covering}.
 \end{proof}
 
-La cota superior de \Cref{thm:covering-number-rate-distortion} solo requiere que
+La cota superior del \Cref{thm:covering-number-rate-distortion} solo requiere que
 $\Supp(\vx)$ sea un conjunto compacto, mientras que nuestra demostración de la cota inferior requiere
 supuestos de regularidad más fuertes: concretamente, que $\vx$ esté uniformemente
 distribuido en $\Supp(\vx)$ y que $\Supp(\vx)$ sea una mezcla de
@@ -506,7 +506,7 @@ de gaussianas de bajo rango que se corresponden con los datos de entrada de cier
 El \Cref{ch:deep-networks} desarrollará aún más este marco para el aprendizaje profundo,
 demostrando que la suposición estructural que hacemos para demostrar que la cota inferior
 no es excesivamente restrictiva.}
-Bajo estos supuestos, la implicación de
+Bajo estos supuestos, la implicación de el
 \Cref{thm:covering-number-rate-distortion} puede resumirse de la siguiente manera: para
 una codificación suficientemente precisa de la distribución de
 $\vx$ (es decir, cuando $\epsilon \to 0$), el marco de codificación de mínima tasa-distorsión
@@ -521,7 +521,7 @@ jerarquía de complejidad «ruido-difusión-entropía» que hemos comentado ante
 capítulo.
 
 \begin{remark}\label{rem:slb}
-    El ingrediente clave en la demostración de la cota inferior en
+    El ingrediente clave en la demostración de la cota inferior en el
     \Cref{thm:covering-number-rate-distortion} es un resultado importante de
     la teoría de la información conocido como el \textit{límite inferior de Shannon} para la 
     tasa-distorsión, que lleva el nombre de Claude Shannon, quien lo derivó por primera vez en un
@@ -567,7 +567,7 @@ capítulo.
     La relación $\volume(K) / \volume(B_{\epsilon})$ aproxima el número de
     bolas de radio $\epsilon$ necesarias para cubrir $K$ mediante un argumento del peor caso, lo cual es
     preciso para conjuntos $K$ suficientemente regulares cuando $\epsilon$ es pequeño (véase
-    \Cref{app:rate-distortion-covering} para más detalles).
+    el \Cref{app:rate-distortion-covering} para más detalles).
     Mientras tanto, recordemos el modelo gaussiano de eliminación de ruido $\vx_{\epsilon} = \vx
     + \epsilon \vg$ mencionado
     anteriormente en este capítulo, donde $\vg \sim \cN(\vzero, \vI)$ es independiente de
@@ -584,7 +584,7 @@ capítulo.
         &=
         h(\vx) + h(\epsilon \vg).
     \end{align}
-    Hemos visto que la entropía gaussiana calculada en
+    Hemos visto que la entropía gaussiana calculada en la
     \Cref{eqn:entropy-Gaussian-multi}: cuando $\epsilon$ es pequeño, es igual, salvo
     por constantes aditivas, a la cantidad $-\log_2
     \volume(B_{\epsilon})$ que hemos visto en la cota inferior de Shannon.
@@ -602,7 +602,7 @@ capítulo.
     generaliza todas las medidas anteriores de complejidad de la
     distribución, lo que nos permite
     diferenciar y clasificar las distintas distribuciones de manera unificada.
-    Estos puntos de vista interrelacionados se visualizan en \Cref{fig:continuation}.
+    Estos puntos de vista interrelacionados se visualizan en la \Cref{fig:continuation}.
 \end{remark}
 
 En el caso de una distribución general con niveles de distorsión finitos, suele
@@ -634,7 +634,7 @@ Nótese que se trata de una condición suficiente, explícita e interpretable qu
 garantiza que los datos se codifican de tal manera que \(\frac{1}{N}\sum_{i = 1}^{N}
 \norm{\vx_i- \hat \vx_i}_2^{2} \le \epsilon^{2}\). Esta última
 desigualdad es precisamente la restricción de tasa-distorsión para la distribución
-empírica dada y su codificación. Por ejemplo, en
+empírica dada y su codificación. Por ejemplo, en el
 \Cref{example:sphere-covering-rate-distortion}, utilizamos este
 criterio simplificado para determinar explícitamente la distorsión mínima y
 el esquema de codificación explícito para una tasa de codificación dada.
@@ -696,7 +696,7 @@ proporcional a
 
 Para codificar los vectores que se encuentran dentro de la región definida por $\hat \vx_i$,
 podemos cubrir dicha región con bolas no superpuestas
-de radio $\epsilon$, tal como se ilustra en
+de radio $\epsilon$, tal como se ilustra en la
 \Cref{fig:ball-packing}. Cuando el volumen de la región abarcada por
 $\hat \vx_i$ es significativamente mayor que el volumen de la
 bola de radio $\epsilon$, el número total de bolas que necesitamos para cubrir la región es
@@ -715,7 +715,7 @@ interés, el número total de bits binarios necesarios es, por lo tanto, %
     \frac{D}{N\epsilon^2} \vX\vX^\top \right).
     \label{eqn:rate-Gaussian}
 \end{equation}
-Nótese que, a partir de \Cref{ex:gaussian_rate_distortion}, se puede mostrar que
+Nótese que, a partir del \Cref{ex:gaussian_rate_distortion}, se puede mostrar que
 el lado derecho de esta fórmula es igual a la 
 tasa-distorsión (con una precisión de \(\epsilon\)) de una fuente gaussiana con
 matriz de covarianza \(\frac{1}{N} \vX\vX^\top + (\epsilon^{2}/D) \vI\)
@@ -758,7 +758,7 @@ de codificación (y decodificación). Presenta dos propiedades interesantes:
 \begin{itemize}
     \item En primer lugar, se puede observar que $R_{\epsilon}(\vX)$ se asemeja mucho
         a la función de tasa-distorsión de una fuente gaussiana
-        \cite{Cover-Thomas} (véase \Cref{ex:gaussian_rate_distortion}). De hecho,
+        \cite{Cover-Thomas} (véase el \Cref{ex:gaussian_rate_distortion}). De hecho,
         cuando $\epsilon$ es pequeño, la expresión anterior es una aproximación
         muy cercana a la tasa-distorsión de una fuente gaussiana, tal como
         se señala en   \cite{MaY2007-PAMI}. 
@@ -901,7 +901,7 @@ el «régimen de memorización».
 Nótese que estas asintóticas en términos de \(\epsilon\) son exactamente
 las mismas que se analizaron al presentar la tasa de codificación con pérdida como una magnitud
 que los modelos de difusión entrenados de forma realista aproximan, tal como se muestra al
-final de \Cref{sec:diffusion_memorization}. En la situación actual,
+final de la \Cref{sec:diffusion_memorization}. En la situación actual,
 codificamos \textit{explícitamente} la distribución con una precisión de \(\epsilon\); en
 el caso de los modelos de difusión, codificamos \textit{implícitamente} la
 distribución. Ciertas propiedades del esquema, como la memorización
@@ -911,814 +911,806 @@ se puede estudiar un caso para comprender el otro.
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{\toplevelprefix/chapters/chapter4/figs/circle-packing.png}
-    \caption{A number of random samples on a 2D plane. Consider an
-        $\epsilon$-disc assigned to each sample with the sample as its
-    center. The density of the samples increases from left to right.}
+    \caption{Una serie de muestras aleatorias en un plano bidimensional. Consideremos un
+        disco de radio $\epsilon$ asociado a cada muestra, con la muestra como
+    centro. La densidad de las muestras aumenta de izquierda a derecha.}
     \label{fig:circle-packing}
 \end{figure}
 \begin{example}
-    To see when the memorization regime is preferred or not, let us
-    consider a number, say $N$, of samples randomly distributed in a
-    unit area on a 2D plane.\footnote{Say the points are drawn by a
-    Poisson process with density $N$ points per unit area.} Imagine
-    we try to design a lossy coding scheme with a fixed quantization
-    error $\epsilon$. This is equivalent to putting an
-    $\epsilon$-disc around each sample, as shown in
-    \Cref{fig:circle-packing}. When $N$ is small, the chance that all
-    the discs overlap with each other is zero. A codebook of size $N$
-    is necessary and optimal in this case. When $N$ or the density
-    reaches a certain critical value $N_c$, with high probability all
-    the discs start to overlap and connect into one cluster that
-    covers the whole plane---this phenomenon is known as continuum
-    ``percolation'' \cite{Gilbert-1961,Mertens-Moore-2012}. When $N$
-    becomes larger than this value, the discs overlap heavily. The
-    number $N$ of discs becomes very redundant because we only want
-    to encode points on the plane up to the given precision
-    $\epsilon$. The number of discs needed to cover all the samples
-    is much less than $N$.\footnote{In fact, there are efficient
-    algorithms to find such a covering \cite{Booth-2001}.}
+    Para determinar cuándo es preferible o no el régimen de memorización, consideremos
+    un número, digamos $N$, de muestras distribuidas aleatoriamente en un
+    área unitaria sobre un plano bidimensional.\footnote{Supongamos que los puntos se generan mediante un
+    proceso de Poisson con una densidad de $N$ puntos por área unitaria.} Imaginemos
+    que intentamos diseñar un esquema de codificación con pérdida con un error de cuantificación
+    fijo $\epsilon$. Esto equivale a colocar un
+    disco de $\epsilon$ alrededor de cada muestra, como se muestra en la
+    \Cref{fig:circle-packing}. Cuando $N$ es pequeño, la probabilidad de que todos
+    los discos se superpongan entre sí es nula. En este caso, es necesario y óptimo un libro de códigos de tamaño $N$.
+    Cuando $N$ o la densidad
+    alcanza un determinado valor crítico $N_c$, con alta probabilidad todos
+    los discos comienzan a superponerse y a conectarse en un único grupo que
+    cubre todo el plano; este fenómeno se conoce como «percolación» en el continuo
+    \cite{Gilbert-1961,Mertens-Moore-2012}. Cuando $N$
+    supera este valor, los discos se superponen en gran medida. El
+    número $N$ de discos resulta muy redundante, ya que solo queremos
+    codificar puntos en el plano con la precisión dada
+    $\epsilon$. El número de discos necesarios para cubrir todas las muestras
+    es muy inferior a $N$.\footnote{De hecho, existen algoritmos eficientes
+    para encontrar dicha cobertura \cite{Booth-2001}.}
 \end{example}
 
-Both the lazy and memorization regimes are somewhat trivial and
-perhaps are of little theoretical or practical interest. Either
-scheme would be far from optimal when used to encode a large number
-of samples drawn from a distribution that has a {\em compact and
-low-dimensional support}. The interesting regime exists in between these two.
+Tanto el régimen «perezoso» como el de memorización son en cierta medida triviales y
+quizás tengan poco interés teórico o práctico. Cualquiera de
+estos dos esquemas estaría lejos de ser óptimo si se utilizara para codificar un gran número
+de muestras extraídas de una distribución que tenga un {\em soporte compacto y
+de baja dimensión}. El régimen interesante se encuentra entre estos dos.
 \begin{example}
     \begin{figure}[t]
         \centering
         \includegraphics[width=0.4\linewidth]{\toplevelprefix/chapters/chapter4/figs/Two-lines-and-plane.png}
         \includegraphics[width=0.9\linewidth]{\toplevelprefix/chapters/chapter4/figs/Coding-Rate.jpg}
-        \caption{Top: 358  noisy samples drawn from two lines and one
-            plane in $\R^3$. Bottom: the effect of varying
-            $\epsilon$ on the clustering result and the coding rate. The
-            red line marks the variance $\epsilon_0$ of the Gaussian
-            noise added to the samples. Note that the bottom left and
-            middle plots show the same quantity with different axis
-        locations and scales.}
+        \caption{Parte superior: 358 muestras ruidosas extraídas de dos rectas y un
+            plano en $\R^3$. Parte inferior: el efecto de variar
+            $\epsilon$ sobre el resultado de la agrupación y la tasa de codificación. La
+            línea roja marca la varianza $\epsilon_0$ del ruido gaussiano
+            añadido a las muestras. Obsérvese que los gráficos de la parte inferior izquierda y
+            del centro muestran la misma magnitud con diferentes
+        ubicaciones y escalas de los ejes.}
         \label{fig:two-lines-and-plane}
         \label{fig:two-lines-and-plane-epsilon}
     \end{figure}
-    \Cref{fig:two-lines-and-plane} shows an example with noisy samples
-    drawn from two lines and one plane in $\R^3$. As we notice from the
-    plot (c) on the right, the optimal coding rate decreases monotonically as we
-    increase $\epsilon$, as anticipated from the property of the rate distortion
-    function. The plots (a) and (b) show, when varying $\epsilon$ from very
-    small (near zero) to very large (towards infinite), the optimal number of
-    clusters when the coding rate is minimal. We can clearly see the lazy regime
-    and the memorization regime on the two ends of the plots. But one can also
-    notice in plot (b), when the quantization error $\epsilon$ is chosen to be
-    around the level of the true noise variance $\epsilon_0$, the optimal number
-    of clusters is the ``correct'' number three that represents two lines and
-    one plane.  We informally refer to this middle regime as the
-    ``generalization regime''. Notice that a sharp phase transition takes place
-    between these regimes.\footnote{So far, to our best knowledge,
-        there is no rigorous theoretical justification for these phase
-    transition behaviors.}
+    La \Cref{fig:two-lines-and-plane} muestra un ejemplo con muestras ruidosas
+    extraídas de dos rectas y un plano en $\R^3$. Como se observa en el
+    gráfico (c) de la derecha, la tasa de codificación óptima disminuye de forma monótona a medida que
+    aumentamos $\epsilon$, tal y como se esperaba a partir de la propiedad de la función de tasa-distorsión.
+    Los gráficos (a) y (b) muestran, al variar $\epsilon$ desde valores muy
+    pequeños (cercanos a cero) hasta valores muy grandes (cercanos al infinito), el número óptimo de
+    grupos cuando la tasa de codificación es mínima. Se pueden observar claramente el régimen «perezoso»
+    y el régimen de memorización en los dos extremos de los gráficos. Pero también se puede
+    observar en el gráfico (b) que, cuando el error de cuantificación $\epsilon$ se elige
+    en torno al nivel de la varianza real del ruido $\epsilon_0$, el número óptimo
+    de agrupaciones es el número «correcto» tres, que representa dos líneas y
+    un plano.  Nos referimos informalmente a este régimen intermedio como el
+    «régimen de generalización». Obsérvese que se produce una transición de fase brusca
+    entre estos regímenes.\footnote{Hasta donde sabemos,
+        no existe una justificación teórica rigurosa para estos
+    comportamientos de transición de fase.}
 \end{example}
 
-From the above discussion and examples, we see that, when the
-quantization error relative to the sample density\footnote{or the
-sample density relative to the quantization error} is in a proper
-range,  minimizing the lossy coding rate would allow us to uncover
-the underlying (low-dimensional) distribution of the sampled data.
-{\em Hence, quantization, started as a choice of practicality, seems
-    to be becoming necessary for learning a continuous distribution from
-its empirical distribution with finite samples.} Although a rigorous
-theory for explaining this phenomenon remains elusive, here, for
-learning purposes, we care about how to exploit the phenomenon to
-design algorithms that can find the correct distribution.
+A partir del análisis y los ejemplos anteriores, vemos que, cuando el
+error de cuantificación en relación con la densidad de la muestra\footnote{o la
+densidad de la muestra en relación con el error de cuantificación} se encuentra dentro de un
+rango adecuado, minimizar la tasa de codificación con pérdida nos permitiría descubrir
+la distribución subyacente (de baja dimensión) de los datos muestreados.
+{\em Por lo tanto, la cuantificación, que comenzó como una elección de carácter práctico, parece
+    estar convirtiéndose en algo necesario para aprender una distribución continua a partir de
+su distribución empírica con un número finito de muestras.} Aunque aún no se ha logrado establecer una teoría rigurosa
+que explique este fenómeno, aquí, con
+fines de aprendizaje, nos interesa cómo aprovechar este fenómeno para
+diseñar algoritmos capaces de encontrar la distribución correcta.
 
-Let us use the simple example shown in \Cref{fig:two-subspaces} to
-illustrate the basic ideas. If one can partition all samples in $\vX$
-into two clusters in $\vX_1$ and $\vX_2$, with $N_1$ and $N_2$ samples
-respectively, then the associated coding rate would be\footnote{We
-    here ignore some overhead bits needed to encode the membership for
-each sample, say via the Huffman coding.}
+Utilicemos el sencillo ejemplo que se muestra en la \Cref{fig:two-subspaces} para
+ilustrar las ideas básicas. Si se pueden dividir todas las muestras en $\vX$
+en dos grupos en $\vX_1$ y $\vX_2$, con $N_1$ y $N_2$ muestras
+respectivamente, entonces la tasa de codificación asociada sería\footnote{Aquí
+    ignoramos algunos bits de sobrecarga necesarios para codificar la pertenencia de
+cada muestra, por ejemplo, mediante la codificación de Huffman.}
 \begin{equation}
     R_{\epsilon}^c(\vX\mid \boldsymbol{\Pi}) =
     \frac{N_1}{N}R_{\epsilon}(\vX_1) + \frac{N_2}{N}R_{\epsilon}(\vX_2),
 \end{equation}
-where we use $\boldsymbol{\Pi}$ to indicate membership of the
-partition. If the partition respects the low-dimensional structures
-of the distribution, in this case $\vX_1$ and $\vX_2$ belonging to the
-two subspaces respectively, then the resulting coding rate should be
-significantly smaller than the above two basic schemes:
+donde utilizamos $\boldsymbol{\Pi}$ para indicar la pertenencia a la
+partición. Si la partición respeta las estructuras de baja dimensión
+de la distribución —en este caso, la pertenencia de $\vX_1$ y $\vX_2$ a los
+dos subespacios, respectivamente—, entonces la tasa de codificación resultante debería ser
+significativamente menor que la de los dos esquemas básicos anteriores:
 \begin{equation}
     R_{\epsilon}^c(\vX \mid \boldsymbol{\Pi}) \ll R_{\epsilon}(\vX),
     \quad     R_{\epsilon}^c(\vX \mid \boldsymbol{\Pi}) \ll R_0(\vX).
 \end{equation}
-In general, we can cast the clustering problem into an optimization
-problem that minimizes the coding rate:
+En general, podemos reformular el problema de agrupamiento como un problema de optimización
+que minimiza la tasa de codificación:
 \begin{equation}
     \min_{\boldsymbol{\Pi}}  \bc{ R_{\epsilon}^c(\vX \mid \boldsymbol{\Pi})
     \doteq \sum_{k=1}^K \frac{N_k}{N}R_{\epsilon}(\vX_k)}.
 \end{equation}
 
-\paragraph{Optimization strategies to cluster.}
-The remaining question is how we optimize the above coding rate
-objective to find the optimal clusters. There are three natural
-approaches to this objective:
+\paragraph{Estrategias de optimización para el agrupamiento.}
+La pregunta que queda por resolver es cómo optimizar el objetivo de tasa de codificación anterior
+para encontrar los grupos óptimos. Existen tres enfoques naturales
+para abordar este objetivo:
 \begin{enumerate}
-    \item We may start with the whole set $\vX$ as a single cluster
-        (i.e.\ the lazy regime) and then search (say randomly) to
-        partition it so that it would lead to a smaller coding rate.
-    \item Inversely, we may start with each sample $\vx_i$ as its own cluster
-        (i.e.\ the memorization regime)  and search to merge clusters
-        that would result in a smaller coding rate.
-    \item Alternatively, if we could represent (or approximate) the
-        membership $\boldsymbol{\Pi}$ as some continuous parameters,
-        we may use optimization methods such as gradient descent (GD).
+    \item Podemos empezar con el conjunto completo $\vX$ como un único grupo
+        (es decir, el régimen «perezoso») y luego buscar (por ejemplo, al azar) la forma de
+        dividirlo de modo que se obtenga una tasa de codificación menor. 
+    \item Por el contrario, podemos partir de cada muestra $\vx_i$ como un grupo independiente
+        (es decir, el régimen de memorización)  y buscar fusionar grupos
+        que den lugar a una tasa de codificación menor.
+    \item Por otra parte, si pudiéramos representar (o aproximar) la
+        función de pertenencia $\boldsymbol{\Pi}$ mediante unos parámetros continuos,
+        podríamos utilizar métodos de optimización como el descenso por gradiente (GD).
 \end{enumerate}
-The first approach is not so appealing computationally as the number
-of possible partitions that one needs to try is exponential in the
-number of samples. For example, the number of partitions of $\vX$ into
-two subsets of equal size is $N \choose N/2$ which explodes as $N$
-becomes large. We will explore the third approach in the next
-\Cref{ch:deep-networks}. There, we will see how the role of deep
-neural networks, transformers in particular, is connected with the
-coding rate objective.
+El primer enfoque no resulta tan atractivo desde el punto de vista computacional, ya que el número
+de particiones posibles que hay que probar es exponencial con respecto al
+número de muestras. Por ejemplo, el número de particiones de $\vX$ en
+dos subconjuntos de igual tamaño es $N \choose N/2$, lo cual se dispara a medida que $N$
+aumenta. Analizaremos el tercer enfoque en el próximo
+\Cref{ch:deep-networks}. Allí veremos cómo el papel de las
+redes neuronales profundas, en particular los transformadores, está relacionado con el
+objetivo de la tasa de codificación.
 
-The second approach was originally suggested in the work of
-\cite{ma2007segmentation}. It demonstrates the benefit of being able
-to evaluate the coding rate efficiently (say with an analytical
-form). With it, the (low-dimensional) clusters of the data can be
-found rather efficiently and effectively via the principle of
-minimizing coding length (MCL). Note that for a cluster $\vX_k$ with
-$N_k$ samples, the length of binary bits needed to encode all the
-samples in $\vX_k$ is given by:\footnote{In fact, a more accurate
-    estimate of the coding length is $L(\vX_k) = (N_k+D) R_\epsilon(\vX_k)$
-    where the extra bits are used to encode the basis of the subspace
-\cite{ma2007segmentation}. Here we omit this overhead for simplicity.}
+El segundo enfoque fue propuesto originalmente en el trabajo de
+\cite{ma2007segmentation}. Este trabajo demuestra las ventajas de poder
+evaluar la tasa de codificación de manera eficiente (por ejemplo, mediante una fórmula
+analítica). Gracias a ello, los grupos (de baja dimensión) de los datos pueden
+identificarse de forma bastante eficiente y eficaz mediante el principio de
+minimización de la longitud de codificación (MCL). Tenga en cuenta que, para un clúster $\vX_k$ con
+$N_k$ muestras, la longitud de bits binarios necesaria para codificar todas las
+muestras de $\vX_k$ viene dada por:\footnote{De hecho, una estimación más precisa
+    de la longitud de codificación es $L(\vX_k) = (N_k+D) R_\epsilon(\vX_k)$
+    donde los bits adicionales se utilizan para codificar la base del subespacio
+\cite{ma2007segmentation}. Aquí omitimos esta sobrecarga por simplicidad.}
 \begin{equation}
     L(\vX_k) = N_k R_\epsilon(\vX_k).
 \end{equation}
-If we have two clusters $\vX_k$ and $\vX_l$, if we want to code the
-samples as two separate clusters, the length of binary bits needed is
+Si tenemos dos grupos $\vX_k$ y $\vX_l$ y queremos codificar las
+muestras como dos grupos separados, la longitud de bits binarios necesaria es
 \begin{equation*}
     L^c(\vX_k, \vX_l) = N_k R_\epsilon(\vX_k) + N_l R_\epsilon(\vX_l) -
     N_k \log\frac{N_k}{N_k + N_l} - N_l \log\frac{N_l}{N_k + N_l}.
 \end{equation*}
-The last two terms are the number of bits needed to encode the
-memberships of samples according to the Huffman code.
+Los dos últimos términos corresponden al número de bits necesarios para codificar la
+pertenencia de las muestras según el código de Huffman.
 
-Then, given any two separate clusters $\vX_1$ and $\vX_2$, we can
-decide whether to merge them or not based on the difference between
-the two coding lengths:
+Entonces, dados dos grupos distintos $\vX_1$ y $\vX_2$, podemos
+decidir si fusionarlos o no basándonos en la diferencia entre
+las dos longitudes de codificación:
 \begin{equation}
     L(\vX_k \cup \vX_l) - L^c(\vX_k, \vX_l)
 \end{equation}
-is positive or negative and $\vX_k \cup \vX_l$ denotes the union of the
-sets of samples in $\bm X_k$ and $\bm X_l$. If it is positive , it
-means the coding length would become smaller if we merge the two
-clusters into one. This simple fact leads to the following clustering
-algorithm proposed by \cite{ma2007segmentation}:
+es positivo o negativo y $\vX_k \cup \vX_l$ denota la unión de los
+conjuntos de muestras en $\bm X_k$ y $\bm X_l$. Si es positivo,
+significa que la longitud de codificación se reduciría si fusionáramos los dos
+grupos en uno solo. Este simple hecho da lugar al siguiente algoritmo de agrupamiento
+propuesto por \cite{ma2007segmentation}:
 \begin{algorithm}[!htbp]
     \caption{Pairwise Steepest Descent of Coding
     Length}\label{alg:steepest_descent_coding_length}
     \begin{algorithmic}[1]
-        \Require{\(N\) data points \(\{\vx_{i}\}_{i = 1}^{N}\)}
-        \Ensure{A set \(\cC\) of clusters}
+        \Require{\(N\) puntos de datos \(\{\vx_{i}\}_{i = 1}^{N}\)}
+        \Ensure{Un conjunto \(\cC\) de grupos}
 
         \Procedure{PairwiseSteepestDescentOfCodingLength}{$\{\vx_{i}\}_{i
         = 1}^{N}$}
-        \Statex{\quad\ \texttt{\# Initialize \(N\) clusters
-        \(\vX_{k}\) with one element each}}
+        \Statex{\quad\ \texttt{\# Initializar \(N\) grupos
+        \(\vX_{k}\) con un elemento cadauno}}
         \State{\(\cC \gets \{\{\bm x_{i}\}\}_{i = 1}^{N}\)}
         \Statex{}
         \While{\(\abs{\cC} > 1\)}
         \Statex{}
-        \Statex{\qquad\quad \texttt{\# If
-        no bits are saved by any merging}}
+        \Statex{\qquad\quad \texttt{\# Si
+        no hay bits ahorrados con ninguna fusión}}
         \If{\(\displaystyle \min_{\vX_{k}, \vX_{l} \in \cC}[L(\vX_{k}
         \cup \vX_{l}) -L^{c}(\vX_{k}, \vX_{l})] \geq 0\)}
-        \Statex{\qquad\qquad \texttt{\# Early return \(\cC\) and exit}}
+        \Statex{\qquad\qquad \texttt{\# Tempranamente devuelve \(\cC\) y finaliza}}
         \State{\Return{\(\cC\)}}
         \Else
-        \Statex{\qquad\qquad \texttt{\# Merge clusters which
-        save the most bits}}
+        \Statex{\qquad\qquad \texttt{\# Fusiona los grupos que
+        ahorren más bits}}
         \State{\(\displaystyle \vX_{k^{\ast}}, \vX_{l^{\ast}} \gets
                 \argmin_{\vX_{k}, \vX_{l} \in \cC}[L(\vX_{k} \cup \vX_{l}) -
         L^{c}(\vX_{k}, \vX_{l})]\)}
         \Statex{}
-        \Statex{\qquad\qquad\texttt{\# Remove unmerged clusters
-        and add back the merged one}}
+        \Statex{\qquad\qquad\texttt{\# Remover grupos no fusionados 
+        y volver a agregar el grupo fusionado}}
         \State{\(\displaystyle \cC \gets [\cC \setminus
                 \{\vX_{k^{\ast}}, \vX_{l^{\ast}}\}] \cup \{\vX_{k^{\ast}}
         \cup \vX_{l^{\ast}}\}\)}
         \EndIf
         \EndWhile
-        \Statex{\quad\ \texttt{\# If all merges yield
-        savings, return one cluster}}
+        \Statex{\quad\ \texttt{\# Si todas las fusiones arrojan
+        ahorros, devolver un grupo}}
         \State{\Return{\(\cC\)}}
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
 
-Note that this algorithm is tractable as the total number of
-(pairwise) comparisons and merges is about $O(N^2\log N)$. However,
-due to its greedy nature, there is no theoretical guarantee that the
-process will converge to the globally optimal clustering solution.
-Nevertheless, as reported in \cite{ma2007segmentation}, in practice,
-this seemingly simple algorithm works extremely well. The clustering
-results plotted in \Cref{fig:two-lines-and-plane} were actually
-computed by this algorithm.
+Cabe señalar que este algoritmo es manejable, ya que el número total de
+comparaciones (por pares) y fusiones es de aproximadamente $O(N^2\log N)$. Sin embargo,
+debido a su naturaleza voraz, no existe garantía teórica de que el
+proceso converja hacia la solución de agrupamiento óptima a nivel global.
+No obstante, tal y como se indica en \cite{ma2007segmentation}, en la práctica,
+este algoritmo, aparentemente sencillo, funciona extremadamente bien. Los resultados de la agrupación
+representados en la \Cref{fig:two-lines-and-plane} se calcularon, de hecho,
+mediante este algoritmo.
 
-\begin{example}[Image Segmentation]\label{eg:image-segmentation} The
-    above measure of coding length and the associated clustering
-    algorithm assume the data distribution is a mixture of
-    (low-dimensional) Gaussians. Although this seems somewhat
-    idealistic, the measure and algorithm can already be very useful
-    and even powerful in scenarios when the model is (approximately) valid.
+\begin{example}[Segmentación de imágenes]\label{eg:image-segmentation} La
+    medida de longitud de codificación mencionada anteriormente y el algoritmo de agrupamiento
+    asociado suponen que la distribución de los datos es una mezcla de
+    distribuciones gaussianas (de baja dimensión). Aunque esto pueda parecer un tanto
+    idealizado, la medida y el algoritmo pueden resultar muy útiles
+    e incluso potentes en situaciones en las que el modelo sea (aproximadamente) válido.
 
-    For example, a natural image typically consists of multiple
-    regions with nearly homogeneous textures. If we take many small
-    windows from each region, they should resemble samples drawn from
-    a (low-dimensional) Gaussian, as illustrated in
-    \Cref{fig:image-patch}. \Cref{fig:image-segmentation} shows the
-    results of image segmentation based on applying the above
-    clustering algorithm to the image patches directly. More
-    technical details regarding customizing the algorithm to the
-    image segmentation problem can be found in \cite{Mobahi-IJCV2011}.
+    Por ejemplo, una imagen natural suele estar compuesta por múltiples
+    regiones con texturas casi homogéneas. Si tomamos muchas ventanas pequeñas
+    de cada región, estas deberían parecerse a muestras extraídas de
+    una distribución gaussiana (de baja dimensión), tal como se ilustra en
+    la \Cref{fig:image-patch}. La \Cref{fig:image-segmentation} muestra los
+    resultados de la segmentación de imágenes obtenidos al aplicar el
+    algoritmo de agrupamiento mencionado anteriormente directamente a los fragmentos de imagen. Se pueden encontrar más
+    detalles técnicos sobre la adaptación del algoritmo al
+    problema de la segmentación de imágenes en \cite{Mobahi-IJCV2011}.
 \end{example}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.4\linewidth]{\toplevelprefix/chapters/chapter4/figs/image-segmentation-tiles.png}
-    \caption{Image patches with a size of $w\times w$ pixels.}
+    \caption{Fragmentos de imagen con una dimensión de $w\times w$ pixels.}
     \label{fig:image-patch}
 \end{figure}
 
 \begin{figure}[th]
     \centering
     \includegraphics[width=0.8\linewidth]{\toplevelprefix/chapters/chapter4/figs/image-segmentation.png}
-    \caption{Segmentation results based on the clustering algorithm
-    applied to the image patches.}
+    \caption{Resultados de la segmentación basados en el algoritmo de agrupamiento
+    aplicado a los fragmentos de imagen.}
     \label{fig:image-segmentation}
 \end{figure}
 
-\section{Transformation via Maximizing Information Gain}
+\section{Transformación mediante maximización de la ganancia de información}
 \label{sec:chap4-representation-learning-problem}
 
-So far in this chapter, we have discussed how to identify a
-distribution with low-dimensional structures through the principle of
-compression. As we have seen from the previous two sections,
-computational compression can be realized through either the
-denoising operation or clustering. \Cref{fig:Gaussian-Subspaces}
-illustrates this concept with our favorite example.
+Hasta ahora, en este capítulo hemos analizado cómo identificar una
+distribución con estructuras de baja dimensión mediante el principio de
+compresión. Como hemos visto en las dos secciones anteriores,
+la compresión computacional puede llevarse a cabo mediante la
+operación de eliminación de ruido o mediante la agrupación en clústeres. La \Cref{fig:Gaussian-Subspaces}
+ilustra este concepto con nuestro ejemplo favorito.
 
-It is important to note that the clustering algorithm and the coding
-rate formulas developed in the previous section assumed that the data
-distribution is \textit{already} (approximately) a mixture of low-dimensional
-Gaussians.
-In practice, the raw data---images, audio, text---rarely satisfy this
-assumption directly: their intrinsic structures are typically
-\textit{nonlinear}. The purpose of this section is to develop a
-framework for \textit{transforming} data so that their representations
-do take the form of a mixture of incoherent low-dimensional subspaces,
-at which point the tools from the preceding section become directly
-applicable. That is, the preceding section answers ``how to compress
-and cluster data that are already Gaussian,'' while this section
-answers ``how to transform data so that they become Gaussian.'' As we
-will see in \Cref{ch:deep-networks}, deep networks are precisely the
-computational mechanism for realizing such transformations, with the
-network's architecture derived from optimizing the coding rate
-objective developed here.
+Es importante señalar que el algoritmo de agrupamiento y las fórmulas de la tasa de codificación
+desarrolladas en la sección anterior partían del supuesto de que la distribución de los datos
+es \textit{ya} (aproximadamente) una mezcla de gaussianas de baja dimensión.
+En la práctica, los datos brutos —imágenes, audio, texto— rara vez cumplen esta
+hipótesis de manera directa: sus estructuras intrínsecas suelen ser
+\textit{no lineales}. El objetivo de esta sección es desarrollar un
+marco para \textit{transformar} los datos de tal manera que sus representaciones
+adopten la forma de una mezcla de subespacios incoherentes de baja dimensión,
+momento en el que las herramientas de la sección anterior se vuelven directamente
+aplicables. Es decir, la sección anterior responde a la pregunta «cómo comprimir
+y agrupar datos que ya son gaussianos», mientras que esta sección
+responde a la pregunta «cómo transformar los datos para que se conviertan en gaussianos». Como
+veremos en el \Cref{ch:deep-networks}, las redes profundas son precisamente el
+mecanismo computacional que permite llevar a cabo tales transformaciones y la
+arquitectura de la red se deriva de la optimización del objetivo de la tasa de codificación
+desarrollado aquí.
 
-Indeed, the ultimate goal for identifying a data distribution is to use it to
-facilitate certain subsequent tasks such as segmentation, classification, or
-generation (of images). Hence, how the resulting distribution is ``represented''
-matters tremendously with respect to how information related to these
-subsequent tasks can be efficiently and effectively retrieved and
-utilized. This naturally raises a fundamental question: {\em what
-makes a representation truly ``good'' for downstream use?} In the
-following, we will explore the essential properties that a meaningful
-and useful representation should possess, and how these properties
-can be explicitly characterized and pursued via maximizing information gain.
+De hecho, el objetivo final de identificar una distribución de datos es utilizarla para
+facilitar ciertas tareas posteriores, como la segmentación, la clasificación o la
+generación (de imágenes). Por lo tanto, la forma en que se «representa» la distribución resultante
+es de vital importancia para determinar cómo se puede recuperar y
+utilizar de manera eficiente y eficaz la información relacionada con estas
+tareas posteriores. Esto plantea, naturalmente, una pregunta fundamental: {\em ¿qué
+hace que una representación sea verdaderamente «buena» para su uso posterior?} A
+continuación, analizaremos las propiedades esenciales que debe poseer una representación
+significativa y útil y cómo estas propiedades
+pueden caracterizarse y perseguirse explícitamente mediante la maximización de la ganancia de información.
 
-\paragraph{How to measure the goodness of representations.}
-One may view a given dataset as samples of a random vector $\vx$ with
-a certain distribution in a high-dimensional space, say
-$\R^D$. Typically, the distribution of $\vx$ has a much lower
-intrinsic dimension than the ambient space. Generally speaking,  {\em
-learning a representation} refers to learning a continuous mapping,
-say $f(\cdot)$, that transforms $\vx$ to a so-called {\em feature
-vector} $\vz$ in another (typically lower-dimensional) space, say
-$\R^d$, where $d < D$. It is hopeful that through such a mapping
+\paragraphCómo evaluar la calidad de las representaciones.}
+Se puede considerar un conjunto de datos dado como un conjunto de muestras de un vector aleatorio $\vx$ con
+una distribución determinada en un espacio de alta dimensión, por ejemplo,
+$\R^D$. Por lo general, la distribución de $\vx$ tiene una dimensión intrínseca mucho menor
+que el espacio circundante. En términos generales,  {\em
+aprender una representación} se refiere a aprender una aplicación continua,
+digamos $f(\cdot)$, que transforma $\vx$ en un denominado {\em vector de características
+} $\vz$ en otro espacio (normalmente de menor dimensión), digamos
+$\R^d$, donde $d < D$. Se espera que a través de tal mapeo
 \begin{equation}
     \vx \in \R^D \xrightarrow{\hspace{2mm} f(\vx)\hspace{2mm}}
     \vz  \in \R^d,
     \label{eqn:chap4-1-encoding}
 \end{equation}
-the low-dimensional intrinsic structures of $\vx$ are identified and
-represented by $\vz$ in a more compact and structured way so as to
-facilitate subsequent tasks such as classification or generation. The
-feature $\vz$ can be viewed as a (learned) compact code for the
-original data $\vx$, so the mapping $f$ is also called an \textit{encoder}.
-The fundamental question of representation learning is
+las estructuras intrínsecas de baja dimensión de $\vx$ se identifiquen y
+se representen mediante $\vz$ de una manera más compacta y estructurada, con el fin de
+facilitar tareas posteriores como la clasificación o la generación. La
+característica $\vz$ puede considerarse como un código compacto (aprendido) de los
+datos originales $\vx$, por lo que la aplicación $f$ también se denomina \textit{codificador}.
+La pregunta fundamental del aprendizaje de representaciones es
 \begin{center}
-    \noindent{\em What is a principled and effective measure for the
-    goodness of representations?}
+    \noindent{\em ¿Cuál sería una medida rigurosa y eficaz para evaluar
+    la calidad de las representaciones?}
 \end{center}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.8\linewidth]{\toplevelprefix/chapters/chapter4/figs/Gaussian-Subspaces.png}
-    \caption{Identifying a low-dimensional distribution with two
-        subspaces (left) via denoising or clustering, starting from a
-    generic random Gaussian distribution (right).}
+    \caption{Identificación de una distribución de baja dimensión con dos
+        subespacios (izquierda) mediante la eliminación de ruido o la agrupación, partiendo de una
+    distribución gaussiana aleatoria genérica (derecha).}
     \label{fig:Gaussian-Subspaces}
 \end{figure}
 
-Conceptually, the quality of a representation $\vz$ depends on how
-well it identifies the most relevant and sufficient information of
-$\vx$ for subsequent tasks and how efficiently it represents this information.
-For a long time, it was believed and argued that the ``sufficiency''
-or ``goodness'' of a learned feature representation should be defined
-in terms of a specific task. For example, $\vz$ just needs to be
-sufficient for predicting the class label $\y$ in a classification
-problem. Below, let us start with the classic problem of image
-classification and argue why such a notion of a task-specific
-``representation'' is limited and needs to be generalized.
+Conceptualmente, la calidad de una representación $\vz$ depende de
+qué tan bien identifique la información más relevante y suficiente de
+$\vx$ para las tareas posteriores y qué tan eficientemente represente dicha información.
+Durante mucho tiempo, se creía y se defendía que la «suficiencia»
+o «calidad» de una representación de características aprendida debía definirse
+en función de una tarea específica. Por ejemplo, $\vz$ solo tiene que ser
+suficiente para predecir la etiqueta de clase $\y$ en un problema de clasificación.
+A continuación, comenzaremos con el problema clásico de la clasificación de imágenes
+y analizaremos por qué ese concepto de «representación» específica para cada tarea
+es limitado y debe generalizarse.
 
-\subsection{Representation Learning from Classified Data}
+\subsection{Aprendizaje de representaciones a partir de datos clasificados}
 
-Suppose that $\bm{x} \in \R^D$ is a random vector drawn from
-a mixture of $K$ (component) distributions  $\mathcal{D} =
-\{\mathcal{D}_k\}_{k=1}^K$. Given a finite set of i.i.d. samples $\vX =
-[\vx_1, \vx_2, \ldots, \vx_N] \in \Re^{D\times N}$ of the random vector
-$\bm x$, we {\em seek a good representation}  through a continuous
-mapping $f(\vx): \R^D \rightarrow \R^d$ that captures
-intrinsic structures of $\vx$ and best facilitates the subsequent
-classification task.\footnote{Classification is the domain where deep
-    learning demonstrated the initial success, sparking the explosive
-    interest in deep networks. Although our study focuses on
-    classification, we believe the ideas and principles can be naturally
-generalized to other settings, such as regression.} To ease the task
-of learning distribution $\mathcal{D}$, in the popular supervised
-classification setting, a true class label (or a code word for each
-class), usually represented by a one-hot vector $\y_i \in
-\R^K$, is given for each sample $\vx_i$.
+Supongamos que $\bm{x} \in \R^D$ es un vector aleatorio extraído de
+una mezcla de $K$ distribuciones (componentes)  $\mathcal{D} =
+\{\mathcal{D}_k\}_{k=1}^K$. Dado un conjunto finito de muestras independientes e idénticamente distribuidas $\vX =
+[\vx_1, \vx_2, \ldots, \vx_N] \in \Re^{D\times N}$ del vector aleatorio
+$\bm x$, {\em buscamos una buena representación}
+mediante una aplicación continua $f(\vx): \R^D \rightarrow \R^d$ que capte
+las estructuras intrínsecas de $\vx$ y facilite al máximo la posterior
+tarea de clasificación.\footnote{La clasificación es el ámbito en el que el
+    aprendizaje profundo demostró sus primeros éxitos, lo que desató un
+    interés explosivo por las redes profundas. Aunque nuestro estudio se centra en
+    la clasificación, creemos que las ideas y los principios pueden
+generalizarse de forma natural a otros contextos, como la regresión.} Para facilitar la tarea
+de aprender la distribución $\mathcal{D}$, en el popular contexto de la
+clasificación supervisada, se asigna a cada muestra $\vx_i$ una etiqueta de clase verdadera (o una palabra clave para cada
+clase), representada normalmente por un vector one-hot $\y_i \in \R^K$.
 
-\paragraph{Encoding class information via cross entropy.}  Extensive
-studies have shown that for many practical datasets (e.g., images,
-audio, and natural languages), the (encoding) mapping from the data
-$\bm{x}$ to its class label $\bm{y}$ can be effectively modeled by
-training a deep network,\footnote{Here let us not worry about yet
-    which network we should use here and why. The purpose here is to
-    consider any empirically tested deep network. We will leave the
-justification of the network architectures to the next chapter.} here
-denoted as $$f(\vx, \theta):\vx \mapsto \y$$ with network parameters
-$\theta \in \Theta$, where $\Theta$ denotes the parameter space. For
-the output $f(\vx, \theta)$ to match well with the label $\y$, we like
-to  minimize the {\em cross-entropy loss} over a training set
-$\{(\vx_i, \y_i)\}_{i=1}^N$:\footnote{Here we interpret \(\vy\) as a
-    particular \textit{one-hot} probability distribution over \([K] =
+\paragraph{Codificación de la información de clases mediante la entropía cruzada.} Numerosos
+estudios han demostrado que, para muchos conjuntos de datos prácticos (por ejemplo, imágenes,
+audio y lenguajes naturales), el mapeo (de codificación) entre los datos
+$\bm{x}$ y su etiqueta de clase $\bm{y}$ puede modelarse de manera eficaz mediante
+el entrenamiento de una red profunda,\footnote{Por ahora, no nos preocupemos
+    por qué red debemos usar aquí y por qué. El objetivo aquí es
+    analizar cualquier red profunda probada empíricamente. Dejaremos la
+justificación de las arquitecturas de red para el próximo capítulo.} aquí
+denotada $$f(\vx, \theta):\vx \mapsto \y$$ con parámetros de red
+$\theta \in \Theta$, donde $\Theta$ es el espacio de parámetros. Para
+que la salida $f(\vx, \theta)$ coincida bien con la etiqueta $\y$, nos interesa
+minimizar la {\em pérdida de entropía cruzada} sobre un conjunto de entrenamiento
+$\{(\vx_i, \y_i)\}_{i=1}^N$:\footnote{Aquí interpretamos \(\vy\) como una
+    distribución de probabilidad \textit{one-hot} concreta sobre \([K] =
     \{1, 2, \dots, K\}\),
-    and \(f(\vx, \theta) \in \Delta([K]) \subseteq \R^{K}\) to also be a
-    probability distribution over the same set, which can therefore be
-    compared via the cross-entropy despite being computationally
-represented as vectors in \(\R^{K}\).}
+    y \(f(\vx, \theta) \in \Delta([K]) \subseteq \R^{K}\) como una
+    distribución de probabilidad sobre el mismo conjunto, que por lo tanto puede
+    compararse mediante la entropía cruzada a pesar de estar representada computacionalmente
+como vectores en \(\R^{K}\).}
 \begin{equation}
     \min_{\theta \in \Theta} \; \mathbb{E}[\CE(\vy \mmid f(\vx,
     \theta))] \, \approx - \frac{1}{N}\sum_{i=1}^N \langle
     \y_i, \log\left(f(\vx_i, \theta)\right) \rangle.
     \label{chap4-eqn:cross-entropy}
 \end{equation}
-The optimal network parameters $\theta$ are typically found by
-optimizing the above objective through an efficient gradient descent
-scheme, with gradients computed via back propagation, as
-described in \Cref{app:BP-section} of \Cref{app:optimization}.
+Los parámetros óptimos $\theta$ de la red suelen obtenerse
+optimizando el objetivo anterior mediante un método eficiente de descenso de gradientes,
+en el que los gradientes se calculan mediante retropropagación, tal y como
+se describe en la \Cref{app:BP-section} del \Cref{app:optimization}.
 
-Despite its effectiveness and enormous popularity, there are two
-serious limitations with this approach:  (1) It aims only to predict
-the labels $\y$ even if they might be mislabeled. Empirical studies
-show that deep networks, used as a ``black box,'' can even fit random
-labels~\cite{zhang2017understanding}.
-(2) With such an end-to-end data fitting,
-despite plenty of empirical efforts in trying to interpret the so-learned
-features, %
-it is not clear to what extent the intermediate features learned by
-the network capture the intrinsic structures of the data that make
-meaningful classification possible in the first place. The precise
-geometric and statistical properties of the learned features are also
-often obscured, which leads to the lack of interpretability and
-subsequent performance guarantees (e.g., generalizability,
-transferability, and robustness, etc.) in deep learning.
-Therefore, {\em one of the goals of this section is to address such
-    limitations by reformulating the objective towards learning
-    explicitly meaningful and useful representations for the data $\vx$,
-not limited to classification.}
+A pesar de su eficacia y su enorme popularidad, este enfoque presenta dos
+limitaciones importantes: (1) Su único objetivo es predecir
+las etiquetas $\y$, incluso si estas pudieran estar mal etiquetadas. Los estudios empíricos
+muestran que las redes profundas, utilizadas como una «caja negra», pueden incluso adaptarse a etiquetas aleatorias
+~\cite{zhang2017understanding}. (2) Con este tipo de ajuste de datos de extremo a extremo,
+a pesar de los numerosos esfuerzos empíricos por interpretar las características así aprendidas, %
+no queda claro hasta qué punto las características intermedias aprendidas por
+la red captan las estructuras intrínsecas de los datos que hacen
+posible, en primer lugar, una clasificación significativa. Las propiedades geométricas y estadísticas precisas
+de las características aprendidas también suelen quedar
+ocultas, lo que da lugar a una falta de interpretabilidad y a la
+consiguiente ausencia de garantías de rendimiento (por ejemplo, generalización,
+transferibilidad y robustez, etc.) en el aprendizaje profundo.
+Por lo tanto, {\em uno de los objetivos de esta sección es abordar dichas
+    limitaciones reformulando el objetivo para aprender
+    representaciones explícitamente significativas y útiles para los datos $\vx$,
+sin limitarse a la clasificación.}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.95\linewidth]{\toplevelprefix/chapters/chapter4/figs/neural_collapse.pdf}
-    \caption{Evolution of penultimate layer outputs of a VGG13 neural
-        network when trained on the CIFAR-10 dataset with 3 randomly selected
-    classes. Figure from \cite{papyan2020prevalence}.}
+    \caption{Evolución de los resultados de la penúltima capa de una red neuronal VGG13
+        cuando se entrena con el conjunto de datos CIFAR-10 utilizando 3 clases seleccionadas al azar.
+    Figura tomada de \cite{papyan2020prevalence}.}
     \label{chap4-fig:neural-collapse}
 \end{figure}
 
-\paragraph{Minimal discriminative features via information bottleneck.}
-One popular approach to interpret the role of deep networks is to
-view outputs of intermediate layers of the network as selecting
-certain latent features $\vz = f(\vx, \theta) \in \Re^d$ of the data
-that are discriminative among multiple classes. Learned
-representations $\vz$ then  facilitate the subsequent classification
-task for predicting the class label $\y$ by optimizing a classifier $g(\vz)$:
+\paragraph{Características discriminativas mínimas mediante cuello de botella de información.}
+Un enfoque habitual para interpretar el papel de las redes profundas consiste en
+considerar que las salidas de las capas intermedias de la red seleccionan
+ciertas características latentes $\vz = f(\vx, \theta) \in \Re^d$ de los datos
+que permiten distinguir entre varias clases. Las representaciones
+aprendidas $\vz$ facilitan entonces la tarea de clasificación
+posterior para predecir la etiqueta de clase $\y$ mediante la optimización de un clasificador $g(\vz)$:
 \begin{equation}
     \vx   \xrightarrow{\hspace{2mm} f(\vx, \theta)\hspace{2mm}} \vz
     \xrightarrow{\hspace{2mm} g(\vz) \hspace{2mm}} \y.
 \end{equation}
-We know from \eqref{eq:mutual} that {\em the
-mutual information} between two random variables, say $\vx,\vz$, is
-defined to be
+Sabemos por \eqref{eq:mutual} que {\em la
+información mutua} entre dos variables aleatorias, digamos $\vx,\vz$, se
+define como
 \begin{equation}
     I(\vx; \vz) = H(\vx) - H(\vx\mid \vz),
 \end{equation}
-where $H(\vx \vert \vz)$ is the conditional entropy of $\vx$ given $\vz$.
-The mutual information is also known as {\em the information gain}:
-It measures how much the entropy of the random variable $\vx$ can be
-reduced once $\vz$ is given. Or equivalently, it measures how much
-information $\vz$ contains about $\vx$.  The {\em information
-bottleneck} (IB) formulation \cite{Tishby-ITW2015} further
-hypothesizes that the role of the network is to learn $\vz$ as the
-minimal sufficient statistics for predicting $\y$. Formally, it seeks
-to maximize the mutual information $I(\vz, \y)$
-between $\vz$ and $\y$ while minimizing the mutual information $I(\vx,
-\vz)$ between $\vx$ and $\vz$:
+donde $H(\vx \vert \vz)$ es la entropía condicional de $\vx$ dado $\vz$.
+La información mutua también se conoce como {\em la ganancia de información}:
+Mide en qué medida se puede reducir la entropía de la variable aleatoria $\vx$
+una vez que se conoce $\vz$. O, dicho de otro modo, mide cuánta
+información contiene $\vz$ sobre $\vx$. La formulación del {\em cuello de botella de la información
+} (IB) \cite{Tishby-ITW2015} postula además
+que la función de la red es aprender $\vz$ como la
+estadística mínima suficiente para predecir $\y$. Formalmente, busca
+maximizar la información mutua $I(\vz, \y)$
+entre $\vz$ y $\y$, al tiempo que minimiza la información mutua $I(\vx,
+\vz)$ entre $\vx$ y $\vz$:
 \begin{equation}
     \max_{\theta\in \Theta}\; \mbox{IB}(\vx, \y, \vz) \doteq I(\vz; \y) -
     \beta I(\vx; \vz) \quad\ \mathrm{s.t.}\ \vz = f(\vx, \theta),
     \label{chap4-eqn:information-bottleneck}
 \end{equation}
-where $\beta >0$.
+donde $\beta >0$.
 
-Given one can overcome some caveats associated with this framework
-\cite{kolchinsky2018caveats-ICLR2018}, such as how to accurately
-evaluate mutual information with finite samples of degenerate
-distributions, this framework can be helpful in explaining certain
-behaviors of deep networks.
-For example, recent work \cite{papyan2020prevalence} indeed shows
-that the representations learned via the cross-entropy loss
-\eqref{chap4-eqn:cross-entropy} exhibit a \emph{neural collapse} phenomenon.
-That is, features of each class are mapped to a one-dimensional
-vector whereas all other information of the class is suppressed, as
-illustrated in \Cref{chap4-fig:neural-collapse}.\footnote{We will
-    observe this phenomenon in experiments with real imagery data later
-in el \Cref{eg:Rate-Reduction-CIFAR10}.}
+Si se logran superar algunas limitaciones asociadas a este marco
+\cite{kolchinsky2018caveats-ICLR2018}, como por ejemplo cómo evaluar con precisión
+la información mutua con un número finito de muestras provenientes de distribuciones degeneradas,
+este marco puede resultar útil para explicar ciertos
+comportamientos de las redes profundas.
+Por ejemplo, un trabajo reciente \cite{papyan2020prevalence} demuestra, de hecho,
+que las representaciones aprendidas mediante la pérdida de entropía cruzada
+\eqref{chap4-eqn:cross-entropy} presentan un fenómeno de \emph{colapso neuronal}.
+Es decir, las características de cada clase se asignan a un vector unidimensional,
+mientras que el resto de la información de la clase se omite, tal y como
+se ilustra en la \Cref{chap4-fig:neural-collapse}.\footnote{Observaremos 
+    este fenómeno en experimentos con datos de imágenes reales más adelante
+en el \Cref{eg:Rate-Reduction-CIFAR10}.}
 \begin{remark}[Neural Collapse]
-    Neural collapse refers to a phenomenon observed in deep neural
-    networks trained for classification, where the learned feature
-    representations and classifier weights exhibit highly symmetric and
-    structured behavior during the terminal phase of training
+    El colapso neuronal se refiere a un fenómeno observado en redes neuronales profundas
+    entrenadas para la clasificación, en el que las representaciones de características
+    aprendidas y los pesos del clasificador muestran un comportamiento altamente simétrico y
+    estructurado durante la fase final del entrenamiento
     \cite{papyan2020prevalence,zhu2021geometric,yaras2022neural}.
-    Specifically, within
-    each class, features collapse to their class mean, and across
-    classes, these means become maximally separated, forming a simplex
-    equiangular configuration. The linear classifier aligns with the
-    class mean up to rescaling. Additionally, the last-layer classifier
-    converges to choosing whichever class has the nearest train class
-    mean. Neural collapse reveals deep connections between optimization
-    dynamics, generalization, and geometric structures arising in
-    supervised learning.
+    Concretamente, dentro de 
+    cada clase, las características se ajustan a la media de su clase y entre
+    las clases, estas medias se separan al máximo, formando una configuración
+    equiangular en forma de simplex. El clasificador lineal se alinea con la
+    media de la clase, salvo por un cambio de escala. Además, el clasificador de la última capa
+    converge en elegir aquella clase cuya media de entrenamiento
+    sea la más cercana. El colapso neuronal revela conexiones profundas entre la dinámica de la optimización,
+    la generalización y las estructuras geométricas que surgen en
+    el aprendizaje supervisado.
     \label{remark:neural-collapse}
 \end{remark}
 
-From the above example of classification, we see that the so-learned
-representation $\vz$ of $\vx$ gives a very simple encoder that
-essentially maps each class of data to only one code word: the
-one-hot vector representing each class. From the lossy compression
-perspective, such an encoder is too lossy to preserve information in
-the data distribution. Other information, such as that useful for
-tasks such as image segmentation, completion, or generation, is
-severely lost in such a supervised learning process.
+A partir del ejemplo de clasificación anterior, vemos que la representación
+aprendida $\vz$ de $\vx$ da lugar a un codificador muy sencillo que,
+en esencia, asigna a cada clase de datos una sola palabra de código: el
+vector «one-hot» que representa cada clase. Desde el punto de vista de la compresión con pérdidas,
+un codificador de este tipo presenta demasiadas pérdidas como para conservar la información en
+la distribución de los datos. Otra información, como la que resulta útil para
+tareas tales como la segmentación, la completación o la generación de imágenes, se
+pierde en gran medida en un proceso de aprendizaje supervisado de este tipo.
 
-To remedy this situation, we want to learn a different encoding
-scheme such that the resulting feature representation $\vz$ can
-capture as much information about the data distribution as possible,
-not limited to that useful for classification alone. More precisely,
-we want the representation $\vz = f(\vx, \theta)$ to be such that there
-exists a decoder $g(\vz,\eta)$ so that:
+Para remediar esta situación, queremos aprender un esquema de codificación diferente
+de tal manera que la representación de características resultante $\vz$ pueda
+capturar tanta información como sea posible sobre la distribución de los datos,
+sin limitarse únicamente a la información útil para la clasificación. Más concretamente,
+queremos que la representación $\vz = f(\vx, \theta)$ sea tal que
+exista un decodificador $g(\vz,\eta)$ de modo que:
 \begin{equation}
     \|\vx - \hat \vx\|_2 \le \epsilon \quad \text{s.t.} \quad \hat{\vx}
     = g(f(\vx)).
 \end{equation}
-We will formally introduce such an encoding-decoding scheme as an
-``autoencoder'' and such a representation $\vz$ as a ``consistent''
-representation  in \Cref{ch:consistent-representations}. For
-now, the reader
-may simply view this as a generalization to the quantization code
-$\hat \vx$ introduced in the preceding section for the rate distortion
-(in the native data $\vx$ domain).
+Introduciremos formalmente dicho esquema de codificación-decodificación como un
+«autocodificador» y dicha representación $\vz$ como una representación «consistente»
+en el \Cref{ch:consistent-representations}. Por ahora, el lector
+puede considerarlo simplemente como una generalización del código de cuantificación
+$\hat \vx$ introducido en la sección anterior para la tasa-distorsión
+(en el dominio de datos nativos $\vx$).
 
-In the formulation of information bottleneck
-\eqref{chap4-eqn:information-bottleneck}, it does not require the
-learned feature representation $\vz$ to be consistent. Hence, at least
-it should be fixed with an objective for a (consistent)
-representation learning (RL):
+En la formulación del cuello de botella de información
+\eqref{chap4-eqn:information-bottleneck}, no se requiere que la
+representación de características aprendida $\vz$ sea consistente. Por lo tanto, como mínimo
+debería fijarse un objetivo para el aprendizaje de representaciones (RL)
+(consistente):
 \begin{eqnarray}
     \max_{\theta,\eta}\; \mbox{RL}(\vx, \y, \vz) \doteq I(\vz; \y) - \beta
     I(\vx; \vz) \nonumber \\ \mathrm{s.t.}\quad  \vz = f(\vx,\theta),\quad
     \|\vx - g(\vz, \eta) \|_2 \le \epsilon.
     \label{chap4-eqn:representation-learning}
 \end{eqnarray}
-Solving the above problem in the most general setting is a very
-daunting task. In general, we do not even know what classes of
-encoders or decoders could ensure the consistency\footnote{In
-    practice, people tend to learn them, separately from the above
-    objective, through trial and error, as we will discuss more in
-\Cref{ch:consistent-representations}.} Also, since we do not know the
-distribution of the representation $\vz$, computing the mutual
-information $I(\vz;\y)$ can be very challenging, if not impossible.
+Resolver el problema anterior en el contexto más general es una tarea muy
+desalentadora. En general, ni siquiera sabemos qué clases de
+codificadores o decodificadores podrían garantizar la consistencia\footnote{En
+    la práctica, las personas tienden a aprenderlas, al margen del objetivo
+    mencionado anteriormente, mediante ensayo y error, como veremos con más detalle en el
+\Cref{ch:consistent-representations}.} Además, dado que desconocemos la
+distribución de la representación $\vz$, calcular la información mutua
+$I(\vz;\y)$ puede resultar muy complicado, si no imposible.
 
-Before we study how to approach this problem in general settings (in
-later Chapters), for the rest of this chapter, we will demonstrate
-how to solve it, in some limited way, for the special setting when
-the data distribution consists of clear (low-dimensional) classes.
+Antes de analizar cómo abordar este problema en contextos generales (en
+los capítulos siguientes), en el resto de este capítulo mostraremos
+cómo resolverlo, de manera limitada, en el caso particular en el que
+la distribución de los datos se compone de clases bien diferenciadas (de baja dimensión).
 
-\subsection{Linear Discriminative Representations}\label{subsec:LDR}
+\subsection{Representaciones discriminativas lineales}\label{subsec:LDR}
 
-Whether the given data $\vX$ of a mixed distribution $\mathcal{D}$ can
-be effectively classified or clustered depends on how separable (or
-discriminative) the component distributions $\mathcal{D}_k$ are (or
-can be made). One popular working assumption is that the distribution
-of each class has relatively {\em low-dimensional} intrinsic
-structures. Hence we may assume that the distribution $\mathcal{D}_k$
-of each class has a support on a low-dimensional submanifold, say
-$\mathcal{M}_k$ with dimension $d_k \ll D$, and the distribution
-$\mathcal D$ of $\vx$ is supported on the mixture of those
-submanifolds, $\mathcal M = \cup_{k=1}^K \mathcal{M}_k$,  in the
-high-dimensional ambient space $\Re^D$, as illustrated before in
+Que los datos dados $\vX$ de una distribución mixta $\mathcal{D}$ puedan
+clasificarse o agruparse de manera efectiva depende de cuán separables (o
+discriminativas) sean (o puedan hacerse) las distribuciones componentes $\mathcal{D}_k$.
+Una hipótesis de trabajo muy extendida es que la distribución
+de cada clase presenta estructuras intrínsecas
+de relativamente {\em baja dimensión}. Por lo tanto, podemos suponer que la distribución $\mathcal{D}_k$
+de cada clase tiene su soporte en una subvariedad de baja dimensión, digamos
+$\mathcal{M}_k$ con dimensión $d_k \ll D$, y que la distribución
+$\mathcal D$ de $\vx$ se apoya en la mezcla de esas
+subvariedades, $\mathcal M = \cup_{k=1}^K \mathcal{M}_k$,  en el
+espacio ambiental de alta dimensión $\Re^D$, como se ilustró anteriormente en la
 \Cref{fig:representation-learning}.
 
-Not only do we need to identify the low-dimensional distribution, but
-we also want to represent the distribution in a form that best
-facilitates subsequent tasks such as classification, clustering, and
-conditioned generation (as we will see in the future). To do so, we
-require our learned feature representations to have the following
-properties:
+No solo necesitamos identificar la distribución de baja dimensión, sino que
+también queremos representar la distribución de una forma que
+facilite al máximo las tareas posteriores, como la clasificación, la agrupación en clústeres y
+la generación condicionada (como veremos más adelante). Para ello,
+necesitamos que nuestras representaciones de características aprendidas tengan las siguientes
+propiedades:
 \begin{enumerate}
-    \item {\em Within-Class Compressible:} Features of samples from the
-        same class should be strongly {\em correlated} in the sense that
-        they belong to a low-dimensional linear subspace.
-    \item {\em Between-Class Discriminative:} Features of samples from
-        different classes should be highly {\em uncorrelated} and belong
-        to different incoherent low-dimensional linear subspaces.
-    \item {\em Maximally Diverse Representation:} Dimension (or variance)
-        of the features of each class should be {\em as large as
-        possible} as long as they are incoherent to the other classes.
+    \item {\em Compresibilidad intraclase:} Las características de las muestras de la
+        misma clase deben estar fuertemente {\em correlacionadas}, en el sentido de que
+        pertenezcan a un subespacio lineal de baja dimensión.
+    \item {\em Discriminación entre clases:} Las características de las muestras de
+        diferentes clases deben estar muy {\em descorrelacionadas} y pertenecer
+        a subespacios lineales de baja dimensión diferentes e incoherentes.
+    \item {\em Representación con máxima diversidad:} La dimensión (o varianza)
+        de las características de cada clase debe ser {\em lo más grande
+        posible}, siempre y cuando sean independientes de las de las demás clases.
 \end{enumerate}
-We refer to such a representation the {\em linear discriminative
-representation} (LDR).
+Nos referimos a dicha representación como la {\emrepresentación discriminativa 
+lineal} (LDR).
 
-Notice that the first property aligns well with the objective of the
-classic {\em principal component analysis} (PCA) that we have
-discussed in \Cref{sub:pca}. It essentially says that features of
-samples that belong to the same class\footnote{including augmented
-instances of the same samples} should become or be made highly
-correlated. In other words, feature representation should be {\em
-contractive} for samples that are similar.
+Obsérvese que la primera propiedad concuerda bien con el objetivo del
+clásico {\em análisis de componentes principales} (PCA) que hemos
+analizado en la \Cref{sub:pca}. En esencia, esto significa que las características de
+las muestras que pertenecen a la misma clase\footnote{incluidas las
+instancias aumentadas de las mismas muestras} deben volverse o
+hacerse altamente correlacionadas. En otras palabras, la representación de características debe ser {\em
+contractiva} para las muestras que son similares.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{\toplevelprefix/chapters/chapter4/figs/mcr_diagram.png}
-    \caption{The distribution $\mathcal D$ of high-dimensional data
-        $\vx\in \Re^D$ is supported on  a manifold $\mathcal{M}$ and its
-        classes on low-dimensional submanifolds $\mathcal{M}_k$. We aim to
-        learn a mapping $f(\vx, \theta)$ parameterized by $\theta$ such that
-        $\vz_i = f(\vx_i, \theta)$ lie on a union of maximally uncorrelated
-    subspaces $\{\mathcal{S}_k\}$.}
+    \caption{La distribución $\mathcal D$ de datos de alta dimensión
+        $\vx\in \Re^D$ se define sobre una variedad $\mathcal{M}$ y sus
+        clases se encuentran en subvariedades de baja dimensión $\mathcal{M}_k$. Nuestro objetivo es
+aprender una aplicación $f(\vx, \theta)$ parametrizada por $\theta$ tal que
+$\vz_i = f(\vx_i, \theta)$ se encuentre en una unión de subespacios con máxima falta de correlación
+$\{\mathcal{S}_k\}$.}
     \label{chap4-fig:mcr-diagram}
 \end{figure}
 
-The second property requires that for samples that belong to
-different classes or are believed to be dissimilar, their features
-should be made (geometrically) incoherent or (statistically)
-independent, as illustrated before in
-\Cref{fig:representation-learning}. \Cref{chap4-fig:mcr-diagram}
-illustrates  when the data distribution is actually a mixture of
-low-dimensional submanifolds.  Through compression (denoising or
-clustering), we first identify that the true data distribution
-(left). We then would like to transform the distribution so that the
-submanifolds eventually become mutually incoherent/independent linear
-subspaces (right).
+La segunda propiedad exige que, en el caso de las muestras que pertenecen a
+clases diferentes o que se consideran distintas entre sí, sus características
+deben ser (geométricamente) incoherentes o (estadísticamente)
+independientes, tal y como se ilustra anteriormente en la
+\Cref{fig:representation-learning}. La \Cref{chap4-fig:mcr-diagram}
+ilustra  cuándo la distribución de los datos es, en realidad, una mezcla de
+subvariedades de baja dimensión. Mediante la compresión (eliminación de ruido o
+agrupación), identificamos en primer lugar la distribución real de los datos
+(izquierda). A continuación, queremos transformar la distribución de tal manera que las
+subvariedades acaben convirtiéndose en subespacios lineales mutuamente incoherentes o independientes
+(derecha).
 
-\begin{remark}[Linear Discriminative Analysis]
-    One may notice that
-    the second criterion resembles that of the classic {\em  linear
-    discriminant analysis} (LDA)~\cite{HastieTiFr09}.
-    Linear discriminant analysis (LDA)~\cite{HastieTiFr09} is a
-    supervised dimensionality reduction technique that aims to find a
-    linear projection of data that maximizes class separability.
-    Specifically, given labeled data, LDA seeks a linear transformation
-    that projects high-dimensional inputs onto a lower-dimensional space
-    where the classes are maximally separated. Note that PCA is an
-    unsupervised method that projects data onto directions of maximum
-    variance without considering class labels. While PCA focuses purely
-    on preserving global variance structure, LDA explicitly exploits
-    label information to enhance discriminative power; see the comparison
-    in \Cref{fig:LDA}.
+\begin{remark}[Análisis lineal discriminativo]
+    Se puede observar que
+    el segundo criterio se asemeja al del clásico {\em  análisis discriminante lineal
+    (LDA)~\cite{HastieTiFr09}. El análisis discriminante lineal (LDA)~\cite{HastieTiFr09} es una
+    técnica supervisada de reducción de dimensionalidad cuyo objetivo es encontrar una
+    proyección lineal de los datos que maximice la separabilidad de las clases.
+    En concreto, a partir de datos etiquetados, el LDA busca una transformación lineal
+    que proyecte las entradas de alta dimensión en un espacio de menor dimensión
+    en el que las clases estén separadas al máximo. Tenga en cuenta que el PCA es un
+    método no supervisado que proyecta los datos en direcciones de máxima
+    varianza sin tener en cuenta las etiquetas de clase. Mientras que el PCA se centra exclusivamente
+    en preservar la estructura global de la varianza, el LDA aprovecha explícitamente
+    la información de las etiquetas para mejorar el poder discriminativo; véase la comparación
+    en la \Cref{fig:LDA}.
     \begin{figure}
         \centering
         \includegraphics[width=0.75\linewidth]{\toplevelprefix/chapters/chapter4/figs/LDA.png}\vspace{-0.1in}
-        \caption{Comparison between PCA and LDA. Figures adopted from
+        \caption{Comparación entre el PCA y el LDA. Figuras tomadas de
         \url{https://sebastianraschka.com/Articles/2014_python_lda.html}.}
         \label{fig:LDA}
     \end{figure}
-    But LDA only performs a linear projection of the original data. As we
-    will see LDR can be more general: it seeks a, probably nonlinear,
-    transformation  to make the resulting representation linear
-    and incoherent.
+    Pero el LDA solo realiza una proyección lineal de los datos originales. Como
+    veremos, el LDR puede ser más general: busca una transformación, probablemente no lineal,
+    para que la representación resultante sea lineal
+    e incoherente.
 \end{remark}
 
-\begin{remark}[Contrastive Learning]
-    One may notice that the conventional {\em contrastive learning}
+\begin{remark}[Aprendizaje contrastivo]
+    Cabe señalar que el {\emaprendizaje contrastivo} convencional
     \citep{hadsell2006dimensionality,Van_den_Oord2018-qf,he2019momentum}
-    aims to achieve similar goals for feature representation as the first
-    two properties stipulate. For data that belong to $k$ different
-    classes, a randomly chosen pair $(\vx_i, \vx_j)$ is of high probability
-    belonging to different classes if $k$ is large.\footnote{For
-        example, when $k \ge 100$, a random pair is of probability 99\%
-    belonging to different classes.} Hence it is desirable that the
-    representation $\vz_i = f(\vx_i, \bm \theta)$ of a sample $\vx_i$ should
-    be highly incoherent to those $\vz_j$ of other samples $\vx_j$ whereas
-    coherent to feature of its transformed version $\tau(\vx_i)$, denoted
-    as $\vz(\tau(\vx_i))$ for $\tau$ in certain augmentation set $\mathcal
-    T$ in consideration. Hence it was proposed heuristically that, to
-    promote  discriminativeness of the learned representation, one may
-    seek to minimize the so-called {\em contrastive loss}:
+    pretende alcanzar objetivos similares en cuanto a la representación de características, tal y como establecen las dos primeras
+    propiedades. En el caso de datos que pertenecen a $k$ clases diferentes,
+    un par elegido al azar $(\vx_i, \vx_j)$ tiene una alta probabilidad
+    de pertenecer a clases diferentes si $k$ es grande.\footnote{Por
+        ejemplo, cuando $k \ge 100$, un par aleatorio tiene un 99\% de probabilidad
+    de pertenecer a clases diferentes.} Por lo tanto, es deseable que la
+    representación $\vz_i = f(\vx_i, \bm \theta)$ de una muestra $\vx_i$ sea
+    altamente incoherente con respecto a las $\vz_j$ de otras muestras $\vx_j$, mientras que
+    coherente con la característica de su versión transformada $\tau(\vx_i)$, denotada
+    como $\vz(\tau(\vx_i))$ para $\tau$ en cierto conjunto de aumento $\mathcal
+    T$ en consideración. Por lo tanto, se propuso de manera heurística que, para
+    fomentar el poder discriminativo de la representación aprendida, se podría
+    intentar minimizar la denominada {\em pérdida contrastiva}:
     \begin{equation}
         \min_{\bm \theta} - \log \frac{\exp(\langle \vz_i,
         \vz(\tau(\vx_i))\rangle)}{\sum_{j\not= i} \exp(\langle \vz_i,
         \vz_j\rangle)},
         \label{eqn:contrastive-loss}
     \end{equation}
-    which is small whenever the inner product $\langle \vz_i,
-    \vz(\tau(\vx_i))\rangle$ is large and $\langle \vz_i, \vz_j\rangle$ is
-    small for $i \not= j$. Such contrastive loss, and many of its
-    variants, has been widely used in popular (self-supervised) feature
-    learning methods such as the DINO-type features
-    \cite{caron2021unsupervisedlearningvisualfeatures,DINOv2} for visual
-    data. As we will see, based on the lossy coding framework studied in
-    the previous section, we will be able to arrive at a principled
-    objective function that promotes the two properties and at the same
-    time significantly simplifies the practice such as learning the
-    DINO-type features (as we will feature in great detail in
+    que es pequeña siempre que el producto interno $\langle \vz_i,
+    \vz(\tau(\vx_i))\rangle$ sea grande y $\langle \vz_i, \vz_j\rangle$ sea
+    pequeño para $i \neq j$. Esta pérdida contrastiva y muchas de sus
+    variantes se han utilizado ampliamente en métodos populares de aprendizaje de características
+    (autosupervisado), como las características de tipo DINO
+    \cite{caron2021unsupervisedlearningvisualfeatures,DINOv2} para datos visuales.
+    Como veremos, basándonos en el marco de codificación con pérdida estudiado en
+    la sección anterior, podremos llegar a una función objetivo fundamentada
+    que promueva ambas propiedades y, al mismo
+    tiempo, simplifique significativamente la práctica, como el aprendizaje de
+    las características de tipo DINO (tal y como expondremos con gran detalle en el
     \Cref{ch:applications}).
 \end{remark}
 
-The third property is also important because we want the learned
-features to reveal all possible causes of why one class is different
-from all other classes. For example, to tell ``apple'' from
-``orange'', we care not only about color but also shape and the
-leaves. Ideally, the dimension of each subspace $\{\mathcal{S}_k\}$
-should be equal to that of the corresponding submanifold
-$\mathcal{M}_k$. This property will be important if we would like the
-map $f(\vx,\theta)$ to be {\em invertible} for tasks such as image
-generation. For example, if we draw different sample points from the
-feature subspace for ``apple'', we should be able to decode them, via
-an inverse map $g(\vz, \eta)$, to generate diverse images of apples.
-Such a pair of mutually inverse mappings $f$ and $g$ makes an
-autoencoding which we will study in great detail in
-\Cref{ch:consistent-representations}. Notice that feature
-representations learned
-from minimizing the cross entropy \eqref{chap4-eqn:cross-entropy}
-normally do not have this property, as they suffer the so-called {\em
-neural   collapse} phenomenon discussed earlier (see
+La tercera propiedad también es importante porque queremos que las características aprendidas
+revelen todas las causas posibles por las que una clase es diferente
+de todas las demás. Por ejemplo, para distinguir una «manzana» de
+una «naranja», no solo nos fijamos en el color, sino también en la forma y en las
+hojas. Lo ideal sería que la dimensión de cada subespacio $\{\mathcal{S}_k\}$
+fuera igual a la de la subvariedad correspondiente
+$\mathcal{M}_k$. Esta propiedad será importante si queremos que la
+función $f(\vx,\theta)$ sea {\em invertible} para tareas como la
+generación de imágenes. Por ejemplo, si tomamos diferentes puntos de muestra del
+subespacio de características de «manzana», deberíamos poder decodificarlos, mediante
+una aplicación inversa $g(\vz, \eta)$, para generar diversas imágenes de manzanas.
+Este par de aplicaciones mutuamente inversas $f$ y $g$ constituye un
+autocodificador que estudiaremos con gran detalle en el
+\Cref{ch:consistent-representations}. Obsérvese que las representaciones de características
+aprendidas a partir de la minimización de la entropía cruzada \eqref{chap4-eqn:cross-entropy}
+normalmente no presentan esta propiedad, ya que adolecen del denominado fenómeno del {\em
+colapso neuronal} comentado anteriormente (véase la
 \Cref{remark:neural-collapse}).
 
-In general, although the intrinsic structures of each class/cluster
-may be low-dimensional, they are by no means simply linear (or
-Gaussian) in their original representation $\vx$ and they need to be
-made linear first, through some nonlinear transformation.\footnote{We
-    will discuss how this can be done explicitly in
-\Cref{ch:consistent-representations}.} Therefore, overall, we use
-the nonlinear
-transformation $f(\vx,\theta)$ to seek a representation of the data
-such that the subspaces that represent all the classes are maximally
-incoherent linear subspaces. To be more precise, we want to learn a
-mapping {$\vz = f(\vx,\theta)$} that maps each of the submanifolds
-$\mathcal{M}_k \subset \Re^D$ (\Cref{chap4-fig:mcr-diagram} left) to
-a {\em linear} subspace $\mathcal{S}_k \subset \Re^d$
-(\Cref{chap4-fig:mcr-diagram} right). To some extent, the resulting
-multiple subspaces $\{\mathcal{S}_k\}$ can be viewed as
-discriminative {\em generalized principal components} \cite{GPCA} or,
-if orthogonal, {\em independent components}
-\cite{hyvarinen2000independent} of the resulting features $\vz$ for
-the original data $\bm x$.
-As we will see in the next \Cref{ch:deep-networks}, deep networks
-precisely play the role of modeling and realizing this nonlinear
-transformation from the data distribution to linear discriminative
-representations.
+En general, aunque las estructuras intrínsecas de cada clase o grupo
+puedan ser de baja dimensión, no son en absoluto simplemente lineales (o
+gaussianas) en su representación original $\vx$, y es necesario
+convertirlas primero en lineales mediante alguna transformación no lineal.\footnote{Analizaremos
+    cómo se puede hacer esto de manera explícita en el
+\Cref{ch:consistent-representations}.} Por lo tanto, en general, utilizamos
+la transformación no lineal
+$f(\vx,\theta)$ para buscar una representación de los datos
+tal que los subespacios que representan todas las clases sean subespacios lineales
+máximamente incoherentes. Para ser más precisos, queremos aprender una
+función {$\vz = f(\vx,\theta)$} que mapee cada una de las subvariedades
+$\mathcal{M}_k \subset \Re^D$ (\Cref{chap4-fig:mcr-diagram} izquierda) a
+un subespacio {\em lineal} $\mathcal{S}_k \subset \Re^d$
+(\Cref{chap4-fig:mcr-diagram} derecha). En cierta medida, los
+subespacios múltiples resultantes $\{\mathcal{S}_k\}$ pueden considerarse como
+{\em componentes principales generalizadas} discriminativas \cite{GPCA} o,
+si son ortogonales, {\em componentes independientes}
+\cite{hyvarinen2000independent} de las características resultantes $\vz$ para
+los datos originales $\bm x$.
+Como veremos en el siguiente \Cref{ch:deep-networks}, las redes profundas
+desempeñan precisamente la función de modelar y llevar a cabo esta transformación no lineal
+de la distribución de los datos a representaciones discriminativas lineales.
 
-\subsection{The Principle of Maximal Coding Rate
-Reduction}\label{subsec:MCR2}
+\subsection{El principio de la reducción máxima de la tasa de 
+codificación}\label{subsec:MCR2}
 
-Although the three properties---{\em between-class discriminative}, {\em
-within-class compressible}, and {\em maximally diverse
-representation}---for linear discriminative representations (LDRs)
-are all highly desired properties  of the learned representation
-$\vz$, they are by no means easy to obtain: Are these properties
-compatible so that we can expect to achieve them all at once? If so,
-is there a {\em simple but principled} objective that can measure the
-goodness of the resulting representations in terms of all these
-properties? The key to these questions {is to find} a principled
-``measure of compactness'' or ``information gain''  for the
-distribution of a random variable $\vz$ or from its finite samples
-$\{\bm z_i\}_{i=1}^N$. Such a measure should directly and accurately
-characterize intrinsic geometric or statistical properties of the
-distribution, in terms of its intrinsic dimension or {volume}. Unlike
-the cross entropy \eqref{chap4-eqn:cross-entropy} or information
-bottleneck \eqref{chap4-eqn:information-bottleneck}, such a measure
-should not depend exclusively on class labels so that it can work in
-more general settings such as supervised, self-supervised,
-semi-supervised, and unsupervised settings (as we will see in
-later sections).
+Aunque las tres propiedades —{\em discriminación entre clases}, {\em
+compresibilidad dentro de las clases} y {\em representación de máxima diversidad
+}---de las representaciones discriminativas lineales (LDR)
+son todas propiedades muy deseables de la representación aprendida
+$\vz$, no son en absoluto fáciles de obtener: ¿Son estas propiedades
+compatibles entre sí, de modo que podamos esperar alcanzarlas todas a la vez? Si es así,
+¿existe algún objetivo {\em sencillo pero basado en principios} que permita evaluar la
+calidad de las representaciones resultantes en función de todas estas
+propiedades? La clave para responder a estas preguntas {es encontrar} una
+«medida de compacidad» o «ganancia de información» fundamentada para la
+distribución de una variable aleatoria $\vz$ o a partir de sus muestras finitas
+$\{\bm z_i\}_{i=1}^N$. Dicha medida debería caracterizar de manera directa y precisa
+las propiedades geométricas o estadísticas intrínsecas de la
+distribución, en términos de su dimensión intrínseca o {volumen}. A diferencia
+de la entropía cruzada \eqref{chap4-eqn:cross-entropy} o el cuello de botella de información
+\eqref{chap4-eqn:information-bottleneck}, dicha medida
+no debe depender exclusivamente de las etiquetas de clase, de modo que pueda funcionar en
+entornos más generales, como los supervisados, autosupervisados,
+semisupervisados y no supervisados (como veremos en
+secciones posteriores).
 
-Without loss of generality, assume that the distribution $\mathcal D$
-of the random vector $\vx$ is supported on a mixture of distributions,
-i.e., $\mathcal D = \cup_{k=1}^K \mathcal{D}_k$,  where each
-$\mathcal{D}_k \subset \Re^D$ has a low intrinsic dimension in the
-high-dimensional ambient space $\Re^D$. Let $\bm X_k \in \Re^{D\times
-N_k}$ denote the data matrix whose columns are samples drawn from the
-distribution $\mathcal{D}_k$, where $N_k$ denotes the number of
-samples for each $k=1,\dots,K$. Then, we use $\bm X=[\bm
-X_1,\dots,\bm X_K] \in \Re^{D\times N}$ to denote all the samples,
-where $N=\sum_{k=1}^K N_k$.
-Recall that we also use $\vx_i$ to denote the $i$-th sample of $\vX$,
-i.e., $\vX=[\vx_1,\dots,\vx_N] $. Under an encoding mapping:
+Sin pérdida de generalidad, supongamos que la distribución $\mathcal D$
+del vector aleatorio $\vx$ se define sobre una mezcla de distribuciones,
+es decir, $\mathcal D = \cup_{k=1}^K \mathcal{D}_k$, donde cada
+$\mathcal{D}_k \subset \Re^D$ tiene una dimensión intrínseca baja en el
+espacio envolvente de alta dimensión $\Re^D$. Sea $\bm X_k \in \Re^{D\times
+N_k}$ la matriz de datos cuyas columnas son muestras extraídas de la
+distribución $\mathcal{D}_k$, donde $N_k$ indica el número de
+muestras para cada $k=1,\dots,K$. Entonces, utilizamos $\bm X=[\bm
+X_1,\dots,\bm X_K] \in \Re^{D\times N}$ para denotar todas las muestras,
+donde $N=\sum_{k=1}^K N_k$. 
+Recordemos que también utilizamos $\vx_i$ para denotar la $i$-ésima muestra de $\vX$,
+es decir, $\vX=[\vx_1,\dots,\vx_N] $. Bajo una aplicación de codificación:
 \begin{equation}
     \vx  \xrightarrow{\hspace{2mm} f(\vx)\hspace{2mm}} \vz,
 \end{equation}
-the input samples are mapped to $\vz_i = f(\vx_i)$ for each
-$i=1,\dots,N$. With an abuse of notation, we also write $\vZ_k =
-f(\vX_k)$ and $\vZ = f(\vX)$. Therefore, we have $\vZ = [\bm
-Z_1,\dots,\bm Z_K]$ and $\vZ = [\vz_1,\dots\vz_N]$.
+Las muestras de entrada se mapean a $\vz_i = f(\vx_i)$ para cada
+$i=1,\dots,N$. Abusando un poco de la notación, también escribimos $\vZ_k =
+f(\vX_k)$ y $\vZ = f(\vX)$. Por lo tanto, tenemos $\vZ = [\bm
+Z_1,\dots,\bm Z_K]$ y $\vZ = [\vz_1,\dots\vz_N]$.
 
-On one hand, for learned features to be discriminative, features of
-different classes/clusters are preferred to be {\em maximally
-incoherent} to each other. Hence, they together should span a space
-of the largest possible volume (or dimension) and the coding rate of
-the whole set $\vZ$ should be as large as possible. On the other hand,
-learned features of the same class/cluster should be highly
-correlated and coherent. Hence, each class/cluster should only span a
-space (or subspace) of a very small volume and the coding rate should
-be as small as possible. Now, we will introduce how to measure the
-coding rate of the learned features.
+Por un lado, para que las características aprendidas sean discriminativas, es preferible que las características de
+las diferentes clases o grupos sean {\em lo más
+incoherentes posible} entre sí. Por lo tanto, en conjunto deberían abarcar un espacio
+del mayor volumen (o dimensión) posible y la tasa de codificación
+de todo el conjunto $\vZ$ debería ser lo más alta posible. Por otro lado,
+las características aprendidas de una misma clase o clúster deberían estar muy
+correlacionadas y ser coherentes. Por lo tanto, cada clase o grupo solo debe abarcar un
+espacio (o subespacio) de volumen muy reducido y la tasa de codificación debe
+ser lo más baja posible. A continuación, explicaremos cómo medir la
+tasa de codificación de las características aprendidas.
 
-\paragraph{Coding rate of features.} Notably, a practical challenge
-in evaluating the coding rate is that the underlying distribution of
-the feature representations $\vZ$ is typically unknown. To address
-this, we may approximate the features $\vZ = [\vz_1, \ldots, \vz_N]$ as
-samples drawn from a multivariate Gaussian distribution. Under this
-assumption, as discussed in \Cref{subsec:lossy DR}, the compactness
-of the features $\vZ$ {\em as a whole} can be measured in terms of the
-average coding length per sample, referred to as the {\em coding
-rate}, subject to a precision level $\epsilon > 0$ (see
-\eqref{eqn:rate-Gaussian}) defined as follows:
+\paragraph{La tasa de codificación de las características.} Cabe destacar que una dificultad práctica
+a la hora de evaluar la tasa de codificación es que la distribución subyacente de
+las representaciones de las características $\vZ$ suele ser desconocida. Para solucionar
+esto, podemos aproximar las características $\vZ = [\vz_1, \ldots, \vz_N]$ como
+muestras extraídas de una distribución gaussiana multivariante. Bajo esta
+hipótesis, tal y como se analiza en la \Cref{subsec:lossy DR}, la compacidad
+de las características $\vZ$ {\em en su conjunto} puede medirse en términos de la
+longitud media de codificación por muestra, denominada {\em tasa de codificación}, 
+sujeta a un nivel de precisión $\epsilon > 0$ (véase
+\eqref{eqn:rate-Gaussian}) definido de la siguiente manera:
 \begin{equation}
     R_{\epsilon}(\vZ) = \frac{1}{2}\logdet\left(\I +
     \frac{d}{N\epsilon^{2}}\vZ\vZ^{\top}\right).
     \label{chap4-eqn:coding-length-eval}
 \end{equation}
 
-On the other hand, we hope that a nonlinear transformation $f(\vx)$
-maps each class-specific submanifold $\mathcal{M}_k \subset
-\R^D$ to a maximally incoherent linear subspace
-$\mathcal{S}_k \subset \R^d$ such that the learned features
-$\vZ$ lie in a union of low-dimensional subspaces. This structure
-allows for a more accurate evaluation of the coding rate by analyzing
-each subspace separately. %
-Recall that the columns of $\vZ_k$ denotes the features of the samples
-in $\vX_k$ for each $k=1,\dots,K$. The coding rate for the features in
-$\bm Z_k$ can be computed as follows:
+Por otro lado, esperamos que una transformación no lineal $f(\vx)$
+asigne a cada subvariedad específica de clase $\mathcal{M}_k \subset
+\R^D$ un subespacio lineal maximamente incoherente
+$\mathcal{S}_k \subset \R^D$, de tal manera que las características aprendidas
+$\vZ$ se encuentren en una unión de subespacios de baja dimensión. Esta estructura
+permite una evaluación más precisa de la tasa de codificación mediante el análisis
+separado de cada subespacio. %
+Recordemos que las columnas de $\vZ_k$ representan las características de las muestras
+en $\vX_k$ para cada $k=1,\dots,K$. La tasa de codificación de las características en
+$\bm Z_k$ se puede calcular de la siguiente manera:
 \begin{align}
     R_{\epsilon}(\vZ_k) = \frac{N_k}{2N}\log\det\left(\I +
     \frac{d}{N_k\epsilon^{2}}\vZ_k\vZ_k^{\top}\right)
 \end{align}
-Then, the sum of the average coding rates of features in each class is
+Entonces, la suma de las tasas de codificación promedio de las características de cada clase es
 \begin{equation}
     R_{\epsilon}^c(\vZ) \doteq \sum_{k=1}^K R_{\epsilon}(\vZ_k),
     \label{chap4-eqn:compress-loss-eval}
 \end{equation}
 
-Therefore, a good representation $\vZ$ of $\vX$ is the one that
-achieves a large difference between the coding rate for the whole and
-that for all the classes:
+Por lo tanto, una buena representación $\vZ$ de $\vX$ es aquella que
+logra una gran diferencia entre la tasa de codificación del conjunto y
+la de todas las clases:
 \begin{equation}
     \Delta R_{\epsilon}(\vZ) \doteq R_{\epsilon}(\vZ) - R_{\epsilon}^c(\vZ).
     \label{chap4-eqn:coding-length-reduction}
 \end{equation}
-Notice that, as per our discussions earlier in this chapter, this
-difference can be interpreted as the amount of ``information gained''
-by identifying the correct low-dimensional clusters $\vZ_k$ within the
-overall set $\vZ$.
+Obsérvese que, tal y como hemos comentado anteriormente en este capítulo, esta
+diferencia puede interpretarse como la cantidad de «información ganada»
+al identificar los clústeres de baja dimensión correctos $\vZ_k$ dentro del
+conjunto global $\vZ$.
 
-If we choose our feature mapping $f(\cdot)$ to be a deep neural
-network $f(\cdot,\theta)$ with network parameters $\theta$, the
-overall process of the feature representation and the resulting rate
-reduction  can be illustrated by the following diagram:
+Si elegimos que nuestra función de mapeo de características $f(\cdot)$ sea una red neuronal profunda
+$f(\cdot,\theta)$ con parámetros de red $\theta$, el
+proceso general de representación de características y la consiguiente reducción de la tasa
+se pueden ilustrar mediante el siguiente diagrama:
 \begin{equation}
     \vX
     \xrightarrow{\hspace{2mm} f(\vx, \theta)\hspace{2mm}} \vZ
@@ -1726,23 +1718,23 @@ reduction  can be illustrated by the following diagram:
     R_{\epsilon}(\vZ).
     \label{chap4-eqn:flow}
 \end{equation}
-Note that $\Delta R_{\epsilon}$ is {\em monotonic} in the scale of
-the features $\vZ$. To ensure fair comparison across different
-representations, it is essential to {\em normalize the scale} of the
-learned features. This can be achieved by either imposing the
-Frobenius norm of each class $\vZ_k$ to scale with the number of
-features in $\vZ_k \in \mathbb R^{d \times N_k}$, i.e., $\|\vZ_k\|_F^2
-= N_k$, or by normalizing each feature to be on the unit sphere,
-i.e., $\vz_i \in \mathbb{S}^{d-1}$, where $N_k$
-denotes the number of samples in the $k$-th class. This formulation
-offers a natural justification for the need for ``batch
-normalization'' in the practice of
-training deep neural networks \cite{ioffe2015batch}. %
+Tenga en cuenta que $\Delta R_{\epsilon}$ es {\em monótono} en la escala de
+las características $\vZ$. Para garantizar una comparación justa entre las diferentes
+representaciones, es esencial {\em normalizar la escala} de las
+características aprendidas. Esto se puede lograr ya sea imponiendo que la
+norma de Frobenius de cada clase $\vZ_k$ sea proporcional al número de
+características en $\vZ_k \in \mathbb R^{d \times N_k}$, es decir, $\|\vZ_k\|_F^2
+= N_k$, o bien normalizando cada característica para que se encuentre en la esfera unitaria,
+es decir, $\vz_i \in \mathbb{S}^{d-1}$, donde $N_k$
+denota el número de muestras en la clase $k$-ésima. Esta formulación
+ofrece una justificación natural de la necesidad de la «normalización por lotes»
+en la práctica del
+entrenamiento de redes neuronales profundas \cite{ioffe2015batch}. %
 
-Once the representations are comparable, the goal becomes to learn a
-set of features $\vZ  = f(\vX, \theta)$  such that they maximize the
-reduction between the coding rate of all features and that of the sum
-of features w.r.t. their classes:
+Una vez que las representaciones son comparables, el objetivo pasa a ser aprender un
+conjunto de características $\vZ  = f(\vX, \theta)$  tal que maximicen la
+reducción entre la tasa de codificación de todas las características y la de la suma
+de características con respecto a sus clases:
 \begin{equation}
     \begin{aligned}
         \max_{\theta } & \;  \Delta R_{\epsilon}\big(\vZ \big) \doteq
@@ -1752,136 +1744,135 @@ of features w.r.t. their classes:
     \end{aligned}
     \label{eqn:maximal-rate-reduction}
 \end{equation}
-We refer to this as the principle of {\em maximal coding rate
-reduction} (MCR$^2$), as an embodiment of Aristotle's famous quote:
+Nos referimos a esto como el principio de la {\emreducción máxima de la tasa de codificación
+} (MCR$^2$), como una encarnación de la famosa cita de Aristóteles:
 \begin{quote}
     \centering
-    ``{\em The whole is greater than the sum of its parts.}''
+    ``{\em El todo es más que la suma de sus partes.}''
 \end{quote}
-To learn the best representation, we require that {\em the whole is
-maximally greater than the sum of its parts}. To a large extent, the
-quantity $\Delta R$ can be viewed as a computable realization to the
-mutual information term $I(\vz; \y)$ introduced in the objective
+Para aprender la mejor representación, se requiere que {\em el todo sea
+máximamente mayor que la suma de sus partes}. En gran medida, la
+cantidad $\Delta R$ puede considerarse como una realización computable del
+término de información mutua $I(\vz; \y)$ introducido en el objetivo
 \eqref{chap4-eqn:representation-learning}.
 
 \begin{example}
-    To further elucidate the ideas, let us examine the example shown in
+    Para aclarar mejor estas ideas, analicemos el ejemplo que se muestra en la
     \Cref{fig:informative-representation}.
     \begin{figure}[t]
         \centering
         \includegraphics[width=0.99\linewidth]{\toplevelprefix/chapters/chapter4/figs/Expansion2.png}
-        \caption{After identifying the low-dimensional data distribution,
-            we would like to further transform the data distribution to a
-            more informative structured representation: $R$ is the number of
-            $\epsilon$-balls covering the whole space and $R^c$
-            is the sum of
-            the numbers for all the subspaces (the green balls). $\Delta R$
-            is their difference (the number of blue balls).
+        \caption{Tras identificar la distribución de los datos en baja dimensión,
+            nos gustaría transformar aún más la distribución de los datos en una
+            representación estructurada más informativa: $R$ es el número de
+            bolas de radio $\epsilon$ que cubren todo el espacio y $R^c$
+            es la suma de
+            los números correspondientes a todos los subespacios (las bolas verdes). $\Delta R$
+            es su diferencia (el número de bolas azules).
         }\label{fig:sphere-packing}
         \label{fig:informative-representation}
     \end{figure}
-    From a compression perspective, the representation on the right is
-    {\em the most compact one} in the sense that the difference between
-    the coding rate when all features are encoded as a single Gaussian
-    (blue) and that when the features are properly clustered and encoded
-    as two separate subspaces (green) is maximal.\footnote{Intuitively,
-        the ratio between the ``volume'' of the whole space spanned by all
-    features and that actually occupied by the features is maximal.}
+    Desde el punto de vista de la compresión, la representación de la derecha es
+    {\em la más compacta} en el sentido de que la diferencia entre
+    la tasa de codificación cuando todas las características se codifican como una sola gaussiana
+    (azul) y la que se obtiene cuando las características se agrupan adecuadamente y se codifican
+    como dos subespacios separados (verde) es máxima.\footnote{Intuitivamente,
+        el cuociente entre el «volumen» de todo el espacio abarcado por todas las
+    características y el que realmente ocupan las características es máximo.}
 \end{example}
 
-Note that the above MCR$^2$  principle is designed for supervised
-learning problems, where the group memberships (or class labels) are
-known. There are a variety of ways to use the principle, or suitable
-generalizations, in ways which circumvent this requirement for class
-labels; we will discuss these later in this Chapter and in the next
-\Cref{ch:deep-networks}. To get a first taste, we extend the
-principle to unsupervised learning problems by introducing a
-membership matrix, which encodes the (potentially soft) assignment of
-each data point to latent groups or clusters. Specifically, let $\bm
-\Pi = \{\bm \Pi_k\}_{k=1}^K \subset \R^{N\times N}$ be a set of
-diagonal matrices whose diagonal entries encode the membership of the
-$N$ samples into $K$ classes. That is, $\bm \Pi$ lies in a simplex
+Tenga en cuenta que el principio MCR$^2$ mencionado anteriormente está diseñado para problemas de aprendizaje supervisado,
+en los que se conocen las pertenencias a grupos (o etiquetas de clase).
+Existen diversas formas de aplicar este principio, o generalizaciones adecuadas,
+de manera que se eluda este requisito de las etiquetas de clase;
+analizaremos estas opciones más adelante en este capítulo y en el siguiente
+\Cref{ch:deep-networks}. Para tener una primera idea, extendemos el
+principio a problemas de aprendizaje no supervisado mediante la introducción de una
+matriz de pertenencia, que codifica la asignación (potencialmente flexible) de
+cada punto de datos a grupos o clústeres latentes. Concretamente, sea $\bm
+\Pi = \{\bm \Pi_k\}_{k=1}^K \subset \R^{N\times N}$ un conjunto de
+matrices diagonales cuyos elementos diagonales codifican la pertenencia de las
+$N$ muestras a $K$ clases. Es decir, $\bm \Pi$ se encuentra en un simplex
 $\Omega \doteq \{\bm \Pi: \bm \Pi_k \ge \bm 0: \sum_{k=1}^K \bm \Pi_k
-= \bm I_N\}$. Then, we can define the average coding rate with
-respect to the partition $\bm \Pi$ as
+= \bm I_N\}$. Entonces, podemos definir la tasa de codificación promedio con
+respecto a la partición $\bm \Pi$ como
 \begin{align}\label{eq:MCRc}
     R_{\epsilon}^c(\vZ \mid \bm \Pi) \doteq \sum_{k=1}^K
     \frac{\mathrm{tr}(\bm \Pi_k)}{2N}\log\det\left(\bm I +
         \frac{d}{\mathrm{tr}(\bm \Pi_k)\epsilon^2}\bm Z\bm \Pi_k \bm
     Z^\top \right).
 \end{align}
-When $\bm Z$ is given, $R_{\epsilon}^c(\vZ \vert \bm \Pi)$ is a
-concave function of $\bm \Pi$. Then the MCR$^2$ principle for
-unsupervised learning problems becomes as follows:
+Cuando se da $\bm Z$, $R_{\epsilon}^c(\vZ \vert \bm \Pi)$ es una
+función cóncava de $\bm \Pi$. Entonces, el principio MCR$^2$ para
+problemas de aprendizaje no supervisado queda así:
 \begin{align}\label{eq:MCR pi}
     \max_{\bm \Pi, \theta} & \  \Delta R_{\epsilon}\big(\vZ  \mid \bm \Pi)
     \doteq R_{\epsilon}(\bm Z) - R_{\epsilon}^c(\vZ \mid \bm \Pi) \notag \\
     \mathrm{s.t.}  & \ \ \ \bm Z = f(\bm X, \theta),\ \|\bm Z \bm
     \Pi_k\|_F^2 = N_k,\ k = 1,\dots,K,\ \bm\Pi \in \Omega.
 \end{align}
-Compared to \eqref{eqn:maximal-rate-reduction}, the formulation here
-allows for the joint optimization of both the group memberships and
-the network parameters. In particular, when $\bm \Pi$ is fixed to a
-group membership matrix that assigns $N$ data points into $K$ groups,
-Problem \eqref{eq:MCR pi} can recover Problem
+En comparación con \eqref{eqn:maximal-rate-reduction}, la formulación aquí
+permite la optimización conjunta tanto de las pertenencias a grupos como
+de los parámetros de la red. En particular, cuando $\bm \Pi$ se fija como una
+matriz de pertenencia a grupos que asigna $N$ puntos de datos a $K$ grupos,
+el problema \eqref{eq:MCR pi} puede recuperar el problema
 \eqref{eqn:maximal-rate-reduction}.
-
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\linewidth]{\toplevelprefix/chapters/chapter4/figs/mcr2-global.png}
-    \caption{{\bf Local optimization landscape:} According to
-        \Cref{thm:MCR2-properties}, the global maximum of the rate reduction
-    objective corresponds to a solution with mutually incoherent subspaces.}
+    \caption{{\bf Landscape de optimización local:} Según
+        \Cref{thm:MCR2-properties}, el máximo global del objetivo de reducción de la tasa
+    corresponde a una solución con subespacios mutuamente incoherentes.}
     \label{fig:mcr-global}
 \end{figure}
 
-\begin{remark}[Computing Coding Rates]
-    It is a classical fact that computing the log-determinant of an
-    \(n \times n\) matrix takes \(\cO(n^{3})\) time to compute. Hence
-    computing the coding rates \(\Delta R_{\epsilon}\) or
-    \(R_{\epsilon}\) (etc.) seem intractable at the scale of modern
-    data analysis. There are several ways around this, which we will
-    use without comment in the experiments that power the rest of the book.
+\begin{remark}[El cálculo de las tasas de codficación]
+    Es un hecho bien conocido que calcular el logaritmo del determinante de una
+    matriz \(n \times n\) requiere un tiempo de orden \(\cO(n^{3})\). Por lo tanto,
+    calcular las tasas de codificación \(\Delta R_{\epsilon}\) o
+    \(R_{\epsilon}\) (etc.) parece una tarea inmanejable a la escala del análisis de datos
+    moderno. Hay varias formas de solucionar esto, que
+    utilizaremos sin más comentarios en los experimentos que sirven de base al resto del libro.
     \begin{itemize}
-        \item \textit{Use the structure of the coding rate.} Suppose
-            that \(\vZ\) is an element of \(\R^{d \times n}\). Then it holds
+        \item \textit{Utilizar la estructura de la tasa de codificación.} Supongamos
+            que \(\vZ\) es un elemento de \(\R^{d \times n}\). Entonces se cumple que
             \begin{equation}
                 \logdet(\vI + \alpha \vZ\vZ^{\top}) = \logdet(\vI +
                 \alpha \vZ^{\top}\vZ)
             \end{equation}
-            so computing the matrix product and computing the coding
-            rates requires time on the order of \(\min\{d^{2}n +
+            por lo que calcular el producto matricial y las tasas de codificación
+            requiere un tiempo del orden de \(\min\{d^{2}n +
             d^{3}, dn^{2} + n^{3}\}\).
-        \item \textit{Use the symmetry of the Gramian.}
-            Note that \(\vZ\vZ^{\top}\) (and similarly
-            \(\vZ^{\top}\vZ\)) is a symmetric matrix. Hence it is
-            relatively cheap (though still cubic time) to compute its
-            eigenvalues \(\lambda_{i}(\vZ\vZ^{\top})\). Then the
-            log-determinant can be expressed as follows:
+        \item \textit{Utilizar la simetría del Gramiano.}
+            Obsérvese que \(\vZ\vZ^{\top}\) (y, de manera similar,
+            \(\vZ^{\top}\vZ\)) es una matriz simétrica. Por lo tanto, resulta
+            relativamente sencillo (aunque sigue siendo de tiempo cúbico) calcular sus
+            valores propios \(\lambda_{i}(\vZ\vZ^{\top})\). Entonces, el
+            logaritmo del determinante se puede expresar de la siguiente manera:
             \begin{equation}
                 \logdet(\vI + \alpha \vZ\vZ^{\top}) = \sum_{i =
                 1}^{d}\log(1 + \alpha \lambda_{i}(\vZ\vZ^{\top})),
             \end{equation}
-            (and similarly for \(\vZ^{\top}\vZ\)). However, this
-            method is made redundant by the next method, which uses
-            more structure of the input and performs better.
-        \item \textit{Use the positive definiteness of the input to the log
-            determinant.} Since \(\vZ\vZ^{\top}\) (and similarly
-            \(\vZ^{\top}\vZ\)) is symmetric positive semidefinite,
-            the quantity \(\vI + \alpha \vZ\vZ^{\top}\) is symmetric
-            positive definite. This means we can compute the Cholesky
-            decomposition \(\vL\vL^{\top} = \vI + \alpha
-            \vZ\vZ^{\top}\), where \(\vL \in \R^{d \times d}\) is a
-            lower-triangular matrix with positive diagonal entries. Then
+            (y análogmente para \(\vZ^{\top}\vZ\)). Sin embargo, este
+            método queda obsoleto ante el siguiente, que aprovecha
+            mejor la estructura de los datos de entrada y ofrece mejores resultados.
+        \item \textit{Utilizar la positividad definida de los términos que intervienen en el
+            determinante logarítmico.} Dado que \(\vZ\vZ^{\top}\) (y, de manera análoga,
+            \(\vZ^{\top}\vZ\)) es simétrico y semidefinido positivo,
+            la cantidad \(\vI + \alpha \vZ\vZ^{\top}\) es simétrica
+            y definida positiva. Esto significa que podemos calcular la descomposición de Cholesky
+            \(\vL\vL^{\top} = \vI + \alpha
+            \vZ\vZ^{\top}\), donde \(\vL \in \R^{d \times d}\) es una
+            matriz triangular inferior con entradas diagonales positivas. Entonces
             \begin{equation}
                 \logdet(\vI + \alpha \vZ\vZ^{\top}) = 2\sum_{i =
                 1}^{d}\log(L_{ii}).
             \end{equation}
-            This method tends to be the cheapest in practice,
-            especially when also strategically deciding whether to
-            compute \(\vZ\vZ^{\top}\) or \(\vZ^{\top}\vZ\), though it
-            remains at cubic time complexity.
+            En la práctica, este método suele ser el más económico,
+            especialmente cuando también se decide estratégicamente si
+            calcular \(\vZ\vZ^{\top}\) o \(\vZ^{\top}\vZ\), aunque
+            sigue teniendo una complejidad temporal cúbica.
     \end{itemize}
 \end{remark}
 

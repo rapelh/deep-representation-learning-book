@@ -835,7 +835,7 @@ Por lo tanto, modelar la distribución de los parches con un único subespacio
 resulta inútil, pero una \textit{mezcla} de subespacios, uno para cada región, 
 ofrece unos resultados sorprendentemente buenos en la práctica, por ejemplo, para
 fines de segmentación o compresión \cite{Mobahi-IJCV2011}.\footnote{Volveremos 
-    sobre esta observación en \Cref{ch:deep-networks}, donde demostraremos que 
+    sobre esta observación en el \Cref{ch:deep-networks}, donde demostraremos que 
     puede generalizarse de manera significativa para aprender representaciones de 
 conjuntos de datos modernos a gran escala.} Veremos un ejemplo concreto en un capítulo posterior
 (\Cref{eg:image-segmentation}).
@@ -1204,7 +1204,7 @@ independientes y no gaussianas. Además, existe una clara correspondencia
 entre el aprendizaje por diccionario y el análisis clásico de componentes independientes
 (ICA), hasta el punto de que los algoritmos diseñados para resolver un problema
 pueden utilizarse para resolver el otro.\footnote{Analizamos este tema con
-    mayor profundidad en \Cref{exercise:symmetry-identifiability}, donde se
+    mayor profundidad en el \Cref{exercise:symmetry-identifiability}, donde se
     establece una relación entre la no gaussianidad de los componentes independientes y
     el concepto puramente geométrico de simetría. Este problema está
     relacionado con nuestra observación anterior de que el PCA no sirve para
@@ -1373,7 +1373,7 @@ Resulta que el algoritmo FastICA converge con extrema rapidez (de hecho, a
 una velocidad \textit{cúbica}) hacia las columnas del diccionario $\vU$; los lectores interesados
 pueden consultar \cite{hyvarinen-1997} para obtener más detalles.
 Al comparar el algoritmo FastICA \eqref{eq:fast-ica} con el método de potencias estudiado
-en \Cref{sub:pca} para el problema del PCA y el algoritmo MSP
+en la \Cref{sub:pca} para el problema del PCA y el algoritmo MSP
 \eqref{eq:msp_iteration}, observamos una sorprendente similitud. De hecho,
 FastICA es, en esencia, un método de potencias modificado, que utiliza el
 gradiente de la curtosis empírica en lugar del gradiente lineal más simple
@@ -1679,14 +1679,14 @@ diccionario \(\vA\).
 Ahora pasamos al caso más práctico y más difícil, en el que no conocemos
 ni \(\vA\) ni \(\vZ\) y tratamos de determinarlos a partir de un gran conjunto de datos.
 
-Una generalización directa de \Cref{eq:sparse_dl_lasso} sugiere
+Una generalización directa de la \Cref{eq:sparse_dl_lasso} sugiere
 resolver el problema
 \begin{equation}
     \min_{\tilde{\vA}, \tilde{\vZ}}\bc{\norm{\vX -
     \tilde{\vA}\tilde{\vZ}}_{F}^{2} + \lambda \norm{\tilde{\vZ}}_{1}}.
     \label{eqn:DL-overcomplete-try}
 \end{equation}
-Sin embargo, el término bilineal en \Cref{eqn:DL-overcomplete-try}
+Sin embargo, el término bilineal en la \Cref{eqn:DL-overcomplete-try}
 introduce una ambigüedad de escala
 que dificulta la convergencia: dado cualquier punto $(\tilde{\vA},
 \tilde{\vZ})$ y cualquier constante $c>0$, la sustitución
@@ -1718,7 +1718,7 @@ pueden resolverse mediante una gran variedad de algoritmos sofisticados
 la que ofrece el mismo algoritmo de descenso por gradiente proximal que
 utilizamos para resolver el problema de la codificación dispersa en la sección anterior.
 Podemos codificar cada restricción como un término de regularización adicional, mediante la
-función característica del conjunto de restricciones---los detalles se ofrecen en
+función característica del conjunto de restricciones---los detalles se ofrecen en el
 \Cref{example:prox-of-characteristic-function}.
 La aplicación del descenso por gradiente proximal al problema regularizado resultante es
 equivalente al \textit{descenso por gradiente proyectado}, en el que, en
@@ -1840,7 +1840,7 @@ mediante un diagrama:
 \end{equation*}
 Por lo tanto, dada la arquitectura secuencial, para aprender el operador
 \(\vA^\ell\) en cada capa, resulta totalmente natural hacerlo, por ejemplo, 
-mediante la retropropagación (BP),\footnote{Véase \Cref{sec:autodiff} para 
+mediante la retropropagación (BP),\footnote{Véase la \Cref{sec:autodiff} para 
     una breve descripción de
 la retropropagación.} minimizando el error entre el código final $\vZ^L$ y
 la verdad fundamental $\vZ$:
@@ -1930,7 +1930,7 @@ que $\vZ \geq \Zero$.\footnote{En el modelo de generación de datos
     de diccionario y código disperso $(\vA, \vZ)$ puede sustituirse por uno en el que
     $\vZ \geq \Zero$ simplemente duplicando el número de columnas en $\vA$, por lo que,
 desde el punto de vista del modelado, se trata de una suposición muy moderada.}
-Entonces (véase \Cref{example:prox-of-nonnegative-l1}), podemos considerar una arquitectura LISTA equivalente
+Entonces (véase el \Cref{example:prox-of-nonnegative-l1}), podemos considerar una arquitectura LISTA equivalente
 obtenida a partir del objetivo de codificación dispersa con una restricción adicional
 de no negatividad sobre $\vZ$ como
 \begin{equation}
@@ -2018,7 +2018,7 @@ el \Cref{ch:deep-networks} y el \Cref{ch:consistent-representations}.
 
 Obsérvese que el esquema por capas anterior también sugiere una alternativa plausible
 a la actual estrategia de optimización de extremo a extremo, que
-se basa principalmente en la retropropagación (BP), tal como se detalla en
+se basa principalmente en la retropropagación (BP), tal como se detalla en el
 \Cref{app:BP-section}. Liberar el entrenamiento de redes grandes de la dependencia de BP sería
 uno de los mayores retos y oportunidades del futuro, tal y como
 analizaremos con más detalle al final del libro en el \Cref{ch:future}.
@@ -2138,7 +2138,7 @@ relevantes para aplicaciones en las que predomina el aprendizaje profundo, const
 una de las cuestiones de investigación más importantes (y aún sin resolver) que se 
 plantean en este capítulo.
 
-La relación que establecemos en \Cref{sec:mixture-and-dict} entre la
+La relación que establecemos en la \Cref{sec:mixture-and-dict} entre la
 hipótesis de distribución de la mezcla geométrica de subespacios y la hipótesis del
 diccionario disperso, más conveniente desde el punto de vista analítico, ya se ha mencionado en trabajos anteriores,
 especialmente en aquellos centrados en el análisis de componentes principales generalizado
@@ -2146,7 +2146,7 @@ y en aplicaciones como la agrupación de subespacios; véase, por ejemplo, el tr
 La hipótesis de la mezcla de subespacios seguirá desempeñando un papel importante
 a lo largo de este trabajo, tanto como caso de prueba analítico para diferentes
 paradigmas algorítmicos y como base para derivar diferentes arquitecturas de redes profundas,
-tal como ocurre con LISTA en \Cref{sec:LISTA}, pero que puede adaptarse a distribuciones de datos
+tal como ocurre con LISTA en la \Cref{sec:LISTA}, pero que puede adaptarse a distribuciones de datos
 más complejas.
 
 \section{Ejercicios y ampliaciones}
@@ -2326,7 +2326,7 @@ más complejas.
     Para simplificar, supondremos que $\kurt(z_i) \neq 0$ para cada
     $i = 1, \dots, d$.
     \begin{enumerate}
-        \item Utilizando los resultados de la Parte 1 de \Cref{exercise:sphere-calculus},
+        \item Utilizando los resultados de la Parte 1 del \Cref{exercise:sphere-calculus},
             demuestre que la condición de optimalidad de primer orden para
             \eqref{eq:kurtosis-maximization-sphere-population-simple} es 
             \begin{equation}\label{eq:kurtosis-sphere-landscape-stationarity}
@@ -2352,7 +2352,7 @@ más complejas.
             y $0$ en todas las demás y el signo $\pm$ indica
             la elección de un signo positivo o negativo.
         \item Supongamos que existe al menos un $i$ tal que
-            $\kurt(z_i) > 0$. Utilizando los resultados de la Parte 2 de
+            $\kurt(z_i) > 0$. Utilizando los resultados de la Parte 2 del
             \Cref{exercise:sphere-calculus}, demuestre que los únicos máximos locales
             de la función objetivo de
             \eqref{eq:kurtosis-maximization-sphere-population-simple}
@@ -2367,7 +2367,7 @@ más complejas.
         \item Supongamos ahora que $\kurt(z_j) < 0$ para todo $j = 1,
             \dots, d$. Esto corresponde a una instanciación «sobredeflacionada»
             del problema de maximización de la curtosis. Utilizando
-            de nuevo los resultados de la Parte 2 de
+            de nuevo los resultados de la Parte 2 del
             \Cref{exercise:sphere-calculus}, muestre que los únicos máximos locales
             de la función objetivo de
             \eqref{eq:kurtosis-maximization-sphere-population-simple}
@@ -2379,11 +2379,11 @@ más complejas.
 \end{exercise}
 
 \begin{exercise}\label{exercise:orthogonal-group-calculus}
-    Este ejercicio sigue la estructura y el formalismo presentados en
+    Este ejercicio sigue la estructura y el formalismo presentados en el
     \Cref{exercise:sphere-calculus}, pero los aplica en este caso al
-    grupo ortogonal $\O(d) = \set{\vU \in \R^{d \times d} \dado que
+    grupo ortogonal $\O(d) = \set{\vU \in \R^{d \times d} \given 
     \vU^\top \vU = \vI}$.
-    Consulte la descripción de \Cref{exercise:sphere-calculus} para
+    Consulte la descripción del \Cref{exercise:sphere-calculus} para
     obtener los fundamentos conceptuales necesarios; el formalismo se aplica
     de manera idéntica al caso en el que el espacio envolvente es el conjunto de matrices $d
     \times d$, siempre y cuando se tenga en cuenta que el producto interno

@@ -1160,7 +1160,7 @@ a un ritmo superlineal.
     no convexo. En general, \textit{no} se debe esperar que ningún
     algoritmo voraz (por ejemplo, del tipo de descenso por gradiente) converja hacia
     la solución óptima global. Sorprendentemente, se puede demostrar que,
-    a diferencia de los programas no convexos generales, el landscape de la maximización de $\ell^4$
+    a diferencia de los programas no convexos generales, el paisaje de la maximización de $\ell^4$
     sobre una esfera
     \begin{equation}\label{eq:l4-maximization-sphere}
         \min\,
@@ -1276,7 +1276,7 @@ de forma equivalente como
     \sum_{i=1}^d \mathrm{kurt}(z_i) \tilde{w}_i^4.
 \end{equation}
 Se puede mostrar que, bajo el supuesto Bernoulli-gaussiano, el
-landscape de optimización de este problema es «benigno»
+paisaje de optimización de este problema es «benigno»
 (\Cref{exercise:kurtosis-sphere-landscape})---lo que significa que todos los máximos locales
 de la función objetivo corresponden a la recuperación de uno de
 los componentes independientes.
@@ -1389,7 +1389,7 @@ un diccionario ortogonal $\vU$ a partir de los datos. No obstante, para
 aprender representaciones de distribuciones generales de datos de alta dimensión,
 es necesario ampliar el tamaño del libro de códigos más allá del
 requisito de ortogonalidad, lo que significa que debemos tener $\vA \in \R^{D
-\times m}, con $m \gg D$, lo que corresponde al caso de un
+\times m}$, con $m \gg D$, lo que corresponde al caso de un
 diccionario/libro de códigos \textit{sobrecompleto},\footnote{Cambiamos la
     notación aquí de $\vU$ a $\vA$ para enfatizar la
     no ortogonalidad y la forma no cuadrada del diccionario sobrecompleto
@@ -1774,7 +1774,7 @@ donde la operación de proyección en la actualización de $\vA$ garantiza
 que cada columna tenga una norma $\ell^2$ máxima de la unidad, 
 mediante $\vA_j \mapsto \vA_j / \max \set{\norm{\vA_j}_2,1}$ y 
 donde $\vA_+$ se inicializa con cada columna independiente e 
-idénticamente distribuida \$\cN(\Zero, \tfrac{1}{D} \vI)$.
+idénticamente distribuida $\cN(\Zero, \tfrac{1}{D} \vI)$.
 Lo anterior consiste en un «bloque» de minimización alterna,
 repitiéndose dichos bloques, cada uno con inicializaciones 
 independientes, hasta alcanzar la convergencia.
@@ -2317,7 +2317,7 @@ más complejas.
 
 \begin{exercise}\label{exercise:kurtosis-sphere-landscape}
     En este ejercicio, esbozamos un argumento conocido en la
-    literatura como \textit{análisis de landscape} para el
+    literatura como \textit{análisis de paisaje} para el
     problema de maximización de la curtosis de una población con restricción esférica
     \eqref{eq:kurtosis-maximization-sphere-population-simple}. Demostraremos
     que, cuando hay al menos un componente independiente

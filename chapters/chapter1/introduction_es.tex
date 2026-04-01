@@ -2353,9 +2353,9 @@ de la siguiente forma:
     \label{eqn:auto-encoding-objective}
 \end{equation}
 donde \(\ell(\cdot, \cdot)\) es una función de distancia que favorece
-la similitud entre \(\vX\) y \(\hat{\vX}\footnote{Ya sea
+la similitud entre \(\vX\) y \(\hat{\vX}\)\footnote{Ya sea
     a nivel de muestras o a nivel de distribución, dependiendo de la elección de
-\(\ell\)} y \(\rho(\vZ\)\) es una medida que favorece la parsimonia y
+\(\ell\).} y \(\rho(\vZ)\) es una medida que favorece la parsimonia y
 la riqueza de información de \(\vZ\). El análisis de componentes principales
 clásico (PCA) \cite{JolliffeI2002} es un ejemplo típico de
 autocodificación consistente, que estudiaremos en detalle en el
@@ -2482,7 +2482,7 @@ se ilustra en la \ref{fig:mental-picture}.
 
 Como veremos en el \ref{ch:deep-networks}, la función de las redes profundas modernas
 puede interpretarse precisamente como la realización de los
-operadores\footnote{mediante optimización desplegada, como veremos} necesarios
+operadores\footnote{mediante optimización desenroscada, como veremos} necesarios
 para llevar a cabo las transformaciones anteriores entre distribuciones.
 Las arquitecturas populares de redes neuronales profundas (como las CNN, ResNet o
 Transformers) que se desarrollaron de forma empírica

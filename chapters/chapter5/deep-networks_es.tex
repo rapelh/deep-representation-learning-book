@@ -313,7 +313,7 @@ R_{\epsilon}}{\partial \bm Z}(\Z^\ell) \in \Re^{d\times N}$ tiene la  forma:
         q^\ell\|_2^2 + \|\bm q^\ell\|_2^2\big\}.\)}
     \end{gather}
     Obsérvese que $\bm q^\ell_\star$ es exactamente la solución de la
-    regresión ridge para todos los puntos de datos $\bm Z^\ell$ en cuestión.
+    regresión de crestas para todos los puntos de datos $\bm Z^\ell$ en cuestión.
     Por lo tanto, $\bm E^\ell$ (y de manera similar para $\bm C^\ell_k$) es
     aproximadamente (es decir, cuando $N$ es lo suficientemente grande) la proyección
     sobre el complemento ortogonal del subespacio generado por las columnas
@@ -345,104 +345,104 @@ R_{\epsilon}}{\partial \bm Z}(\Z^\ell) \in \Re^{d\times N}$ tiene la  forma:
     \begin{figure}[t]
         \centering
         \includegraphics[width=0.65\linewidth]{\toplevelprefix/chapters/chapter5/figs/expand_compress.png}
-        \caption{\small Interpretation of $\bm C^\ell_k$ and $\bm
-            E^\ell$: $\bm C^\ell_k$ compresses each class by contracting
-            the features to a low-dimensional subspace; $\bm E^\ell$
-            expands all features by contrasting and repelling features
-        across different classes.}
+        \caption{\small Interpretación de $\bm C^\ell_k$ y $\bm
+            E^\ell$: $\bm C^\ell_k$ comprime cada clase contrayendo
+            las características a un subespacio de baja dimensión; $\bm E^\ell$
+            expande todas las características contrastando y repeliendo características
+        entre diferentes clases.}
         \label{fig:regression-interpretation}
     \end{figure}
 
-    Essentially, the linear operations $\bm E^\ell$ and $\bm
-    C_k^\ell$ in gradient ascent for rate reduction are determined by
-    training data conducting ``auto-regressions''. The recent renewed
-    understanding about ridge regression in an over-parameterized
-    setting \cite{yang2020rethinking,Wu2020OnTO} indicates that using
-    seemingly redundantly sampled data (from each subspace) as
-    regressors do not lead to overfitting.
+    En esencia, las operaciones lineales $\bm E^\ell$ y $\bm
+    C_k^\ell$ en el método de ascenso por gradiente para la reducción de la tasa se determinan mediante
+    los datos de entrenamiento que realizan «autorregresiones». Los recientes avances
+    en la comprensión de la regresión de crestas en un contexto sobreparametrizado
+    \cite{yang2020rethinking,Wu2020OnTO} indican que el uso
+    de datos aparentemente muestreados de forma redundante (de cada subespacio) como
+    regresores no conduce a sobreajuste.
 \end{remark}
 
-\paragraph{Gradient-guided feature map increment.} Notice that in the
-above, the gradient ascent considers all the features $\Z^{\ell} =
-[\z^{\ell}_{1}, \dots, \z^{\ell}_{N}]$ as free variables. The
-increment $\Z^{\ell+1} - \Z^{\ell} = \eta \frac{\partial \Delta
-R_{\epsilon}}{\partial \bm Z}(\Z^\ell)$ does not yet give a
-transformation on the entire feature domain $\z^\ell \in \Re^d$.
-According to equation \eqref{eqn:DR-gradient}, the gradient cannot be
-evaluated at a point whose membership is not known, as illustrated in
-\Cref{fig:gradient-flow}. Hence, in order to find the optimal
-$f(\x,\bm  \theta)$ explicitly, we may consider constructing a small
-increment transform $g(\cdot, \theta^{\ell})$ on the $\ell$-th
-layer feature $\z^\ell$ to emulate the above (projected) gradient scheme:
+\paragraph{Incremento del mapa de características guiado por gradientes.} Nótese que en lo
+anterior, el ascenso por gradiente considera todas las características $\Z^{\ell} =
+[\z^{\ell}_{1}, \dots, \z^{\ell}_{N}]$ como variables libres. El
+incremento $\Z^{\ell+1} - \Z^{\ell} = \eta \frac{\partial \Delta
+R_{\epsilon}}{\partial \bm Z}(\Z^\ell)$ aún no proporciona una
+transformación en todo el dominio de características $\z^\ell \in \Re^d$.
+Según la ecuación \eqref{eqn:DR-gradient}, el gradiente no puede
+calcularse en un punto cuya pertenencia se desconoce, tal como se ilustra en
+\Cref{fig:gradient-flow}. Por lo tanto, para hallar la
+$f(\x,\bm  \theta)$ de forma explícita, podemos considerar la construcción de una
+transformación de incremento pequeño $g(\cdot, \theta^{\ell})$ sobre la característica de la
+$\ell$-ésima capa $\z^\ell$ para emular el esquema de gradiente (proyectado) anterior:
 \begin{equation}
     \z^{\ell + 1}   \; \propto \; \z^{\ell} + \eta\cdot  g(\z^{\ell},
     \theta^{\ell}) \quad \mbox{subject to} \quad \z^{\ell +1}
     \in \mathbb{S}^{d-1}
     \label{eqn:gradient-descent-transform}
 \end{equation}
-such that $\big[g(\z_1^{\ell}, \bm \theta^{\ell}), \ldots,
+de tal manera que $\big[g(\z_1^{\ell}, \bm \theta^{\ell}), \ldots,
 g(\z_N^{\ell}, \bm \theta^{\ell}) \big] \approx \frac{\partial \Delta
-R_{\epsilon}}{\partial \bm Z}(\Z^\ell).$ That is, we need to
-approximate the gradient flow $\frac{\partial \Delta
-R_{\epsilon}}{\partial \bm Z}$ that locally deforms all (training)
-features $\{\z_i^\ell\}_{i=1}^N$ with a continuous mapping $g(\z,\bm
-\theta)$ defined on the entire feature space $\z^\ell \in \Re^d$.
-Notice that one may interpret the increment
-\eqref{eqn:gradient-descent-transform} as a discretized version of a
-continuous  differential equation:
+R_{\epsilon}}{\partial \bm Z}(\Z^\ell).$ Es decir, necesitamos
+aproximar el flujo del gradiente $\frac{\partial \Delta
+R_{\epsilon}}{\partial \bm Z}$ que deforma localmente todas las características (de entrenamiento)
+$\{\z_i^\ell\}_{i=1}^N$ con un mapeo continua $g(\z,\bm
+\theta)$ definida en todo el espacio de características $\z^\ell \in \Re^d$.
+Obsérvese que el incremento
+\eqref{eqn:gradient-descent-transform} puede interpretarse como una versión discretizada de una
+ecuación diferencial continua:
 \begin{equation}
     \dot{\z} = g(\z, \theta).
 \end{equation}
-Hence the (deep) network so constructed can be interpreted as a
-certain neural ODE \cite{chen2018neural}. Nevertheless, unlike neural
-ODE where the flow $g$ is chosen to be some generic structures, here
-our $g(\z, \bm\theta)$ is to emulate the gradient flow of the rate
-reduction on the feature set (as shown in \Cref{fig:gradient-flow}):
+Por lo tanto, la red (profunda) así construida puede interpretarse como una
+determinada ecuación diferencial ordinaria neuronal \cite{chen2018neural}. Sin embargo, a diferencia de la
+ODE neuronal, donde el flujo $g$ se elige para que sea una estructura genérica, aquí
+nuestro $g(\z, \bm\theta)$ emula el flujo de gradiente de la reducción de la tasa
+en el conjunto de características (como se muestra en la \Cref{fig:gradient-flow}):
 \begin{equation*}
     \dot{\Z} = \frac{\partial \Delta R_{\epsilon}}{\partial \bm Z},
 \end{equation*}
-and its structure is entirely derived and fully determined from this
-objective, without any other priors or heuristics.
+y su estructura se deriva y se determina íntegramente a partir de este
+objetivo, sin ningún otro supuesto previo ni heurística.
 
-By inspecting the structure of the gradient \eqref{eqn:DR-gradient},
-it suggests that a natural candidate for the increment transform
-$g(\z^\ell, \bm \theta^\ell)$ is of the form:
+Al examinar la estructura del gradiente \eqref{eqn:DR-gradient},
+se deduce que una opción natural para la transformación de incremento
+$g(\z^\ell, \bm \theta^\ell)$ es de la forma:
 \begin{equation}
     g(\z^\ell, \bm \theta^\ell) \; \doteq \; \bm E^\ell \z^\ell -
     \sum_{k=1}^K \gamma_{k} \pi_k(\z^\ell)\bm C_{k}^{\ell}  \z^{\ell}
     \in \Re^d,
     \label{eqn:DR-gradient-transform}
 \end{equation}
-where $\pi_k(\z^\ell) \in [0,1]$ indicates the probability of
-$\z^{\ell}$ belonging to the $k$-th class. The increment map
-parameters $\bm \theta^\ell$ depend on: First, a set of linear maps
-represented by $\bm E^{\ell}$ and $\{ \bm C^{\ell}_{k}\}_{k=1}^{K}$
-that depend only on statistics of features of the training $\Z^\ell$;
-Second, the membership $\{ \pi_k(\z^\ell)\}_{k=1}^K$ of any feature $\z^\ell$.
-Notice that on the training samples $\Z^\ell$, for which the
-memberships $\bm \Pi_k$ are known,  the so defined $g(\z^\ell, \bm
-\theta)$ gives exactly the values for the gradient $\frac{\partial
+donde $\pi_k(\z^\ell) \in [0,1]$ indica la probabilidad de que
+$\z^{\ell}$ pertenezca a la clase $k$-ésima. Los parámetros del mapa de incremento
+$\bm \theta^\ell$ dependen: En primer lugar, de un conjunto de mapas lineales
+representados por $\bm E^{\ell}$ y $\{ \bm C^{\ell}_{k}\}_{k=1}^{K}$
+que dependen únicamente de las estadísticas de las características del entrenamiento $\Z^\ell$.
+En segundo lugar, de la pertenencia $\{ \pi_k(\z^\ell)\}_{k=1}^K$ de cualquier característica $\z^\ell$.
+Nótese que, en las muestras de entrenamiento $\Z^\ell$, para las que se conocen las
+pertenencias $\bm \Pi_k$, la función $g(\z^\ell, \bm
+\theta)$ así definida proporciona exactamente los valores del gradiente $\frac{\partial
 \Delta R_{\epsilon}}{\partial \bm Z}(\Z^\ell)$.
 
-Since we only have the membership  for the training samples, the
-function $g(\cdot)$ defined in \eqref{eqn:DR-gradient-transform} can
-only be evaluated on the training. To extrapolate $g(\cdot)$ to the
-entire feature space, we need to estimate $\pi_k(\z^\ell)$ in its
-second term. In conventional deep learning, this map is typically
-modeled as a deep network and learned from the training data, say via
-{\em back propagation}. Nevertheless, our goal here is not to learn a
-precise classifier $\pi_{k}(\z^\ell)$ already. Instead, we only need
-a good enough estimate of the class information in order for
-$g(\cdot)$ to approximate the gradient $\frac{\partial \Delta
-R_{\epsilon}}{\partial \bm Z}$ well.
+Dado que solo disponemos de la función de pertenencia para los datos de entrenamiento, la
+función $g(\cdot)$ definida en \eqref{eqn:DR-gradient-transform} solo puede
+calcularse sobre los datos de entrenamiento. Para extrapolar $g(\cdot)$ a todo el
+espacio de características, necesitamos estimar $\pi_k(\z^\ell)$ en su
+segundo término. En el aprendizaje profundo convencional, este mapa suele
+modelarse como una red profunda y aprenderse a partir de los datos de entrenamiento, por ejemplo, mediante
+{\em la retropropagación}. Sin embargo, nuestro objetivo aquí no es aprender ya un
+clasificador preciso $\pi_{k}(\z^\ell)$. En cambio, solo necesitamos
+una estimación lo suficientemente buena de la información de clase para que
+$g(\cdot)$ aproxime bien el gradiente $\frac{\partial \Delta
+R_{\epsilon}}{\partial \bm Z}$.
 
-From the geometric interpretation of the linear maps $\bm E^\ell$ and
-$\bm C_k^\ell$ given by \Cref{rem:regression-interpretation}, the
-term $\bm p_{k}^{\ell} \doteq \bm C^{\ell}_k \z^{\ell}$ can be viewed
-as (approximately) the projection of $\z^{\ell}$ onto the orthogonal
-complement of each class $j$. Therefore, $\|\bm p_{j}^{\ell}\|_2$ is
-small if $\z^\ell$ is in class $j$ and large otherwise. This
-motivates us to estimate its membership based on the following softmax function:
+A partir de la interpretación geométrica de las aplicaciones lineales $\bm E^\ell$ y
+$\bm C_k^\ell$ dada por \Cref{rem:regression-interpretation}, el
+término $\bm p_{k}^{\ell} \doteq \bm C^{\ell}_k \z^{\ell}$ puede considerarse
+como (aproximadamente) la proyección de $\z^{\ell}$ sobre el complemento ortogonal
+de cada clase $j$. Por lo tanto, $\|\bm p_{j}^{\ell}\|_2$ es
+pequeño si $\z^\ell$ está en la clase $j$ y grande en caso contrario. Esto
+nos lleva a estimar su pertenencia basándonos en la siguiente función softmax:
 \begin{align}
     \widehat{\vpi}(\z^\ell) &\doteq
     \softmax\rp{-\lambda\mat{\norm{\vC^{\ell}_{1}\vz^{\ell}}_{2}
@@ -452,8 +452,8 @@ motivates us to estimate its membership based on the following softmax function:
     \\ \vdots \\ \exp(-\lambda\norm{\vC^{\ell}_{K}\vz^{\ell}}_{2})}
     \in [0,1]^{K}.
 \end{align}
-Hence, the second term of \eqref{eqn:DR-gradient-transform} can be
-approximated by this estimated membership:
+Por lo tanto, el segundo término de \eqref{eqn:DR-gradient-transform} puede
+aproximarse mediante esta pertenencia estimada:
 \begin{equation}
     \sum_{k=1}^K \gamma_{k} \pi_k(\z^\ell)\bm C_{k}^{\ell}  \z^{\ell}
     \; \approx \;  \sum_{k=1}^K \gamma_{k} \widehat{\pi}_k(\z^\ell)
@@ -462,15 +462,15 @@ approximated by this estimated membership:
     \bm{C}^{\ell}_{K} \z^{\ell}]\Big),
     \label{eqn:soft-residual}
 \end{equation}
-which is denoted as a nonlinear operator $\bm \sigma(\cdot)$ on
-outputs of the feature $\z^\ell$ through $K$ groups of filters:
-$[\bm{C}^{\ell}_{1}, \dots, \bm{C}^{\ell}_{K}]$. Notice that the
-nonlinearality arises due to a ``soft'' assignment of class
-membership based on the feature responses from those filters.
+que se denota como un operador no lineal $\bm \sigma(\cdot)$ sobre
+las salidas de la característica $\z^\ell$ a través de $K$ grupos de filtros:
+$[\bm{C}^{\ell}_{1}, \dots, \bm{C}^{\ell}_{K}]$. Obsérvese que la
+no linealidad surge debido a una asignación «suave» de la pertenencia a una clase
+basada en las respuestas de las características de esos filtros.
 
-Overall, combining \eqref{eqn:gradient-descent-transform},
-\eqref{eqn:DR-gradient-transform}, and \eqref{eqn:soft-residual},
-the increment feature transform from $\z^{\ell}$ to $\z^{\ell+1}$ now becomes
+En general, al combinar \eqref{eqn:gradient-descent-transform},
+\eqref{eqn:DR-gradient-transform} y \eqref{eqn:soft-residual},
+la transformación incremental de características de $\z^{\ell}$ a $\z^{\ell+1}$ queda ahora así:
 \begin{align}\label{eqn:layer-approximate}
     \z^{\ell+1}  &\propto \; \z^\ell +  \eta \cdot  \bm E^{\ell}
     \z^{\ell} - \eta\cdot  \bm \sigma\big([\bm{C}^{\ell}_{1}
@@ -478,19 +478,19 @@ the increment feature transform from $\z^{\ell}$ to $\z^{\ell+1}$ now becomes
     &= \; \z^\ell +  \eta \cdot g(\z^\ell, \bm \theta^\ell)
     \qquad \mbox{s.t.} \quad \z^{\ell +1} \in \mathbb{S}^{d-1},
 \end{align}
-with the nonlinear function $\bm \sigma(\cdot)$ defined above and
-$\bm \theta^\ell$ collecting all the layer-wise parameters. That is
+con la función no lineal $\bm \sigma(\cdot)$ definida anteriormente y
+$\bm \theta^\ell$ que recoge todos los parámetros por capa. Es decir,
 $\bm \theta^\ell =\left\{\bm E^\ell, \bm{C}^{\ell}_{1}, \dots,
-\bm{C}^{\ell}_{K}, \gamma_{k}, \lambda\right\}$. Note features at
-each layer are always ``normalized'' by projecting onto the unit
-sphere $\mathbb S^{d-1}$, denoted as $\mathcal P_{\mathbb S^{d-1}}$,
-i.e., dividing each feature by its norm.\footnote{This mirrors the
-    common LayerNorm block in neural networks, which computes the
-    projected feature and then multiplies and adds by trainable
-    parameters \citep{ba2016layer}, see
-\Cref{sub:contrastive_learning_architecture} for more details.}
-The form of increment in \eqref{eqn:layer-approximate} can be
-illustrated by a diagram in \Cref{fig:arch-ReduNet}(a).
+\bm{C}^{\ell}_{K}, \gamma_{k}, \lambda\right\}$. Tenga en cuenta que las características de
+cada capa siempre se «normalizan» mediante la proyección sobre la esfera
+unitaria $\mathbb S^{d-1}$, denotada como $\mathcal P_{\mathbb S^{d-1}}$,
+es decir, dividiendo cada característica por su norma.\footnote{Esto refleja el
+    bloque LayerNorm habitual en las redes neuronales, que calcula la
+    característica proyectada y, a continuación, la multiplica y suma mediante parámetros
+    entrenables \citep{ba2016layer}; véase
+\Cref{sub:contrastive_learning_architecture} para obtener más detalles.}
+La forma del incremento en \eqref{eqn:layer-approximate} puede
+ilustrarse mediante un diagrama en la \Cref{fig:arch-ReduNet}(a).
 
 \begin{figure}[t]
     \begin{subfigure}[t]{0.4\textwidth}
@@ -502,33 +502,33 @@ illustrated by a diagram in \Cref{fig:arch-ReduNet}(a).
     \begin{subfigure}[t]{0.58\textwidth}
         \centering
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/resnet_resnext.pdf}
-        \caption{\textbf{ResNet} and \textbf{ResNeXt}.}
+        \caption{\textbf{ResNet} y \textbf{ResNeXt}.}
     \end{subfigure}
-    \caption{\small Network Architectures of the ReduNet and
-        comparison with others. \textbf{(a)}: Layer structure of the
-        \textbf{ReduNet} derived from one iteration of gradient ascent
-        for optimizing rate reduction. \textbf{(b)} (left): A layer of
-        ResNet~\cite{he2016deep}; and \textbf{(b)} (right): A layer of
-        ResNeXt~\cite{ResNEXT}. As we will see in
-        \Cref{sec:shift-invariant}, the linear operators $\bm E^\ell$ and
-        $\bm{C}_k^\ell$ of the ReduNet naturally become (multi-channel)
-    convolutions when shift-invariance is imposed.}
+    \caption{\small Arquitecturas de red de ReduNet y
+        comparación con otras. \textbf{(a)}: Estructura de capas de
+        \textbf{ReduNet} derivada de una iteración de ascenso por gradiente
+        para optimizar la reducción de la tasa. \textbf{(b)} (izquierda): Una capa de
+        ResNet~\cite{he2016deep}; y \textbf{(b)} (derecha): Una capa de
+        ResNeXt~\cite{ResNEXT}. Como veremos en
+        \Cref{sec:shift-invariant}, los operadores lineales $\bm E^\ell$ y
+        $\bm{C}_k^\ell$ de ReduNet se convierten naturalmente en convoluciones (multicanal)
+    cuando se impone la invariancia al desplazamiento.}
     \label{fig:arch-ReduNet}
 \end{figure}
 
 \begin{algorithm}[t]
-    \caption{Training algorithm for ReduNet}
+    \caption{Algoritmo de entrenamiento para ReduNet}
     \label{alg:redunet_training}
     \begin{algorithmic}[1]
         \Require{$\vX = [\vx_1, \ldots, \vx_N]\in \Re^{D \times N}$,
             $\bm{\Pi} = \{\bm \Pi_k\}_{k=1}^K$, $\epsilon > 0$,
-        $\lambda$, and a learning rate $\eta$.}
-        \Ensure{The learned parameters \(\{\vE^{\ell}\}_{\ell =
+        $\lambda$ y una tasa de aprendizaje $\eta$.}
+        \Ensure{Los parámetros aprendidos \(\{\vE^{\ell}\}_{\ell =
                 1}^{L}, \{\{\vC^{\ell}_{k}\}_{k = 1}^{K}\}_{\ell = 1}^{L},
         \{\gamma_{k}\}_{k = 1}^{k}\)}
 
         \Procedure{ReduNetTraining}{$\vX, \vPi, \epsilon, \lambda, \eta$}
-        \Statex{\quad\ \texttt{\# Define constants}}
+        \Statex{\quad\ \texttt{\# Definir constantes}}
 
         \State{\(\alpha \gets d/(N\epsilon^{2})\)}
         \For{\(k \in \{1, \dots, K\}\)}
@@ -537,11 +537,11 @@ illustrated by a diagram in \Cref{fig:arch-ReduNet}(a).
         \EndFor
         \Statex{}
 
-        \Statex{\quad\ \texttt{\# ReduNet layer-by-layer iteration}}
+        \Statex{\quad\ \texttt{\# Iteración capa por capa de ReduNet}}
         \State{\(\vZ^{1} = \mat{\vz_{1}^1, \dots, \vz_{N}^1} \gets
-        \vX\)} \Comment{Initialize the ReduNet per-layer iteration}
+        \vX\)} \Comment{Inicializar la iteración ReduNet por capas}
         \For{\(\ell \in \{1, \dots, L\}\)}
-        \Statex{\qquad\quad\ \texttt{\# Step 1: Compute network parameters}
+        \Statex{\qquad\quad\ \texttt{\# Paso 1: Calcular los parámetros de la red}
         \(\vE^{\ell}, \{\vC^{\ell}_{k}\}_{k = 1}^{K}\)}
         \State{\(\vE^{\ell} \gets \alpha\left(\vI + \alpha
         \vZ^{\ell}(\vZ^{\ell})^{\top}\right)^{-1} \in \R^{d \times d}\)}
@@ -551,16 +551,16 @@ illustrated by a diagram in \Cref{fig:arch-ReduNet}(a).
         \in \R^{d \times d}\)}
         \EndFor
         \Statex{}
-        \Statex{\qquad\quad\texttt{\# Step 2: Update features \(\vZ^{\ell}\)}}
+        \Statex{\qquad\quad\texttt{\# Paso 2: Actualizar características \(\vZ^{\ell}\)}}
         \For{\(i \in \{1, \dots, N\}\)}
-        \Statex{\qquad\qquad\quad\texttt{\# Compute soft assignments
+        \Statex{\qquad\qquad\quad\texttt{\# Calcular asignaciones blandas
         \(\hat{\vpi}(\vz^{\ell}_i)\)}}
         \State{\(\hat{\vpi}(\vz^{\ell}_i) \gets \displaystyle
                 \softmax(-\lambda[\norm{\vC^{\ell}_{1}\vz^{\ell}_i}_{2},
                 \dots, \norm{\vC^{\ell}_{K}\vz^{\ell}_i}_{2}]) \in [0,
         1]^{K}\)}
         \Statex{}
-        \Statex{\qquad\qquad\quad\texttt{\# Update
+        \Statex{\qquad\qquad\quad\texttt{\# Actualizar
         features \(\vz^{\ell + 1}_i\) from \(\vz^{\ell}_i\)}}
         \State{\(\displaystyle\vz^{\ell + 1}_i \gets \cP_{\bS^{d -
                 1}}\rp{\vz^{\ell}_i + \eta \bp{\vE^{\ell}\vz^{\ell}_i -
@@ -569,7 +569,7 @@ illustrated by a diagram in \Cref{fig:arch-ReduNet}(a).
         \EndFor
         \EndFor
         \Statex{}
-        \Statex{\quad\ \texttt{\# Return all network parameters.}}
+        \Statex{\quad\ \texttt{\# Devolver todos los parámetros de la red.}}
         \State{\Return{\(\{\vE^{\ell}\}_{\ell = 1}^{L},
                     \{\{\vC^{\ell}_{k}\}_{k = 1}^{K}\}_{\ell = 1}^{L},
         \{\gamma_{k}\}_{k = 1}^{K}\)}}
@@ -577,15 +577,15 @@ illustrated by a diagram in \Cref{fig:arch-ReduNet}(a).
     \end{algorithmic}
 \end{algorithm}
 
-\paragraph{Deep network for optimizing rate reduction.} Notice that
-the increment is constructed to emulate the gradient ascent for the
-rate reduction $\Delta R_\epsilon$. Hence by transforming the
-features iteratively via the above process, we expect the rate
-reduction to increase, as we will see in the experimental section.
-This iterative process, once converged, say after $L$ iterations,
-gives the desired feature map $f(\x, \bm \theta)$ on the input $\x =
-\z^0$, precisely in the form of a {\em deep network}, in which each
-layer has the structure shown in \Cref{fig:arch-ReduNet} left:
+\paragraph{Red profunda para optimizar la reducción de tasas.} Obsérvese que
+el incremento está diseñado para emular el ascenso del gradiente para la
+reducción de la tasa $\Delta R_\epsilon$. Por lo tanto, al transformar las
+características de forma iterativa mediante el proceso anterior, esperamos que la
+reducción de la tasa aumente, como veremos en la sección experimental.
+Este proceso iterativo, una vez que converge, por ejemplo tras $L$ iteraciones,
+proporciona el mapa de características deseado $f(\x, \bm \theta)$ sobre la entrada $\x =
+\z^0$, precisamente en forma de una {\em red profunda}, en la que cada
+capa tiene la estructura que se muestra en \Cref{fig:arch-ReduNet} a la izquierda:
 \begin{align}\label{eqn:ReduNet}
     f(\x, \bm \theta)\; =&  \;\;f^L \circ f^{L-1} \circ  \cdots
     \circ f^1 \circ
@@ -597,59 +597,59 @@ layer has the structure shown in \Cref{fig:arch-ReduNet} left:
     \z^{\ell} -  \bm \sigma\big([\bm{C}^{\ell}_{1} \z^{\ell},
     \dots, \bm{C}^{\ell}_{K} \z^{\ell}]\big).
 \end{align}
-As this deep network is derived from maximizing the rate
-\textbf{redu}ction, we call it the \textbf{ReduNet}. By comparing
-the architecture of ReduNet with those of popular empirically
-designed networks, \textbf{ResNet} and \textbf{ResNeXt} shown in
-\Cref{fig:arch-ReduNet}, the similarity is somewhat uncanny.
-Conceptually, ReduNet could also be used to justify the popular
-mixture of experts (\textbf{MoE}) architecture \cite{MoE} as each
-parallel channel, $\bm{C}^{\ell}_k$, can be viewed as an ``expert''
-trained for each class of objects.
+Dado que esta red profunda se deriva de la maximización de la tasa
+\textbf{de reducción}, la denominamos \textbf{ReduNet}. Al comparar
+la arquitectura de ReduNet con la de redes populares diseñadas empíricamente,
+\textbf{ResNet} y \textbf{ResNeXt}, tal como se muestra en la
+\Cref{fig:arch-ReduNet}, la similitud resulta casi inquietante.
+Desde un punto de vista conceptual, ReduNet también podría utilizarse para justificar la popular
+arquitectura de mezcla de expertos (\textbf{MoE}) \cite{MoE}, ya que cada
+canal paralelo, $\bm{C}^{\ell}_k$, puede considerarse un «experto»
+entrenado para cada clase de objetos.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.45\linewidth]{\toplevelprefix/chapters/chapter5/figs/MoE.png}
     \hspace{5mm}
     \includegraphics[width=0.45\linewidth]{\toplevelprefix/chapters/chapter5/figs/switched-transformer.png}
-    \caption{Left: a mixture of experts (MoE) deep network
-        \cite{MoE}. Right: a sparsity-promoting Switch Transformer
-    \cite{Fedus-2022}, used to implement MoE with 1.7 trillion parameters.}
+    \caption{Izquierda: una red profunda con mezcla de expertos (MoE)
+        \cite{MoE}. Derecha: un Switch Transformer que promueve la dispersión
+    \cite{Fedus-2022}, utilizado para implementar MoE con 1,7 billones de parámetros.}
     \label{fig:enter-label}
 \end{figure}
 
-We summarize the training and evaluation of ReduNet in
-\Cref{alg:redunet_training} and \Cref{alg:redunet_evaluation},
-respectively.  Notice that all parameters of the network are
-explicitly constructed layer by layer in a {\em forward propagation}
-fashion. The construction does not need any back propagation! The
-so-learned features can be directly used for classification, say via
-a nearest subspace classifier.
+Resumimos el entrenamiento y la evaluación de ReduNet en
+\Cref{alg:redunet_training} y \Cref{alg:redunet_evaluation},
+respectivamente.  Cabe destacar que todos los parámetros de la red se
+construyen explícitamente capa por capa mediante una {\em propagación hacia adelante}.
+¡Esta construcción no requiere retropropagación! Las características así 
+aprendidas pueden utilizarse directamente para la clasificación, por ejemplo, mediante
+un clasificador de subespacio más cercano.
 
 \begin{algorithm}[!htbp]
-    \caption{Evaluation algorithm for ReduNet}
+    \caption{Algoritmo de evaluación para ReduNet}
     \label{alg:redunet_evaluation}
     \begin{algorithmic}[1]
-        \Require{Input \(\vx \in \R^{D}\), network parameters
+        \Require{Input \(\vx \in \R^{D}\), parámetros de la red
             \(\{\vE^{\ell}\}_{\ell = 1}^{L}, \{\{\vC^{\ell}_{k}\}_{k =
             1}^{K}\}_{\ell = 1}^{L}, \{\gamma_{k}\}_{k = 1}^{K}\),
         learning rate \(\lambda\)}
-        \Ensure{feature \(\vz^{L + 1}\)}
+        \Ensure{característica \(\vz^{L + 1}\)}
 
         \Procedure{ReduNetEvaluation}{$\vx$}
-        \Statex{\quad\ \texttt{\# Initialize
-        the ReduNet per-layer iteration}}
+        \Statex{\quad\ \texttt{\# Inicializar
+        la iteración por capas de ReduNet}}
         \State{\(\vz^{1} \gets \vx \in \R^{D}\)}
         \Statex{}
         \For{\(\ell \in \{1, \dots, L\}\)}
-        \Statex{\qquad\quad\texttt{\# Compute soft assignments
+        \Statex{\qquad\quad\texttt{\# Calcular las asignaciones blandas
         \(\hat{\vpi}(\vz^{\ell})\)}}
         \State{\(\hat{\vpi}(\vz^{\ell}) \gets
                 \softmax(-\lambda\mat{\norm{\vC^{\ell}_{1}\vz^{\ell}}_{2},
                 \dots, \norm{\vC^{\ell}_{K}\vz^{\ell}}_{2}}) \in [0,
         1]^{K}\)}
         \Statex{}
-        \Statex{\qquad\quad\texttt{\# Update
+        \Statex{\qquad\quad\texttt{\# Actualizar
         feature \(\vz^{\ell + 1}\) using \(\vz^{\ell}\)}}
         \State{\(\vz^{\ell + 1} \gets \cP_{\bS^{d - 1}}\rp{\vz^{\ell}
                     + \eta \bp{\vE^{\ell}\vz^{\ell} - \sum_{k =
@@ -657,117 +657,116 @@ a nearest subspace classifier.
         \vC^{\ell}_{k}\vz^{\ell}}} \in \R^{d}\)}
         \EndFor
         \Statex{}
-        \Statex{\quad\ \texttt{\# Return the output features}}
+        \Statex{\quad\ \texttt{\# Devolver las características de salida}}
         \State{\Return{\(\vz^{L + 1}\)}}
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
 
 \begin{example}
-    To provide some intuition on how ReduNet transforms the features,
-    we provide a simple example with mixed 3D Gaussians and visualize
-    how the features are transformed in \Cref{fig:redu-3d-gaussian-diagram}.
-    Consider a mixture of three Gaussian distributions in $\R^{3}$
-    that is projected onto $\mathbb{S}^2$. We first generate data
-    points for 3 classes: for $k=1,2,3$, $\bm{X}_{k}=[\bm{x}_{k,1},
+    Para dar una idea de cómo ReduNet transforma las características,
+    presentamos un ejemplo sencillo con gaussianas 3D mezcladas y visualizamos
+    cómo se transforman las características en la \Cref{fig:redu-3d-gaussian-diagram}.
+    Consideremos una mezcla de tres distribuciones gaussianas en $\R^{3}$
+    que se proyecta sobre $\mathbb{S}^2$. Primero generamos puntos de datos
+    para 3 clases: para $k=1,2,3$, $\bm{X}_{k}=[\bm{x}_{k,1},
     \ldots, \bm{x}_{k,m}] \in \R^{3\times m}$, $\bm{x}_{k,i} \sim
-    \mathcal{N}(\bm{\mu}_{k}, \sigma_{k}^{2} \I)$, and ${\pi}(\x_{k,i}) = k$.
-    We set $m=500, \sigma_{1}=\sigma_{2}=\sigma_{3}=0.1$, and
+    \mathcal{N}(\bm{\mu}_{k}, \sigma_{k}^{2} \I)$ y ${\pi}(\x_{k,i}) = k$.
+    Fijamos $m=500, \sigma_{1}=\sigma_{2}=\sigma_{3}=0.1$ y
     $\bm{\mu}_{1}, \bm{\mu}_{2}, \bm{\mu}_{3} \in \mathbb{S}^2$.
-    Then we project all the data points onto $\mathbb{S}^{2}$, i.e.,
+    A continuación, proyectamos todos los puntos de datos en $\mathbb{S}^{2}$, es decir,
     $\bm{x}_{k,i}/\|\bm{x}_{k,i}\|_{2}$.
-    To construct the network (computing $\bm{E}^{\ell},
-    \bm{C}^{\ell}_{k}$ for the $\ell$-th layer), we set the number of
-    iterations/layers $L=2,000$, step size $\eta=0.5$, and precision
+    Para construir la red (calculando $\bm{E}^{\ell},
+    \bm{C}^{\ell}_{k}$ para la capa $\ell$-ésima), establecemos el número de
+    iteraciones/capas $L=2,000$, el tamaño del paso $\eta=0.5$ y la precisión
     $\epsilon=0.1$.
-    We do this only to demonstrate that our framework leads to stable
-    deep networks even with thousands of layers.
-    In practice, thousands of layers may not be necessary and one can
-    stop whenever adding new layers gives diminishing returns.
-    For this example, a couple of hundred layers is sufficient.
-    Hence, the clear optimization objective gives a natural criterion
-    for the depth of the network needed.
+    Hacemos esto únicamente para demostrar que nuestro marco permite obtener 
+    redes profundas estables incluso con miles de capas.
+    En la práctica, puede que no sean necesarias miles de capas y se puede
+    detener el proceso cuando la incorporación de nuevas capas empiece a dar resultados cada vez menores.
+    Para este ejemplo, bastan unos doscientos niveles.
+    Por lo tanto, el objetivo claro de optimización proporciona un criterio natural
+    para determinar la profundidad necesaria de la red.
 
-    As shown in \Cref{fig:redu-3d-gaussian-diagram}, we can observe
-    that after the mapping $f(\cdot, \theta)$, samples from the
-    same class are highly compressed and converge to a single cluster
-    and the angle between two different clusters is approximately
-    $\pi/2$, which is well aligned with the optimal solution
-    $\Z^{\star}$ of the MCR$^2$ loss in $\mathbb{S}^2$.
-    MCR$^2$ loss of features on different layers can be found in
-    \Cref{fig:redu-3d-gaussian-diagram}(\textbf{c}). Empirically, we
-    find that the constructed ReduNet is able to maximize MCR$^2$
-    loss and converges stably and samples from the same class
-    converge to one cluster and points in different clusters are
-    orthogonal to each other.\footnote{Because of the low dimension,
-        each cluster collapses to a \(1\)-dimensional subspace on the
-        sphere (e.g., a single point and its antipode); this is the
-        extreme case of keeping within-cluster dimension minimal. In
-    higher dimensions, of course, subspaces will be less compressed.}
-    Moreover, when sampling new data points from the same
-    distributions, we find that new samples from the same class
-    consistently converge to the same cluster center as the training samples.
+    Como se muestra en la \Cref{fig:redu-3d-gaussian-diagram}, podemos observar
+    que, tras la aplicación del mapeo $f(\cdot, \theta)$, las muestras de la
+    misma clase se comprimen en gran medida y convergen en un único grupo o clúster,
+    y que el ángulo entre dos grupos diferentes es aproximadamente
+    $\pi/2$, lo cual concuerda perfectamente con la solución óptima
+    $\Z^{\star}$ de la pérdida MCR$^2$ en $\mathbb{S}^2$.
+    La pérdida MCR$^2$ de las características en las diferentes capas se puede observar en
+    la \Cref{fig:redu-3d-gaussian-diagram}(\textbf{c}). Empíricamente, hemos
+    observado que la ReduNet construida es capaz de maximizar la pérdida MCR$^2$
+    y converge de manera estable y que las muestras de la misma clase
+    convergen en un solo grupo y los puntos de diferentes grupos son
+    ortogonales entre sí.\footnote{Debido a la baja dimensión,
+        cada grupo se reduce a un subespacio de dimensión \(1\) en la
+        esfera (por ejemplo, un solo punto y su antípoda); este es el
+        caso extremo de mantener la dimensión dentro del grupo al mínimo. En
+    dimensiones superiores, por supuesto, los subespacios estarán menos comprimidos.}
+    Además, al tomar nuevas muestras de los mismos
+    distribuciones, observamos que las nuevas muestras de la misma clase
+    convergen sistemáticamente hacia el mismo centro de clúster que las muestras de entrenamiento.
     \begin{figure}[t]
         \begin{subfigure}[t]{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/scatter3d-X_train.pdf}\vspace{-0.1in}
-            \caption{$\bm{X}_{\text{train}}$}
+            \caption{$\bm{X}_{\text{entrenamiento}}$}
         \end{subfigure}
         \hfill
         \begin{subfigure}[t]{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/scatter3d-Z_train.pdf}\vspace{-0.1in}
-            \caption{$\bm{Z}_{\text{train}}$}
+            \caption{$\bm{Z}_{\text{entrenamiento}}$}
         \end{subfigure}
         \hfill
         \begin{subfigure}[t]{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/scatter3d-loss-traintest.pdf}\vspace{-0.1in}
-            \caption{Loss (train/val)}
+            \caption{Loss (entrenamiento/evaluación)}
         \end{subfigure}
         \vspace{-0.1in}
-        \caption{\small Original samples  and learned representations
-            for 3D Mixture of Gaussians. We visualize data points
-            $\bm{X}$ (before mapping $f(\cdot, \theta)$) in
-            (\textbf{a}) and learned features $\bm{Z}$ (after mapping
-            $f(\cdot, \theta)$) in (\textbf{b}) by scatter plot. In
-            each scatter plot, each color represents one class of
-            samples. In (\textbf{c}), we also show the plots for the
-        progression of values of the objective functions.}
+        \caption{\small Muestras originales y representaciones aprendidas
+            para la mezcla de gaussianas en 3D. Visualizamos los puntos de datos
+            $\bm{X}$ (antes de la aplicación de $f(\cdot, \theta)$) en
+            (\textbf{a}) y las características aprendidas $\bm{Z}$ (después de la aplicación de
+            $f(\cdot, \theta)$) en (\textbf{b}) mediante un diagrama de dispersión. En
+            cada diagrama de dispersión, cada color representa una clase de
+            muestras. En (\textbf{c}), también mostramos los diagramas que representan la
+        evolución de los valores de las funciones objetivo.}
         \label{fig:redu-3d-gaussian-diagram}
     \end{figure}
-
 \end{example}
 
-\subsection{Convolutional Networks from Invariant Rate
-Reduction}\label{sec:shift-invariant}
+\subsection{Redes convolucionales a partir de la reducción de la tasa en 
+invariantes}\label{sec:shift-invariant}
 
-In the previous section, we derived the layer-wise architecture of a
-deep network, the ReduNet, using unrolled optimization for the rate
-reduction objective.
-Specifically, the compression term $R^c_\epsilon(\Z \mid\bm \Pi)$ in
-\eqref{eq:mcr-formulation} is designed to compress representations
-from the same class. However, this formulation does not account for
-possible domain transformation or deformation of the input data. For
-instance, shifting an object slightly to the right does not change
-the semantic label of an image.  In this section, we will demonstrate
-how convolutional layers can be derived by maximizing a rate
-reduction objective that is invariant to certain domain deformations,
-such as image rotations and translations.
+En la sección anterior, derivamos la arquitectura por capas de una
+red profunda, la ReduNet, utilizando la optimización desenroscada para el objetivo
+de reducción de la tasa.
+Concretamente, el término de compresión $R^c_\epsilon(\Z \mid\bm \Pi)$ en
+\eqref{eq:mcr-formulation} está diseñado para comprimir representaciones
+de la misma clase. Sin embargo, esta formulación no tiene en cuenta
+posibles transformaciones o deformaciones del dominio de los datos de entrada. Por
+ejemplo, desplazar ligeramente un objeto hacia la derecha no modifica
+la etiqueta semántica de una imagen.  En esta sección, demostraremos
+cómo se pueden derivar capas convolucionales maximizando un objetivo de
+reducción de la tasa que sea invariante ante ciertas deformaciones del dominio,
+como las rotaciones y traslaciones de imágenes.
 
-For many clustering or classification tasks (such as object detection
-in images), we consider two samples as {\em equivalent} if they
-differ by certain classes of domain deformations or augmentations
-$\cT = \{\tau \}$. Hence, we are only interested in low-dimensional
-structures that are {\em invariant} to such deformations~(i.e., $\x
-\in \mathcal{M}$ iff $\tau(\x) \in \mathcal{M}$ for all $\tau \in \cT$\,),
-which are known to have sophisticated geometric and topological
-structures and can be difficult to learn precisely in practice, even
-with rigorously designed CNNs \cite{Cohen-ICML-2016}.
-In this framework, this can be formulated in a very natural way: all
-equivariant instances are to be embedded into the same subspace, so
-that the subspace itself is invariant to the transformations under
-consideration.
+En muchas tareas de agrupamiento o clasificación (como la detección de objetos
+en imágenes), consideramos que dos muestras son {\em equivalentes} si
+solo difieren en ciertas clases de deformaciones o aumentos del dominio
+$\cT = \{\tau \}$. Por lo tanto, solo nos interesan las estructuras de baja dimensión
+que sean {\em invariantes} ante tales deformaciones~(es decir, $\x
+\in \mathcal{M}$ si y solo si $\tau(\x) \in \mathcal{M}$ para todo $\tau \in \cT$\,),
+que se sabe que tienen estructuras geométricas y topológicas sofisticadas
+y que pueden ser difíciles de aprender con precisión en la práctica, incluso
+con CNNs diseñadas rigurosamente \cite{Cohen-ICML-2016}.
+En este marco, esto se puede formular de una manera muy natural: todas las
+instancias equivariantes deben integrarse en el mismo subespacio, de modo
+que el propio subespacio sea invariante respecto a las transformaciones que
+se están considerando.
 
 In many applications, such as serial data or imagery data, the
 semantic meaning (labels) of the data are  {\em invariant} to certain

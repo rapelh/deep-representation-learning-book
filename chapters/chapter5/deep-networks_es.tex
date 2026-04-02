@@ -141,7 +141,7 @@ queda claro, la función de una red neuronal profunda consiste precisamente en
 ayudar a optimizar ese objetivo de forma iterativa. Cada capa de una red neuronal profunda
 puede derivarse de forma natural como un paso de optimización iterativo destinado a
 maximizar de manera incremental la ganancia de información, incluyendo las populares
-arquitecturas de ResNet, CNN y Transformer, así como otras variantes más
+arquitecturas de ResNet, CNN y Transformadores, así como otras variantes más
 avanzadas. En particular, este capítulo tiene como objetivo responder a las
 siguientes preguntas sobre las redes profundas:
 \begin{itemize}
@@ -768,51 +768,51 @@ instancias equivariantes deben integrarse en el mismo subespacio, de modo
 que el propio subespacio sea invariante respecto a las transformaciones que
 se están considerando.
 
-In many applications, such as serial data or imagery data, the
-semantic meaning (labels) of the data are  {\em invariant} to certain
-transformations $\mathfrak{g} \in \mathbb{G}$ (for some group
-$\mathbb{G}$) \cite{CohenW16,deep-sets-NIPS2017}. For example, the
-meaning of an audio signal is invariant to shift in time; and the
-identity of an object in an image is invariant to translation in the
-image plane. Hence, we prefer the feature mapping $f(\x,\bm \theta)$
-is rigorously invariant to such transformations:
+En muchas aplicaciones, como los datos en serie o los datos de imágenes, el
+significado semántico (etiquetas) de los datos es  {\em invariante} ante ciertas
+transformaciones $\mathfrak{g} \in \mathbb{G}$ (para algún grupo
+$\mathbb{G}$) \cite{CohenW16,deep-sets-NIPS2017}. Por ejemplo, el
+significado de una señal de audio es invariante ante un desplazamiento en el tiempo; y la
+identidad de un objeto en una imagen es invariante ante una traslación en el
+plano de la imagen. Por lo tanto, preferimos que el mapeo de características $f(\x,\bm \theta)$
+sea rigurosamente invariante ante tales transformaciones:
 \begin{equation}
-    \mbox{\em Group Invariance:}\;   f(\x\circ \mathfrak{g}, \bm
+    \mbox{\em Invarianza de grupo:}\;   f(\x\circ \mathfrak{g}, \bm
     \theta) \sim f(\x,\bm \theta),\ \forall \mathfrak{g} \in \mathbb{G},
 \end{equation}
-where ``$\sim$'' indicates two features belonging to the same
-equivalent class. Although to ensure invariance or equivarience,
-convolutional operators have been common practice in deep networks
-\cite{CohenW16}, it remains challenging in practice to train an
-(empirically designed) convolution network from scratch that can {\em
-guarantee} invariance even to simple transformations such as
-translation and rotation \cite{azulay2018deep,engstrom2017rotation}.
-An alternative approach is to carefully design convolution filters of
-each layer so as to ensure translational invariance for a wide range
-of signals, say using wavelets as in ScatteringNet
-\cite{scattering-net} and followup works \cite{Wiatowski-2018}.
-However, in order to ensure invariance to generic signals, the number
-of convolutions needed usually grows exponentially with network
-depth. That is the reason why this type of network cannot be
-constructed so deep, usually only several layers.
+donde «$\sim$» indica que dos características pertenecen a la misma
+clase equivalente. Aunque para garantizar la invariancia o la equivariancia,
+los operadores convolucionales han sido una práctica común en las redes profundas
+\cite{CohenW16}, sigue siendo un reto en la práctica entrenar una
+red convolucional (diseñada empíricamente) desde cero que pueda {\em
+garantizar} la invariancia incluso ante transformaciones simples como
+la traslación y la rotación \cite{azulay2018deep,engstrom2017rotation}.
+Un enfoque alternativo consiste en diseñar cuidadosamente los filtros de convolución de
+cada capa para garantizar la invariancia traslacional en una amplia gama
+de señales, por ejemplo, utilizando ondículas como en ScatteringNet
+\cite{scattering-net} y trabajos posteriores \cite{Wiatowski-2018}.
+Sin embargo, para garantizar la invariancia frente a señales genéricas, el número
+de convoluciones necesarias suele crecer exponencialmente con la profundidad
+de la red. Esa es la razón por la que este tipo de red no puede
+construirse con tanta profundidad, sino que suele tener solo unas pocas capas.
 
-Now, we show that the MCR$^2$ principle is compatible with invariance
-in a natural and precise way: we only need to assign all transformed
-versions $\{\x\circ \mathfrak{g} \mid \mathfrak{g} \in \mathbb G\}$
-into the same class as the data $\x$ and map their features $\z$ all
-to the same subspace $\mathcal S$. Hence, all group equivariant
-information is encoded only inside the subspace, and any classifier
-defined on the resulting set of subspaces will be automatically
-invariant to such group transformations. See
-\Cref{fig:ortho-invariance-diagram} for an illustration of the
-examples of 1D rotation and 2D translation.  Next, we will rigorously
-show that when the group $\mathbb G$ is circular 1D shifting, the
-resulting deep network naturally becomes a {\em multi-channel
-convolution network}.
-Because the so-constructed network only needs to ensure invariance
-for the given data $\X$ or their features $\Z$, the number of
-convolutions needed actually remains constant through a very deep
-network, as opposed to the ScatteringNet.
+Ahora mostraremos que el principio MCR$^2$ es compatible con la invariancia
+de una manera natural y precisa: solo necesitamos asignar todas las versiones transformadas
+$\{\x\circ \mathfrak{g} \mid \mathfrak{g} \in \mathbb G\}$
+a la misma clase que los datos $\x$ y mapear todas sus características $\z$
+al mismo subespacio $\mathcal S$. Por lo tanto, toda la información equivariante
+respecto al grupo se codifica únicamente dentro del subespacio, y cualquier clasificador
+definido sobre el conjunto resultante de subespacios será automáticamente
+invariante respecto a dichas transformaciones de grupo. Véase la
+\Cref{fig:ortho-invariance-diagram} para una ilustración de los
+ejemplos de rotación en 1D y traslación en 2D. A continuación, demostraremos rigurosamente
+que, cuando el grupo $\mathbb G$ realiza desplazamientos circulares en una dimensión, la
+red profunda resultante se convierte naturalmente en una {\em red convolucional
+multicanal}.
+Dado que la red así construida solo necesita garantizar la invariancia
+para los datos dados $\X$ o sus características $\Z$, el número de
+convoluciones necesarias se mantiene, de hecho, constante a lo largo de una red muy profunda,
+a diferencia de lo que ocurre con ScatteringNet.
 
 \begin{figure}[t]
     \begin{subfigure}[t]{0.4\textwidth}
@@ -824,22 +824,23 @@ network, as opposed to the ScatteringNet.
         \centering
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/ortho_diagram_2d.pdf}
     \end{subfigure}
-    \caption{Illustration of the sought representation that is
-        equivariant/invariant to image rotation (left) or translation
-        (right): all transformed images of each class are mapped into the
-        same subspace that is incoherent to other subspaces. The features
-        embedded in each subspace are equivariant to the transformation
-        group whereas each subspace is invariant to such
-    transformations.}\label{fig:ortho-invariance-diagram}
+    \caption{Ilustración de la representación buscada que es
+        equivariante/invariante ante la rotación de la imagen (izquierda) o la traslación
+        (derecha): todas las imágenes transformadas de cada clase se mapean en el
+        mismo subespacio, que es incoherente con respecto a otros subespacios. Las características
+        incrustadas en cada subespacio son equivariantes a las transformaciones del grupo,
+        mientras que cada subespacio es invariante a dichas
+    transformaciones.}
+    \label{fig:ortho-invariance-diagram}
 \end{figure}
 
-\paragraph{1D serial data and  shift invariance} To classify
-one-dimensional data $\bm x = [x(0), x(1), \ldots, x(D-1)] \in \Re^D$
-invariant under shifting, we take $\mathbb{G}$ to be the group of all
-circular shifts. Each observation $\bm x_i$ generates a family $\{
-\x_i \circ \mathfrak{g} \, | \, \mathfrak{g} \in \mathbb G \}$ of
-shifted copies, which are the columns of the circulant matrix
-$\circm(\bm x_i) \in \Re^{D \times D}$ given by
+\paragraph{Datos en serie unidimensionales e invariancia de desplazamiento} Para clasificar
+datos unidimensionales $\bm x = [x(0), x(1), \ldots, x(D-1)] \in \Re^D$
+invariantes bajo traslación, tomamos $\mathbb{G}$ como el grupo de todas las
+traslaciones circulares. Cada observación $\bm x_i$ genera una familia $\{
+\x_i \circ \mathfrak{g} \, | \, \mathfrak{g} \in \mathbb G \}$ de
+copias desplazadas, que son las columnas de la matriz circulante
+$\circm(\bm x_i) \in \Re^{D \times D}$ dada por
 \begin{equation}
     \circm(\x) \,\doteq\, \left[
         \begin{array}{ccccc} x(0) & x(D-1) & \dots & x(2) & x(1)
@@ -848,19 +849,19 @@ $\circm(\bm x_i) \in \Re^{D \times D}$ given by
             \ddots & x(D-1) \\ x(D-1) & x(D-2) & \dots & x(1) & x(0)
     \end{array} \right]  \in \Re^{D \times D}.
 \end{equation}
-We refer the reader to \cite{Kra2012OnCM} for properties of circulant
-matrices. For simplicity, let $\bm Z^1 \doteq [ \z_{1}^1, \dots,
-\z_{N}^1 ] = \X \in \Re^{d \times N}$.\footnote{Again, to simplify
-    discussion, we assume for now that the initial features $\Z^1$ are
-    $\X$ themselves hence have the same dimension $d$, i.e., $D=d$. But
-    that does not need to be the case as we will soon see that we need to
-lift $\X$ to a higher dimension.} Then what happens if we construct
-the ReduNet from their circulant families $\circm(\bm Z^1) = \left[
+Remitimos al lector a \cite{Kra2012OnCM} para conocer las propiedades de las matrices circulantes.
+Para simplificar, sea $\bm Z^1 \doteq [ \z_{1}^1, \dots,
+\z_{N}^1 ] = \X \in \Re^{d \times N}$.\footnote{Una vez más, para simplificar
+    el análisis, supongamos por ahora que las características iniciales $\Z^1$ son
+    el propio $\X$ y, por lo tanto, tienen la misma dimensión $d$, es decir, $D=d$. Pero
+    eso no tiene por qué ser así, ya que pronto veremos que necesitamos
+elevar $\X$ a una dimensión superior.} Entonces, ¿qué ocurre si construimos
+la ReduNet a partir de sus familias circulantes $\circm(\bm Z^1) = \left[
 \circm(\z_{1}^1), \dots, \circm(\z_{N}^1) \right] \in \Re^{d \times
-(dN)}$? That is, we want to compress and map all these into the same
-subspace by the ReduNet.
+(dN)}$? Es decir, queremos comprimir y proyectar todas estas en el mismo
+subespacio mediante la ReduNet.
 
-Notice that now the data covariance matrix:
+Obsérvese que ahora la matriz de covarianza de los datos:
 \begin{eqnarray}
     \circm(\bm Z^1) \circm(\bm Z^1)^\top
     &=& \left[ \circm(\z_{1}^1), \dots, \circm(\z_{N}^1) \right]
@@ -868,48 +869,48 @@ Notice that now the data covariance matrix:
     &=& \sum_{i =1}^N \circm(\z_{i}^1) \circm(\z_{i}^1)^\top \;\in
     \Re^{d\times d}
 \end{eqnarray}
-associated with this family of samples is {\em automatically} a
-(symmetric) circulant matrix. Moreover, because the circulant
-property is preserved under sums, inverses, and products, the
-matrices $\bm E^1$ and $\bm C^1_k$ are also automatically circulant
-matrices, whose application to a feature vector $\bm z \in \Re^d$ can
-be implemented using circular convolution ``$\circledast$''.
-Specifically, we have the following proposition.
+asociada a esta familia de muestras es, {\em de manera automática}, una
+matriz circulante (simétrica). Además, dado que la propiedad circulante
+se conserva bajo sumas, inversas y productos, las
+matrices $\bm E^1$ y $\bm C^1_k$ son también automáticamente matrices circulantes,
+cuya aplicación a un vector de características $\bm z \in \Re^d$ puede
+implementarse utilizando la convolución circular ``$\circledast$''.
+Específicamente, tenemos la siguiente proposición.
 
-\begin{proposition}[Convolution structures of $\bm E^1$ and $\bm C^1_k$]
-    The matrix
+\begin{proposition}[Estructuras convolucionales de $\bm E^1$ and $\bm C^1_k$]
+    La matriz
     \begin{equation}
         \bm E^1 = \alpha\big(\bm I + \alpha \circm(\bm Z^1)
         \circm(\bm Z^1)^\top \big)^{-1}
     \end{equation}
-    is a circulant matrix and represents a circular convolution:
+    es una matriz circulante y representa una convolución circular:
     $$\bm E^1 \z = \bm e_1 \circledast \z,$$
-    where $\bm e_1 \in \Re^d$ is the first column vector of $\bm E^1$
-    and ``$\circledast$'' is circular convolution defined as
+    donde $\bm e_1 \in \Re^d$ es el primer vector columna de $\bm E^1$
+    y «$\circledast$» es la convolución circular, definida como
     \begin{equation*}
         (\bm e_1 \circledast \bm z)_{i} \doteq \sum_{j=0}^{d-1}
         e_1(j) x(i+ d-j \,\, \textsf{mod} \,\,d).
     \end{equation*}
-    Similarly, the matrices $\bm C^1_k$ associated with any subsets
-    of $\bm Z^1$ are also circular convolutions.
+    Del mismo modo, las matrices $\bm C^1_k$ asociadas a cualquier subconjunto
+    de $\bm Z^1$ también son convoluciones circulares.
     \label{prop:circular-conv-1}
 \end{proposition}
 
-Not only do the first-layer parameters $\bm E^1$ and $\bm{C}^1_k$ of
-the ReduNet become circulant convolutions but also the next-layer
-features remain circulant matrices.
-That is, the incremental feature transform in
-\eqref{eqn:layer-approximate} applied to all shifted versions of a
-$\z^1 \in \Re^d$, given by
+No solo los parámetros de la primera capa $\bm E^1$ y $\bm{C}^1_k$ de
+la ReduNet se convierten en convoluciones circulantes, sino que también las características de la siguiente capa
+siguen siendo matrices circulantes.
+Es decir, la transformación incremental de características en
+\eqref{eqn:layer-approximate} aplicada a todas las versiones desplazadas de un
+$\z^1 \in \Re^d$, dada por
 \begin{equation}
     \circm(\z^1) + \eta \cdot \bm E^1 \circm(\z^1) - \eta \cdot \bm
     \sigma \Big([\bm{C}_1^1 \circm(\z^1), \ldots, \bm{C}^1_K
     \circm(\z^1)] \Big),
 \end{equation}
-is a circulant matrix.  This implies that there is no need to
-construct circulant families from the second layer features as we did
-for the first layer.
-By denoting
+es una matriz circulante. Esto implica que no es necesario
+construir familias circulantes a partir de las características de la segunda capa, como hicimos
+para la primera capa.
+Denotando
 \begin{equation}
     \z^{2} \propto \z^{1} +\eta \cdot g(\z^{1}, \bm \theta^{1}) =
     \z^1 + \eta \cdot \bm e_{1} \circledast \z^{1} -  \eta \cdot \bm
@@ -917,54 +918,57 @@ By denoting
     \bm{c}^{1}_{K} \circledast \z^{1}]\Big),
     \label{eqn:approximate-convolution}
 \end{equation}
-the features at the next level can be written as
+las características del siguiente nivel se pueden escribir como
 $$\circm(\bm Z^2) = \big[ \circm( \bm z_{1}^1 + \eta g( \bm z_{1}^1,
     \bm \theta^1)), \dots, \circm( \bm z_{N}^1 + \eta g(\bm z_{N}^1, \bm
 \theta^1)) \big].$$
-Continuing inductively, we see that all matrices $\bm E^\ell$ and
-$\bm C^\ell_k$ based on such $\circm(\bm Z^\ell)$ are circulant, and
-so are all features.
-By virtue of the properties of the data, ReduNet has taken the form
-of a convolutional network, {\em with no need to explicitly choose
-this structure!}
+Siguiendo con el razonamiento inductivo, vemos que todas las matrices $\bm E^\ell$ y
+$\bm C^\ell_k$ basadas en dicho $\circm(\bm Z^\ell)$ son circulantes, y
+lo mismo ocurre con todas las características.
+Gracias a las propiedades de los datos, ReduNet ha adoptado la forma
+de una red convolucional, {\em ¡sin necesidad de elegir explícitamente
+esta estructura!}
 
-\paragraph{A fundamental trade-off between invariance and sparsity.}
-There is one problem though: In general, the set of all circular
-permutations of a vector $\z$ gives a full-rank matrix. That is, the
-$d$ ``augmented'' features associated with each sample (hence each
-class) typically already span the entire space $\Re^d$. For instance,
-all shifted versions of a delta function $\delta(d)$ can generate any
-other signal as their (dense) weighted superposition. The MCR$^2$
-objective \eqref{eqn:maximal-rate-reduction} will not be able to
-distinguish classes as different subspaces.
+\paragraph{Una disyuntiva fundamental entre invariancia y dispersión.}
+Sin embargo, hay un problema: en general, el conjunto de todas las
+permutaciones circulares de un vector $\z$ da lugar a una matriz de rango completo. Es decir, las
+$d$ características «aumentadas» asociadas a cada muestra (y, por lo tanto, a cada
+clase) suelen abarcar ya todo el espacio $\Re^d$. Por ejemplo,
+todas las versiones desplazadas de una función delta $\delta(d)$ pueden generar cualquier
+otra señal como su superposición ponderada (densa). El objetivo MCR$^2$
+\eqref{eqn:maximal-rate-reduction} no podrá
+distinguir las clases como subespacios diferentes.
 
-One natural remedy is to improve the separability of the data by
-``lifting'' the original signal to a higher dimensional space, e.g.,
-by taking their responses to multiple, filters $\bm k_1, \ldots, \bm
+Un remedio natural consiste en mejorar la separabilidad de los datos «elevando»
+la señal original a un espacio de mayor dimensión, por ejemplo,
+tomando sus respuestas a múltiples filtros $\bm k_1, \ldots, \bm
 k_C \in \Re^d$:
 \begin{equation}
     \bm z[c] = \bm k_c \circledast \bm x  =  \circm(\bm k_c) \bm x
     \in \Re^d, \quad c = 1, \ldots, C.
     \label{eqn:lift-1d}
 \end{equation}
-The filters can be pre-designed invariance-promoting
-filters,\footnote{For 1D signals like audio, one may consider the
-    conventional short-time Fourier transform (STFT); for 2D images, one
-    may consider 2D wavelets as in the ScatteringNet
-\cite{scattering-net}.} or adaptively learned from the
-data,\footnote{For learned filters, one can learn filters as the
-    principal components of samples as in the PCANet
-    \cite{chan2015pcanet} or from convolution dictionary learning
-\cite{li2019multichannel,qu2019nonconvex}.} or randomly selected as
-we do in our experiments. This operation lifts each original signal
-$\x \in \Re^d$ to a $C$-channel feature, denoted as $\bar{\z}  \doteq
+Los filtros pueden ser filtros prediseñados que promueven la invariancia
+,\footnote{Para señales unidimensionales, como el audio, se puede recurrir a la
+    transformada de Fourier de corto plazo (STFT) convencional; para imágenes bidimensionales, se
+    puede recurrir a las ondas bidimensionales, como en ScatteringNet
+\cite{scattering-net}.} o aprendidos de forma adaptativa a partir de los
+datos,\footnote{En el caso de los filtros aprendidos, estos pueden aprenderse como
+    componentes principales de las muestras, tal como en PCANet
+    \cite{chan2015pcanet}, o a partir del aprendizaje de diccionarios de convolución
+\cite{li2019multichannel,qu2019nonconvex}.} o seleccionados al azar, tal como
+lo hacemos en nuestros experimentos. Esta operación eleva cada señal original
+$\x \in \Re^d$ a una característica de $C$ canales, denotada como $\bar{\z}  \doteq
 [\z[1], \ldots, \z[C]]^\top \in \Re^{C\times d}$.
-Then, we may construct the ReduNet on vector representations of
-$\bar{\z}$, denoted as
+Entonces, podemos construir la ReduNet sobre representaciones vectoriales de
+$\bar{\z}$, denotadas como
 $\vec(\bar\z) \doteq [\z[1]^\top, \ldots, \z[C]^\top] \in \Re^{dC}$.
-The associated circulant version $ \circm(\bar{\z})$ and its data
-covariance matrix, denoted as $\bar{\bm \Sigma}(\bar\z)$, for all its
-shifted versions are given as:
+Entonces, podemos construir la ReduNet sobre representaciones vectoriales de
+$\bar{\z}$, denotadas como
+$\vec(\bar\z) \doteq [\z[1]^\top, \ldots, \z[C]^\top] \in \Re^{dC}$.
+La versión circulante asociada $ \circm(\bar{\z})$ y su 
+matriz de covarianza de datos, denotada como $\bar{\bm \Sigma}(\bar\z)$, para todas sus
+versiones desplazadas se dan como:
 \begin{align}
     \circm(\bar{\z}) &\doteq \left[
         \begin{matrix}
@@ -980,140 +984,139 @@ shifted versions are given as:
     \end{matrix} \right] \in \Re^{dC\times dC},
     \label{eqn:W-multichannel}
 \end{align}
-where $\circm(\z[c]) \in \Re^{d\times d}$ with $c \in [C]$ is the
-circulant version of the $c$-th channel of the feature $\bar \z$.
-Then the columns of $\circm(\bar\z)$  will only span at most a
-$d$-dimensional proper subspace in $\Re^{dC}$.  However, this simple
-lifting operation (if linear) is not sufficient to render the classes
-separable yet---features associated with other classes will span the
-{\em same} $d$-dimensional subspace. This reflects a fundamental
-conflict between invariance and linear (subspace) modeling: {\em one
-    cannot hope for arbitrarily shifted and superposed signals to belong
-to the same class.}
+donde $\circm(\z[c]) \in \Re^{d\times d}$ con $c \in [C]$ es la
+versión circulante del canal $c$-ésimo de la característica $\bar \z$.
+Entonces, las columnas de $\circm(\bar\z)$  solo generarán, como máximo, un
+subespacio propio de dimensión $d$ en $\Re^{dC}$. Sin embargo, esta simple
+operación de elevación (si es lineal) no basta aún para que las clases
+sean separables: las características asociadas a otras clases abarcarán el
+{\em mismo} subespacio de dimensión $d$. Esto refleja un conflicto fundamental
+entre la invariancia y el modelado lineal (de subespacios): {\em no
+    se puede esperar que señales desplazadas y superpuestas arbitrariamente pertenezcan
+a la misma clase.}
 
 \begin{figure}[t]
     \centerline{
     \includegraphics[width=0.9\textwidth]{\toplevelprefix/chapters/chapter5/figs/sparse-representation.pdf}}
-    \caption{Each input signal $\bm x$ (an image here) can be
-        represented as a superposition of sparse convolutions with
-    multiple kernels $\bm d_c$ in a dictionary $\bm D$.}
+    \caption{Cada señal de entrada $\bm x$ (en este caso, una imagen) puede
+        representarse como una superposición de convoluciones dispersas con
+    múltiples núcleos $\bm d_c$ en un diccionario $\bm D$.}
     \label{fig:multi-channel-sparse-representation}
 \end{figure}
-One way of resolving this conflict is to leverage additional
-structure within each class, in the form of {\em sparsity}: signals
-within each class are not generated as an arbitrary linear
-superposition of some base atoms (or motifs), but only {\em sparse}
-combinations of them and their shifted versions, as shown in
-\Cref{fig:multi-channel-sparse-representation}. More precisely, let
-$\bm D_k = [\bm d_{k,1}, \ldots, \bm d_{k,c}]$ denote a matrix with a
-collection of atoms associated for class $k$, also known as a
-dictionary, then each signal $\x$ in this class is sparsely generated as:
+Una manera de resolver este conflicto consiste en aprovechar una
+estructura adicional dentro de cada clase, en forma de {\em dispersión}: las señales
+dentro de cada clase no se generan como una superposición lineal
+arbitraria de ciertos átomos (o motivos) básicos, sino únicamente como combinaciones {\em dispersas}
+de estos y sus versiones desplazadas, tal como se muestra en
+\Cref{fig:multi-channel-sparse-representation}. Más concretamente, sea
+$\bm D_k = [\bm d_{k,1}, \ldots, \bm d_{k,c}]$ una matriz con un
+conjunto de átomos asociados a la clase $k$, también conocido como
+diccionario; entonces, cada señal $\x$ de esta clase se genera en forma dispersa como:
 \begin{equation}
     \x = \bm d_{k,1} \circledast z_1 + \ldots + \bm d_{k,c}
     \circledast z_c = \circm(\bm{D}_k)\z,
 \end{equation}
-for some sparse vector $\z$. Signals in different classes are then
-generated by different dictionaries whose atoms (or motifs) are
-incoherent from one another. Due to incoherence, signals in one class
-are unlikely to be sparsely represented by atoms in any other class.
-Hence all signals can be represented as
+para algún vector disperso $\z$. Las señales de las diferentes clases se
+generan entonces mediante diferentes diccionarios cuyos átomos (o motivos) son
+incoherentes entre sí. Debido a esta incoherencia, es poco probable que las señales de una clase
+sean representadas de forma dispersa por átomos de cualquier otra clase.
+Por lo tanto, todas las señales pueden representarse como
 \begin{equation}
     \x = \big[\circm(\bm{D}_1), \circm(\bm{D}_2), \ldots,
     \circm(\bm{D}_K)\big] \bar \z,
 \end{equation}
-where $\bar \z$ is sparse.\footnote{Notice that similar sparse
-    representation models have long been proposed and used for
-    classification purposes in applications such a face recognition,
-    demonstrating excellent effectiveness
-    \cite{Wright:2009,wagner2012toward}. Recently, the convolution sparse
-    coding model has been proposed by \cite{papyan2017convolutional} as a
-    framework for interpreting the structures of deep convolution
-networks.} There is a vast literature on how to learn the most
-compact and optimal sparsifying dictionaries from sample data, e.g.
-\cite{li2019multichannel,qu2019nonconvex} and subsequently solve the
-inverse problem and compute the associated sparse code $\z$ or $\bar
-\z$. Recent studies of \cite{qu2020nonconvex,Qu2020Geometric} even
-show that under broad conditions the convolution dictionary learning
-problem can be solved effectively and efficiently.
+donde $\bar \z$ es un vector disperso.\footnote{Cabe señalar que desde hace tiempo se han propuesto y utilizado modelos similares de representación dispersa
+    con fines de clasificación en aplicaciones como el reconocimiento facial,
+    demostrando una eficacia excelente
+    \cite{Wright:2009,wagner2012toward}. Recientemente, el modelo de codificación escasa convolucional
+    ha sido propuesto por \cite{papyan2017convolutional} como un
+    marco para interpretar las estructuras de las redes convolucionales 
+profundas.} Existe una amplia bibliografía sobre cómo aprender los
+diccionarios de dispersión más compactos y óptimos a partir de datos de muestra, por ejemplo,
+\cite{li2019multichannel,qu2019nonconvex}, y posteriormente resolver el
+problema inverso y calcular el código desposeado asociado $\z$ o $\bar
+\z$. Estudios recientes de \cite{qu2020nonconvex,Qu2020Geometric} incluso
+demuestran que, en condiciones generales, el problema del aprendizaje de diccionarios de convolución
+puede resolverse de manera eficaz y eficiente.
 
-Nevertheless, for tasks such as classification, we are not
-necessarily interested in the precise optimal dictionary nor the
-precise sparse code for each individual signal. We are mainly
-interested if collectively the set of sparse codes for each class are
-adequately separable from those of other classes. Under the
-assumption of the sparse generative model, if the convolution kernels
-$\{\bm k_c\}_{c=1}^C$  match well with the ``transpose'' or
-``inverse'' of the above sparsifying dictionaries $\bm D = [\bm D_1,
-\ldots, \bm D_K]$, also known as the {\em analysis filters}
-\cite{Cosparse-Nam,Analysis-Filter}, signals in one class will only
-have high responses to a small subset of those filters and low
-responses to others (due to the incoherence assumption).
-Nevertheless, in practice, often a sufficiently large number of, say
-$C$, random filters $\{\bm k_c\}_{c=1}^C$ suffices to ensure that the
-extracted $C$-channel features
+No obstante, para tareas como la clasificación, no nos
+interesa necesariamente el diccionario óptimo exacto ni el
+código disperso exacto para cada señal individual. Lo que nos
+interesa principalmente es que, en conjunto, el conjunto de códigos dispersos de cada clase sea
+suficientemente separable del de las demás clases. Bajo el
+supuesto del modelo generativo disperso, si los núcleos de convolución
+$\{\bm k_c\}_{c=1}^C$  se ajustan bien a la «transpuesta» o
+«inversa» de los diccionarios de dispersión anteriores $\bm D = [\bm D_1,
+\ldots, \bm D_K]$, también conocidos como los {\em filtros de análisis}
+\cite{Cosparse-Nam,Analysis-Filter}, las señales de una clase solo
+tendrán respuestas altas a un pequeño subconjunto de esos filtros y respuestas bajas
+a los demás (debido a la suposición de incoherencia).
+No obstante, en la práctica, a menudo basta con un número suficientemente grande de, digamos,
+$C$ filtros aleatorios $\{\bm k_c\}_{c=1}^C$ para garantizar que las
+características extraídas de los $C$ canales
 \begin{equation}
     \big[\bm k_1 \circledast \x, \bm k_2 \circledast \x, \ldots, \bm
     k_C \circledast \x\big]^\top = \big[\circm(\bm k_1) \x, \ldots,
     \circm(\bm k_C) \x \big]^\top \in \Re^{C\times d}
 \end{equation}
-for different classes have different response patterns to different
-filters hence make different classes separable \cite{chan2015pcanet}.
+para las diferentes clases presentan distintos patrones de respuesta ante distintos
+filtros, lo que permite separarlas \cite{chan2015pcanet}.
 
-Therefore, in our framework, to a large extent the number of channels
-(or the width of the network) truly plays the role as the  {\em
-statistical resource} whereas the number of layers (the depth of the
-network) plays the role as the {\em computational resource}. The
-theory of compressive sensing precisely characterizes how many
-measurements are needed in order to preserve the intrinsic
-low-dimensional structures (including separability) of the data
+Por lo tanto, en nuestro marco, en gran medida el número de canales
+(o la amplitud de la red) desempeña realmente el papel de  {\em
+recurso estadístico}, mientras que el número de capas (la profundidad de la
+red) desempeña el papel de {\em recurso computacional}. La
+teoría de la detección compresiva caracteriza con precisión cuántas
+mediciones se necesitan para preservar las estructuras intrínsecas
+de baja dimensión (incluida la separabilidad) de los datos
 \cite{Wright-Ma-2022}. %
 
 \begin{figure}[t]
     \centerline{
     \includegraphics[width=0.95\textwidth]{\toplevelprefix/chapters/chapter5/figs/sparse-lifting.pdf}}
-    \caption{Estimate the sparse code $\bar{\bm z}$ of an input
-        signal $\bm x$ (an image here) by taking convolutions with
-    multiple kernels $\bm k_c$ and then sparsifying.}
+    \caption{Estimación del código disperso $\bar{\bm z}$ de una señal de entrada
+        $\bm x$ (en este caso, una imagen) mediante convoluciones con
+    varios núcleos $\bm k_c$ y, a continuación, la dispersión.}
     \label{fig:multi-channel-sparse-lifting}
 \end{figure}
-The multi-channel responses $\bar \z$ should be sparse. So to
-approximate the sparse code $\bar \z$, we may take an entry-wise {\em
-sparsity-promoting nonlinear thresholding}, say $\bm \tau(\cdot)$, on
-the above filter outputs by setting low (say absolute value below
-$\epsilon$) or negative  responses to be zero:
+Las respuestas multicanal $\bar \z$ deben ser dispersas. Por lo tanto, para
+aproximar el código disperso $\bar \z$, podemos aplicar un umbral no lineal 
+elemento por elemento que promueva la dispersión, por ejemplo, $\bm \tau(\cdot)$, a
+las salidas del filtro anterior, estableciendo que las respuestas bajas (por ejemplo, 
+con valor absoluto inferior a $\epsilon$) o negativas sean cero:
 \begin{equation}
     \bar \z \doteq \bm \tau \left( \big[\circm(\bm k_1) \x, \ldots,
     \circm(\bm k_C) \x \big]^\top \right) \in \Re^{C \times d}.
     \label{eqn:sparse-lifting}
 \end{equation}
-\Cref{fig:multi-channel-sparse-lifting} illustrates the basic ideas.
-One may refer to \cite{Analysis-Filter} for a more systematical study
-on the design of the sparsifying thresholding operator. Nevertheless,
-here we are not so interested in obtaining the best sparse codes as
-long as the codes are sufficiently separable. Hence the nonlinear
-operator $\bm \tau$ can be simply chosen to be a soft thresholding or a ReLU.
-These presumably sparse features $\bar \z$ can be assumed to lie on a
-lower-dimensional (nonlinear) submanifold of $\mathbb{R}^{dC}$, which
-can be linearized and separated from the other classes by subsequent
-ReduNet layers, as illustrated later in \Cref{fig:learn-to-classify-diagram}.
+La \Cref{fig:multi-channel-sparse-lifting} ilustra las ideas básicas.
+Se puede consultar \cite{Analysis-Filter} para un estudio más sistemático
+sobre el diseño del operador de umbralización de dispersión. Sin embargo,
+aquí no nos interesa tanto obtener los mejores códigos dispersos,
+siempre y cuando los códigos sean suficientemente separables. Por lo tanto, el operador no lineal
+$\bm \tau$ puede elegirse simplemente como un umbral blando o una función ReLU.
+Se puede suponer que estas características presumiblemente dispersas $\bar \z$ se encuentran en una
+subvariedad (no lineal) de dimensión inferior de $\mathbb{R}^{dC}$, la cual
+puede linealizarse y separarse de las otras clases mediante capas
+ReduNet posteriores, como se ilustra más adelante en la \Cref{fig:learn-to-classify-diagram}.
 
-The ReduNet constructed from circulant version of these multi-channel
-features $\bar\Z \doteq [\bar \z_1, \ldots, \bar \z_N] \in \Re^{C
-\times d \times N}$, i.e., $\circm(\bar\Z) \doteq [ \circm(\bar\z_1),
-\dots, \circm(\bar\z_N)] \in \Re^{dC \times dN}$, retains the good
-invariance properties described above: the linear operators, now
-denoted as $\bar{\bm E}$ and $\bar{\bm C}_k$, remain block circulant,
-and represent {\em multi-channel 1D circular convolutions. }
-Specifically, we have the following result.
-\begin{proposition}[Multi-channel convolution structures of $\bar{\bm
-    E}$ and $\bar{\bm C}_k$]
-    The matrix
+La red ReduNet construida a partir de la versión circulante de estas características multicanal
+$\bar\Z \doteq [\bar \z_1, \ldots, \bar \z_N] \in \Re^{C
+\times d \times N}$, es decir, $\circm(\bar\Z) \doteq [ \circm(\bar\z_1),
+\dots, \circm(\bar\z_N)] \in \Re^{dC \times dN}$, conserva las buenas
+propiedades de invariancia descritas anteriormente: los operadores lineales, ahora
+denominados $\bar{\bm E}$ y $\bar{\bm C}_k$, siguen siendo circulantes por bloques,
+y representan convoluciones circulares unidimensionales multicanal.
+Concretamente, obtenemos el siguiente resultado.
+\begin{proposition}[Estructuras de convolución multicanal de $\bar{\bm
+    E}$ y $\bar{\bm C}_k$]
+    La matriz
     \begin{equation}
         \label{eq:def-E-bar}
         \bar{\bm E} \doteq \alpha\left(\bm I + \alpha\,
         \circm(\bar\Z) \circm(\bar\Z)^\top \right) ^{-1}
     \end{equation}
-    is block circulant, i.e.,
+    es circulante por bloques, es decir,
     \begin{equation}
         \bar{\bm E} =
         \left[
@@ -1123,316 +1126,315 @@ Specifically, we have the following result.
                 \bar{\bm E}_{C, 1} & \cdots & \bar{\bm E}_{C, C}\\
         \end{matrix}\right] \in \Re^{dC \times dC},
     \end{equation}
-    where each $\bar{\bm E}_{c, c'}\in \Re^{d \times d}$ is a
-    circulant matrix. Moreover, $\bar{\bm E}$ represents a
-    multi-channel circular convolution, i.e., for any multi-channel
-    signal $\bar\z \in \Re^{C \times n}$ we have
+    donde cada $\bar{\bm E}_{c, c'}\in \Re^{d \times d}$ es una
+    matriz circulante. Además, $\bar{\bm E}$ representa una
+    convolución circular multicanal, es decir, para cualquier señal multicanal
+    $\bar\z \in \Re^{C \times n}$ tenemos
     \begin{equation}
         \bar{\bm E} \cdot \textsf{vec}(\bar\z) = \textsf{vec}( \bar{\bm
         e} \circledast \bar\z).
     \end{equation}
-    In above, $\bar{\bm e} \in \Re^{C \times C \times d}$ is a
-    multi-channel convolutional kernel with $\bar{\bm e}[c, c'] \in
-    \Re^{d}$ being the first column vector of $\bar{\bm E}_{c, c'}$,
-    and $\bar{\bm e} \circledast \bar\z \in \Re^{C \times d}$ is the
-    multi-channel circular convolution defined as
+    En lo anterior, $\bar{\bm e} \in \Re^{C \times C \times d}$ es un
+    núcleo convolucional multicanal donde $\bar{\bm e}[c, c'] \in
+    \Re^{d}$ es el primer vector columna de $\bar{\bm E}_{c, c'}$
+    y $\bar{\bm e} \circledast \bar\z \in \Re^{C \times d}$ es la
+    convolución circular multicanal definida como
     \begin{equation}
         (\bar{\bm e} \circledast \bar\z)[c] \doteq \sum_{c'=1}^C
         \bar{\bm e}[c, c'] \circledast \bar{\z}[c'], \quad \forall c
         = 1, \ldots, C.
     \end{equation}
-    Similarly, the matrices $\bar{\bm C}_k$ associated with any
-    subsets of $\bar{\bm Z}$ are also multi-channel circular convolutions.
+    Del mismo modo, las matrices $\bar{\bm C}_k$ asociadas a cualquier
+    subconjunto de $\bar{\bm Z}$ son también convoluciones circulares multicanal.
     \label{prop:multichannel-circular-conv-1}
 \end{proposition}
-From \Cref{prop:multichannel-circular-conv-1}, shift invariant
-ReduNet is a deep convolutional network for multi-channel 1D signals
-by construction. Notice that even if the initial lifting kernels are
-separated \eqref{eqn:sparse-lifting}, the matrix inverse  in
-\eqref{eq:def-E-bar} for computing $\bar{\bm E}$ (similarly for
-$\bar{\bm C_k}$) introduces ``cross talk'' among all $C$ channels. %
-Hence, these multi-channel convolutions in general are {\em not}
-depth-wise separable, unlike the  Xception nets~\cite{Xception} that
-were once suggested to simplify multi-channel convolutional neural
-networks.\footnote{It remains open what additional structures on the
-data would lead to depth-wise separable convolutions.}
+Según \Cref{prop:multichannel-circular-conv-1}, la ReduNet invariante ante traslaciones
+es, por su propia construcción, una red convolucional profunda para señales unidimensionales multicanal. Obsérvese que, incluso si los kernels de elevación iniciales están
+separados \eqref{eqn:sparse-lifting}, la inversa de la matriz  en
+\eqref{eq:def-E-bar} para calcular $\bar{\bm E}$ (de manera similar para
+$\bar{\bm C_k}$) introduce «interferencia» entre todos los $C$ canales. %
+Por lo tanto, estas convoluciones multicanal, en general, {\em no}
+son separables en profundidad, a diferencia de las redes Xception~\cite{Xception} que
+en su momento se propusieron para simplificar las redes neuronales convolucionales
+multicanal.\footnote{Queda por determinar qué estructuras adicionales en los
+datos darían lugar a convoluciones separables en profundidad.}
 
-\begin{remark}[Reducing Computational Complexity in the Frequency Domain]
-    The calculation of $\bar{\bm E}$ in \eqref{eq:def-E-bar} requires
-    inverting a matrix of size $dC \times dC$, which in general has
-    complexity $O(d^3C^3)$.  Nevertheless, by using the fact that a
-    circulant matrix can be diagonalized by the Discrete Fourier
-    Transform (DFT) matrix, the complexity can be significantly
-    reduced. As shown in \cite{chan2021redunet}, to compute $\bar{\bm
-    E}$ and $\bar{\bm C}_k \in \Re^{dC \times dC}$, we only need to
-    compute in the frequency domain the inverse of $C\times C$ blocks
-    for $d$ times hence the overall complexity becomes $O(dC^3)$.
+\begin{remark}[Reducción de la complejidad computacional en el dominio de frecuencias]
+    El cálculo de $\bar{\bm E}$ en \eqref{eq:def-E-bar} requiere
+    invertir una matriz de tamaño $dC \times dC$, lo que en general tiene
+    una complejidad de $O(d^3C^3)$.  Sin embargo, al aprovechar el hecho de que una
+    matriz circulante puede diagonalizarse mediante la matriz de la Transformada de Fourier Discreta
+    (DFT), la complejidad puede reducirse significativamente.
+    Como se muestra en \cite{chan2021redunet}, para calcular $\bar{\bm
+    E}$ y $\bar{\bm C}_k \in \Re^{dC \times dC}$, solo necesitamos
+    calcular en el dominio de la frecuencia la inversa de los bloques $C\times C$
+    dentro de $d$ veces, por lo que la complejidad total es de $O(dC^3)$.
 
 \end{remark}
 
-\paragraph{Overall network architecture and comparison.}
-Following the above derivation, we see that in order to find a linear
-discriminative representation (LDR)  for multiple classes of
-signals/images that is invariant to translation, sparse coding, a
-multi-layer architecture with multi-channel convolutions, different
-nonlinear activation, and spectrum computing all become {\em
-necessary} components for achieving the objective effectively and
-efficiently. \Cref{fig:learn-to-classify-diagram} illustrates the
-overall process of learning such a representation via invariant rate
-reduction on the input sparse codes.
+\paragraph{Arquitectura general de la red y comparación.}
+A partir de la derivación anterior, observamos que, para encontrar una
+representación discriminativa lineal (LDR) para múltiples clases de
+señales o imágenes que sea invariante ante traslaciones, la codificación
+dispersa, una arquitectura multicapa con convoluciones multicanal, diferentes
+funciones de activación no lineales y el cálculo del espectro se convierten en componentes {\em
+necesarios} para alcanzar el objetivo de manera eficaz y
+eficiente. La \Cref{fig:learn-to-classify-diagram} ilustra el
+proceso general de aprendizaje de dicha representación mediante la reducción invariante de tasas 
+sobre los códigos dispersos de entrada.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.98\linewidth]{\toplevelprefix/chapters/chapter5/figs/learn_to_classify_diagram_updated.png}
-    \caption{The overall process for classifying multi-class signals
-        with shift invariance: Multi-channel lifting,  sparse coding,
-        followed by a multi-channel convolution ReduNet for invariant
-        rate reduction. These components are {\em necessary} in order to
-        map shift-invariant multi-class signals to incoherent (linear)
-        subspaces as an LDR. Note that the architectures of most modern
-        deep neural networks resemble this process. The so-learned LDR
-    facilitates subsequent tasks such as classification.}
+    \caption{El proceso general para clasificar señales multiclase
+        con invariancia al desplazamiento: elevación multicanal,  codificación dispersa,
+        seguida de una ReduNet de convolución multicanal para la reducción de la tasa
+        invariante. Estos componentes son {\em necesarios} para
+        mapear señales multiclase invariantes al desplazamiento a subespacios incoherentes (lineales)
+        como una LDR. Cabe señalar que las arquitecturas de la mayoría de las
+        redes neuronales profundas modernas se asemejan a este proceso. El LDR así aprendido
+    facilita tareas posteriores, como la clasificación.}
     \label{fig:learn-to-classify-diagram}
 \end{figure}
 
-\begin{example}[Invariant Classification of Digits]
-    We next provide an empirical performance of the ReduNet on
-    learning \textit{rotation} invariant features on the real
-    10-class MNIST dataset.
-    We impose a polar grid on the image $\bm{x}\in\mathbb{R}^{H\times
-    W}$, with its geometric center being the center of the 2D polar
-    grid (as illustrated in \Cref{fig:samples-invariant-1d-mnist-diagram}).
-    For each radius $r_i$, $i \in [C]$, we can sample $\Gamma$ pixels
-    with respect to each angle $\gamma_l =l\cdot({2\pi}/\Gamma)$ with
+\begin{example}[Clasificación invariante de dígitos]
+    A continuación, presentamos los resultados empíricos de ReduNet en el
+    aprendizaje de características invariantes a la \textit{rotación} en el conjunto de datos real
+    MNIST de 10 clases.
+    Imponemos una cuadrícula polar sobre la imagen $\bm{x}\in\mathbb{R}^{H\times
+    W}$, cuyo centro geométrico coincide con el centro de la cuadrícula polar 2D
+    (tal como se ilustra en la \Cref{fig:samples-invariant-1d-mnist-diagram}).
+    Para cada radio $r_i$, $i \in [C]$, podemos muestrear $\Gamma$ píxeles
+    con respecto a cada ángulo $\gamma_l =l\cdot({2\pi}/\Gamma)$ con
     $l \in [\Gamma]$.
-    Then given a sample image $\bm{x}$ from the dataset, we represent
-    the image in the (sampled) polar coordinate as a multi-channel
-    signal $\bm{x}_p \in\R^{\Gamma\times C}$.
-    The goal here is to learn a rotation invariant representation,
-    i.e., we expect to learn $f(\cdot, \theta)$ such that
+    Entonces, dada una imagen de muestra $\bm{x}$ del conjunto de datos, representamos
+    la imagen en coordenadas polares (muestreadas) como una señal multicanal
+    $\bm{x}_p \in\R^{\Gamma\times C}$.
+    El objetivo aquí es aprender una representación invariante ante rotaciones,
+    es decir, esperamos aprender $f(\cdot, \theta)$ tal que
     $\{f(\bm{x}_p \circ \mathfrak{g}, \theta)\}_{\mathfrak{g}
-    \in\mathbb{G}}$ lie in the same subspace, where $\mathfrak{g}$ is
-    the cyclic-shift in polar angle.
-    We use $N=100$ training samples ($10$ from each class) and set
-    $\Gamma=200$, $C=15$ for polar sampling.
-    By performing the above sampling in polar coordinate, we can
-    obtain the data matrix $\bm{X}_p \in \mathbb{R}^{(\Gamma\cdot C) \times N}$.
-    For the ReduNet, we set the number of layers/iterations $L=40$,
-    precision $\epsilon=0.1$, step size $\eta=0.5$. Before the first
-    layer, we perform lifting of the input by 1D
-    circulant-convolution with 20 random Gaussian kernels of size 5.
+    \in\mathbb{G}}$ se encuentren en el mismo subespacio, donde $\mathfrak{g}$ es
+    el desplazamiento cíclico en el ángulo polar.
+    Utilizamos $N=100$ muestras de entrenamiento ($10$ de cada clase) y establecemos
+    $\Gamma=200$, $C=15$ para el muestreo polar.
+    Al realizar el muestreo anterior en coordenadas polares, podemos
+    obtener la matriz de datos $\bm{X}_p \in \mathbb{R}^{(\Gamma\cdot C) \times N}$.
+    Para ReduNet, establecemos el número de capas/iteraciones $L=40$,
+    la precisión $\epsilon=0.1$ y el tamaño del paso $\eta=0.5$. Antes de la primera
+    capa, realizamos una elevación de la entrada mediante una convolución
+    circulante unidimensional con 20 núcleos gaussianos aleatorios de tamaño 5.
 
     \begin{figure}[t]
         \begin{subfigure}[t]{0.3\textwidth}
             \centering
             \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/1d-rotation.pdf}
-            \caption{$\bm{X}_{\text{rotation}}$}
+            \caption{$\bm{X}_{\text{rotación}}$}
         \end{subfigure}
         \hfill
         \begin{subfigure}[t]{0.3\textwidth}
             \centering
             \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/mnist1d_img0.pdf}
-            \caption{$\bm{Z}_{\text{rotation}}$}
+            \caption{$\bm{Z}_{\text{rotación}}$}
         \end{subfigure}
         \hfill
         \begin{subfigure}[t]{0.3\textwidth}
             \centering
             \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/mnist1d_img1.pdf}
-            \caption{Loss}
+            \caption{Pérdida}
         \end{subfigure}
-        \caption{\small Examples of rotated images of MNIST digits,
-            each by 18$^{\circ}$. (\textbf{Left}) Diagram for polar
-            coordinate representation;  (\textbf{Right}) Rotated images
-        of digit `0' and `1'.}
+        \caption{\small Ejemplos de imágenes giradas de los dígitos MNIST,
+            cada una 18$^{\circ}$. (\textbf{Izquierda}) Diagrama de la
+            representación en coordenadas polares;  (\textbf{Derecha}) Imágenes giradas
+        de los dígitos «0» y «1».}
         \label{fig:samples-invariant-1d-mnist-diagram}
     \end{figure}
 
-    To evaluate the learned representation, each training sample is
-    augmented by 20 of its rotated version, each shifted with
-    stride=10. We compute the cosine similarities among the $m \times
-    20$ augmented training inputs $\bm{X}_{\text{rotation}}$ and the
-    results are shown in \Cref{fig:redu-invariant-1d-mnist-diagram}
+    Para evaluar la representación aprendida, cada muestra de entrenamiento se
+    aumenta con 20 versiones rotadas de sí misma, cada una desplazada con
+    un paso de 10. Calculamos las similitudes coseno entre las entradas de entrenamiento aumentadas de $m \times
+    20 entradas de entrenamiento aumentadas $\bm{X}_{\text{rotation}}$ y los
+    resultados se muestran en la \Cref{fig:redu-invariant-1d-mnist-diagram}
     (\textbf{a}).
-    We compare the cosine similarities among the learned features of
-    all the augmented versions, i.e.,
-    $\bar{\bm{Z}}_{\text{rotation}}$ and summarize the results in
+    Comparamos las similitudes coseno entre las características aprendidas de
+    todas las versiones aumentadas, es decir,
+    $\bar{\bm{Z}}_{\text{rotation}}$ y resumimos los resultados en
     \Cref{fig:redu-invariant-1d-mnist-diagram} (\textbf{b}).
-    As we see, the so-constructed rotation-invariant ReduNet is able
-    to map the training data (as well as all its rotated versions)
-    from the 10 different classes into 10 nearly orthogonal
-    subspaces. That is, the learned subspaces are truly invariant to
-    shift transformation in polar angle.  Next, we randomly draw
-    another $100$ test samples followed by the same augmentation procedure.
-    In \Cref{fig:redu-invariant-1d-mnist-diagram} (\textbf{c}), we
-    visualize the MCR$^{2}$ loss on the  $\ell$-th layer
-    representation of the ReduNet on the training and test dataset.
-    From these results, we can find that the constructed ReduNet is
-    indeed able to maximize the MCR$^{2}$ loss as well as generalize
-    to the test data.
+    Como vemos, la ReduNet invariante a la rotación así construida es capaz
+    de mapear los datos de entrenamiento (así como todas sus versiones rotadas)
+    de las 10 clases diferentes en 10 subespacios casi ortogonales.
+    Es decir, los subespacios aprendidos son verdaderamente invariantes ante
+    la transformación de desplazamiento en ángulo polar. A continuación, extraemos al azar
+    otras $100$ muestras de prueba y aplicamos el mismo procedimiento de aumento.
+    En \Cref{fig:redu-invariant-1d-mnist-diagram} (\textbf{c}),
+    visualizamos la pérdida MCR$^{2}$ en la representación de la capa $\ell$
+    de la ReduNet sobre los conjuntos de datos de entrenamiento y de prueba.
+    A partir de estos resultados, podemos observar que la ReduNet construida es
+    efectivamente capaz de maximizar la pérdida MCR$^{2}$, así como de generalizar
+    a los datos de prueba.
 
     \begin{figure}[t]
         \begin{subfigure}[t]{0.3\textwidth}
             \centering
             \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/mnist1d-heatmap-X_translate_train_all.pdf}
-            \caption{$\bm{X}_{\text{rotation}}$}
+            \caption{$\bm{X}_{\text{rotación}}$}
         \end{subfigure}
         \hfill
         \begin{subfigure}[t]{0.3\textwidth}
             \centering
             \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/mnist1d-heatmap-Z_translate_train_all.pdf}
-            \caption{$\bm{Z}_{\text{rotation}}$}
+            \caption{$\bm{Z}_{\text{rotación}}$}
         \end{subfigure}
         \hfill
         \begin{subfigure}[t]{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/mnist1d-loss-traintest.pdf}
-            \caption{Loss}
+            \caption{Pérdida}
         \end{subfigure}
-        \caption{\small (a)(b) are heatmaps of cosine similarity
-            among rotated training data $\bm{X}_{\text{rotation}}$ and
-            learned features $\bar{\bm{Z}}_{\text{rotation}}$ for
-            rotation invariance. (d) visualizes the training/val MCR$^2$
-        losses across layers.}
+        \caption{\small (a) y (b) son mapas de calor de la similitud coseno
+            entre los datos de entrenamiento rotados $\bm{X}_{\text{rotation}}$ y
+            las características aprendidas $\bar{\bm{Z}}_{\text{rotation}}$ para
+            la invariancia a la rotación. (d) muestra las pérdidas MCR$^2$
+        de entrenamiento y validación por capas.}
         \label{fig:redu-invariant-1d-mnist-diagram}
     \end{figure}
 
 \end{example}
 
-\section{White-Box Transformers from Unrolled
-Optimization}\label{sec:chap4-white-box-transformer}
-As we have seen in the previous section, we use the problem of
-classification to provide a rigorous interpretation for main
-architectural characteristics of popular deep networks such as the
-ResNet and the CNN: each layer of such networks can be viewed as to
-imitate a gradient step which increases the rate reduction (or
-information gain) objective. This perspective also leads to a
-somewhat surprising fact: the the parameters and operators  of the
-layers of such a deep network, the ReduNet, can be  computed in a
-purely forward fashion.
+\section{Transformadores de caja blanca mediante optimización 
+desenroscada}\label{sec:chap4-white-box-transformer}
+Como hemos visto en la sección anterior, utilizamos el problema de la
+clasificación para ofrecer una interpretación rigurosa de las principales
+características arquitectónicas de redes profundas populares como
+ResNet y las CNN: cada capa de estas redes puede considerarse como
+una imitación de un paso de gradiente que aumenta el objetivo de
+reducción de la tasa (o ganancia de información). Esta perspectiva también lleva a un
+hecho algo sorprendente: los parámetros y operadores  de las
+capas de una red tan profunda, la ReduNet, pueden  calcularse de forma
+puramente hacia adelante.
 
-Despite the theoretical and conceptual importance of the ReduNet,
-several factors limit it from being very practical. First, as we have
-discussed in the above, the computational cost of computing the
-matrix operators in  each layer in a forward fashion can be very
-high. Second, the so-computed operators may not be so effective in
-optimizing the objective and it might take thousands of iterations
-(hence layers). As we have seen  in \Cref{sec:LISTA} for LISTA, these
-two issues can be addressed by allowing to optimize those operators
-and make them learnable via back-propagation.\footnote{Or, perhaps,
-by a mixture of both forward and backward optimization.}
+A pesar de la importancia teórica y conceptual de ReduNet,
+hay varios factores que limitan su aplicabilidad práctica. En primer lugar, como hemos
+comentado anteriormente, el costo computacional de calcular los
+operadores matriciales en cada capa de forma directa puede ser muy
+elevado. En segundo lugar, es posible que los operadores así calculados no sean tan eficaces a la hora de
+optimizar el objetivo y que se necesiten miles de iteraciones 
+(y, por lo tanto, de capas). Como hemos visto  en \Cref{sec:LISTA} para LISTA, estos
+dos problemas pueden resolverse permitiendo optimizar esos operadores
+y haciendo que sean aprendibles mediante retropropagación.\footnote{O, tal vez,
+mediante una combinación de optimización hacia adelante y hacia atrás.}
 
-The supervised classification setting in which the ReduNet was
-derived is also somewhat limiting. In practice, an image might not
-belong to a single class as it may contain multiple objects. Hence it
-would be more general to assume that different regions of the image
-belong to  different low-dimensional models (say a Gaussian or a
-subspace). As we will see, such a generalization would lead to a both
-simple and general architecture which unifies the rate reduction and
-the denoising operations that we have seen in the previous chapter.
-Moreover, the so-obtained architecture resembles the popular
-Transformer architecture.
+El contexto de clasificación supervisada en el que se desarrolló ReduNet
+también presenta ciertas limitaciones. En la práctica, es posible que una imagen no
+pertenezca a una sola clase, ya que puede contener varios objetos. Por lo tanto,
+sería más general suponer que las diferentes regiones de la imagen
+pertenecen a  diferentes modelos de baja dimensión (por ejemplo, una distribución gaussiana o un
+subespacio). Como veremos, tal generalización daría lugar a una arquitectura
+tanto sencilla como general que unifica las operaciones de reducción de tasa y
+de eliminación de ruido que hemos visto en el capítulo anterior.
+Además, la arquitectura así obtenida se asemeja a la popular
+arquitectura de Transformador.
 
-\subsection{Unrolled Optimization for Sparse Rate Reduction}
+\subsection{Optimización desenroscada para la reducción dispersa de la tasa}
 
-For the past several years, as the amount and quality of data
-available for training deep networks has increased dramatically,
-the field has moved from considering inputs as ``atoms'' to inputs as
-``sequences of tokens'', where each token is a part of the overall input.
-This shift in perspective has both philosophical and pragmatic
-improvements: philosophically, it allows us to measure and model each
-part of the input and their interactions; pragmatically, it allows us
-to use similar deep networks, \textit{sequence-to-sequence models}
-such as the ubiquitous Transformers, to learn every kind of data
-distribution. Now, it falls to us to understand representation
-learning in the ``token-centric'' model of data as token sequences,
-and to cope with the aforementioned challenges (such as, in the
-context of the rate reduction framework, not having labels for each token).
+En los últimos años, a medida que la cantidad y la calidad de los datos
+disponibles para entrenar redes profundas han aumentado de manera espectacular,
+el campo ha pasado de considerar las entradas como «átomos» a considerarlas como
+«secuencias de tokens», en las que cada token forma parte de la entrada global.
+Este cambio de perspectiva ofrece ventajas tanto filosóficas como prácticas:
+desde el punto de vista filosófico, nos permite medir y modelar cada
+parte de la entrada y sus interacciones; desde el punto de vista práctico, nos permite
+utilizar redes profundas similares, \textit{modelos secuencia-a-secuencia}
+como los omnipresentes Transformadores, para aprender todo tipo de
+distribuciones de datos. Ahora nos corresponde comprender el aprendizaje de representaciones
+en el modelo «centrado en tokens» de datos como secuencias de tokens,
+y hacer frente a los retos mencionados anteriormente (como, por ejemplo, en el
+contexto del marco de reducción de tasa, la falta de etiquetas para cada token).
 
-Formally, let \(\X = \mat{\x_{1}, \dots, \x_{N}} \in \bR^{D \times
-N}\) denote random variables representing our data source. In vision
-tasks, each \(\x_{i} \in \bR^{D}\) is interpreted as a
-\textit{token}, typically corresponding to an image patch. In
-language tasks, each \(\x_{i} \in \bR^{D}\) is interpreted as an
-\textit{token embedding}, i.e., a continuous vector representation of
-a discrete token such as a word or subword.\footnote{With a slight
-    abuse of terminology, we refer to both the discrete tokens and their
-    associated embeddings simply as tokens throughout this chapter for
-convenience.}  %
-The \(\x_{i}\)'s may have arbitrary correlation structures. We use
-\(\Z = \mat{\z_{1}, \dots, \z_{N}} \in \bR^{d \times N}\) to denote
-the random variables that defines our representations, where \(\z_{i}
-\in \bR^{d}\) is the representation of the corresponding token \(\x_i
+Formalmente, sea \(\X = \mat{\x_{1}, \dots, \x_{N}} \in \bR^{D \times
+N}\) un conjunto de variables aleatorias que representan nuestra fuente de datos. En tareas de visión,
+cada \(\x_{i} \in \bR^{D}\) se interpreta como un
+\textit{token}, que suele corresponder a un fragmento de imagen. En
+tareas de lenguaje, cada \(\x_{i} \in \bR^{D}\) se interpreta como una
+\textit{incrustación de token}, es decir, una representación vectorial continua de
+un token discreto, como una palabra o una subpalabra.\footnote{Con un ligero
+    desvío terminológico, a lo largo de este capítulo nos referiremos tanto a los tokens discretos como a sus
+    incrustaciones asociadas simplemente como «tokens» por
+razones de conveniencia.}  %
+Los \(\x_{i}\) pueden tener estructuras de correlación arbitrarias. Utilizamos
+\(\Z = \mat{\z_{1}, \dots, \z_{N}} \in \bR^{d \times N}\) para denotar
+las variables aleatorias que definen nuestras representaciones, donde \(\z_{i}
+\in \bR^{d}\) es la representación del token correspondiente \(\x_i
 \in \bR^{D}\).%
 
 \begin{remark}
-    In transformers, each input sample is typically converted into a
-    sequence of {\em tokens}. A token is a basic unit of information
-    derived from the raw input: in natural language processing,
-    tokens are typically words or subwords; in computer vision, they
-    correspond to image patches; and in other modalities, they may
-    represent time steps, spatial locations, or other domain-specific
-    units. A {\em token embedding} is a continuous vector
-    representation of a token that serves as the input to a
-    transformer. It maps each token to a point in a high-dimensional
-    space, enabling the model to process symbolic inputs using
-    numerical computation.
-    A {\em token representation} is a vector that encodes the
-    semantic or structural information of a token, typically produced
-    by the intermediate or final layers of a transformer. These
-    representations are designed to capture meaningful features of
-    the input that are useful for downstream tasks such as
-    classification, generation, or regression. Please refer to
-    \Cref{sec:contrastive_learning} for more details about this
-    vocabulary and how it relates to implementations.
+    En los transformadores, cada muestra de entrada se convierte normalmente en una
+    secuencia de {\em tokens}. Un token es una unidad básica de información
+    derivada de la entrada sin procesar: en el procesamiento del lenguaje natural,
+    los tokens suelen ser palabras o subpalabras; en la visión artificial,
+    corresponden a fragmentos de imagen; y en otras modalidades, pueden
+    representar intervalos de tiempo, ubicaciones espaciales u otras unidades
+    específicas del dominio. Una {\em incrustación de token} es una representación vectorial continua
+    de un token que sirve como entrada para un
+    transformador. Asigna a cada token un punto en un espacio de alta dimensión,
+    lo que permite al modelo procesar entradas simbólicas mediante
+    cálculos numéricos.
+    Una {\em representación de token} es un vector que codifica la
+    información semántica o estructural de un token, y suele ser generada
+    por las capas intermedias o finales de un transformador. Estas
+    representaciones están diseñadas para capturar características significativas de
+    la entrada que resultan útiles para tareas posteriores, tales como
+    la clasificación, la generación o la regresión. Consulte
+    \Cref{sec:contrastive_learning} para obtener más detalles sobre este
+    vocabulario y cómo se relaciona con las implementaciones.
 \end{remark}
 
-\paragraph{Objective for learning a structured and compact representation.}
-Inspired by the previous discussion of rate reduction
-(\Cref{sec:chap4-white-box-model-via-unrolling}), we propose that the
-objective of representation learning
-in this token-centric model for our data is to find a
-feature mapping \(f
-\colon \X \in \bR^{D \times N} \to \Z\in \bR^{d \times N}\) which
-transforms input tokens \(\{\bm x_i\}_{i=1}^N \subset \R^D\) with a
-potentially nonlinear and multi-modal distribution to a (piecewise)
-\textit{linearized and compact} token representations \(\{\bm
-z_i\}_{i=1}^N \subset \bR^{d}\). While the {\em joint} distribution
-of tokens representations \(\{\z_{i}\}_{i = 1}^{N}\) may be
-sophisticated (and task-specific), we further contend that it is
-reasonable and practical to
-require that the target {\em marginal} distribution of individual
-token representations should be highly compressed and structured,
-amenable for compact coding. Particularly, we require the
-distribution to be \textit{a mixture of low-dimensional (say \(K\)) Gaussian
-distributions}, such that the \(k\)-th Gaussian has mean \(\Zero \in
-\bR^{d}\), covariance \(\vSigma_{k} \succeq \Zero \in \bR^{d \times
-d}\), and support spanned by the orthonormal basis \(\vU_{k} \in
+\paragraph{Objetivo para el aprendizaje de una representación estructurada y compacta.}
+Inspirándonos en el análisis previo sobre la reducción de la tasa
+(\Cref{sec:chap4-white-box-model-via-unrolling}), proponemos que el
+objetivo del aprendizaje de representaciones
+en este modelo centrado en tokens para nuestros datos sea encontrar una
+correspondencia de características \(f
+\colon \X \in \bR^{D \times N} \to \Z\in \bR^{d \times N}\) que
+transforme los tokens de entrada \(\{\bm x_i\}_{i=1}^N \subset \R^D\) con una
+distribución potencialmente no lineal y multimodal a representaciones de tokens (por tramos)
+\textit{linealizadas y compactas} \(\{\bm
+z_i\}_{i=1}^N \subset \bR^{d}\). Si bien la distribución {\em conjunta}
+de las representaciones de los tokens \(\{\z_{i}\}_{i = 1}^{N}\) puede ser
+sofisticada (y específica para cada tarea), sostenemos además que es
+razonable y práctico
+exigir que la distribución {\em marginal} objetivo de las representaciones
+individuales de los tokens sea altamente comprimida y estructurada,
+lo que la hace apta para una codificación compacta. En particular, requerimos que la
+distribución sea \textit{una mezcla de distribuciones gaussianas de baja dimensión (digamos \(K\))
+}, de tal manera que la \(k\)-ésima gaussiana tenga media \(\Zero \in
+\bR^{d}\), covarianza \(\vSigma_{k} \succeq \Zero \in \bR^{d \times
+d}\), y soporte generado por la base ortonormal \(\vU_{k} \in
 \bR^{d \times p}\).
-We denote $\vU_{[K]} = \{\vU_k\}_{k=1}^K$ to be the set of bases of
-all Gaussians.
+Denotamos por $\vU_{[K]} = \{\vU_k\}_{k=1}^K$ el conjunto de bases de
+todas las distribuciones gaussianas.
 
-As usual, in order to learn good representations, we wish to maximize
-the \textit{information gain} for the final token representations, or
-more specifically to maximize an appropriate notion of the rate
-reduction (see \Cref{subsec:MCR2}), i.e.,
+Como es habitual, para aprender buenas representaciones, queremos maximizar
+la \textit{ganancia de información} de las representaciones finales de los tokens, o
+más concretamente, maximizar una noción adecuada de la reducción de la tasa
+(véase \Cref{subsec:MCR2}), es decir,
 \begin{align}\label{eq:rate reduction}
     \mathrm{max}_{\bm Z \in \R^{d\times N}}\ \Delta R_{\epsilon}(\Z
     \mid \vU_{[K]}) \doteq R_{\epsilon}(\Z) - R^c_{\epsilon}(\Z \mid \vU_{[K]}).
 \end{align}
-Here, the first term $R_{\epsilon}$ is an estimate of the lossy
-coding rate for the whole set of token representations. More
-specifically, if we view the token representations $\{\bm
-z_i\}_{i=1}^N$ as i.i.d. samples from a single zero-mean Gaussian,
-their lossy coding rate subject to a quantization precision $\epsilon
-> 0$ is given as
+Aquí, el primer término $R_{\epsilon}$ es una estimación de la tasa de codificación con pérdida
+para el conjunto completo de representaciones de tokens. Más
+concretamente, si consideramos las representaciones de tokens $\{\bm
+z_i\}_{i=1}^N$ como muestras independientes e idénticamente distribuidas de una única distribución gaussiana de media cero,
+su tasa de codificación con pérdida, sujeta a una precisión de cuantificación $\epsilon
+> 0$, viene dada por
 \begin{equation}\label{eq:coding_rate}
     R_{\epsilon}(\Z) \doteq \frac{1}{2}\textrm{logdet}\left(\I +
     \frac{d}{N\epsilon^{2}}\Z^{\top}\Z\right) =
     \frac{1}{2}\textrm{logdet}\left(\I +
     \frac{d}{N\epsilon^{2}}\Z\Z^{\top}\right).
 \end{equation}
-The second term $R_{\epsilon}^c$ is an estimate of the lossy coding
-rate under the codebook $\bm U_{[K]}$, which is given as
+El segundo término $R_{\epsilon}^c$ es una estimación de la tasa de codificación con pérdida
+bajo el libro de códigos $\bm U_{[K]}$, que se expresa como
 \begin{equation}
     \scalebox{0.95}{\(\displaystyle R_{\epsilon}^c(\Z \mid \vU_{[K]}) \doteq
             \sum_{k=1}^{K}R_{\epsilon}(\vU_k^{\top} \Z) =
@@ -1442,85 +1444,82 @@ rate under the codebook $\bm U_{[K]}$, which is given as
 \end{equation}
 
 \begin{remark}
-    The expression \eqref{eq:def-mcr-Rc} for the coding rate can be
-    viewed as a generalization of the coding rate \(R_\epsilon^{c}\)
-    used in the original rate reduction objective \eqref{eq:MCRc}. In
-    particular, the original objective is defined with respect to a
-    set of known membership labels \(\{\vPi_{k}\}\) specific to the
-    particular data realization \(\vX\). In contrast, the current
-    objective is defined with respect to subspaces \(\vU_{[K]}\),
-    which are independent of any particular realization but are
-    assumed to support the distribution of token representations.
-    Suppose that a token representation $\bm z_i$ belongs to a
-    subspace $\bm U_k$ and these subspaces are approximately
-    orthogonal to each other, i.e., $\bm U_k^\top \bm U_l \approx \bm
-    0$ for all $k \neq l$. Then, one can verify that the projections
-    $\bm U_k\bm U_k^\top \bm z_i  = \bm z_i$ and  $\bm U_l\bm
-    U_l^\top \bm z_i \approx \bm 0$ for all $l \neq k$. These
-    orthogonal projections effectively serve as implicit membership
-    labels, identifying the subspace to which each token representation belongs.
+    La expresión \eqref{eq:def-mcr-Rc} para la tasa de codificación puede
+    considerarse como una generalización de la tasa de codificación \(R_\epsilon^{c}\)
+    utilizada en el objetivo de reducción de tasa original \eqref{eq:MCRc}. En
+    particular, el objetivo original se define con respecto a un
+    conjunto de etiquetas de pertenencia conocidas \(\{\vPi_{k}\}\) específicas de la
+    realización de datos particular \(\vX\). Por el contrario, el objetivo actual
+    se define con respecto a los subespacios \(\vU_{[K]}\),
+    que son independientes de cualquier realización concreta, pero de los que
+    se supone que admiten la distribución de las representaciones de tokens.
+    Supongamos que una representación de token $\bm z_i$ pertenece a un
+    subespacio $\bm U_k$ y que estos subespacios son aproximadamente
+    ortogonales entre sí, es decir, $\bm U_k^\top \bm U_l \approx \bm
+    0$ para todo $k \neq l$. Entonces, se puede verificar que las proyecciones
+    $\bm U_k\bm U_k^\top \bm z_i  = \bm z_i$ y  $\bm U_l\bm
+    U_l^\top \bm z_i \approx \bm 0$ para todo $l \neq k$. Estas
+    proyecciones ortogonales sirven efectivamente como etiquetas de pertenencia implícitas,
+    identificando el subespacio al que pertenece cada representación de token.
 \end{remark}
 
 \begin{remark}
-    Notably, this set of desiderata for representation learning
-    aligns well with two well-established empirical hypotheses about
-    the structure of token representations in trained models which
-    use the ubiquitous transformer neural network architecture: the
-    ``linear representation hypothesis''
-    \citep{jiang2024origins,park2023linear} and the ``superposition
-    hypothesis'' \citep{elhage2022toy,yun2021transformer}. The linear
-    representation hypothesis posits that token representations in
-    transformer models lie in low-dimensional linear subspaces that
-    encode semantic features. Similarly, the superposition hypothesis
-    suggests that these representations can be approximately
-    expressed as a sparse linear combination of these feature
-    vectors. As we will see in
-    \Cref{fig:crate_segmentation_specialization} later in this
-    Chapter, the subspace basis $\bm U_k$ may be interpreted as a set
-    of semantic features, where each feature corresponds to a
-    specific aspect of the token's meaning. Token representations are
-    then approximately expressed as sparse linear combinations of
-    these subspace bases, capturing the essential semantic components
-    of the token while ignoring irrelevant dimensions.
+    Cabe destacar que este conjunto de requisitos para el aprendizaje de representaciones
+    concuerda bien con dos hipótesis empíricas bien establecidas sobre
+    la estructura de las representaciones de tokens en los modelos entrenados que
+    utilizan la omnipresente arquitectura de redes neuronales de Transformadores: la
+    «hipótesis de la representación lineal»
+    \citep{jiang2024origins,park2023linear} y la «hipótesis de la superposición»
+    » \citep{elhage2022toy,yun2021transformer}. La hipótesis de la
+    representación lineal postula que las representaciones de tokens en
+    los modelos de Transformador se encuentran en subespacios lineales de baja dimensión que
+    codifican características semánticas. De manera similar, la hipótesis de la superposición
+    sugiere que estas representaciones pueden expresarse, de manera aproximada,
+    como una combinación lineal dispersa de estos vectores de características. Como veremos en
+    \Cref{fig:crate_segmentation_specialization} más adelante en este
+    capítulo, la base del subespacio $\bm U_k$ puede interpretarse como un conjunto
+    de características semánticas, donde cada característica corresponde a un
+    aspecto específico del significado del token. Las representaciones de los tokens se
+    expresan entonces, aproximadamente, como combinaciones lineales dispersas de
+    estas bases del subespacio, capturando los componentes semánticos esenciales
+    del token e ignorando las dimensiones irrelevantes.
 \end{remark}
 
 \begin{figure}[t!]
     \centering
     \includegraphics[width=0.95\textwidth]{\toplevelprefix/chapters/chapter5/figs/coding-transform.png}
-    \caption{ \small\textbf{Comparison of three sets of
-        representations via rate reduction and sparsity.} Each $S_i$
-        represents one linear subspace, and the number of blue balls
-        represents the difference between the coding rates $\Delta
+    \caption{ \small\textbf{Comparación de tres conjuntos de
+        representaciones mediante la reducción de la tasa y la dispersión. Cada $S_i$
+        representa un subespacio lineal y el número de bolas azules
+        representa la diferencia entre las tasas de codificación $\Delta
         R_{\epsilon}(\vZ \mid \vU_{[K]}) = R_\epsilon(\vZ) -
         R^c_\epsilon(\vZ \mid \vU_{[K]})$.
     }
     \label{fig:sparse-rate-reduction-diagram}
 \end{figure}
 
-\paragraph{Sparse rate reduction.} Note that the rate reduction
-objective \eqref{eq:rate reduction} is invariant to arbitrary joint
-rotations of the representations and subspaces. In particular,
-optimizing the rate reduction objective may not naturally lead to
-axis-aligned (i.e., \textit{sparse}) representations. {For instance,
-    consider the three sets of learned representations in
-    \Cref{fig:sparse-rate-reduction-diagram}. The coding rate reduction
-    increases from (a) to (b), but because it is invariant under
-rotations, remains the same from (b) to (c).} Therefore, we would
-like to transform the representations (and their supporting
-subspaces) so that the representations $\vZ$ eventually become
-sparse\footnote{Concretely, having few nonzero entries.} with respect
-to the standard coordinates of the resulting representation space {as
-in \Cref{fig:sparse-rate-reduction-diagram}(c)}.
-Computationally, we may combine the above two goals into a unified
-objective for optimization:
+\paragraph{Reducción dispersa de tasas.} Tenga en cuenta que el objetivo de reducción de la tasa
+\eqref{eq:rate reduction} es invariante ante rotaciones conjuntas arbitrarias
+de las representaciones y los subespacios. En particular,
+la optimización del objetivo de reducción de la tasa puede no conducir de forma natural a
+representaciones alineadas con los ejes (es decir, \textit{dispersas}). {Por ejemplo,
+    considere los tres conjuntos de representaciones aprendidas en la
+    \Cref{fig:sparse-rate-reduction-diagram}. Por lo tanto, nos gustaría
+transformar las representaciones (y sus subespacios
+de soporte) de tal manera que las representaciones $\vZ$ acaben siendo
+dispersas\footnote{Concretamente, con pocas entradas distintas de cero.} con respecto
+a las coordenadas estándar del espacio de representaciones resultante {como
+en \Cref{fig:sparse-rate-reduction-diagram}(c)}. 
+Desde el punto de vista computacional, podemos combinar los dos objetivos anteriores en un único
+objetivo de optimización:
 \begin{equation}
     \max_{f \in \mathcal{F}}\ [\Delta R_{\epsilon}(\Z \mid \vU_{[K]})
     - \lambda \|\bm{Z}\|_0] \qquad \text{s.t.}\ \Z = f(\X),
     \label{eq:sparse-rr}
 \end{equation}
-where $\mathcal{F}$ denotes a general function class and the $\ell_0$
-norm $\|\Z\|_0$ promotes the sparsity of the final token
-representations \(\Z = f(\X)\).%
+donde $\mathcal{F}$ denota una clase general de funciones y la norma $\ell_0$
+$\|\Z\|_0$ promueve la dispersión de las representaciones finales de los tokens
+\(\Z = f(\X)\).%
 
 In practice, the $\ell_0$ norm is often relaxed to the $\ell_1$ norm
 to improve computational tractability and enable convex optimization
@@ -1538,16 +1537,16 @@ amenable to efficient algorithms as follow:
 With a slight abuse of terminology, we often refer to this objective
 function also as the \textit{sparse rate reduction}.
 
-\paragraph{White-box network architecture via unrolled optimization.}
+\paragraph{Arquitectura de red de caja blanca mediante optimización desenroscada.}
 
-Although easy to state, each term in the above objective is
-computationally challenging to optimize \cite{Wright-Ma-2022}. Hence
-it is natural to adopt an approximation approach that realizes the
-global transformation $f$ to optimize
-\eqref{eq:sparse-rr} through a concatenation of multiple, say $L$,
-simple \textit{incremental and local} operations $f^\ell$ that push
-the representation distribution towards the desired parsimonious
-model distribution:
+Aunque resulte fácil de formular, la optimización de cada término del objetivo anterior
+plantea un reto computacional \cite{Wright-Ma-2022}. Por lo tanto,
+es natural adoptar un enfoque de aproximación que realice la
+transformación global $f$ para optimizar 
+\eqref{eq:sparse-rr} mediante una concatenación de múltiples, digamos $L$,
+operaciones simples \textit{incrementales y locales} $f^\ell$ que empujan
+la distribución de la representación hacia la distribución del modelo parsimonioso
+deseada:
 \begin{equation}
     f\colon \X \xrightarrow{\hspace{1mm} f^{\mathrm{pre}} \hspace{1mm}}
     \Z^1 \rightarrow \cdots \rightarrow \Z^\ell
@@ -1555,80 +1554,80 @@ model distribution:
     \rightarrow  \cdots \xrightarrow{\hspace{1mm} f^{L}} \Z^{L+1} = \Z,
     \label{eq:incremental}
 \end{equation}
-where $f^{\mathrm{pre}}: \bR^{D} \rightarrow \bR^{d}$ is the pre-processing
-mapping that transforms each input token $\x_{i} \in \bR^{D}$ to the
-initial token representations $\z_{i}^{1} \in \bR^{d}$.
-Each incremental \textit{forward mapping} $\Z^{\ell + 1} =
-f^\ell(\Z^\ell)$, or a ``layer'', transforms the token distribution
-to \textit{optimize} the above sparse rate reduction objective
-\eqref{eq:sparse-rr}, conditioned on the distribution of its input $\Z^\ell$.
+donde $f^{\mathrm{pre}}: \bR^{D} \rightarrow \bR^{d}$ es la aplicación de preprocesamiento
+que transforma cada token de entrada $\x_{i} \in \bR^{D}$ en las
+representaciones iniciales de los tokens $\z_{i}^{1} \in \bR^{d}$.
+Cada \textit{mapeo hacia adelante} incremental $\Z^{\ell + 1} =
+f^\ell(\Z^\ell)$, o una «capa», transforma la distribución de tokens
+para \textit{optimizar} el objetivo de reducción dispersa de tasa anterior
+\eqref{eq:sparse-rr}, condicionado a la distribución de su entrada $\Z^\ell$.
 
 \begin{remark}
-    In contrast to other unrolled optimization approaches such as the
-    ReduNet (see \Cref{sec:chap4-white-box-model-via-unrolling}), we
-    \textit{explicitly model} the distribution of $\Z^\ell$ at each
-    layer, say as a mixture of linear subspaces or sparsely generated
-    from a dictionary. The model parameters are learned from data
-    (say via \textit{backward propagation} with end-to-end training).
-    This separation between forward ``optimization'' and backward
-    ``learning'' clarifies the mathematical role of each layer as an operator
-    that transforms the distribution of its input, whereas the input
-    distribution is in turn modeled (and subsequently learned) by the
-    parameters of the layer.
+    A diferencia de otros enfoques de optimización desenroscada, como el
+    ReduNet (véase \Cref{sec:chap4-white-box-model-via-unrolling}), nosotros
+    \textit{modelamos explícitamente} la distribución de $\Z^\ell$ en cada
+    capa, por ejemplo, como una mezcla de subespacios lineales o generada de forma dispersa
+    a partir de un diccionario. Los parámetros del modelo se aprenden a partir de los datos
+    (por ejemplo, mediante la \textit{retropropagación} con entrenamiento de extremo a extremo).
+    Esta separación entre la «optimización» hacia adelante y el
+    «aprendizaje» hacia atrás aclara la función matemática de cada capa como un operador
+    que transforma la distribución de su entrada, mientras que la distribución
+    de la entrada, a su vez, es modelada (y posteriormente aprendida) por los
+    parámetros de la capa.
 \end{remark}
 
-Now, we show how to derive these incremental and local operations
-through an unrolled optimization perspective to solve Problem
-\eqref{eq:sparse-rr-1}.  Once we decide on using an incremental
-approach to optimizing Problem
-\eqref{eq:sparse-rr-1}, there are a variety of possible choices to
-achieve the optimization. Given a model for $\Z^\ell$, say a mixture
-of subspaces $\vU_{[K]}$, we opt for a two-step \textit{alternating
-minimization} method with a strong conceptual basis. First, we
-\textit{compress} the tokens $\vZ^{\ell}$ via a gradient descent to
-minimize the coding rate term $R^c_\epsilon (\vZ \mid
-\vU_{[K]}^\ell)$. Specifically, we take a gradient step on
-$R^c_\epsilon$ with a learning rate $\kappa$ as follows:
+A continuación, mostramos cómo derivar estas operaciones incrementales y locales
+desde una perspectiva de optimización desenroscada para resolver el problema
+\eqref{eq:sparse-rr-1}. Una vez que decidimos utilizar un enfoque incremental
+para optimizar el problema
+\eqref{eq:sparse-rr-1}, existen diversas opciones posibles para
+lograr la optimización. Dado un modelo para $\Z^\ell$, por ejemplo, una mezcla
+de subespacios $\vU_{[K]}$, optamos por un método de \textit{minimización
+alternada} en dos pasos con una sólida base conceptual. Primero,
+\textit{comprimimos} los tokens $\vZ^{\ell}$ mediante un descenso de gradiente para
+minimizar el término de tasa de codificación $R^c_\epsilon (\vZ \mid
+\vU_{[K]}^\ell)$. Específicamente, tomamos un paso de gradiente en
+$R^c_\epsilon$ con una tasa de aprendizaje $\kappa$ de la siguiente manera:
 \begin{align}\label{eq:Z l+1/2}
     \bm Z^{\ell+1/2} = \bm Z^\ell - \kappa \nabla_{\bm Z}
     R^c_\epsilon (\vZ \mid \vU_{[K]}^\ell).
 \end{align}
-Next, we \textit{sparsify} the compressed tokens, generating
-\(\vZ^{\ell + 1}\) via a suitably-relaxed proximal gradient step to
-minimize the remaining term $\lambda \norm{\vZ}_{1} -
-R_{\epsilon}(\vZ)$. As we will argue in detail later, we can find
-such a $\bm Z^{\ell+1}$ by solving a sparse presentation problem with
-respect to an orthogonal complete dictionary $\bm D^\ell$:
+A continuación, \textit{dispersamos} los tokens comprimidos, generando
+\(\vZ^{\ell + 1}\) mediante un paso de gradiente proximal adecuadamente relajado para
+minimizar el término restante $\lambda \norm{\vZ}_{1} -
+R_{\epsilon}(\vZ)$. Como argumentaremos en detalle más adelante, podemos encontrar
+dicho $\bm Z^{\ell+1}$ resolviendo un problema de presentación dispersa con
+respecto a un diccionario ortogonal completo $\bm D^\ell$:
 \begin{equation}\label{eq:Z l+1}
     \vZ^{\ell+1} = \argmin_{{\vZ}}  \bigg\{\lambda \norm{\vZ}_1 +
     \frac{1}{2}\norm{\vZ^{\ell + 1/2} - \vD^{\ell} {\vZ}}_F^2\bigg\}.
 \end{equation}
-In the following, we provide technical details for each of the two
-steps above and derive efficient updates for their implementation.
+A continuación, ofrecemos detalles técnicos sobre cada uno de los dos
+pasos anteriores y derivamos actualizaciones eficientes para su implementación.
 
-\paragraph{Self-attention as gradient descent on coding rate of token
-representations.} For the first step \eqref{eq:Z l+1/2}, the gradient
-of the coding rate \(\nabla_{\bm Z} R^c_\epsilon\) is costly to
-compute, as it involves \(K\) separate matrix inverses, one for each
-of the \(K\) subspaces with basis \(\vU_{k}^{\ell}\):
+\paragraph{La autoatención como descenso por gradiente en la tasa de codificación de las representaciones 
+de tokens.} En el primer paso \eqref{eq:Z l+1/2}, el gradiente
+de la tasa de codificación \(\nabla_{\bm Z} R^c_\epsilon\) resulta costoso de
+calcular, ya que implica \(K\) inversas de matrices distintas, una para cada
+uno de los \(K\) subespacios con base \(\vU_{k}^{\ell}\):
 \begin{equation}
     \nabla_{\bm Z} R_{\epsilon}^c(\vZ \mid \vU_{[K]})
     = \frac{p}{N\epsilon^2}\sum_{k=1}^K \vU_k\vU_k^\top\vZ\Big(\I +
     \frac{p}{N\epsilon^2}(\vU_k^\top\vZ)^\top(\vU_k^\top\vZ)\Big)^{-1}.
     \label{eq:rate-gradient}
 \end{equation}
-Now, we demonstrate that this gradient can be naturally approximated
-using a so-called multi-head subspace self-attention (MSSA) operator,
-which has a similar functional form to the multi-head self-attention
-operator \citep{vaswani2017attention} with \(K\) heads (i.e., one for
-each subspace, coming from each matrix inverse). Here, we approximate
-the gradient \eqref{eq:rate-gradient} using the first-order Neumann
-series (see \Cref{ex:neumannn}):\footnote{This approximation is only
-    meaningful when \(\vZ\) has a small norm, which in practice can be
-    enforced by normalization strategies (such as the so-called ``layer
-    normalization''). We do not include it here for notational
-    convenience, though the corresponding layer normalization operator is
-included in the final architecture.}
+Ahora demostramos que este gradiente puede aproximarse de forma natural
+utilizando el denominado operador de autoatención de subespacios de múltiples cabezas (MSSA),
+que tiene una forma funcional similar a la del operador de autoatención de múltiples cabezas
+\citep{vaswani2017attention} con \(K\) cabezas (es decir, una para
+cada subespacio, procedente de cada inversa de matriz). Aquí, calculamos por aproximación
+el gradiente \eqref{eq:rate-gradient} utilizando la serie de Neumann de primer orden
+(véase \Cref{ex:neumannn}):\footnote{Esta aproximación solo
+    tiene sentido cuando \(\vZ\) tiene una norma pequeña, lo cual, en la práctica, puede
+    lograrse mediante estrategias de normalización (como la denominada «normalización
+    por capas»). No la incluimos aquí por razones de
+    conveniencia notacional, aunque el operador de normalización por capas correspondiente sí
+    se incluye en la arquitectura final.}
 \begin{align}\label{eq:gd_rc_neumann}
     &\nabla_{\bm Z} R_{\epsilon}^{c}(\vZ \mid \vU_{[K]}) \\
     &\approx \frac{p}{N\epsilon^2} \sum_{k =

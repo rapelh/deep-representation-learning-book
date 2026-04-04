@@ -1,10 +1,10 @@
 \documentclass{book}
-% \documentclass{EngC}
 
-%\usepackage[spanish]{babel}
+\usepackage[english]{babel}
 
-\renewcommand{\chaptername}{Capítulo}
-\renewcommand{\figurename}{Figura}
+\usepackage{fancyhdr}
+\addto\captionsenglish{\renewcommand{\chaptername}{Capítulo}}
+\addto\captionsenglish{\renewcommand{\figurename}{Figura}}
 
 \makeatletter
 \@ifclassloaded{EngC}{
@@ -36,6 +36,7 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{caption}
+\captionsetup{figurename=Figura}
 \usepackage{float}
 \usepackage{subcaption}
 
@@ -98,8 +99,15 @@ decorations.pathmorphing, decorations.markings}
     citecolor={blue!80!black},
 }
 
+\newcommand{\crefrangeconjunction}{ a }
+\newcommand{\crefpairconjunction}{ y }
+\newcommand{\crefmiddlegroupconjunction}{ y }
+\newcommand{\creflastgroupconjunction}{ y }
+
 \usepackage{cleveref}
 
+\crefname{algorithm}{algoritmo}{algoritmos}
+\Crefname{algorithm}{Algoritmo}{Algoritmos}
 \crefname{appendix}{apéndice}{apéndices}
 \Crefname{appendix}{Apéndice}{Apéndices}
 \crefname{assumption}{supuesto}{supuestos}
@@ -116,10 +124,12 @@ decorations.pathmorphing, decorations.markings}
 \Crefname{chapter}{Capítulo}{Capítulos}
 \crefname{section}{sección}{secciones}
 \Crefname{section}{Sección}{Secciones}
-\crefname{thm}{teorema}{teoremas}
-\Crefname{thm}{Teorema}{Teoremas}
+\crefname{theorem}{teorema}{teoremas}
+\Crefname{theorem}{Teorema}{Teoremas}
 \crefname{remark}{observación}{observaciones}
 \Crefname{remark}{Observación}{Observaciones}
+\crefname{proposition}{proposición}{proposiciones}
+\Crefname{proposition}{Proposición}{Proposiciones}
 
 \hyphenation{line-break line-breaks docu-ment triangle cambridge amsthdoc
 cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
@@ -127,6 +137,15 @@ cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
 \setcounter{tocdepth}{2}% list subsections in the table of contents
 % Algorithm packages -- should go after hyperref
 \usepackage{algorithm}
+%\usepackage{algorithmic}
+\usepackage{caption}
+
+\makeatletter
+\addto\captionsspanish{\renewcommand{\ALG@name}{Algoritmo}}
+\DeclareCaptionLabelFormat{alglabel}{\bfseries\csname ALG@name\endcsname~#2:}
+\captionsetup[algorithm]{labelformat=alglabel}
+\makeatother
+
 % \usepackage[spaceRequire=false]{algpseudocodex}
 \usepackage{algpseudocode}
 
@@ -197,8 +216,12 @@ cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
 
 \usepackage{etoolbox}
 % Patches the command names after other packages are loaded
+\patchcmd{\chapter}{Chapter}{Capítulo}{}{}
 \patchcmd{\theorem}{Theorem}{Teorema}{}{}
 \patchcmd{\example}{Example}{Ejemplo}{}{}
+\patchcmd{\remark}{Remark}{Observación}{}{}
+\patchcmd{\exercise}{Exercise}{Ejercicio}{}{}
+\patchcmd{\proposition}{Proposition}{Proposición}{}{}
 
 \begin{document}
 

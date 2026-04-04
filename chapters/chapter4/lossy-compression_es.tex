@@ -1074,8 +1074,8 @@ significa que la longitud de codificación se reduciría si fusionáramos los do
 grupos en uno solo. Este simple hecho da lugar al siguiente algoritmo de agrupamiento
 propuesto por \cite{ma2007segmentation}:
 \begin{algorithm}[!htbp]
-    \caption{Pairwise Steepest Descent of Coding
-    Length}\label{alg:steepest_descent_coding_length}
+    \caption{Descenso más pronunciado por pares de la longitud de 
+    codificación}\label{alg:steepest_descent_coding_length}
     \begin{algorithmic}[1]
         \Require{\(N\) puntos de datos \(\{\vx_{i}\}_{i = 1}^{N}\)}
         \Ensure{Un conjunto \(\cC\) de grupos}
@@ -1363,7 +1363,7 @@ mientras que el resto de la información de la clase se omite, tal y como
 se ilustra en la \Cref{chap4-fig:neural-collapse}.\footnote{Observaremos 
     este fenómeno en experimentos con datos de imágenes reales más adelante
 en el \Cref{eg:Rate-Reduction-CIFAR10}.}
-\begin{remark}[Neural Collapse]
+\begin{remark}[Colapso Neuronal]
     El colapso neuronal se refiere a un fenómeno observado en redes neuronales profundas
     entrenadas para la clasificación, en el que las representaciones de características
     aprendidas y los pesos del clasificador muestran un comportamiento altamente simétrico y
@@ -1821,7 +1821,7 @@ el problema \eqref{eq:MCR pi} puede recuperar el problema
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\linewidth]{\toplevelprefix/chapters/chapter4/figs/mcr2-global.png}
-    \caption{{\bf Landscape de optimización local:} Según
+    \caption{{\bf Landscape de optimización local:} Según el
         \Cref{thm:MCR2-properties}, el máximo global del objetivo de reducción de la tasa
     corresponde a una solución con subespacios mutuamente incoherentes.}
     \label{fig:mcr-global}
@@ -2453,7 +2453,7 @@ objetivo a un contexto mucho más amplio, en el que $\y$ podría ser un código 
                 cóncava si y solo si la función unidimensional $f(\vx+t\vh)$
             es cóncava para todos los valores de $\vx$ y $\vh$.)
 
-        \item Mustre que
+        \item Muestre que
             \begin{align*}
                 \log\det(\vI + \vX^\top\vX) = \log\det(\vI + \vX\vX^\top)
             \end{align*}

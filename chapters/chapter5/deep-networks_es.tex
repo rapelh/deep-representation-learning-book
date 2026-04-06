@@ -1751,7 +1751,7 @@ $\vZ^{\ell + 1}$ y resolvemos el LASSO no negativo correspondiente:
     \vD^{\ell} \vZ}_{F}^{2}\right].
     \label{eq:sparse-nonnegative}
 \end{equation}
-A continuación, optimizamos de forma incremental \Cref{eq:sparse-nonnegative}
+A continuación, optimizamos de forma incremental la \Cref{eq:sparse-nonnegative}
 realizando un paso desenroscado de {\em descenso de gradiente proximal}, conocido como
 paso ISTA \citep{beck2009fast}, para obtener la actualización:
 \begin{align}\label{eq:ista-block}
@@ -2048,7 +2048,7 @@ $\ell \in [L]$,
 donde $\eta > 0$ es el tamaño del paso y $\varphi$ es una función
 que actúa sobre cada columna de la matriz de entrada, como softmax,
 ReLU elemento por elemento, etc. Para simplificar nuestra teoría, suponemos que los
-subespacios de \Cref{def:MoG} son ortogonales entre sí, es decir, $\bm
+subespacios de la \Cref{def:MoG} son ortogonales entre sí, es decir, $\bm
 U_k^T\bm U_j = \bm 0$ para todo $k \neq j$. Cabe señalar que esta suposición
 no es restrictiva, ya que en espacios de alta dimensión, los subespacios aleatorios
 de baja dimensión son incoherentes entre sí con alta
@@ -2071,7 +2071,7 @@ sofisticado.}
     \end{subfigure}
     \caption{{\bf Desempeño en la eliminación de ruido del transformador
         basado únicamente en atención.} Aquí, obtenemos muestras de las representaciones iniciales de los tokens a partir de
-        una mezcla de gaussianas de bajo rango en \Cref{def:MoG}. A continuación, aplicamos
+        una mezcla de gaussianas de bajo rango en la \Cref{def:MoG}. A continuación, aplicamos
         \eqref{eq:MSSA} para actualizar las representaciones de los tokens y presentamos la
     relación señal-ruido (SNR) en cada capa.}
     \label{fig:MSSA}
@@ -2113,7 +2113,7 @@ son demasiado pequeños en la función softmax.
 \end{figure*}
 
 \begin{theorem}\label{thm:1}
-    Sea $\bm Z^{1}$ tal como se define en \Cref{def:MoG} y sea $\varphi(\cdot)$
+    Sea $\bm Z^{1}$ tal como se define en la \Cref{def:MoG} y sea $\varphi(\cdot)$
     en \eqref{eq:MSSA}
     $\varphi(\bm x) = h\left(\sigma(\bm x)\right)$,
     donde $\sigma:\R^N \to \R^N$ es la función softmax y $h:\R^N
@@ -2250,7 +2250,7 @@ objetivo variacional equivalente con la forma
     \pi_k) \bm Z^{\top} \bm U_{k})_{ii} \right),
 \end{equation}
 donde la equivalencia se entiende en el sentido de que, para una elección óptima de
-$\{ \bm U_k \in \O(d)\}_{k=1}^K$ matrices, tal como se describe en
+$\{ \bm U_k \in \O(d)\}_{k=1}^K$ matrices, tal como se describe en el
 \Cref{thm:var_concave} (es decir, matrices ortogonales que diagonalizan
 cada $\Z \mathrm{Diag}(\bm \pi_k) \Z^\top $) lograremos un límite
 estrechamente relacionado con $ R^{\rm var}_{c,f} (\Z,\bm \Pi \mid \bm U_{[K]}) =
@@ -2380,7 +2380,7 @@ en la práctica. En primer lugar, hasta este momento de la presentación, hemos
 evitado abordar cómo se «agrupan» los tokens en los distintos
 cabezales de atención mediante la matriz $\bm\Pi$, pero es evidente que se necesita una forma de
 construir $\bm\Pi$ para implementar nuestro método.
-Además, nuestra forma variacional en \Cref{thm:var_concave} requiere
+Además, nuestra forma variacional en el \Cref{thm:var_concave} requiere
 que las matrices $\bm U$ sean cuadradas y ortogonales, pero lo ideal
 sería utilizar matrices más pequeñas (es decir, reducir el número de
 columnas en $\bm U$) para mejorar la eficiencia, así como eliminar las restricciones
@@ -2401,7 +2401,7 @@ datos del grupo \(k\). Si la dimensión es $p \leq d$, la base puede
 representarse mediante una matriz ortogonal $d\times p$ $\bm U_k \in \O(d,
 p)$. En este caso, podemos establecer una cota superior más eficiente para \(R_{c,f}\)
 utilizando estas matrices de base ortogonal de rango bajo. Para demostrarlo, utilizamos
-una versión más general de \Cref{thm:var_concave}  para obtener el
+una versión más general del \Cref{thm:var_concave}  para obtener el
 siguiente corolario.
 \begin{corollary}\label{cor:var_concave_logdet}
     Sea \(f \colon [0, \infty) \to \R\) una función no decreciente y cóncava,
@@ -2597,7 +2597,7 @@ modelos, como los de generación de vídeo, es necesario desarrollar
 arquitecturas capaces de realizar este cálculo causal de manera eficiente.
 
 Teniendo esto en cuenta y basándonos en la comprensión de los procesos autorregresivos causales
-de \Cref{ch:intro}, decimos que un codificador \(f\) es
+del \Cref{ch:intro}, decimos que un codificador \(f\) es
 \textit{causal} si, para cada entrada \(\vX = [\vx_{1}, \dots, \vx_{N}]\), se cumple que
 \begin{align}
     f(\vX)_{1:N-1}
@@ -2741,10 +2741,10 @@ o inferior al de la capa CRATE habitual (ya que \(\vM_{N}\) está
 para la función softmax). Por lo tanto, podemos definir y entrenar el modelo
 completo de secuencia a secuencia de la misma manera que la arquitectura regular.
 
-Cuando aplicamos esto al modelado del lenguaje (los detalles se proporcionan en
+Cuando aplicamos esto al modelado del lenguaje (los detalles se proporcionan en el
 \Cref{ch:applications}), observamos que podemos obtener resultados razonables
 en comparación con modelos de lenguaje de tamaño similar diseñados de forma empírica,
-tal y como se muestra en \Cref{tab:causal-crate-results}.
+tal y como se muestra en la \Cref{tab:causal-crate-results}.
 
 \begin{table}[t!]
     \small
@@ -2786,7 +2786,7 @@ cerrar esta brecha; ambas son objeto de líneas de investigación activas.
     popularidad, dedicada a modelar de manera eficiente y explícita
     la dinámica en las características mediante los denominados \textit{modelos de espacio de estado}
     (SSM, denominados así en contravención de la noción clásica
-    de «modelos de espacio de estado» discutida en \Cref{ch:intro})
+    de «modelos de espacio de estado» discutida en el \Cref{ch:intro})
     \citep{gu2024mamba,yang2024parallelizing,yang2024gated}. Estos
     modelos son prometedores desde el punto de vista empírico porque evitan la necesidad de
     una atención entre todos los pares, eludiendo así la complejidad computacional y de memoria

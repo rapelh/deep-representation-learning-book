@@ -104,7 +104,9 @@ decorations.pathmorphing, decorations.markings}
 \newcommand{\crefmiddlegroupconjunction}{ y }
 \newcommand{\creflastgroupconjunction}{ y }
 
+\usepackage{amsthm}
 \usepackage{cleveref}
+%\newtheorem{corollary}{Corolario}   
 
 \crefname{algorithm}{algoritmo}{algoritmos}
 \Crefname{algorithm}{Algoritmo}{Algoritmos}
@@ -124,6 +126,8 @@ decorations.pathmorphing, decorations.markings}
 \Crefname{chapter}{Capítulo}{Capítulos}
 \crefname{section}{sección}{secciones}
 \Crefname{section}{Sección}{Secciones}
+\crefname{corollary}{corolario}{corolarios}
+\Crefname{corollary}{Corolario}{Corolarios}
 \crefname{theorem}{teorema}{teoremas}
 \Crefname{theorem}{Teorema}{Teoremas}
 \crefname{remark}{observación}{observaciones}
@@ -141,7 +145,7 @@ cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
 \usepackage{caption}
 
 \makeatletter
-\addto\captionsspanish{\renewcommand{\ALG@name}{Algoritmo}}
+\addto\captionsenglish{\renewcommand{\ALG@name}{Algoritmo}}
 \DeclareCaptionLabelFormat{alglabel}{\bfseries\csname ALG@name\endcsname~#2:}
 \captionsetup[algorithm]{labelformat=alglabel}
 \makeatother
@@ -218,6 +222,7 @@ cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
 % Patches the command names after other packages are loaded
 \patchcmd{\chapter}{Chapter}{Capítulo}{}{}
 \patchcmd{\theorem}{Theorem}{Teorema}{}{}
+\patchcmd{\corollary}{Corollary}{Corolario}{}{}
 \patchcmd{\example}{Example}{Ejemplo}{}{}
 \patchcmd{\remark}{Remark}{Observación}{}{}
 \patchcmd{\exercise}{Exercise}{Ejercicio}{}{}

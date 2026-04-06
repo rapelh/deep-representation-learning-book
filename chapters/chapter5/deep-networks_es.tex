@@ -65,7 +65,7 @@ anteriores basados en características definidas manualmente. Una de las diferen
 entre AlexNet y los enfoques anteriores es que el
 primero \textit{aprende los parámetros de la transformación no lineal a partir de
 enormes cantidades de datos} entrenados mediante retropropagación (BP)
-\cite{Back-Prop}, tal y como se detalla en la \Cref{app:BP-section} del
+\cite{Back-Prop}, tal y como se detalla en el \Cref{app:BP-section} del
 \Cref{app:optimization}.
 
 En la práctica habitual posterior, se modela el mapeo $f$ con otras
@@ -630,10 +630,10 @@ un clasificador de subespacio más cercano.
     \caption{Algoritmo de evaluación para ReduNet}
     \label{alg:redunet_evaluation}
     \begin{algorithmic}[1]
-        \Require{Input \(\vx \in \R^{D}\), parámetros de la red
+        \Require{Entrada \(\vx \in \R^{D}\), parámetros de la red
             \(\{\vE^{\ell}\}_{\ell = 1}^{L}, \{\{\vC^{\ell}_{k}\}_{k =
             1}^{K}\}_{\ell = 1}^{L}, \{\gamma_{k}\}_{k = 1}^{K}\),
-        learning rate \(\lambda\)}
+        tasa de aprendizaje \(\lambda\)}
         \Ensure{característica \(\vz^{L + 1}\)}
 
         \Procedure{ReduNetEvaluation}{$\vx$}
@@ -1808,14 +1808,14 @@ mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/CRATE_fig1_patches.pdf}
     \vspace{-0.1in}
     \caption{
-        \textbf{El «bucle principal» del diseño de redes profundas de caja abierta
+        \textbf{El «bucle principal» del diseño de redes profundas de caja blanca
         de CRATE.}
         Tras codificar los datos de entrada como una secuencia de tokens $\vZ^0$,
         CRATE construye una red profunda que transforma los
         datos en una configuración canónica de subespacios de baja dimensión
         mediante sucesivas   {\textit{\textbf{compresiones}}}
         frente a un modelo local de la distribución, generando
-        $\vZ^{\ell+1/2}$ y      {\textit{\textbf{esparsificación}}}
+        $\vZ^{\ell+1/2}$ y      {\textit{\textbf{dispersión}}}
         frente a un diccionario global, generando $\vZ^{\ell+1}$.
         Al apilar repetidamente estos bloques y entrenar los parámetros del modelo
         mediante retropropagación, se obtiene una representación potente e
@@ -1824,91 +1824,89 @@ mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
     \label{fig:crate-diagram}
 \end{figure}
 
-\begin{remark}[\textbf{The roles of the forward pass and backward
-    propagation}]\label{sub:forward_backward}
-    In contrast to other unrolled optimization approaches such as the
-    ReduNet \cite{chan2021redunet}, we \textit{explicitly model} the
-    distribution of each $\vZ^\ell$ and $\vZ^{\ell + 1/2}$ at each
-    layer, either by a mixture of linear subspaces or sparsely
-    generated from a dictionary. We introduced the interpretation
-    that at each layer \(\ell\), the learned bases for the subspaces
-    \(\vU_{[K]}^{\ell}\) and the learned dictionaries \(\vD^{\ell}\)
-    together serve as a \textit{codebook} or \textit{analysis filter}
-    that encodes and transforms the intermediate representations at
-    each layer \(\ell\). Since the input distribution to layer
-    \(\ell\) is first modeled by \(\vU_{[K]}^{\ell}\) then
-    transformed by \(\vD^{\ell}\), the input distribution to each
-    layer is different, and so we require a separate codebook at each
-    layer to obtain the most parsimonious encoding. Parameters of
-    these codebooks (i.e., the subspace bases and the dictionaries),
-    heretofore assumed as being perfectly known, are actually learned
-    from data (say via \textit{backward propagation} within
-    end-to-end training).
+\begin{remark}[\textbf{El papel del paso hacia adelante y de la propagación 
+    hacia atrás}]\label{sub:forward_backward}
+    A diferencia de otros enfoques de optimización desenroscada, como el
+    ReduNet \cite{chan2021redunet}, \textit{modelamos explícitamente} la
+    distribución de cada $\vZ^\ell$ y $\vZ^{\ell + 1/2}$ en cada
+    capa, ya sea mediante una mezcla de subespacios lineales o generada de forma dispersa
+    a partir de un diccionario. Presentamos la interpretación
+    de que, en cada capa \(\ell\), las bases aprendidas para los subespacios
+    \(\vU_{[K]}^{\ell}\) y los diccionarios aprendidos \(\vD^{\ell}\)
+    sirven conjuntamente como un \textit{libro de códigos} o \textit{filtro de análisis}
+    que codifica y transforma las representaciones intermedias en
+    cada capa \(\ell\). Dado que la distribución de entrada a la capa
+    \(\ell\) se modela primero mediante \(\vU_{[K]}^{\ell}\) y luego
+    se transforma mediante \(\vD^{\ell}\), la distribución de entrada a cada
+    capa es diferente, por lo que necesitamos un libro de códigos independiente en cada
+    capa para obtener la codificación más parsimoniosa. Los parámetros de
+    estos libros de códigos (es decir, las bases del subespacio y los diccionarios),
+    que hasta ahora se suponía que se conocían perfectamente, en realidad se aprenden
+    a partir de los datos (por ejemplo, mediante \textit{retropropagación} dentro
+    del entrenamiento de extremo a extremo).
 
-    Hence, our methodology features a clear conceptual separation
-    between forward ``optimization'' and backward ``learning'' for
-    the so-derived white-box deep neural network. Namely, in its
-    forward pass, we interpret each layer as an operator which,
-    conditioned on a learned model (i.e., a codebook) for the
-    distribution of its input, transforms this distribution towards a
-    more parsimonious representation. In its backward propagation,
-    the codebook of this model, for the distribution of the input to
-    each layer, is updated to better fit a certain (supervised)
-    input-output relationship, as illustrated in
-    \Cref{fig:forward-backward}. This conceptual interpretation
-    implies a certain agnosticism of the model representations
-    towards the particular task and loss; in particular, many types
-    of tasks and losses will ensure that the models at each layer are
-    fit, which ensures that the model produces parsimonious representations.
+    Por lo tanto, nuestra metodología presenta una clara separación conceptual
+    entre la «optimización» hacia adelante y el «aprendizaje» hacia atrás para
+    la red neuronal profunda de caja blanca así obtenida. Es decir, en su
+    paso hacia adelante, interpretamos cada capa como un operador que,
+    condicionado por un modelo aprendido (es decir, un libro de códigos) para la
+    distribución de su entrada, transforma esta distribución hacia una
+    representación más parsimoniosa. En su propagación hacia atrás,
+    el libro de códigos de este modelo, para la distribución de la entrada en
+    cada capa, se actualiza para ajustarse mejor a una determinada relación (supervisada)
+    entre entrada y salida, tal y como se ilustra en la
+    \Cref{fig:forward-backward}. Esta interpretación conceptual
+    implica un cierto agnosticismo de las representaciones del modelo
+    respecto a la tarea y la función de pérdida concretas; en particular, muchos tipos
+    de tareas y funciones de pérdida garantizarán que los modelos de cada capa estén
+    bien ajustados, lo que asegura que el modelo produzca representaciones parsimoniosas.
 \end{remark}
 
-There are three natural questions we can ask about CRATE:
+Hay tres preguntas lógicas que podemos plantearnos sobre CRATE:
 \begin{itemize}
-    \item Do such constructed CRATE models learn good features by
-        optimizing the sparse rate reduction?
-
-    \item Do such constructed CRATE models use their high-quality
-        features to perform well on predictive tasks?
-
-    \item Do such constructed CRATE models exhibit interesting
-        phenomena, say related to interpretability, as a result of
-        their simplified design?
+    \item Estos modelos CRATE construidos, ¿aprenden características útiles mediante
+        la optimización de la reducción dispersa de tasa?
+    \item Estos modelos CRATE construidos, ¿aprovechan sus características de alta calidad
+        para obtener buenos resultados en tareas de predicción? 
+    \item Estos modelos CRATE construidos, ¿muestran fenómenos interesantes,
+        por ejemplo, relacionados con la interpretabilidad, como resultado de
+        su diseño simplificado? 
 \end{itemize}
-We contend that the answer to each question is ``yes''. First,
-\Cref{fig:crate_compression_sparsity} examines how the network
-optimizes each term of the sparse rate reduction; each layer
-consistently decreases the features' compression measure and sparsity
-measures during the forward pass. Second, in
-\Cref{tab:crate_comparison_with_sota} we demonstrate that CRATE has
-comparable top-1 classification accuracy under transfer learning
-setups to the most commonly used Vision Transformer (ViT)
-\citep{dosovitskiy2020image} neural network architecture at similar
-parameter counts, with promising scaling behavior --- we obtain
-steady and consistent improvements by increasing the model size.
-Overall, CRATE achieves promising performance on real-world
-large-scale datasets by directly implementing our principled
-architecture. We provide more details of the implementation and
-analysis of the experimental results in \Cref{sec:image_classification}.
+Sostenemos que la respuesta a cada pregunta es «sí». En primer lugar, en
+la \Cref{fig:crate_compression_sparsity} se analiza cómo la red
+optimiza cada término de la reducción de la tasa de dispersión; cada capa
+disminuye de manera consistente la medida de compresión y las medidas de dispersión
+de las características durante la pasada hacia adelante. En segundo lugar, en la
+\Cref{tab:crate_comparison_with_sota} mostramos que CRATE presenta
+una precisión de clasificación «top-1», comparable, en configuraciones de aprendizaje por transferencia,
+a la arquitectura de red neuronal Vision Transformer (ViT)
+\citep{dosovitskiy2020image} en un número similar de
+parámetros, con un comportamiento de escalabilidad prometedor: obtenemos
+mejoras constantes y consistentes al aumentar el tamaño del modelo.
+En general, CRATE logra un rendimiento prometedor en conjuntos de datos a gran escala del mundo real
+mediante la implementación directa de nuestra arquitectura basada en principios.
+Ofrecemos más detalles sobre la implementación y
+el análisis de los resultados experimentales en la \Cref{sec:image_classification}.
 
 \begin{figure}[t]
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/forward.png}
-        \caption{\bf Forward pass}
+        \caption{\bf Paso hacia adelante}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/backward.png}
-        \caption{\bf Backward propagation}
+        \caption{\bf Retropropagación}
     \end{subfigure}
-    \caption{\small {\bf The roles of forward pass and backward
-        propagation in CRATE}. (a) Given fixed subspaces and
-        dictionaries $\{(\bm U_{[K]}^{\ell}, \bm D^{\ell})\}_{\ell=1}^L$,
-        each layer incrementally optimizes the sparse rate reduction of the
-        representations in the forward pass; (b) Backpropagation learn
-        subspaces and dictionaries $\{(\bm U_{[K]}^{\ell}, \bm
-    D^{\ell})\}_{\ell=1}^L$ from training data. }
+    \caption{\small {\bf Los roles del paso hacia adelante y de la propagación hacia atrás
+        en CRATE}. (a) Dados subespacios y
+        diccionarios fijos $\{(\bm U_{[K]}^{\ell}, \bm D^{\ell})\}_{\ell=1}^L$,
+        cada capa optimiza de manera incremental la reducción de la tasa de dispersión de las
+        representaciones en el paso hacia adelante; (b) La retropropagación aprende
+        subespacios y diccionarios $\{(\bm U_{[K]}^{\ell}, \bm
+    D^{\ell})\}_{\ell=1}^L$ a partir de los datos de entrenamiento. }
     \label{fig:forward-backward}
 \end{figure}
 
@@ -1923,26 +1921,26 @@ analysis of the experimental results in \Cref{sec:image_classification}.
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/crate_sparsity_layer.pdf}
         \caption{}
     \end{subfigure}
-    \caption{\small\textbf{Optimization of compression and sparsity
-        measures through the forward pass of CRATE.} We measure the
-        compression \(R_{\epsilon}^{c}(\vZ^{\ell + 1/2})\) (a) and sparsity
-        \(\norm{\vZ^{\ell + 1}}_{1}\) (b) at the output of each layer. We
-        observe that both measures decrease over the course of the
-        forward pass, as predicted by theory, and almost every layer
-        monotonically decreases each measure. (The exception is the last
-    layer's sparsity, since dense features are important for prediction.)}
+    \caption{\small\textbf{Optimización de las medidas de compresión y dispersión
+        mediante la pasada directa de CRATE.} Medimos la
+        compresión \(R_{\epsilon}^{c}(\vZ^{\ell + 1/2})\) (a) y la dispersión
+        \(\norm{\vZ^{\ell + 1}}_{1}\) (b) en la salida de cada capa. Observamos
+        que ambas medidas disminuyen a lo largo del
+        paso hacia adelante, tal como lo predice la teoría, y que casi todas las capas
+        disminuyen monótonamente cada medida. (La excepción es la dispersión de la última
+    capa, ya que las características densas son importantes para la predicción.)}
     \label{fig:crate_compression_sparsity}
 \end{figure}
 
 \begin{table*}[t!]
     \centering
-    \caption{\small \textbf{Top-1 classification accuracy of CRATE
-            on various datasets with different model scales
-        when pre-trained on ImageNet-1K.} For ImageNet-1K/ImageNet-1K
-        ReaL, we directly evaluate the top-1 accuracy. For other
-        datasets, we use models that are pre-trained on ImageNet as
-        initialization and the evaluate the transfer learning performance
-    via fine-tuning.}
+    \caption{\small \textbf{Precisión de clasificación «top-1» de CRATE
+            en diversos conjuntos de datos con diferentes escalas de modelo
+        cuando se entrenan previamente en ImageNet-1K.} Para ImageNet-1K/ImageNet-1K
+        ReaL, evaluamos directamente la precisión «top-1». Para otros
+        conjuntos de datos, utilizamos modelos entrenados previamente en ImageNet como
+        inicialización y evaluamos el rendimiento del aprendizaje por transferencia
+    mediante el ajuste fino.}
     \label{tab:crate_comparison_with_sota}
     \small
     \setlength{\tabcolsep}{13.6pt}
@@ -1955,7 +1953,7 @@ analysis of the experimental results in \Cref{sec:image_classification}.
             ViT-S } \\
             \midrule
             \midrule
-            \# parameters & 6.09M & 13.12M & 22.80M & 77.64M & {
+            \# parámetros & 6.09M & 13.12M & 22.80M & 77.64M & {
             5.72M} & { 22.05M} \\
             \midrule
             ImageNet-1K & 66.7 & 69.2 & 70.8 & 71.3 & {
@@ -1978,194 +1976,195 @@ analysis of the experimental results in \Cref{sec:image_classification}.
 \begin{figure}[t!]
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/crate_semantic_heads.pdf}
-    \caption{\textbf{Visualizing the attention maps of CRATE: what
-        does the model look at to make a classification?} We visualize
-        the last-layer attention maps, which are the last source of
-        token-to-token interaction in the network, and therefore in some
-        sense the most refined description of what sections of the input
-        image the model uses to make a prediction. We observe an
-        \textit{extremely interesting} behavior: when trained on purely
-        classification tasks, the attention maps identify the foreground
-        objects in the image; moreover, they \textit{naturally
-        specialize} to different types of objects in the foreground! This
-        empirical result gives us an interpretation of later-layer
-        subspaces as each corresponding to a nearly-disjoint set of
-    \textit{concepts}.}
+    \caption{\textbf{Visualización de los mapas de atención de CRATE: ¿qué
+        analiza el modelo para realizar una clasificación?} Visualizamos
+        los mapas de atención de la última capa, que constituyen la última fuente de
+        interacción token a token en la red y, por lo tanto, en cierto
+        sentido, la descripción más detallada de qué secciones de la imagen de entrada
+        utiliza el modelo para realizar una predicción. Observamos un
+        comportamiento \textit{extremadamente interesante}: cuando se entrenan exclusivamente
+        en tareas de clasificación, los mapas de atención identifican los objetos
+        en primer plano de la imagen; además, ¡se \textit{especializan de forma natural
+        en} diferentes tipos de objetos en primer plano! Este
+        resultado empírico nos ofrece una interpretación de los subespacios de las capas posteriores
+        como si cada uno correspondiera a un conjunto casi disjunto de
+    \textit{conceptos}.}
     \label{fig:crate_segmentation_specialization}
 \end{figure}
 
-\section{Variants of Deep Architectures by Design}
+\section{Variantes de arquitecturas profundas por diseño}
 \label{sec:chap4-derive-white-box-transformer-variants}
 
-So far, we wish that we have provided compelling evidence that the
-role of (popular) deep networks is to realize certain optimization
-algorithms for minimizing the coding rate (or maximizing the
-information gain) of the learned representations. However, readers
-who are familiar with optimization methods might have noticed that
-the above architectures (the ReduNet or the CRATE) correspond to
-rather basic optimization techniques. They may have plenty of room
-for improvement in efficiency or effectiveness. Moreover, if we
-believe the proposed theoretical framework for interpreting deep
-networks is correct, it should not only help explain existing
-architectures, it should guide us develop more efficient and
-effective architectures. In this section, we show this is the
-case: the resulting new architectures are not only fully
-interpretable but also with guaranteed correctness and improved efficiency.
+Hasta ahora, esperamos haber aportado pruebas convincentes de que
+el papel de las redes profundas (populares) consiste en aplicar ciertos
+algoritmos de optimización para minimizar la tasa de codificación (o maximizar la
+ganancia de información) de las representaciones aprendidas. Sin embargo, los lectores
+familiarizados con los métodos de optimización habrán notado que
+las arquitecturas mencionadas (ReduNet o CRATE) corresponden a
+técnicas de optimización bastante básicas. Es posible que tengan mucho margen
+de mejora en cuanto a eficiencia o eficacia. Además, si
+consideramos que el marco teórico propuesto para interpretar las redes profundas
+es correcto, no solo debería ayudar a explicar las arquitecturas existentes,
+sino que también debería guiarnos en el desarrollo de arquitecturas más eficientes y
+eficaces. En esta sección, demostramos que así es:
+las nuevas arquitecturas resultantes no solo son totalmente
+interpretables, sino que también ofrecen una corrección garantizada y una eficiencia mejorada.
 
-\subsection{Attention-Only Transformer Architecture} \label{sub:aot}
+\subsection{Arquitectura de transformadores de solo atención} \label{sub:aot}
 
-In this subsection, we ask and answer the question: ``what is the
-simplest possible neural network which scales reasonably well and
-provably compresses the representation?'' From our previous theory,
-the answer should be a stack of MSSA layers, which were motivated as
-lossy compression operator. This network architecture is simple
-enough such that it is possible to analyze the compression or
-denoising performance rigorously and systematically. Towards this
-end, let us formalize our subspace model: the initial token
-representations $\bm Z^{1}$ are sampled from a noisy mixture of
-low-rank Gaussians, supported on subspaces spanned by \(\vU_{k} \in
-\R^{d \times p}\), as follows: we partition the \(N\) token indices
-into known subsets \(C_{1}, \dots, C_{K}\), such that:
+En esta subsección, planteamos y respondemos la pregunta: «¿Cuál es la
+red neuronal más simple posible que se adapte razonablemente bien y
+comprima la representación de forma demostrable?». Según nuestra teoría previa,
+la respuesta debería ser una pila de capas MSSA, concebidas como
+operadores de compresión con pérdida. Esta arquitectura de red es lo suficientemente
+simple como para permitir analizar el rendimiento de compresión o
+de eliminación de ruido de forma rigurosa y sistemática. Con este
+fin, formalicemos nuestro modelo de subespacios: las representaciones iniciales de los tokens
+$\bm Z^{1}$ se obtienen mediante muestreo de una mezcla ruidosa de
+distribuciones gaussianas de bajo rango, definidas en subespacios generados por \(\vU_{k} \in
+\R^{d \times p}\), de la siguiente manera: dividimos los \(N\) índices de tokens
+en subconjuntos conocidos \(C_{1}, \dots, C_{K}\), de tal manera que:
 \begin{equation}\label{def:MoG}
     \bm z_i = \underbrace{\bm U_{k} \bm a_i}_{signal} +
     \underbrace{\sum_{j \neq k}^K \bm U_j \bm e_{i,j}}_{
     noise},\ \forall i \in C_k,
 \end{equation}
-where $\bm{a}_i \overset{i.i.d.}{\sim}
-\mathcal{N}(\bm{0},\bm{I}_{p_k})$ and $\bm{e}_{i,j}
+donde $\bm{a}_i \overset{i.i.d.}{\sim}
+\mathcal{N}(\bm{0},\bm{I}_{p_k})$ y $\bm{e}_{i,j}
 \overset{i.i.d.}{\sim} \mathcal{N}(\bm{0},\delta^2\bm{I}_{p_j})$
-for all $i \in C_k$ and $k \in [K]$, $\{\bm{a}_i\}$ and
-$\{\bm{e}_{i,j}\}$ are all independent.
+para todo $i \in C_k$ y $k \in [K]$, $\{\bm{a}_i\}$ y
+$\{\bm{e}_{i,j}\}$ son todas independientes.
 
-\paragraph{Denoising operator for token representations.} Now, we
-show that the MSSA operator (see \eqref{eq:Multi-Head-SSA}) can
-incrementally denoise token representations generated from the above
-model. Specifically, we consider a generalized MSSA operator: for each
+\paragraph{Un operador de reducción de ruido para representaciones de tokens.} Ahora,
+mostramos que el operador MSSA (véase \eqref{eq:Multi-Head-SSA}) puede
+eliminar el ruido de forma incremental de las representaciones de tokens generadas a partir del
+modelo anterior. Concretamente, consideramos un operador MSSA generalizado: para cada
 $\ell \in [L]$,
 \begin{align}\label{eq:MSSA}
     \bm Z^{\ell+1} =  \bm Z^{\ell} + \eta \sum_{k=1}^K \bm U_k\bm
     U_k^T \bm Z^{\ell} \varphi(\bm Z^{\ell^T}\bm U_k\bm
     U_k^T\bm Z^{\ell}),
 \end{align}
-where $\eta > 0$ is the step size, and $\varphi$ is a function
-operating on each column of the input matrix, such as softmax,
-element-wise ReLU, etc. To simplify our theory, we assume that the
-subspaces in \Cref{def:MoG} are orthogonal to each other, i.e., $\bm
-U_k^T\bm U_j = \bm 0$ for all $k \neq j$. Note that this assumption
-is not restrictive, as in high-dimensional spaces, random
-low-dimensional subspaces are incoherent to each other with high
-probability, i.e., $\bm U_k^T\bm U_j \approx \bm 0$
-\citep{Wright-Ma-2022}.\footnote{One may straightforwardly generalize
-    our results to non-orthogonal subspaces, with slightly more
-sophisticated analysis.}
+donde $\eta > 0$ es el tamaño del paso y $\varphi$ es una función
+que actúa sobre cada columna de la matriz de entrada, como softmax,
+ReLU elemento por elemento, etc. Para simplificar nuestra teoría, suponemos que los
+subespacios de \Cref{def:MoG} son ortogonales entre sí, es decir, $\bm
+U_k^T\bm U_j = \bm 0$ para todo $k \neq j$. Cabe señalar que esta suposición
+no es restrictiva, ya que en espacios de alta dimensión, los subespacios aleatorios
+de baja dimensión son incoherentes entre sí con alta
+probabilidad, es decir, $\bm U_k^T\bm U_j \approx \bm 0$
+\citep{Wright-Ma-2022}.\footnote{Se pueden generalizar directamente
+    nuestros resultados a subespacios no ortogonales, con un análisis ligeramente más
+sofisticado.}
 
 \begin{figure}[t]
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/SNR1.png}
-        \caption{Noise level $\delta = 0.2$}
+        \caption{Nivel de ruido $\delta = 0.2$}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/SNR2.png}
-        \caption{Noise level $\delta = 0.5$}
+        \caption{Nivel de ruido $\delta = 0.5$}
     \end{subfigure}
-    \caption{{\bf Denoising performance of the attention-only
-        transformer.} Here, we sample initial token representations from
-        a mixture of low-rank Gaussians in \Cref{def:MoG}. Then, we apply
-        \eqref{eq:MSSA} to update token representations and report the
-    SNR at each layer.}  \label{fig:MSSA}
+    \caption{{\bf Desempeño en la eliminación de ruido del transformador
+        basado únicamente en atención.} Aquí, obtenemos muestras de las representaciones iniciales de los tokens a partir de
+        una mezcla de gaussianas de bajo rango en \Cref{def:MoG}. A continuación, aplicamos
+        \eqref{eq:MSSA} para actualizar las representaciones de los tokens y presentamos la
+    relación señal-ruido (SNR) en cada capa.}
+    \label{fig:MSSA}
 \end{figure}
 
-Now, let the columns of $\bm Z_k^{\ell}$ denote the token
-representations from the $k$-th subspace at the $\ell$-th layer. To
-quantify the denoising capability, we define the signal-to-noise
-ratio (SNR) for each block of the token representations at the
-$\ell$-th layer as follows:
+Ahora, supongamos que las columnas de $\bm Z_k^{\ell}$ denotan las representaciones de tokens
+del subespacio $k$-ésimo en la capa $\ell$-ésima. Para
+cuantificar la capacidad de eliminación de ruido, definimos la razón señal-ruido
+(SNR) para cada bloque de las representaciones de tokens en la
+capa $\ell$-ésima de la siguiente manera:
 \begin{align}\label{def:SNR}
     \mathrm{SNR}(\bm Z_k^{\ell}) \doteq  \frac{\|\bm U_k\bm U_k^T\bm
     Z_k^{\ell} \|_F}{\|(\bm I - \bm U_k\bm U_k^T)\bm Z_k^{\ell}
     \|_F},\quad \forall k \in [K].
 \end{align}
-To simplify our analysis, we assume that $\abs{C_{1}} = \cdots =
-\abs{C_{K}} =N/K$, and
+Para simplificar nuestro análisis, suponemos que $\abs{C_{1}} = \cdots =
+\abs{C_{K}} = N/K$ y
 \begin{align}\label{eq:orth}
     \begin{bmatrix}
         \bm U_1 & \dots & \bm U_K
     \end{bmatrix} \in \mathcal{O}^{d\times Kp}.
 \end{align}
 
-With the above setup, we can now characterize the denoising performance
-of a slightly modified MSSA operator, which thresholds terms which
-are too small in the softmax.
+Con la configuración anterior, ahora podemos evaluar el rendimiento en la eliminación de ruido
+de un operador MSSA ligeramente modificado, que aplica un umbral a los términos que
+son demasiado pequeños en la función softmax.
 
 \begin{figure*}[t]
     \begin{center}
         \includegraphics[width=0.75\textwidth]{\toplevelprefix/chapters/chapter5/figs/MSSA.png}
-        \caption{\textbf{Details of the attention-only transformer
-            architecture.} Each layer consists of the MSSA operator
-            and a skip connection. In addition, LayerNorm is included
-            only for language tasks. In practice, backpropagation is
-            applied to train the model parameters using training samples. %
-        }\label{fig:transformer}
+        \caption{\textbf{Detalles de la arquitectura del transformador de «solo atención».}
+            Cada capa consta del operador MSSA
+            y una conexión de salto. Además, se incluye LayerNorm
+            solo para tareas de lenguaje. En la práctica, se aplica la retropropagación
+            para entrenar los parámetros del modelo utilizando muestras de entrenamiento. %
+        }
+        \label{fig:transformer}
     \end{center}
 \end{figure*}
 
 \begin{theorem}\label{thm:1}
-    Let $\bm Z^{1}$ be defined in \Cref{def:MoG} and $\varphi(\cdot)$
-    in \eqref{eq:MSSA} be
+    Sea $\bm Z^{1}$ tal como se define en \Cref{def:MoG} y sea $\varphi(\cdot)$
+    en \eqref{eq:MSSA}
     $\varphi(\bm x) = h\left(\sigma(\bm x)\right)$,
-    where $\sigma:\R^N \to \R^N$ is the softmax function and $h:\R^N
-    \to \R^N$ is an element-wise thresholding function with $h(x) =
-    \tau$ if \(x > \tau\) and \(h(x) = 0\) if \(x \leq \tau\) for
-    each $i \in [N]$.
-    Suppose that $p \gtrsim \log N$, $\delta \lesssim \sqrt{\log
-    N}/\sqrt{p}$, and
+    donde $\sigma:\R^N \to \R^N$ es la función softmax y $h:\R^N
+    \to \R^N$ es una función de umbral por elementos con $h(x) =
+    \tau$ si \(x > \tau\) y \(h(x) = 0\) si \(x \leq \tau\) para
+    cada $i \in [N]$.
+    Supongamos que $p \gtrsim \log N$, $\delta \lesssim \sqrt{\log
+    N}/\sqrt{p}$ y
     \begin{align*}
         \tau \in \left( \frac{1}{2},  \frac{1}{1+N\exp(-9p/32)} \right].
     \end{align*}
-    For sufficiently large $N$, it holds with probability at least
-    $1-KLN^{-\Omega(1)}$ that for each $\ell \in [L]$,
+    Para valores suficientemente grandes de $N$, se cumple con una probabilidad de al menos
+    $1-KLN^{-\Omega(1)}$ que, para cada $\ell \in [L]$,
     \begin{align}\label{eq:SNR}
         \mathrm{SNR}(\bm Z_k^{\ell+1}) = (1+\eta\tau)
         \mathrm{SNR}(\bm Z_k^{\ell}),\ \forall k \in [K].
     \end{align}
 \end{theorem}
-This theorem demonstrates that when the initial token representations
-are sampled from a mixture of low-rank Gaussian distributions with a
-noise level $O(\sqrt{\log N}/\sqrt{p})$, we show that each
-application of the modified MSSA operator  denoises token
-representations at a linear
-rate. Notably, our theoretical results are well-supported by
-experimental observations using the \textit{actual} MSSA operator in
-\Cref{fig:MSSA}. This theorem provides a theoretical foundation for
-the practical denoising capability of the transformer architecture
-derived by unrolling \eqref{eq:MSSA}.
+Este teorema demuestra que, cuando las representaciones iniciales de los tokens
+se obtienen a partir de una mezcla de distribuciones gaussianas de bajo rango con un
+nivel de ruido de $O(\sqrt{\log N}/\sqrt{p})$, cada
+aplicación del operador MSSA modificado elimina el ruido de las representaciones de los tokens
+a una tasa lineal. Cabe destacar que nuestros resultados teóricos están bien respaldados por
+las observaciones experimentales realizadas con el operador MSSA \textit{real} en la
+\Cref{fig:MSSA}. Este teorema proporciona una base teórica para
+la capacidad práctica de eliminación de ruido de la arquitectura del transformador
+derivada mediante el desenroscado de \eqref{eq:MSSA}.
 
-\paragraph{Attention-only transformers.} To verify that this
-denoising capability translates to reasonable performance on real
-data and tasks, we formally propose an attention-only transformer
-architecture, which we short-hand as AoT. Specifically, by unrolling
-the iterative optimization steps \eqref{eq:MSSA} as layers of a deep
-network, we construct a transformer architecture in
-\Cref{fig:transformer}. Each layer of the proposed architecture only
-consists of the MSSA operator and a skip connection. For language
-tasks, we additionally incorporate LayerNorm before the MSSA operator
-to improve performance. The complete architecture is built by
-stacking such layers, along with essential task-specific
-pre-processing and post-processing steps, such as positional
-encoding, token embedding, and a final task-specific head to adapt to
-different applications. \Cref{tab:aot_vision} and
-demonstrates the performance of this minimalist transformer on vision
-classification; the performance is reasonable, despite the minimalist
-design. In the sequel, we will discuss a conceptual improvement to
-the CRATE formulation which \textit{also} improve the performance and
-efficiency.
+\paragraph{Transformadores de solo atención.} Para verificar que esta
+capacidad de eliminación de ruido se traduce en un rendimiento razonable con datos y tareas reales,
+proponemos formalmente una arquitectura de transformador basada exclusivamente en la atención,
+a la que denominamos AoT. Concretamente, al desenroscar
+los pasos de optimización iterativa \eqref{eq:MSSA} como capas de una red profunda,
+construimos una arquitectura de transformador tal y como se muestra en la
+\Cref{fig:transformer}. Cada capa de la arquitectura propuesta
+consta únicamente del operador MSSA y una conexión de salto. Para las tareas
+lingüísticas, incorporamos además LayerNorm antes del operador MSSA
+para mejorar el rendimiento. La arquitectura completa se construye
+apilando dichas capas, junto con pasos esenciales de preprocesamiento
+y posprocesamiento específicos de la tarea, tales como la codificación
+posicional, la incrustación de tokens y una cabeza final específica de la tarea para adaptarse a
+diferentes aplicaciones. La \Cref{tab:aot_vision} muestra el rendimiento de 
+este transformador minimalista en la clasificación
+de imágenes; el rendimiento es razonable, a pesar de su diseño
+minimalista. A continuación, analizaremos una mejora conceptual de
+la formulación CRATE que \textit{también} mejora el rendimiento y
+la eficiencia.
 
 \begin{table}[!t]
-    \caption{\textbf{Evaluating AoT on vision tasks}: top-1 accuracy
-    on ImageNet.}
+    \caption{\textbf{Evaluación del AoT en tareas de visión}: precisión top-1
+    en ImageNet.}
     \centering
     \begin{tabular}{lcccc}
         \toprule
@@ -2180,42 +2179,42 @@ efficiency.
     \label{tab:aot_vision}
 \end{table}
 
-\subsection{Linear-Time Attention: Token Statistics Transformer}\label{sub:tost}
+\subsection{Atención en tiempo lineal: transformador de estadísticas de tokens}\label{sub:tost}
 
-In this subsection, we propose a new transformer attention operator
-whose computational complexity scales linearly with the number of
-tokens based on the coding rate reduction objective.  Specifically,
-we derive a novel variational form of the MCR$^2$ objective and show
-that the architecture that results from unrolled gradient descent of
-this variational objective leads to a new attention module called
-Token Statistics Self-Attention (\text{TSSA}). \text{TSSA} has
-{\em linear computational and memory complexity} and radically
-departs from the typical attention architecture that computes
-pairwise similarities between tokens.  Replacing a traditional
-attention operator in a transformer with TSSA yields a new neural
-network architecture called the Token Statistics Transformer (ToST),
-which is highly efficient and has promising empirical performance. As
-a preliminary, recall from \eqref{eq:MCR pi} that $\bm \Pi = [\bm
-\pi_1, \ldots, \bm \pi_K] \in \R^{N \times K}$ denotes a stochastic
-``group assignment'' matrix (i.e., $\bm \Pi \bm 1 = \bm 1$ and
-$\Pi_{ik} \geq 0, \  \forall (i,k) \in [N] \times [K]$), where
-$\Pi_{ik}$ denotes the probability of assigning the $i$-th token to
-the $k$-th group.
+En esta subsección, proponemos un nuevo operador de atención de transformador
+cuya complejidad computacional varía linealmente con el número de
+tokens, basándonos en el objetivo de reducción de la tasa de codificación.  En concreto,
+derivamos una nueva forma variacional del objetivo MCR$^2$ y demostramos
+que la arquitectura resultante del descenso de gradiente desenroscado de
+este objetivo variacional da lugar a un nuevo módulo de atención denominado
+Token Statistics Self-Attention (\text{TSSA}). \text{TSSA} tiene
+{\em una complejidad computacional y de memoria lineal} y se aleja radicalmente
+de la arquitectura de atención típica que calcula
+las similitudes por pares entre tokens.  Al sustituir el operador de atención tradicional
+de un transformador por TSSA se obtiene una nueva arquitectura de red neuronal
+denominada Token Statistics Transformer (ToST),
+que es muy eficiente y presenta un rendimiento empírico prometedor. Como
+preludio, recordemos de la ecuación \eqref{eq:MCR pi} que $\bm \Pi = [\bm
+\pi_1, \ldots, \bm \pi_K] \in \R^{N \times K}$ denota una matriz estocástica
+de «asignación de grupos» (es decir, $\bm \Pi \bm 1 = \bm 1$ y
+$\Pi_{ik} \geq 0, \  \forall (i,k) \in [N] \times [K]$), donde
+$\Pi_{ik}$ denota la probabilidad de asignar el $i$-ésimo token al
+$k$-ésimo grupo.
 
-\paragraph{A new variational form for coding rates.} To begin, we
-consider a general form of MCR$^2$-like objectives based on concave
-functions of the spectrum of a matrix.  Namely, for a given PSD
-matrix $\bm M \in \PSD(d)$ and any scalar $c \geq 0$ we have that
+\paragraph{Una nueva forma variacional para las tasas de codificación.} Para empezar,
+consideramos una forma general de objetivos del tipo MCR$^2$ basados en funciones cóncavas
+del espectro de una matriz.  Concretamente, para una matriz PSD
+dada $\bm M \in \PSD(d)$ y cualquier escalar $c \geq 0$, tenemos que
 $\log \det (\I + c \bm M) = \sum_{i=1}^{d} \log( 1 + c \lambda_i(\bm
-M))$, where $\lambda_i (\bm M)$ is the $i$-th largest eigenvalue of
-$\bm M$.  Further, note that $\log(1 + c \sigma)$ is a concave
-non-decreasing function of $\sigma$.  Thus, we describe our results
-in terms of a more general form of MCR$^2$ based on general spectral
-functions of PSD matrices of the form $F(\bm M) = \sum_{i=1}^{d}
-f(\lambda_i(\bm M))$, where $f$ is concave and non-decreasing.  In
-particular, recall from earlier in this Chapter that the attention
-mechanism arises from unrolling the compression component of MCR$^2$,
-so we consider a more general MCR$^2$-style compression function:
+M))$, donde $\lambda_i (\bm M)$ es el $i$-ésimo mayor valor propio de
+$\bm M$. Además, cabe señalar que $\log(1 + c \sigma)$ es una función cóncava
+y no decreciente de $\sigma$. Por lo tanto, describimos nuestros resultados
+en términos de una forma más general de MCR$^2$ basada en funciones espectrales generales
+de matrices PSD de la forma $F(\bm M) = \sum_{i=1}^{d}
+f(\lambda_i(\bm M))$, donde $f$ es cóncava y no decreciente.  En
+particular, recordemos de lo anterior en este capítulo que el mecanismo de atención
+surge del desarrollo del componente de compresión de MCR$^2$,
+por lo que consideramos una función de compresión más general al estilo de MCR$^2$:
 \begin{equation}
     R_{c,f}(\bm Z, \bm \Pi) \doteq \frac{1}{2}\sum_{k=1}^K
     \frac{N_k}{N} F\left( \frac{1}{N_k}\Z \mathrm{Diag}(\bm \pi_k)
@@ -2223,26 +2222,26 @@ so we consider a more general MCR$^2$-style compression function:
     \label{eq:mcr_c_gen}
 \end{equation}
 
-For the above objective, we now note the following result:
+Con respecto al objetivo anterior, observamos ahora el siguiente resultado:
 \begin{theorem}
     \label{thm:var_concave}
-    Let \(f \colon [0, \infty) \to \R\) be non-decreasing, concave,
-    and obey \(f(0) = 0\), and let \(F \colon \PSD(d) \to \R\) have
-    the form \(F(\bm M) = \sum_{i = 1}^{d}f(\lambda_{i}(\bm M))\).
-    Then for each \(\bm M \in \PSD(d)\) and \(\bm Q \in \O(d)\), we have
+    Sea \(f \colon [0, \infty) \to \R\) una función no decreciente y cóncava,
+    que cumple \(f(0) = 0\) y sea \(F \colon \PSD(d) \to \R\) una función
+    la forma \(F(\bm M) = \sum_{i = 1}^{d}f(\lambda_{i}(\bm M))\).
+    Entonces, para cada \(\bm M \in \PSD(d)\) y \(\bm Q \in \O(d)\), tenemos
     \begin{equation}
         \label{eq:U_bound}
         F(\bm M) \leq  \sum_{i=1}^{d} f\left( (\bm Q^{\top} \bm M \bm
         Q)_{ii} \right).
     \end{equation}
-    Further, the inequality in \eqref{eq:U_bound} is achieved with
-    equality for any $\bm Q$ which diagonalizes $\bm M$, and if $f$
-    is strictly concave then the inequality in \eqref{eq:U_bound} is
-    achieved with equality \textit{if and only if} $\bm Q$ diagonalizes $\bm M$.
+    Además, la desigualdad de \eqref{eq:U_bound} se cumple con
+    igualdad para cualquier $\bm Q$ que diagonalice $\bm M$, y si $f$
+    es estrictamente cóncava, entonces la desigualdad de \eqref{eq:U_bound} se
+    cumple con igualdad \textit{si y solo si} $\bm Q$ diagonaliza $\bm M$.
 \end{theorem}
 
-Using the above result, we can replace \eqref{eq:mcr_c_gen} with an
-equivalent variational objective with form
+A partir del resultado anterior, podemos sustituir \eqref{eq:mcr_c_gen} por un
+objetivo variacional equivalente con la forma
 \begin{equation}
     \label{eq:var_comp}
     R^{\rm var}_{c,f} (\Z,\bm \Pi \mid \bm U_{[K]}) \doteq
@@ -2250,48 +2249,48 @@ equivalent variational objective with form
     f\left(\frac{1}{N_k} (\bm U_{k}^{\top} \Z \mathrm{Diag}(\bm
     \pi_k) \bm Z^{\top} \bm U_{k})_{ii} \right),
 \end{equation}
-where the equivalence is in the sense that for an optimal choice of
-$\{ \bm U_k \in \O(d)\}_{k=1}^K$ matrices as described in
-\Cref{thm:var_concave} (i.e., orthogonal matrices which diagonalize
-each $\Z \mathrm{Diag}(\bm \pi_k) \Z^\top $) we will achieve a tight
-bound with $ R^{\rm var}_{c,f} (\Z,\bm \Pi \mid \bm U_{[K]}) =
-R_{c,f} (\Z,\bm \Pi)$. Note that in general, achieving this bound
-would require selecting, for each sampled instance of $\Z$, a new
-optimal set of $\bm U_{k}$ parameter matrices which diagonalize each
-$\Z\mathrm{Diag}(\bm \pi_{k})\Z^{\top}$, which is clearly impractical
-for network architecture.
-Instead, as an alternative viewpoint, rather than considering the
-data ($\Z$) as fixed and trying to optimize the $\bm U_k$ parameters
-to achieve the tight variational bound, we can instead take the
-algorithmic unrolling design principle described above and design an
-operator to perturb $\Z$ to incrementally minimize $R_{c, f}^{\rm
-var}(\cdot \mid \bm U_{[K]})$.  To make this point explicit, each
-variational bound becomes tight when the eigenspaces of $\Z
+donde la equivalencia se entiende en el sentido de que, para una elección óptima de
+$\{ \bm U_k \in \O(d)\}_{k=1}^K$ matrices, tal como se describe en
+\Cref{thm:var_concave} (es decir, matrices ortogonales que diagonalizan
+cada $\Z \mathrm{Diag}(\bm \pi_k) \Z^\top $) lograremos un límite
+estrechamente relacionado con $ R^{\rm var}_{c,f} (\Z,\bm \Pi \mid \bm U_{[K]}) =
+R_{c,f} (\Z,\bm \Pi)$. Tenga en cuenta que, en general, alcanzar este límite
+requeriría seleccionar, para cada instancia muestreada de $\Z$, un nuevo
+conjunto óptimo de matrices de parámetros $\bm U_{k}$ que diagonalicen cada
+$\Z\mathrm{Diag}(\bm \pi_{k})\Z^{\top}$, lo cual es claramente inviable
+para la arquitectura de la red.
+En cambio, desde un punto de vista alternativo, en lugar de considerar los
+datos ($\Z$) como fijos e intentar optimizar los parámetros $\bm U_k$
+para alcanzar el límite variacional más estricto, podemos adoptar el
+principio de diseño de «desenroscamiento» algorítmico descrito anteriormente y diseñar un
+operador que perturbe $\Z$ para minimizar de forma incremental $R_{c, f}^{\rm
+var}(\cdot \mid \bm U_{[K]})$. Para dejarlo claro, cada
+límite variacional se vuelve estricto cuando los espacios propios de $\Z
 \mathrm{Diag}(\bm \pi_k) \Z
-^\top$ align with the columns of $\bm U_k$, so by rotating the
-appropriate columns of $\Z$ (namely, those which correspond to large
-entries in $\bm \pi_k$) to align with $\bm U_k$ we can approach a
-tight variational bound. That is, instead of rotating $\bm U_k$ to
-align with the data for each instance of $\Z$, we can instead rotate
-the token features in each $\Z$ to align with $\bm U_k$.
+^\top$ se alinean con las columnas de $\bm U_k$, por lo que al rotar las
+columnas apropiadas de $\Z$ (es decir, aquellas que corresponden a entradas grandes
+en $\bm \pi_k$) para alinearlas con $\bm U_k$ podemos acercarnos a un
+límite variacional ajustado. Es decir, en lugar de girar $\bm U_k$ para
+alinearlo con los datos de cada instancia de $\Z$, podemos girar
+las características de los tokens de cada $\Z$ para alinearlas con $\bm U_k$.
 
-Following this approach, we compute a gradient descent step on
-$R_{c,f}^{\rm var}$ w.r.t. $\Z$.
-To begin this computation, first let $\bm \pi \in \Re^N$ be any
-element-wise non-negative vector. Then we have
+Siguiendo este enfoque, calculamos un paso de descenso por gradiente en
+$R_{c,f}^{\rm var}$ con respecto a $\Z$.
+Para iniciar este cálculo, supongamos primero que $\bm \pi \in \Re^N$ es un
+vector no negativo elemento por elemento. Entonces tenemos
 \begin{equation}\label{eq1:grad Rcf}
     \nabla_{\Z} \ \frac{1}{2} \sum_{i = 1}^{d} f(  (\Z
     \mathrm{Diag}(\bm \pi) \Z^{\top} )_{ii}) %
     = \; \mathrm{Diag}(\nabla f[ \Z^{\hada 2} \bm \pi] ) \Z
     \mathrm{Diag}(\bm \pi),
 \end{equation}
-where $\nabla f$ is the gradient of $f$, and (recall) $\nabla
-f[\cdot]$ applies $\nabla f$ to each element of the vector in the
-bracket. In particular, for $ f(x) = \log(1 + (d/\epsilon^{2}) x)$,
-$\nabla f(x) = (d / \epsilon^{2}) (1+ (d / \epsilon^{2}) x)^{-1}$ is
-simply a non-linear activation. Also, (recall) $N_{k} = \langle \bm
-\pi_{k}, \bm 1\rangle$. Thus, the gradient of $R^{\rm var}_{c,f}$
-w.r.t. $\Z$ is:
+donde $\nabla f$ es el gradiente de $f$ y (recordemos que) $\nabla
+f[\cdot]$ aplica $\nabla f$ a cada elemento del vector entre
+paréntesis. En particular, para $ f(x) = \log(1 + (d/\epsilon^{2}) x)$,
+$\nabla f(x) = (d / \epsilon^{2}) (1+ (d / \epsilon^{2}) x)^{-1}$ es
+simplemente una activación no lineal. Además, (recordemos que) $N_{k} = \langle \bm
+\pi_{k}, \bm 1\rangle$. Por lo tanto, el gradiente de $R^{\rm var}_{c,f}$
+respecto a $\Z$ es:
 \begin{align}\label{eq2:grad Rcf}
     &\nabla_{\Z} R^{\rm var}_{c,f}(\Z,\bm \Pi \mid \bm
     U_{[K]}) \\
@@ -2304,11 +2303,11 @@ w.r.t. $\Z$ is:
     \bm 1\rangle} \right] \right)}_{\doteq \bm D(\Z, \bm \pi_{k} \mid
     \bm U_{k})} \bm U_{k}^{\top} \Z \mathrm{Diag}(\bm \pi_k).
 \end{align}
-(Note that the $1/N$ constant arises from a $(N_{k}/N)\cdot (1/N_{k})
-= 1/N$ constant in each term of the sum.) If we now consider a
-gradient step w.r.t. the $j$-th token $\z_j$
-, we arrive at our proposed incremental compression operator, i.e.,
-our surrogate for a \textit{self attention} + residual operator:
+(Obsérvese que la constante $1/N$ se deriva de una constante $(N_{k}/N)\cdot (1/N_{k})
+= 1/N$ presente en cada término de la suma.) Si ahora consideramos un
+paso de gradiente con respecto al token $j$-ésimo $\z_j$, 
+llegamos a nuestro operador de compresión incremental propuesto, es decir,
+nuestro sustituto de un operador de \textit{autoatención} + residual:
 \begin{align}\label{eq:layer-operation-orig}
     \z_j^+
     &= \z_{j} - \tau \nabla_{\z_{j}}R_{c, f}^{\rm var}(\Z, \bm
@@ -2317,124 +2316,124 @@ our surrogate for a \textit{self attention} + residual operator:
     \Pi_{jk} \bm U_{k} \bm D(\Z, \bm \pi_{k} \mid \bm U_{k}) \bm
     U_{k}^{\top} \z_j
 \end{align}
-for each \(j \in [n]\), where $\tau > 0$ is a step size parameter for
-the incremental optimization.
+para cada \(j \in [n]\), donde $\tau > 0$ es un parámetro de tamaño de paso para
+la optimización incremental.
 
-\paragraph{Model interpretation.} Given the proposed attention
-operator in \eqref{eq:layer-operation-orig}, first recall that the
-rows of $\bm\Pi$ are non-negative and sum to 1
-, so our operator takes a weighted average of $K$ ``attention
-head''-esque operators and then adds a residual connection. Using
-that \(\sum_{k = 1}^{K}\Pi_{jk} = 1\), we can rewrite
-\eqref{eq:layer-operation-orig} as: %
+\paragraph{Interpretación del modelo.} Dado el operador de atención
+propuesto en \eqref{eq:layer-operation-orig}, recordemos primero que las
+filas de $\bm\Pi$ son no negativas y suman 1, por lo que nuestro operador 
+toma un promedio ponderado de $K$ operadores similares a «cabezas de atención»
+y luego añade una conexión residual. Utilizando
+que \(\sum_{k = 1}^{K}\Pi_{jk} = 1\), podemos reescribir
+\eqref{eq:layer-operation-orig} como: %
 \begin{equation}
     \label{eq:z_up}
     \z_j^+ = \sum_{k=1}^K \Pi_{jk} \Big[ \z_j \underbrace{-
             \frac{\tau}{n} \bm U_{k} \bm D(\Z, \bm \pi_{k} \mid \bm U_{k})
     \bm U_{k}^{\top}}_{\text{action of one attention head}} \z_j \Big].
 \end{equation}
-That is, we can view each attention head as first projecting the token features
-onto the basis $\bm U_{k}$ via multiplying by $\bm U_k^\top$, multiplying by the
-diagonal matrix $\bm D(\Z, \bm \pi_{k} \mid \bm U_{k})$ (abbreviated as \(\bm
-D_{k}\)), projecting back into the standard basis via multiplying by $\bm
-U_{k}$, and subtracting this from the original token features via the residual
-connection. The core aspect of our attention layer is the computation of $\bm
-D_{k}$.  Namely, \(\Pi_{jk} \geq 0\), so $\bm \pi_k / \langle \bm \pi_{k}, \bm
-1\rangle \in \Re^N$ forms a probability distribution over which tokens belong to
-the $k^\text{th}$ group.  As a result, $(\bm U^\top_k \Z)^{\hada 2}
-\bm \pi_k / \langle \bm \pi_{k}, \bm 1\rangle$ estimates the second
-moment of $\bm U_k^\top \Z$ under the distribution given by $\bm
-\pi_k /  \langle \bm \pi_{k}, \bm 1\rangle$.  Further, since $f$ is a
-concave non-decreasing function, $\nabla f(x)$ monotonically
-decreases towards $0$ as $x$ increases, so the entries of $\bm D_{k}$
-(which have form $\nabla f(x)$) achieve their maximum at $x=0$ %
-and decay monotonically to $0$ as $x$ increases.
+Es decir, podemos considerar que cada cabeza de atención primero proyecta las características de los tokens
+sobre la base $\bm U_{k}$ multiplicándolas por $\bm U_k^\top$, las multiplica por la
+matriz diagonal $\bm D(\Z, \bm \pi_{k} \mid \bm U_{k})$ (abreviada como \(\bm
+D_{k}\)), proyectándolas de nuevo en la base estándar mediante la multiplicación por $\bm
+U_{k}$ y restando esto de las características originales del token a través de la conexión residual.
+El aspecto central de nuestra capa de atención es el cálculo de $\bm
+D_{k}$.  Es decir, dado que \(\Pi_{jk} \geq 0\), entonces $\bm \pi_k / \langle \bm \pi_{k}, \bm
+1\rangle \in \Re^N$ forma una distribución de probabilidad que indica qué tokens pertenecen al
+$k$-ésimo grupo. Como resultado, $(\bm U^\top_k \Z)^{\hada 2}
+\bm \pi_k / \langle \bm \pi_{k}, \bm 1\rangle$ estima el segundo
+momento de $\bm U_k^\top \Z$ bajo la distribución dada por $\bm 
+\pi_k /  \langle \bm \pi_{k}, \bm 1\rangle$.  Además, dado que $f$ es una
+función cóncava no decreciente, $\nabla f(x)$ disminuye monótonamente
+hacia $0$ a medida que $x$ aumenta, por lo que las entradas de $\bm D_{k}$
+(que tienen la forma $\nabla f(x)$) alcanzan su máximo en $x=0$ %
+y decaen monótonamente a $0$ a medida que $x$ aumenta.
 
-From this, we arrive at the core interpretation of our attention head + residual
-operators $[\I - (\tau/n)\bm U_{k}\bm D_{k}\bm U_{k}^{\top}]$.  Namely, this
-operator does an approximate low-rank data-dependent projection, where
-directions which have a large amount of ``power'' after the projection $\bm
-U_k^\top \Z$ (i.e., directions which have a large second moment $(\bm
+A partir de esto, llegamos a la interpretación fundamental de nuestros operadores de atención + residual
+$[\I - (\tau/n)\bm U_{k}\bm D_{k}\bm U_{k}^{\top}]$. Es decir, este
+operador realiza una proyección aproximada de rango bajo dependiente de los datos, en la que
+se conservan las direcciones que tienen una gran «potencia» tras la proyección $\bm
+U_k^\top \Z$ (es decir, las direcciones que tienen un segundo momento elevado $(\bm
     U_{k}^{\top}\Z)^{\hada 2}\bm \pi_k / \langle \bm \pi_{k}, \bm
-1\rangle$) are preserved, while directions which do not are
-suppressed. To see this, recall that the entries of $\bm D_k$
-decrease monotonically to 0 as the second moment increases, so for
-directions with large second moments the attention + residual
-operator acts largely as the identity operator.  Conversely, for
-directions with a small second moment, our operator subtracts a
-projection of the tokens along those directions, resulting in those
-directions being suppressed. Compared to the standard self-attention
-operator, our method clearly does not compute any pairwise
-similarities between tokens. Rather, the interactions between the
-tokens in $\Z$ impact the operator solely through their contribution
-to the second moment statistic used to construct the $\bm D_{k}$'s.
-Nevertheless, similar to the standard self-attention operator, our
-method still has a clear interpretation as performing a form of
-compression towards a data-dependent low-rank structure, in the sense
-that it performs an approximate low-rank projection, where the
-specific directions that are suppressed are those which are not
-strongly aligned with other tokens in the group.
+1\rangle$) se conservan, mientras que las direcciones que no la tienen se
+suprimen. Para comprenderlo, recordemos que los elementos de $\bm D_k$
+disminuyen monótonamente hasta 0 a medida que aumenta el momento de segundo orden, por lo que, para
+las direcciones con momentos de segundo orden grandes, el operador de atención + residual
+actúa en gran medida como el operador de identidad. Por el contrario, para
+las direcciones con un momento de segundo orden pequeño, nuestro operador resta una
+proyección de los tokens a lo largo de esas direcciones, lo que da como resultado la
+supresión de dichas direcciones. En comparación con el operador de autoatención
+estándar, nuestro método claramente no calcula ninguna similitud
+por pares entre tokens. Más bien, las interacciones entre los
+elementos de $\Z$ influyen en el operador únicamente a través de su contribución
+a la estadística del segundo momento utilizada para construir los $\bm D_{k}$.
+No obstante, al igual que el operador de autoatención estándar, nuestro
+método sigue teniendo una interpretación clara como una forma de
+compresión hacia una estructura de bajo rango dependiente de los datos, en el sentido
+de que realiza una proyección aproximada de bajo rango, en la que las
+direcciones específicas que se suprimen son aquellas que no están
+fuertemente alineadas con otros tokens del grupo.
 
-\paragraph{Computational considerations.} Having introduced our
-proposed attention operator, we now discuss how it can be computed
-practically. First, until this point in the presentation, we have
-avoided discussion of how tokens are ``grouped'' into various
-attention heads via the $\bm\Pi$ matrix, but clearly a means of
-constructing $\bm\Pi$ is needed to implement our method.
-Additionally, our variational form in \Cref{thm:var_concave} requires
-the $\bm U$ matrices to be square and orthogonal, but one would
-ideally like to use smaller matrices (i.e., reduce the number of
-columns in $\bm U$) for efficiency as well as drop the orthogonality
-constraints.
+\paragraph{Consideraciones computacionales.} Tras haber presentado nuestro
+operador de atención propuesto, analizaremos ahora cómo se puede calcular
+en la práctica. En primer lugar, hasta este momento de la presentación, hemos
+evitado abordar cómo se «agrupan» los tokens en los distintos
+cabezales de atención mediante la matriz $\bm\Pi$, pero es evidente que se necesita una forma de
+construir $\bm\Pi$ para implementar nuestro método.
+Además, nuestra forma variacional en \Cref{thm:var_concave} requiere
+que las matrices $\bm U$ sean cuadradas y ortogonales, pero lo ideal
+sería utilizar matrices más pequeñas (es decir, reducir el número de
+columnas en $\bm U$) para mejorar la eficiencia, así como eliminar las restricciones
+de ortogonalidad.
 
-In practice, we do not enforce the orthogonality constraints. To
-reduce the number of columns in the $\bm U$ matrices, we note that
-similar to CRATE \citep{yu2023white}, if we assume the features $\bm
-Z$ within group \(k\) are (approximately) clustered around a
-low-dimensional subspace --- say of dimension \(p\) --- then the
-within-group-\(k\) covariance \(\Z\mathrm{Diag}(\bm
-\pi_{k})\Z^{\top}\) is low-rank, where recall that
-\cite{yu2020learning} shows that the optimal geometry of $\Z$ will be
-for each group to be a low-rank subspace, orthogonal to the other
-groups. We can thus explicitly find a low-dimensional orthonormal
-basis for the image of this covariance, i.e., the linear span of the
-data in group \(k\). If the dimension is $p \leq d$, the basis can be
-represented by a $d\times p$ orthogonal matrix $\bm U_k \in \O(d,
-p)$. In this case, we can more efficiently upper-bound \(R_{c,f}\)
-using these low-rank orthogonal basis matrices. To show this, we use
-a more general version of \Cref{thm:var_concave}  to yield the
-following corollary.
+En la práctica, no aplicamos las restricciones de ortogonalidad. Para
+reducir el número de columnas en las matrices $\bm U$, observamos que,
+al igual que en CRATE \citep{yu2023white}, si suponemos que las características $\bm
+Z$ dentro del grupo \(k\) se agrupan (aproximadamente) en torno a un
+subespacio de baja dimensión —digamos, de dimensión \(p\) --- entonces la
+covarianza dentro del grupo \(k\) \(\Z\mathrm{Diag}(\bm
+\pi_{k})\Z^{\top}\) es de rango bajo, donde recordemos que 
+\cite{yu2020learning} demuestra que la geometría óptima de $\Z$ se da 
+cuando cada grupo es un subespacio de rango bajo, ortogonal a los demás
+grupos. Por lo tanto, podemos encontrar explícitamente una base ortonormal de baja dimensión
+para la imagen de esta covarianza, es decir, el espacio lineal generado por los
+datos del grupo \(k\). Si la dimensión es $p \leq d$, la base puede
+representarse mediante una matriz ortogonal $d\times p$ $\bm U_k \in \O(d,
+p)$. En este caso, podemos establecer una cota superior más eficiente para \(R_{c,f}\)
+utilizando estas matrices de base ortogonal de rango bajo. Para demostrarlo, utilizamos
+una versión más general de \Cref{thm:var_concave}  para obtener el
+siguiente corolario.
 \begin{corollary}\label{cor:var_concave_logdet}
-    Let \(f \colon [0, \infty) \to \R\) be non-decreasing, concave,
-    and obey \(f(0) = 0\), and let \(F \colon \PSD(p) \to \R\) have
-    the form \(F(\bm M) = \sum_{i = 1}^{p}f(\lambda_{i}(\bm M))\).
-    Let \(\Z\), \(\bm \Pi\) be fixed. Then, for all \(\bm U_{1},
-    \dots, \bm U_{K} \in \O(d, p)\) such that
+    Sea \(f \colon [0, \infty) \to \R\) una función no decreciente y cóncava,
+    que cumple \(f(0) = 0\) y sea \(F \colon \PSD(p) \to \R\) una función
+    la forma \(F(\bm M) = \sum_{i = 1}^{p}f(\lambda_{i}(\bm M))\).
+    Sean \(\Z\), \(\bm \Pi\) fijos. Entonces, para todo \(\bm U_{1},
+    \dots, \bm U_{K} \in \O(d, p)\) tal que
     \(\mathrm{image}(\Z\diag(\bm \pi_{k})\Z^{\top}) \subset
-    \mathrm{image}(\bm U_{k})\) for all \(k \in [K]\), we have
+    \mathrm{image}(\bm U_{k})\) para todo \(k \in [K]\), tenemos
     \begin{equation}
         R_{c, f}(\Z, \bm\Pi) \leq R_{c, f}^{\rm var}(\Z, \bm\Pi \mid
         \bm U_{[K]}),
     \end{equation}
-    where \(R_{c, f}^{\rm var}\) is formally defined in
-    \eqref{eq:var_comp}. Equality holds if \(\bm U_{k}\) diagonalizes
-    \(\Z\diag(\bm \pi_{k})\Z^{\top}\) for each \(k \in [K]\), and if
-    \(f\) is strongly concave then this equality condition becomes an
-    ``if and only if.''
+    donde \(R_{c, f}^{\rm var}\) se define formalmente en
+    \eqref{eq:var_comp}. La igualdad se cumple si \(\bm U_{k}\) diagonaliza
+    \(\Z\diag(\bm \pi_{k})\Z^{\top}\) para cada \(k \in [K]\) y si
+    \(f\) es fuertemente cóncava, entonces esta condición de igualdad se convierte en un
+    ``si y solo si.''
 \end{corollary}
 
-The final step to define our attention operator is to estimate the
-group membership $\bm\Pi$. For this we posit a simple model of how
-each feature \(\z_{j}\) deviates from its supporting subspace and
-then find the optimal subspace assignment. \cite{yu2023white} show
-that if we independently model each \(\z_{j}\) as belonging to a
-low-dimensional Gaussian mixture model, where each Gaussian has a
-covariance matrix with identical spectrum and is supported on a
-subspace with orthonormal basis \(\bm U_{k}\), plus independent
-Gaussian noise with covariance \(\eta \I\), then the posterior
-probability that each token \(\z_{j}\) belongs to each subspace is
-given by the assignment matrix \(\bm \Pi = \bm \Pi(\bm Z \mid \bm
-U_{[K]})\) as follows:
+El último paso para definir nuestro operador de atención consiste en estimar la
+pertenencia al grupo $\bm\Pi$. Para ello, planteamos un modelo sencillo de cómo
+cada característica \(\z_{j}\) se desvía de su subespacio de soporte y
+luego hallamos la asignación óptima de subespacios. \cite{yu2023white} muestran
+que si modelamos independientemente cada \(\z_{j}\) como perteneciente a un
+modelo de mezcla gaussiana de baja dimensión, donde cada gaussiana tiene una
+matriz de covarianza con espectro idéntico y está apoyada en un
+subespacio con base ortonormal \(\bm U_{k}\), más
+ruido gaussiano independiente con covarianza \(\eta \I\), entonces la probabilidad a posteriori
+de que cada token \(\z_{j}\) pertenezca a cada subespacio viene
+dada por la matriz de asignación \(\bm \Pi = \bm \Pi(\bm Z \mid \bm
+U_{[K]})\) de la siguiente manera:
 \begin{align}\label{eq:pi}
     \bm \Pi & =
     \begin{bmatrix} \boldsymbol{\nu}(\z_1 \mid \bm U_{[K]})^\top
@@ -2447,45 +2446,45 @@ U_{[K]})\) as follows:
             \\ \| \bm U_{K}^{\top} \z_j \|_2^2
     \end{bmatrix} \right), \quad \forall j \in [n],
 \end{align}
-where $\eta$ becomes a learnable temperature parameter. Thus, given
-an input feature \(\Z\), we estimate \(\bm\Pi\) using \eqref{eq:pi}
-and then compute the attention operator.  Combining the construction
-of $\bm\Pi$ in \eqref{eq:pi} with
-\eqref{eq:layer-operation-orig}, we obtain the {\em Token Statistics
-Self-Attention} operator:
+donde $\eta$ se convierte en un parámetro de temperatura aprendible. Así, dada
+una característica de entrada \(\Z\), estimamos \(\bm\Pi\) utilizando \eqref{eq:pi}
+y luego calculamos el operador de atención. Al combinar la construcción
+de $\bm\Pi$ en \eqref{eq:pi} con
+\eqref{eq:layer-operation-orig}, obtenemos el operador {\em Token Statistics
+Self-Attention}:
 \begin{equation}
     \label{eq:tssa}
     \operatorname{TSSA}(\Z \mid \bm U_{[K]}) \doteq -\frac{\tau}{n}\sum_{k
     = 1}^{K}\bm U_{k}\bm D(\Z, \bm\pi_{k} \mid \bm U_{k})\bm
     U_{k}^{\top}\Z\diag(\bm \pi_{k}),
 \end{equation}
-where \(\bm\pi_{k}\) are the columns of \(\bm\Pi = \bm\Pi(\Z \mid \bm
-U_{[K]})\) defined in \eqref{eq:pi} and \(\bm D\) is defined in
+donde \(\bm\pi_{k}\) son las columnas de \(\bm\Pi = \bm\Pi(\Z \mid \bm
+U_{[K]})\) definidas en \eqref{eq:pi} y \(\bm D\) se define en
 \eqref{eq2:grad Rcf}.
 
-By starting with a standard Transformer architecture and replacing
-the attention operator with TSSA, we obtain an architecture called
-Token Statistics Transformer (ToST), visualized in
-\Cref{fig:vcrate-architecture}. We would like to re-emphasize that
-the TSSA operator mitigates the usual time and memory complexity of
-the attention operator, in particular reducing the quadratic time and
-memory complexity to linear, which makes ToST much more efficient
-than its empirically designed counterpart. We now briefly show the
-empirical performance and efficiency of the ToST architecture.
+Partiendo de una arquitectura Transformer estándar y sustituyendo
+el operador de atención por TSSA, obtenemos una arquitectura denominada
+Token Statistics Transformer (ToST), que se muestra en la
+\Cref{fig:vcrate-architecture}. Nos gustaría volver a destacar que
+el operador TSSA reduce la complejidad temporal y de memoria habitual del
+operador de atención, en particular al reducir la complejidad temporal y
+de memoria cuadrática a lineal, lo que hace que ToST sea mucho más eficiente
+que su homólogo diseñado empíricamente. A continuación, mostramos brevemente el
+rendimiento y la eficiencia empíricos de la arquitectura ToST.
 
 \begin{figure}[!t]
     \centering
     \includegraphics[width=1\textwidth,trim={0 5.0cm 0
     0},clip]{\toplevelprefix/chapters/chapter5/figs/V-CRATE.pdf}
     \vspace{-1mm}
-    \caption{\small \textbf{One layer $\ell$ of the proposed Token
-        Statistics Transformer (ToST).} Notably, the self-attention
-        of ToST transforms tokens $\Z^{\ell}$ efficiently to
-        $\Z^{\ell+1}$, via multiplying each row of the projected
-        token by \textit{only a scalar}. This leads to reduced
-        complexity of the attention: it has $O(p)$ space and $O(pn)$
-        time complexity, where $p$ is the dimension of the projected
-        tokens of each head, and $n$ is the number of tokens.
+    \caption{\small \textbf{Una capa $\ell$ del Token
+        Statistics Transformer (ToST) propuesto.} Cabe destacar que la autoatención
+        de ToST transforma los tokens $\Z^{\ell}$ de manera eficiente en
+        $\Z^{\ell+1}$, multiplicando cada fila del token proyectado
+        por \textit{solo un escalar}. Esto conduce a una
+        complejidad reducida de la atención: tiene una complejidad espacial de $O(p)$ y una complejidad temporal de $O(pn)$,
+        donde $p$ es la dimensión de los tokens proyectados
+        de cada cabeza y $n$ es el número de tokens.
     }
     \label{fig:vcrate-architecture}
 \end{figure}
@@ -2503,21 +2502,21 @@ empirical performance and efficiency of the ToST architecture.
         \includegraphics[width=0.49\textwidth]{\toplevelprefix/chapters/chapter5/figs/tost_gpu_memory_gpt2.pdf}
         \caption{}
     \end{subfigure}
-    \caption{\small\textbf{Time and memory complexity of ToST in
-        practice} compared to empirically designed ViT (a) and GPT-2
-        (b). We observe that ToST only requires linear time and
-    memory, in comparison to quadratic costs of traditional transformers.}
+    \caption{\small\textbf{Complejidad temporal y de memoria de ToST en
+        la práctica} en comparación con ViT (a) y GPT-2
+        (b), diseñados empíricamente. Observamos que ToST solo requiere tiempo y
+    memoria lineales, en comparación con los costos cuadráticos de los transformadores tradicionales.}
 \end{figure}
 
 \begin{table*}[t!]
     \centering
-    \caption{\small \textbf{Top 1 accuracy of ToST on various
-            datasets with different model sizes when pre-trained on
-        ImageNet.} For ImageNet/ImageNetReaL, we directly evaluate the
-        top-1 accuracy. For other datasets, we pre-train the model on
-        ImageNet and then evaluate the transfer learning performance via
-        fine-tuning. We observe that ToST performance scales with model
-    size and is competitive with the empirically designed ViT.}
+    \caption{\small \textbf{Precisión «top-1» de ToST en diversos
+            conjuntos de datos con diferentes tamaños de modelo tras el preentrenamiento en
+        ImageNet.} Para ImageNet/ImageNetReaL, evaluamos directamente la
+        precisión «top-1». Para otros conjuntos de datos, preentrenamos el modelo en
+        ImageNet y luego evaluamos el rendimiento del aprendizaje por transferencia mediante
+        el ajuste fino. Observamos que el rendimiento de ToST escala con el
+    tamaño del modelo y es competitivo con el ViT diseñado empíricamente.}
     \label{tab:tost_in1k_transfer}
     \small
     \setlength{\tabcolsep}{10.6pt}
@@ -2545,11 +2544,11 @@ empirical performance and efficiency of the ToST architecture.
 
 \begin{table*}
     \centering
-    \caption{\small\textbf{Long-context performance of
-        ToST.} We demonstrate performance on the Long Range Arena, a
-        benchmark of long-context (large-\(n\)) tasks. On this benchmark,
-        ToST has outright superior performance and efficiency compared to
-    every Transformer variant, including the Transformer itself.}
+    \caption{\small\textbf{Rendimiento de ToST en
+        tareas de contexto largo.} Demostramos el rendimiento en Long Range Arena, un
+        banco de pruebas para tareas de contexto largo (\(n\) grande). En este banco de pruebas,
+        ToST presenta un rendimiento y una eficiencia claramente superiores en comparación con
+    todas las variantes de Transformer, incluido el propio Transformer.}
     \label{tab:tost_lra}
     \resizebox{0.8\textwidth}{!}{%
         \begin{tabular}{@{}lccccccc@{}}
@@ -2581,54 +2580,54 @@ empirical performance and efficiency of the ToST architecture.
     }
 \end{table*}
 
-\subsection{Causal CRATE}
+\subsection{CRATE causal}
 \label{sec:causal-crate}
-Some of the most popular applications of deep networks are in the
-regimes of \textit{sequence data} where, unlike the previous example
-of imagery, there is a natural order to the data. For example, unlike
-in imagery (where one tends to look at the whole image at once),
-language is processed one token at a time (causally). This simple
-fact motivates the development of large language models (LLMs), which
-are trained to predict the (probability distribution of) the next
-token in a sequence given \textit{only the history of previous
-tokens}. Then, to sample from an LLM, one simply iteratively samples
-from the predicted distribution for the next token and then appends
-the sampled token to the history. In order to train LLMs, and other
-models such as video generation models, it is necessary to develop
-architectures which can efficiently perform this causal computation.
+Algunas de las aplicaciones más populares de las redes profundas se dan en el
+ámbito de los \textit{datos secuenciales}, donde, a diferencia del ejemplo anterior
+de las imágenes, los datos siguen un orden natural. Por ejemplo, a diferencia
+de las imágenes (donde se tiende a observar la imagen completa de una sola vez),
+el lenguaje se procesa token por token (de manera causal). Este simple
+hecho impulsa el desarrollo de modelos de lenguaje a gran escala (LLM), que
+se entrenan para predecir (la distribución de probabilidad del) siguiente
+token de una secuencia basándose \textit{únicamente en el historial de los tokens 
+anteriores}. A continuación, para obtener una muestra de un LLM, basta con realizar un muestreo iterativo
+a partir de la distribución prevista para el siguiente token y, a continuación, añadir
+el token muestreado al historial. Para entrenar LLM y otros
+modelos, como los de generación de vídeo, es necesario desarrollar
+arquitecturas capaces de realizar este cálculo causal de manera eficiente.
 
-With this in mind, and the understanding of causal autoregressive
-processes from \Cref{ch:intro}, we say that an encoder \(f\) is
-\textit{causal} if for every input \(\vX = [\vx_{1}, \dots, \vx_{N}]\), it holds
+Teniendo esto en cuenta y basándonos en la comprensión de los procesos autorregresivos causales
+de \Cref{ch:intro}, decimos que un codificador \(f\) es
+\textit{causal} si, para cada entrada \(\vX = [\vx_{1}, \dots, \vx_{N}]\), se cumple que
 \begin{align}
     f(\vX)_{1:N-1}
     &= f([\vx_{1}, \dots, \vx_{N}])_{1:N-1} =
     f([\vx_{1}, \dots, \vx_{N - 1}]) \\
     &= f(\vX_{1:N-1}),
 \end{align}
-where \(\vZ_{1:N-1} = [\vz_{1}, \dots, \vz_{N-1}]\), etc. In English,
-this means that the first \(N-1\) features are equal to the output of
-the encoder on the first \(N-1\) token embeddings of the input; even
-simpler, it means we can compute the features of each token
-\textit{one at a time}, and this would be equivalent to computing the
-features for the entire input. This causality is necessary for the
-previously mentioned applications (e.g., LLMs). In particular, the
-previously presented implementations of CRATE and ToST are
-\textit{not causal} (proof is left as an exercise).
+donde \(\vZ_{1:N-1} = [\vz_{1}, \dots, \vz_{N-1}]\), etc. En español,
+esto significa que las primeras \(N-1\) características son iguales a la salida del
+codificador sobre las primeras \(N-1\) incrustaciones de tokens de la entrada; dicho de manera aún
+más sencilla, significa que podemos calcular las características de cada token
+\textit{una por una} y esto sería equivalente a calcular las
+características de toda la entrada. Esta causalidad es necesaria para las
+aplicaciones mencionadas anteriormente (por ejemplo, los LLM). En particular, las
+implementaciones de CRATE y ToST presentadas anteriormente
+\textit{no son causales} (la demostración se deja como ejercicio).
 
-We can construct causal white-box architectures by a variety of
-methods. Here, we will showcase a simple method which builds on our
-previous unrolled optimization framework. Specifically, we compute
-the features \(\vz_{1}, \dots, \vz_{N}\) corresponding to the first
-\(N\) tokens of the input \textit{one-at-a-time} to optimize the
-representation learning objective, such as the sparse rate reduction
+Podemos construir arquitecturas causales de caja blanca mediante diversos
+métodos. Aquí presentaremos un método sencillo que se basa en nuestro
+marco de optimización desenroscada anterior. Específicamente, calculamos
+las características \(\vz_{1}, \dots, \vz_{N}\) correspondientes a los primeros
+\(N\) tokens de la entrada \textit{uno por uno} para optimizar el
+objetivo de aprendizaje de la representación, como la reducción dispersa de la tasa 
 \eqref{eq:sparse-rr-1}:
 \begin{equation}
     \max_{\vz_{i}}\ \Delta R(\vZ_{1:i} \mid \vU_{[K]}) - \lambda
     \|\vZ_{1:i}\|_{1},\ \forall i \in [N].
 \end{equation}
-If we follow through with the two-step unrolling procedure that
-yielded CRATE, we can obtain the iteration:
+Si seguimos el procedimiento de desenroscamiento en dos pasos que
+dio lugar a CRATE, podemos obtener la iteración:
 \begin{align}
     \vz_{i}^{\ell + 1/2} &\approx \vz_{i}^{\ell} - \kappa
     \nabla_{\vz_{i}} R(\vZ_{1:i}^{\ell} \mid \vU_{[K]}^{\ell}), \\
@@ -2636,8 +2635,8 @@ yielded CRATE, we can obtain the iteration:
         \|\vz_{i}\|_{1} + \frac{1}{2}\norm{\vz_{i}^{\ell + 1/2} -
     \vD^{\ell} {\vz_{i}}}_F^2\right\},
 \end{align}
-or, using the same conversion from these two steps to network
-operators that we used for CRATE,
+o bien, utilizando la misma conversión de estos dos pasos a operadores de red
+que usamos para CRATE,
 \begin{align}
     \vz_{i}^{\ell + 1/2}
     &= \left(1 - \frac{\kappa p}{N\epsilon^{2}}\right)\vz_{i}^{\ell}
@@ -2647,19 +2646,19 @@ operators that we used for CRATE,
     \vz_{i}^{\ell + 1}
     &= \operatorname{ISTA}(\vz_{i}^{\ell + 1/2} \mid \vD^{\ell}).
 \end{align}
-Let us investigate this iteration in slightly more detail. First, let
-us note that by construction, this sequence of features corresponds
-to a causal encoder. Next, let us suppose that we are in a setting
-where we have computed \(\vZ_{1:i-1}^{\ell + 1} = [\vz_{1}^{\ell +
-1}, \dots, \vz_{i-1}^{\ell + 1}]\), having computed the quantities
+Analicemos esta iteración con un poco más de detalle. En primer lugar,
+observemos que, por definición, esta secuencia de características corresponde
+a un codificador causal. A continuación, supongamos que nos encontramos en un escenario
+en el que hemos calculado \(\vZ_{1:i-1}^{\ell + 1} = [\vz_{1}^{\ell +
+1}, \dots, \vz_{i-1}^{\ell + 1}]\), habiendo calculado las cantidades
 \begin{equation}
     (\vU_{k}^{\ell})^{\top}\vZ_{1:i-1}^{\ell} =
     [(\vU_{k}^{\ell})^{\top}\vz_{1}^{\ell}, \dots,
     (\vU_{k}^{\ell})^{\top}\vz_{i-1}^{\ell}]
 \end{equation}
-along the way, and want to compute \(\vz_{i}^{\ell + 1}\) (for
-instance relevant to the case of LLM inference). In this case, note
-that the update rule for \(\vz_{i}^{\ell + 1/2}\) can be simplified as:
+a lo largo del proceso y queremos calcular \(\vz_{i}^{\ell + 1}\) (por
+ejemplo, en el caso de la inferencia de un modelo de lenguaje grande). En este caso, cabe señalar
+que la regla de actualización para \(\vz_{i}^{\ell + 1/2}\) puede simplificarse de la siguiente manera:
 \begin{align}
     &\vz_{i}^{\ell + 1/2} \\
     &= \left(1 - \frac{\kappa p}{N\epsilon^{2}}\right)\vz_{i}^{\ell}
@@ -2683,39 +2682,39 @@ that the update rule for \(\vz_{i}^{\ell + 1/2}\) can be simplified as:
             \vU_{k}^{\top}\vz_{i}]\softmax(([\vU_{k}^{\top}\vZ_{1:i-1},
     \vU_{k}^{\top}\vz_{i}])^{\top}(\vU_{k}^{\top}\vz_{i})).\)}
 \end{align}
-This step now becomes \textit{highly efficient} if we cache
-\(\vU_{k}^{\top}\vZ_{1:i-1}\) from previous steps, and add a single
-column to it each time we compute the projection
-\(\vU_{k}^{\top}\vz_{i}\). Namely, we greatly reduce the number of
-large matrix-matrix products and replace them by cache loads and
-matrix-vector products, which is overall much cheaper in terms of
-time complexity. This caching is the reason why causal generative
-models such as LLMs can efficiently sample 1000s of tokens per
-second, even if each training step takes a few seconds by itself. The
-cache for the subspace projections of the features is also known as
-the so-called ``KV cache''.
+Este paso se vuelve \textit{muy eficiente} si almacenamos en caché
+\(\vU_{k}^{\top}\vZ_{1:i-1}\) de los pasos anteriores y le añadimos una sola
+columna cada vez que calculamos la proyección
+\(\vU_{k}^{\top}\vz_{i}\). Es decir, reducimos considerablemente el número de
+productos de matrices grandes y los reemplazamos por cargas de caché y
+productos de matriz-vector, lo cual es, en general, mucho más económico en términos de
+complejidad temporal. Este almacenamiento en caché es la razón por la que los modelos generativos causales,
+como los LLM, pueden muestrear de manera eficiente miles de tokens por
+segundo, incluso si cada paso del entrenamiento tarda unos segundos por sí solo. La
+caché para las proyecciones en el subespacio de las características también se conoce como
+la así denominada «caché KV».
 
-Finally, let us consider the case where we are to \textit{train} a
-causal CRATE model, and want to find the most efficient way to do
-this given a full input sequence \(\vX = [\vx_{1}, \dots, \vx_{N}]\)
-simultaneously. The ISTA step is parallelizable to become the regular
-ISTA step from the non-causal CRATE, i.e.,
+Por último, consideremos el caso en el que debemos \textit{entrenar} un
+modelo CRATE causal y queremos encontrar la forma más eficiente de hacerlo
+simultáneamente, dada una secuencia de entrada completa \(\vX = [\vx_{1}, \dots, \vx_{N}]\).
+El paso ISTA se puede paralelizar para convertirse en el paso
+ISTA regular del CRATE no causal, es decir,
 \begin{equation}
     \operatorname{ISTA}(\vZ \mid \vD) \doteq [\ISTA(\vz_{1} \mid
     \vD), \dots, \ISTA(\vz_{N} \mid \vD)],
 \end{equation}
-therefore implying that the ISTA step remains the same as the
-non-causal CRATE. The MSSA step is more interesting, since it changes
-in a meaningful way. To see how it changes, note that each MSSA
-operator has an interesting structure which merits some attention.
-Namely, if we define the \textit{causal MSSA operator} as the block matrix:
+lo que implica, por tanto, que el paso ISTA sigue siendo el mismo que el
+CRATE no causal. El paso MSSA resulta más interesante, ya que cambia
+de manera significativa. Para ver cómo cambia, cabe señalar que cada operador MSSA
+tiene una estructura interesante que merece cierta atención.
+Concretamente, si definimos el \textit{operador MSSA causal} como la matriz en bloque:
 \begin{equation}
     \operatorname{CMSSA}(\vZ \mid \vU_{[K]}) \doteq
     [\operatorname{MSSA}(\vZ_{1:1} \mid \vU_{[K]})_{1}, \dots,
     \operatorname{MSSA}(\vZ_{1:N} \mid \vU_{[K]})_{N}],
 \end{equation}
-then, working our way through the softmax algebra (proof is again
-left as an exercise), we can show that
+entonces, analizando el álgebra de softmax (la demostración se deja, una vez más,
+como ejercicio), podemos demostrar que
 \begin{align}
     \operatorname{CMSSA}(\vZ \mid \vU_{[K]})
     &\doteq
@@ -2728,30 +2727,30 @@ left as an exercise), we can show that
         -\infty \\ \vdots & \vdots & \vdots & \ddots & \vdots & \vdots
     \\ 0 & 0 & 0 & \dots & 0 & -\infty \\ 0 & 0 & 0 & \dots & 0 & 0}.
 \end{align}
-Here the matrix \(\vM_{N} \in \R^{N \times N}\) is another way to
-encode that no feature in CMSSA, i.e., the causal MSSA, depends on a
-future feature, since the relevant entries of the argument to the
-softmax are \(-\infty\), and thus are set to \(0\) after the
-exponential within the softmax, and therefore effectively ignored.
-This matrix \(\vM_{N}\) is sometimes called a \textit{(causal) attention mask}.
+Aquí, la matriz \(\vM_{N} \in \R^{N \times N}\) es otra forma de
+codificar que ninguna característica del CMSSA, es decir, el MSSA causal, depende de una
+característica futura, ya que las entradas relevantes del argumento de la
+función softmax son \(-\infty\) y por lo tanto se establecen en \(0\) después de la
+función exponencial dentro de la softmax, con lo que, en la práctica, se ignoran.
+Esta matriz \(\vM_{N}\) se denomina a veces \textit{máscara de atención (causal)}.
 
-The upshot of this is that when we have the full sequence
-\(\vZ^{\ell}\), we can compute \(\vZ^{\ell + 1}\) in time similar to
-or less than that of the usual CRATE layer (since \(\vM_{N}\) is
-    hard-coded, input-independent, and enables us to ignore many entries
-for the softmax). Thus, we can define and train the full
-sequence-to-sequence model in the same way as the regular architecture.
+La consecuencia de esto es que, cuando disponemos de la secuencia completa
+\(\vZ^{\ell}\), podemos calcular \(\vZ^{\ell + 1}\) en un tiempo similar
+o inferior al de la capa CRATE habitual (ya que \(\vM_{N}\) está
+    codificada de forma fija, es independiente de la entrada y nos permite ignorar muchas entradas
+para la función softmax). Por lo tanto, podemos definir y entrenar el modelo
+completo de secuencia a secuencia de la misma manera que la arquitectura regular.
 
-When we apply this to language modeling (details to be provided in
-\Cref{ch:applications}), we find that we can obtain reasonable
-results compared to similar-sized empirically designed language
-models, as shown in \Cref{tab:causal-crate-results}.
+Cuando aplicamos esto al modelado del lenguaje (los detalles se proporcionan en
+\Cref{ch:applications}), observamos que podemos obtener resultados razonables
+en comparación con modelos de lenguaje de tamaño similar diseñados de forma empírica,
+tal y como se muestra en \Cref{tab:causal-crate-results}.
 
 \begin{table}[t!]
     \small
-    \caption{\small Zero-shot validation cross-entropy loss of the
-        Causal-CRATE-Base model and GPT2-Small, GPT2-Base model
-        evaluated on the test split of the datasets (lower is better).
+    \caption{\small Pérdida de entropía cruzada en la validación sin entrenamiento del
+        modelo Causal-CRATE-Base y de los modelos GPT2-Small y GPT2-Base,
+        evaluada en la parte de prueba de los conjuntos de datos (cuanto menor, mejor).
     }
     \centering
     \resizebox{1\columnwidth}{!}
@@ -2772,142 +2771,142 @@ models, as shown in \Cref{tab:causal-crate-results}.
     \label{tab:causal-crate-results}
 \end{table}
 
-Despite the theoretical advantages of the causal CRATE architecture,
-the gap on language modeling (and more generally sequence modeling)
-tasks still remains. Below, we discuss two strategies for potentially
-closing this gap; they are each the subject of active lines of research.
+A pesar de las ventajas teóricas de la arquitectura causal CRATE,
+la brecha en las tareas de modelado del lenguaje (y, en términos más generales, de modelado de secuencias)
+sigue existiendo. A continuación, analizamos dos estrategias que podrían
+cerrar esta brecha; ambas son objeto de líneas de investigación activas.
 
-\begin{example}[Better Objectives and Unrolling Strategies]
-    One path to consider is that the objective of the sparse rate
-    reduction is not the best for causal sequence data. For example,
-    we may want to ensure that the features have some kind of
-    temporal relationships or structure, e.g., being generated by a
-    linear dynamical system with Gaussian (mixture) initialization
-    and Gaussian step noise. There is a recent but explosively
-    popular line of work on efficiently and explicitly modeling
-    dynamics in the features using so-called \textit{state-space
-    models} (SSMs, named such in contravention of the classical
-    notion of ``state space models'' discussed in \Cref{ch:intro})
-    \citep{gu2024mamba,yang2024parallelizing,yang2024gated}. Such
-    models are empirically promising because they avoid the need for
-    all-pairs attention, dodging the computational and memory
-    complexity of the MSSA operator and its conventional cousin, the
-    multi-head attention. Despite this efficiency gain, they are
-    highly performant and have even been used in some large-scale
-    language models \citep{team2025kimi}. By designing more
-    sophisticated objectives and unrolling strategies, we may be able
-    to build a ``white-box'' SSM architecture, or SSM-transformer
-    hybrid, and thusly close the gap on causal tasks.
+\begin{example}[Mejores objetivos y estrategias de desenroscado]
+    Una posibilidad a considerar es que el objetivo de la reducción de la tasa de dispersión
+    no sea el más adecuado para los datos de secuencias causales. Por ejemplo,
+    podríamos querer asegurarnos de que las características tengan algún tipo de
+    relación o estructura temporal, como por ejemplo, que sean generadas por un
+    sistema dinámico lineal con inicialización (de mezcla) gaussiana 
+    y ruido de paso gaussiano. Existe una línea de investigación reciente, pero de gran
+    popularidad, dedicada a modelar de manera eficiente y explícita
+    la dinámica en las características mediante los denominados \textit{modelos de espacio de estado}
+    (SSM, denominados así en contravención de la noción clásica
+    de «modelos de espacio de estado» discutida en \Cref{ch:intro})
+    \citep{gu2024mamba,yang2024parallelizing,yang2024gated}. Estos
+    modelos son prometedores desde el punto de vista empírico porque evitan la necesidad de
+    una atención entre todos los pares, eludiendo así la complejidad computacional y de memoria
+    del operador MSSA y de su equivalente convencional, la
+    atención multicabezal. A pesar de esta mejora en la eficiencia, son
+    muy eficaces e incluso se han utilizado en algunos modelos de lenguaje a gran escala
+    \citep{team2025kimi}. Mediante el diseño de objetivos más
+    sofisticados y estrategias de «desenrollamiento», podríamos
+    construir una arquitectura SSM de «caja blanca», o un híbrido SSM-transformador,
+    y así reducir la brecha en las tareas causales.
 \end{example}
 
-\begin{example}[Inference-Time Computation Strategies]
-    Another path to improve causal models is to use more so-called
-    \textit{inference-time compute} strategies: during inference
-    (such as sampling from an LLM) find a way to spend more
-    computational resources in order to obtain a better result. If we are
-    able to do this, we can solve harder problems by allocating more
-    compute to the task at hand.
+\begin{example}[Estrategias de cálculo en tiempo de inferencia]
+    Otra forma de mejorar los modelos causales consiste en utilizar más estrategias denominadas
+    \textit{de cálculo en tiempo de inferencia}: durante la inferencia
+    (como el muestreo a partir de un modelo de lenguaje grande, o LLM), hay que encontrar la manera de dedicar más
+    recursos computacionales para obtener un mejor resultado. Si logramos
+    hacerlo, podremos resolver problemas más complejos asignando más
+    recursos computacionales a la tarea en cuestión.
 
-    One naive approach to this is to loop the model: feed the final
-    features into the initial sequence-to-sequence layers and enable
-    it to go through more rounds of iterative denoising. This
-    methodology is known in the literature as ``looped transformers''
-    (for the case in which the backbone model is an
-    empirically-designed transformers); this approach has been shown
-    to have benefits at some particularly difficult tasks
+    Un enfoque sencillo para esto consiste en aplicar un bucle al modelo: introducir las características finales
+    en las capas iniciales de secuencia a secuencia y permitir
+    que pase por más rondas de eliminación iterativa de ruido. Esta
+    metodología se conoce en la literatura como «transformadores en bucle»
+    (en el caso de que el modelo base sea un
+    transformador diseñado empíricamente); se ha demostrado que este enfoque
+    ofrece ventajas en algunas tareas especialmente difíciles
     \citep{giannou2023looped,yang2023looped,saunshi2025reasoning}.
-    However, from our perspective it is more reasonable to loop the
-    iterate through the \textit{same layer} multiple times, taking
-    multiple local denoising or compression steps against the
-    \textit{same model} at each layer before going to the next.
+    Sin embargo, desde nuestro punto de vista, resulta más razonable recorrer
+    la \textit{misma capa} varias veces, aplicando
+    varios pasos de eliminación de ruido o compresión locales sobre el
+    \textit{mismo modelo} en cada capa antes de pasar a la siguiente.
 
-    Still another potential methodology relies on our understanding
-    of the low-dimensional structure in the features and model
-    parameters. For example, since the \(\vU_{[K]}\) matrices are
-    supposed to be supports for the subspaces spanned by the
-    features, we could update them at inference-time using an online
-    algorithm such as online (G)PCA. Similar steps may be able to
-    adapt the dictionary at inference time. This would allow us to
-    improve and specialize our local denoising or compression
-    operators at each layer for the features, and thus potentially
-    yielding better performance.
+    Otra metodología posible se basa en nuestra comprensión
+    de la estructura de baja dimensión de las características y los parámetros
+    del modelo. Por ejemplo, dado que se supone que las matrices \(\vU_{[K]}\)
+    son soportes de los subespacios generados por las
+    características, podríamos actualizarlas en el momento de la inferencia utilizando un algoritmo en línea
+    como el (G)PCA en línea. Medidas similares podrían permitir
+    adaptar el diccionario en el momento de la inferencia. Esto nos permitiría
+    mejorar y especializar nuestros operadores locales de eliminación de ruido o compresión
+    en cada capa para las características, lo que, por lo tanto, podría
+    dar lugar a un mejor rendimiento.
 
-    There have been many empirical attempts to improve inference-time
-    compute methods. It is still a very active area of ongoing research.
+    Se han realizado numerosos intentos empíricos para mejorar los métodos de cálculo en tiempo de inferencia.
+    Este sigue siendo un campo de investigación muy activo en la actualidad.
 \end{example}
 
 % \subsection{Causal ToST} \label{sec:tost}
 % \yima{Causal version of ToST: relations to nonlinear filtering, RNNs,
 % and other linear time architectures...}
 
-\section{Summary and Notes}
+\section{Resumen y Notas}
 
-The materials presented in this chapter are based on a series of
-recent works on this topic, including \cite{chan2021redunet,
-wang2024global, wang2025attention, wu2025token, yu2023white}. These
-contributions encompass both theoretical advances and practical
-methodologies for constructing interpretable deep networks through
-unrolled optimization. Many of the key results and proofs discussed
-in this chapter are derived directly from, or inspired by, these
-foundational works.
+Los materiales presentados en este capítulo se basan en una serie de
+trabajos recientes sobre este tema, entre los que se incluyen \cite{chan2021redunet,
+wang2024global, wang2025attention, wu2025token, yu2023white}. Estas
+contribuciones abarcan tanto avances teóricos como metodologías prácticas
+para construir redes profundas interpretables mediante
+la optimización desenroscada. Muchos de los resultados y demostraciones clave que se analizan
+en este capítulo se derivan directamente de estos
+trabajos fundamentales o se inspiran en ellos.
 
-The idea of unrolling an optimization algorithm to construct a neural
-network traces back to the seminal work \cite{gregor2010learning}. In
-this work, the authors demonstrated that sparse coding
-algorithms—such as the Iterative Shrinkage-Thresholding Algorithm
-(ISTA)—can be unrolled to form multilayer perceptrons (MLPs),
-effectively bridging iterative optimization and neural network
-design. Notably, \cite{monga2019algorithm} demonstrated that such
-unrolled networks are more interpretable, efficient, and effective
-compared to generic networks.
+La idea de «desenroscar» un algoritmo de optimización para construir una red neuronal
+se remonta al trabajo pionero \cite{gregor2010learning}. En
+este trabajo, los autores demostraron que los algoritmos de codificación
+dispersa---como el algoritmo de umbralización y contracción iterativa
+(ISTA)---pueden desenroscarse para formar perceptrones multicapa (MLP),
+uniendo de manera efectiva la optimización iterativa y el diseño de redes neuronales.
+Cabe destacar que \cite{monga2019algorithm} demostró que estas
+redes «desenroscadas» son más interpretables, eficientes y efectivas
+en comparación con las redes genéricas.
 
-In this chapter, we build on this perspective to develop principled,
-white-box deep network architectures by unrolling optimization
-algorithms that are designed to minimize well-motivated
-objectives—such as the (sparse) rate reduction objective introduced
-earlier. This approach not only clarifies the role of each layer in
-the network but also offers theoretical grounding for architectural
-choices, moving beyond empirical trial-and-error toward interpretable
-and goal-driven design.  In the following, we compare conventional
-DNNs, which are typically constructed through empirical design and
-heuristic tuning, with our mathematically grounded ReduNet architectures:
+En este capítulo, partimos de esta perspectiva para desarrollar arquitecturas de redes profundas de caja abierta basadas en principios,
+mediante la aplicación de algoritmos de optimización
+diseñados para minimizar objetivos bien fundamentados,
+como el objetivo de reducción (dispersa) de la tasa presentado
+anteriormente. Este enfoque no solo aclara la función de cada capa en
+la red, sino que también ofrece una base teórica para las decisiones
+arquitectónicas, yendo más allá del método empírico de prueba y error hacia un diseño
+interpretable y orientado a objetivos. A continuación, comparamos las redes neuronales profundas (DNN) convencionales,
+que suelen construirse mediante un diseño empírico y
+un ajuste heurístico, con nuestras arquitecturas ReduNet, que cuentan con una base matemática:
 
 \begin{center}
     \begin{tabular}{| l || c | c |}
         \hline
-        & Conventional DNNs & ReduNets\\ [0.5ex]
+        & DNNs convencionales & ReduNets\\ [0.5ex]
         \hline \hline
-        Objectives & input/output fitting & information gain\\ [0.5ex]
+        Objectivos & Ajustes de entrada/salida & ganancia de información \\ [0.5ex]
         \hline
-        Deep architectures & trial \& error & iterative optimization \\  [0.5ex]
+        Arquitecturas profundas & prueba y error & optimización iterativa \\  [0.5ex]
         \hline
-        Layer operators & empirical & projected gradient \\  [0.5ex]
+        Operadores de capa & empirica & gradiente proyecteda \\  [0.5ex]
         \hline
-        Shift invariance & CNNs+augmentation & invariant ReduNets \\  [0.5ex]
+        Invariancia al traslado & CNNs y aumento & ReduNets invariantes \\  [0.5ex]
         \hline
-        Initializations & random/pre-design & forward unrolled \\ [0.5ex]
+        Inicializaciones & aleatorio/pre-diseño & desenroscado hacia adelante \\ [0.5ex]
         \hline
-        Training/fine-tuning & back prop & forward/back prop\\ [0.5ex]
+        Entrenamiento/ajuste fino & retroprop & h.adelante/retroprop\\ [0.5ex]
         \hline
-        Interpretability & black box & white box \\ [0.5ex]
+        Interpretabilidad & caja negra & caja blanca \\ [0.5ex]
         \hline
-        Representations & hidden/latent & incoherent subspaces \\ [0.5ex]
+        Representaciones & oculta/latente & subespacios incoherentes \\ [0.5ex]
         \hline
     \end{tabular}
 \end{center}
 
-\section{Exercises and Extensions}
+\section{Ejercicios y extensiones}
 
 \begin{exercise}
-    Let $\bm Z = [\bm Z_1,\dots,\bm Z_K] \in \R^{d\times N}$ with
-    $\bm Z_k \in \R^{d\times N_k}$ for each $k \in [K]$. For some
-    $\alpha > 0$, let
+    Sea $\bm Z = [\bm Z_1,\dots,\bm Z_K] \in \R^{d\times N}$ tal que
+    $\bm Z_k \in \R^{d\times N_k}$ para todo $k \in [K]$. Para algún
+    $\alpha > 0$, sea
     \begin{align*}
         R(\bm Z) = \log\det\left(\bm I + \alpha\bm Z\bm Z^\top \right).
     \end{align*}
     \begin{enumerate}
-        \item Given any direction $\bm D \in \R^{d\times m}$, please show
-            that $\nabla R(\bm Z) = \alpha\bm X^{-1}\bm Z$ and
+        \item Dada una dirección cualquiera $\bm D \in \R^{d\times m}$, demuestre
+            que $\nabla R(\bm Z) = \alpha\bm X^{-1}\bm Z$ y
             \begin{align*}
                 &\nabla^2 R(\bm Z)[\bm D, \bm D] \\
                 &=\alpha \mathrm{Tr}\left( \bm
@@ -2917,32 +2916,32 @@ heuristic tuning, with our mathematically grounded ReduNet architectures:
                         \bm Z\bm D^\top+\bm
                 D\bm Z^\top\right)\right),
             \end{align*}
-            where $\bm X \doteq \bm I + \alpha\bm Z\bm Z^\top$. {\em
-            Hint:} Note that
+            donde $\bm X \doteq \bm I + \alpha\bm Z\bm Z^\top$. {\em
+            Pista:} Obsérvese que
             \begin{align*}
                 \nabla^2 R(\bm Z)[\bm D, \bm D] \doteq \left\langle \lim_{t
                 \to 0} \frac{\nabla R(\bm Z+ t\bm D) - \nabla R(\bm Z)}{t},
                 \bm D \right\rangle.
             \end{align*}
         \item
-            Please show that
+            Muestre que
             \begin{align*}
                 R(\bm Z) \le \sum_{k=1}^K \log\det\left(\bm I + \alpha\bm
                 Z_k\bm Z_k^\top \right),
             \end{align*}
-            where the equality holds if and only if $\bm Z_k^\top\bm Z_l = \bm
-            0$ for all $k \neq l \in [K]$.
-        \item Given some $\alpha >0$, let $\alpha_k=N\alpha/N_k$ for each $k
-            \in [K]$. Please derive the closed-form for the first-order
-            critical point of the following function:
+            donde la igualdad se cumple si y solo si $\bm Z_k^\top\bm Z_l = \bm
+            0$ para todo $k \neq l \in [K]$.
+        \item Dado $\alpha > 0$; sea $\alpha_k = N\alpha/N_k$ para cada $k
+            \in [K]$. Derive la fórmula cerrada para el punto crítico de primer orden
+            de la siguiente función:
             \begin{align*}
                 f(\bm Z_k) = \frac{1}{2}\log\det\left(\bm I + \alpha\bm
                 Z_k\bm Z_k^\top \right) - \frac{N_k}{2N}\log\det\left(\bm I +
                 \alpha_k \bm Z_k\bm Z_k^\top \right) -
                 \frac{\lambda}{2}\|\bm Z_k\|_F^2.
             \end{align*}
-            {\em Hint:} Let $r_k=\mathrm{rank}(\bm Z_k)$. Consider the
-            following singular value decomposition of $\bm Z_k$:
+            {\em Pista:} Sea $r_k=\mathrm{rank}(\bm Z_k)$. Consideremos la
+            siguiente descomposición en valores singulares de $\bm Z_k$:
             \begin{equation}
                 \bm Z_k = \bm P_k\bm \Sigma_k\bm Q_k^\top =
                 \begin{bmatrix}
@@ -2956,26 +2955,26 @@ heuristic tuning, with our mathematically grounded ReduNet architectures:
                     \bm Q_{k,1}^\top \\ \bm Q_{k,2}^\top
                 \end{bmatrix},
             \end{equation}
-            where $\bm P_k \in \mathcal{O}^d$ with $\bm P_{k,1} \in
-            \R^{d\times r_k}$ and  $\bm P_{k,2} \in \R^{d\times (d-r_k)}$,
-            $\bm \Sigma_k \in \R^{d\times N_k}$ with $\tilde{\bm \Sigma}_{k}
-            \in \R^{r_k\times r_k}$ being a diagonal matrix, and  $\bm Q_k
-            \in \mathcal{O}^{N_k}$ with $\bm Q_{k,1} \in \R^{N_k\times r_k}$
-            and  $\bm P_{k,2} \in \R^{N_k \times (N_k-r_k)}$.
+            donde $\bm P_k \in \mathcal{O}^d$ con $\bm P_{k,1} \in
+            \R^{d\times r_k}$ y  $\bm P_{k,2} \in \R^{d\times (d-r_k)}$,
+            $\bm \Sigma_k \in \R^{d\times N_k}$ con $\tilde{\bm \Sigma}_{k}
+            \in \R^{r_k\times r_k}$ siendo una matriz diagonal, y  $\bm Q_k
+            \in \mathcal{O}^{N_k}$ con $\bm Q_{k,1} \in \R^{N_k\times r_k}$
+            y  $\bm P_{k,2} \in \R^{N_k \times (N_k-r_k)}$.
     \end{enumerate}
 \end{exercise}
 
-\begin{exercise}[Neumann series for matrix inverse]\label{ex:neumannn}
-    Let $\bm A \in \mathbb{R}^{n\times n}$. If $\|\bm A\| < 1$, please show
+\begin{exercise}[Serie de Neumann para la inversa de una matriz]\label{ex:neumannn}
+    Sea $\bm A \in \mathbb{R}^{n\times n}$. Si $\|\bm A\| < 1$, muestre que
     \begin{align}\label{eq:neumann}
         \left( \bm I - \bm A\right)^{-1} = \sum_{k=0}^\infty \bm A^k.
     \end{align}
-    {\em Hint:} The proof consists of two steps.
+    {\em Pista:} La demostración consta de dos pasos.
     \begin{enumerate}[(i)]
-        \item {\bf Step 1}: Please show that the infinite series
-            $\sum_{k=0}^\infty \bm A^k$ converges when $\|\bm A\| < 1$ using
+        \item {\bf Paso 1}: Demuestre que la serie infinita
+            $\sum_{k=0}^\infty \bm A^k$ converge cuando $\|\bm A\| < 1$ utilizando
             $\|\bm A^k\| \le \|\bm A\|^k$.
-        \item {\bf Step 2}: Compute the matrix product $(\bm I - \bm A)
+        \item {\bf Paso 2}: Calcule el producto matricial $(\bm I - \bm A)
             \sum_{k=0}^\infty \bm A^k$.
     \end{enumerate}
 \end{exercise}
@@ -2988,38 +2987,38 @@ heuristic tuning, with our mathematically grounded ReduNet architectures:
 % \end{exercise}
 
 \begin{exercise}
-    In this exercise we will consider a coding rate measure
-    \(R_{\epsilon}^{c, \mu}\) which uses the means of the
-    distributions, i.e., a coding rate for tokens drawn (non-i.i.d.)
-    from the low-rank Gaussian mixture model
+    En este ejercicio analizaremos una medida de la tasa de codificación
+    \(R_{\epsilon}^{c, \mu}\) que utiliza las medias de las
+    distribuciones, es decir, una tasa de codificación para tokens extraídos (no i.i.d.)
+    del modelo de mezcla gaussiana de rango bajo
     \begin{equation}
         \vz_{i} \sim \frac{1}{K}\sum_{k = 1}^{K}\dNorm(\vmu_{k},
         \vU_{k}\vU_{k}^{\top}).
     \end{equation}
     \begin{enumerate}
-        \item Please argue that a suitable coding rate for \(\vZ\)
-            under this model is
+        \item Demuestre que una tasa de codificación adecuada para \(\vZ\)
+            en este modelo es|
             \begin{equation}
                 R_{\epsilon}^{c, \mu}(\vZ) = \sum_{k =
                 1}^{K}R_{\epsilon}(\vU_{k}^{\top}(\vZ - \vmu_{k}\vone^{\top})).
             \end{equation}
-        \item Similarly to how we derived MSSA, derive a new
-            attention-like operator from this coding rate. What are
-            the key differences?
+        \item De manera similar a cómo derivamos el MSSA, derive un nuevo
+            operador similar a la atención a partir de esta tasa de codificación. ¿Cuáles son
+            las diferencias clave?
     \end{enumerate}
 \end{exercise}
 
 \begin{exercise}
-    Please compute the gradients in \eqref{eq1:grad Rcf} and
+    Calcule los gradientes en \eqref{eq1:grad Rcf} y
     \eqref{eq2:grad Rcf}.
 \end{exercise}
 
 \begin{exercise}
-    Please show \Cref{cor:var_concave_logdet} when $Kp \le d$.
+    Por favor, demuestre el \Cref{cor:var_concave_logdet} cuando $Kp \le d$.
 \end{exercise}
 
 \begin{exercise}
-    Derive a causal version of the TSSA operator.
+    Derive una versión causal del operador TSSA.
 \end{exercise}
 
 \end{document}

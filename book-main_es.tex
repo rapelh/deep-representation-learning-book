@@ -115,6 +115,8 @@ decorations.pathmorphing, decorations.markings}
 \Crefname{appendix}{Apéndice}{Apéndices}
 \crefname{assumption}{supuesto}{supuestos}
 \Crefname{assumption}{Supuesto}{Supuestos}
+\crefname{definition}{definición}{definiciones}
+\Crefname{definition}{Definición}{Definiciones}
 \crefname{example}{ejemplo}{ejemplos}
 \Crefname{example}{Ejemplo}{Ejemplos}
 \crefname{exercise}{ejercicio}{ejercicios}
@@ -223,6 +225,7 @@ cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
 
 \usepackage{etoolbox}
 % Patches the command names after other packages are loaded
+\patchcmd{\definition}{Definition}{Definición}{}{}
 \patchcmd{\chapter}{Chapter}{Capítulo}{}{}
 \patchcmd{\theorem}{Theorem}{Teorema}{}{}
 \patchcmd{\corollary}{Corollary}{Corolario}{}{}

@@ -68,14 +68,14 @@ h\vv)$：
     \label{fig:step-size}
 \end{figure}
 
-因此，步长 \(h\) 应该根据函数 \(\cL(\theta_{k})\) 的全景（landscape）来选择。理想情况下，为了选择最佳步长 \(h\)，我们可以求解以下关于单一变量 \(h\) 的优化问题：
+因此，步长 \(h\) 应该根据函数 \(\cL(\theta_{k})\) 的景观（landscape）来选择。理想情况下，为了选择最佳步长 \(h\)，我们可以求解以下关于单一变量 \(h\) 的优化问题：
 \begin{equation}
     h = \argmin_{h^{\prime} \geq 0} \cL(\theta_{k} - h^{\prime}\nabla
     \cL(\theta_{k})).
 \end{equation}
 这种选择步长的方法被称为\textit{线搜索}（line search）；正如符号所暗示的，它通常用于\textit{在每次迭代 \(k\)} 中获得最优学习率。然而，当函数 \(\cL(\theta_{k})\) 很复杂时（训练深度神经网络时通常如此），在梯度下降的每次迭代中求解这个一维优化问题是非常困难的。
 
-那么我们应该如何选择合适的步长 \(h\) 呢？一种常见且经典的方法是，尝试基于对函数 \(\cL(\theta)\) 整体全景的一些了解，获得当前状态 \(\theta\) 附近局部全景的良好近似。
+那么我们应该如何选择合适的步长 \(h\) 呢？一种常见且经典的方法是，尝试基于对函数 \(\cL(\theta)\) 整体景观的一些了解，获得当前状态 \(\theta\) 附近局部景观的良好近似。
 
 \begin{figure}
     \centering
@@ -103,7 +103,7 @@ h\vv)$：
     \label{fig:majorization_minimization}
 \end{figure}
 
-关于 \(\cL(\theta)\) 全景的常见条件包括：
+关于 \(\cL(\theta)\) 景观的常见条件包括：
 \begin{itemize}
     \item \(\alpha\)-强凸性（\(\alpha\)-Strong Convexity）。回想一下，如果 \(\cL\) 的图像位于斜率为 \(\alpha\) 的全局二次下界之上，即对于任意“基点” \(\theta\)，有
         \begin{equation}
@@ -148,7 +148,7 @@ h\vv)$：
     \theta_{k + 1} = \theta_{k} - \frac{1}{\beta}\nabla
     \cL(\theta_{k}) \implies \cL(\theta_{k + 1}) \leq \cL(\theta_{k}).
 \end{equation}
-这意味着步长 \(h = 1/\beta\) 是一个可用的学习率，但它并没有提供收敛速度，也没有证明 \(L(\theta_{k})\) 实际上收敛于 \(\min_{\theta}\cL(\theta)\)。这需要稍微更严格的论证，我们现在就来进行。
+这意味着步长 \(h = 1/\beta\) 是一个可用的学习率，但它并没有提供收敛速度，也没有证明 \(\cL(\theta_{k})\) 实际上收敛于 \(\min_{\theta}\cL(\theta)\)。这需要稍微更严格的论证，我们现在就来进行。
 
 现在，让我们假设 \(\cL\) 是 \(\alpha\)-强凸的，具有 \(\beta\)-利普希茨梯度，并且具有全局最优值 \(\theta^{\star}\)。我们将证明 \(\theta_{k}\) 将直接收敛到唯一的全局最优值 \(\theta^{\star}\)，这是一种非常强的收敛形式。特别地，我们将同时使用强凸性和 \(\cL\) 梯度的利普希茨连续性来界定 \(\norm{\theta^{\star} - \theta_{k}}_{2}\)，即观察 \(\theta_{k}\) 周围的邻域：\footnote{在这个证明中，调用 \(\beta\)-利普希茨梯度的步骤略显复杂。我们也将这一步留作习题，提示是将 \(\theta = \theta_{0} - h\nabla \cL(\theta_{0})\) 代入利普希茨梯度恒等式中。}
 \begin{align}
@@ -163,10 +163,10 @@ h\vv)$：
     \frac{\alpha}{2}\norm{\theta^{\star} - \theta_{k}}_{2}^{2}} +
     h^{2}\norm{\nabla \cL(\theta_{k})}_{2}^{2} \quad \text{(\(\alpha\)-SC)} \\
     &= \bp{1 - \alpha h}\norm{\theta^{\star} - \theta_{k}}_{2}^{2} +
-    2h(\cL(\theta^{\star}) - L(\theta_{k})) + h^{2}\norm{\nabla
+    2h(\cL(\theta^{\star}) - \cL(\theta_{k})) + h^{2}\norm{\nabla
     \cL(\theta_{k})}_{2}^{2} \\
     &\leq \bp{1 - \alpha h}\norm{\theta^{\star} - \theta_{k}}_{2}^{2}
-    + 2h(\cL(\theta^{k}) - \cL(\theta^{\star})) +
+    + 2h(\cL(\theta^{\star}) - \cL(\theta_{k})) +
     2h^{2}\beta(\cL(\theta_{k}) - \cL(\theta^{\star})) \quad
     \text{(\(\beta\)-LG)} \\
     &= \bp{1 - \alpha h}\norm{\theta^{\star} - \theta_{k}}_{2}^{2} -
@@ -248,7 +248,7 @@ h\vv)$：
 
 我们如何学习它的近似呢？我们应当找到一些海森矩阵的逆所满足的方程，然后尝试更新我们的近似，使其满足这些方程。也就是说，对 \(\nabla \cL(\theta + \delta_{\theta})\) 在点 \(\theta\) 处进行泰勒展开，我们得到
 \begin{equation}
-    \underbrace{\nabla L(\theta + \delta_{\theta}) - \nabla
+    \underbrace{\nabla \cL(\theta + \delta_{\theta}) - \nabla
     \cL(\theta)}_{\doteq \delta_{\vg}} = [\nabla^{2}
     \cL(\theta)]\delta_{\theta} + o(\norm{\delta_{\theta}}_{2}).
 \end{equation}
@@ -381,7 +381,7 @@ h\vv)$：
     \cL_{\omega}(\theta) \doteq \frac{1}{2}\norm{\theta - \xi_{\omega}}_{2}^{2}.
 \end{equation}
 那么 \(\argmin_{\theta}\Ex[\cL_{\omega}(\theta)] = \frac{1}{m}\sum_{i
-= 1}\xi_{i}\)，但随机梯度下降可能会在全局最优值附近“像弹球一样来回震荡（pinball）”，而不会收敛，如\Cref{fig:sgd_nonconvergence}所示。
+= 1}^{m}\xi_{i}\)，但随机梯度下降可能会在全局最优值附近“像弹球一样来回震荡（pinball）”，而不会收敛，如\Cref{fig:sgd_nonconvergence}所示。
 
 \begin{figure}
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/appendixA/figs/sgd_vs_nesterov.png}
@@ -451,7 +451,7 @@ h\vv)$：
     \theta_{k + 1} = \theta_{k} - h ([\nabla \cL(\theta_{k})] \haddiv [\nabla
     \cL(\theta_{k})^{\hada 2}]^{\hada \frac{1}{2}}).
 \end{equation}
-现在考虑随机情况，即我们在每次迭代中优化不同的损失 \(L_{k}\)。在 SGD 中，我们使用动量“跟踪”（即取平均）梯度。在这里，我们可以使用动量同时跟踪梯度和平方梯度，即
+现在考虑随机情况，即我们在每次迭代中优化不同的损失 \(\cL_{k}\)。在 SGD 中，我们使用动量“跟踪”（即取平均）梯度。在这里，我们可以使用动量同时跟踪梯度和平方梯度，即
 \begin{align}
     \vg_{k}
     &= \beta^{1}\vg_{k - 1} + (1 - \beta^{1})\nabla \cL_{k}(\theta_{k}) \\
@@ -555,9 +555,9 @@ h\vv)$：
         \\
         &=
         [(\vW + \odif{\vW})\vX + (\vb + \odif{\vb})\vone^{\top}] -
-        [\vW\vX + \vb] \\
+        [\vW\vX + \vb\vone^{\top}] \\
         &= (\odif{\vW})\vX + (\odif{\vb})\vone^{\top} =
-        g^{\prime}(\vW, \vB)[\odif{\vW}, \odif{\vb}].
+        g^{\prime}(\vW, \vb)[\odif{\vW}, \odif{\vb}].
     \end{align}
     请注意，这个导数关于 \(\vW, \vb\) 是\textit{常数}（这是合理的，因为 \(g\) 本身是线性的），并且关于微分输入 \(\odif{\vW}, \odif{\vb}\) 是线性的。
 \end{example}
@@ -712,13 +712,13 @@ h\vv)$：
 \label{app:BP-section}
 在本节中，我们将使用一个简单但完全实用的例子来讨论算法化的反向传播。假设我们固定一个输入-标签对 \((\vX, \vy)\)，并固定一个网络架构 \(f_{\theta} = f_{\theta}^{L} \circ \cdots \circ f_{\theta}^{1} \circ
 f_{\theta}^{\emb}\)，其中 \(\theta = (\theta^{\emb}, \theta^{1},
-\dots, \theta^{m}, \theta^{\head})\) 且特定任务头为 \(h_{\theta^{\head}}\)，并记
+\dots, \theta^{L}, \theta^{\head})\) 且特定任务头为 \(h_{\theta^{\head}}\)，并记
 \begin{align}
     &\vZ_{\theta}^{1}(\vX) \doteq f_{\theta}^{\emb}(\vX), \\
     &\vZ_{\theta}^{\ell + 1}(\vX) \doteq
     f_{\theta}^{\ell}(\vZ_{\theta}^{\ell}(\vX)), \quad \forall \ell
     \in \{1, \dots, L\}, \\
-    &\hat{\vy}_{\theta^{\head}}(\vX) \doteq h_{\theta}(\vZ_{\theta}^{L+1}(\vX)).
+    &\hat{\vy}_{\theta^{\head}}(\vX) \doteq h_{\theta^{\head}}(\vZ_{\theta}^{L+1}(\vX)).
 \end{align}
 那么，我们可以将这一项的损失定义为
 \begin{equation}
@@ -850,7 +850,7 @@ f_{\theta}^{\emb}\)，其中 \(\theta = (\theta^{\emb}, \theta^{1},
     \begin{align}
         \odif{f}^{\ell}
         &= [(\vW^{\ell} + \odif{\vW}^{\ell})\vZ + (\vb^{\ell} +
-        \odif{\vb}^{\ell})\vone^{\top}] - [\vW^{\ell}\vZ + \vb^{\ell}] \\
+        \odif{\vb}^{\ell})\vone^{\top}] - [\vW^{\ell}\vZ + \vb^{\ell}\vone^{\top}] \\
         &= (\odif{\vW}^{\ell})\vZ + (\odif{\vb}^{\ell})\vone^{\top}.
     \end{align}
     因此，该变换的导数为
@@ -961,7 +961,7 @@ f_{\theta}^{\emb}\)，其中 \(\theta = (\theta^{\emb}, \theta^{1},
     \end{equation}
     因此
     \begin{equation}
-        \max_{\theta \in \Theta}\cL(\theta, \eta) \leq
+        \max_{\theta \in \Theta}\min_{\eta \in \Eta}\cL(\theta, \eta) \leq
         \cL(\theta^{\star}, \eta^{\star}).
     \end{equation}
     完全对称地，
@@ -1100,7 +1100,7 @@ f_{\theta}^{\emb}\)，其中 \(\theta = (\theta^{\emb}, \theta^{1},
     \mat{\nabla_{\theta}^{2}\cL(\theta, \eta) &
         \odv*{\nabla_{\theta}^{2}\cL(\theta, \eta)}{\eta}
         \\ \odv*{\nabla_{\eta\theta}^{2}\cL(\theta, \eta)}{\theta} &
-    \nabla_{\eta}^{2}\cL(\theta)}
+    \nabla_{\eta}^{2}\cL(\theta, \eta)}
 \end{equation}
 或者等价地，其舒尔补（Schur complement）为负定。如果我们看一下由丹斯金定理提供的 \(\nabla_{\theta}[\min_{\eta \in
 \Eta}\cL(\theta, \eta)]\) 的计算，最后两个标准实际上是对函数 \(\theta \mapsto \min_{\eta \in \Eta}\cL(\theta,

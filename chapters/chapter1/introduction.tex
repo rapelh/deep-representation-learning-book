@@ -83,7 +83,7 @@ extremely slow, costly, and unpredictable. From the emergence of the
 first life forms, about 4.4--3.8 billion years ago
 \citep{bell2015potentially}, life has relied on this form of
 evolution.\footnote{Astute readers may notice an uncanny similarity
-between how early life evolves and how large language models evolve today.}
+between how early life evolves and how large language models (LLMs) evolve today.}
 
 \begin{figure}
     \centering
@@ -310,7 +310,7 @@ need to \textit{deal with nonlinearity} if machines are to emulate
 typical learning mechanisms in nature, yet he provided no concrete,
 effective solution for this difficult issue. In fairness, even the
 theory of linear systems was in its infancy at the time,\footnote{Wiener's famous achievement, 
-the Wiener fileter \cite{Wiener-1942,Wiener-1949}, which we will introduce later, 
+the Wiener filter \cite{Wiener-1942,Wiener-1949}, which we will introduce later, 
 was only for linear systems.} and nonlinear systems seemed far less approachable.
 
 Nevertheless, we cannot help but marvel at Wiener's prescience about
@@ -577,14 +577,14 @@ where \(\vu(t)\) is a computable input process.
 \paragraph{Learning to predict.}
 Now suppose you have observed or have been given many sequence segments:
 \begin{equation}
-    \{S_{1}, S_{2}, \ldots, S_{i}, \ldots, S_{N}\}
+    \{\vx_{1}, \vx_{2}, \ldots, \vx_{i}, \ldots, \vx_{N}\}
 \end{equation}
 drawn from a predictable sequence \(\{x_{n}\}_{n=1}^{\infty}\).
 Without loss of generality, assume each segment has length \(D \gg d\), so
 \begin{equation}
-    S_{i} = [x_{j(i)}, x_{j(i)+1}, \ldots, x_{j(i)+D-1}]^{\top} \in \R^{D}
+    \vx_{i} = [x_{j(i)}, x_{j(i)+1}, \ldots, x_{j(i)+D-1}]^{\top} \in \R^{D}
 \end{equation}
-for some \(j \in \N\). You are then given a new segment \(S_{t}\) and
+for some \(j \in \N\). You are then given a new segment \(\vx_{t}\) and
 asked to predict its future values.
 
 The difficulty is that the generating function \(f\) and its order
@@ -594,7 +594,7 @@ The difficulty is that the generating function \(f\) and its order
     \label{eqn:sequence-order-d}
 \end{equation}
 The goal is therefore to learn \(f\) and \(d\) from the sample
-segments \(S_{1}, S_{2}, \ldots, S_{N}\). The central task of
+segments \(\vx_{1}, \vx_{2}, \ldots, \vx_{N}\). The central task of
 learning to predict is:
 \begin{center}
     \textit{Given many sampled segments of a predictable sequence,
@@ -615,7 +615,7 @@ and cannot occupy the entire space \(\R^{D}\). Instead, it has at
 most \(d\) degrees of freedom---given the first \(d\) entries of any
 \(\vx_{i}\), the remaining entries are uniquely determined. In other
 words, all \(\{\vx_{i}\}\) lie on a \(d\)-dimensional surface. In
-mathematics, such a surface is called a submanifold, denoted \(\cS
+mathematics, such a surface is called a submanifold, denoted \(\mathcal{M}
 \subset \R^{D}\).
 
 \begin{figure}[t]
@@ -712,8 +712,8 @@ illustrated in \Cref{fig:mixture-models}.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{\toplevelprefix/chapters/chapter1/figs/mixture.pdf}
-    \caption{Data distributed on a mixture of (orthogonal) subspaces
-    (left) or submanifolds (right).}
+    \caption{Data distributed on a mixture of (orthogonal) subspaces $\{\mathcal{S}_j\}$
+    (left) or submanifolds $\{\mathcal{M}_j\}$ (right).}
     \label{fig:mixture-models}
 \end{figure}
 
@@ -2013,10 +2013,10 @@ define complexity for any computable sequence.\footnote{Many
 the same sequence, the length of the shortest program measures its
 complexity. This aligns with Occam's Razor---\textit{choose the
 simplest theory explaining the same observation}. Formally, let \(p\)
-be a program generating sequence \(S\) on universal computer \(\cU\).
-The Kolmogorov complexity of \(S\) is:
+be a program generating sequence \(\vx\) on universal computer \(\cU\).
+The Kolmogorov complexity of \(\vx\) is:
 \begin{equation}
-    K(S) = \min_{p\,:\, \cU(p) = S} L(p).
+    K(\vx) = \min_{p\,:\, \cU(p) = \vx} L(p).
 \end{equation}
 Thus, complexity measures how parsimoniously we can specify or
 compute the sequence. This definition is conceptually important and
@@ -2043,13 +2043,13 @@ constructive approach, as advocated by Claude Shannon through the
 framework of information theory
 \cite{Shannon-1948,Cover-Thomas}.\footnote{This framework has
     successfully guided engineering practice in the communication
-industry for over 80 years.} By assuming the sequence \(S\) is drawn
-from a probabilistic distribution \(p(S)\), the entropy of the
+industry for over 80 years.} By assuming the sequence \(\vx\) is drawn
+from a probabilistic distribution \(p(\vx)\), the entropy of the
 distribution:\footnote{Here we consider differential entropy as we
     assume the sequence consists of continuous variables. For discrete
-variables, we would use \(H(S) = - \sum_{i}p(s_{i}) \log p(s_{i})\).}
+variables, we would use \(H(\vx) = - \sum_{i}p(\vx_{i}) \log p(\vx_{i})\).}
 \begin{equation}
-    h(S) \doteq -\int p(s) \log p(s) \odif{s}
+    h(\vx) \doteq -\int p(\vx) \log p(\vx) \odif{\vx}
     \label{eqn:entropy-definition}
 \end{equation}
 provides a natural measure of its complexity. This measure also has a
@@ -2059,13 +2059,13 @@ encode such a sequence, as we will see in \Cref{ch:denoising}.
 To illustrate the main ideas of this view, let us take a large number
 of long sequence segments:
 \begin{equation}
-    \{S_{1}, S_{2}, \ldots, S_{i}, \ldots, S_{N}\} \subset \R^{D},
+    \{\vx_{1}, \vx_{2}, \ldots, \vx_{i}, \ldots, \vx_{N}\} \subset \R^{D},
 \end{equation}
 generated by a predicting function \(f\). Without loss of generality,
 we assume all sequences have the same length \(D\), so each sequence
 can be viewed as a vector in \(\R^{D}\). We introduce a coding scheme
-(with a codebook), denoted \(\cE\), that maps every segment \(S_{i}\)
-to a unique stream of binary bits \(\cE(S_{i})\), and a corresponding
+(with a codebook), denoted \(\cE\), that maps every segment \(\vx_{i}\)
+to a unique stream of binary bits \(\cE(\vx_{i})\), and a corresponding
 decoding scheme \(\cD\) that maps binary bit strings back to sequence
 segments (say subject to error \(\epsilon \geq 0\) as such an
 encoding scheme can be lossy). The simplest scheme fills the space
@@ -2079,7 +2079,8 @@ ball. Thus, each segment can be recovered up to precision
     \centering
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter1/figs/Coding-schemes.png}
     \caption{Comparison of two coding schemes. Imagine the true data
-        distribution lies along the two arrowed lines. Samples from these
+        distribution lies along the two arrowed lines $S_1'$ and $S_2'$. 
+        Samples from these
         lines can be encoded with a codebook of all blue balls, or with a
         codebook of only the green balls. The second scheme yields a much
     lower coding length/rate subject to the same precision.}
@@ -2088,13 +2089,13 @@ ball. Thus, each segment can be recovered up to precision
 
 Then, for an encoding \(\cE\), the complexity of the predicting
 function \(f\) can be evaluated as the average coding length
-\(L(\cE(S))\) of all sequences \(S\) that it generates, known as the
-coding rate:\footnote{One may make this more precise by taking \(R(S
-    \mid \cE)\) to be the expected coding length for all segments \(S\)
+\(L(\cE(\vx))\) of all sequences \(\vx\) that it generates, known as the
+coding rate:\footnote{One may make this more precise by taking \(R(\vx
+    \mid \cE)\) to be the expected coding length for all segments \(\vx\)
 of length \(D\).}
 \begin{equation}
-    R(S \mid \cE) = \Ex[L(\cE(S))] \approx \frac{1}{N}\sum_{i=1}^{N}
-    L(\cE(S_{i})).
+    R(\vx \mid \cE) = \Ex[L(\cE(\vx))] \approx \frac{1}{N}\sum_{i=1}^{N}
+    L(\cE(\vx_{i})).
     \label{eqn:coding-rate}
 \end{equation}
 The coding rate measure will change if we use a different coding
@@ -2109,7 +2110,7 @@ with the blue balls to that with the green ones.
 Given two coding schemes \(\cE_{1}\) and \(\cE_{2}\) for the
 segments, if the difference in the coding rates is positive:
 \begin{equation}
-    R(S \mid \cE_{1}) -  R(S \mid \cE_{2}) > 0,
+    R(\vx \mid \cE_{1}) -  R(\vx \mid \cE_{2}) > 0,
 \end{equation}
 we may say the coding scheme \(\cE_{2}\) is better. This difference
 can be viewed as a measure of how much more information \(\cE_{2}\)
@@ -2118,11 +2119,11 @@ extent, the goal of learning the data distribution is equivalent to
 finding the most efficient encoding and decoding scheme that
 minimizes the coding rate subject to a desired precision:
 \begin{equation}
-    \min_{\cE, \cD} R(S \mid \cE) \quad \text{subject to} \quad
-    \operatorname{dist}(S, \cD(\cE(S))) \leq \epsilon.
+    \min_{\cE, \cD} R(\vx \mid \cE) \quad \text{subject to} \quad
+    \operatorname{dist}(\vx, \cD(\cE(\vx))) \leq \epsilon.
 \end{equation}
 As we will see in \Cref{ch:lossy-compression}, the achievable minimal rate is
-closely related to the notion of entropy \(H(S)\)
+closely related to the notion of entropy \(H(\vx)\)
 \eqref{eqn:entropy-definition}.
 
 \begin{remark}\label{rem:computable-complexity}
@@ -2134,12 +2135,12 @@ closely related to the notion of entropy \(H(S)\)
     length (MDL) in 1978 \cite{Rissanen-1978,HansenM2001}. These
     objectives normally count the coding length for the coding scheme
     \(\cE\) itself (including its codebook) in addition to the data
-    \(S\) of interest: \(L(\cE(S)) + L(\cE)\). However, if the goal
+    \(\vx\) of interest: \(L(\cE(\vx)) + L(\cE)\). However, if the goal
     is to learn a finite-sized codebook and apply it to a large
     number of sequences, the amortized cost of the codebook can be ignored since
     \begin{equation}
         \frac{1}{N}\left( L(\cE) + \sum_{i=1}^{N}
-        L(\cE(S_{i}))\right) \approx \frac{1}{N}\sum_{i=1}^{N} L(\cE(S_{i}))
+        L(\cE(\vx_{i}))\right) \approx \frac{1}{N}\sum_{i=1}^{N} L(\cE(\vx_{i}))
     \end{equation}
     as \(N\) becomes large.
 \end{remark}
@@ -2149,7 +2150,7 @@ that achieves the best compression of the observed data. In general,
 compared to the Kolmogorov complexity, the coding length given by any
 encoding scheme will always be larger:
 \begin{equation}
-    K(S) < L(\cE(S)).
+    K(\vx) < L(\cE(\vx)).
 \end{equation}
 Therefore, minimizing the coding rate/length essentially minimizes an
 upper bound of the otherwise uncomputable Kolmogorov complexity.
@@ -2214,7 +2215,7 @@ transparent ``white boxes'' that are mathematically fully explainable.
 
 To summarize our discussions so far, let us denote the data as
 \begin{equation}
-    \vX = \{S_{1}, S_{2}, \ldots, S_{i}, \ldots, S_{N}\} \subset \R^{D},
+    \vX = \{\vx_{1}, \vx_{2}, \ldots, \vx_{i}, \ldots, \vx_{N}\} \subset \R^{D},
 \end{equation}
 and let \(\vZ = \cE(\vX)\) be the codes of \(\vX\) via some encoder \(\cE\):
 \begin{equation}

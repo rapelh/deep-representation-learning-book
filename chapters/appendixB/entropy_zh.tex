@@ -36,7 +36,7 @@
 
 为此，基本思想是取\(\cS\)的\(\eps\)-加厚（\(\eps\)-thickening），记为\(\cS_{\eps}\)，定义为
 \begin{equation}
-    S_{\eps} = \bigcup_{\vxi \in \cS}B_{\eps}(\vxi)
+    \cS_{\eps} = \bigcup_{\vxi \in \cS}B_{\eps}(\vxi)
 \end{equation}
 并在\Cref{fig:entropy_eps_thickening}中进行了可视化。
 \begin{figure}[th]
@@ -58,7 +58,7 @@
         \fill[black] (p_on_curve) circle (1pt) node[below left] {$x$};
 
         \node[red, below right] at (3.5, -0.2) {$\cS_{\eps} =
-        \bigcup_{\vxi \in S} B_{\eps}(\vxi)$};
+        \bigcup_{\vxi \in \cS} B_{\eps}(\vxi)$};
 
     \end{tikzpicture}
     \caption{曲线\(\cS \subseteq \R^{2}\)的\(\eps\)-加厚\(\cS_\eps\)示意图。}
@@ -72,7 +72,7 @@
 使用\(0 \log 0 = 0\)的约定计算\(\vx_{\eps}\)的熵，可得
 \begin{align}
     h(\vx_{\eps})
-    &= -\int_{\R^{D}}p_{\eps}(x)\log p_{\eps}(x)\odif{x} \\
+    &= -\int_{\R^{D}}p_{\eps}(\vxi)\log p_{\eps}(\vxi)\odif{\vxi} \\
     &= -\int_{\cS_{\eps}}\frac{1}{\volume(\cS_{\eps})}
     \log\rp{\frac{1}{\volume(\cS_{\eps})}}\odif{\vxi} \\
     &=
@@ -202,7 +202,7 @@
 
 在着手进行证明之前，我们对问题陈述作几点说明。首先，Tweedie公式\eqref{eq:tweedie}表明
 \begin{equation}
-    \bar{\vx}^{\ast}(t, \vx_{t}) = \vx_{t} + t^{2}\nabla p_{t}(\vx_{t}),
+    \bar{\vx}^{\ast}(t, \vx_{t}) = \vx_{t} + t^{2}\nabla \log p_{t}(\vx_{t}),
 \end{equation}
 它将从时间\(t\)到时间\(0\)的完整去噪步骤比作在\(\vx_{t}\)的对数密度上的梯度步。我们能否在\eqref{eq:app_denoising_iteration}中得到从时间\(t\)到时间\(s\)的完整去噪步骤的类似结果？事实证明我们确实可以，而且非常简单。通过使用\eqref{eq:app_denoising_iteration}和Tweedie公式\eqref{eq:tweedie}，我们得到
 \begin{equation}\label{eq:app_denoising_iteration_score}
@@ -310,7 +310,7 @@
     \end{equation}
     同时，函数\(x \mapsto (1 + x)^{D}\)在\([-1, \infty)\)上是凸的，因此对于\(-(1-s/t)t^{2}U_{t}/D \leq x \leq (1-s/t)t^{2}U_{t}/D\)，我们有
     \begin{align}
-        (1 + x)^{d}
+        (1 + x)^{D}
         &\leq \bp{1 - \frac{\bp{1 - \frac{s}{t}}t^{2}U_{t}}{D}}^{D} +
         \underbrace{\bs{\bp{1 + \frac{\bp{1 -
                 \frac{s}{t}}t^{2}U_{t}}{D}}^{D} - \bp{1 - \frac{\bp{1 -
@@ -426,7 +426,7 @@
     为了证明\Cref{lem:diffusion_entropy_exists}.2，假设\Cref{assumption:entropy_x_compact_support}成立。我们想要证明\(h(\vx) < \infty\)且\(h(\vx_{t}) < \infty\)。这样做的机制是相同的，并且涉及最大熵结果\Cref{thm:max_entropy}。即，由于\(\vx\)是绝对有界的，它具有有限的协方差，我们将其记为\(\vSigma\)。那么\(\vx_{t}\)的协方差为\(\vSigma + t^{2}\vI\)。因此，\(\vx\)和\(\vx_{t}\)的熵可以被具有各自协方差的正态分布的熵所上界，即\(\log[(2\pi e)^{D}\det(\vSigma)]\)或\(\log[(2\pi e)^{D}\det(\vSigma + t^{2}\vI)]\)，并且两者都\(< \infty\)。
 \end{proof}
 
-\subsubsection{De Brujin恒等式中的分部积分}
+\subsubsection{De Bruijn恒等式中的分部积分}
 
 最后，我们补充在\Cref{thm:diffusion_entropy_increases,thm:conditioning_reduces_entropy}的证明中提到的分部积分论证。该论证在概念上非常简单，但需要一些技术估计来证明分部积分中的边界项消失。
 
@@ -468,9 +468,6 @@
         \ip{\nabla \log p_{t}(\vxi)}{\nabla p_{t}(\vxi)}}\odif{\vxi}
         \label{eq:app_diffusion_r_infinity_limit} \\
         &= \lim_{r \to \infty}\int_{B_{r}(\vzero)}\bc{\Delta
-            p_{t}(\vxi)[c + \log p_{t}(\vxi)] + \ip{\nabla \log
-        p_{t}(\vxi)}{\nabla p_{t}(\vxi)}}\odif{\vxi} \\
-        &= \lim_{r \to \infty}\int_{\partial B_{r}(\vzero)}\bc{\Delta
             p_{t}(\vxi)[c + \log p_{t}(\vxi)] + \ip{\nabla \log
         p_{t}(\vxi)}{\nabla p_{t}(\vxi)}}\odif{\vxi} \\
         &= \lim_{r \to \infty}\frac{1}{r}\int_{\partial
@@ -665,15 +662,13 @@
 \end{proof}
 
 \subsubsection{控制拉普拉斯算子\(\Delta \log p_{t}\)}
-Finally, we develop a technical estimate which is required for the
-proof of \Cref{thm:conditioning_reduces_entropy} and actually
-motivates the assumption for the viable \(t\).
+最后，我们建立一个技术性估计，这是证明\Cref{thm:conditioning_reduces_entropy}所需的，并且实际上激发了对可行\(t\)的假设。
 
 \begin{lemma}\label{lem:app_diffusion_laplacian_control}
     设 \(\vx\) 为满足 \Cref{assumption:entropy_x_compact_support,assumption:entropy_x_density} 的任意随机变量，并设 \((\vx_{t})_{t \in [0, T]}\) 为随机过程 \eqref{eq:app_additive_gaussian_noise_model}。设 \(p_{t}\) 为 \(\vx_{t}\) 的密度。那么，对于 \(t > 0\)，有
     \begin{equation}
         \sup_{\vxi \in \R^{D}}\abs{\Delta \log p_{t}(\vxi)} \leq
-        \max\rp{\frac{D}{t^{2}}, \abs*{\frac{R}{t^{4}} - \frac{D}{t^{2}}}}.
+        \max\rp{\frac{D}{t^{2}}, \abs*{\frac{R^{2}}{t^{4}} - \frac{D}{t^{2}}}}.
     \end{equation}
 \end{lemma}
 \begin{proof}
@@ -731,7 +726,7 @@ motivates the assumption for the viable \(t\).
         &= \frac{\tr(\Cov(\vz_{\vxi}))}{t^{4}} - \frac{D}{t^{2}} \\
         &= \frac{\tr(\Cov(\vy_{\vxi}))}{t^{4}} - \frac{D}{t^{2}}.
     \end{align}
-    该迹的一个平凡下界是 \(0\)，因为协方差矩阵是半正定的。为了寻找上界，注意到 \(\vy_{\vxi}\) 仅在 \(\vx\) 的支撑集上取值（因为 \(p\) 是 \(\vy_{\vxi}\) 的密度 \(q_{\vxi}\) 的一个因子），根据 \Cref{assumption:entropy_x_compact_support}，该支撑集是一个紧集 \(\cS\)，其半径为 \(R \doteq \sup_{\vxi \in \R^{D}}\norm{\vxi}_{2}\)。因此
+    该迹的一个平凡下界是 \(0\)，因为协方差矩阵是半正定的。为了寻找上界，注意到 \(\vy_{\vxi}\) 仅在 \(\vx\) 的支撑集上取值（因为 \(p\) 是 \(\vy_{\vxi}\) 的密度 \(q_{\vxi}\) 的一个因子），根据 \Cref{assumption:entropy_x_compact_support}，该支撑集是一个紧集 \(\cS\)，其半径为 \(R \doteq \sup_{\vxi \in \cS}\norm{\vxi}_{2}\)。因此
     \begin{equation}
         \tr(\Cov(\vy_{\vxi})) = \Ex[\norm{\vy_{\vxi}}_{2}^{2}] -
         \norm{\Ex[\vy_{\vxi}]}_{2}^{2} \leq
@@ -802,7 +797,7 @@ motivates the assumption for the viable \(t\).
 在本附录中，我们多次在积分号下求导，了解何时可以这样做非常重要。积分号下求导有两种情况：
 \begin{enumerate}
     \item 对积分 \(\int f_{t}(\vxi)\odif{\vxi}\) 关于辅助参数 \(t\) 求导。
-    \item 对卷积 \((f * g)(\vxi) = \int f(\vxi)g(\vxi - \vu)\odif{u}\) 关于变量 \(\vxi\) 求导。
+    \item 对卷积 \((f * g)(\vxi) = \int f(\vu)g(\vxi - \vu)\odif{\vu}\) 关于变量 \(\vxi\) 求导。
 \end{enumerate}
 
 对于第一种情况，我们给出一个具体的结果，此处不加证明地陈述，但可归因于 \href{https://planetmath.org/differentiationundertheintegralsign}{链接的来源}，该来源将以下结果作为关于微分算子与缓增分布相互作用的更一般定理的特例推导出来，这远远超出了本书的范围。完整的正式参考文献可见 \cite{jones1982theory}。

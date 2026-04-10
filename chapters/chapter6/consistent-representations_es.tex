@@ -178,7 +178,7 @@ representación autoconsistente en un entorno de {\em aprendizaje continuo}.
 Por supuesto, una de las razones fundamentales por las que queremos identificar las
 estructuras de baja dimensión en una distribución de datos y encontrar una buena
 representación es facilitar el uso de los datos para diversas tareas
-de inteligencia, como la clasificación, la completación y la predicción.
+de inteligencia, como la clasificación, la completamiento y la predicción.
 Por lo tanto, la representación conjunta resultante $(\x, \z)$ debe
 estructurarse de la manera más adecuada para estas tareas. En el
 siguiente capítulo, veremos
@@ -608,7 +608,7 @@ Esto es muy similar al objetivo de reducción de la tasa de dispersión
 \end{figure}
 
 Como método para aprender pares de autocodificación de forma integral, la autocodificación
-esparsa se ha utilizado en el pasado
+dispersa se ha utilizado en el pasado
 \cite{Ranzato2006-oq,10.5555/3042573.3042641}, pero casi todos los marcos modernos
 de autocodificación se basan, en cambio, en un marco de autocodificación probabilístico
 diferente, que estudiaremos a continuación.
@@ -1134,8 +1134,8 @@ la compresión deseada, que no solo sean computables o manejables en teoría,
 sino también escalables en la práctica:
 \begin{equation}
     \mbox{\textbf{computable}} \;
-    \Longrightarrow \; \mbox{\textbf{tractable}} \; \Longrightarrow \;
-    \mbox{\textbf{scalable}}.
+    \Longrightarrow \; \mbox{\textbf{manejable}} \; \Longrightarrow \;
+    \mbox{\textbf{escalable}}.
 \end{equation}
 Incluso se podría afirmar que los enormes avances en inteligencia artificial
 logrados en la última década se deben en gran medida al
@@ -1510,12 +1510,12 @@ transcripción en bucle cerrado, denominado CTRL-Multi, es
     &&\max_{\bm \theta} \min_{\bm \eta} \mathcal{T}_{\X}(\bm \theta,
     \bm \eta) \\
     &\doteq& \underbrace{\Delta R_\epsilon\big(f(\X,\bm
-    \theta)\big)}_{\text{Expansive encode}} + \underbrace{\Delta
+    \theta)\big)}_{\text{codificación expansiva}} + \underbrace{\Delta
         R_\epsilon\big(h(\X,\bm \theta, \bm
-    \eta)\big)}_{\text{Compressive decode}} + \sum_{k=1}^K
+    \eta)\big)}_{\text{decodificación compresiva}} + \sum_{k=1}^K
     \underbrace{\Delta R_\epsilon\big(f(\X_k,\bm \theta), h(\X_k,\bm
-    \theta,\bm \eta)\big)}_{\text{Contrastive encode \& Contractive
-    decode}}   \\
+    \theta,\bm \eta)\big)}_{\text{codificación contrastiva \& decodificación
+    contractiva}}   \\
     &=& \Delta R_\epsilon\big(\Z(\bm \theta) \big) + \Delta
     R_\epsilon\big(\hat \Z(\bm \theta, \bm \eta)\big) + \sum_{k=1}^K
     \Delta R_\epsilon\big(\Z_k(
@@ -1844,9 +1844,6 @@ se asemeja a los mecanismos popularmente hipotetizados para la formación de la 
 dado que la memoria en el cerebro se forma de manera incremental, ¿puede
 el marco de transcripción de bucle cerrado mencionado anteriormente también admitir un aprendizaje incremental?
 
-representación discriminativa lin-
-eal
-
 \paragraph{Muestreo y reproducción de la memoria con representación 
 discriminativa lineal (LDR).} Las estructuras lineales simples de 
 LDR lo hacen especialmente adecuado para el aprendizaje incremental:
@@ -1947,7 +1944,7 @@ restricción adicional:
     \min_{\bm \eta} \max_{\bm \theta}
     &&\Delta{R_\epsilon(\Z)}+\Delta{R_\epsilon(\hat{\Z})}+\Delta{R_\epsilon(\Z_{new},\hat{\Z}_{new})}
     \nonumber\\
-    && \mbox{subject to} \quad  \Delta R_\epsilon(\Z_{old},\hat{\Z}_{old}) = 0.
+    && \mbox{sujeto a} \quad  \Delta R_\epsilon(\Z_{old},\hat{\Z}_{old}) = 0.
     \label{eqn:constrained-minimax}
 \end{eqnarray}
 
@@ -2012,12 +2009,12 @@ resultados visuales cualitativos; se pueden encontrar más experimentos y un an�
 en el trabajo \cite{tong2023incremental}.
 
 \paragraph{Visualización de las propiedades de la autocodificación.}
-We begin by qualitatively visualizing some representative images $\X$
-and the corresponding replayed $\hat{\X}$ on MNIST and CIFAR-10. The
-model is learned incrementally with the datasets split into 5 tasks.
-Results are shown in la \Cref{fig:justify_xhat_equals_x_incremental},
-where we observe that the reconstructed $\hat{\X}$ preserves the main
-visual characteristics of $\X$ including shapes and textures. En el caso de un
+Comenzamos visualizando cualitativamente algunas imágenes representativas $\X$
+y su réplica correspondiente $\hat{\X}$ en MNIST y CIFAR-10. El
+modelo se entrena de forma incremental con los conjuntos de datos divididos en 5 tareas. 
+Los resultados se muestran en la \Cref{fig:justify_xhat_equals_x_incremental},
+donde observamos que el $\hat{\X}$ reconstruido conserva las principales
+características visuales de $\X$, incluyendo formas y texturas. En el caso de un
 conjunto de datos más sencillo como MNIST, ¡los $\hat{\X}$ reproducidos son casi
 idénticos a la entrada $\X$! Esto es bastante notable dado que: (1) nuestro
 método no impone explícitamente que $\hat{\x} \approx \x$ para
@@ -2231,8 +2228,8 @@ al que denominamos {\em CTRL no supervisado} (u-CTRL):
 \begin{align}
     \max_{\bm \theta} \min_{\bm \eta}  \quad & R_\epsilon(\Z) + \Delta
     R_\epsilon(\Z, \hat{\Z}) \label{eqn:constrained_maxmin}\\
-    \mbox{subject to} \quad & \sum_{i\in N} \Delta R_\epsilon(\z^i,
-    \hat{\z}^i) = 0, \;\; \mbox{and} \;\; \sum_{i\in N} \Delta
+    \mbox{sujeto a} \quad & \sum_{i\in N} \Delta R_\epsilon(\z^i,
+    \hat{\z}^i) = 0, \;\; \mbox{y} \;\; \sum_{i\in N} \Delta
     R_\epsilon(\z^i, \z_{a}^i) = 0. \nonumber
 \end{align}
 La \Cref{fig:framework-uCTRL} ilustra la arquitectura general del
@@ -2406,7 +2403,7 @@ para el marco de bucle cerrado, al menos en un caso ideal.
 La \Cref{sec:class-wise-incremental} y
 la \Cref{sec:sample-wise-incremental} se basan en los trabajos de
 \cite{tong2023incremental} y \cite{pmlr-v234-tong24a},
-respectivamente. Demontran que el marco de bucle cerrado
+respectivamente. Demuestran que el marco de bucle cerrado
 facilita de forma natural el aprendizaje incremental y continuo, ya sea en un
 entorno por clases o por muestras. El lector puede consultar estos
 artículos para obtener más detalles técnicos y experimentales.

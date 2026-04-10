@@ -1886,7 +1886,7 @@ cálculo de la media y la covarianza, véase el trabajo de
 \end{figure*}
 
 \paragraph{Aprendizaje incremental de LDR con una restricción de memoria antigua.}
-Obsérvese que, con el autoencodificador aprendido
+Obsérvese que, con el autocodificador aprendido
 \eqref{eqn:autoencoding-ch6}, se pueden reproducir y utilizar las imágenes, por ejemplo
 $\hat\X_{old} = g(\Z_{old}, \bm \eta)$, asociadas con las características de la memoria
 para evitar el olvido mientras se aprenden nuevas clases. Así es
@@ -2021,7 +2021,7 @@ visual characteristics of $\X$ including shapes and textures. En el caso de un
 conjunto de datos más sencillo como MNIST, ¡los $\hat{\X}$ reproducidos son casi
 idénticos a la entrada $\X$! Esto es bastante notable dado que: (1) nuestro
 método no impone explícitamente que $\hat{\x} \approx \x$ para
-muestras individuales, como lo hacen la mayoría de los métodos de autoencodificación, y (2) después de
+muestras individuales, como lo hacen la mayoría de los métodos de autocodificación, y (2) después de
 haber aprendido de manera incremental todas las clases, el generador no ha
 olvidado cómo generar los dígitos aprendidos anteriormente, tales como 0, 1, 2.
 En el caso de un conjunto de datos más complejo, como CIFAR-10, también demostramos una buena
@@ -2177,7 +2177,7 @@ pero en la práctica pueden aplicarse de manera flexible durante la optimizació
 
 \paragraph{Autoconsistencia muestra por muestra mediante transcripción en bucle cerrado.}
 En primer lugar, para abordar el problema de que CTRL-Binary no aprende una
-autoencodificación consistente a nivel de muestra, necesitamos lograr que $\hat \x$
+autocodificación consistente a nivel de muestra, necesitamos lograr que $\hat \x$
 se aproxime a $\x$ para cada muestra. En el marco de CTRL, esto se puede
 lograr asegurando que sus características correspondientes $\z=f(\x)$ y
 $\hat \z = f(\hat \x)$ sean similares.
@@ -2411,7 +2411,7 @@ facilita de forma natural el aprendizaje incremental y continuo, ya sea en un
 entorno por clases o por muestras. El lector puede consultar estos
 artículos para obtener más detalles técnicos y experimentales.
 
-\paragraph{Redes neuronales superficiales vs. profundas, para la autoencodificación y otras aplicaciones.}
+\paragraph{Redes neuronales superficiales vs. profundas, para la autocodificación y otras aplicaciones.}
 En la \Cref{sub:nonlinear-pca}, analizamos el teorema de aproximación universal de Cybenko
 y cómo este establece que, en principio, una red neuronal con una sola
 capa oculta (y no linealidades adecuadas en cada elemento) es suficiente para

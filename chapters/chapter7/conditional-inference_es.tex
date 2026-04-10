@@ -1868,27 +1868,27 @@ Esto significa que, si logramos aprender un filtro de ruido de este tipo
 podremos seguir la metodología de difusión con eliminación de ruido que hemos desarrollado en el
 \Cref{ch:denoising} para realizar un muestreo condicional por clase.
 
-A natural idea is then to directly implement the likelihood correction term in
-\eqref{eq:conditional-denoising-mmse-denoiser-paired-data} using a deep network
-$f_{\theta_{\mathrm{c}}}$ with parameters $\theta_{\mathrm{c}}$, as in
+Una idea lógica es, entonces, implementar directamente el término de corrección de verosimilitud en
+\eqref{eq:conditional-denoising-mmse-denoiser-paired-data} utilizando una red profunda
+$f_{\theta_{\mathrm{c}}}$ con parámetros $\theta_{\mathrm{c}}$, tal como se muestra en
 \Cref{eq:classifier-with-class-token}:
 \begin{equation}
     f_{\theta_{\mathrm{c}}} : (t, \vx_t) \mapsto \softmax(\vW_{\mathrm{head}}
     \vz(t, \vx_t)).
 \end{equation}
-This expression combines the final representations $\vz(t, \vx_t)$
-(which also depend on
-$\theta_{\mathrm{c}}$) of the noisy inputs
-$\vx_t$ with a classification head $\vW_{\mathrm{head}} \in \bR^{K
-\times d}$, which maps the
-representations to a probability distribution over the $K$ possible classes.
-As is common in practice, it also takes the time $t$ in the noising process as
-input.
-Thus, with appropriate training, it provides an approximation to the
-log-likelihood
-$\log p_{y \mid \vx_t}$, and differentiating $\log f_{\theta_{\mathrm{c}}}$ with
-respect to its input $\vx_t$
-allows an approximation to the second term in
+Esta expresión combina las representaciones finales $\vz(t, \vx_t)$
+(que también dependen de
+$\theta_{\mathrm{c}}$) de las entradas con ruido
+$\vx_t$ con un cabezal de clasificación $\vW_{\mathrm{head}} \in \bR^{K
+\times d}$, que mapea las
+representaciones a una distribución de probabilidad sobre las $K$ clases posibles.
+Como es habitual en la práctica, también toma el tiempo $t$ en el proceso de ruido como
+entrada.
+Por lo tanto, con un entrenamiento adecuado, proporciona una aproximación a la
+verosimilitud logarítmica
+$\log p_{y \mid \vx_t}$, y la derivación de $\log f_{\theta_{\mathrm{c}}}$
+respecto a su entrada $\vx_t$
+permite una aproximación al segundo término de
 \Cref{eq:conditional-denoising-mmse-denoiser-paired-data}:
 \begin{equation}\label{eq:conditional-denoising-mmse-denoiser-paired-data-approx}
     \bar{\vx}_{\theta}^{\mathrm{naive}}(t, \vx_t, y)
@@ -1902,43 +1902,42 @@ allows an approximation to the second term in
         \ve_{y}
     }
 \end{equation}
-where, as usual, we approximate the first term in
-\Cref{eq:conditional-denoising-mmse-denoiser-paired-data} via a learned
-unconditional denoiser for $\vx_t$ with parameters $\theta_{\mathrm{d}}$, and
-where we write $\ve_k$ for $k \in [K]$ to denote the $k$-th canonical basis
-vector for $\R^K$ (i.e., the vector with
-a one in the $k$-th position, and zeros elsewhere).
-The reader should note that the conditional denoiser $\bar{\vx}_{\theta}$
-requires two separate training runs, with separate losses: one for the
-classifier parameters $\theta_{\mathrm{c}}$, on a classification
-loss,\footnote{In \Cref{ch:applications}, we review the process of training such
-a classifier in full detail.} and one for the denoiser parameters
-$\theta_{\mathrm{d}}$, on a denoising loss. Such an approach to conditional
-sampling was already recognized and exploited to perform conditional sampling in
-pioneering early works on diffusion models, notably those by
-\citet{Sohl-Dickstein2015} and by \citet{song2020score}.
+donde, como es habitual, aproximamos el primer término de
+\Cref{eq:conditional-denoising-mmse-denoiser-paired-data} mediante un
+filtro de ruido incondicional aprendido para $\vx_t$ con parámetros $\theta_{\mathrm{d}}$ y
+donde escribimos $\ve_k$ para $k \in [K]$ para denotar el $k$-ésimo vector de base canónica
+para $\R^K$ (es decir, el vector con
+un uno en la posición $k$-ésima, y ceros en el resto).
+El lector debe tener en cuenta que el filtro de ruido condicional $\bar{\vx}_{\theta}$
+requiere dos procesos de entrenamiento independientes, con pérdidas distintas: uno para los
+parámetros del clasificador $\theta_{\mathrm{c}}$, sobre una pérdida de clasificación
+\footnote{En \Cref{ch:applications}, revisamos el proceso de entrenamiento de dicho
+clasificador con todo detalle.} y otro para los parámetros del filtro de ruido
+$\theta_{\mathrm{d}}$, sobre una pérdida de eliminación de ruido. Este enfoque del muestreo condicional
+ya se había reconocido y aprovechado para llevar a cabo el muestreo condicional en
+los primeros trabajos pioneros sobre modelos de difusión, en particular los de
+\citet{Sohl-Dickstein2015} y \citet{song2020score}. 
 
-However, this straightforward methodology has two key drawbacks (which is why we
-label it as ``naive''). The first is
-that, empirically, such a trained deep network classifier frequently does not
-provide a strong enough guidance signal (in
-\Cref{eq:conditional-denoising-mmse-denoiser-paired-data}) to ensure that
-generated samples reflect the conditioning information $y$. This was first
-emphasized by \citet{Dhariwal2021-hg}, who noted that in the setting of
-class-conditional ImageNet generation, the learned deep network
-classifier's probability outputs for the class $y$ being conditioned on were
-frequently around
-$0.5$---large enough to be the dominant class, but not large enough to provide
-a strong guidance signal---and that upon inspection, generations were not
-consistent with the conditioning class $y$. \citet{Dhariwal2021-hg} proposed to
-address this heuristically by incorporating an ``inverse temperature''
-hyperparameter $\gamma > 0$
-into the definition of the naive conditional denoiser
+Sin embargo, esta metodología sencilla presenta dos inconvenientes fundamentales (razón por la cual
+la calificamos de «ingenua»). El primero es
+que, según la experiencia, un clasificador de red profunda entrenado de este modo a menudo no
+proporciona una señal de orientación lo suficientemente sólida (en la
+\Cref{eq:conditional-denoising-mmse-denoiser-paired-data}) como para garantizar que
+las muestras generadas reflejen la información de condicionamiento $y$. Esto fue destacado por primera vez
+por \citet{Dhariwal2021-hg}, quien señaló que, en el contexto de la
+generación de ImageNet condicionada por clase, las probabilidades
+de salida del clasificador de red profunda entrenado para la clase $y$ sobre la que se
+aplicaba la condición solían rondar
+$0,5$---lo suficientemente grande como para ser la clase dominante, pero no lo suficiente como para proporcionar
+una señal de orientación sólida---y que, tras su inspección, las generaciones no eran
+consistentes con la clase de condicionamiento $y$. \citet{Dhariwal2021-hg} propuso
+abordar esto de manera heurística incorporando un hiperparámetro de «temperatura inversa»
+$\gamma > 0$
+en la definición del filtro de ruido condicional ingenuo
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data-approx},
-referring to the
-resulting conditional denoiser as having incorporated \textbf{``classifier
-guidance''}
-(CG):
+refiriéndose al
+filtro de ruido condicional resultante como si hubiera incorporado 
+\textbf{«orientación del clasificador»} (CG):
 \begin{equation}\label{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cg}
     \bar{\vx}_{\theta}^{\mathrm{CG}}(t, \vx_t, y)
     =
@@ -1951,15 +1950,15 @@ guidance''}
         \ve_{y}
     }
 \end{equation}
-with the case $\gamma = 1$ coinciding with
+que en el caso en que $\gamma = 1$ coincide con
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data-approx}.
 
-\citet{Dhariwal2021-hg} found that a setting $\gamma > 1$ performed
-best empirically.
-One possible interpretation for this is as follows: note that, in the context of
-the \textit{true} likelihood term
-\Cref{eq:conditional-denoising-mmse-denoiser-paired-data}, scaling by $\gamma$
-gives equivalently
+\citet{Dhariwal2021-hg} descubrió que un valor de $\gamma > 1$ ofrecía
+los mejores resultados empíricos.
+Una posible interpretación de esto es la siguiente: obsérvese que, en el contexto del
+término de verosimilitud \textit{verdadera}
+\Cref{eq:conditional-denoising-mmse-denoiser-paired-data}, la multiplicación por $\gamma$
+da como resultado, de manera equivalente,
 \begin{align}
     \gamma\frac{\sigma_t^2}{\alpha_t} \nabla_{\vxi}\log p_{\vy \mid
     \vx_t}(\vnu\mid
@@ -1969,82 +1968,81 @@ gives equivalently
         p_{\vy \mid \vx_t}(\vnu\mid \vxi)^\gamma
     \right), %
 \end{align}
-which suggests the natural interpretation of the parameter $\gamma$ performing
-(inverse) \textit{temperature scaling} on the likelihood
-$p_{\vy \mid \vx_t}$, which is precise if we consider the renormalized
-distribution
+lo que sugiere la interpretación natural de que el parámetro $\gamma$ realiza
+un \textit{escalado de temperatura} (inverso) sobre la verosimilitud
+$p_{\vy \mid \vx_t}$, lo cual es exacto si consideramos la distribución
+renormalizada
 $ { p_{\vy \mid \vx_t}(\vnu\mid \vxi)^\gamma } / { \int p_{\vy \mid
     \vx_t}(\vnu'\mid
-\vxi)^\gamma \odif \vnu' } $.
-However, note that this \textit{is not} a rigorous interpretation in the context
-of \Cref{eq:conditional-denoising-mmse-denoiser-paired-data}, because the
-gradients are taken with respect to $\vxi$, and the normalization constant in
-the temperature-scaled distribution is in general a function of $\vxi$.
-Instead, the parameter $\gamma$ should simply be understood as amplifying large
-values of the deep network classifier's output probabilities
-$f_{\theta_{\mathrm{c}}}(t, \vx_t)$ \textit{relative to} smaller ones,
-which effectively amplifies the guidance signal provided in cases where the deep
-network $f$ assigns it the largest probability among the $K$ classes.
+\vxi)^\gamma \odif \vnu' } $
+Sin embargo, cabe señalar que esta \textit{no es} una interpretación rigurosa en el contexto
+de \Cref{eq:conditional-denoising-mmse-denoiser-paired-data}, ya que los
+gradientes se calculan con respecto a $\vxi$ y la constante de normalización en
+la distribución escalada por temperatura es, en general, una función de $\vxi$.
+En cambio, el parámetro $\gamma$ debe entenderse simplemente como una amplificación de los
+valores altos de las probabilidades de salida del clasificador de red profunda
+$f_{\theta_{\mathrm{c}}}(t, \vx_t)$ \textit{en relación con} los más bajos,
+lo que amplifica efectivamente la señal de orientación proporcionada en los casos en que la red profunda
+$f$ le asigna la probabilidad más alta entre las $K$ clases.
 
-\subsubsection{Simplifications and Improvements via Classifier-Free Guidance}
+\subsubsection{Simplificaciones y mejoras mediante la orientación sin clasificadores}
 
-Nevertheless, classifier guidance does not address the second key drawback of
-the naive methodology: it is both cumbersome and wasteful to have to
-train an auxiliary classifier $f_{\theta_{\mathrm{c}}}$ in addition
-to the unconditional
-denoiser $\bar{\vx}_{\theta_{\mathrm{d}}}$, given
-that it is not possible to directly adapt a pretrained classifier
-due to the need for it to work well on noisy inputs $\vx_t$ and incorporate
-other empirically-motivated architecture modifications.
-In particular, \citet{Dhariwal2021-hg} found that it was necessary to
-\textit{explicitly
-    design the architecture of the deep network implementing the
-    classifier to match
-that of the denoiser}.
+No obstante, la orientación mediante clasificador no resuelve el segundo inconveniente clave de
+la metodología ingenua: resulta engorroso y poco eficiente tener que
+entrenar un clasificador auxiliar $f_{\theta_{\mathrm{c}}}$ además
+del filtro de ruido incondicional
+$\bar{\vx}_{\theta_{\mathrm{d}}}$, dado
+que no es posible adaptar directamente un clasificador preentrenado
+debido a la necesidad de que funcione bien con entradas ruidosas $\vx_t$ e incorpore
+otras modificaciones de arquitectura motivadas empíricamente.
+En concreto, \citet{Dhariwal2021-hg} descubrió que era necesario
+\textit{diseñar explícitamente
+    la arquitectura de la red profunda que implementa el
+    clasificador para que coincida
+con la del filtro de ruido}.
 
-Moreover, from a purely practical perspective---trying to obtain the best
-possible performance from the resulting sampler---the best-performing
-configuration of classifier guidance-based sampling departs even further from
-the idealized and conceptually sound framework we have presented above.
-To obtain the best performance, \citet{Dhariwal2021-hg} found it
-necessary to provide the class label $y$ as an additional input to the denoiser
-$\bar{\vx}_{\theta_{\mathrm{d}}}$. As a result, the idealized classifier-guided
-denoiser \eqref{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cg},
-derived by \citet{Dhariwal2021-hg} as we have done above from the conditional
-posterior denoiser decomposition
-\eqref{eq:conditional-denoising-mmse-denoiser-paired-data}, is not exactly
-reflective of the best-performing denoiser in practice---such a denoiser
-actually combines a \textit{conditional} denoiser for $\vx_t$ given $y$ with an
-additional guidance signal from an auxiliary classifier!
+Además, desde una perspectiva puramente práctica---es decir, al intentar obtener el mejor
+rendimiento posible del muestreador resultante, la configuración más eficaz
+del muestreo basado en la orientación del clasificador se aleja aún más del
+marco idealizado y conceptualmente sólido que hemos presentado anteriormente.
+Para obtener el mejor rendimiento, \citet{Dhariwal2021-hg} consideró
+necesario proporcionar la etiqueta de clase $y$ como una entrada adicional al filtro de ruido
+$\bar{\vx}_{\theta_{\mathrm{d}}}$. Como resultado, el eliminador de ruido idealizado guiado por un clasificador
+\eqref{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cg},
+derivado por \citet{Dhariwal2021-hg} tal y como hemos hecho anteriormente a partir de la descomposición
+condicional del eliminador de ruido posterior
+\eqref{eq:conditional-denoising-mmse-denoiser-paired-data}, no refleja exactamente
+el denoiser de mejor rendimiento en la práctica; ¡dicho filtro de ruido
+combina en realidad un filtro de ruido \textit{condicional} para $\vx_t$ dado $y$ con una
+señal de guía adicional procedente de un clasificador auxiliar!
 
-This state of affairs, empirically motivated as it is, led \citet{Ho2022-ry} in
-subsequent work to propose a more empirically pragmatic methodology, known as
-\textbf{classifier-free guidance (CFG)}. Instead of representing the
-conditional denoiser
-\eqref{eq:conditional-denoising-mmse-denoiser-paired-data} as a weighted sum
-of an unconditional denoiser for $\vx_t$ with a log-likelihood correction term
-(with possibly modified weights, as in classifier guidance), they accept the
-apparent necessity of training a conditional denoiser for $\vx_t$ given $y$, as
-demonstrated by the experimental results of \citet{Dhariwal2021-hg}, and replace
-the log-likelihood gradient term with a correctly-weighted sum of this
-conditional denoiser with an \textit{unconditional} denoiser for $\vx$ given
-$\vx_t$.\footnote{That said, \textcite{Ho2022-ry} actually proposed to use
-    a different weighting than what we present here, based on the fact that
-    \textcite{Dhariwal2021-hg} heuristically replaced the
-    unconditional denoiser in
-    \eqref{eq:conditional-denoising-mmse-denoiser-paired-data} with
-    a conditional denoiser. In fact, the weighting we derive and present here
-    reflects modern practice, and in particular is used in state-of-the-art
-    diffusion models such as Stable Diffusion 3.5
+Esta situación, de carácter empírico, llevó a \citet{Ho2022-ry} en
+trabajos posteriores a proponer una metodología más pragmática desde el punto de vista empírico, conocida como
+\textbf{orientación sin clasificador (CFG)}. En lugar de representar el
+denoiser condicional
+\eqref{eq:conditional-denoising-mmse-denoiser-paired-data} como una suma ponderada
+de un denoiser incondicional para $\vx_t$ con un término de corrección de la verosimilitud logarítmica
+(con pesos posiblemente modificados, como en la guía del clasificador), aceptan la
+aparente necesidad de entrenar un denoiser condicional para $\vx_t$ dado $y$, tal como
+lo demuestran los resultados experimentales de \citet{Dhariwal2021-hg}, y sustituir
+el término del gradiente de la verosimilitud logarítmica por una suma correctamente ponderada de este
+denoiser condicional con un denoiser \textit{incondicional} para $\vx$ dado
+$\vx_t$.\footnote{Dicho esto, \textcite{Ho2022-ry} propuso en realidad utilizar
+    una ponderación diferente a la que presentamos aquí, basándose en el hecho de que
+    \textcite{Dhariwal2021-hg} sustituyó de forma heurística el
+    denoiser incondicional de 
+    \eqref{eq:conditional-denoising-mmse-denoiser-paired-data} por
+    un denoiser condicional. De hecho, la ponderación que derivamos y presentamos aquí
+    refleja la práctica moderna y, en particular, se utiliza en modelos de difusión de vanguardia
+    como Stable Diffusion 3.5 
 \cite{DBLP:conf/icml/EsserKBEMSLLSBP24}.}
 
-\paragraph{Deriving Classifier-Free Guidance.} To see how this
-structure arises, we
-begin with an `idealized' version of the classifier guidance denoiser
-$\bar{\vx}_{\theta}^{\mathrm{CG}}$ defined in
+\paragraph{Derivación de la orientación sin clasificador.} Para ver cómo surge esta
+estructura, comenzamos con una versión «idealizada» del filtro de ruido con guía de clasificador
+$\bar{\vx}_{\theta}^{\mathrm{CG}}$ definido en la
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cg},
-for which the denoiser $\bar{\vx}_{\theta_{\mathrm{d}}}$ and the classifier
-$f_{\theta_{\mathrm{c}}}$ perfectly approximate their targets, via
+para el cual el filtro de ruido $\bar{\vx}_{\theta_{\mathrm{d}}}$ y el clasificador
+$f_{\theta_{\mathrm{c}}}$ se aproximan perfectamente a sus objetivos, mediante
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data}:
 \begin{equation}\label{eq:conditional-denoising-mmse-denoiser-paired-data-exact-cg}
     \bar{\vx}_{\theta}^{\mathrm{CG,\,ideal}}(t, \vxi, \nu)
@@ -2053,15 +2051,15 @@ $f_{\theta_{\mathrm{c}}}$ perfectly approximate their targets, via
     + \gamma\frac{\sigma_t^2}{\alpha_t}
     \nabla_{\vxi}\log p_{y \mid \vx_t}(\nu\mid \vxi).
 \end{equation}
-We then use Bayes' rule, in the form
+A continuación, utilizamos la regla de Bayes, en la forma
 \begin{equation}
     \log p_{y \mid \vx_t}
     =
     \log p_{\vx_t \mid y} + \log p_{y} - \log p_{\vx_t},
 \end{equation}
-together with Tweedie's formula (\Cref{thm:tweedie}, modified as in
-\Cref{eq:gen_tweedie}) to convert between score functions and denoisers,
-to obtain
+junto con la fórmula de Tweedie (\Cref{thm:tweedie}, modificada como en
+\Cref{eq:gen_tweedie}) para convertir entre funciones de puntuación y filtros de ruido,
+a fin de obtener
 \begin{align*}
     \bar{\vx}_{\theta}^{\mathrm{CG,\,ideal}}(t, \vxi, \nu)
     &=
@@ -2077,19 +2075,18 @@ to obtain
     \gamma \bE[\vx \mid \vx_t=\vxi, y=\nu],
     \labelthis\label{eq:ideal-cfg-denoiser}
 \end{align*}
-where in the last line, we apply
+donde, en la última línea, aplicamos la
 \Cref{eq:conditional-denoising-conditioning-order-irrelevant}.
-Now, \Cref{eq:ideal-cfg-denoiser} suggests a natural approximation strategy: we
-combine a learned unconditional denoiser for $\vx$ given $\vx_t$, as previously,
-with a learned \textit{conditional} denoiser for $\vx$ given $\vx_t$ and $y$.
+Ahora, la \Cref{eq:ideal-cfg-denoiser} sugiere una estrategia de aproximación natural:
+combinamos un filtro de ruido incondicional aprendido para $\vx$ dado $\vx_t$, como antes,
+con un filtro de ruido \textit{condicional} aprendido para $\vx$ dado $\vx_t$ y $y$.
 
-However, following \textcite{Ho2022-ry} and the common practice of
-training deep network
-denoisers, it is standard to use the \textit{same} deep network to represent
-both the conditional and unconditional denoisers by introducing an additional
-label, which we will denote by $\varnothing$, to denote the ``unconditional''
-case.
-This leads to the form of the CFG denoiser:
+Sin embargo, siguiendo a \textcite{Ho2022-ry} y la práctica habitual en el
+entrenamiento de filtro de ruido de redes profundas,
+lo habitual es utilizar la \textit{misma} red profunda para representar
+tanto el filtro de ruido condicional como el incondicional mediante la introducción de una
+etiqueta adicional, que denotaremos como $\varnothing$, para indicar el caso «incondicional».
+Esto da lugar a la forma del denoiser CFG:
 \begin{equation}\label{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cfg}
     \bar{\vx}_{\theta}^{\mathrm{CFG}}(t, \vx_t, y)
     =
@@ -2097,17 +2094,16 @@ This leads to the form of the CFG denoiser:
     +
     \gamma \bar{\vx}_{\theta}(t, \vx_t, y).
 \end{equation}
-To train a denoiser $\bar{\vx}_{\theta}(t, \vx_t, y^+)$ for use with
-classifier-free guidance sampling, where $y^+ \in
-\set{1, \dots, K, \varnothing}$, we proceed almost identically to the
-unconditional training procedure in \Cref{alg:learning_denoiser}, but with two
-modifications:
+Para entrenar un denoiser $\bar{\vx}_{\theta}(t, \vx_t, y^+)$ destinado a
+el muestreo de orientación sin clasificador, donde $y^+ \in
+\set{1, \dots, K, \varnothing}$, procedemos de manera casi idéntica al
+procedimiento de entrenamiento incondicional descrito en \Cref{alg:learning_denoiser}, pero con dos
+modificaciones:
 \begin{enumerate}
-    \item When we sample from the dataset, we sample a pair $(\vx,
-        y)$ rather than
-        just a sample $\vx$.
-    \item Every time we sample a pair from the dataset, we sample the augmented
-        label $y^+$ via
+    \item Cuando tomamos muestras del conjunto de datos, tomamos un par $(\vx, y)$ en lugar de
+        solo una muestra $\vx$.
+    \item Cada vez que extraemos un par del conjunto de datos, obtenemos la etiqueta aumentada
+        $y^+$ mediante
         \begin{equation}
             y^+ =
             \begin{cases}
@@ -2115,42 +2111,42 @@ modifications:
                 y & \text{else}.
             \end{cases}
         \end{equation}
-        Here, $p_{\mathrm{uncond}} \in [0, 1]$ is a new hyperparameter.
-        This can be viewed as a form of dropout \cite{srivastava2014dropout}.
+        Aquí, $p_{\mathrm{uncond}} \in [0, 1]$ es un nuevo hiperparámetro.
+        Esto puede considerarse una forma de dropout \cite{srivastava2014dropout}.
 \end{enumerate}
-In this way, we train a conditional denoiser suitable for use in classifier-free
-guidance sampling. We summarize the overall sampling process for
-class-conditioned sampling with classifier-free guidance in
+De esta manera, entrenamos un filtro de ruido condicional adecuado para su uso en el muestreo guiado sin clasificador.
+Resumimos el proceso general de muestreo para
+el muestreo condicionado por clase con guía sin clasificador en
 \Cref{alg:iterative_denoising_conditional_CFG}.
 
 \begin{algorithm}
-    \caption{Conditional sampling with classification data, using
-    class-conditioned denoiser.}
+    \caption{Muestreo condicional con datos de clasificación, utilizando
+    un filtro de eliminación de ruido condicionado por clase.}
     \label{alg:iterative_denoising_conditional_CFG}
     \begin{algorithmic}[1]
-        \Require{An ordered list of timesteps \(0 \leq t_{0} < \cdots
-        < t_{L} \leq T\) to use for sampling.}
-        \Require{Class label $\nu \in \set{1, \dots, K}$ to condition on.}
-        \Require{A denoiser \(\bar{\vx}_{\theta} \colon
+        \Require{Una lista ordenada de intervalos de tiempo \(0 \leq t_{0} < \cdots
+        < t_{L} \leq T\) que se utilizarán para el muestreo.}
+        \Require{Etiqueta de clase $\nu \in \{1, \dots, K\}$ sobre la que se va a realizar la condición.}
+        \Require{Un filtro de ruido \(\bar{\vx}_{\theta} \colon
                 \{t_{\ell}\}_{\ell = 1}^{L} \times \R^{D} \times
                 \set{1, \dots, K,
-            \varnothing} \to \R^{D}\) for $p_{\vx \mid y}$ and
-            $p_{\vx}$ (input $\varnothing$ for
+            \varnothing} \to \R^{D}\) para $p_{\vx \mid y}$ y
+            $p_{\vx}$ (entrada $\varnothing$ para
         $p_{\vx}$).}
-        \Require{Scale and noise level functions \(\alpha, \sigma
+        \Require{Funciones de escala y nivel de ruido \(\alpha, \sigma
         \colon \{t_{\ell}\}_{\ell = 0}^{L} \to \R_{\geq 0}\).}
-        \Require{Guidance strength $\gamma \geq 0$ ($\gamma > 1$ preferred for
-        performance).}
-        \Ensure{A sample \(\hat{\vx}\), approximately from \(p_{\vx
+        \Require{Fuerza de orientación $\gamma \geq 0$ (se recomienda $\gamma > 1$ para
+        un mejor rendimiento).}
+        \Ensure{Una muestra \(\hat{\vx}\), aproximadamente de \(p_{\vx
                 \mid y}(\,\cdot\,
         \mid \nu)\).}
         \Function{DDIMSamplerConditionalCFG}{$\bar{\vx}_{\theta}, \nu, \gamma,
         (t_{\ell})_{\ell = 0}^{L}$}
-        \State{Initialize \(\hat{\vx}_{t_{L}} \sim\) approximate
-            distribution of \(\vx_{t_{L}}\) (VP \(\implies
+        \State{Initializar \(\hat{\vx}_{t_{L}} \sim\) distribución
+            aproximada de \(\vx_{t_{L}}\) (VP \(\implies
         \dNorm(\vzero, \vI)\), VE \(\implies \dNorm(\vzero, t_{L}^{2}\vI)\)).}
         \For{\(\ell = L, L - 1, \dots, 1\)}
-        \State{Compute
+        \State{Calcular
             \begin{equation*}
                 \hat{\vx}_{t_{\ell - 1}} \doteq \frac{\sigma_{t_{\ell
                 - 1}}}{\sigma_{t_{\ell}}}\hat{\vx}_{t_{\ell}} +
@@ -2170,59 +2166,59 @@ class-conditioned sampling with classifier-free guidance in
     \end{algorithmic}
 \end{algorithm}
 
-\textcite{Ho2022-ry} reports strong empirical performance for class-conditional
-image generation with classifier-free guidance, and it has become a mainstay of
-the largest-scale practical diffusion models, such as Stable Diffusion
-\cite{rombach2022high} and its derivatives.
+\textcite{Ho2022-ry} presenta unos sólidos rendimientos empíricos en la generación de imágenes condicionadas por clase
+con orientación sin clasificador, y se ha convertido en un pilar fundamental de
+los modelos de difusión prácticos a mayor escala, como Stable Diffusion
+\cite{rombach2022high} y sus derivados.
 
-\paragraph{What Denoisers Does Classifier-Free Guidance Promote Learning?}
-As we have seen, the derivation of classifier-free guidance is rather opaque and
-empirically motivated,
-giving little insight into the mechanisms behind its strong performance.
-A number of theoretical works have attempted to address this
+\paragraph{¿Qué filtros de ruido promueve aprender la orientación sin clasificador?}
+Como hemos visto, la derivación de la orientación sin clasificador es bastante opaca y
+se basa en la experiencia,
+lo que ofrece poca información sobre los mecanismos que subyacen a su excelente rendimiento.
+Varios trabajos teóricos han intentado abordar esta cuestión
 \cite{Bradley2024-jg,Li2025-li,Wu2024-js}.
-They provide explanations for some parts of the overall CFG
-methodology---itself encompassing denoiser
-parameterization and training, as well as configuration of the guidance strength
-and performance at sampling time.
-Below, following our running theme in the book, we will give an interpretation
-in the simplifying setting of a Gaussian mixture model data distribution and
-denoiser.
-First, we consider \textit{the effect of CFG}: what does a large weight $\gamma
-\gg 1$ promote?
+Ofrecen explicaciones sobre algunos aspectos de la metodología general de CFG,
+que abarca la parametrización y el entrenamiento del denoiser,
+así como la configuración de la intensidad de la guía
+y el rendimiento en el momento del muestreo.
+A continuación, siguiendo el hilo conductor del libro, daremos una interpretación
+en el marco simplificado de una distribución de datos de modelo de mezcla gaussiana y
+un denoiser.
+En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso grande $\gamma
+\gg 1$?
 
 % \yima{Please make messages that the example below try to convey some
 % what more modular. Probably break it into two related parts?}
 \begin{example}\label{example:denoising-gaussian-mixture-cfg}
-    Let us recall the low-rank mixture of Gaussians data generating
-    process we studied in
-    \Cref{example:denoising_gaussian_mixture} (and specifically, the form in
-    \Cref{eq:MoG1}). Given $K \in \bN$ classes, we assume that
+    Recordemos el proceso generador de datos de mezcla gaussiana de rango bajo
+    que estudiamos en el
+    \Cref{example:denoising_gaussian_mixture} (y, concretamente, la forma que aparece en la
+    \Cref{eq:MoG1}). Dadas $K \in \bN$ clases, suponemos que
     \begin{equation}\label{eq:MoG1-ch6}
         \vx \sim \frac{1}{K}\sum_{k = 1}^{K}\dNorm(\vzero,
         \vU_{k}\vU_{k}^{\top}),
     \end{equation}
-    where each \(\vU_{k} \in \O(D, P) \subseteq \R^{D \times P}\) is
-    a matrix with
-    orthogonal columns, and $P \ll D$.
-    Moreover, we assume that the class label $y \in [K]$ is a deterministic
-    function of $\vx$ mapping an example to its corresponding mixture component.
-    We consider the simple noise process
-    \eqref{eq:additive_gaussian_noise_model} studied in \Cref{ch:denoising}, so
-    that $\vx_t = \vx + t \vg$ for all $t \in [0, T]$, with $\vg \sim \cN(\Zero,
+    donde cada \(\vU_{k} \in \O(D, P) \subseteq \R^{D \times P}\) es
+    una matriz con
+    columnas ortogonales, y $P \ll D$.
+    Además, suponemos que la etiqueta de clase $y \in [K]$ es una función determinista
+    de $\vx$ que asigna a cada ejemplo su componente de mezcla correspondiente.
+    Consideramos el proceso de ruido simple
+    \eqref{eq:additive_gaussian_noise_model} estudiado en el \Cref{ch:denoising}, de modo que
+    $\vx_t = \vx + t \vg$ para todo $t \in [0, T]$, con $\vg \sim \cN(\Zero,
     \vI)$.
 
-    Applying the analysis in \Cref{example:denoising_gaussian_mixture} (and the
-        subsequent analysis of the low-rank case, culminating in
-    \Cref{eq:gmm_lowrank_denoiser}), we obtain for the class-conditional optimal
-    denoisers
+    Al aplicar el análisis de \Cref{example:denoising_gaussian_mixture} (y el
+        análisis posterior del caso de rango bajo, que culmina en la
+    \Cref{eq:gmm_lowrank_denoiser}), obtenemos para los eliminadores de ruido óptimos
+    condicionales a la clase
     \begin{equation}\label{eq:gmm_lowrank_denoiser-ch6-classcond}
         \bE[ \vx \mid \vx_t = \vxi, y = \nu ]
         = \frac{1}{1 + t^{2}}
         \vU_{\nu}\vU_{\nu}^{\top}\vxi
     \end{equation}
-    for each $\nu \in [K]$, and for the optimal unconditional
-    denoiser, we obtain
+    para cada $\nu \in [K]$ y para el eliminador de ruido incondicional óptimo,
+    obtenemos
     \begin{equation}\label{eq:gmm_lowrank_denoiser-ch6-uncond}
         \bE[ \vx \mid \vx_t = \vxi ]
         = \frac{1}{1 + t^{2}}\sum_{k =
@@ -2231,8 +2227,8 @@ First, we consider \textit{the effect of CFG}: what does a large weight $\gamma
             1}^{K}\exp\rp{\frac{1}{2t^{2}(1 +
         t^{2})}\norm{\vU_{i}^{\top}\vxi}_{2}^{2}}}\vU_{k}\vU_{k}^{\top}\vxi.
     \end{equation}
-    As a result, we can express the CFG denoiser with guidance strength $\gamma
-    > 1$ as
+    Por lo tanto, podemos expresar el filtro de ruido CFG con una fuerza de guía $\gamma
+    > 1$ como
     \begin{equation}\label{eq:cfg-denoiser-mog-low-rank}
         \begin{split}
             \bar{\vx}^{\mathrm{CFG,\,ideal}}(t, \vx_t, y)
@@ -2254,16 +2250,15 @@ First, we consider \textit{the effect of CFG}: what does a large weight $\gamma
         \end{split}
     \end{equation}
 
-    This denoiser has a simple, interpretable form:
+    Este filtro de eliminación de ruido tiene una forma sencilla e interpretable:
     \begin{enumerate}
-        \item The first term, corresponding to \textit{the unconditional
-            denoiser},
-            performs denoising of the signal $\vx_t$ against an average of the
-            denoisers associated with each subspace, weighted by how correlated
-            $\vx_t$ is with each subspace.
-        \item The second term, corresponding to \textit{the conditional
-            denoiser}, simply performs denoising with the conditioning class's
-            denoiser.
+        \item El primer término, correspondiente al \textit{filtro de ruido incondicional},
+            realiza el proceso de eliminación de ruido de la señal $\vx_t$ comparándola con un promedio de los
+            filtros de ruido asociados a cada subespacio, ponderado por el grado de correlación
+            que existe entre $\vx_t$ y cada subespacio.
+        \item El segundo término, correspondiente al \textit{filtro de ruido condicional}, 
+            simplemente realiza el proceso de eliminación de ruido utilizando el filtro de ruido 
+            de la clase de condicionamiento.
     \end{enumerate}
 
     The CFG scheme averages these two denoisers.

@@ -48,7 +48,7 @@ En términos generales, una buena representación o autocodificación debería
 permitirnos utilizar la distribución de baja dimensión aprendida de los
 datos $\x$ y su representación $\z$ para diversas tareas posteriores
 de clasificación, estimación y generación en diferentes
-condiciones. Como ya hemos mencionado anteriormente en el capítulo \ref{ch:intro}
+condiciones. Como ya hemos mencionado anteriormente en el Capítulo \ref{ch:intro}
 , la importancia de la
 {\em baja dimensionalidad} de la distribución es clave para que podamos
 realizar inferencias estables y robustas relacionadas con los datos $\x$, tal como
@@ -428,7 +428,7 @@ complejos.
 
 \paragraph{Completamiento de matrices de rango bajo.}
 El problema de el {\em completamiento de matrices
-de rango bajo} es un problema clásico de completación de datos cuando
+de rango bajo} es un problema clásico de completamiento de datos cuando
 su distribución es de baja dimensión y conocida. Consideremos una muestra aleatoria
 de una matriz $\X_o =
 [\x_1, \ldots, \x_n] \in \mathbb{R}^{m\times n}$ del espacio de
@@ -471,7 +471,7 @@ matriz completada es de solo dos. Por lo tanto, la idea fundamental para recuper
 dicha matriz es buscar una matriz que tenga el rango más bajo entre todas las
 matrices que tengan entradas que coincidan con las observadas:
 \begin{equation}
-    \min_{\X} \mbox{rank}(\X) \quad \mbox{subject to}
+    \min_{\X} \mbox{rank}(\X) \quad \mbox{sujeto a}
     \quad
     \Y = \mathcal{P}_{\Omega}(\X).
     \label{eqn:rank-min}
@@ -488,7 +488,7 @@ matriz recuperada $\X$ imponiendo que la tasa de codificación con pérdida (o e
 volumen generado por $\X$) de los datos en $\X$ sea pequeña:
 \begin{equation}
     \min R_\epsilon(\X) = \frac{1}{2} \log \det \left(\boldsymbol{I} +
-    \alpha  \X\X^\top \right) \quad \mbox{subject to}
+    \alpha  \X\X^\top \right) \quad \mbox{sujeto a}
     \quad
     \Y = \mathcal{P}_{\Omega}(\X).
     \label{eqn:rate-min}
@@ -513,7 +513,7 @@ caracterizadas sistemáticamente en \cite{Wright-Ma-2022}.} el problema del
 completamiento de matrices \eqref{eqn:rank-min}
 puede resolverse eficazmente mediante el siguiente programa convexo:
 \begin{equation}
-    \min \|\X\|_* \quad \mbox{subject to}
+    \min \|\X\|_* \quad \mbox{sujeto a}
     \quad
     \Y = \mathcal{P}_{\Omega}(\X),
     \label{eqn:nuclear-min}
@@ -654,7 +654,7 @@ en el Capítulo \ref{ch:applications} \Cref{sec:image_completion}.
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.99\textwidth]{\toplevelprefix/chapters/chapter7/figs/crate_mae_autoencoding_small.pdf}
-    \caption{\small \textbf{Visualizaciones de autoencodificación de CRATE-Base
+    \caption{\small \textbf{Visualizaciones de autocodificación de CRATE-Base
         y ViT-MAE-Base \cite{he2022masked} con el 75\% de los fragmentos enmascarados.}
         Observamos que las reconstrucciones de CRATE-Base están a la par
         con las de ViT-MAE-Base, a pesar de utilizar \(<1/3\) 
@@ -1087,7 +1087,7 @@ de todo el proceso, a partir de los que hemos desarrollado en la
     La forma funcional de este filtro de ruido es bastante sencilla, pero presenta una
     dependencia poco manejable de los datos del problema $\vmu$, $\vSigma$, $\vA$ y
     $\sigma^2$.
-    Podemos comprender mejor su comportamiento comparándolo con
+    Podemos comprender mejor su comportamiento comparándolo con la
     \Cref{eq:posterior-sampling-denoiser-decomposition}.
     Tenemos, como de costumbre
     \begin{equation}\label{eq:posterior-denoiser-gaussian-case}
@@ -1178,7 +1178,7 @@ de todo el proceso, a partir de los que hemos desarrollado en la
     \end{eqnarray}
     Esto nos proporciona una descomposición más interpretable del
     filtro de ruido posterior condicional
-    \eqref{eq:conditional-posterior-denoiser-gaussian-case}: según
+    \eqref{eq:conditional-posterior-denoiser-gaussian-case}: según la
     \Cref{eq:posterior-sampling-denoiser-decomposition}, es la suma del
     denoiser posterior incondicional \eqref{eq:posterior-denoiser-gaussian-case}
     y el término de coincidencia de la medición
@@ -1246,19 +1246,19 @@ de todo el proceso, a partir de los que hemos desarrollado en la
 
 \end{example}
 
-Let us take some time to interpret the results of
-\Cref{example:denoising-conditional-gaussian} before we generalize it.
-The approximation
+Dediquemos un momento a interpretar los resultados del
+\Cref{example:denoising-conditional-gaussian} antes de generalizarlos.
+La aproximación
 \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}
-is, of course, a direct consequence of the specific modeling assumptions we have
-made in \Cref{example:denoising-conditional-gaussian}. However, notice
-that if we directly interpret this approximation, it is \textit{ab initio}
-tractable: the likelihood $p_{\vy \mid \vx} = \cN(\vA\vx, \sigma^2 \vI)$ is
-a simple Gaussian distribution centered at the observation, and the
-approximation to the measurement matching term that we arrive at can be
-interpreted as simply evaluating the log-likelihood at the conditional
-expectation $\bE[\vx \mid \vx_t = \vxi]$, then taking gradients with respect
-to $\vxi$ (which involves backpropagating through the conditional expectation).
+es, por supuesto, una consecuencia directa de los supuestos de modelado específicos que hemos
+establecido en el \Cref{example:denoising-conditional-gaussian}. Sin embargo, fíjate
+en que, si interpretamos directamente esta aproximación, resulta \textit{ab initio}
+manejable: la verosimilitud $p_{\vy \mid \vx} = \cN(\vA\vx, \sigma^2 \vI)$ es
+una simple distribución gaussiana centrada en la observación, y la
+aproximación al término de coincidencia de la medición a la que llegamos puede
+interpretarse simplemente como la evaluación de la log-verosimilitud en la
+esperanza condicional $\bE[\vx \mid \vx_t = \vxi]$, y luego tomar los gradientes con respecto
+a $\vxi$ (lo cual implica realizar una retropropagación a través de la esperanza condicional).
 %Nevertheless, note that the approximation in
 %\Cref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}
 %requires $t \ll \sqrt{\lambda_{\min}(\vSigma)}$, and that it is never accurate
@@ -1292,80 +1292,80 @@ to $\vxi$ (which involves backpropagating through the conditional expectation).
         \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter7/figs/samples_step_100_t_0_smallnoise.png}
     \end{subfigure}
 
-    \caption{Numerical simulation of the conditional sampling setup
-        \eqref{eq:measurement-matching-observation}, with Gaussian data, linear
-        measurements, and Gaussian noise. We simulate $D=2$ and
-        $d=1$, with $\vSigma
-        = \ve_1 \ve_1^\top + \tfrac{1}{4} \ve_2 \ve_2^\top$, $\vmu = \Zero$, and
-        $\vA = \ve_1^\top$. The underlying signal $\vx$ is marked
-        with a black star,
-        and the measurement $\vy$ is marked with a black circle.
-        Each individual plot corresponds to a different value of sampler time
-        $t_{\ell}$, with different rows corresponding to different
-        observation noise
-        levels $\sigma^2$.
-        In each plot, the covariance matrix of $\vx$ is plotted in gray, the
-        posterior covariance matrix and posterior mean of $p_{\vx \mid \vy}$ are
-        plotted in blue (with the posterior mean marked by a blue ``x''), and
-        contours for $p_{\vx_{t_{\ell}} \mid \vy}$ are drawn in
-        green. The sampler
-        hyperparameters are $T=1$, $L=100$, and we draw $100$
-        independent samples to initialize the samplers. Samplers are implemented
-        with the closed-form denoisers derived in
-        \Cref{example:denoising-conditional-gaussian}, with those using the
-        approximation
+    \caption{Simulación numérica de la configuración de muestreo condicional
+        \eqref{eq:measurement-matching-observation}, con datos gaussianos, mediciones lineales
+        y ruido gaussiano. Simulamos $D=2$ y
+        $d=1$, con $\vSigma
+        = \ve_1 \ve_1^\top + \tfrac{1}{4} \ve_2 \ve_2^\top$, $\vmu = \Zero$ y
+        $\vA = \ve_1^\top$. La señal subyacente $\vx$ está marcada
+        con una estrella negra,
+        y la medición $\vy$ está marcada con un círculo negro.
+        Cada gráfico individual corresponde a un valor diferente del tiempo de muestreo
+        $t_{\ell}$, y las distintas filas corresponden a diferentes
+        niveles de ruido de observación
+        $\sigma^2$.
+        En cada gráfico, la matriz de covarianza de $\vx$ se representa en gris, la
+        matriz de covarianza a posteriori y la media a posteriori de $p_{\vx \mid \vy}$ se
+        representadas en azul (con la media a posteriori marcada con una «x» azul), y
+        los contornos de $p_{\vx_{t_{\ell}} \mid \vy}$ se dibujan en
+        verde. Los hiperparámetros
+        del muestreador son $T=1$ y $L=100$, y extraemos $100$
+        muestras independientes para inicializar los muestreadores. Los muestreadores se implementan
+        con los eliminadores de ruido de forma cerrada derivados en el
+        \Cref{example:denoising-conditional-gaussian}, estando los que utilizan la
+        aproximación
         \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}
-        marked with red triangles, and those using the exact
-        conditional posterior
-        denoiser marked with blue circles.
-        \textbf{Top:} For large observation noise $\sigma = 0.5$, both the exact
-        conditional posterior denoiser and the approximate one do a good job of
-        converging to the posterior $p_{\vx \mid \vy}$. Sampling time
-        (corresponding
-        to time in the ``forward process'', so larger times mean larger noise)
-        decreases from left to right.  The convergence dynamics for
-        the exact and
-        approximate measurement matching term are similar. \textbf{Bottom:} For
-        smaller observation noise $\sigma = 0.1$, the
-        approximate measurement matching term leads to extreme bias
-        in the sampler
-        (red triangles): samples rapidly converge to an affine subspace
-        of points that are consistent, modulo some shrinkage from the
-        posterior mean
-        denoiser, with the measured ground truth, and later sampling
-        iterations are
-        unable to recover the lost posterior variance along this dimension. Note
-        that different times $t_{\ell}$ are plotted in the bottom
-        row, compared to
-        the top row, to show the rapid collapse of the approximation to the
-    posterior along the measurement dimension.}
+        marcados con triángulos rojos y los que utilizan el eliminador de ruido
+        posterior condicional
+        exacto marcados con círculos azules.
+        \textbf{Arriba:} Para un ruido de observación elevado $\sigma = 0.5$, tanto el
+        denoiser posterior condicional exacto como el aproximado
+        convergen satisfactoriamente hacia la distribución posterior $p_{\vx \mid \vy}$. El tiempo de muestreo
+        (que corresponde
+        al tiempo en el «proceso directo», por lo que tiempos más largos implican un ruido mayor)
+        disminuye de izquierda a derecha. La dinámica de convergencia para
+        el término de ajuste de la medición exacta y
+        el de la aproximada es similar. \textbf{Parte inferior:} Para
+        un ruido de observación menor $\sigma = 0.1$, el
+        término de coincidencia de mediciones aproximadas da lugar a un sesgo extremo
+        en el muestreador
+        (triángulos rojos): las muestras convergen rápidamente hacia un subespacio afín
+        de puntos que son consistentes, módulo cierta contracción del
+        denoiser de media a posteriori,
+        con la verdad fundamental medida, y las iteraciones de muestreo posteriores
+        son
+        incapaces de recuperar la varianza a posteriori perdida a lo largo de esta dimensión. Note
+        que en la fila inferior se representan diferentes instantes $t_{\ell}$,
+        en comparación con
+        la fila superior, para mostrar el rápido colapso de la aproximación a la
+    distribución a posteriori a lo largo de la dimensión de medición.}
     \label{fig:conditional_sampling_computational_gaussian}
 \end{figure}
 
-To gain insight into the effect of the convenient approximation
+Para comprender mejor el efecto de la aproximación conveniente
 \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx},
-we implement and simulate a simple numerical experiment in the Gaussian
-setting in \Cref{fig:conditional_sampling_computational_gaussian}.
-The sampler we implement is a direct implementation of the simple scheme
-\eqref{eq:denoising-iteration-basic} we have developed in \Cref{ch:denoising}
-and recalled above, using the true conditional posterior denoiser, i.e.\
-\Cref{eq:conditional-posterior-denoiser-gaussian-case} (samples are marked with
-blue circles), and the
-convenient approximation to this denoiser made through the measurement
-matching approximation
+implementamos y simulamos un sencillo experimento numérico en el contexto gaussiano
+que se muestra en la \Cref{fig:conditional_sampling_computational_gaussian}.
+El muestreador que implementamos es una implementación directa del esquema simple
+\eqref{eq:denoising-iteration-basic} que hemos desarrollado en el \Cref{ch:denoising}
+y que hemos recordado anteriormente, utilizando el verdadero denoiser posterior condicional, es decir,
+la \Cref{eq:conditional-posterior-denoiser-gaussian-case} (las muestras están marcadas con
+círculos azules) y la
+aproximación conveniente a este denoiser realizada mediante la aproximación de
+coincidencia de medidas
 \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}
-(samples are marked with red triangles).
-The top row of \Cref{fig:conditional_sampling_computational_gaussian} shows
-a setting with large measurement noise $\sigma^2$, and the bottom with small
-measurement noise.
-The measurement matching approximation works very well in the large-noise
-setting, with the caveat that in the small-noise setting, it suffers from
+(las muestras están marcadas con triángulos rojos).
+La fila superior de la \Cref{fig:conditional_sampling_computational_gaussian} muestra
+una configuración con un ruido de medición elevado $\sigma^2$, y la inferior, con un
+ruido de medición reducido.
+La aproximación de coincidencia de mediciones funciona muy bien en la configuración de ruido elevado,
+con la salvedad de que, en la configuración de ruido bajo, adolece de
 %We see that even in the simple Gaussian setting, the approximation to the
 %measurement matching term we have made is not without its
 %drawbacks---specifically, at small noise levels $\sigma^2 \ll 1$, it leads to
-rapid collapse of the variance of the sampling distribution along directions
-that are parallel to the rows of the linear measurement operator $\vA$, which
-cannot be corrected by later iterations of sampling.
+un rápido colapso de la varianza de la distribución muestral en direcciones
+paralelas a las filas del operador de medición lineal $\vA$, lo cual
+no puede corregirse mediante iteraciones posteriores del muestreo.
 %We can intuit this from
 %the approximation
 %\eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}
@@ -1376,45 +1376,45 @@ cannot be corrected by later iterations of sampling.
 %large step size on the likelihood, via
 %\Cref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx},
 %which leads the sampling distribution to get ``stuck'' in a collapsed state.
-Our analysis in \Cref{example:denoising-conditional-gaussian} precisely
-characterizes the level at which the noise becomes too ``small'' in terms of the
-data covariance matrix $\vSigma$.
+Nuestro análisis en el \Cref{example:denoising-conditional-gaussian} caracteriza con precisión
+el nivel en el que el ruido se vuelve demasiado «pequeño» en términos de la
+matriz de covarianza de los datos $\vSigma$.
 
-\paragraph{Generalizing the approximation: Diffusion Posterior Sampling.}
-\Cref{example:denoising-conditional-gaussian} suggests a convenient
-approximation for the measurement matching term, i.e.\
+\paragraph{Generalización de la aproximación: muestreo posterior por difusión.}
+El \Cref{example:denoising-conditional-gaussian} propone una aproximación conveniente
+para el término de coincidencia de la medición, es decir,
 \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx},
-which can be made beyond the Gaussian setting of the example. To
-motivate this approximation in greater generality, notice that
-by conditional independence of $\vy$ and $\vx_t$ given $\vx$, we can write
+que puede extenderse más allá del marco gaussiano del ejemplo. Para
+justificar esta aproximación de manera más general, observe que
+por la independencia condicional de $\vy$ y $\vx_t$ dado $\vx$, podemos escribir
 \begin{equation}
     p_{\vy \mid \vx_t}(\vnu \mid \vxi)
     =
     \int p_{\vy \mid \vx}(\vnu \mid \vxi') p_{\vx \mid \vx_t}(\vxi' \mid \vxi)
     \odif  \vxi'.
 \end{equation}
-Formally, when the posterior $p_{\vx\mid \vx_t}$ is a delta function centered at
-its mean $\bE[\vx \mid \vx_t=\vxi]$, the approximation
-\eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx} is
-exact. More generally, when the posterior $p_{\vx \mid \vx_t}$ is highly
-concentrated around its mean, the approximation
-\eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx} is
-accurate. This holds, for example, for sufficiently small $t$, which we saw
-explicitly in the Gaussian setting of
+Formalmente, cuando la distribución a posteriori $p_{\vx\mid \vx_t}$ es una función delta centrada en
+su media $\bE[\vx \mid \vx_t=\vxi]$, la aproximación
+\eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx} es
+exacta. De manera más general, cuando la distribución a posteriori $p_{\vx \mid \vx_t}$ está muy
+concentrada alrededor de su media, la aproximación
+\eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx} es
+precisa. Esto se cumple, por ejemplo, para valores de $t$ suficientemente pequeños, como vimos
+explícitamente en el contexto gaussiano de
 \Cref{example:denoising-conditional-gaussian}.
-Although the numerical simulation in
-\Cref{fig:conditional_sampling_computational_gaussian} suggests that this
-approximation is not without its caveats in certain regimes, it has proved to be
-a reliable baseline in practice, after being proposed by Chung et al.\ as
-``Diffusion Posterior Sampling'' (DPS) \cite{chung2023diffusion}.
-In addition, there are even principled and generalizable approaches
-to improve it by
-incorporating better estimates of the posterior variance (which turn out to be
-exact in the Gaussian setting of \Cref{example:denoising-conditional-gaussian}),
-which we discuss further in the end-of-chapter summary.
+Aunque la simulación numérica en
+\Cref{fig:conditional_sampling_computational_gaussian} sugiere que esta
+aproximación no está exenta de salvedades en ciertos regímenes, ha demostrado ser
+una referencia confiable en la práctica, tras haber sido propuesta por Chung et al. como
+«Muestreo posterior por difusión» (DPS) \cite{chung2023diffusion}.
+Además, existen enfoques racionales y generalizables
+para mejorarlo mediante
+la incorporación de mejores estimaciones de la varianza posterior (que resultan ser
+exactas en el contexto gaussiano de \Cref{example:denoising-conditional-gaussian}),
+que analizamos con más detalle en el resumen al final del capítulo.
 
-Thus, with the DPS approximation, we arrive at the following approximation for
-the conditional posterior denoisers $\bE[\vx \mid \vy, \vx_t]$, via
+Así, con la aproximación DPS, obtenemos la siguiente aproximación para
+los filtros de ruido posteriores condicionales $\bE[\vx \mid \vy, \vx_t]$, mediante
 \Cref{eq:posterior-sampling-denoiser-decomposition}:
 \begin{equation}
     \bE[ \vx \mid \vx_t=\vxi, \vy=\vnu]
@@ -1424,10 +1424,10 @@ the conditional posterior denoisers $\bE[\vx \mid \vy, \vx_t]$, via
     \vx_t = \vxi]).
     \label{eq:posterior-sampling-denoiser-decomposition-dps}
 \end{equation}
-And, for a neural network or other model $\bar{\vx}_{\theta}(t, \vxi)$
-trained as in \Cref{sub:compression_denoising} to approximate the denoisers
-$\bE[\vx \mid \vx_t = \vxi]$ for each $t \in [0, T]$, we arrive at the learned
-conditional posterior denoisers
+Y, para una red neuronal u otro modelo $\bar{\vx}_{\theta}(t, \vxi)$
+entrenado como en la \Cref{sub:compression_denoising} para aproximar los filtros de ruido
+$\bE[\vx \mid \vx_t = \vxi]$ para cada $t \in [0, T]$, obtenemos los filtros de ruido
+posteriores condicionales aprendidos
 \begin{equation}
     \bar{\vx}_{\theta}(t, \vxi, \vnu)
     = \bar{\vx}_{\theta}(t, \vxi)
@@ -1435,13 +1435,13 @@ conditional posterior denoisers
     \vxi)).
     \label{eq:posterior-sampling-denoiser-learned-dps}
 \end{equation}
-Note that the approximation
-\eqref{eq:posterior-sampling-denoiser-decomposition-dps} is valid for arbitrary
-forward models $h$ in the
-observation model \eqref{eq:measurement-matching-observation}, including
-nonlinear $h$, and even to
-arbitrary noise models for which a clean expression for the likelihood $p_{\vy
-\mid \vx}$ is known. Indeed, in the case of Gaussian noise, we have
+Tenga en cuenta que la aproximación
+\eqref{eq:posterior-sampling-denoiser-decomposition-dps} es válida para modelos directos arbitrarios
+$h$ en el
+modelo de observación \eqref{eq:measurement-matching-observation}, incluidos
+los $h$ no lineales e incluso para
+modelos de ruido arbitrarios para los que se conoce una expresión clara de la verosimilitud $p_{\vy
+\mid \vx}$. De hecho, en el caso del ruido gaussiano, tenemos
 \begin{equation}
     p_{\vy \mid \vx}(\vnu \mid \vxi)
     \propto
@@ -1449,52 +1449,52 @@ arbitrary noise models for which a clean expression for the likelihood $p_{\vy
         -\frac{1}{2\sigma^2} \norm*{ h(\vxi) - \vnu }_2^2
     \right).
 \end{equation}
-Hence, evaluating the right-hand side of
+Por lo tanto, para evaluar el lado derecho de
 \eqref{eq:posterior-sampling-denoiser-learned-dps}
-requires only
+solo se necesita
 \begin{enumerate}
-    \item A pretrained denoiser $\bar{\vx}_{\theta}(t, \vxi)$ for the
-        data distribution $p$
-        (of $\vx$), learned as in \Cref{sub:compression_denoising} via
+    \item Un filtro de ruido preentrenado $\bar{\vx}_{\theta}(t, \vxi)$ para la
+        distribución de datos $p$
+        (de $\vx$), aprendido como se indica en la \Cref{sub:compression_denoising} mediante el
         \Cref{alg:learning_denoiser};
-    \item Forward and backward pass access to the forward model $h$ for the
-        measurements \eqref{eq:measurement-matching-observation};
-    \item A forward and backward pass through $\bar{\vx}_{\theta}(t,
-        \vxi)$, which can be evaluated
-        efficiently using (say) backpropagation.
+    \item Acceso mediante pases hacia adelante y hacia atrás al modelo predictivo $h$ para las
+        mediciones \eqref{eq:measurement-matching-observation};
+    \item Un paso hacia adelante y hacia atrás a través de $\bar{\vx}_{\theta}(t,
+        \vxi)$, que puede evaluarse
+        de manera eficiente utilizando (por ejemplo) la retropropagación.
 \end{enumerate}
 
 \begin{algorithm}
-    \caption{Conditional sampling under measurements
-        \eqref{eq:measurement-matching-observation}, with an
-    unconditional denoiser and DPS.}
+    \caption{Muestreo condicional bajo mediciones
+        \eqref{eq:measurement-matching-observation}, con un
+    filtro de ruido incondicional y DPS.}
     \label{alg:iterative_denoising_conditional_DPS}
     \begin{algorithmic}[1]
-        \Require{An ordered list of timesteps \(0 \leq t_{0} < \cdots
-        < t_{L} \leq T\) to use for sampling.}
-        \Require{An unconditional denoiser \(\bar{\vx}_{\theta} \colon
-        \{t_{\ell}\}_{\ell = 1}^{L} \times \R^{D} \to \R^{D}\) for $p_{\vx}$.}
-        \Require{Measurement realization $\vnu$ of $\vy$
-        (\Cref{eq:measurement-matching-observation}) to condition on.}
-        \Require{Forward model $h : \bR^D \to \bR^d$ and measurement
-            noise variance
+        \Require{Una lista ordenada de intervalos de tiempo \(0 \leq t_{0} < \cdots
+        < t_{L} \leq T\) que se utilizarán para el muestreo.}
+        \Require{Un filtro de ruido incondicional \(\bar{\vx}_{\theta} \colon
+        \{t_{\ell}\}_{\ell = 1}^{L} \times \R^{D} \to \R^{D}\) para $p_{\vx}$.}
+        \Require{Realización de la medición $\vnu$ de $\vy$
+        (\Cref{eq:measurement-matching-observation}) para condicionar.}
+        \Require{Modelo directo $h : \bR^D \to \bR^d$ y
+            varianza del ruido de medición
         $\sigma^2 > 0$.}
-        \Require{Scale and noise level functions \(\alpha, \sigma
+        \Require{Funciones de escala y nivel de ruido \(\alpha, \sigma
         \colon \{t_{\ell}\}_{\ell = 0}^{L} \to \R_{\geq 0}\).}
-        \Ensure{A sample \(\hat{\vx}\), approximately from \(p_{\vx
+        \Ensure{Una muestra \(\hat{\vx}\), aproximadamente a partir de \(p_{\vx
         \mid \vy}\).}
         \Function{DDIMSamplerConditionalDPS}{$\bar{\vx}_{\theta},
             \vnu, h, \sigma^2,
         (t_{\ell})_{\ell = 0}^{L}$}
-        \State{Initialize \(\hat{\vx}_{t_{L}} \sim\) approximate
-            distribution of \(\vx_{t_{L}}\) %
+        \State{Inicializar \(\hat{\vx}_{t_{L}} \sim\) distribución aproximada
+            de \(\vx_{t_{L}}\) %
             % \Comment{VP \(\implies
             % \dNorm(\vzero, \vI)\), VE \(\implies \dNorm(\vzero,
             % t_{L}^{2}\vI)\).}
             (VP \(\implies
         \dNorm(\vzero, \vI)\), VE \(\implies \dNorm(\vzero, t_{L}^{2}\vI)\).)}
         \For{\(\ell = L, L - 1, \dots, 1\)}
-        \State{Compute
+        \State{Calcular
             \begin{align*}
                 w_{t_{\ell-1}} &\doteq \alpha_{t_{\ell
                 - 1}} - \frac{\sigma_{t_{\ell
@@ -1517,22 +1517,22 @@ requires only
     \end{algorithmic}
 \end{algorithm}
 
-Combining this scheme with the basic implementation of unconditional sampling we
-developed in \Cref{sub:compression_denoising}, we obtain a practical
-algorithm for
-conditional sampling of the posterior $p_{\vx \mid \vy}$ given measurements
-following \eqref{eq:measurement-matching-observation}.
-\Cref{alg:iterative_denoising_conditional_DPS} records this scheme
-for the case of
-Gaussian observation noise with known standard deviation $\sigma$, with minor
-modifications to extend to a general noising process, as in
-\Cref{eq:gen_additive_gaussian_noise_model} and the surrounding discussion in
-\Cref{ch:denoising} (our discussion above made the simplifying
-    choices $\alpha_t = 1$, $\sigma_t = t$, and
-    $t_{\ell} = T\ell / L$, as for \Cref{eq:denoising-iteration-basic} in
+Al combinar este esquema con la implementación básica del muestreo incondicional que
+desarrollamos en la \Cref{sub:compression_denoising}, obtenemos un algoritmo práctico
+para el
+muestreo condicional de la distribución a posteriori $p_{\vx \mid \vy}$ dada las mediciones,
+siguiendo \eqref{eq:measurement-matching-observation}.
+\Cref{alg:iterative_denoising_conditional_DPS} describe este esquema
+para el caso de
+ruido de observación gaussiano con desviación estándar conocida $\sigma$, con ligeras
+modificaciones para extenderlo a un proceso de ruido general, como en
+\Cref{eq:gen_additive_gaussian_noise_model} y la discusión que lo rodea en
+\Cref{ch:denoising} (nuestra discusión anterior tomó las decisiones simplificadoras
+    $\alpha_t = 1$, $\sigma_t = t$ y
+    $t_{\ell} = T\ell / L$, como para \Cref{eq:denoising-iteration-basic} en
 \Cref{sub:compression_denoising}).
 
-\paragraph{Application to medical image reconstruction.}
+\paragraph{Aplicación a la reconstrucción de imágenes médicas.}
 
 \begin{figure}[t]
     \centering
@@ -1556,25 +1556,24 @@ modifications to extend to a general noising process, as in
         \caption{}
     \end{subfigure}
 
-    \caption{Simplified overview of magnetic resonance imaging (MRI)
-        reconstruction.
-        \textbf{(a)} An overview of the imaging process. A slice of
-        the object being
-        imaged (say, a human brain) is measured in the Fourier domain
-        via the MRI
-        machine. The spatial image can be reconstructed via direct
-        inversion of the
-        Fourier domain measurements. \textbf{(b)} In practice, the MRI machine
-        \textit{subsamples} the Fourier domain via a structured
-        sampling pattern for
-        the sake of efficiency. This creates a linear inverse
-        problem, where priors
-        about the structure of the underlying image must be exploited
-        to enable unique
-        reconstruction. \textbf{(c)} The actual measurement apparatus uses
-        a controlled magnetic field to obtain the Fourier domain
-        measurements. Images
-        reproduced with permission from \cite{Wright-Ma-2022}.
+    \caption{Resumen simplificado de la reconstrucción de imágenes por resonancia magnética (RM)
+        .
+        \textbf{(a)} Resumen del proceso de obtención de imágenes. Un corte
+        del objeto cuya imagen se está
+        captando (por ejemplo, un cerebro humano) se mide en el dominio de Fourier
+        mediante el equipo de RM. La imagen espacial puede reconstruirse mediante la
+        inversión directa de las
+        mediciones en el dominio de Fourier. \textbf{(b)} En la práctica, el equipo de resonancia magnética
+        \textit{submuestrea} el dominio de Fourier mediante un patrón de muestreo
+        estructurado
+        en aras de la eficiencia. Esto da lugar a un problema inverso lineal,
+        en el que se deben aprovechar los datos previos
+        sobre la estructura de la imagen subyacente
+        para permitir una reconstrucción
+        única. \textbf{(c)} El aparato de medición real utiliza
+        un campo magnético controlado para obtener las mediciones
+        en el dominio de Fourier. Imágenes
+        reproducidas con permiso de \cite{Wright-Ma-2022}.
     }\label{fig:mri-reconstruction}
 \end{figure}
 
@@ -1587,77 +1586,77 @@ modifications to extend to a general noising process, as in
 %  \item NeurIPS 2024 patch diffusion models (efficiency focus)
 %\end{enumerate}
 
-The framework that we have developed above is already powerful enough to be
-applied to solve various \textit{scientific inverse problems}, where
-the measurements
-$\vy = h(\vx_o) + \vw$ are the outputs of a known measurement process $h$ on
-a specific signal of interest $\vx_o$, and where there are infinitely many
-possible signals $\vx$ that satisfy $\vy = h(\vx) + \vw$. This means that to
-find the \textit{true} $\vx_o$ that generated $\vy$, we need to exploit prior
-information about the structure of $\vx_o$.
-We will consider the probabilistic setting where $\vx_o \sim p_{\vx}$, and where
-we have access to a prior on $p_{\vx}$, say in the form of a diffusion model.
+El marco que hemos desarrollado anteriormente ya es lo suficientemente potente como para
+aplicarse a la resolución de diversos \textit{problemas científicos inversos}, en los que
+las mediciones
+$\vy = h(\vx_o) + \vw$ son los resultados de un proceso de medición conocido $h$ sobre
+una señal específica de interés $\vx_o$ y donde hay infinitas
+señales posibles $\vx$ que satisfacen $\vy = h(\vx) + \vw$. Esto significa que, para
+encontrar el $\vx_o$ \textit{verdadero} que generó $\vy$, necesitamos aprovechar la información previa
+sobre la estructura de $\vx_o$.
+Consideraremos el marco probabilístico en el que $\vx_o \sim p_{\vx}$, y en el que
+tenemos acceso a una distribución a priori de $p_{\vx}$, por ejemplo, en forma de un modelo de difusión.
 
-An instructive example of a scientific inverse problem is magnetic resonance
-imaging (MRI) (\Cref{fig:mri-reconstruction}), wherein the data distribution
-$p_{\vx}$ is over images corresponding to an underlying object of interest (such as
-a 2D slice of a human subject's brain). In MRI applications, the measurement
-operator $h$ corresponds to the machine generating and modulating the magnetic
-field and recording the patient's response to it
-(\Cref{fig:mri-reconstruction}(c)). It can be modeled as implementing the
-\textit{Fourier transform} of the underlying spatial signal
-(\Cref{fig:mri-reconstruction}(a))---see \cite[Chapter 10]{Wright-Ma-2022} for
-a detailed mathematical derivation.
-In addition, for efficiency's sake, the MRI machine typically only measures
-a subset of the measured frequencies, in a structured measurement pattern that
-can be modeled as either a radial or a spiral pattern
-(\Cref{fig:mri-reconstruction}(b)). Writing $\cF$ to denote the
-(discrete) Fourier
-transform operator and $\cS$ to denote the machine's (known) subsampling
-pattern, the measured signal is then
+Un ejemplo ilustrativo de un problema científico inverso es la resonancia magnética
+(RM) (\Cref{fig:mri-reconstruction}), en la que la distribución de datos
+$p_{\vx}$ se aplica a imágenes correspondientes a un objeto de interés subyacente (como
+un corte bidimensional del cerebro de un sujeto humano). En aplicaciones de RM, el operador de medición
+$h$ corresponde a la máquina que genera y modula el campo magnético
+y registra la respuesta del paciente al mismo
+(\Cref{fig:mri-reconstruction}(c)). Se puede modelar como implementación de la
+\textit{transformada de Fourier} de la señal espacial subyacente
+(\Cref{fig:mri-reconstruction}(a))---véase \cite[Capítulo 10]{Wright-Ma-2022} para
+una derivación matemática detallada.
+Además, en aras de la eficiencia, la máquina de resonancia magnética normalmente solo mide
+un subconjunto de las frecuencias medidas, en un patrón de medición estructurado que
+puede modelarse como un patrón radial o espiral
+(\Cref{fig:mri-reconstruction}(b)). Si escribimos $\cF$ para denotar el
+operador de la transformada de Fourier
+(discreta) y $\cS$ para denotar el patrón de submuestreo (conocido)
+de la máquina, la señal medida viene dada por
 \begin{equation}\label{eq:mri-measurement}
     \vy = \cS \circ \cF(\vx_o) + \vw.
 \end{equation}
-The measurement operator $\cS \circ \cF$ is \textit{linear}, implying that it
-can be represented by a $m \times n$ matrix after appropriate reshaping, but it
-is also \textit{compressive}, which means that $m \ll n$ and that we need to
-exploit prior knowledge about $p_{\vx}$ to reconstruct $\vx_o$ (or more
-generally to sample from the posterior $p_{\vx \mid \vy}$).
+El operador de medición $\cS \circ \cF$ es \textit{lineal}, lo que implica que
+puede representarse mediante una matriz $m \times n$ tras la transformación adecuada, pero
+también es \textit{compresivo}, lo que significa que $m \ll n$ y que necesitamos
+aprovechar el conocimiento previo sobre $p_{\vx}$ para reconstruir $\vx_o$ (o, de manera más
+general, para tomar muestras de la distribución a posteriori $p_{\vx \mid \vy}$).
 
-The distribution
-$p_{\vx}$ of MRI images is simpler than some image distributions (e.g., natural
-images), but it is still complex enough to benefit from using a learned model
-for $p_{\vx}$ rather than an analytical one (cf.\ \cite{Wright-Ma-2022}).
-One direct approach is to apply the diffusion posterior sampling approximation
-we developed in the previous section, which led to
-\Cref{alg:iterative_denoising_conditional_DPS}, with the specific MRI
-measurement operator $\vA = \cS \circ \cF$ and a diffusion model pretrained on
-MRI data.
-This precise combination of approaches has not appeared in the literature.
-Instead, we highlight results from a different but related approach, which
-enforces measurement consistency on each diffusion step.
-Following the pioneering work of \textcite{song2022solving}, numerous
-such measurement consistency algorithms for medical image
-reconstruction have been
-developed, including the improved approaches of \textcite{song2024solving} and
-\textcite{rout2023solving} (which utilize latent diffusion models, as we have
-    developed for representation autoencoders in
+La distribución
+$p_{\vx}$ de las imágenes de resonancia magnética es más simple que algunas distribuciones de imágenes (por ejemplo, las imágenes naturales),
+pero sigue siendo lo suficientemente compleja como para que resulte ventajoso utilizar un modelo aprendido
+para $p_{\vx}$ en lugar de uno analítico (véase \cite{Wright-Ma-2022}).
+Un enfoque directo consiste en aplicar la aproximación de muestreo posterior por difusión
+que desarrollamos en la sección anterior, lo que dio lugar al
+\Cref{alg:iterative_denoising_conditional_DPS}, con el operador de medición específico de la RM
+$\vA = \cS \circ \cF$ y un modelo de difusión preentrenado con
+datos de RM.
+Esta combinación concreta de enfoques no ha aparecido en la literatura.
+En su lugar, destacamos los resultados de un enfoque diferente, aunque relacionado, que
+garantiza la consistencia de las mediciones en cada paso de difusión.
+A raíz del trabajo pionero de \textcite{song2022solving}, se han
+desarrollado numerosos
+algoritmos de consistencia de mediciones de este tipo para la reconstrucción de imágenes médicas,
+incluidos los enfoques mejorados de \textcite{song2024solving} y
+\textcite{rout2023solving} (que utilizan modelos de difusión latente, tal como los hemos
+    desarrollado para los autocodificadores de representación en el
 \Cref{ch:consistent-representations}).
-\Cref{fig:mri-reconstruction-visual} shows visual comparisons of reconstructed
-MRI images across three different samples, comparing FISTA-TV (a classical,
-    accelerated version of the ISTA algorithm we studied in
+La \Cref{fig:mri-reconstruction-visual} muestra comparaciones visuales de imágenes de
+resonancia magnética reconstruidas en tres muestras diferentes, comparando FISTA-TV (una versión clásica
+    y acelerada del algoritmo ISTA que estudiamos en
 \Cref{ch:classic-models}),
-the measurement consistency diffusion modeling approach of
-\textcite{song2022solving}, and the ground truth. It can be seen that superior
-reconstruction quality is achieved by the diffusion-based method, as well as
-superior faithfulness to fine detail in the ground truth image.
-\Cref{tab:mri-reconstruction} shows MRI reconstruction accuracy results
-(measured in terms of PSNR)
-for the approach developed by \textcite{song2022solving}. It compares favorably
-to supervised baselines (trained on many independent paired samples $(\vy,
-\vx_o)$, which is an additional requirement) and unsupervised baselines (which
-    correspond to measurement matching approximations that came before diffusion
-posterior sampling).
+el enfoque de modelado de difusión basado en la consistencia de las mediciones de
+\textcite{song2022solving} y la verdad de referencia. Se puede observar que el método basado en la difusión
+permite obtener una calidad de reconstrucción superior, así como
+una mayor fidelidad a los detalles finos de la imagen de referencia.
+La \Cref{tab:mri-reconstruction} muestra los resultados de precisión de la reconstrucción de resonancia magnética
+(medidos en términos de PSNR)
+para el enfoque desarrollado por \textcite{song2022solving}. Obtiene buenos resultados
+en comparación con los modelos de referencia supervisados (entrenados con numerosas muestras emparejadas independientes $(\vy,
+\vx_o)$, lo cual es un requisito adicional) y con los modelos de referencia no supervisados (que
+    corresponden a aproximaciones de coincidencia de mediciones anteriores al muestreo
+posterior por difusión).
 
 \begin{figure}[t]
     \centering
@@ -1686,21 +1685,20 @@ posterior sampling).
         \includegraphics[trim={0 0 360pt 0}, clip,
         width=0.3\linewidth]{figs/fista_tv_batch0006.png}
     \end{tabular}
-    \caption{\textbf{Visual comparison of MRI reconstruction methods.}
-        Three example brain MRI reconstructions showing FISTA-TV, the
-        measurement
-        consistency diffusion approach of \textcite{song2022solving}, and ground
-        truth images on the BraTS MRI reconstruction dataset at 8x
-        undersampling.
-        The diffusion-based approach produces reconstructions that more
-        closely match the ground truth structure compared to
-        FISTA-TV, which can be
-        seen to over-smooth the fine details present in the ground
-        truth image. At
-        the same time, the degree of faithfulness to the ground truth
-        image in the
-        diffusion-based reconstruction (arising from the proper enforcement of
-    measurement consistency) is remarkable.}
+    \caption{\textbf{Comparación visual de métodos de reconstrucción de resonancia magnética.}
+        Tres ejemplos de reconstrucciones de resonancia magnética cerebral que muestran FISTA-TV, el
+        enfoque de difusión basado en la consistencia de las mediciones
+        de \textcite{song2022solving} e imágenes de referencia
+        del conjunto de datos de reconstrucción de resonancia magnética BraTS con un submuestreo de 8x.
+        El enfoque basado en la difusión produce reconstrucciones que se
+        ajustan mejor a la estructura de la imagen de referencia en comparación con
+        FISTA-TV, que, como se puede
+        observar, suaviza en exceso los detalles finos presentes en la
+        imagen de referencia. Al
+        mismo tiempo, el grado de fidelidad a la imagen de referencia
+        en la
+        reconstrucción basada en la difusión (que surge de la aplicación adecuada de la
+    consistencia de las mediciones) es notable.}
     \label{fig:mri-reconstruction-visual}
 \end{figure}
 
@@ -1708,7 +1706,7 @@ posterior sampling).
     \centering
     \begin{tabular}{@{}lccc@{}}
         \toprule
-        Method & $24\times$ Accel. & $8\times$ Accel. & $4\times$ Accel. \\
+        Método & $24\times$ acel. & $8\times$ acel. & $4\times$ acel. \\
         \midrule
         Cascade DenseNet & $23.39_{\pm 2.17}$ & $28.35_{\pm 2.30}$ &
         $30.97_{\pm 2.33}$ \\
@@ -1722,139 +1720,137 @@ posterior sampling).
         $37.63_{\pm 2.70}$ & $\bf 39.91_{\pm 2.67}$ \\
         \bottomrule
     \end{tabular}
-    \caption{\textbf{MRI reconstruction results} comparing measurement matching
-        approaches across different acceleration factors (the degree of Fourier
-        space subsampling in $\cS$) on the BraTS MRI
-        reconstruction dataset. PSNR metrics (higher is better) with
-        standard deviations are reported.
-        Cascade DenseNet
-        \cite{NEURIPS2019_1e48c442} and DuDoRNet \cite{9156506} are supervised
-        baselines trained on paired samples at an 8x acceleration
-        level. The last
-        three methods are diffusion-based approaches using
-        measurement consistency.
-    Reproduced with permission from \textcite{song2022solving}.}
+    \caption{\textbf{Resultados de la reconstrucción de resonancia magnética} en los que se comparan
+        enfoques de ajuste de medidas con diferentes factores de aceleración
+        (el grado de submuestreo del espacio de Fourier en $\cS$) en el conjunto de datos
+        de reconstrucción de resonancia magnética BraTS. Se presentan las métricas PSNR
+        (cuanto más alto, mejor) junto con sus desviaciones estándar. Cascade DenseNet
+        \cite{NEURIPS2019_1e48c442} y DuDoRNet \cite{9156506} son modelos de referencia supervisados
+        entrenados con muestras emparejadas a un nivel de aceleración de 8x.
+        Los últimos
+        tres métodos son enfoques basados en la difusión que utilizan
+        la consistencia de las mediciones.
+    Reproducido con permiso de \textcite{song2022solving}.}
     \label{tab:mri-reconstruction}
 \end{table}
 
-\section{Conditional Inference with Paired Data and Measurements}
+\section{Inferencia condicional con datos y mediciones emparejados}
 \label{sec:paired-data}
-In many practical applications, we do not know either the
-distribution of the data $\x$ of interest or the explicit
-relationship between the data and certain observed attributes $\y$ of
-the data. We only have a (large) set of paired samples $(\X, \Y) =
-\{ (\x_1, \y_1), \ldots, (\x_N, \y_N) \}$ from which we need to infer
-the data distribution and a mapping that models their relationship:
+En muchas aplicaciones prácticas, no conocemos ni la
+distribución de los datos $\x$ de interés ni la relación explícita
+entre los datos y ciertos atributos observados $\y$ de
+los datos. Solo tenemos un conjunto (grande) de muestras emparejadas $(\X, \Y) =
+\{ (\x_1, \y_1), \ldots, (\x_N, \y_N) \}$ a partir del cual necesitamos inferir
+la distribución de los datos y una correspondencia que modele su relación:
 \begin{equation}
     h: \x \mapsto \y.
 \end{equation}
 
-The problem of image classification can be viewed as one such
-example. In a sense, the classification problem is to learn an
-(extremely lossy) compressive encoder for natural images. Say, given
-a random sample of an image $\x$, we would like to predict its class
-label $\y$ that best correlates the content in $\x$. We know the
-distribution of natural images of objects is low-dimensional compared
-to the dimension of the pixel space. From the previous chapters, we
-have learned that given sufficient samples, in principle, we can
-learn a structured low-dimensional representation $\z$ for $\x$
-through a learned compressive encoding:
+El problema de la clasificación de imágenes puede considerarse un ejemplo de ello.
+En cierto sentido, el problema de la clasificación consiste en aprender un
+codificador compresivo (con una pérdida de información extremadamente elevada) para imágenes naturales. Digamos que, dada
+una muestra aleatoria de una imagen $\x$, nos gustaría predecir su etiqueta de clase
+$\y$ que mejor se correlacione con el contenido de $\x$. Sabemos que la
+distribución de las imágenes naturales de los objetos es de baja dimensión en comparación
+con la dimensión del espacio de píxeles. En los capítulos anteriores,
+hemos aprendido que, si contamos con suficientes muestras, en principio podemos
+aprender una representación estructurada de baja dimensión $\z$ para $\x$
+mediante una codificación compresiva aprendida:
 \begin{equation}
     f: \x \mapsto \z.
 \end{equation}
-The representation $\z$ can also be viewed as a learned (lossy but
-structured) code for $\x$. It is rather reasonable to assume that if
-the class assignment $\y$ truly depends on the low-dimensional
-structures of $\x$ and the learned code $\z$ truly reflects such
-structures, $\y$ and $\z$ can be made highly correlated and hence
-their joint distribution $p(\z, \y)$ should be extremely
-low-dimensional. Therefore, we may combine the two desired codes $\y$
-and $\z$ together and try to learn a combined encoder:
+La representación $\z$ también puede considerarse como un código aprendido (con pérdida, pero
+estructurado) para $\x$. Es bastante razonable suponer que si
+la asignación de clase $\y$ depende realmente de las estructuras de baja dimensión
+de $\x$ y el código aprendido $\z$ refleja realmente dichas
+estructuras, $\y$ y $\z$ pueden hacerse altamente correlacionadas y, por lo tanto,
+su distribución conjunta $p(\z, \y)$ debería ser de dimensión extremadamente
+baja. Por lo tanto, podemos combinar los dos códigos deseados, $\y$
+y $\z$ e intentar entrenar un codificador combinado: 
 \begin{equation}
     f: \x \mapsto (\z, \y)
 \end{equation}
-where the joint distribution of $(\z, \y)$ is highly low-dimensional.
+donde la distribución conjunta de $(\z, \y)$ es de muy baja dimensión.
 
-From our study in previous chapters, the mapping $f$ is usually
-learned as a sequence of compression or denoising operators in the
-same space. Hence to leverage such a family of operations, we may
-introduce an auxiliary vector $\vw$ that can be viewed as an initial
-random guess of the class label $\y$. In this way, we can learn a
-compression or denoising mapping:
+Según lo visto en los capítulos anteriores, el mapeo $f$ suele
+aprenderse como una secuencia de operadores de compresión o de eliminación de ruido en el
+mismo espacio. Por lo tanto, para aprovechar esta familia de operaciones, podemos
+introducir un vector auxiliar $\vw$ que puede considerarse como una
+conjetura aleatoria inicial de la etiqueta de clase $\y$. De esta manera, podemos aprender un
+mapeo de compresión o de eliminación de ruido:
 \begin{equation}\label{eq:classifier-with-class-token}
     f: (\x, \vw) \mapsto (\z, \y)
 \end{equation}
-within a common space. In fact, the common practice of introducing an
-auxiliary ``class token'' in the training of a transformer for
-classification tasks, such as in ViT, can be viewed as learning such
-a representation by compressing (the coding rate of) given (noisy)
-samples of $(\x, \vw)$. If the distribution of the data $\x$ is
-already a mixture of (low-dimensional) Gaussians, the work
-\cite{wright2008classification} has shown that classification can be
-done effectively by directly minimizing {\em the (lossy) coding
-length} associated with the given samples.
+dentro de un espacio común. De hecho, la práctica habitual de introducir un
+«token de clase» auxiliar en el entrenamiento de un transformador para
+tareas de clasificación, como en ViT, puede considerarse como el aprendizaje de dicha
+representación mediante la compresión (de la tasa de codificación de) muestras dadas (con ruido)
+de $(\x, \vw)$. Si la distribución de los datos $\x$ es
+ya una mezcla de gaussianas (de baja dimensión), el trabajo
+\cite{wright2008classification} ha demostrado que la clasificación puede
+realizarse de manera eficaz minimizando directamente {\em la longitud de codificación 
+(con pérdida)} asociada a las muestras dadas.
 
-\subsection{Class-Conditioned Image Generation}\label{sub:cfg}
-While a learned classifier allows us to classify a given image $\x$ to its
-corresponding class, we often would like to generate an image of a
-given class, by
-sampling the learned distribution of natural images. To some extent, this can be
-viewed as the ``inverse'' problem to image classification. Let $p_{\x}$ denote
-the distribution of natural images, say modeled by a diffusion-denoising
-process. Given a class label random variable $y \in [K]$ with
-realization $\nu$, say
-an ``Apple'', we would like to sample the conditional distribution $p_{\x \mid
-y}(\,\cdot\, \mid \nu)$ to generate an image of an apple:
+\subsection{Generación de imágenes condicionada por clases}\label{sub:cfg}
+Si bien un clasificador entrenado nos permite clasificar una imagen dada $\x$ en su
+clase correspondiente, a menudo nos interesa generar una imagen de una
+clase determinada, mediante
+el muestreo de la distribución aprendida de imágenes naturales. En cierta medida, esto puede
+considerarse como el problema «inverso» a la clasificación de imágenes. Sea $p_{\x}$ la
+distribución de imágenes naturales, modeladas, por ejemplo, mediante un proceso de
+eliminación de ruido por difusión. Dada una variable aleatoria de clase $y \in [K]$ con
+realización $\nu$, por ejemplo,
+una «Manzana», nos gustaría muestrear la distribución condicional $p_{\x \mid
+y}(\,\cdot\, \mid \nu)$ para generar una imagen de una manzana:
 \begin{equation}
     \hat{\x} \sim p_{\x\mid \y}(\,\cdot\, \mid \vnu).
 \end{equation}
-We call this {\em class-conditioned image generation}.
+A esto lo llamamos «generación de imágenes condicionada por la clase».
 
-In \Cref{sec:conditioned-decoding}, we have seen how to use the
-denoising-diffusion paradigm for
-conditional sampling from the posterior $p_{\vx \mid \vy}$ given
-\textit{model-based} measurements $\vy = h(\vx) + \vw$
-(\Cref{eq:measurement-matching-observation}), culminating in the
-DPS algorithm (\Cref{alg:iterative_denoising_conditional_DPS}). This
-is a powerful
-framework, but it does not apply to the class (or text) conditioned image
-generation problem here, where an explicit generative model $h$ for the
-observations/attributes $y$ is not available due to the
-intractability of analytical modeling. In this section, we will
-present techniques for extending
-conditional sampling to this setting.
+En la \Cref{sec:conditioned-decoding}, hemos visto cómo utilizar el
+paradigma de difusión con eliminación de ruido para el
+muestreo condicional a partir de la distribución a posteriori $p_{\vx \mid \vy}$ dada
+una medición \textit{basada en el modelo} $\vy = h(\vx) + \vw$
+(\Cref{eq:measurement-matching-observation}), lo que culmina en el
+algoritmo DPS (\Cref{alg:iterative_denoising_conditional_DPS}). Este
+es un marco
+potente, pero no se aplica al problema de la generación de imágenes condicionadas por clase (o texto)
+que nos ocupa, en el que no se dispone de un modelo generativo explícito $h$ para las
+observaciones/atributos $y$ debido a lo
+inmanejable de la modelación analítica. En esta sección,
+presentaremos técnicas para extender
+el muestreo condicional a este contexto.
 
-Thus, we now assume only that we have access to samples from the joint
-distribution of $(\vx, y)$:
+Por lo tanto, ahora suponemos únicamente que tenemos acceso a muestras de la distribución conjunta
+de $(\vx, y)$:
 \begin{equation}
     (\vx, y) \sim p_{\vx, y}.
 \end{equation}
-As in the previous section, we define $\vx_t = \alpha_t \vx + \sigma_t \vg$
-with $\vg \sim \cN(\Zero, \vI)$ independent of $(\vx, \vy)$, as in
-\Cref{eq:gen_additive_gaussian_noise_model} in \Cref{ch:denoising},
-and we will repeatedly use the notation $\vxi$ to denote realizations of $\vx$
-and $\vx_t$.
+Al igual que en la sección anterior, definimos $\vx_t = \alpha_t \vx + \sigma_t \vg$
+donde $\vg \sim \cN(\Zero, \vI)$ es independiente de $(\vx, \vy)$, tal como se muestra en la
+\Cref{eq:gen_additive_gaussian_noise_model} del \Cref{ch:denoising},
+y utilizaremos repetidamente la notación $\vxi$ para denotar realizaciones de $\vx$
+y $\vx_t$.
 
-This section focuses on the conceptual and algorithmic underpinnings for
-conditional sampling in modern generative models. For a treatment focused on
-implementation issues in various applications, see \Cref{ch:applications},
-\Cref{sec:cond_gen} and subsequent sections.
+Esta sección se centra en los fundamentos conceptuales y algorítmicos del
+muestreo condicional en los modelos generativos modernos. Para un análisis centrado en
+las cuestiones de implementación en diversas aplicaciones, véanse el \Cref{ch:applications},
+\Cref{sec:cond_gen} y las secciones siguientes.
 
-\subsubsection{Classifier Guidance: Consistency via a Pretrained Classifier}
+\subsubsection{Guía de clasificadores: consistencia mediante un clasificador preentrenado}
 
 % To proceed, we note that our development of conditional sampling under
 % measurements $\vy = h(\vx) + \vw$ only explicitly used the
 % forward model $h$ in making the DPS approximation
 % \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}.
-Recall from \Cref{sec:conditioned-decoding}
-that the following decomposition of the optimal conditional posterior denoiser
-holds,
+Recordemos de la \Cref{sec:conditioned-decoding}
+que se cumple la siguiente descomposición del filtro de ruido posterior condicional óptimo:
 % In particular, the conditional posterior denoiser decomposition
 % \eqref{eq:posterior-sampling-denoiser-decomposition} \textit{still
 % holds in the
 % paired data setting},
-by virtue of Bayes' rule
-and conditional independence of $\vy$ and $\vx_t$ given $\vx$ (recall
+en virtud de la regla de Bayes
+y de la independencia condicional de $\vy$ y $\vx_t$ dado $\vx$ (véase la
 \Cref{fig:posterior-sampling-cds}):
 \begin{equation}\label{eq:conditional-denoising-mmse-denoiser-paired-data}
     \bE[ \vx \mid \vx_t=\vxi, y=\nu]
@@ -1863,14 +1859,14 @@ and conditional independence of $\vy$ and $\vx_t$ given $\vx$ (recall
     + \frac{\sigma_t^2}{\alpha_t}
     \nabla_{\vxi}\log p_{y \mid \vx_t}(\nu\mid \vxi).
 \end{equation}
-In other words, the representation
+En otras palabras, la representación
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data}
-for the optimal conditional denoiser holds regardless of whether the explicit
-observation model $\vy = h(\vx) + \vw$ is valid.
-This means that if we can learn such a denoiser
-\eqref{eq:conditional-denoising-mmse-denoiser-paired-data} in the paired data
-setting, we can follow the denoising-diffusion methodology we have developed in
-\Cref{ch:denoising} to perform class-conditional sampling.
+del filtro de ruido condicional óptimo se mantiene independientemente de si el modelo de observación explícito
+$\vy = h(\vx) + \vw$ es válido.
+Esto significa que, si logramos aprender un filtro de ruido de este tipo
+\eqref{eq:conditional-denoising-mmse-denoiser-paired-data} en el contexto de datos emparejados,
+podremos seguir la metodología de difusión con eliminación de ruido que hemos desarrollado en el
+\Cref{ch:denoising} para realizar un muestreo condicional por clase.
 
 A natural idea is then to directly implement the likelihood correction term in
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data} using a deep network

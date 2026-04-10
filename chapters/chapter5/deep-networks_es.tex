@@ -308,7 +308,7 @@ R_{\epsilon}}{\partial \bm Z}(\Z^\ell) \in \Re^{d\times N}$ tiene la  forma:
         \scalebox{0.95}{\(\displaystyle\bm E^\ell \bm z^\ell =
                 \alpha(\bm z^\ell - \bm Z^\ell \bm
                 q^\ell_\star), \quad
-                \mbox{where} \quad \bm q^\ell_\star \doteq \argmin_{\bm
+                \mbox{donde} \quad \bm q^\ell_\star \doteq \argmin_{\bm
                 q^\ell} \big\{\alpha \|\bm z^\ell - \bm Z^\ell \bm
         q^\ell\|_2^2 + \|\bm q^\ell\|_2^2\big\}.\)}
     \end{gather}
@@ -376,7 +376,7 @@ transformación de incremento pequeño $g(\cdot, \theta^{\ell})$ sobre la caract
 $\ell$-ésima capa $\z^\ell$ para emular el esquema de gradiente (proyectado) anterior:
 \begin{equation}
     \z^{\ell + 1}   \; \propto \; \z^{\ell} + \eta\cdot  g(\z^{\ell},
-    \theta^{\ell}) \quad \mbox{subject to} \quad \z^{\ell +1}
+    \theta^{\ell}) \quad \mbox{sujeto a} \quad \z^{\ell +1}
     \in \mathbb{S}^{d-1}
     \label{eqn:gradient-descent-transform}
 \end{equation}
@@ -723,7 +723,7 @@ un clasificador de subespacio más cercano.
         \begin{subfigure}[t]{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/scatter3d-loss-traintest.pdf}\vspace{-0.1in}
-            \caption{Loss (entrenamiento/evaluación)}
+            \caption{Pérdida (entrenamiento/evaluación)}
         \end{subfigure}
         \vspace{-0.1in}
         \caption{\small Muestras originales y representaciones aprendidas
@@ -1034,7 +1034,7 @@ donde $\bar \z$ es un vector disperso.\footnote{Cabe señalar que desde hace tie
 profundas.} Existe una amplia bibliografía sobre cómo aprender los
 diccionarios de dispersión más compactos y óptimos a partir de datos de muestra, por ejemplo,
 \cite{li2019multichannel,qu2019nonconvex}, y posteriormente resolver el
-problema inverso y calcular el código desposeado asociado $\z$ o $\bar
+problema inverso y calcular el código disperso asociado $\z$ o $\bar
 \z$. Estudios recientes de \cite{qu2020nonconvex,Qu2020Geometric} incluso
 demuestran que, en condiciones generales, el problema del aprendizaje de diccionarios de convolución
 puede resolverse de manera eficaz y eficiente.
@@ -1521,12 +1521,12 @@ donde $\mathcal{F}$ denota una clase general de funciones y la norma $\ell_0$
 $\|\Z\|_0$ promueve la dispersión de las representaciones finales de los tokens
 \(\Z = f(\X)\).%
 
-In practice, the $\ell_0$ norm is often relaxed to the $\ell_1$ norm
-to improve computational tractability and enable convex optimization
-techniques \cite{Wright-Ma-2022}. Motivated by this, we relax Problem
-\eqref{eq:sparse-rr} accordingly, leading to a formulation that
-remains faithful to the original sparsity objective while being more
-amenable to efficient algorithms as follow:
+En la práctica, la norma $\ell_0$ suele sustituirse por la norma $\ell_1$
+para mejorar la manejabilidad computacional y permitir el uso de técnicas
+de optimización convexa \cite{Wright-Ma-2022}. Motivados por esto, simplificamos el Problema
+\eqref{eq:sparse-rr} en consecuencia, lo que da lugar a una formulación que
+se mantiene fiel al objetivo de dispersión original, al tiempo que resulta más
+apta para algoritmos eficientes, tal como se muestra a continuación:
 \begin{equation}
     \begin{aligned}
         \max_{f \in \mathcal{F}}\ [\Delta R_{\epsilon}(\Z \mid
@@ -1534,8 +1534,8 @@ amenable to efficient algorithms as follow:
         \label{eq:sparse-rr-1}
     \end{aligned}
 \end{equation}
-With a slight abuse of terminology, we often refer to this objective
-function also as the \textit{sparse rate reduction}.
+Aunque se trate de un ligero uso impropio de la terminología, a menudo nos referimos a esta función objetivo
+también como la \textit{reducción dispersa de tasa }.
 
 \paragraph{Arquitectura de red de caja blanca mediante optimización desenroscada.}
 
@@ -1734,7 +1734,7 @@ Para resolver $\lambda \norm{\vZ}_{1} - R_{\epsilon}(\vZ)$, optimizamos
 el siguiente problema
 \begin{align*}
     \vZ^{\ell + 1} \approx \argmin_{\vZ}  \norm{\vZ}_1 \quad
-    \mbox{subject to} \quad \vZ^{\ell + 1/2} = \vD^{\ell}\vZ.
+    \mbox{sujeto a} \quad \vZ^{\ell + 1/2} = \vD^{\ell}\vZ.
 \end{align*}
 {El programa de representación dispersa anterior suele resolverse
     relajándolo a un programa convexo sin restricciones, conocido como LASSO

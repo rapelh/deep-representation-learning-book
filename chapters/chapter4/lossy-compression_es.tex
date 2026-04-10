@@ -627,7 +627,7 @@ podrían considerarse ellos mismos como una distribución (empírica).} Nos gust
 elaborar un esquema constructivo que pueda codificar los datos
 con cierta precisión, digamos
 \begin{equation}
-    \vx_i \mapsto \hat \vx_i, \quad \mbox{subject to} \quad \|\vx_i -
+    \vx_i \mapsto \hat \vx_i, \quad \mbox{sujeto a} \quad \|\vx_i -
     \hat \vx_i\|_2 \le \epsilon.
 \end{equation}
 Nótese que se trata de una condición suficiente, explícita e interpretable que
@@ -671,7 +671,7 @@ Tenga en cuenta que el volumen de la región delimitada por los vectores $\vx_i$
 proporcional a la raíz cuadrada del determinante de la
 matriz de covarianza
 \begin{equation}
-    \mbox{volume}(\hat \vx_i) \propto \sqrt{\det
+    \mbox{volumen}(\hat \vx_i) \propto \sqrt{\det
     \big(\hat{\boldsymbol{\Sigma}}\big)} =
     \sqrt{\det\left(\frac{\epsilon^2}{D} \boldsymbol{I} + \frac{1}{N}
     \vX\vX^\top \right)}.
@@ -679,7 +679,7 @@ matriz de covarianza
 El volumen abarcado por cada vector aleatorio $\boldsymbol{w}_i$ es
 proporcional a
 \begin{equation}
-    \mbox{volume}(\boldsymbol{w}_i) \propto
+    \mbox{volumen}(\boldsymbol{w}_i) \propto
     \sqrt{\det\left(\frac{\epsilon^2}{D} \boldsymbol{I} \right)}.
 \end{equation}
 
@@ -702,15 +702,15 @@ $\hat \vx_i$ es significativamente mayor que el volumen de la
 bola de radio $\epsilon$, el número total de bolas que necesitamos para cubrir la región es
 aproximadamente igual a la relación entre ambos volúmenes:
 \begin{equation}
-    \# \,\epsilon\mbox{-balls} \approx \frac{\mbox{volume}(\hat
-    \vx_i)}{\mbox{volume}(\vw_i)} = \sqrt{\det\left(\boldsymbol{I} +
+    \# \,\epsilon\mbox{-bolas} \approx \frac{\mbox{volumen}(\hat
+    \vx_i)}{\mbox{volumen}(\vw_i)} = \sqrt{\det\left(\boldsymbol{I} +
     \frac{D}{N\epsilon^2} \vX\vX^\top  \right)}.
 \end{equation}
 Si utilizamos números binarios para etiquetar todas las bolas de radio $\epsilon$ en la región de
 interés, el número total de bits binarios necesarios es, por lo tanto, %
 \begin{equation}
     \cR_{\epsilon}(\vX) \approx %
-    \log_2 (\# \,\epsilon\mbox{-balls}) \approx R_{\epsilon}(\vX)
+    \log_2 (\# \,\epsilon\mbox{-bolas}) \approx R_{\epsilon}(\vX)
     \doteq \frac{1}{2} \log \det \left(\boldsymbol{I} +
     \frac{D}{N\epsilon^2} \vX\vX^\top \right).
     \label{eqn:rate-Gaussian}
@@ -739,7 +739,7 @@ fuente gaussiana perturbada.
     bola. Esto da lugar a un esquema explícito de codificación y decodificación:
     \begin{equation}
         \vx \longrightarrow \operatorname{ball}_{\epsilon}(\vx)
-        \longrightarrow \hat \vx = \mbox{center of}
+        \longrightarrow \hat \vx = \mbox{centro de}
         \operatorname{ball}_{\epsilon}(\vx).
     \end{equation}
     Se puede decir que estos centros de las bolas son los «códigos» de un libro de códigos
@@ -1082,8 +1082,8 @@ propuesto por \cite{ma2007segmentation}:
 
         \Procedure{PairwiseSteepestDescentOfCodingLength}{$\{\vx_{i}\}_{i
         = 1}^{N}$}
-        \Statex{\quad\ \texttt{\# Initializar \(N\) grupos
-        \(\vX_{k}\) con un elemento cadauno}}
+        \Statex{\quad\ \texttt{\# Inicializar \(N\) grupos
+        \(\vX_{k}\) con un elemento cada uno}}
         \State{\(\cC \gets \{\{\bm x_{i}\}\}_{i = 1}^{N}\)}
         \Statex{}
         \While{\(\abs{\cC} > 1\)}
@@ -1387,7 +1387,7 @@ en esencia, asigna a cada clase de datos una sola palabra de código: el
 vector «one-hot» que representa cada clase. Desde el punto de vista de la compresión con pérdidas,
 un codificador de este tipo presenta demasiadas pérdidas como para conservar la información en
 la distribución de los datos. Otra información, como la que resulta útil para
-tareas tales como la segmentación, la completación o la generación de imágenes, se
+tareas tales como la segmentación, la completamiento o la generación de imágenes, se
 pierde en gran medida en un proceso de aprendizaje supervisado de este tipo.
 
 Para remediar esta situación, queremos aprender un esquema de codificación diferente
@@ -2161,7 +2161,7 @@ entropía cruzada \Cref{fig:CE-pca} son de una dimensión mucho menor.\footnote{
     incluso reducirse a una sola dimensión, lo que se conoce como el fenómeno del colapso neuronal
 , comentado anteriormente en \Cref{remark:neural-collapse}.}
 
-La \Cref{fig:heatmap-plot} muestra las similitudes cosinusoidales entre las
+La \Cref{fig:heatmap-plot} muestra las similitudes coseno entre las
 características aprendidas, ordenadas por clase. También comparamos las similitudes de
 las características aprendidas utilizando la entropía cruzada (CE)
 \eqref{chap4-eqn:cross-entropy} y el objetivo MCR$^2$
@@ -2197,7 +2197,7 @@ aprendidos en su interior. En \Cref{ch:deep-networks}, {\em mostraremos
     cómo derivar arquitecturas y componentes de redes de forma totalmente
 ``transparente'' a partir del objetivo deseado (por ejemplo, la reducción de la tasa)}.
 
-\subsection{Aprendizaje no supervsado de representaciones}
+\subsection{Aprendizaje no supervisado de representaciones}
 \label{sec:SimDINO}
 
 Como hemos visto en la sección anterior, la información sobre las clases facilita
@@ -2314,7 +2314,7 @@ se vuelve rápidamente prohibitivo desde el punto de vista computacional a medid
 conjuntos de datos más grandes. En lugar de minimizar la tasa de codificación exacta para cada
 grupo de muestras aumentadas $\tilde{\vX}_{i}$, podemos aproximar el
 efecto de la compresión de características en cada grupo maximizando la {\em
-similaridad coseno} entre las características de las muestras
+similitud coseno} entre las características de las muestras
 aumentadas:\footnote{Dejamos como ejercicio para los lectores que verifiquen
     bajo qué condiciones la minimización de la tasa de codificación por clase
     $R^c(\vZ)$ es (aproximadamente) equivalente a maximizar la similitud coseno

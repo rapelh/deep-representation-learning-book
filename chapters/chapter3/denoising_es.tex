@@ -17,7 +17,7 @@ En el \Cref{ch:classic-models}, mostramos cómo aprender clases simples de
 distribuciones cuyos soportes se supone que son un único
 subespacio de baja dimensión, una mezcla de tales subespacios o
 gaussianas de bajo rango. Para simplificar, se considera que los diferentes modos lineales o gaussianos (ocultos)
-son ortogonales o independientes,\footnote{O bien pueden
+son ortogonales o independientes,\footnote{O pueden
 reducirse a tales casos idealizados en condiciones favorables.} tal y como
 se ilustra en la \Cref{fig:subspaces}. Para estas distribuciones especiales,
 se pueden derivar algoritmos de aprendizaje sencillos y eficaces con garantías de corrección y eficiencia,
@@ -38,13 +38,13 @@ modos, por ejemplo, correspondientes a diferentes clases de objetos en
 las imágenes. Es posible que estos modos no sean estadísticamente independientes 
 e incluso puedan tener dimensiones intrínsecas diferentes. Por lo tanto, solemos
 suponer que los datos se distribuyen en una mezcla de subvariedades no lineales 
-de baja dimensión inmersas en un espacio de alta dimensión. La 
+de baja dimensión incrustadas en un espacio de alta dimensión. La 
 \Cref{fig:mixture-manifolds} ilustra este tipo de distribución.  Otra
 limitación es que, en situaciones reales, normalmente solo tenemos acceso
 a un número finito de muestras de la distribución de datos,
 en lugar de disponer de un conocimiento previo de la distribución exacta en sí.
 
-Para aprender dicha distribución en estas condiciones, debemos abordar
+Para aprender dicha distribución bajo estas condiciones, debemos abordar
 tres preguntas fundamentales:
 \begin{itemize}
     \item ¿Cuál es un enfoque general para aprender y representar una
@@ -74,7 +74,7 @@ generales.
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter3/figs/mixed-manifolds.png}
     \caption{Los datos \(\vX\) se distribuyen en una mezcla de
         subvariedades de baja dimensión \(\cup_{j} \cM_{j}\) en un espacio
-        ambiental de muy alta dimensión, por ejemplo, \(\R^{D}\). Este es un caso mucho
+        envolvente de muy alta dimensión, por ejemplo, \(\R^{D}\). Este es un caso mucho
         más general que los casos especiales estudiados en el
         \Cref{ch:classic-models}, donde se suponía que las subvariedades eran
         lineales por tramos y, por lo tanto, admitían formas paramétricas y
@@ -120,7 +120,7 @@ cero si y solo si \(p(\vx_{i}) = 1\) para algún \(\vx_{i}\) con \(i
 \in [N]\).\footnote{Aquí utilizamos el hecho de que
 \(\lim_{p \to 0} p \log p = 0\).} Para una variable aleatoria
 \(\vx\), solemos escribir \(H(\vx)\) para referirnos a la entropía de la
-distribución (marginal) de \(\vx\).
+distribución marginal de \(\vx\).
 
 \subsection{Entropía diferencial}
 
@@ -169,7 +169,7 @@ consiste en asignar cada \(\vx\) a su centro más cercano \(\vx_{i}\) y
 la entropía de la distribución discreta resultante se aproxima a la
 entropía diferencial \cite{Cover-Thomas}.
 
-Hay algunas salvedades relacionadas con la definición
+Existen ciertas salvedades en la definición
 de la entropía diferencial. En el caso de una distribución en un espacio de alta dimensión,
 cuando su soporte se vuelve degenerado (de baja dimensión), su
 entropía diferencial diverge hacia \(-\infty\). Este hecho se demuestra en el
@@ -299,7 +299,7 @@ A1 y A2 mencionados anteriormente para aprender y obtener muestras de la distrib
 En primer lugar, queremos un procedimiento que reduzca la entropía de una variable 
 aleatoria con mucho ruido, generando una muestra de menor entropía a partir de la 
 distribución de los datos. Aquí describimos un posible enfoque, quizá el más natural.
-En primer lugar, ideamos una forma de \textit{aumentar gradualmente} la entropía de
+Primero, diseñamos un método para \textit{aumentar gradualmente} la entropía de
 las muestras ya extraídas de la distribución de datos. A continuación, buscamos una
 \textit{inversa aproximada} de este proceso. En general, el aumento de
 la entropía no tiene inverso, ya que parte de la información de la distribución original
@@ -733,8 +733,8 @@ iteración actual y conservamos únicamente la salida del filtro de ruido.
         claro). En la parte superior izquierda, el proceso acaba de comenzar y el ruido
         es muy intenso. A medida que avanza el proceso, el ruido se desplaza
         cada vez más hacia el soporte de la distribución de datos de rango bajo.
-        Por último, en la parte inferior derecha, las muestras generadas están perfectamente
-        alineadas con el soporte de los datos y se asemejan mucho a
+        Por último, en la parte inferior derecha, las muestras generadas se alinean perfectamente
+        con el soporte de los datos y se asemejan mucho a
     las muestras extraídas del modelo de mezcla gaussiana de rango bajo.}
     \label{fig:ve_gmm_denoising}
 \end{figure}
@@ -1349,8 +1349,8 @@ funciona en la práctica; comentamos algunos resultados en las
         \State{Inicializar \(\theta^{(1)} \in \Theta\)}
         \For{\(m \in [M]\)}
         \For{\(i \in [N]\)}
-        \Statex{\qquad\qquad\ \texttt{\# Draw a sample from
-        the dataset.}}
+        \Statex{\qquad\qquad\ \texttt{\# Extraer una muestra del
+        conjunto de datos.}}
         \State{\(\vx^{(m, i)} \sim \cD\)}
         \Statex{}
 
@@ -1912,7 +1912,7 @@ Por lo tanto, nuestro modelo de difusión eficaz puede considerarse como una min
 \textit{tasa de codificación con pérdida}, es decir, una tasa de codificación con una precisión
 de \(\epsilon\) (de modo que se puedan ignorar las esferas de radio \(\epsilon\)
 alrededor de cada punto). Esta noción de la tasa de codificación con pérdida resulta ser
-lo que conviene minimizar, desde un punto de vista ético, y resultará
+lo que conviene minimizar, desde una perspectiva moral, y resultará
 \textit{extremadamente} útil. Analizaremos sus aplicaciones en el
 \Cref{ch:lossy-compression} y a lo largo del resto de este libro.
 

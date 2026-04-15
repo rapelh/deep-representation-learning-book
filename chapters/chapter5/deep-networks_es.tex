@@ -3,7 +3,7 @@
 
 \begin{document}
 
-\chapter{Las representaciones profundas como optimización desenroscada}
+\chapter{Las representaciones profundas como optimización desenrollada}
 \label{ch:deep-networks}
 
 \begin{quote}
@@ -148,9 +148,9 @@ siguientes preguntas sobre las redes profundas:
     \item \Cref{sec:chap4-white-box-model-via-unrolling} --- dada una
         medida de calidad para una representación aprendida, ¿cómo
         construir el mapeo no lineal entre los datos y la representación óptima
-        mediante la optimización desenroscada del objetivo?
+        mediante la optimización desenrollada del objetivo?
     \item \Cref{sec:chap4-white-box-transformer} --- ¿cómo podría el
-        enfoque de «desenroscado» mencionado anteriormente ofrecer una interpretación fundamentada
+        enfoque de «desenrollado» mencionado anteriormente ofrecer una interpretación fundamentada
         de las populares arquitecturas de transformadores? Si es así, ¿cuáles son los
         mecanismos de optimización y los objetivos asociados?
     \item \Cref{sec:chap4-derive-white-box-transformer-variants} ---
@@ -158,8 +158,8 @@ siguientes preguntas sobre las redes profundas:
         más parsimoniosas?
 \end{itemize}
 
-\section{Redes profundas de caja blanca mediante optimización
-desenroscada}\label{sec:chap4-white-box-model-via-unrolling}
+\section{Redes profundas de white-box mediante optimización
+desenrollada}\label{sec:chap4-white-box-model-via-unrolling}
 
 Ahora bien, si estamos de acuerdo en que maximizar la reducción de la tasa o la ganancia de información
 conduce a la representación deseada, tal como se analiza en la
@@ -170,7 +170,7 @@ diseñar una arquitectura de red y un algoritmo de aprendizaje que puedan
 captar de manera eficaz las estructuras subyacentes de los datos y
 reproducir fielmente la representación óptima.
 
-\subsection{Redes profundas a partir del descenso por gradiente desenroscado}
+\subsection{Redes profundas a partir del descenso por gradiente desenrollada}
 
 En el capítulo anterior, presentamos el objetivo de reducción de la tasa
 \eqref{eqn:maximal-rate-reduction} como un objetivo fundamentado para
@@ -183,7 +183,7 @@ ResNet, para implementar $f(\x, \bm \theta)$. Como hemos visto en el
 aceptable en la práctica. No obstante, siguen existiendo varios problemas sin resolver
 al adoptar una red profunda arbitraria. Aunque la
 representación de características aprendida es ahora más interpretable, la red
-en sí misma sigue {\em sin} serlo. No está claro por qué cualquier red de «caja negra»
+en sí misma sigue {\em sin} serlo. No está claro por qué cualquier red de «black-box»
 elegida es capaz de optimizar el objetivo MCR$^2$ deseado. Los
 buenos resultados empíricos (por ejemplo, con una ResNet) no justifican necesariamente
 la elección concreta de arquitecturas y operadores de la red: 
@@ -194,7 +194,7 @@ forma multicanal) y los operadores no lineales (por ejemplo, ReLU o softmax) que
 
 En este capítulo, demostramos que el uso del ascenso por gradiente para maximizar la
 reducción de la tasa $\Delta R_{\epsilon}(\Z \mid \bm \Pi)$, tal como se define en
-\eqref{eqn:maximal-rate-reduction}, conduce de manera natural a una red profunda de «caja blanca»
+\eqref{eqn:maximal-rate-reduction}, conduce de manera natural a una red profunda de «white-box»
 que realiza el mapeo deseado. Todas las capas de la red, los operadores lineales y no lineales, 
 así como los parámetros se construyen {\em explícitamente
 siguiendo un enfoque de propagación puramente hacia adelante}. Además, estas
@@ -742,7 +742,7 @@ un clasificador de subespacio más cercano.
 invariantes}\label{sec:shift-invariant}
 
 En la sección anterior, derivamos la arquitectura por capas de una
-red profunda, la ReduNet, utilizando la optimización desenroscada para el objetivo
+red profunda, la ReduNet, utilizando la optimización desenrollada para el objetivo
 de reducción de la tasa.
 Concretamente, el término de compresión $R^c_\epsilon(\Z \mid\bm \Pi)$ en
 \eqref{eq:mcr-formulation} está diseñado para comprimir representaciones
@@ -1011,7 +1011,7 @@ de estos y sus versiones desplazadas, tal como se muestra en la
 \Cref{fig:multi-channel-sparse-representation}. Más concretamente, sea
 $\bm D_k = [\bm d_{k,1}, \ldots, \bm d_{k,c}]$ una matriz con un
 conjunto de átomos asociados a la clase $k$, también conocido como
-diccionario; entonces, cada señal $\x$ de esta clase se genera en forma dispersa como:
+diccionario; entonces, cada señal $\x$ de esta clase se genera en forma dispersas como:
 \begin{equation}
     \x = \bm d_{k,1} \circledast z_1 + \ldots + \bm d_{k,c}
     \circledast z_c = \circm(\bm{D}_k)\z,
@@ -1300,8 +1300,8 @@ sobre los códigos dispersos de entrada.
 
 \end{example}
 
-\section{Transformadores de caja blanca mediante optimización 
-desenroscada}\label{sec:chap4-white-box-transformer}
+\section{Transformadores de white-box mediante optimización 
+desenrollada}\label{sec:chap4-white-box-transformer}
 Como hemos visto en la sección anterior, utilizamos el problema de la
 clasificación para ofrecer una interpretación rigurosa de las principales
 características arquitectónicas de redes profundas populares como
@@ -1334,7 +1334,7 @@ de eliminación de ruido que hemos visto en el capítulo anterior.
 Además, la arquitectura así obtenida se asemeja a la popular
 arquitectura de Transformador.
 
-\subsection{Optimización desenroscada para la reducción dispersa de la tasa}
+\subsection{Optimización desenrollada para la reducción dispersa de la tasa}
 
 En los últimos años, a medida que la cantidad y la calidad de los datos
 disponibles para entrenar redes profundas han aumentado de manera espectacular,
@@ -1537,7 +1537,7 @@ apta para algoritmos eficientes, tal como se muestra a continuación:
 Aunque se trate de un ligero uso impropio de la terminología, a menudo nos referimos a esta función objetivo
 también como la \textit{reducción dispersa de tasa }.
 
-\paragraph{Arquitectura de red de caja blanca mediante optimización desenroscada.}
+\paragraph{Arquitectura de red de white-box mediante optimización desenrollada.}
 
 Aunque resulte fácil de formular, la optimización de cada término del objetivo anterior
 plantea un reto computacional \cite{Wright-Ma-2022}. Por lo tanto,
@@ -1563,7 +1563,7 @@ para \textit{optimizar} el objetivo de reducción dispersa de tasa anterior
 \eqref{eq:sparse-rr}, condicionado a la distribución de su entrada $\Z^\ell$.
 
 \begin{remark}
-    A diferencia de otros enfoques de optimización desenroscada, como el
+    A diferencia de otros enfoques de optimización desenrollada, como el
     ReduNet (véase la \Cref{sec:chap4-white-box-model-via-unrolling}), nosotros
     \textit{modelamos explícitamente} la distribución de $\Z^\ell$ en cada
     capa, por ejemplo, como una mezcla de subespacios lineales o generada de forma dispersa
@@ -1577,7 +1577,7 @@ para \textit{optimizar} el objetivo de reducción dispersa de tasa anterior
 \end{remark}
 
 A continuación, mostramos cómo derivar estas operaciones incrementales y locales
-desde una perspectiva de optimización desenroscada para resolver el problema
+desde una perspectiva de optimización desenrollada para resolver el problema
 \eqref{eq:sparse-rr-1}. Una vez que decidimos utilizar un enfoque incremental
 para optimizar el problema
 \eqref{eq:sparse-rr-1}, existen diversas opciones posibles para
@@ -1592,7 +1592,7 @@ $R^c_\epsilon$ con una tasa de aprendizaje $\kappa$ de la siguiente manera:
     \bm Z^{\ell+1/2} = \bm Z^\ell - \kappa \nabla_{\bm Z}
     R^c_\epsilon (\vZ \mid \vU_{[K]}^\ell).
 \end{align}
-A continuación, \textit{dispersamos} los tokens comprimidos, generando
+A continuación, \textit{raleamos} los tokens comprimidos, generando
 \(\vZ^{\ell + 1}\) mediante un paso de gradiente proximal adecuadamente relajado para
 minimizar el término restante $\lambda \norm{\vZ}_{1} -
 R_{\epsilon}(\vZ)$. Como argumentaremos en detalle más adelante, podemos encontrar
@@ -1718,7 +1718,7 @@ se vuelve inmanejable en problemas a gran escala. %
 Por lo tanto, adoptamos un enfoque diferente para equilibrar
 la diversidad representativa y la dispersión: postulamos un
 diccionario (completo) incoherente u ortogonal $\vD^{\ell} \in \bR^{d
-\times d}$ y buscamos dispersar las iteraciones intermedias $\vZ^{\ell
+\times d}$ y buscamos ralear las iteraciones intermedias $\vZ^{\ell
 + 1/2}$ con respecto a \(\vD^{\ell}\). Es decir, $\vZ^{\ell + 1/2}
 \approx \vD^{\ell} \vZ^{\ell + 1}$ donde $\vZ^{\ell + 1}$ es más
 disperso; es decir, es una \textit{codificación esparsa} de \(\vZ^{\ell +
@@ -1752,7 +1752,7 @@ $\vZ^{\ell + 1}$ y resolvemos el LASSO no negativo correspondiente:
     \label{eq:sparse-nonnegative}
 \end{equation}
 A continuación, optimizamos de forma incremental la \Cref{eq:sparse-nonnegative}
-realizando un paso desenroscado de {\em descenso de gradiente proximal}, conocido como
+realizando un paso desenrollado de {\em descenso de gradiente proximal}, conocido como
 paso ISTA \citep{beck2009fast}, para obtener la actualización:
 \begin{align}\label{eq:ista-block}
     \vZ^{\ell + 1}
@@ -1772,10 +1772,10 @@ paso ISTA \citep{beck2009fast}, para obtener la actualización:
     \label{fig:crate_backbone}
 \end{figure}
 
-\subsection{Arquitectura general del transformador de caja blanca: CRATE}
+\subsection{Arquitectura general del transformador de white-box: CRATE}
 
-Ahora diseñamos una arquitectura de transformador de caja blanca, denominada Coding
-RATE Transformer (CRATE), mediante el desenroscamiento de las actualizaciones anteriores. Al
+Ahora diseñamos una arquitectura de transformador de white-box, denominada Coding
+RATE Transformer (CRATE), mediante el desenrollamiento de las actualizaciones anteriores. Al
 combinar los dos pasos anteriores \eqref{eq:gd-mcr-parts} y \eqref{eq:ista-block}:
 \begin{enumerate}
     \item Compresión local de tokens dentro de una muestra hacia una
@@ -1795,7 +1795,7 @@ que se ilustra en la \Cref{fig:crate_backbone},
 \end{equation}
 Al componer varias capas de este tipo siguiendo la construcción incremental
 de nuestra representación en \eqref{eq:incremental}, obtenemos una
-arquitectura de transformador de caja blanca que transforma los tokens de datos
+arquitectura de transformador de white-box que transforma los tokens de datos
 hacia una unión compacta y dispersa de subespacios incoherentes, donde
 $f^{\pre}: \bR^{D \times N} \rightarrow \bR^{d \times N}$ es la
 mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
@@ -1808,14 +1808,14 @@ mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/CRATE_fig1_patches.pdf}
     \vspace{-0.1in}
     \caption{
-        \textbf{El «bucle principal» del diseño de redes profundas de caja blanca
+        \textbf{El «bucle principal» del diseño de redes profundas de white-box
         de CRATE.}
         Tras codificar los datos de entrada como una secuencia de tokens $\vZ^0$,
         CRATE construye una red profunda que transforma los
         datos en una configuración canónica de subespacios de baja dimensión
         mediante sucesivas   {\textit{\textbf{compresiones}}}
         frente a un modelo local de la distribución, generando
-        $\vZ^{\ell+1/2}$ y      {\textit{\textbf{dispersión}}}
+        $\vZ^{\ell+1/2}$ y      {\textit{\textbf{raleza}}}
         frente a un diccionario global, generando $\vZ^{\ell+1}$.
         Al apilar repetidamente estos bloques y entrenar los parámetros del modelo
         mediante retropropagación, se obtiene una representación potente e
@@ -1826,7 +1826,7 @@ mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
 
 \begin{remark}[\textbf{El papel del paso hacia adelante y de la propagación 
     hacia atrás}]\label{sub:forward_backward}
-    A diferencia de otros enfoques de optimización desenroscada, como el
+    A diferencia de otros enfoques de optimización desenrollada, como el
     ReduNet \cite{chan2021redunet}, \textit{modelamos explícitamente} la
     distribución de cada $\vZ^\ell$ y $\vZ^{\ell + 1/2}$ en cada
     capa, ya sea mediante una mezcla de subespacios lineales o generada de forma dispersa
@@ -1847,7 +1847,7 @@ mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
 
     Por lo tanto, nuestra metodología presenta una clara separación conceptual
     entre la «optimización» hacia adelante y el «aprendizaje» hacia atrás para
-    la red neuronal profunda de caja blanca así obtenida. Es decir, en su
+    la red neuronal profunda de white-box así obtenida. Es decir, en su
     paso hacia adelante, interpretamos cada capa como un operador que,
     condicionado por un modelo aprendido (es decir, un libro de códigos) para la
     distribución de su entrada, transforma esta distribución hacia una
@@ -2140,12 +2140,12 @@ a una tasa lineal. Cabe destacar que nuestros resultados teóricos están bien r
 las observaciones experimentales realizadas con el operador MSSA \textit{real} en la
 \Cref{fig:MSSA}. Este teorema proporciona una base teórica para
 la capacidad práctica de eliminación de ruido de la arquitectura del transformador
-derivada mediante el desenroscado de \eqref{eq:MSSA}.
+derivada mediante el desenrollado de \eqref{eq:MSSA}.
 
 \paragraph{Transformadores de solo atención.} Para verificar que esta
 capacidad de eliminación de ruido se traduce en un rendimiento razonable con datos y tareas reales,
 proponemos formalmente una arquitectura de transformador basada exclusivamente en la atención,
-a la que denominamos AoT. Concretamente, al desenroscar
+a la que denominamos AoT. Concretamente, al desenrollar
 los pasos de optimización iterativa \eqref{eq:MSSA} como capas de una red profunda,
 construimos una arquitectura de transformador tal y como se muestra en la
 \Cref{fig:transformer}. Cada capa de la arquitectura propuesta
@@ -2185,7 +2185,7 @@ En esta subsección, proponemos un nuevo operador de atención de transformador
 cuya complejidad computacional varía linealmente con el número de
 tokens, basándonos en el objetivo de reducción de la tasa de codificación.  En concreto,
 derivamos una nueva forma variacional del objetivo MCR$^2$ y demostramos
-que la arquitectura resultante del descenso de gradiente desenroscado de
+que la arquitectura resultante del descenso de gradiente desenrollado de
 este objetivo variacional da lugar a un nuevo módulo de atención denominado
 Token Statistics Self-Attention (\text{TSSA}). \text{TSSA} tiene
 {\em una complejidad computacional y de memoria lineal} y se aleja radicalmente
@@ -2262,7 +2262,7 @@ para la arquitectura de la red.
 En cambio, desde un punto de vista alternativo, en lugar de considerar los
 datos ($\Z$) como fijos e intentar optimizar los parámetros $\bm U_k$
 para alcanzar el límite variacional más estricto, podemos adoptar el
-principio de diseño de «desenroscamiento» algorítmico descrito anteriormente y diseñar un
+principio de diseño de «desenrollamiento» algorítmico descrito anteriormente y diseñar un
 operador que perturbe $\Z$ para minimizar de forma incremental $R_{c, f}^{\rm
 var}(\cdot \mid \bm U_{[K]})$. Para dejarlo claro, cada
 límite variacional se vuelve estricto cuando los espacios propios de $\Z
@@ -2615,9 +2615,9 @@ aplicaciones mencionadas anteriormente (por ejemplo, los LLM). En particular, la
 implementaciones de CRATE y ToST presentadas anteriormente
 \textit{no son causales} (la demostración se deja como ejercicio).
 
-Podemos construir arquitecturas causales de caja blanca mediante diversos
+Podemos construir arquitecturas causales de white-box mediante diversos
 métodos. Aquí presentaremos un método sencillo que se basa en nuestro
-marco de optimización desenroscada anterior. Específicamente, calculamos
+marco de optimización desenrollada anterior. Específicamente, calculamos
 las características \(\vz_{1}, \dots, \vz_{N}\) correspondientes a los primeros
 \(N\) tokens de la entrada \textit{uno por uno} para optimizar el
 objetivo de aprendizaje de la representación, como la reducción dispersa de la tasa 
@@ -2626,7 +2626,7 @@ objetivo de aprendizaje de la representación, como la reducción dispersa de la
     \max_{\vz_{i}}\ \Delta R(\vZ_{1:i} \mid \vU_{[K]}) - \lambda
     \|\vZ_{1:i}\|_{1},\ \forall i \in [N].
 \end{equation}
-Si seguimos el procedimiento de desenroscamiento en dos pasos que
+Si seguimos el procedimiento de desenrollamiento en dos pasos que
 dio lugar a CRATE, podemos obtener la iteración:
 \begin{align}
     \vz_{i}^{\ell + 1/2} &\approx \vz_{i}^{\ell} - \kappa
@@ -2776,7 +2776,7 @@ la brecha en las tareas de modelado del lenguaje (y, en términos más generales
 sigue existiendo. A continuación, analizamos dos estrategias que podrían
 cerrar esta brecha; ambas son objeto de líneas de investigación activas.
 
-\begin{example}[Mejores objetivos y estrategias de desenroscado]
+\begin{example}[Mejores objetivos y estrategias de desenrollado]
     Una posibilidad a considerar es que el objetivo de la reducción de la tasa de dispersión
     no sea el más adecuado para los datos de secuencias causales. Por ejemplo,
     podríamos querer asegurarnos de que las características tengan algún tipo de
@@ -2795,7 +2795,7 @@ cerrar esta brecha; ambas son objeto de líneas de investigación activas.
     muy eficaces e incluso se han utilizado en algunos modelos de lenguaje a gran escala
     \citep{team2025kimi}. Mediante el diseño de objetivos más
     sofisticados y estrategias de «desenrollamiento», podríamos
-    construir una arquitectura SSM de «caja blanca», o un híbrido SSM-transformador,
+    construir una arquitectura SSM de «white-box», o un híbrido SSM-transformador,
     y así reducir la brecha en las tareas causales.
 \end{example}
 
@@ -2846,18 +2846,18 @@ trabajos recientes sobre este tema, entre los que se incluyen \cite{chan2021redu
 wang2024global, wang2025attention, wu2025token, yu2023white}. Estas
 contribuciones abarcan tanto avances teóricos como metodologías prácticas
 para construir redes profundas interpretables mediante
-la optimización desenroscada. Muchos de los resultados y demostraciones clave que se analizan
+la optimización desenrollada. Muchos de los resultados y demostraciones clave que se analizan
 en este capítulo se derivan directamente de estos
 trabajos fundamentales o se inspiran en ellos.
 
-La idea de «desenroscar» un algoritmo de optimización para construir una red neuronal
+La idea de «desenrollar» un algoritmo de optimización para construir una red neuronal
 se remonta al trabajo pionero \cite{gregor2010learning}. En
 este trabajo, los autores demostraron que los algoritmos de codificación
 dispersa---como el algoritmo de umbralización y contracción iterativa
-(ISTA)---pueden desenroscarse para formar perceptrones multicapa (MLP),
+(ISTA)---pueden desenrollarse para formar perceptrones multicapa (MLP),
 uniendo de manera efectiva la optimización iterativa y el diseño de redes neuronales.
 Cabe destacar que \cite{monga2019algorithm} demostró que estas
-redes «desenroscadas» son más interpretables, eficientes y efectivas
+redes «desenrolladas» son más interpretables, eficientes y efectivas
 en comparación con las redes genéricas.
 
 En este capítulo, partimos de esta perspectiva para desarrollar arquitecturas de redes profundas de caja abierta basadas en principios,
@@ -2876,7 +2876,7 @@ un ajuste heurístico, con nuestras arquitecturas ReduNet, que cuentan con una b
         \hline
         & DNNs convencionales & ReduNets\\ [0.5ex]
         \hline \hline
-        Objectivos & Ajustes de entrada/salida & ganancia de información \\ [0.5ex]
+        Objetivos & Ajustes de entrada/salida & ganancia de información \\ [0.5ex]
         \hline
         Arquitecturas profundas & prueba y error & optimización iterativa \\  [0.5ex]
         \hline
@@ -2884,11 +2884,11 @@ un ajuste heurístico, con nuestras arquitecturas ReduNet, que cuentan con una b
         \hline
         Invariancia al traslado & CNNs y aumento & ReduNets invariantes \\  [0.5ex]
         \hline
-        Inicializaciones & aleatorio/pre-diseño & desenroscado hacia adelante \\ [0.5ex]
+        Inicializaciones & aleatorio/pre-diseño & desenrollado hacia adelante \\ [0.5ex]
         \hline
         Entrenamiento/ajuste fino & retroprop & h.adelante/retroprop\\ [0.5ex]
         \hline
-        Interpretabilidad & caja negra & caja blanca \\ [0.5ex]
+        Interpretabilidad & black-box & white-box \\ [0.5ex]
         \hline
         Representaciones & oculta/latente & subespacios incoherentes \\ [0.5ex]
         \hline

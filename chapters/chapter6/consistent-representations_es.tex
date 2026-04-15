@@ -564,7 +564,7 @@ información sobre la curvatura de la variedad subyacente, la cual se
 estima a partir de muestras de datos. Si se dispone de suficientes muestras de la variedad y
 se lleva a cabo una instanciación cuidadosa de este proceso conceptual, es posible implementar
 este esbozo como un procedimiento computacional que aplana de manera verificable variedades no lineales
-mediante un enfoque de caja blanca \cite{Psenka-JMLR24}. Sin embargo, este enfoque tiene
+mediante un enfoque de white-box \cite{Psenka-JMLR24}. Sin embargo, este enfoque tiene
 una aplicabilidad limitada a distribuciones de datos de alta dimensión, como
 las imágenes, debido a su escasa escalabilidad, lo que ha motivado el desarrollo de métodos más
 flexibles para la autocodificación incremental.
@@ -597,7 +597,7 @@ la autocodificación dispersa:
 donde se sabe que la «norma» $\ell^0$ $\|\spcdot\|_0$ favorece la dispersión.
 Esto es muy similar al objetivo de reducción de la tasa de dispersión
 \eqref{eq:sparse-rr} que utilizamos en el anterior
-\Cref{ch:deep-networks} para derivar la arquitectura CRATE de caja blanca.
+\Cref{ch:deep-networks} para derivar la arquitectura CRATE de white-box.
 
 \begin{figure}
     \centering
@@ -803,7 +803,7 @@ que toma el formalismo VAE (por ejemplo, la elección y parametrización de las 
 Esto da lugar a un objetivo de entrenamiento complejo cuya optimización eficiente sigue siendo
 un reto, a pesar de más de diez años de investigación.
 Las metodologías recientes de aprendizaje de representaciones han logrado mejoras notables con respecto a
-esta referencia, e incluso pueden formularse en el marco de caja blanca que
+esta referencia, e incluso pueden formularse en el marco de white-box que
 hemos desarrollado en el \Cref{ch:deep-networks}, como veremos en breve.
 
 % \yima{Robin and Peter, this is a good place to have some discussion

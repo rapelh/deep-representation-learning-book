@@ -11,82 +11,94 @@
 % \end{center}
 % \vspace{5mm}
 
-En su calidad de libro de código abierto, su primera versión, titulada «{\em Aprendizaje de representaciones profundas de distribuciones de datos}», liberada el 18 de agosto de 2025, se ha actualizado de manera frecuente y constante en los últimos seis meses. 
-Mientras tanto, en base a nuestra experiencia al usar el libro en un nuevo curso impartido en la Universidad de Hong Kong en otoño de 2025 y a los comentarios que hemos recibido de colegas, ayudantes y estudiantes, hemos identificado numerosos puntos a lo largo del libro que merecen mayor revisión y ampliación.
+Como libro de código abierto, la primera versión, titulada «{\em Aprendizaje de representaciones 
+profundas de distribuciones de datos}», lanzada el 18 de agosto de 2025, se ha actualizado frecuentemente en los últimos seis meses. 
+Al mismo tiempo , basados en nuestra experiencia usando el libro en un nuevo curso impartido 
+en la Universidad de Hong Kong en el semestre de otoño de 2025 y a los comentarios que hemos 
+recibido de colegas, tutores y estudiantes, hemos identificado numerosos puntos a lo largo 
+del libro que merecen mayor revisión y ampliación.
 
-Por lo tanto, hemos decidido realizar algunos cambios y actualizaciones sustanciales en el contenido y la organización del libro en su nueva \textit{Versión 2.0} y cambiamos su título a:
+Por ello hemos decidido introducir algunos cambios y actualizaciones sustanciales en el contenido 
+y la organización del libro para la nueva \textit{Versión 2.0} y hemos cambiado su título a:
 \begin{quote}
     \centering 
     {\em Principios y práctica del aprendizaje profundo de representaciones} \\
     {\em o Una teoría matemática de la memoria}
 \end{quote}
-Esta nueva versión también nos permite poner de relieve las intensas conexiones conceptuales y técnicas entre los materiales de los diferentes capítulos y secciones del libro, de manera que el valor pedagógico del libro en su conjunto, creemos, ha aumentado significativamente en relación a la primera versión. 
+Esta nueva versión también nos permite poner de relieve las fuertes conexiones conceptuales y 
+técnicas entre los contenidos de los diferentes capítulos y secciones del libro, de manera 
+que creemos que el valor pedagógico global del libro ha mejorado significativamente 
+en relación a la primera versión. 
 
-En nuestra opinión, la nueva versión logra una presentación mucho más unificada, completa y fluida de este tema. La nueva versión también incorpora conclusiones teóricas de reciente desarrollo, así como un número creciente de aplicaciones prácticas para datos del mundo real que no se han documentado de manera apropiada ni explicado en forma sistemática en otras fuentes. Esta Versión 2.0 servirá como remedio oportuno para esta situación.
+En nuestra opinión, la nueva versión logra una presentación mucho más unificada, completa y 
+fluida del tema. La nueva versión también incorpora nuevos aportes teóricos recientemente desarrollados, 
+así como un número creciente de aplicaciones prácticas para datos del mundo real que no se han documentado 
+de manera apropiada ni explicado en forma sistemática en otros lugares. Esta Versión 2.0 servirá como 
+remedio oportuno para esta situación.
 
 \subsection*{Principales cambios en la Version 2.0}
 \begin{itemize}
-    \item Hemos dividido en dos el capítulo 3 de la primera versión, que ahora
+    \item Hemos dividido en dos capítulos el capítulo 3 de la primera versión, que ahora
         son los capítulos \ref{ch:denoising} y \ref{ch:lossy-compression}. El
         nuevo capítulo \ref{ch:denoising} se centra en el proceso de reducción 
-        de ruido para el aprendizaje de distribuciones de baja dimensionalidad.
+        de ruido para el aprendizaje de distribuciones de baja dimensión.
         Hemos agregado una nueva sección en la que se caracterizan las 
         condiciones bajo las que el proceso conduce a una generalización o
         memorización. El nuevo capítulo \ref{ch:lossy-compression} se centra
         en el aprendizaje de representaciones basado en un enfoque de 
         codificación con pérdidas y en el principio de maximización de la 
-        ganancia de información. Mientras que la versión antigua solo
+        ganancia de información. Como la versión anterior solo
         ilustraba cómo aplicar el principio en el aprendizaje de 
-        representaciones de imágenes en modo supervisado, en la nueva versión 
-        se agrega un estudio de casos correspondientes al modo no supervisado.
-        También provee una justificación teórica de algunos métodos populares 
+        representaciones de imágenes en una configuración supervisada, en la nueva versión 
+        se agrega un estudio de casos correspondientes a una configuración no supervisada.
+        También proporciona una justificación teórica de algunos métodos populares 
         de aprendizaje no supervisado tales como el aprendizaje contrastivo 
         y DINO en particular.
-    \item En el capítulo \ref{ch:deep-networks} actualizado acerca del diseño
-        de representaciones por vía de optimización desenroscada, hemos agregado
-        una derivación de principios para una versión causal de la arquitectura 
-        de transformador de caja blanca CRATE, que resulta importante para el
-        procesamiento de datos secuenciales tales como textos, como aparece
-        con frecuencia en aplicaciones.
+    \item En el capítulo \ref{ch:deep-networks} actualizado sobre el diseño
+        de representaciones por vía de optimización desenrollada, hemos agregado
+        una derivación basada en principios para una versión causal de la arquitectura 
+        de transformador de white-box CRATE, que resulta importante para el
+        procesamiento de datos secuenciales tales como textos, como vemos
+        frecuentemente en aplicaciones.
     \item En el capítulo \ref{ch:consistent-representations} actualizado 
         sobre el aprendizaje de representaciones consistentes, hemos agregado 
-        una nueva sección que explica con más detalle las relaciones entre
-        el aprendizaje de distribuciones y el de representaciones. Esto da
+        una nueva sección que aumenta la claridad sobre las relaciones entre
+        el aprendizaje de distribuciones y el aprendizaje de representaciones. Esto da
         una clarificación y justificación teóricas para los métodos populares
-        y prácticos basados en autocodificación, tales como la autocodificación
+        y prácticos basados en autocodificación, como la autocodificación
         variacional o los autocodificadores de representaciones. 
     \item En el capítulo \ref{ch:conditional-inference} actualizado hemos
         añadido una sección que ofrece una explicación basada en principios
         del aprendizaje de representaciones con datos pareados y generación 
-        condicional a través de la perspectiva de la infrmación mutua. Entrega
+        condicional a través de la perspectiva de la infrmación mutua. Proporciona
         una justificación teórica para métodos populares y prácticos tales como
         CLIP y formas de atención cruzada.
-    \item El capítulo \ref{ch:applications} de aplicaciones expandido ahora
-        incluye muchas más implementaciones detalladas del aprendizaje de
-        distribuciones y de representaciones a partir de datos del mundo real,
-        incluyendo imágenes naturales en 2D, objetos naturales en 3D, 
-        movimientos del cuerpo humano, así como lenguajes naturales, en
-        casi todos los modos populares y prácticos, supervisados, débilmente 
-        supervisados, no supervisados y condicionados.
-    \item El capítulo \ref{ch:future} final, dedicado a las líneas de 
-        investigación abiertas, también se ha reescrito en medida significativa.
-        Intentamos entregar una taxonomía más clara de los diferentes niveles
+    \item El capítulo \ref{ch:applications} ampliado sobre aplicaciones ahora
+        incluye numerosas implementaciones detalladas del aprendizaje de
+        distribuciones y de representaciones para de datos reales,
+        incluyendo imágenes idimensionales2D, objetos naturales tridimensionales, 
+        movimientos corporales, así como lenguajes naturales, en
+        casi todos las configuraciones populares y prácticas, supervisadas, débilmente 
+        supervisadas, no supervisadas y condicionadas.
+    \item El capítulo \ref{ch:future} final, sobre líneas de 
+        investigación abiertas, también se ha reescrito significativamente.
+        Buscamos ofrecer una taxonomía más clara de los diferentes niveles
         de la inteligencia, de modo de poder clarificar qué hemos hecho y qué
-        entendemos en cuanto a inteligencia (con este libro) y qué no. Creemos
-        que los problemas abiertos asociados con las formas más avanzadas de
-        inteligencia bien pueden plantearse de manera de que se los pueda
-        estudiar cualitativamente y cuantitativamente a través de medios
-        científicos y matemáticos, en lugar de permanecer como una materia
-        misteriosa o meramente como tema filosófico.
+        entendemos acerca de la inteligencia (con este libro) y qué no hemos hecho. Creemos
+        que los problemas abiertos asociados con las formas superiores de
+        inteligencia pueden formularse adecuadamente de manera de que puedan 
+        estudiarse cualitativamente y cuantitativamente con de medios
+        científicos y matemáticos, en lugar de permanecer como un asunto
+        misterioso o meramente filosófico.
 \end{itemize}
 
 \subsection*{Contribuidores a la Versión 2.0}
-Aparte de los autores, numerosos estudiantes y colegas se han unido a este proyecto y han contribuido contenidos valiosos para diferentes partes del libro durante la preparación de la {\em Versión 2.0}. A continuación va una lista incompleta de personas y sus contribuciones específicas, en orden alfabético:
+Además de los autores, numerosos estudiantes y colegas han colaborado a este proyecto y han aportado contenido valioso a diferentes partes del libro durante la preparación de la {\em Versión 2.0}. Se presenta a continuación una lista incompleta de las personas y sus contribuciones específicas, en orden alfabético:
 \begin{itemize}
     \item Tianzhe Chu: Experimentos en la Sección \ref{sec:image_classification}, así como herramientas de IA para el libro.
     \item Prof. Shenghua Gao: Secciones \ref{sec:Michelangelo} y \ref{sec:CUPID}.
     \item Bingbing Huang: Secciones \ref{sec:Michelangelo} y \ref{sec:CUPID}.
-    \item Kerui Min: traducción al chino.
+    \item Kerui Min: Traducción al chino.
     \item Prof. Qing Qu: Sección \ref{sec:diffusion_memorization}.
     \item Shengbang Peter Tong: Secciones \ref{sec:continuous} y \ref{sec:RAE-implement}.
     \item Chengyu Wang: Secciones \ref{sec:Michelangelo} y \ref{sec:CUPID}.
@@ -97,6 +109,8 @@ Aparte de los autores, numerosos estudiantes y colegas se han unido a este proye
     \item Dr. Yaodong Yu: El capítulo \ref{ch:deep-networks} se basa en su tesis doctoral.
     \item Dr. Zibo Zhao: Sección \ref{sec:Michelangelo}.
 \end{itemize}
-También les damos las gracias al Dr. Kevin Murphy y al Dr. Bill Mark por sus extensos comentarios técnicos acerca del manuscrito; a Jan Cavel por contribuir una traducción no oficial al rumano, así como a Stephen Butterfill y Jeroen Van Goey por contribuir correcciones y modificaciones al manuscrito.
+También queremos agradecer al Dr. Kevin Murphy y al Dr. Bill Mark por sus extensos comentarios técnicos 
+sobre el manuscrito; a Jan Cavel por haber contribuido una traducción no oficial al rumano, así como a 
+Stephen Butterfill y Jeroen Van Goey por haber contribuido correcciones y modificaciones al manuscrito.
 
 \end{document}

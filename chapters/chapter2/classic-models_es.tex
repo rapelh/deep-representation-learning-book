@@ -147,7 +147,7 @@ Para expresarlo en notación matemática, representamos un subespacio \(\cS
 \subseteq \R^{D}\) de dimensión \(d\) mediante una matriz ortonormal \(\vU
 \in \O(D, d) \subseteq \R^{D \times d}\) tal que las columnas de
 \(\vU\) generan \(\cS\). Luego, decimos que nuestros datos \(\{\vx_{i}\}_{i =
-1}^{N} \subseteq \R^{D}\) tienen una estructura (aproximada) de rango bajo si
+1}^{N} \subseteq \R^{D}\) tienen una estructura (aproximada) de bajo rango si
 existen una matriz ortonormal \(\vU \in \O(D, d)\), vectores
 \(\{\vz_{i}\}_{i = 1}^{N} \subseteq \R^{d}\) y \textit{pequeños}
 vectores \(\{\veps_{i}\}_{i = 1}^{N} \subseteq \R^{D}\) tales que
@@ -155,7 +155,7 @@ vectores \(\{\veps_{i}\}_{i = 1}^{N} \subseteq \R^{D}\) tales que
     \vx_{i} = \vU\vz_{i} + \veps_{i}, \quad \forall i \in [N].
 \end{equation}
 Aquí, \(\veps_{i}\) son perturbaciones que impiden que los datos sean perfectamente
-de rango bajo; su presencia en nuestro modelo nos permite cuantificar hasta qué punto
+de bajo rango; su presencia en nuestro modelo nos permite cuantificar hasta qué punto
 nuestro análisis sigue siendo relevante cuando se producen desviaciones respecto a 
 nuestro modelo. El verdadero subespacio de base es \(\cS \doteq
 \mathop{\mathrm{col}}(\vU)\), el espacio generado por las columnas de $\vU$. Para 
@@ -207,7 +207,7 @@ los siguientes dos problemas equivalentes:
 \end{equation}
 Téngase en cuenta que el problema que aparece en el lado derecho de \eqref{eq:pca_equals_denoising}
 es un problema de reducción de ruido: dadas observaciones ruidosas \(\vx_{i}\) de
-datos de rango bajo, nuestro objetivo es encontrar la copia sin ruido de \(\vx_{i}\), que
+datos de bajo rango, nuestro objetivo es encontrar la copia sin ruido de \(\vx_{i}\), que
 bajo el modelo \eqref{eq:pca_dgp} es $\vU\vz_{i}$. Es decir, la entrada sin ruido
 $\hat{\vx}_i = \vU\vU^\top \vx_i$. Nótese que este es el punto del subespacio
 que se encuentra más cerca de $\vx_i$, tal como se muestra en la \Cref{fig:pca-geometry}.
@@ -270,8 +270,8 @@ las observaciones \(\vx_{i}\). Tenemos (demostración como ejercicio)
     &=
     \argmax_{\tilde{\vU}}\tr\rc{\tilde{\vU}^{\top}\bp{\frac{\vX\vX^{\top}}{N}}\tilde{\vU}}.
 \end{align}
-Por lo tanto, para calcular los componentes principales, se busca la matriz ortogonal
-\(\tilde{\vU}\) que maximice el término
+Por lo tanto, para calcular los componentes principales, se busca la matriz ortonormal
+\(\tilde{\vU}\) que maximice el término 
 \(\tr(\tilde{\vU}^{\top}(\vX\vX^{\top}/N)\tilde{\vU})\). Podemos demostrar por
 inducción que esta matriz \(\vU^{\star}\) tiene columnas que son los
 \textit{primeros \(d\) vectores propios unitarios} de \(\vX\vX^{\top}/N\). Dejamos
@@ -315,10 +315,10 @@ lo expuesto anteriormente, obtenemos el siguiente teorema informal.
     \begin{equation}
         \vx_{i} = \vU\vz_{i} + \veps_{i}, \qquad \forall i \in [N],
     \end{equation}
-    donde \(\vU \in \O(D, d)\) representa la \textit{estructura de rango bajo},
+    donde \(\vU \in \O(D, d)\) representa la \textit{estructura de bajo rango},
     \(\{\vz_{i}\}_{i = 1}^{N} \subseteq \R^{d}\) son los \textit{códigos compactos}
     de los datos y \(\{\veps_{i}\}_{i = 1}^{N} \subseteq \R^{D}\) son pequeños
-    vectores que indican la desviación de nuestros datos respecto al modelo de rango bajo. Entonces,
+    vectores que indican la desviación de nuestros datos respecto al modelo de bajo rango. Entonces,
     los \textit{componentes principales} \(\vU^{\star} \in \O(D, d)\) de nuestro
     conjunto de datos vienen dadas por los \(d\) primeros vectores propios de \(\vX\vX^{\top}/N\),
     donde \(\vX = [\vx_{1}, \dots, \vx_{N}] \in \R^{D \times N}\) y
@@ -339,7 +339,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
 \end{remark}
 
 \begin{remark}[Selección base mediante valores propios con reducción de ruido]
-    En muchos casos, nuestros datos no se estarán distribuidos realmente
+    En muchos casos, nuestros datos no estarán distribuidos realmente
     según un modelo de subespacio más ruido, o bien no conoceremos la
     verdadera dimensión subyacente \(d\) del subespacio. En este caso,
     tenemos que elegir \(d\); este problema se denomina \textit{selección
@@ -357,7 +357,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
 \end{remark}
 
 \begin{remark}[Reducción de ruido en muestras]
-    La expresión del lado derecho de
+    La expresión del lado derecho de la Ecuación
     \eqref{eq:pca_equals_denoising}, es decir,
     \begin{equation}\label{eq:orthogonal_denoising}
         \min_{\tilde{\vU}}\frac{1}{N}\sum_{i = 1}^{N}\norm{\vx_{i} -
@@ -378,7 +378,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
 \begin{remark}[Interpretación como red neuronal]
     Si realizamos un análisis de componentes principales (PCA), recuperamos aproximadamente el soporte de la distribución
     codificada por el parámetro \(\vU^{\star}\). El mapa de reducción de ruido aprendido adopta entonces
-    la forma \(\vU^{\star}(\vU^{\star})^{\top}\). Además de ser un filtro de eliminación de ruido, esto 
+    la forma \(\vU^{\star}(\vU^{\star})^{\top}\). Además de ser un filtro de reducción de ruido, esto 
     puede considerarse como una \textit{red neuronal lineal simple de dos capas con pesos vinculados}: la 
     primera capa multiplica por \((\vU^{\star})^{\top}\) y la segunda multiplica por \(\vU^{\star}\), es decir
     \begin{equation}
@@ -629,7 +629,7 @@ calcular su valor concreto \(\vz(\vx)\) por separado para cada valor de
     \min_{\tilde{\vU}}\Ex\norm{\vx - \tilde{\vU}\tilde{\vU}^{\top}\vx}_{2}^{2},
 \end{equation}
 reafirmando una vez más el hecho de que el subespacio estimado con
-componentes principales \(\vU^{\star}\) corresponde a un filtro de eliminación de ruido
+componentes principales \(\vU^{\star}\) corresponde a un filtro de reducción de ruido
 \(\vU^{\star}(\vU^{\star})^{\top}\) que se proyecta sobre ese
 subespacio. Como antes, obtenemos
 \begin{align}\label{eq:PPCA}
@@ -662,11 +662,11 @@ de modo que \(\Cov[\vx] = \Ex[\vx\vx^{\top}]\). Ahora, desarrollando
     \vU\Ex[\vz\vz^{\top}]\vU^{\top} + \Cov[\veps].
 \end{equation}
 En particular, si \(\Cov[\veps]\) es pequeño, se cumple que \(\Cov[\vx]
-= \Ex[\vx\vx^{\top}]\) es aproximadamente una matriz de rango bajo,
+= \Ex[\vx\vx^{\top}]\) es aproximadamente una matriz de bajo rango,
 concretamente de rango \(d\). Por lo tanto, los \(d\) vectores propios principales de
 \(\Ex[\vx\vx^{\top}]\) resumen esencialmente toda la matriz de covarianza.
 Pero también son los componentes principales, por lo que podemos
-interpretar el análisis de componentes principales como una descomposición de rango bajo
+interpretar el análisis de componentes principales como una descomposición de bajo rango
 de \(\Cov[\vx]\).
 
 \begin{remark}
@@ -709,17 +709,17 @@ de \(\Cov[\vx]\).
     \begin{equation}
         \vx = \vU\vz + \veps
     \end{equation}
-    donde \(\vU \in \O(D, d)\) representa la \textit{estructura de rango bajo}, \(\vz\)
+    donde \(\vU \in \O(D, d)\) representa la \textit{estructura de bajo rango}, \(\vz\)
     es un vector aleatorio que toma valores en \(\R^{d}\) y \(\veps\) es un vector aleatorio
     que toma valores en \(\R^{D}\), de tal manera que \(\vz\) y \(\veps\) son
     independientes y \(\veps\) es pequeño. Entonces, los \textit{componentes principales}
     \(\vU^{\star} \in \O(D, d)\) de nuestro conjunto de datos vienen dados por los \(d\) primeros
-    vectores propios de \(\Ex[\vx\vx^{\top}]\) y se corresponden aproximadamente con el
-    filtro de eliminación de ruido lineal óptimo: \(\vU^{\star}(\vU^{\star})^{\top}
+    vectores propios de \(\Ex[\vx\vx^{\top}]\) y corresponden aproximadamente al
+    filtro de reducción de ruido lineal óptimo: \(\vU^{\star}(\vU^{\star})^{\top}
     \approx \vU\vU^{\top}\).
 \end{theorem}
 
-\subsection{Completamiento de matrices de rango bajo con máscara}
+\subsection{Completamiento de matrices de bajo rango con máscara}
 
 En las subsecciones anteriores, analizamos el problema de \textit{aprender 
 una distribución geométrica o estadística de bajo rango}, en la que los 
@@ -777,7 +777,7 @@ el resto del manuscrito, empezando por la siguiente sección.\footnote{En capít
 
 \section{Una mezcla de subespacios completos de baja dimensión}%
 \label{sec:ica}
-Como hemos visto, los modelos de señales de rango bajo son lo suficientemente 
+Como hemos visto, los modelos de señales de bajo rango son lo suficientemente 
 ricos en estructura como para ofrecer una visión global de la interacción entre 
 la baja dimensión de los datos y los algoritmos computacionales eficientes 
 y escalables para la representación y recuperación en presencia de errores.
@@ -792,7 +792,7 @@ método de potencias) siempre que la distribución de $\vx$ sea realmente lineal
 Se trata de una hipótesis restrictiva, pues, tal y como objetó Harold Hotelling, el
 distinguido estadístico del siglo XX,\footnote{Por casualidad,
     también famoso por sus contribuciones al desarrollo y la denominación del
-el Análisis de Componentes Principales \cite{Hotelling1933}.} 
+Análisis de Componentes Principales \cite{Hotelling1933}.} 
 tras la presentación por parte de George Dantzig de su teoría de la
 programación lineal por primera vez \cite{Dantzig2002-eh},
 \begin{quote}
@@ -810,7 +810,7 @@ programación lineal por primera vez \cite{Dantzig2002-eh},
     diferentes regiones de una imagen.}
     \label{fig:multiple-subspaces}
 \end{figure}
-Aun teniendo en cuenta su elegancia y simplicidad, la suposición de rango bajo
+Aun teniendo en cuenta su elegancia y simplicidad, la suposición de bajo rango 
 es demasiado restrictiva como para ser ampliamente aplicable al modelado
 de datos del mundo real.
 Una limitación clave es la suposición de un \textit{único} subespacio lineal
@@ -853,7 +853,7 @@ En esta sección, comenzaremos analizando los fundamentos conceptuales y algorí
 del aprendizaje de representaciones estructuradas cuando la distribución de los datos
 puede modelarse mediante {\em una mezcla de subespacios de baja dimensión}, tal y como
 se ilustra en la \Cref{fig:subspaces}. En este contexto, el mapeo del decodificador
-será casi tan sencilla como en el caso de un único subespacio:
+será casi tan simple como en el caso de un único subespacio:
 simplemente lo representamos mediante
 \begin{equation}\label{eq:mixture-subspaces-decoder-first-cut}
     \hat{\x} = \cD(\vz) = \left( \sum_{k=1}^K \pi_k(\vz)\vU_k \right) \vz,
@@ -874,7 +874,7 @@ componentes conceptuales clave del aprendizaje de representaciones estructuradas
 desarrollaremos con una generalidad mucho mayor en este libro.
 
 \subsection{Mezclas de subespacios y diccionarios
-utilizados en forma dispersa}
+con codificación dispersa}
 \label{sec:mixture-and-dict}
 
 Sea $\vU_1, \dots, \vU_K$, cada uno de tamaño $D \times d$, una 
@@ -1032,7 +1032,7 @@ Aquí suponemos que cada componente independiente $z_i$ sigue una distribución
 de la forma $$z_i \sim \dBern(\theta) \cdot \cN(0, 1/\theta).$$ Es decir,
 es el producto de una variable aleatoria de Bernoulli con una probabilidad
 de $\theta$ de ser $1$ y de $1-\theta$ de ser $0$ y una variable aleatoria gaussiana independiente
-con varianza $1/\theta$. Esta distribución se conoce formalmente como distribución {\em Bernoulli-Gaussiana}.
+con varianza $1/\theta$. Esta distribución se conoce formalmente como distribución {\em de Bernoulli-Gauss}.
 La normalización se elige de tal manera que $\Var(z_i) = 1$ y, por lo tanto,
 $\bE[\norm{\vz}_2^2]=d$. Esta suposición del modelo implica que el vector de componentes independientes
 $\vz$ suele ser muy disperso:
@@ -1046,7 +1046,7 @@ cuando $\theta$ es inversamente proporcional a $d$.
     a cualquier matriz cuadrada invertible $\vU$. Con muestras
     generadas a partir de este diccionario: $\vX = \vU \vZ \in
     \mathbb{R}^{D\times N}$, es fácil demostrar que, con cierto
-    preacondicionamiento de la matriz de datos $\vX$:
+    preprocesamiento de la matriz de datos $\vX$:
     \begin{equation}
         \bar{\vX} = \Big(\frac{1}{N\theta} \vX\vX^\top\Big)^{-\frac{1}{2}}\vX,
     \end{equation}
@@ -1376,7 +1376,7 @@ Al comparar el algoritmo FastICA \eqref{eq:fast-ica} con el método de potencias
 en la \Cref{sub:pca} para el problema del PCA y el algoritmo MSP
 \eqref{eq:msp_iteration}, observamos una sorprendente similitud. De hecho,
 FastICA es, en esencia, un método de potencias modificado, que utiliza el
-gradiente de la curtosis empírica en lugar del gradiente lineal más simple
+gradiente de la curtosis empírica en lugar de un simple gradiente lineal 
 del objetivo del PCA.
 
 \section{Una mezcla de subespacios sobrecompletos de baja dimensión}
@@ -1430,13 +1430,13 @@ una representación sobrecompleta.
         contenido no trivial y los códigos dispersos se calculan con el objetivo LASSO
         y $\lambda=0.1$ (véase \eqref{eq:sparse_dl_lasso}). Las escalas de colores
         utilizan el negro para los valores negativos y el blanco para
-        los valores positivos. \textbf{Arriba:} Un diccionario ortogonal aprendido con el
+        los valores positivos. \textbf{En la parte superior:} Un diccionario ortogonal aprendido con el
         algoritmo MSP \eqref{eq:msp_iteration} está limitado a
         tener un máximo de $64$ átomos; Los átomos aprendidos se corresponden aproximadamente con
         un diccionario de tipo «pico y placa», y alcanzan niveles relativamente bajos
         de dispersión en la reconstrucción
         en los datos de prueba no utilizados (los códigos tienen una dispersión de aproximadamente 17
-        en promedio, con respecto a un umbral de 10⁻¹). \textbf{Abajo:} Por el contrario, un diccionario sobrecompleto
+        en promedio, con respecto a un umbral de 10⁻¹). \textbf{En la parte inferior:} Por el contrario, un diccionario sobrecompleto
         (en este caso, con $8^3$
         átomos; visualizamos un subconjunto aleatorio de 64) aprende
         átomos de diccionario semánticamente significativos correspondientes a
@@ -1714,7 +1714,7 @@ A continuación, lo aplicamos como una restricción, estableciendo el objetivo
 \end{equation}
 Los problemas de optimización con restricciones, como el de la ecuación \eqref{eqn:DL-overcomplete},
 pueden resolverse mediante una gran variedad de algoritmos sofisticados
-\cite{nocedal2006numerical}. Sin embargo, una solución sencilla y escalable es, de hecho,
+\cite{nocedal2006numerical}. Sin embargo, una solución simple y escalable es, de hecho,
 la que ofrece el mismo algoritmo de descenso por gradiente proximal que
 utilizamos para resolver el problema de la codificación dispersa en la sección anterior.
 Podemos codificar cada restricción como un término de regularización adicional, mediante la
@@ -1872,7 +1872,7 @@ para
 \textit{interpretar características en redes profundas preentrenadas a gran escala}, 
 tales como los transformadores, siguiendo la hipótesis de que las
 características (no interpretables, \textit{a priori}) en estas redes consisten 
-en «superposiciones» dispersas de características subyacentes, las cuales son 
+en «superposiciones» dispersa de características subyacentes, las cuales son 
 a su vez interpretables \cite{elhage2022superposition}. Estos paradigmas de 
 aprendizaje \textit{sin supervisión} suelen ser también más eficientes en 
 cuanto al uso de datos que LISTA, que requiere grandes cantidades
@@ -1927,7 +1927,7 @@ En el caso especial de $L=2$, tenemos
 Supongamos que los códigos dispersos $\vZ$ en cuestión son no negativos, es decir,
 que $\vZ \geq \Zero$.\footnote{En el modelo de generación de datos
     \eqref{eq:overcomplete-dl-section-data-model}, un par arbitrario
-    de diccionario y código disperso $(\vA, \vZ)$ puede sustituirse por uno en el que
+    de diccionario y código dispersos $(\vA, \vZ)$ puede sustituirse por uno en el que
     $\vZ \geq \Zero$ simplemente duplicando el número de columnas en $\vA$, por lo que,
 desde el punto de vista del modelado, se trata de una suposición muy moderada.}
 Entonces (véase el \Cref{example:prox-of-nonnegative-l1}), podemos considerar una arquitectura LISTA equivalente
@@ -2027,9 +2027,8 @@ analizaremos con más detalle al final del libro en el \Cref{ch:future}.
 
 \paragraph{Mensajes clave.} Los modelos idealizados que hemos presentado en
 este capítulo---el PCA, el ICA y el aprendizaje de diccionarios---se 
-desarrollaron a lo largo del siglo XX.  Se han escrito muchos libros dedicados 
-exclusivamente a cada uno de estos métodos, por lo que aquí solo hemos intentado
-ofrecer una visión general de los conceptos y resultados clave. Como
+desarrollaron a lo largo del siglo XX.  Muchos libros se han dedicado 
+a estos métodos, por lo que aquí solo ofrecemos una visión general de los conceptos y resultados clave. Como
 veremos en los próximos capítulos, aunque podría decirse que se trata de
 modelos bastante idealizados y sencillos para distribuciones de datos de baja dimensión, las
 ideas básicas e incluso los algoritmos resultantes para identificar tales
@@ -2043,7 +2042,7 @@ de baja dimensión.
 \paragraph{Más información histórica y referencias.}
 Jolliffe \cite{Jolliffe1986} atribuye el análisis de componentes principales a Pearson
 \cite{Pearson1901} y, en forma independiente, a Hotelling \cite{Hotelling1933}. En
-matemáticas, el resultado principal sobre el problema relacionado de la aproximación de rango bajo en
+matemáticas, el resultado principal sobre el problema relacionado de la aproximación de bajo rango en
 normas unitariamente invariantes se atribuye a Eckart y Young
 \cite{Eckart1936-ep}, así como a Mirsky en su forma más general \cite{Mirsky1960-ek}.
 El PCA sigue desempeñando un papel importante en la investigación, ya que es quizás el
@@ -2179,7 +2178,7 @@ más complejas.
     \begin{enumerate}
         \item Muestre que si $\vA$ es cualquier matriz cuadrada invertible de
             tamaño compatible, entonces el par
-            $(\vU \vA, \vA^{-1} \vZ)$ también es igual a $\vX$ según el
+            $(\vU \vA, \vA^{-1} \vZ)$ es igualmente representado por $\vX$ según el mismo
             modelo. A esto lo llamamos una \textit{simetría de $\GL(d)$}. 
         \item Supongamos que cada columna de $\vZ$ es una observación independiente e
             identicamente distribuida procedente de un modelo estadístico común
@@ -2209,7 +2208,7 @@ más complejas.
         \item Demuestre que la \textit{matriz blanqueada} $(\vY
             \vY^\top)^{-1/2}\vY$ existe en cuanto a la esperanza siempre que
             $\Cov(\vz)$ sea no singular y que tiene una covarianza
-            empírica igual a la identidad.\footnote{En particular, se puede
+            empírica igual a la matriz identidad.\footnote{En particular, se puede
                 demostrar matemáticamente que esto basta para garantizar
                 que la matriz blanqueada exista con alta probabilidad
                 siempre que $\vz$ satisfaga una desigualdad de concentración
@@ -2264,7 +2263,7 @@ más complejas.
             \begin{equation*}
                 T_{\vu} \cM = \Ker(DF_{\vu}).
             \end{equation*}
-            Es fácil ver que la esfera tiene la ecuación definitoria
+            Es fácil ver, que la esfera tiene la ecuación definitoria
             $F(\vu) = \norm{\vu}_2^2 - 1$.
             Demuestre, utilizando estos datos, que el espacio tangente a la
             esfera en $\vu$ viene dado por

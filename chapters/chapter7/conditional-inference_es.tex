@@ -2012,27 +2012,27 @@ $\bar{\vx}_{\theta_{\mathrm{d}}}$. Como resultado, el eliminador de ruido ideali
 derivado por \citet{Dhariwal2021-hg} tal y como hemos hecho anteriormente a partir de la descomposición
 condicional del eliminador de ruido posterior
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data}, no refleja exactamente
-el denoiser de mejor rendimiento en la práctica; ¡dicho filtro de ruido
+el filtro de ruido de mejor rendimiento en la práctica; ¡dicho filtro de ruido
 combina en realidad un filtro de ruido \textit{condicional} para $\vx_t$ dado $y$ con una
 señal de guía adicional procedente de un clasificador auxiliar!
 
 Esta situación, de carácter empírico, llevó a \citet{Ho2022-ry} en
 trabajos posteriores a proponer una metodología más pragmática desde el punto de vista empírico, conocida como
 \textbf{orientación sin clasificador (CFG)}. En lugar de representar el
-denoiser condicional
+filtro de ruido condicional
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data} como una suma ponderada
-de un denoiser incondicional para $\vx_t$ con un término de corrección de la verosimilitud logarítmica
+de un filtro de ruido incondicional para $\vx_t$ con un término de corrección de la verosimilitud logarítmica
 (con pesos posiblemente modificados, como en la guía del clasificador), aceptan la
-aparente necesidad de entrenar un denoiser condicional para $\vx_t$ dado $y$, tal como
+aparente necesidad de entrenar un filtro de ruido condicional para $\vx_t$ dado $y$, tal como
 lo demuestran los resultados experimentales de \citet{Dhariwal2021-hg}, y sustituir
 el término del gradiente de la verosimilitud logarítmica por una suma correctamente ponderada de este
-denoiser condicional con un denoiser \textit{incondicional} para $\vx$ dado
+filtro de ruido condicional con un filtro de ruido \textit{incondicional} para $\vx$ dado
 $\vx_t$.\footnote{Dicho esto, \textcite{Ho2022-ry} propuso en realidad utilizar
     una ponderación diferente a la que presentamos aquí, basándose en el hecho de que
     \textcite{Dhariwal2021-hg} sustituyó de forma heurística el
-    denoiser incondicional de 
+    filtro de ruido incondicional de 
     \eqref{eq:conditional-denoising-mmse-denoiser-paired-data} por
-    un denoiser condicional. De hecho, la ponderación que derivamos y presentamos aquí
+    un filtro de ruido condicional. De hecho, la ponderación que derivamos y presentamos aquí
     refleja la práctica moderna y, en particular, se utiliza en modelos de difusión de vanguardia
     como Stable Diffusion 3.5 
 \cite{DBLP:conf/icml/EsserKBEMSLLSBP24}.}
@@ -2086,7 +2086,7 @@ entrenamiento de filtro de ruido de redes profundas,
 lo habitual es utilizar la \textit{misma} red profunda para representar
 tanto el filtro de ruido condicional como el incondicional mediante la introducción de una
 etiqueta adicional, que denotaremos como $\varnothing$, para indicar el caso «incondicional».
-Esto da lugar a la forma del denoiser CFG:
+Esto da lugar a la forma del filtro de ruido CFG:
 \begin{equation}\label{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cfg}
     \bar{\vx}_{\theta}^{\mathrm{CFG}}(t, \vx_t, y)
     =
@@ -2094,7 +2094,7 @@ Esto da lugar a la forma del denoiser CFG:
     +
     \gamma \bar{\vx}_{\theta}(t, \vx_t, y).
 \end{equation}
-Para entrenar un denoiser $\bar{\vx}_{\theta}(t, \vx_t, y^+)$ destinado a
+Para entrenar un filtro de ruido $\bar{\vx}_{\theta}(t, \vx_t, y^+)$ destinado a
 el muestreo de orientación sin clasificador, donde $y^+ \in
 \set{1, \dots, K, \varnothing}$, procedemos de manera casi idéntica al
 procedimiento de entrenamiento incondicional descrito en \Cref{alg:learning_denoiser}, pero con dos
@@ -2178,12 +2178,12 @@ lo que ofrece poca información sobre los mecanismos que subyacen a su excelente
 Varios trabajos teóricos han intentado abordar esta cuestión
 \cite{Bradley2024-jg,Li2025-li,Wu2024-js}.
 Ofrecen explicaciones sobre algunos aspectos de la metodología general de CFG,
-que abarca la parametrización y el entrenamiento del denoiser,
+que abarca la parametrización y el entrenamiento del filtro de ruido,
 así como la configuración de la intensidad de la guía
 y el rendimiento en el momento del muestreo.
 A continuación, siguiendo el hilo conductor del libro, daremos una interpretación
 en el marco simplificado de una distribución de datos de modelo de mezcla gaussiana y
-un denoiser.
+un filtro de ruido.
 En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso grande $\gamma
 \gg 1$?
 
@@ -2261,8 +2261,8 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
             de la clase de condicionamiento.
     \end{enumerate}
 
-    The CFG scheme averages these two denoisers.
-    The effect of this averaging can be gleaned from the refactoring
+    El esquema CFG promedia estos dos filtros de eliminación de ruido.
+    El efecto de este promedio se puede deducir de la refactorización
     \begin{equation}\label{eq:cfg-denoiser-mog-low-rank-2}
         \begin{split}
             \bar{\vx}^{\mathrm{CFG,\,ideal}}(t, \vx_t, y)
@@ -2288,9 +2288,9 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
             \vx_t,
         \end{split}
     \end{equation}
-    where we combined the conditional denoiser with the corresponding $k=y$ term
-    in the sum over $k \in [K]$.
-    We have
+    donde combinamos el filtro de ruido condicional con el término correspondiente $k=y$
+    en la suma sobre $k \in [K]$.
+    Tenemos
     \begin{equation}
         \sum_{k=1}^K
         \frac{\exp\rp{\frac{1}{2t^{2}(1
@@ -2299,16 +2299,16 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
         + t^{2})}\norm{\vU_{i}^{\top}\vx_t}_{2}^{2}}}
         = 1,
     \end{equation}
-    and each summand is nonnegative, hence also bounded above by $1$.
-    So we can conclude two regimes for the terms in
+    y cada sumando es no negativo, por lo que también está acotado por arriba por $1$.
+    Por lo tanto, podemos concluir que existen dos regímenes para los términos en
     \Cref{eq:cfg-denoiser-mog-low-rank-2}:
     \begin{enumerate}
-        \item \textbf{Well-correlated regime:} In this case, suppose the noisy
-            input $\vx_t$ correlates well with one of the subspaces $\vU_y$.
-            If $\vx_t$ correlates well with
-            $\vU_y$, then the normalized weight corresponding to the
-            $k=y$ summand in the unconditional denoiser is near to $1$.
-            Then
+        \item \textbf{Régimen bien correlacionado:} En este caso, supongamos que la entrada ruidosa
+            $\vx_t$ se correlaciona bien con uno de los subespacios $\vU_y$.
+            Si $\vx_t$ se correlaciona bien con
+            $\vU_y$, entonces el peso normalizado correspondiente al
+            sumando $k=y$ en el filtro de ruido incondicional es cercano a $1$.
+            Entonces
             \begin{equation}
                 \gamma + (1 - \gamma)
                 \frac{\exp\rp{\frac{1}{2t^{2}(1
@@ -2317,20 +2317,20 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
                 + t^{2})}\norm{\vU_{i}^{\top}\vx_t}_{2}^{2}}}
                 \approx 1,
             \end{equation}
-            all other weights are necessarily near to zero, and the CFG denoiser
-            is approximately equal to the denoiser associated to the
-            conditioning
-            class $y$.
+            todos los demás pesos son necesariamente cercanos a cero, y el filtro de ruido del CFG
+            es aproximadamente igual al filtro de ruido asociado a la
+            clase de condicionamiento
+            $y$.
 
-            This implies: \textit{if the CFG denoiser's input is highly
-                correlated with one of the class subspaces, the denoiser is
-                approximately equal to the corresponding class-conditional
-            denoiser}! Hence, we expect the CFG denoising sampler to converge.
-        \item \textbf{Poorly-correlated regime:} In contrast, if $\vx_t$
-            \textit{does not} correlate well with $\vU_y$ (say
-            because $t$ is large),
-            then the normalized weight corresponding to the $k=y$ summand in the
-            unconditional denoiser is near to $0$. As a result,
+            Esto implica que: ¡\textit{si la entrada del filtro de ruido CFG está altamente
+                correlacionada con uno de los subespacios de clase, el filtro de ruido es
+                aproximadamente igual al filtro de ruido condicional de la clase
+            correspondiente}! Por lo tanto, esperamos que el muestreador de eliminación de ruido CFG converja.
+        \item \textbf{Régimen con baja correlación:} Por el contrario, si $\vx_t$
+            \textit{no} se correlaciona bien con $\vU_y$ (por ejemplo,
+            porque $t$ es grande),
+            entonces el peso normalizado correspondiente al sumando $k=y$ en el
+            filtro de ruido incondicional es cercano a $0$. Como resultado,
             \begin{equation}
                 \gamma + (1 - \gamma)
                 \frac{\exp\rp{\frac{1}{2t^{2}(1
@@ -2339,61 +2339,60 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
                 + t^{2})}\norm{\vU_{i}^{\top}\vx_t}_{2}^{2}}}
                 \approx \gamma,
             \end{equation}
-            and thus the guidance strength $\gamma \gg 1$ places a
-            large positive
-            weight on the denoiser associated to $y$.
+            y, por lo tanto, la fuerza de guía $\gamma \gg 1$ otorga un
+            gran peso positivo
+            al filtro de ruido asociado a $y$.
 
-            Meanwhile, in the second term of
+            Por otra parte, en el segundo término de la
             \Cref{eq:cfg-denoiser-mog-low-rank-2},
-            any classes $k \neq y$ that are well-correlated with $\vx_t$
-            receive a large \textit{negative} weight from the $1 - \gamma$
-            coefficient.
-            This simultaneously has the effect of making the denoised
-            signal vastly
-            more correlated with the conditioning class $y$, and
-            making it negatively
-            correlated with the previous iterate (i.e., the iterate
-            before denoising).
+            cualquier clase $k \neq y$ que esté bien correlacionada con $\vx_t$
+            recibe un peso \textit{negativo} elevado debido al coeficiente $1 - \gamma$.
+            Esto tiene el efecto simultáneo de hacer que la señal sin ruido
+            esté mucho
+            más correlacionada con la clase de condicionamiento $y$ y
+            de hacer que esté negativamente
+            correlacionada con la iteración anterior (es decir, la iteración
+            previa a la eliminación del ruido).
 
-            In other words, \textit{CFG steers the iterative denoising
-                process towards the conditioning class and away from
-                the previous
-            iterate}, a different dynamics from purely conditional sampling
-            (i.e., the case $\gamma = 1$).
+            En otras palabras, \textit{CFG orienta el proceso iterativo de eliminación de ruido
+                hacia la clase de condicionamiento y lo aleja de
+                la iteración
+            anterior}, una dinámica diferente a la del muestreo puramente condicional
+            (es decir, el caso en el que $\gamma = 1$).
     \end{enumerate}
 \end{example}
 
-\Cref{example:denoising-gaussian-mixture-cfg} shows that in the mixture of
-Gaussians setting, the CFG denoiser provides a strong bias towards the
-conditioning class, while preserving local correctness (hence convergence of
-sampling) when the noise level $t$ is small.
-This is suggestive of why a large weight $\gamma \gg 1$ has been found essential
-in practice.
+El \Cref{example:denoising-gaussian-mixture-cfg} muestra que, en la configuración de mezcla de
+gaussianas, el filtro de ruido CFG presenta un fuerte sesgo hacia la
+clase condicionante, al tiempo que conserva la corrección local (y, por lo tanto, la convergencia del
+muestreo) cuando el nivel de ruido $t$ es pequeño.
+Esto sugiere por qué se ha considerado esencial en la práctica
+utilizar un peso grande $\gamma \gg 1$.
 
-Next, the following example will demonstrate an insight into the
-\textit{parameterization} of the denoiser in the presence of
-low-dimensional structure, again in the Gaussian mixture model.
+A continuación, el siguiente ejemplo ilustrará la
+\textit{parametrización} del filtro de ruido en presencia de
+una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
 
 \begin{example}\label{example:denoising-gaussian-mixture-cfg-parameterization}
-    Consider again the mixture of Gaussians model studied in
+    Consideremos de nuevo el modelo de mezcla gaussiana estudiado en
     \Cref{example:denoising-gaussian-mixture-cfg}:
     \begin{equation}
         \vx \sim \frac{1}{K}\sum_{k = 1}^{K}\dNorm(\vzero,
         \vU_{k}\vU_{k}^{\top}),
     \end{equation}
-    where each \(\vU_{k} \in \O(D, P) \subseteq \R^{D \times P}\) is
-    a matrix with
-    orthogonal columns, and $P \ll D$.
-    The class label $y \in [K]$ is a deterministic function of $\vx$ mapping an
-    example to its corresponding mixture component.
-    For this distribution,
-    and again under the simple noise process
-    \eqref{eq:additive_gaussian_noise_model} studied in \Cref{ch:denoising},
-    where
-    $\vx_t = \vx + t \vg$ for all $t \in [0, T]$, with $\vg \sim \cN(\Zero,
-    \vI)$,
-    we saw in \Cref{example:denoising-gaussian-mixture-cfg}
-    that the ideal CFG denoiser takes the form
+    donde cada \(\vU_{k} \in \O(D, P) \subseteq \R^{D \times P}\) es
+    una matriz con
+    columnas ortogonales y $P \ll D$.
+    La etiqueta de clase $y \in [K]$ es una función determinista de $\vx$ que asigna un
+    ejemplo a su componente de mezcla correspondiente.
+    Para esta distribución,
+    y de nuevo bajo el proceso de ruido simple
+    \eqref{eq:additive_gaussian_noise_model} estudiado en el \Cref{ch:denoising},
+    donde   
+    $\vx_t = \vx + t \vg$ para todo $t \in [0, T]$, con $\vg \sim \cN(\Zero,
+    \vI)$,  
+    vimos en el \Cref{example:denoising-gaussian-mixture-cfg}
+    que el filtro de ruido CFG ideal toma la forma
     \begin{equation}\label{eq:cfg-denoiser-mog-low-rank-3}
         \begin{split}
             \bar{\vx}^{\mathrm{CFG,\,ideal}}(t, \vx_t, y)
@@ -2461,8 +2460,8 @@ low-dimensional structure, again in the Gaussian mixture model.
     % Thus, the empirical benefits of CFG should be due to its behavior in cases
     % where $\vx_t$ is not unambiguously from a single class.
 
-    Now we consider the problem of parameterizing a learnable denoiser
-    $\vx_{\theta}^{\mathrm{CFG}}$ to represent the optimal denoiser
+    Ahora consideramos el problema de parametrizar un filtro de ruido aprendible
+    $\vx_{\theta}^{\mathrm{CFG}}$ para representar el filtro de ruido óptimo
     \eqref{eq:cfg-denoiser-mog-low-rank-3}.
     % Here, it may initially seem that the setting of classification
     % of a mixture
@@ -2484,32 +2483,32 @@ low-dimensional structure, again in the Gaussian mixture model.
     % which actually
     % parallels the kinds of geometric structure common in real-world data.
     % More precisely,
-    For tractability, we add an additional assumption associated to
-    the subspaces
-    $\vU_k$ being `distinguishable' from one another, which is natural in
-    practice: specifically, we assume that for any pair of indices $k, k' \in
-    [K]$ with $k \neq k'$, we can find a set of $K$ nonzero directions
-    $\vv_{k} \in \bR^D$ such
-    that
+    Por razones de manejabilidad, añadimos una suposición adicional relacionada con
+    los subespacios
+    $\vU_k$ que sean «distinguibles» entre sí, lo cual es natural en
+    la práctica: concretamente, suponemos que para cualquier par de índices $k, k' \in
+    [K]$ con $k \neq k'$, podemos encontrar un conjunto de $K$ direcciones distintas de cero
+    $\vv_{k} \in \bR^D$ tales
+    que
     \begin{equation}
         \vU_{k}\vU_{k}^\top \vv_k = \vv_k, \quad
         \vU_{k'}\vU_{k'}^\top \vv_k = \Zero, \enspace k' \neq k.
     \end{equation}
-    This is a slightly stronger assumption than simple
-    distinguishability, but it
-    should be noted that it is not overly restrictive: for example, it still
-    allows the subspaces $\vU_{k}$ to have significant correlations with one
-    another.\footnote{ More generally, this assumption is naturally
-        formulated as an
-        \textit{incoherence condition} between the subspaces
-        $\vU_{[K]}$, familiar from the theory of compressive sensing
+    Esta es una suposición ligeramente más fuerte que la simple
+    distinguibilidad, pero
+    hay que señalar que no es excesivamente restrictiva: por ejemplo, sigue
+    permitiendo que los subespacios $\vU_{k}$ tengan correlaciones significativas entre
+    sí.\footnote{En términos más generales, esta suposición se formula naturalmente
+        como una
+        \textit{condición de incoherencia} entre los subespacios
+        $\vU_{[K]}$, conocida en la teoría de la detección compresiva
     \cite{Wright-Ma-2022}.}
 
-    These vectors $\vv_k$ can then be thought of as \textit{embeddings} of the
-    class label $y \in [K]$, and we can use them to define a more
-    general operator
-    that can represent both the unconditional and class-conditional denoisers.
-    More precisely, consider the mapping
+    Estos vectores $\vv_k$ pueden considerarse entonces como \textit{incrustaciones} de la
+    etiqueta de clase $y \in [K]$ y podemos utilizarlos para definir un operador más
+    general
+    capaz de representar tanto los filtros de ruido incondicionales como los condicionales a la clase.
+    Más concretamente, consideremos el mapeo
     \begin{equation}\label{eq:mog-conditional-denoising-unified-operator}
         (\vx_t, \vv) \mapsto
         \sum_{k = 1}^{K}\frac{
@@ -2523,14 +2522,14 @@ low-dimensional structure, again in the Gaussian mixture model.
         }
         \vU_{k}\vU_{k}^{\top}\vx_t.
     \end{equation}
-    Then if we plug in $\vv = \vx_t$ to the operator
-    \eqref{eq:mog-conditional-denoising-unified-operator}, we obtain a result
-    proportional to the first term in
-    \eqref{eq:gmm_lowrank_denoiser-ch6-uncond}, corresponding to the
-    optimal unconditional denoiser for $\vx_t$.
-    On the other hand,
-    if we substitute $\vv = \vv_y$ for some $y \in [K]$, we get
-    by construction of the embedding vectors $\vv_k$
+    Entonces, si sustituimos $\vv = \vx_t$ en el operador
+    \eqref{eq:mog-conditional-denoising-unified-operator}, obtenemos un resultado
+    proporcional al primer término de
+    \eqref{eq:gmm_lowrank_denoiser-ch6-uncond}, que corresponde al
+    filtro de ruido incondicional óptimo para $\vx_t$.
+    Por otro lado,
+    si sustituimos $\vv = \vv_y$ por algún $y \in [K]$, obtenemos
+    por la construcción de los vectores de incrustación $\vv_k$
     \begin{eqnarray}
         &&\sum_{k = 1}^{K}
         \frac{
@@ -2568,13 +2567,13 @@ low-dimensional structure, again in the Gaussian mixture model.
         \vU_{k}\vU_{k}^{\top}\vx_t.
     \end{eqnarray}
 
-    We aim to simplify the preceding expression further.
-    To this end, recall that when using this denoiser for sampling, we have
-    $\vx_t = \vx + t \vg$, with $y$ denoting the label of $\vx$.
-    In other words, conditioned on $y$, we have that $\vx_t = \vU_y \vz
-    + t \vg$, where $\vz$ is an independent $P$-dimensional Gaussian
-    noise vector with zero mean and identity covariance.
-    We have
+    Nuestro objetivo es simplificar aún más la expresión anterior.
+    Para ello, recordemos que, al utilizar este denoiser para el muestreo, tenemos
+    $\vx_t = \vx + t \vg$, donde $y$ representa la etiqueta de $\vx$.
+    En otras palabras, condicionado a $y$, tenemos que $\vx_t = \vU_y \vz
+    + t \vg$, donde $\vz$ es un vector de ruido gaussiano independiente de dimensión $P$
+    con media cero y covarianza identitaria.
+    Tenemos
     \begin{align*}
         \abs*{\vx_t^\top \vv_y}
         &=
@@ -2583,9 +2582,9 @@ low-dimensional structure, again in the Gaussian mixture model.
         &=
         \abs*{\ip{\vz}{\vU_y^\top \vv_y} + t \ip{\vg}{\vv_y}}.
     \end{align*}
-    Because $\vz$ and $\vg$ are independent Gaussian random variables with
-    identity covariance matrices, it follows from \textit{rotational invariance}
-    of the Gaussian distribution (see \cite{Vershynin2018-br}) that
+    Dado que $\vz$ y $\vg$ son variables aleatorias gaussianas independientes con
+    matrices de covarianza identitarias, de la \textit{invarianza rotacional}
+    de la distribución gaussiana (véase \cite{Vershynin2018-br}) se deduce que
     \begin{align*}
         \abs*{\vx_t^\top \vv_y}
         &\equid
@@ -2594,13 +2593,13 @@ low-dimensional structure, again in the Gaussian mixture model.
         &=
         \abs*{\norm{\vv_y}_2 z + t\norm{\vv_y}_2 g},
     \end{align*}
-    where $z$ and $g$ are independent \textit{scalar} $\cN(0, 1)$ random
-    variables, and $\equid$ denotes equality in distribution (the random
-    variables have the same distribution).
-    The second line above follows from the definition of $\vv_y$.
-    Now, by independence, the random variable $z + tg \sim \cN(0, (1 + t^2))$.
-    Then using the well-known result that $\bE[\abs{g}] = \sqrt{2/\pi}$ if $g
-    \sim \cN(0, 1)$, we conclude
+    donde $z$ y $g$ son variables aleatorias \textit{escalares} independientes con distribución $\cN(0, 1)$
+    y $\equid$ denota igualdad de distribución (las variables aleatorias
+    tienen la misma distribución).
+    La segunda línea anterior se deduce de la definición de $\vv_y$.
+    Ahora, por independencia, la variable aleatoria $z + tg \sim \cN(0, (1 + t^2))$.
+    Entonces, utilizando el conocido resultado de que $\bE[\abs{g}] = \sqrt{2/\pi}$ si $g
+    \sim \cN(0, 1)$, concluimos
     \begin{equation*}
         \bE\left[
             \abs*{\vx_t^\top \vv_y}
@@ -2608,10 +2607,10 @@ low-dimensional structure, again in the Gaussian mixture model.
         =
         \sqrt{(2/\pi) (1 + t^2)} \norm{\vv_y}_2.
     \end{equation*}
-    In practice, the quantity $ \abs*{\vx_t^\top \vv_y}$ is close to its
-    expectation \textit{with overwhelming probability}, by Gaussian
-    concentration (see, again, \cite{Vershynin2018-br}).
-    On the other hand, we have by similar reasoning
+    En la práctica, la cantidad $ \abs*{\vx_t^\top \vv_y}$ se aproxima a su
+    valor esperado \textit{con una probabilidad abrumadora}, debido a la concentración gaussiana
+    (véase, de nuevo, \cite{Vershynin2018-br}).
+    Por otro lado, por un razonamiento similar tenemos que
     \begin{equation*}
         \bE\left[
             \norm*{\vx_t}_2^2
@@ -2619,42 +2618,42 @@ low-dimensional structure, again in the Gaussian mixture model.
         =
         P + t^2 D,
     \end{equation*}
-    and properties of the Gaussian distribution again imply that
-    $\norm{\vx_t}_2$ will concentrate around $\sqrt{P + t^2 D}$ with
-    overwhelming probability.
-    It is then sensible to renormalize the embeddings $\vv_y$ so that their
-    dot-product with $\vx_t$ has the same scale: defining
+    y las propiedades de la distribución gaussiana implican nuevamente que
+    $\norm{\vx_t}_2$ se concentrará en torno a $\sqrt{P + t^2 D}$ con
+    una probabilidad abrumadora.
+    Por lo tanto, es conveniente renormalizar las incrustaciones $\vv_y$ de modo que su
+    producto escalar con $\vx_t$ tenga la misma escala: definiendo
     \begin{equation*}
         \vv_{t, y} = \frac{(P + t^2 D)}{\sqrt{(2/\pi)(1 + t^2)}}
         \frac{\vv_y}{\norm{\vv_y}_2}
     \end{equation*}
-    for the normalized embeddings, our previous argument implies
+    para las incrustaciones normalizadas, nuestro razonamiento anterior implica
     \begin{equation*}
         \abs*{\vx_t^\top \vv_{t,y}}
         \approx
         (P + t^2 D)
     \end{equation*}
-    with overwhelming probability.
-    Returning our attention to our starting point, i.e.\
-    \eqref{eq:mog-conditional-denoising-unified-operator} evaluated at $(\vx_t,
-    \vv_y)$ and our subsequent
-    simplification, we have for the ``softmax'' argument
+    con probabilidad abrumadora.
+    Volviendo a nuestro punto de partida, es decir, a
+    \eqref{eq:mog-conditional-denoising-unified-operator} evaluada en $(\vx_t,
+    \vv_y)$ y nuestra posterior
+    simplificación, tenemos para el argumento «softmax»
     \begin{equation*}
         {\frac{1}{2t^{2}(1 + t^{2})}\abs{\vx_t^\top \vv_y}}
         \approx
         \frac{P + t^2 D}{2t^{2}(1 + t^{2})}
     \end{equation*}
-    with overwhelming probability with respect to $\vx_t$.
-    Hence if $t$ is bounded and the subspace dimension $P$ is sufficiently
-    large,\footnote{For example, it suffices to consider a large-scale,
-        asymptotic regime where $P, D \to \infty$ with their ratio
-        $P/D$ converging
-        to a fixed constant. In such a scenario, the \textit{aspect
-        ratio} of the
-        subspaces is fixed while their sizes go to infinity, which can act as
-        a model for some discretization phenomena (e.g., a fixed
-            scene sampled as an
-    image with the number of pixels going to infinity).}
+    con probabilidad abrumadora con respecto a $\vx_t$.
+    Por lo tanto, si $t$ es acotado y la dimensión del subespacio $P$ es suficientemente
+    grande,\footnote{Por ejemplo, basta con considerar un régimen asintótico a gran escala,
+        en el que $P, D \to \infty$ y su relación
+        $P/D$ converge
+        hacia una constante fija. En tal escenario, la \textit{relación de
+        aspecto} de los
+        subespacios es fija mientras que sus tamaños tienden a infinito, lo que puede servir como
+        un modelo para algunos fenómenos de discretización (p. ej., una escena fija
+            muestreada como una
+    imagen con el número de píxeles tendiendo a infinito).}
     % Then by the previous expression,
     % if the
     % subspace dimension
@@ -2665,7 +2664,7 @@ low-dimensional structure, again in the Gaussian mixture model.
     % \textcite{Wright-Ma-2022}.}. Then
     % by the argument in the previous paragraph, we have in this regime that for
     % \textit{almost all} realizations of $\vx_t$,
-    the following approximation holds with overwhelming probability:
+    La siguiente aproximación se cumple con probabilidad abrumadora:
     \begin{equation}
         \sum_{k = 1}^{K}
         \frac{
@@ -2681,10 +2680,10 @@ low-dimensional structure, again in the Gaussian mixture model.
         \approx
         \vU_{y}\vU_{y}^{\top}\vx_t.
     \end{equation}
-    In words, \textbf{evaluating the operator
-        \eqref{eq:mog-conditional-denoising-unified-operator} at the
-        embedding for
-    a class $\vv_{t, y}$ yields the class-conditional denoiser for $y$!}
+    En otras palabras, \textbf{al evaluar el operador
+        \eqref{eq:mog-conditional-denoising-unified-operator} en la
+        incrustación para
+    una clase $\vv_{t, y}$ ¡se obtiene el filtro de ruido condicionado a la clase para $y$!}
     % This argument shows that the operator
     % \eqref{eq:mog-conditional-denoising-unified-operator} is, with
     % overwhelming
@@ -2700,25 +2699,25 @@ low-dimensional structure, again in the Gaussian mixture model.
     % \eqref{eq:gmm_lowrank_denoiser-ch6-classcond} for
     % $y$.
 
-    Thus, the family of operators
+    Por lo tanto, la familia de operadores
     \eqref{eq:mog-conditional-denoising-unified-operator}
-    provides a unified way to parameterize the constituent
-    operators in the optimal denoiser for $\vx$ \textit{within a single
-    `network'}.
-    More precisely, it is enough to add the output of an instantiation of
-    \eqref{eq:mog-conditional-denoising-unified-operator} with input $(\vx_t,
-    \vx_t)$ to an instantiation with input $(\vx_t, \vv_{t, y})$.
-    The resulting
-    operator is a function of $(t, \vx_t, y)$, and computationally,
-    the subspaces
-    $(\vU_k)_{k=1}^K$ and embeddings $y \mapsto \vv_{t, y}$ become its learnable
-    parameters.
+    ofrece una forma unificada de parametrizar los operadores
+    que componen el filtro de ruido óptimo para $\vx$ \textit{dentro de una sola
+    «red»}.
+    Más concretamente, basta con sumar la salida de una instanciación de
+    \eqref{eq:mog-conditional-denoising-unified-operator} con entrada $(\vx_t,
+    \vx_t)$ a una instanciación con entrada $(\vx_t, \vv_{t, y})$.
+    El operador resultante
+    es una función de $(t, \vx_t, y)$, y computacionalmente,
+    los subespacios
+    $(\vU_k)_{k=1}^K$ y las incrustaciones $y \mapsto \vv_{t, y}$ se convierten en sus parámetros
+    aprendibles.
 \end{example}
 
-\Cref{example:denoising-gaussian-mixture-cfg-parameterization} shows
-that in the special case of
-a low-rank mixture of Gaussians data distribution for $\vx$ with incoherent
-components, operators of the form
+El \Cref{example:denoising-gaussian-mixture-cfg-parameterization} muestra
+que, en el caso especial de
+una distribución de datos de mezcla gaussiana de rango bajo para $\vx$ con componentes incoherentes,
+los operadores de la forma
 \begin{equation}\label{eq:operator-for-parameterizing-cfg-denoiser-mog}
     (\vx_t, \vv) \mapsto
     \sum_{k = 1}^{K}\frac{
@@ -2732,78 +2731,77 @@ components, operators of the form
     }
     \vU_{k}\vU_{k}^{\top}\vx_t
 \end{equation}
-provide a sufficiently rich class of operators to parameterize the ideal
-denoiser for noisy observations $\vx_t$ of $\vx$ when using
-classifier-free guidance.
+proporcionar una clase de operadores lo suficientemente amplia como para parametrizar el
+filtro de ruido ideal para observaciones ruidosas $\vx_t$ de $\vx$ cuando se utiliza
+una guía sin clasificador.
 % where one network is to be used to represent both the
 % unconditional and class-conditional denoisers for $\vx_t$.
-For such operators,
-the auxiliary input $\vv$ can be taken as either $\vx_t$ or a suitable embedding
-of the class label $y \mapsto \vv_y$ in order to realize such a denoiser---as
-the example shows, the ideal denoiser is a weighted sum of such operators, with
-weights derived from the guidance strength $\gamma>1$.
+Para tales operadores,
+la entrada auxiliar $\vv$ puede tomarse como $\vx_t$ o como una incrustación adecuada
+de la etiqueta de clase $y \mapsto \vv_y$ con el fin de implementar dicho filtro de ruido; tal y como
+muestra el ejemplo, el filtro de ruido ideal es una suma ponderada de dichos operadores, con
+pesos derivados de la intensidad de la guía $\gamma>1$.
 
-Based on the framework in \Cref{ch:deep-networks}, which develops deep network
-architectures suitable for transforming more general data distributions to
-structured representations using the low-rank mixture of Gaussians model as
-a primitive, it is natural to imagine that operators of the type
-\eqref{eq:operator-for-parameterizing-cfg-denoiser-mog} may be leveraged in
-denoisers for
-general data distributions $\vx$ with low-dimensional geometrically-structured
-components that are sufficiently distinguishable (say, incoherent) from one
-another.
-The next section demonstrates that this is indeed the case.
+Partiendo del marco descrito en \Cref{ch:deep-networks}, que desarrolla arquitecturas de redes profundas
+adecuadas para transformar distribuciones de datos más generales en
+representaciones estructuradas utilizando el modelo de mezcla de gaussianas de bajo rango como
+primitiva, resulta natural imaginar que los operadores del tipo
+\eqref{eq:operator-for-parameterizing-cfg-denoiser-mog} puedan aprovecharse en
+denoisers para
+distribuciones de datos generales $\vx$ con componentes de baja dimensión y estructura geométrica
+que sean suficientemente distinguibles (digamos, incoherentes) entre sí.
+En la siguiente sección se demuestra que así es.
 
-\subsection{Caption-Conditioned Image Generation}\label{sub:text-cond}
-In \Cref{sub:cfg} we have seen, conceptually, how to set up denoisers
-for use with
-\textit{classifier-free guidance}, the dominant practical methodology for
-performing conditional sampling via the diffusion-denoising paradigm.
+\subsection{Generación de imágenes condicionada por leyendas}\label{sub:text-cond}
+En la \Cref{sub:cfg} hemos visto, a nivel conceptual, cómo configurar los denoisers
+para utilizarlos con
+\textit{la orientación sin clasificador}, la metodología práctica predominante para
+realizar muestreos condicionales mediante el paradigma de la difusión con eliminación de ruido.
 % We instantiated this in the special case of class-conditional sampling, where
 % the conditioning signal $y$ is a scalar.
-In short, such denoisers take as input the noisy data $\vx_t$ as well
-as either the conditioning signal $\vy$ or a ``null input'' $\varnothing$,
-which determines whether the denoiser should perform \textit{unconditional
-denoising} or \textit{conditional denoising} (conditioned on $\vy$).
+En resumen, estos filtros de eliminación de ruido toman como entrada los datos ruidosos $\vx_t$, así como
+la señal de condicionamiento $\vy$ o una «entrada nula» $\varnothing$,
+lo que determina si el filtro debe realizar una \textit{eliminación de ruido incondicional
+} o una \textit{eliminación de ruido condicional} (condicionada por $\vy$).
 
-Given this design, the most important practical question is \textit{how to
-realize this family of operators as a neural network?}
-An empirically-successful neural network layer design known as ``cross
-attention'', which we will present in due course, provides a practical answer
-to this question. However, even before this, there are several more fundamental
-issues to sort out:
+Dado este diseño, la pregunta práctica más importante es: \textit{¿cómo
+implementar esta familia de operadores como una red neuronal?}
+Un diseño de capa de red neuronal que ha demostrado su eficacia empíricamente, conocido como «atención cruzada»,
+y que presentaremos más adelante, ofrece una respuesta práctica
+a esta pregunta. Sin embargo, incluso antes de eso, hay varias cuestiones más fundamentales
+que debemos resolver:
 \begin{enumerate}
-    \item \textit{Input modality mismatch}: In the most interesting practical
-        applications, the data $\vx$ and the conditioning signal $\vy$
-        \textit{do not lie in directly-comparable spaces}, although they share
-        many underlying structural relationships. For example, we saw this in
-        the case of a class label $y$ in \Cref{sub:cfg}. More generally, one
-        could consider a natural language description $\vy$ of an image $\vx$
-        (referred to as a ``caption''), where $\vy$ would correspond to
-        a sequence of characters in different alphabets.
-    \item \textit{Parameterization and flexibility}: Downstream of the input
-        modality issue, there is a fundamental question of whether the same
-        basic architecture for the network can be used for different modalities,
-        or whether this needs to be tuned in a very precise way per-modality.
+    \item \textit{Desajuste de modalidades de entrada}: En las aplicaciones prácticas más interesantes,
+        los datos $\vx$ y la señal de condicionamiento $\vy$
+        \textit{no se encuentran en espacios directamente comparables}, aunque comparten
+        muchas relaciones estructurales subyacentes. Por ejemplo, lo vimos en
+        el caso de una etiqueta de clase $y$ en \Cref{sub:cfg}. En términos más generales,
+        se podría considerar una descripción en lenguaje natural $\vy$ de una imagen $\vx$
+        (denominada «leyenda»), donde $\vy$ correspondería a
+        una secuencia de caracteres de diferentes alfabetos.
+    \item \textit{Parámetrización y flexibilidad}: Más allá de la cuestión de la
+        modalidad de entrada, se plantea una cuestión fundamental: si se puede utilizar la misma
+        arquitectura básica de la red para diferentes modalidades,
+        o si es necesario ajustarla de forma muy precisa para cada modalidad.
         % Using a common architecture is preferable because it allows the
         % possibility to use \textit{transfer learning}, where
-    \item \textit{Training}: This entails the proper way to use our paired
-        samples $(\vx, \vy)$ to train and deploy the conditional denoisers. The
-        design space is vast: one could imagine applying various
-        modality-specific encoder-decoder architectures, as we have developed in
-        \Cref{ch:lossy-compression,ch:consistent-representations}, together with
-        different denoising backbones in various combinations. The key questions
-        here are of \textit{expressivity}, getting the best conditional
-        denoising performance; \textit{efficiency}, getting the best
-        performance per unit of training data; and \textit{stability},
-        guaranteeing that the training process converges quickly without
-        collapse.
+    \item \textit{Entrenamiento}: Esto implica la forma adecuada de utilizar nuestras muestras emparejadas
+        $(\vx, \vy)$ para entrenar e implementar los filtros de ruido condicionales. El
+        espacio de diseño es amplio: se podría imaginar la aplicación de diversas
+        arquitecturas de codificador-decodificador específicas para cada modalidad, tal como las hemos desarrollado en
+        \Cref{ch:lossy-compression,ch:consistent-representations}, junto con
+        diferentes estructuras de base de eliminación de ruido en diversas combinaciones. Las cuestiones clave
+        aquí son la \textit{expresividad}, es decir, obtener el mejor
+        rendimiento en la eliminación de ruido condicional; la \textit{eficiencia}, es decir, obtener el mejor
+        rendimiento por unidad de datos de entrenamiento; y la \textit{estabilidad},
+        es decir, garantizar que el proceso de entrenamiento converja rápidamente sin
+        colapsar.
 \end{enumerate}
 
-We will cover these three issues in detail below, providing guidance on how to
-explore the design space and, where possible, generally-useful prescriptions.
+A continuación abordaremos estos tres temas en detalle, ofreciendo orientación sobre cómo
+explorar el espacio de diseño y, cuando sea posible, recomendaciones de utilidad general.
 
-\subsubsection{Modality-Agnostic Input Embedding}
+\subsubsection{Incrustación de entradas independiente de la modalidad}
 
 % \yima{This is a good place to introduce and formulate the ``joint
 %     embedding'' $(f(\x), g(\y))$ for paired (or multi-modal) data
@@ -2821,59 +2819,59 @@ explore the design space and, where possible, generally-useful prescriptions.
 %     to explainable conditional sampling operators for the data, which
 % could justify or improve the cross attention operator? }
 
-Although we do not know the precise relationship between $\vx$ and $\vy$ in the
-general paired data setting, in all practical settings of interest, they have
-significant correlations. For example, when the conditioning signal $\vy$ is
-a ``caption'' describing the image $\vx$ in natural language, it is easy to
-imagine a human artist being able to produce an accurate sketch of $\vx$ based
-solely on a high-quality caption.
-In our probabilistic setting, one natural way to quantify these
-``correlations'' is in terms of the mutual information, which we saw previously
-in \Cref{ch:lossy-compression} (\Cref{eq:information-entropy}):
+Aunque no conocemos la relación exacta entre $\vx$ y $\vy$ en el
+contexto general de datos emparejados, en todos los contextos prácticos de interés,
+existen correlaciones significativas entre ellos. Por ejemplo, cuando la señal de condicionamiento $\vy$ es
+un «pie de foto» que describe la imagen $\vx$ en lenguaje natural, es fácil
+imaginar que un artista humano sea capaz de producir un boceto preciso de $\vx$ basándose
+únicamente en un pie de foto de alta calidad.
+En nuestro marco probabilístico, una forma natural de cuantificar estas
+«correlaciones» es mediante la información mutua, que ya vimos anteriormente
+en el \Cref{ch:lossy-compression} (\Cref{eq:information-entropy}):
 \begin{equation}\label{eq:mutual-info-ch7}
     I(\vx; \vy) = h(\vx) - h(\vx \mid \vy).
 \end{equation}
-The mutual information \eqref{eq:mutual-info-ch7} is a purely
-information-theoretic quantity that does not depend on modality-specific aspects
-of $\vx$ and $\vy$.
-Hence it offers a natural criterion for learning a useful representation of
-either input $\vx$, $\vy$: one simply seeks to learn, say for $\vx$,
-a representation $\vz = f(\vx)$ that preserves the mutual information, so that
+La información mutua \eqref{eq:mutual-info-ch7} es una magnitud puramente
+informática que no depende de aspectos específicos de la modalidad
+de $\vx$ y $\vy$.
+Por lo tanto, ofrece un criterio natural para aprender una representación útil de
+cualquiera de las entradas $\vx$ o $\vy$: simplemente se busca aprender, por ejemplo para $\vx$,
+una representación $\vz = f(\vx)$ que preserve la información mutua, de modo que
 $I(\vz; \vy) \approx I(\vx; \vy)$.
-That is:
+Es decir:
 \begin{equation}\label{eq:infomax-x-abstract}
     \text{Learn} \enspace \vz = f(\vx) \enspace \text{such that} \enspace I(\vz;
     \vy) \approx I(\vx; \vy).
 \end{equation}
-Actually, we can be even more prescriptive here. For an encoder $f$ which is
-deterministic (matching all the cases we have studied throughout
-\Cref{ch:lossy-compression,ch:consistent-representations}), a fundamental result
-in information theory known as the \textit{data processing inequality} tells us
-that processing $\vx$ with $f$ to produce $\vz = f(\vx)$ changes the mutual
-information in a predictable way: \textit{it can only reduce it}.
-\begin{theorem}[Data Processing Inequality]\label{thm:dpi}
-    Consider random variables $\vy, \vx, \vz$ defined such that $\vz$ is
-    independent of $\vy$, conditioned on $\vx$.\footnote{In other words, the
-    random variables form a Markov chain $\vy \to \vx \to \vz$.} Then the
-    \textit{data processing inequality} holds:
+De hecho, podemos ser aún más precisos en este punto. Para un codificador $f$ que sea
+determinista (que se ajusta a todos los casos que hemos estudiado a lo largo de los
+\Cref{ch:lossy-compression,ch:consistent-representations}), un resultado fundamental
+en teoría de la información conocido como la \textit{desigualdad del procesamiento de datos} nos dice
+que procesar $\vx$ con $f$ para producir $\vz = f(\vx)$ cambia la información mutua
+de una manera predecible: \textit{solo puede reducirla}.
+\begin{theorem}[Desigualdad del procesamiento de datos]\label{thm:dpi}
+    Consideremos las variables aleatorias $\vy, \vx, \vz$ definidas de tal manera que $\vz$ es
+    independiente de $\vy$, condicional a $\vx$.\footnote{En otras palabras, las
+    variables aleatorias forman una cadena de Markov $\vy \to \vx \to \vz$.} Entonces se cumple la
+    \textit{desigualdad de procesamiento de datos}:
     \begin{equation}\label{eq:dpi-ch7}
         I(\vx; \vy) \geq I(\vz; \vy).
     \end{equation}
     \begin{proof}
-        Consider the mutual information $I(\vy; \vx, \vz)$ between $\vy$ and
-        $(\vx, \vz)$. Because $\vz$ is independent of $\vy$ conditioned on
-        $\vx$, we have
+        Consideremos la información mutua $I(\vy; \vx, \vz)$ entre $\vy$ y
+        $(\vx, \vz)$. Dado que $\vz$ es independiente de $\vy$ condicionalmente a
+        $\vx$, tenemos
         \begin{equation*}
             h(\vy \mid \vx, \vz) = h(\vy \mid \vx),
         \end{equation*}
-        so $I(\vy; \vx, \vz) = I(\vy; \vx)$. Meanwhile, we have by Bayes' rule
-        that
+        por lo que $I(\vy; \vx, \vz) = I(\vy; \vx)$. Por otra parte, según la regla de Bayes
+        tenemos que
         \begin{equation*}
             p_{\vy \mid \vx, \vz} = p_{\vy \mid \vz}
             % \frac{p_{\vx \mid \vy, \vz}}{p_{\vx \mid \vz}},
             \frac{p_{\vy, \vx, \vz}}{p_{\vy, \vz} p_{\vx \mid \vz}},
         \end{equation*}
-        which implies by the definition of conditional differential entropy that
+        lo cual implica, por la definición de la entropía diferencial condicional, que
         \begin{equation*}
             I(\vy; \vx, \vz) =
             I(\vy; \vz)
@@ -2882,120 +2880,121 @@ information in a predictable way: \textit{it can only reduce it}.
                     \frac{p_{\vx \mid \vz} p_{\vy, \vz}}{p_{\vy, \vx, \vz}}
             \right)\right].
         \end{equation*}
-        Applying Jensen's inequality to the expectation in the previous line
-        then implies the claim, because $\log$ is a concave function (and the
-        mutual information is symmetric, i.e.\ $I(\vx; \vy) = I(\vy; \vx)$).
+        Si aplicamos la desigualdad de Jensen a la esperanza de la línea anterior,
+        esto implica la afirmación, ya que $\log$ es una función cóncava (y la
+        información mutua es simétrica, es decir, $I(\vx; \vy) = I(\vy; \vx)$).
     \end{proof}
 \end{theorem}
 
-For a deterministic encoder $f$, $\vz = f(\vx)$ is always independent of $\vy$
-when conditioned on $\vx$.
-The data processing inequality therefore suggests the following computational
-procedure to find the encoder $f$: \textit{seek to maximize the mutual
-information between the representation and the conditioning signal}.
-\Cref{eq:infomax-x-abstract} then leads to the objective
+Para un codificador determinista $f$, $\vz = f(\vx)$ es siempre independiente de $\vy$
+cuando se condiciona en $\vx$.
+Por lo tanto, la desigualdad de procesamiento de datos sugiere el siguiente procedimiento computacional
+para hallar el codificador $f$: \textit{buscar maximizar la información mutua
+entre la representación y la señal de condicionamiento}.
+La \Cref{eq:infomax-x-abstract} conduce entonces al objetivo
 \begin{equation}\label{eq:infomax-x}
     \max_{f}\, I(f(\vx); \vy).
 \end{equation}
-This is known as the \textit{Infomax principle} \cite{infomax}, and
-it dates to the
-earliest years of representation learning.
+Esto se conoce como el \textit{principio de Infomax} \cite{infomax}, y
+se remonta a los
+primeros años del aprendizaje de representaciones.
 
-\paragraph{Computational considerations in applying the Infomax principle.}
+\paragraph{Consideraciones computacionales en la aplicación del principio de Infomax.}
 
-There are two key conceptual issues to keep in mind when thinking about how to
-apply the (abstract) Infomax principle \eqref{eq:infomax-x} for learning
-a representation. The first is that in general it is computationally hard to
-estimate the mutual information, which constitutes the objective in
+Hay dos cuestiones conceptuales clave que hay que tener en cuenta al pensar en cómo 
+aplicar el principio (abstracto) de Infomax \eqref{eq:infomax-x} para el aprendizaje
+de una representación. La primera es que, en general, resulta computacionalmente difícil
+estimar la información mutua, que constituye el objetivo en
 \eqref{eq:infomax-x}.
-As we discussed in the context of rate distortion and lossy coding
-when we introduced
-the mutual information in \Cref{ch:lossy-compression}, the mutual information
-can be relaxed to remain well-defined even when $\vx$ and $\vy$ are
-low-dimensional and have differential entropy approaching $-\infty$ (e.g., by
-    connection to the Gaussian rate reduction function that we have studied in
-\Cref{ch:lossy-compression,ch:deep-networks,ch:consistent-representations}).
-Moreover, empirically such relaxations have non-worst-case statistical
-properties in practice, as we saw in the experiments of
-\Cref{ch:lossy-compression}; and the accuracy of these approximations can be
-improved by incremental processing, as we saw in \Cref{ch:deep-networks}.
-This makes a criterion like \Cref{eq:infomax-x} an excellent foundation for
-learning representations of paired data $(\vx, \vy)$.
+Como ya comentamos en el contexto de la relación tasa-distorsión y la codificación con pérdida
+al presentar
+la información mutua en \Cref{ch:lossy-compression}, la información mutua
+puede flexibilizarse para seguir estando bien definida incluso cuando $\vx$ y $\vy$ son
+de baja dimensión y tienen una entropía diferencial que se aproxima a $-\infty$ (por ejemplo, mediante
+    la conexión con la función gaussiana de reducción de tasa que hemos estudiado en el
+\Cref{ch:lossy-compression,ch:consistent-representations}).
+Además, desde el punto de vista empírico, estas relajaciones presentan 
+propiedades estadísticas que no corresponden al peor de los casos
+en la práctica, tal como observamos en los experimentos del
+\Cref{ch:lossy-compression}; y la precisión de estas aproximaciones puede
+mejorarse mediante el procesamiento incremental, tal como vimos en el \Cref{ch:deep-networks}.
+Esto hace que un criterio como \Cref{eq:infomax-x} sea una base excelente para
+aprender representaciones de datos emparejados $(\vx, \vy)$.
 
-The second issue to keep in mind is that for the objective \eqref{eq:infomax-x}
-to represent a sensible criterion for learning $f$, it is necessary that $f$
-itself is parameterized in a specific way, and/or that some additional
-structural enforcement is done on the representations $f(\vx)$. Indeed, if $f$
-is completely unconstrained, there are simple trivial solutions to
-\eqref{eq:infomax-x} that do not correspond to useful representations: for
-example, just take $f(\vx) = \vx$ to be the identity!
-We discussed principled techniques for structuring the representation space in
-\Cref{ch:consistent-representations} when we discussed autoencoding and closed
-loop transcription; many of these techniques can be brought to bear in our
-present joint embedding setting, and we will detail this further later in the
-section, when we move to practical implementation.
+La segunda cuestión que hay que tener en cuenta es que, para que el objetivo \eqref{eq:infomax-x}
+constituya un criterio válido para el aprendizaje de $f$, es necesario que $f$
+esté parametrizada de una manera específica y/o que se apliquen algunas restricciones
+estructurales adicionales a las representaciones $f(\vx)$. De hecho, si $f$
+no tiene ninguna restricción, existen soluciones triviales simples para
+\eqref{eq:infomax-x} que no corresponden a representaciones útiles: por
+ejemplo, ¡basta con tomar $f(\vx) = \vx$ como la identidad!
+Analizamos técnicas basadas en principios para estructurar el espacio de representaciones en el
+\Cref{ch:consistent-representations} cuando tratamos el tema de la autocodificación y la transcripción en
+bucle cerrado; muchas de estas técnicas pueden aplicarse a nuestro
+actual contexto de incrustación conjunta y lo detallaremos más adelante en esta
+sección, cuando pasemos a la implementación práctica.
 
-\paragraph{Joint embedding with the Infomax principle.}
+\paragraph{Incrustación conjunta con el principio de Infomax.}
 
-Now, the question of \textit{joint} representation of $(\vx, \vy)$ remains.
-Applying the data processing inequality once more, we obtain for another encoder
-$g$ that produces a representation of $\vy$ that
+Ahora queda por resolver la cuestión de la representación \textit{conjunta} de $(\vx, \vy)$.
+Al aplicar una vez más la desigualdad de procesamiento de datos, obtenemos para otro codificador
+$g$ que produce una representación de $\vy$ que
 \begin{equation*}
     I(\vx; \vy) \geq I(f(\vx); \vy) \geq I(f(\vx); g(\vy)).
 \end{equation*}
-The joint objective
+El objectivo conjunto
 \begin{equation}\label{eq:infomax-x-y}
     \max_{f, g}\, I(f(\vx); g(\vy))
 \end{equation}
-is then a well-founded consequence of the Infomax principle.
+es, por lo tanto, una consecuencia bien fundamentada del principio de Infomax.
 
-To design the encoders $f$ and $g$, recall the intuition that we obtained
-through our work in
-\Cref{example:denoising-gaussian-mixture-cfg-parameterization}. There, we saw
-that in the case of a mixture-of-Gaussians model for $\vx$, with the
-conditioning signal $y$ identifying which specific mixture component generates
-the observation, a flexible denoiser architecture could be constructed via
-a suitable embedding of the class label $y$ into the \textit{same space} as the
-data $\vx$.
-More precisely, such an embedding $\vu_y \in \R^D$ allows, when correlated
-with the embeddings $\vU_{\vx}$ of $\vx \in \R^{D}$ (generally a
-matrix) via $\vu_y^\top
-\vU_{\vx}$, to `pick out' only the embeddings relevant to the correct mixture
-component of the distribution.
-How exactly to design these layers for use in neural networks being trained on
-more
-complex nonlinear high-dimensional data is a challenging question
-that we will dig into in
-more detail below. But a necessary condition is clear: the embeddings
-$f$ and $g$ should map their inputs to a \textit{common embedding space}, say
-$\R^d$, to facilitate downstream comparison when performing conditional
-sampling.
-This leads to the objective
+Para diseñar los codificadores $f$ y $g$, recordemos la intuición que obtuvimos
+a través de nuestro trabajo en el
+\Cref{example:denoising-gaussian-mixture-cfg-parameterization}. Allí vimos
+que, en el caso de un modelo de mezcla de gaussianas para $\vx$, con la
+señal de condicionamiento $y$ identificando qué componente específico de la mezcla genera
+la observación, se podría construir una arquitectura de denoiser flexible mediante
+una incrustación adecuada de la etiqueta de clase $y$ en el \textit{mismo espacio} que los
+datos $\vx$.
+Más concretamente, una incrustación de este tipo $\vu_y \in \R^D$ permite, cuando se correlaciona
+con las incrustaciones $\vU_{\vx}$ de $\vx \in \R^D$ (generalmente una
+matriz) mediante $\vu_y^\top
+\vU_{\vx}$, «seleccionar» únicamente las incrustaciones relevantes para el componente de mezcla
+correcto de la distribución.
+Cómo diseñar exactamente estas capas para su uso en redes neuronales que se entrenan con
+datos no lineales de alta dimensión
+más complejos es una cuestión difícil
+que analizaremos con
+más detalle a continuación. Pero hay una condición necesaria que está clara: las incrustaciones
+$f$ y $g$ deben mapear sus entradas a un \textit{espacio de incrustación común}, por ejemplo
+$\R^d$, para facilitar la comparación posterior al realizar el muestreo
+condicional.
+Esto nos lleva al objetivo
 \begin{equation}\label{eq:infomax-joint}
     \max_{f : \R^{D_{\vx}} \to \R^{d}, g: \R^{D_{\vy}} \to \R^d}\,
     I(f(\vx); g(\vy)).
 \end{equation}
 
-The next step is to instantiate a suitable computationally-convenient relaxation
-of the mutual information in \eqref{eq:infomax-joint} for use with large-scale
-datasets.
+El siguiente paso consiste en instanciar una relajación adecuada y computacionalmente eficiente
+de la información mutua en \eqref{eq:infomax-joint} para su uso con conjuntos de datos
+a gran escala.
 
-\subsubsection{Practical Prescription for Learning Joint Embeddings: CLIP}
+\subsubsection{Guía práctica para el aprendizaje de representaciones conjuntas: CLIP}
 
-A concrete and highly influential realization of learning joint
-embeddings for paired data is the method of Contrastive
-Language-Image Pre-training (CLIP) \cite{radford2021learning}.
-Take the simple case of image-text pairs $[(\x_i, \y_i)]_{i=1}^N$
-sampled from a dataset $\mathcal{D}$, where $\x_i$ is an image and
-$\y_i$ is a text caption.
-CLIP trains two encoders---an image encoder $f_{\theta}(\x)$ and a text
-encoder $g_{\plainphi}(\y)$---to map paired samples into a shared
-$d$-dimensional unit sphere (i.e. $\|f_{\theta}(\x_i)\|_2 = 1$ and
-$\|g_{\plainphi}(\y_i)\|_2 = 1$).
-To achieve this, we can adopt a simple symmetric cross-entropy loss
-that pushes the cosine similarity of matched pairs
-$(f_{\theta}(\x_i),g_{\plainphi}(\y_i))$ closer together while
-repelling unmatched pairs:
+Una implementación concreta y muy influyente del aprendizaje de
+incrustaciones conjuntas para datos emparejados es el método de
+preentrenamiento contrastivo de lenguaje e imagen (CLIP) \cite{radford2021learning}.
+Tomemos el caso simple de pares de imagen-texto $[(\x_i, \y_i)]_{i=1}^N$
+muestreados de un conjunto de datos $\mathcal{D}$, donde $\x_i$ es una imagen y
+$\y_i$ es un pie de foto.
+CLIP entrena dos codificadores —un codificador de imágenes $f_{\theta}(\x)$ y un codificador de texto
+$g_{\phi}(\y)$— para mapear muestras emparejadas en una esfera unitaria compartida
+de $d$ dimensiones (es decir, $\|f_{\theta}(\x_i)\|_2 = 1$ y
+$\|g_{\phi}(\y_i)\|_2 = 1$).
+Para lograrlo, podemos adoptar una pérdida de entropía cruzada simétrica sencilla
+que acerque la similitud coseno de los pares coincidentes
+$(f_{\theta}(\x_i),g_{\theta}(\y_i))$ al tiempo que
+repele a los pares no coincidentes:
 \begin{align}
     \mathcal{L}_{\mathrm{CLIP}} = -\frac{1}{N}\mathbb{E}_{[(\x_i,
         \y_i)]_{i=1}^N \sim
@@ -3008,29 +3007,29 @@ repelling unmatched pairs:
     g_{\plainphi}(\y_i)^\top f_{\theta}(\x_j) \right)} \Biggr],
     \label{eq:clip-loss}
 \end{align}
-From the perspective of mutual information maximization, CLIP is a tractable
-surrogate for the lower bound on the mutual information between the image and
-text representations:\footnote{This result holds under the assumption that the
-    pairs $(\vx_i, \vy_i)$ are i.i.d.\ within each batch of $N$
-    \cite[Lemma 1]{Oko2025-wk}. The tightness of the bound improves
-    as $N$ increases
+Desde la perspectiva de la maximización de la información mutua, CLIP es un sustituto manejable
+de la cota inferior de la información mutua entre las representaciones de la imagen y
+del texto:\footnote{Este resultado se cumple bajo el supuesto de que los
+    pares $(\vx_i, \vy_i)$ son independientes e idénticamente distribuidos dentro de cada lote de $N$
+    \cite[Lema 1]{Oko2025-wk}. La estrechez de la cota aumenta
+    a medida que aumenta $N$
     \cite{Van_den_Oord2018-qf}.
-    However, for certain data distributions, it can remain loose for all $N$
+    Sin embargo, para ciertas distribuciones de datos, puede seguir siendo laxa para todo $N$
 \cite{mcallester2019formal,10.5555/3524938.3525859}.}
 \begin{equation}
     I\!\big(f_{\theta}(\x),g_{\plainphi}(\y)\big) \geq -
     \mathcal{L}_{\mathrm{CLIP}} + \log N.
 \end{equation}
 
-Thus, CLIP provides a practical recipe for learning joint embeddings for paired
-data that increases the mutual information between the paired samples.
-Empirically, CLIP has been shown to be effective at learning joint embeddings
-for image-text pairs, and has been used in a variety of applications, including
-image captioning, image-text retrieval, image generation and beyond. We will see
-more specific examples in \Cref{ch:applications} (with key implementation
-details described in detail in \Cref{sec:CLIP}).
+Por lo tanto, CLIP ofrece una fórmula práctica para aprender representaciones conjuntas de datos emparejados
+que aumenta la información mutua entre las muestras emparejadas.
+Empíricamente, se ha demostrado que CLIP es eficaz para aprender incrustaciones conjuntas
+para pares de imagen-texto, y se ha utilizado en una variedad de aplicaciones, incluyendo
+la subtitulación de imágenes, la recuperación de imagen-texto, la generación de imágenes y más. Veremos
+ejemplos más específicos en \Cref{ch:applications} (con detalles clave de implementación
+descritos en detalle en la \Cref{sec:CLIP}).
 
-\subsubsection{Application to Caption-Conditioned Image Generation}
+\subsubsection{Aplicación a la generación de imágenes condicionadas por leyendas}
 
 % In the previous subsection, we formulated denoisers for class-conditional
 % denoising with classifier-free guidance, a ubiquitous practical
@@ -3045,25 +3044,24 @@ details described in detail in \Cref{sec:CLIP}).
 % with the image $\vx$ in
 % order to provide a concise and unified scheme for parameterizing the optimal
 % denoisers (conditional and unconditional).
-
-Finally, we will describe an end-to-end system that integrates joint image-text
-encoders, learned with the CLIP loss as described above, with conditioning
-operators that are evocative of the mixture-of-Gaussians operator
-\eqref{eq:operator-for-parameterizing-cfg-denoiser-mog} we saw in
+Por último, describiremos un sistema integral que integra codificadores conjuntos de imagen y texto,
+entrenados con la pérdida CLIP tal y como se ha descrito anteriormente, con operadores de condicionamiento
+que recuerdan al operador de mezcla de gaussianas
+\eqref{eq:operator-for-parameterizing-cfg-denoiser-mog} que vimos en el
 \Cref{example:denoising-gaussian-mixture-cfg-parameterization}.
-These techniques
-formed the basis for the original open-source Stable Diffusion implementation
+Estas técnicas
+constituyeron la base de la implementación original de código abierto de Stable Diffusion
 \cite{rombach2022high},
-where the embedding and subsequent conditioning is performed not on
-a class label, but a text prompt, which describes the desired image content
+en la que la incrustación y el condicionamiento posterior no se realizan sobre
+una etiqueta de clase, sino sobre una indicación de texto que describe el contenido deseado de la imagen
 (\Cref{fig:text-to-image}).
-This section will give a high-level overview of StableDiffusion-style image
-generation. For full implementation details sufficient to re-implement such
-a system from scratch, we refer to \Cref{ch:applications}: specifically,
-\Cref{sec:clm_text} describes the process of encoding strings of text to
-a sequence of integer IDs; \Cref{sec:CLIP} describes the training of the
-necessary image-text encoders; and \Cref{sec:auto-encode-img-gen,sec:cond_gen}
-describe the training of the (latent) diffusion model.
+En esta sección se ofrece una visión general de alto nivel sobre la generación de imágenes al estilo de StableDiffusion.
+Para obtener todos los detalles de implementación necesarios para volver a implementar
+dicho sistema desde cero, consulte \Cref{ch:applications}: en concreto,
+\Cref{sec:clm_text} describe el proceso de codificación de cadenas de texto en
+una secuencia de identificadores enteros; \Cref{sec:CLIP} describe el entrenamiento de los
+codificadores de imagen-texto necesarios; y \Cref{sec:auto-encode-img-gen,sec:cond_gen}
+describen el entrenamiento del modelo de difusión (latente).
 
 \begin{figure}[tbp]
     \centering
@@ -3077,38 +3075,38 @@ describe the training of the (latent) diffusion model.
         \caption{}
     \end{subfigure}
 
-    \caption{A high-level schematic of training and applying a text-to-image
-        generative model, via conditional generation with a text
-        prompt. \textbf{Left:}
-        To train a text-to-image model, a large dataset of images paired with
-        corresponding text captions is used. An encoder is used to
-        map the captions to
-        sequences of vectors, which are used as conditioning signals
-        for a conditional
-        denoiser, trained as described algorithmically in \Cref{sub:cfg} (see
-        \Cref{sec:auto-encode-img-gen} for implementation details). The text
-        encoder may be
-        pretrained and frozen, or jointly trained with the denoiser.
-        \textbf{Right:}
-        When applying a trained model, a desired text prompt is used
-        as conditioning,
-        then sampling is performed with the trained model, as in
+    \caption{Esquema general del entrenamiento y la aplicación de un modelo generativo de texto a imagen,
+        mediante la generación condicional a partir de una indicación de texto.
+        \textbf{Izquierda:}
+        Para entrenar un modelo de texto a imagen, se utiliza un amplio conjunto de datos de imágenes emparejadas con
+        los pies de foto correspondientes. Se utiliza un codificador para
+        asignar los pies de foto a
+        secuencias de vectores, que se utilizan como señales de condicionamiento
+        para un
+        filtro de ruido condicional, entrenado según se describe algorítmicamente en la \Cref{sub:cfg} (véase
+        \Cref{sec:auto-encode-img-gen} para detalles de implementación). El codificador
+        de texto puede estar
+        preentrenado y congelado, o entrenarse conjuntamente con el filtro de ruido.
+        \textbf{Derecha:}
+        Al aplicar un modelo entrenado, se utiliza una indicación de texto deseada
+        como condición
+        y luego se realiza el muestreo con el modelo entrenado, tal como se muestra en
         \Cref{alg:iterative_denoising_conditional_CFG}
-        (\textit{mutatis mutandis} for
-    use with an encoded text prompt).}
+        (\textit{mutatis mutandis} para
+    su uso con una indicación de texto codificada).}
     \label{fig:text-to-image}
 \end{figure}
 
-Stable Diffusion follows the conditional generation methodology we outline in
-\Cref{sub:cfg}, with two key modifications: (i) The conditioning signal is a
-tokenized text prompt $\vY \in
-\bR^{D_{\mathrm{text}} \times N}$, rather than a class label; (ii)
-Image denoising is
-performed in ``latent'' space rather than on raw pixels, using a specialized,
-pretrained variational autoencoder pair $f : \bR^{D_{\mathrm{img}}} \to
+Stable Diffusion sigue la metodología de generación condicional que describimos en
+\Cref{sub:cfg}, con dos modificaciones clave: (i) La señal de condicionamiento es una
+solicitud de texto tokenizada $\vY \in
+\bR^{D_{\mathrm{text}} \times N}$, en lugar de una etiqueta de clase; (ii)
+La eliminación del ruido de la imagen se
+realiza en el espacio «latente» en lugar de sobre los píxeles sin procesar, utilizando un par especializado y
+preentrenado de autoencodificadores variacionales $f : \bR^{D_{\mathrm{img}}} \to
 \bR^{d_{\mathrm{img}}}$, $g : \bR^{d_{\mathrm{img}}} \to
-\bR^{D_{\mathrm{img}}}$ (see \Cref{sec:vae,sec:auto-encode-img-gen}), where $f$
-is the encoder and $g$ is the decoder.
+\bR^{D_{\mathrm{img}}}$ (véase \Cref{sec:vae,sec:auto-encode-img-gen}), donde $f$
+es el codificador y $g$ es el decodificador.
 % Subsequent model development
 % has shown that
 % point (ii) is an efficiency issue, rather than a core conceptual
@@ -3129,36 +3127,37 @@ is the encoder and $g$ is the decoder.
 % In contrast, issue (i) is essential, and the approach proposed to address it
 % represents one of the lasting methodological innovations of
 % \textcite{rombach2022high}.
-For issue (i), in the context of the iterative conditional denoising
-framework we have
-developed in \Cref{sub:cfg}, this concerns the parameterization of the denoisers
-$\bar{\vz}_{\theta}(t, \vz_t, \vY^+)$.\footnote{In the setting of text
-    conditioning, the `augmented' label $\vY^+$, which is either the
-    encoded text
-    prompt or $\varnothing$, denoting unconditional denoising, is
-    often implemented
-    by mapping $\varnothing$ to the empty string ``'', then encoding this text
-    prompt with the tokenizer as usual. This gives a simple, unified
-    way to treat
-conditional and unconditional denoising with text conditioning.}
-\textcite{rombach2022high} implement text conditioning in the denoiser using
-a layer known as cross attention, inspired by the original encoder-decoder
-transformer architecture of \textcite{vaswani2017attention}. Cross attention is
-implemented as follows. We let $\tau : \bR^{D_{\mathrm{text}} \times N} \to
+En cuanto al punto (i), en el contexto del marco de eliminación de ruido condicional iterativo
+que hemos
+desarrollado en \Cref{sub:cfg}, esto se refiere a la parametrización de los eliminadores de ruido
+$\bar{\vz}_{\theta}(t, \vz_t, \vY^+)$.\footnote{En el contexto del
+    condicionamiento de texto, la etiqueta «aumentada» $\vY^+$, que puede ser la
+    solicitud de texto
+    codificada o $\varnothing$ (lo que denota un proceso de eliminación de ruido incondicional),
+    suele implementarse
+    asignando $\varnothing$ a la cadena vacía «» y luego codificando esta solicitud de texto
+    con el tokenizador como de costumbre. Esto proporciona una forma sencilla y unificada
+    de tratar
+la eliminación de ruido condicional e incondicional con el acondicionamiento de texto.}
+\textcite{rombach2022high} implementa el condicionamiento de texto en el filtro de ruido utilizando
+una capa conocida como «atención cruzada», inspirada en la arquitectura original de transformador codificador-decodificador
+de \textcite{vaswani2017attention}. La atención cruzada se
+implementa de la siguiente manera. Sea $\tau : \bR^{D_{\mathrm{text}} \times N} \to
 \bR^{d_{\mathrm{model}} \times N_{\mathrm{text}}}$
-denote an encoding network for the text embeddings (often a causal
-transformer---see \Cref{sec:clm_text}), and let $\psi : \bR^{d_{\mathrm{img}}}
-\to \bR^{d_{\mathrm{model}} \times N_{\mathrm{img}}}$ denote the
-mapping corresponding to one of
-the intermediate representations in the denoiser.\footnote{In practice,
-    text-conditioned denoisers add cross attention layers at regular intervals
-    within the forward pass of the denoiser, so $\psi$ should be seen as
-layer-dependent, in contrast to $\tau$.} %See
+denote una red de codificación para las incrustaciones de texto (a menudo un
+transformador causal---véase \Cref{sec:clm_text}), y sea $\psi : \bR^{d_{\mathrm{img}}}
+\to \bR^{d_{\mathrm{model}} \times N_{\mathrm{img}}}$ denote la
+correspondencia de a una de
+las representaciones intermedias en el filtro de ruido.\footnote{En la práctica,
+    los filtros de ruido condicionados por texto añaden capas de atención cruzada a intervalos regulares
+    dentro de la pasada hacia adelante del filtro de ruido, por lo que $\psi$ debe considerarse
+dependiente de la capa, a diferencia de $\tau$.}
+%See
 % \textcite{rombach2022high} for details.}
-Here, $N_{\mathrm{text}}$ is the maximum tokenized text prompt length,
-and $N_{\mathrm{img}}$ roughly corresponds to the number of image channels
-(layer-dependent) in the representation, which is fixed if the input image
-resolution is fixed. Cross attention (with $K$ heads, and no bias) is defined as
+Aquí, $N_{\mathrm{text}}$ es la longitud máxima de la solicitud de texto tokenizada,
+y $N_{\mathrm{img}}$ se corresponde aproximadamente con el número de canales de imagen
+(dependientes de la capa) en la representación, que es fijo si la resolución de la imagen de entrada
+es fija. La atención cruzada (con $K$ cabezales y sin sesgo) se define como
 \begin{equation}
     \mathrm{MHCA}(\vz_t, \vY^+) \label{eq:mhca}
     = \vU_{\out}\mat{\SA([\vU_{\query}^{1}]^{\top}\psi(\vz_t),
@@ -3168,381 +3167,381 @@ resolution is fixed. Cross attention (with $K$ heads, and no bias) is defined as
             [\vU_{\attnkey}^{K}]^{\top}\tau(\vY^+),
     [\vU_{\val}^{K}]^{\top}\tau(\vY^+))}, %
 \end{equation}
-where $\mathrm{SA}$ denotes the scaled dot-product attention operation
-in the transformer (which we recall in detail in \Cref{ch:applications}: see
-\Cref{eq:mhsa,eq:self_attention}), and $\vU_{*}^{k} \in
+donde $\mathrm{SA}$ denota la operación de atención de producto escalar
+en el transformador (que recordamos en detalle en \Cref{ch:applications}: véase
+\Cref{eq:mhsa,eq:self_attention}), y $\vU_{*}^{k} \in
 \bR^{d_{\mathrm{model}}\times
-d_{\mathrm{attn}} }$ for $* \in \set{\mathrm{qry}, \mathrm{key}, \mathrm{val}}$
-(as well as the output projection $\vU_{\mathrm{out}}$) are the learnable
-parameters of the layer.
+d_{\mathrm{attn}} }$ para $* \in \set{\mathrm{qry}, \mathrm{key}, \mathrm{val}}$
+(así como la proyección de salida $\vU_{\mathrm{out}}$) son los parámetros
+aprendibles de la capa.
 
-Notice that, by the definition of the self-attention operation, cross attention
-\textit{outputs linear combinations of the value-projected text embeddings
-weighted by correlations between the image features and the text embeddings.}
-In the denoiser architecture used by \textcite{rombach2022high},
-self-attention residual blocks in the denoiser architecture, applied to the
-image representation at the current layer and defined analogously
-to those in \Cref{eq:vit-res-block} for the vision transformer, are
-followed by cross
-attention residual blocks of the form \eqref{eq:mhca}.
-Such a structure requires the text encoder $\tau$ to, in a certain
-sense, share some
-structure in its output with the image feature embedding $\psi$: this can be
-achieved via joint
-embedding, learned by a procedure such as CLIP as described above.
-Conceptually, this joint text-image embedding space and the cross attention
-layer itself bear a strong resemblance to the
-conditional mixture of Gaussians denoiser that we derived in the previous
-section (recall \eqref{eq:mog-conditional-denoising-unified-operator}), in the
-special case of a single token sequence. Deeper
-connections can be drawn in the multi-token setting following the rate reduction
-framework for deriving deep network architectures discussed in
-\Cref{ch:deep-networks}, and manifested in the derivation of the CRATE
-transformer-like architecture.
+Obsérvese que, según la definición de la operación de autoatención, la atención cruzada
+\textit{genera combinaciones lineales de las incrustaciones de texto proyectadas en valores,
+ponderadas por las correlaciones entre las características de la imagen y las incrustaciones de texto.}
+En la arquitectura del filtro de ruido utilizada por \textcite{rombach2022high},
+los bloques residuales de autoatención de la arquitectura del filtro de ruido, aplicados a la
+representación de la imagen en la capa actual y definidos de manera análoga
+a los de \Cref{eq:vit-res-block} para el transformador de visión, van
+seguidos de bloques residuales de atención cruzada
+de la forma \eqref{eq:mhca}.
+Una estructura de este tipo requiere que el codificador de texto $\tau$ comparta, en cierto
+sentido, parte de la
+estructura de su salida con la incrustación de características de la imagen $\psi$: esto se puede
+lograr mediante una incrustación conjunta,
+aprendida mediante un procedimiento como CLIP, tal y como se ha descrito anteriormente.
+Desde el punto de vista conceptual, este espacio de incrustación conjunta de texto e imagen y la propia capa de atención cruzada
+presentan un gran parecido con el
+filtro de ruido de mezcla condicional de gaussianas que derivamos en la sección anterior
+(véase \eqref{eq:mog-conditional-denoising-unified-operator}), en el
+caso particular de una secuencia de un solo token. Se pueden establecer conexiones más profundas
+en el contexto de múltiples tokens siguiendo el marco de reducción de tasa
+para derivar arquitecturas de redes profundas que se analiza en el
+\Cref{ch:deep-networks} y que se manifiesta en la derivación de la arquitectura CRATE,
+similar a la del transformador.
 
-This same basic design has been further scaled to even larger model and dataset
-sizes, in particular in modern instantiations of Stable Diffusion
-\cite{DBLP:conf/icml/EsserKBEMSLLSBP24}, as well as in competing models such as
-FLUX.1 \cite{Labs2025-fb}, Imagen \cite{Saharia2022-na}, and DALL-E
+Este mismo diseño básico se ha ampliado aún más a modelos y conjuntos de datos de mayor tamaño,
+en particular en las versiones modernas de Stable Diffusion
+\cite{DBLP:conf/icml/EsserKBEMSLLSBP24}, así como en modelos de la competencia como
+FLUX.1 \cite{Labs2025-fb}, Imagen \cite{Saharia2022-na} y DALL-E
 \cite{Ramesh2022-nu}.
-The conditioning mechanism of cross attention has also become ubiquitous in
-other applications, as in EgoAllo (\Cref{sec:egoallo}) for
-conditioned pose generation and in Michelangelo
-(\Cref{sec:Michelangelo}) for conditional 3D shape generation based
-on images or texts.
+El mecanismo de condicionamiento de la atención cruzada también se ha generalizado en
+otras aplicaciones, como en EgoAllo (\Cref{sec:egoallo}) para la
+generación condicionada de poses y en Michelangelo
+(\Cref{sec:Michelangelo}) para la generación condicional de formas 3D basada
+en imágenes o textos.
 
-\section{Conditional Inference with Measurement Self-Consistency}
+\section{Inferencia condicional con autoconsistencia de la medición}
 \label{sec:measurement-self-consistency}
-In this last section, we consider the more extreme, but actually
-ubiquitous, case for distribution learning in which we only have a
-set of observed samples $\Y = \{\y_1,\ldots, \y_N\}$ of the data
-$\x$, but no samples of $\x$ directly! In general, the observation
-$\y \in \mathbb{R}^d$ is of lower dimension than $\x \in
-\mathbb{R}^D$. To make the problem well-defined, we do assume that
-the observation model between $\y$ and $\x$ is known to belong to a
-certain family of analytical models, denoted as $\y = h(\x, \theta)
-+\vw$, with $\theta$ either known or not known.
+En esta última sección, analizamos el caso más extremo, aunque en realidad
+muy común, del aprendizaje de distribuciones, en el que solo contamos con un
+conjunto de muestras observadas $\Y = \{\y_1,\ldots, \y_N\}$ de los datos
+$\x$, ¡pero no tenemos muestras directas de $\x$! En general, la observación
+$\y \in \mathbb{R}^d$ es de menor dimensión que $\x \in
+\mathbb{R}^D$. Para que el problema esté bien definido, suponemos que
+se sabe que el modelo de observación entre $\y$ y $\x$ pertenece a una
+cierta familia de modelos analíticos, denotada como $\y = h(\x, \theta)
++\vw$, donde $\theta$ puede ser conocido o desconocido.
 
-Let us first try to understand the problem conceptually with the
-simple case when the measurement function $h$ is known and the
-observed $\y = h(\x) + \vw$ is informative about $\x$. That is, we
-assume that $h$ is surjective from the space of $\x$ to that of $\y$
-and the support of the distribution $\y_0 = h(\x_0)$ is
-low-dimensional. This typically requires that the \textit{extrinsic}
-dimension $d$ of $\y$ is higher than the \textit{intrinsic} dimension
-of the support of the distribution of $\x$. Without loss of
-generality, we may assume that there exist functions:
+Intentemos primero comprender el problema conceptualmente con el
+caso sencillo en el que la función de medición $h$ es conocida y la
+observación $\y = h(\x) + \vw$ proporciona información sobre $\x$. Es decir,
+suponemos que $h$ es sobreyectiva del espacio de $\x$ al de $\y$
+y que el soporte de la distribución $\y_0 = h(\x_0)$ es
+de baja dimensión. Esto suele requerir que la dimensión \textit{extrínseca}
+$d$ de $\y$ sea mayor que la dimensión \textit{intrínseca}
+del soporte de la distribución de $\x$. Sin pérdida de
+generalidad, podemos suponer que existen funciones:
 \begin{equation}
     F(\x) = \boldsymbol{0},\quad     G(\y) = \boldsymbol{0}.
 \end{equation}
-Notice that here we may assume that we know $G(\y)$ but not $F(\x)$.
-Let $\mathcal{S}_{\y} \doteq \{\y \mid G(\y) = \boldsymbol{0}\}$ be
-the support of $p(\y)$.  In general, $h^{-1}(\mathcal{S}_{\y}) = \{\x
-\mid G(h(\x)) = \boldsymbol{0}\}$ is a superset of $\mathcal{S}_{\x}
-\doteq \{\x \mid F(\x) = \boldsymbol{0}\}$. That is, we have
+Obsérvese que aquí podemos suponer que conocemos $G(\y)$, pero no $F(\x)$.
+Sea $\mathcal{S}_{\y} \doteq \{\y \mid G(\y) = \boldsymbol{0}\}$ el
+soporte de $p(\y)$. En general, $h^{-1}(\mathcal{S}_{\y}) = \{\x
+\mid G(h(\x)) = \boldsymbol{0}\}$ es un superconjunto de $\mathcal{S}_{\x}
+\doteq \{\x \mid F(\x) = \boldsymbol{0}\}$. Es decir, tenemos
 $h(\mathcal{S}_{\x}) \subseteq \mathcal{S}_{\y}$.
 
-\subsection{Linear Measurement Models}
-First, for simplicity, let us consider that the measurement is a
-linear function of the data $\x$ of interest:
+\subsection{Modelos lineales de medición}
+En primer lugar, para simplificar, supongamos que la medición es una
+función lineal de los datos $\x$ que nos interesan:
 \begin{equation}
     \y = \vA\x.
 \end{equation}
-Here the matrix $\vA \in \mathbb{R}^{m\times n}$ is of full row rank
-and $m$ is typically smaller than $n$. We assume $\vA$ is known for
-now. We are interested in how to learn the distribution of $\x$ from
-such measurements. Since we no longer have direct samples of $\x$, we
-wonder whether we can still develop a denoiser for $\x$ with
-observations $\y$. Let us consider the following diffusion process:
+Aquí, la matriz $\vA \in \mathbb{R}^{m\times n}$ tiene rango de filas completo
+y $m$ suele ser menor que $n$. Suponemos que $\vA$ es conocida por
+ahora. Nos interesa cómo aprender la distribución de $\x$ a partir de
+dichas mediciones. Dado que ya no contamos con muestras directas de $\x$, nos
+preguntamos si aún podemos desarrollar un denoiser para $\x$ con
+las observaciones $\y$. Consideremos el siguiente proceso de difusión:
 \begin{equation}
     \y_t = \y_0 + t \vg, \quad \y_0 = \vA(\x_0),
 \end{equation}
-where $\vg \sim \mathcal{N}(\boldsymbol{0}, \vI)$.
+donde $\vg \sim \mathcal{N}(\boldsymbol{0}, \vI)$.
 
-Without loss of generality, we assume $\vA$ is of full row rank,
-i.e., under-determined. Let us define the corresponding process
-$\x_t$ as one that satisfies:
+Sin pérdida de generalidad, supongamos que $\vA$ tiene rango de fila completo,
+es decir, que es subdeterminada. Definamos el proceso correspondiente
+$\x_t$ como aquel que satisface:
 \begin{equation}
     \y_t = \vA \x_t.
 \end{equation}
 
-From the denoising process of $\y_t$, we have
+A partir del proceso de eliminación de ruido de $\y_t$, tenemos
 \begin{equation}
     \y_{t-s} \approx  \y_t + st \nabla \log p_t(\y_t).
 \end{equation}
-Then we have:
+A continuación tenemos:
 \begin{equation}
     \vA\x_{t-s} \approx   \vA\x_t + st \nabla \log p_t(\vA \x_t),
 \end{equation}
-for a small $s >0$. So $\x_{t-s}$ and $\x_t$ need to satisfy:
+para un valor pequeño de $s > 0$. Por lo tanto, $\x_{t-s}$ y $\x_t$ deben cumplir que:
 \begin{equation}
     \vA(\x_{t-s} - \x_t) \approx st \nabla \log p_t(\vA\x_t).
 \end{equation}
-Among all $\x_{t-s}$ that satisfy the above constraint, we
-arbitrarily choose the one that minimizes the distance $\|\x_{t-s} -
-\x_t\|_2^2$. Therefore, we obtain a ``denoising'' process for $\x_t$:
+De entre todos los $\x_{t-s}$ que satisfacen la restricción anterior,
+elegimos arbitrariamente aquel que minimiza la distancia $\|\x_{t-s} -
+\x_t\|_2^2$. Por lo tanto, obtenemos un proceso de «eliminación de ruido» para $\x_t$:
 \begin{equation}
     \x_{t-s}  \approx \x_t + st\vA^\dagger \nabla \log p_t(\vA\x_t).
     \label{eqn:denoising-projection}
 \end{equation}
-Notice that this process does not sample from the distribution of
-$\vx_t$. In particular, there are components of $\vx$ in the null
-space/kernel of $\vA$ that can never be recovered from observations.
-Thus more information is needed to recover the full distribution of
-$\vx$, strictly speaking. But this recovers the component of $\vx$
-that is orthogonal to the null space of $\vA$.
+Obsérvese que este proceso no toma muestras de la distribución de
+$\vx_t$. En particular, hay componentes de $\vx$ en el espacio o núcleo nulo
+de $\vA$ que nunca pueden recuperarse a partir de las observaciones.
+Por lo tanto, en sentido estricto, se necesita más información para recuperar la distribución completa de
+$\vx$. Sin embargo, esto permite recuperar el componente de $\vx$
+que es ortogonal al espacio nulo de $\vA$.
 
-\subsection{Learning 3D World Model from 2D Images}
+\subsection{Aprendizaje de modelos 3D a partir de imágenes 2D}
 \label{sec:3D-visual-model}
-In practice, the measurement model is often nonlinear or only
-partially known. A typical problem of this kind is actually behind
-how we can learn a working model of the external world from the
-images perceived, say through our eyes, telescopes or microscopes. In
-particular, humans and animals are able to build a model of the 3D
-world (or 4D for a dynamical world) through a sequence of its 2D
-projections---a sequence of 2D images (or stereo image pairs). The
-mathematical or geometric model of the projection is generally known:
+En la práctica, el modelo de medición suele ser no lineal o solo
+se conoce parcialmente. Un problema típico de este tipo es, de hecho, lo que subyace
+a la forma en que podemos aprender un modelo válido del mundo exterior a partir de las
+imágenes que percibimos, por ejemplo, a través de nuestros ojos, telescopios o microscopios. En
+particular, los seres humanos y los animales son capaces de construir un modelo del mundo en 3D
+(o en 4D, en el caso de un mundo dinámico) a través de una secuencia de sus proyecciones en 2D
+---una secuencia de imágenes en 2D (o pares de imágenes estereoscópicas). El
+modelo matemático o geométrico de la proyección es bien conocido:
 \begin{equation}
     \y^i = h(\x, \theta^i) +\vw^{i},
 \end{equation}
-where $h(\cdot)$ represents a (perspective) projection of the 3D (or
-4D) scene from a certain camera view at time $t_i$ to a 2D image (or
-a stereo pair) and $\vw$ is some possibly additive small measurement
-noise. \Cref{fig:projection-2D} illustrates this relationship
-concretely, while \Cref{fig:inference_distributed} illustrates the
-model problem in the abstract. A full exposition of geometry related
-to multiple 2D views of a 3D scene is beyond the scope of this book.
-Interested readers may refer to the book \cite{MaY2003}. For now, all
-we need to proceed is that such projections are well understood and
-multiple images of a scene contain sufficient information about the scene.
+donde $h(\cdot)$ representa una proyección (en perspectiva) de la escena 3D (o
+4D) desde una determinada perspectiva de la cámara en el instante $t_i$ hacia una imagen 2D (o
+un par estereoscópico) y $\vw$ es un pequeño ruido de medición, posiblemente aditivo.
+\Cref{fig:projection-2D} ilustra esta relación \Cref{fig:projection-2D} ilustra esta relación
+de manera concreta, mientras que \Cref{fig:inference_distributed} ilustra el
+problema del modelo de manera abstracta. Una exposición completa de la geometría relacionada
+con las múltiples vistas en 2D de una escena en 3D excede el alcance de este libro.
+Los lectores interesados pueden consultar el libro \cite{MaY2003}. Por ahora, todo
+lo que necesitamos para continuar es que se comprendan bien dichas proyecciones y
+que las múltiples imágenes de una escena contengan información suficiente sobre la misma.
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.7\linewidth]{\toplevelprefix/chapters/chapter7/figs/3D-2D-projection.png}
-    \caption{Relationship between a 3D object/scene and its 2D
-        projections. Here we illustrate the projection of a point $\x$
-    and a line intersecting the point.}
+    \caption{Relación entre un objeto o escena 3D y sus proyecciones 2D.
+        Aquí ilustramos la proyección de un punto $\x$
+    y una recta que pasa por dicho punto.}
     \label{fig:projection-2D}
 \end{figure}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.7\linewidth]{\toplevelprefix/chapters/chapter7/figs/inference_distributed.pdf}
-    \caption{\small \textbf{Inference with distributed measurements.}
-        We have a low-dimensional distribution \(\vx\) (here, similarly
-            to \Cref{fig:inference_roadmap}, depicted as a union of two
-        \(2\)-dimensional manifolds in \(\R^{3}\)) and a measurement
-        model \(\y^{i} = h^{i}(\vx) + \vw^{i}\). As before, we want to
-        infer various properties of the conditional distribution of
-        \(\vx\) given \(\vy\), where \(\vy\) is the collection of all the
-    measurements \(\y^{i}\).}
+    \caption{\small \textbf{Inferencia con mediciones distribuidas.}
+        Tenemos una distribución de baja dimensión \(\vx\) (aquí, de forma similar
+            a \Cref{fig:inference_roadmap}, representada como la unión de dos
+        variedades bidimensionales en \(\R^{3}\)) y un modelo de medición
+        \(\y^{i} = h^{i}(\vx) + \vw^{i}\). Como antes, queremos
+        inferir varias propiedades de la distribución condicional de
+        \(\vx\) dada \(\vy\), donde \(\vy\) es la colección de todas las
+    mediciones \(\y^{i}\).}
     \label{fig:inference_distributed}
 \end{figure}
 
-In general, we would like to learn the distribution $p(\x)$ of the 3D
-(or 4D) world scene $\x$\footnote{Here by abuse of notation, we use
-    $\x$ to represent either a point in 3D or a sample of an entire 3D
-object or a scene that consists of many points.} from the perceived
-2D images of the world so far. The primary function of such a
-(visual) world model is to allow us to recognize places where we had
-been before or predict what the current scene would look like in a
-future time at a new viewpoint.
+En general, nos gustaría conocer la distribución $p(\x)$ de la escena del mundo en 3D
+(o 4D) $\x$\footnote{Aquí, por conveniencia, utilizamos
+    $\x$ para representar tanto un punto en 3D como una muestra de un objeto 3D
+completo o una escena compuesta por muchos puntos.} a partir de las imágenes 2D
+del mundo percibidas hasta el momento. La función principal de un modelo
+(visual) del mundo de este tipo es permitirnos reconocer lugares en los que ya
+hemos estado o predecir cómo se vería la escena actual en un
+momento futuro desde un nuevo punto de vista.
 
-Let us first examine the special but important case of stereo vision.
-In this case, we have two calibrated views of the 3D scene $\x$:
+Examinemos primero el caso particular, pero importante, de la visión estereoscópica.
+En este caso, contamos con dos vistas calibradas de la escena 3D $\x$:
 \begin{equation}
     \y^0 = h(\x, \theta^0) +\vw^0, \quad \y^1 = h(\x, \theta^1) +\vw^1,
 \end{equation}
-where parameters $\theta^0$ and $\theta^1$ for the view poses can be
-assumed to be known. $\y^0$ and $\y^1$ are two 2D-projections of the
-3D scene $\x$. We may also assume that they have the same marginal
-distribution $p(\y)$ and we have learned a diffusion and denoising
-model for it. That is, we know the denoiser:
+donde se puede suponer que los parámetros $\theta^0$ y $\theta^1$ de las poses de la vista
+son conocidos. $\y^0$ y $\y^1$ son dos proyecciones en 2D de la
+escena 3D $\x$. También podemos suponer que tienen la misma distribución marginal
+$p(\y)$ y que hemos aprendido un modelo de difusión y eliminación de ruido
+para ella. Es decir, conocemos el filtro de ruido:
 \begin{equation}
     \bE[\vy \mid \vy_t=\vnu] =
     \vnu + t^2 \nabla_{\vnu}\log p_t(\vnu).
     \label{eq:y-posterior-sampling-denoiser}
 \end{equation}
-Or, furthermore, we may assume that we have a sufficient number of
-samples of stereo pairs $(\y^0, \y^1)$ and have also learned the
-joint distribution of the pairs. By a little abuse of notation, we
-also use $\y = h(\x)$ to indicate the pair $\y = (\y^0, \y^1)$ and
-$p(\y)$ as the learned probability distribution of the pair (say via
-a denoiser as above).
+O, además, podemos suponer que contamos con un número suficiente de
+muestras de pares estéreo $(\y^0, \y^1)$ y que también hemos aprendido la
+distribución conjunta de los pares. Haciendo un pequeño abuso de notación,
+también utilizamos $\y = h(\x)$ para indicar el par $\y = (\y^0, \y^1)$ y
+$p(\y)$ como la distribución de probabilidad aprendida del par (por ejemplo, mediante
+un filtro de ruido como el anterior).
 
-The main question now is: How to learn (a representation for) the
-distribution of the 3D scene $\x$ from its two projections with known
-relationships?
-People might question the rationale for doing this: why is this
-necessary if the function $h(\cdot)$ is largely invertible? That is,
-the observation $\y$ can largely determine the unknown $\x$, which is
-kind of the case for stereo---in general, two (calibrated) images
-contain sufficient information about the scene depth, from the given
-vantage point. However, 2D images are far from the most compact
-representation of the 3D scene as the same scene can produce
-infinitely many (highly correlated) 2D images or image pairs. In
-fact, a good representation of a 3D scene should be invariant to the
-viewpoint. Hence, a correct representation of the distribution of 3D
-scenes should be much more compact and structured than the
-distribution of 2D images, stereo pairs, or image-depth pairs.
+La pregunta principal ahora es: ¿Cómo aprender (una representación de) la
+distribución de la escena 3D $\x$ a partir de sus dos proyecciones con relaciones
+conocidas?
+Es posible que alguien se pregunte cuál es la razón para hacer esto: ¿por qué es
+necesario si la función $h(\cdot)$ es en gran medida invertible? Es decir,
+la observación $\y$ puede determinar en gran medida la incógnita $\x$, lo cual
+ocurre en cierta medida con la visión estereoscópica: en general, dos imágenes (calibradas)
+contienen información suficiente sobre la profundidad de la escena, desde el
+punto de vista dado. Sin embargo, las imágenes 2D distan mucho de ser la representación más compacta
+de una escena 3D, ya que una misma escena puede generar
+un número infinito de imágenes 2D (altamente correlacionadas) o de pares de imágenes. De
+hecho, una buena representación de una escena 3D debería ser invariante con respecto al
+punto de vista. Por lo tanto, una representación correcta de la distribución de las escenas 3D
+debería ser mucho más compacta y estructurada que la
+distribución de imágenes 2D, pares estéreo o pares de imagen-profundidad.
 
-Consider the (inverse) denoising process for the diffusion: $\y_t =
-\y + t\vg $ in \eqref{eq:y-posterior-sampling-denoiser}, where $\vg$
-is standard Gaussian. From the denoising process of
-\eqref{eq:y-posterior-sampling-denoiser}, we have
+Consideremos el proceso de eliminación de ruido (inverso) para la difusión: $\y_t =
+\y + t\vg $ en \eqref{eq:y-posterior-sampling-denoiser}, donde $\vg$
+es una distribución gaussiana estándar. A partir del proceso de eliminación de ruido de
+\eqref{eq:y-posterior-sampling-denoiser}, tenemos
 \begin{equation}
     \y_{t-s} =  \y_t + st \nabla_{\y} \log p_t(\y_t).
 \end{equation}
-We try to find a corresponding ``denoising" process of $\x_t$ such
-that $\x$ is related to $\y$ as:
+Intentamos encontrar un proceso de «eliminación de ruido» correspondiente para $\x_t$ tal
+que $\x$ se relacione con $\y$ de la siguiente manera:
 \begin{equation}
     \y =  h(\x).
 \end{equation}
-
-Then we have:
+A continuación tenemos:
 \begin{equation}
     h(\x_{t-s}) \approx h(\x_t) + st \nabla_{\y} \log p_t(h(\x_t)),
 \end{equation}
-for a small $s >0$.
-Suppose $\x_{t-s} = \x_t + s \vv$ for some vector $\vv$ and small
-increment $s$. We have
+para un valor pequeño de $s > 0$.
+Supongamos que $\x_{t-s} = \x_t + s \vv$ para algún vector $\vv$ y un
+incremento pequeño $s$. Tenemos que
 \begin{equation}
     h(\x_{t-s}) \approx h(\x_t) + \frac{\partial h}{\partial
     \x}(\vx_{t}) \cdot \vv s \doteq h(\x_t) + \vA(\x_t) \vv s.
 \end{equation}
-Hence, we have
+Por lo tanto, tenemos
 \begin{equation}
     \vA(\x_t) \vv = t \nabla_{\y} \log p_t(h(\x_t)).
     \label{eqn:pushforward}
 \end{equation}
-Geometrically the vector $\vv$ in the domain of $\x$ can be viewed as
-the pullback of the vector field $t \nabla \log p_t(\y)$ under the
-map $\y = h(\x)$. In general, as before, we may (arbitrarily) choose
-$\vv$ to be the minimum 2-norm vector that satisfies the pullback
-relationship. Hence, we can express  $\hat{\x}_{t-s}$ approximately as:
+Geométricamente, el vector $\vv$ en el dominio de $\x$ puede considerarse como
+el pullback del campo vectorial $t \nabla \log p_t(\y)$ bajo la
+función $\y = h(\x)$. En general, como antes, podemos elegir (arbitrariamente)
+$\vv$ como el vector de norma cuadrática mínima que satisface la relación de retroceso.
+Por lo tanto, podemos expresar  $\hat{\x}_{t-s}$ aproximadamente como:
 \begin{equation}
     \hat{\x}_{t-s} \approx \x_t + st\vA(\x_t)^\dagger \nabla_{\y}
     \log p_t(h(\x_t)).
     \label{eqn:pullback-denoise}
 \end{equation}
 
-\begin{remark}[Parallel Sensing and Distributed Denoising.]
-    {There is something very interesting about the above equation
-        \eqref{eqn:pullback-denoise}. It seems to suggest we could
-        try to learn the distribution of $\x$ through a process that
-        is coupled with (many of) its (partial) observations:
+\begin{remark}[Detección paralela y eliminación distribuida del ruido.]
+    {Hay algo muy interesante en la ecuación anterior
+        \eqref{eqn:pullback-denoise}. Parece sugerir que podríamos
+        intentar aprender la distribución de $\x$ mediante un proceso que
+        esté acoplado con (muchas de) sus observaciones (parciales):
         \begin{equation}
             \y^i = h^i(\x) +\vw^i, i =1, \ldots, K.
-        \end{equation} In this case, we obtain a set of equations
-        that the vector field $\vv$ in the domain of $\x$ should satisfy:
+        \end{equation} 
+        En este caso, obtenemos un conjunto de ecuaciones
+        que el campo vectorial $\vv$ debe satisfacer en el dominio de $\x$:
         \begin{equation}
             \vA^i(\x_t) \vv = t \nabla_{\y^i} \log p_t(h^i(\x_t)),
             \label{eqn:federated-pushforward}
         \end{equation}
-        where $\vA^i(\x_t) = \frac{\partial h^i}{\partial
-        \x}(\vx_t)$. The final $\vv$ can be chosen as a
-        ``centralized'' solution that satisfies all the above
-        equations, or it could be chosen as a certain
-        (stochastically) ``aggregated'' version of all $\vv^i$:
+        donde $\vA^i(\x_t) = \frac{\partial h^i}{\partial
+        \x}(\vx_t)$. El $\vv$ final puede elegirse como una
+        solución «centralizada» que satisfaga todas las ecuaciones anteriores,
+        o bien como una cierta
+        versión (estocásticamente) «agregada» de todos los $\vv^i$:
         \begin{equation}
             \vv^i = t\vA^i(\x_t)^\dagger \big[\nabla_{\y^i} \log
             p_t(h^i(\x_t))\big], \quad i = 1, \ldots, K,
         \end{equation}
-        that are computed in a parallel and distributed fashion? An open
-        question here is exactly what the so-defined ``denoising''
-        process for $\x_t$ converges to, even in the linear measurement
-        model case. When would it converge to a distribution that has the
-        same low-dimensional support as the original $\x_0$, as $\y_t$
-    converges to $\y = h(\x_0)$? }
+        que se calculan de forma paralela y distribuida. Una pregunta
+        pendiente aquí es hacia qué converge exactamente el proceso de «eliminación de ruido»
+        así definido para $\x_t$, incluso en el caso del modelo de medición
+        lineal. ¿Cuándo convergería a una distribución que tiene el
+        mismo soporte de baja dimensión que el $\x_0$ original, a medida que $\y_t$
+    converge a $\y = h(\x_0)$? }
 \end{remark}
 
-\paragraph{Visual World Model from Uncalibrated Image Sequences.}
+\paragraph{Modelo visual del mundo a partir de secuencias de imágenes sin calibrar.}
 
-In the above derivation, we have assumed that the measurement model
-$h(\cdot)$ is fully known. In the case of stereo vision, this is
-rather reasonable as the relative pose (and calibration) of the two
-camera views (or two eyes\footnote{The relative pose of our two eyes
-is well known to our brain.}) is usually known in advance. Hence,
-through the stereo image pairs, in principle we should be able to
-learn the distribution of 3D scenes, at least the ego-centric
-distribution of 3D scenes. However, the low-dimensional structures of
-the so-called learned distribution contain variation caused by
-changing the viewpoints. That is, the appearance of the stereo images
-varies when we change our viewpoints with respect to the same 3D
-scene. For many practical vision tasks (such as localization and
-navigation), it is important that we can decouple this variation of
-viewpoints from an invariant representation of (the distribution of) 3D scenes.
+En la derivación anterior, hemos supuesto que el modelo de medición
+$h(\cdot)$ se conoce por completo. En el caso de la visión estereoscópica, esto resulta
+bastante razonable, ya que la pose relativa (y la calibración) de las dos
+vistas de las cámaras (o de los dos ojos\footnote{La pose relativa de nuestros dos ojos
+es bien conocida por nuestro cerebro.}) suele conocerse de antemano. Por lo tanto,
+a través de los pares de imágenes estereoscópicas, en principio deberíamos poder
+aprender la distribución de las escenas 3D, al menos la distribución egocéntrica
+de las escenas 3D. Sin embargo, las estructuras de baja dimensión de
+la denominada distribución aprendida contienen variaciones causadas por
+el cambio de los puntos de vista. Es decir, el aspecto de las imágenes estéreo
+varía cuando cambiamos nuestros puntos de vista con respecto a la misma escena 3D.
+Para muchas tareas prácticas de visión (como la localización y
+la navegación), es importante que podamos disociar esta variación de
+los puntos de vista de una representación invariante de (la distribución de) las escenas 3D.
 
-\begin{remark}Note that the above goal aligns well with Klein's
-    Erlangen Program for modern geometry, which is to study
-    invariants of a manifold under a group of transformations. Here,
-    we may view the manifold of interest as the distribution of
-    ego-centric representations of 3D scenes. We have learned that it
-    admits a group of three-dimensional rigid-body motion acting on
-    it. It is remarkable that our brain has learned to effectively
-    decouple such transformations from the observed 3D world.
+\begin{remark}Cabe señalar que el objetivo anterior concuerda perfectamente con el
+    Programa de Erlangen de Klein para la geometría moderna, cuyo objetivo es estudiar
+    los invariantes de una variedad bajo un grupo de transformaciones. En este caso,
+    podemos considerar la variedad que nos interesa como la distribución de
+    representaciones egocéntricas de escenas tridimensionales. Hemos aprendido que
+    admite un conjunto de movimientos tridimensionales de cuerpos rígidos que actúan sobre
+    él. Es sorprendente que nuestro cerebro haya aprendido a
+    desvincular eficazmente esas transformaciones del mundo tridimensional que observamos.
 \end{remark}
 
-Notice that we have studied learning representations that are
-invariant to translation and rotation in a limited setting in Chapter
-\ref{ch:deep-networks}. We know that the associated compression
-operators take the necessary form of (multi-channel) convolutions,
-hence leading to the (deep) convolutional neural networks.
-Nevertheless, operators that are associated with compression or
-denoising that are invariant to more general transformation groups
-remain elusive to characterize \cite{cohen2016group}.
-For the 3D Vision problem in its most general setting, we know the
-change of our viewpoints can be well modeled as a rigid-body motion.
-However, the exact relative motion of our eyes between different
-viewpoints is usually not known. More generally, there could also be
-objects (e.g., cars, humans, hands) moving in the scene and we
-normally do not know their motion either. How can we generalize the
-problem of learning the distribution of 3D scenes with calibrated
-stereo pairs to such more general settings? More precisely, we want
-to learn a compact representation $\x$ of the 3D scenes that is
-invariant to the camera/eye motions. Once such a representation is
-learned, we could sample and generate a 3D scene and render images or
-stereo pairs from arbitrary poses.
+Obsérvese que en el capítulo
+\ref{ch:deep-networks} hemos estudiado el aprendizaje de representaciones que son
+invariantes ante traslaciones y rotaciones en un contexto limitado. Sabemos que los operadores de compresión
+asociados adoptan la forma necesaria de convoluciones (multicanal),
+lo que da lugar a las redes neuronales convolucionales (profundas).
+No obstante, sigue siendo difícil caracterizar los operadores relacionados con la compresión o
+la eliminación de ruido que sean invariantes ante grupos de transformación más generales
+\cite{cohen2016group}.
+En el caso del problema de la visión 3D en su contexto más general, sabemos que
+el cambio de nuestros puntos de vista puede modelarse adecuadamente como un movimiento de cuerpo rígido.
+Sin embargo, normalmente se desconoce el movimiento relativo exacto de nuestros ojos entre los distintos
+puntos de vista. En términos más generales, también podría haber
+objetos (por ejemplo, automóviles, personas, manos) que se muevan en la escena y,
+por lo general, tampoco conocemos su movimiento. ¿Cómo podemos generalizar el
+problema de aprender la distribución de escenas 3D con pares estéreo
+calibrados a contextos tan generales? Más concretamente, queremos
+aprender una representación compacta $\x$ de las escenas 3D que sea
+invariante con respecto a los movimientos de la cámara o del ojo. Una vez aprendida dicha representación,
+podríamos muestrear y generar una escena 3D y renderizar imágenes o
+pares estereoscópicos a partir de poses arbitrarias.
 
-To this end, note that we can model a sequence of stereo pairs as:
+A tal fin, cabe señalar que podemos modelar una secuencia de pares estéreo de la siguiente manera:
 \begin{equation}
     \y^k = h(\x^k, \theta^k), \quad k=1, \ldots, K,
 \end{equation}
-where $h(\cdot)$ represents the projection map from 3D to 2D.
-$\theta^k$ denotes the rigid-body motion parameters of the $k$th
-view, with respect to some canonical frame in the world. $\x^k$
-represents the 3D scene at time $k$. If the scene is static, $\x^k$
-should all be the same $\x^k = \x$. To simplify the notation, we may
-denote the set of $k$ equations as one:
+donde $h(\cdot)$ representa la función de proyección de 3D a 2D.
+$\theta^k$ denota los parámetros de movimiento de cuerpo rígido de la $k$-ésima
+vista, con respecto a algún marco canónico en el mundo. $\x^k$
+representa la escena 3D en el instante $k$. Si la escena es estática, $\x^k$
+debería ser siempre igual a $\x^k = \x$. Para simplificar la notación, podemos
+denotar el conjunto de $k$ ecuaciones como una sola:
 \begin{equation}
     \Y = H(\x,\Theta).
 \end{equation}
-We may assume that we are given many samples of such stereo image
-sequences $\{\Y_i\}$. The problem is how to recover the associated
-motion sequence $\{\Theta_i\}$ and learn the distribution of the
-scene $\x$ (that is invariant to the motion). To the best of our
-knowledge, this remains an open challenging problem, probably as the
-final frontier for the 3D Vision problem.
+Podemos suponer que se nos proporcionan muchas muestras de tales secuencias de imágenes estéreo
+$\{\Y_i\}$. El problema consiste en cómo recuperar la secuencia de movimiento asociada
+$\{\Theta_i\}$ y aprender la distribución de la
+escena $\x$ (que sea invariante al movimiento). Según nuestro
+conocimiento, este sigue siendo un problema abierto y complejo, probablemente como la
+última frontera del problema de la visión 3D.
 
-\section{Summary and Notes}
-\paragraph{Measurement matching without clean samples.} In our development of
-conditional sampling, we considered measurement matching under an observation
-model \eqref{eq:measurement-matching-observation}, where we assume that we have
-paired data $(\vx, \vy)$---i.e., ground truth for each observation $\vy$.
-In many practically relevant inverse problems, this is not the case: one of the
-most fundamental examples is in the context of compressed sensing, which we
-recalled in \Cref{ch:classic-models}, where we need to reconstruct
-$\vx$ from $\vy$
-using prior knowledge about $\vx$ (i.e., sparsity).
-In the setting of denoising-diffusion, we have access to an implicit prior for
-$\vx$ via the learned denoisers $\bar{\vx}_{\theta}(t, \vxi)$. Can we
-still perform
-conditional sampling without access to ground truth samples $\vx$?
+\section{Resumen y Notas}
+\paragraph{Comparación de mediciones sin muestras limpias.} En nuestro desarrollo del
+muestreo condicional, consideramos la correspondencia de medidas en un modelo de observación
+\eqref{eq:measurement-matching-observation}, en el que suponemos que disponemos de
+datos emparejados $(\vx, \vy)$---es decir, la verdad fundamental para cada observación $\vy$.
+En muchos problemas inversos de relevancia práctica, esto no es así: uno de los
+ejemplos más fundamentales se da en el contexto de la detección comprimida, que
+recordamos en el \Cref{ch:classic-models}, donde necesitamos reconstruir
+$\vx$ a partir de $\vy$
+utilizando el conocimiento previo sobre $\vx$ (es decir, la dispersión).
+En el contexto de la difusión con eliminación de ruido, tenemos acceso a una distribución a priori implícita para
+$\vx$ a través de los denoisers aprendidos $\bar{\vx}_{\theta}(t, \vxi)$. ¿Podemos
+aún realizar
+un muestreo condicional sin tener acceso a las muestras de referencia $\vx$?
 
-For intuition as to why this might be possible, we recall a classical example
-from statistics known as Stein's unbiased risk estimator (SURE).
-Under an observation model $\vx_t = \vx + t \vg$ with $\vg \sim \cN(\Zero,
-\vI)$ and $t>0$, it turns out that for any weakly differentiable $f :
-\bR^D \to \bR^D$,
+Para entender intuitivamente por qué esto podría ser posible, recordemos un ejemplo clásico
+de la estadística conocido como el estimador de riesgo no sesgado de Stein (SURE).
+Bajo un modelo de observación $\vx_t = \vx + t \vg$ con $\vg \sim \cN(\Zero,
+\vI)$ y $t>0$, resulta que para cualquier $f :
+\bR^D \to \bR^D$ débilmente diferenciable,
 \begin{equation}\label{eq:sure-risk}
     \bE_{\vg}\left[
         \norm*{\vx - f(\vx + t \vg)}_2^2
@@ -3554,26 +3553,26 @@ Under an observation model $\vx_t = \vx + t \vg$ with $\vg \sim \cN(\Zero,
     \right]
     - t^2 D,
 \end{equation}
-where $\nabla \cdot$ denotes the divergence operator:
+donde $\nabla \cdot$ denota el operador de divergencia:
 \begin{equation*}
     \nabla \cdot f = \sum_{i=1}^D \partial_i f_i.
 \end{equation*}
-The $\vx$-dependent part of the RHS of \Cref{eq:sure-risk} is called
-Stein's unbiased risk
-estimator (SURE). If we take expectations over $\vx$ in \Cref{eq:sure-risk},
-note that the RHS can be written as an expectation with respect to $\vx_t$---in
-particular, the mean-squared error of \textit{any denoiser $f$} can be estimated
-\textit{solely from noisy samples}!
-This remarkable fact, in refined forms, constitutes the basis for many practical
-techniques for performing image restoration, denoising-diffusion, etc.\ using
-only noisy data: notable examples include the ``noise2noise'' paradigm
+La parte dependiente de $\vx$ del lado derecho de \Cref{eq:sure-risk} se denomina
+estimador de riesgo no sesgado de Stein
+(SURE). Si tomamos las expectativas sobre $\vx$ en \Cref{eq:sure-risk},
+observe que el lado derecho se puede escribir como una expectativa con respecto a $\vx_t$---en
+particular, ¡el error cuadrático medio de \textit{cualquier filtro de ruido $f$} se puede estimar
+\textit{únicamente a partir de muestras ruidosas}!
+Este hecho notable, en sus formas más refinadas, constituye la base de muchas técnicas prácticas
+para llevar a cabo la restauración de imágenes, la difusión para la eliminación de ruido, etc., utilizando
+únicamente datos con ruido: entre los ejemplos más destacados se incluyen el paradigma «noise2noise»
 \cite{pmlr-v80-lehtinen18a}
-and Ambient Diffusion \cite{daras2023ambient}.
+y Ambient Diffusion \cite{daras2023ambient}.
 
-As a fun aside, we point out that \Cref{eq:sure-risk} leads to an alternate
-proof of Tweedie's formula (\Cref{thm:tweedie}). At a high level, one takes
-expectations over $\vx$ and expresses the main part of the RHS of
-\Cref{eq:sure-risk} equivalently, via integration by parts, as
+Como curiosidad, cabe señalar que \Cref{eq:sure-risk} conduce a una prueba alternativa
+de la fórmula de Tweedie (\Cref{thm:tweedie}). A grandes rasgos, se calculan
+las expectativas sobre $\vx$ y se expresa la parte principal del lado derecho de
+\Cref{eq:sure-risk} de forma equivalente, mediante integración por partes, como
 \begin{eqnarray}
     &&\bE_{\vx_t}\left[
         \norm*{\vx_t - f(\vx_t)}_2^2
@@ -3587,102 +3586,101 @@ expectations over $\vx$ and expresses the main part of the RHS of
     \ip*{\nabla p_{\vx_t}(\vxi)}{f(\vxi)}
     \odif \vxi.
 \end{eqnarray}
-This is a quadratic function of $f$, and formally taking derivatives gives
-that the optimal $f$ satisfies Tweedie's formula (\Cref{thm:tweedie}). This
-argument can be made rigorous using basic ideas from the calculus of variations.
+Esta es una función cuadrática de $f$ y al derivarla formalmente se obtiene
+que la función óptima $f$ satisface la fórmula de Tweedie (\Cref{thm:tweedie}). Este
+argumento puede demostrarse de manera rigurosa utilizando conceptos básicos del cálculo de variaciones.
 
-\paragraph{Corrections to the Diffusion Posterior Sampling (DPS) approximation.}
-In \Cref{example:denoising-conditional-gaussian} and in particular in
-\Cref{fig:conditional_sampling_computational_gaussian}, we pointed out
-a limitation of the DPS approximation
-\Cref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx} at
-small levels of measurement noise.
-This limitation is well-understood, and a principled approach to ameliorating it
-has been proposed by Rozet et al.\ \cite{rozet2024learning}.
-The approach involves incorporating an additional estimate for the variance of
-the noisy posterior $p_{\vx \mid \vx_t}$ to
-\Cref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}---we
-refer to the paper for details.
-Natural estimates for the posterior variance are slightly less scalable than DPS
-itself due to the need to invert an affine transformation of the Jacobian of
-the posterior denoiser $\bE[\vx \mid \vx_t=\vxi]$ (a large matrix). This is done
-relatively efficiently by Rozet et al.\ \cite{rozet2024learning}
-using automatic differentiation and an
-approximation for the inverse based on conjugate gradients. It seems that it
-should be possible to improve further over this approach (say, using classical
-ideas from second-order optimization).
+\paragraph{Correcciones a la aproximación del muestreo posterior por difusión (DPS).}
+En el \Cref{example:denoising-conditional-gaussian} y, en particular, en la
+\Cref{fig:conditional_sampling_computational_gaussian}, señalamos
+una limitación de la aproximación DPS
+\Cref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx} cuando
+los niveles de ruido de medición son bajos.
+Esta limitación es bien conocida, y Rozet et al. han propuesto un enfoque fundamentado para mitigarla
+\cite{rozet2024learning}.
+El enfoque consiste en incorporar una estimación adicional de la varianza de
+la distribución a posteriori ruidosa $p_{\vx \mid \vx_t}$ a
+\Cref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}---nos
+remitimos al artículo para más detalles.
+Las estimaciones naturales de la varianza a posteriori son ligeramente menos escalables que el propio DPS
+debido a la necesidad de invertir una transformación afín de la jacobiana del
+denoiser a posteriori $\bE[\vx \mid \vx_t=\vxi]$ (una matriz de gran tamaño). Esto se lleva a cabo
+de manera relativamente eficiente por Rozet et al. \ \cite{rozet2024learning}
+mediante la diferenciación automática y una
+aproximación de la inversa basada en gradientes conjugados. Parece que
+sería posible mejorar aún más este enfoque (por ejemplo, utilizando ideas clásicas
+de la optimización de segundo orden).
 
-\paragraph{More about measurement matching and diffusion models for inverse
-problems.}
+\paragraph{Más información sobre la adaptación de medidas y los modelos de difusión para problemas inversos.}
 
-Diffusion models have become an extremely popular tool for solving inverse
-problems arising in scientific applications. Many more methods beyond the simple
-DPS algorithm we have presented in
-\Cref{alg:iterative_denoising_conditional_DPS} have been
-developed and continue to be developed, as the area is evolving rapidly.
-Popular and performant classes of approaches beyond DPS, which we have presented
-due to its generality, include variable splitting approaches like DAPS
+Los modelos de difusión se han convertido en una herramienta muy popular para resolver problemas inversos
+que surgen en aplicaciones científicas. Se han desarrollado, y se siguen desarrollando, muchos más métodos además del sencillo
+algoritmo DPS que hemos presentado en
+\Cref{alg:iterative_denoising_conditional_DPS},
+ya que este campo está evolucionando rápidamente.
+Entre las clases de enfoques populares y eficaces más allá del DPS, que hemos presentado
+por su carácter general, se incluyen los enfoques de división de variables como el DAPS
 \cite{Zhang2024-ha},
-which allow for specific measurement constraints to be enforced much more
-strongly than in DPS, and exact approaches that can avoid the use of
-approximations as in DPS, such as TDS \cite{wu2023practical}.
-For more on this area, we recommend \cite{zheng2025inversebench}, which
-functions simultaneously as a survey and a benchmark of several popular methods
-on specific scientific inverse problem datasets.
+que permiten aplicar restricciones de medición específicas de forma mucho más
+rigurosa que en el DPS y los enfoques exactos que pueden evitar el uso de
+aproximaciones como en el DPS, tales como el TDS \cite{wu2023practical}.
+Para obtener más información sobre este tema, recomendamos \cite{zheng2025inversebench}, que
+sirve a la vez como estudio de revisión y como prueba de rendimiento de varios métodos populares
+en conjuntos de datos específicos de problemas inversos científicos.
 
-\paragraph{History of the Infomax principle.}
-The Infomax principle \cite{infomax} that we introduced in our discussion of
-joint embedding learning and CLIP in \Cref{sub:text-cond} is a well-known and
-important foundation for much of modern research into unsupervised
-representation learning. For further reading, we refer to
-\cite{Van_den_Oord2018-qf}, which our conceptual discussion in
-\Cref{sub:text-cond} expands upon,
-and \cite{Oko2025-wk}, which details further important theoretical
-issues associated with
-optimizing Infomax-type objectives from finite samples.
+\paragraph{Historia del principio Infomax.}
+El principio de Infomax \cite{infomax}, que presentamos en nuestro análisis sobre
+el aprendizaje conjunto de incrustaciones y CLIP en \Cref{sub:text-cond}, constituye una base bien conocida e
+importante para gran parte de la investigación moderna sobre el aprendizaje de representaciones
+no supervisado. Para más información, nos remitimos a
+\cite{Van_den_Oord2018-qf}, sobre el que se amplía nuestro análisis conceptual en
+\Cref{sub:text-cond},
+y a \cite{Oko2025-wk}, que detalla otras cuestiones teóricas importantes
+relacionadas con
+la optimización de objetivos de tipo Infomax a partir de muestras finitas.
 
-\section{Exercises and Extensions}
+\section{Ejercicios y extensiones}
 
-\begin{exercise}[Posterior Variance Correction to DPS]
+\begin{exercise}[Corrección de la varianza posterior en el DPS]
 
     \begin{enumerate}
-        \item Using the code provided in the book GitHub for implementing
+        \item Utilizando el código proporcionado en el GitHub del libro para implementar
             \Cref{fig:conditional_sampling_computational_gaussian},
-            implement the
-            posterior variance correction proposed by
+            implemente la
+            corrección de la varianza a posteriori propuesta por
             \textcite{rozet2024learning}.
-        \item Verify that it ameliorates the posterior collapse at low noise
-            variance issue observed in
+        \item Compruebe si mejora el colapso posterior en condiciones de baja varianza del ruido
+            que se observa en
             \Cref{fig:conditional_sampling_computational_gaussian}.
-        \item Discuss any issues of sampling correctness that are retained or
-            introduced by the corrected method, as well as its
-            efficiency, relative to
-            diffusion posterior sampling (DPS).
+        \item Analice cualquier problema relacionado con la corrección del muestreo que se mantenga o
+            se introduzca con el método corregido, así como su
+            eficiencia, en comparación con
+            el muestreo posterior por difusión (DPS)
     \end{enumerate}
 
 \end{exercise}
 
-\begin{exercise}[Conditional Sampling on MNIST]
+\begin{exercise}[Muestreo condicional en MNIST]
     \begin{enumerate}
-        \item Train a simple classifier for the MNIST dataset, using
-            an architecture
-            of your choice. Additionally train a denoiser suitable for use in
-            conditional sampling
+        \item Entrene un clasificador sencillo para el conjunto de datos MNIST, utilizando
+            una arquitectura
+            de su elección. Además, entrene un filtro de ruido adecuado para su uso en
+            muestreo condicional
             (\Cref{alg:iterative_denoising_conditional_CFG},
-                since this denoiser can be used for unconditional
-            denoising as well).
-        \item Integrate the classifier into a conditional sampler based on
-            classifier guidance, as described in the first part of
+                ya que este filtro de ruido también se puede utilizar para la
+            eliminación de ruido incondicional).
+        \item Integre el clasificador en un muestreador condicional basado en
+            la orientación del clasificador, tal como se describe en la primera parte de la
             \Cref{sub:cfg}.
-            Evaluate the resulting samples in terms of faithfulness to the
-            conditioning class (visually; in terms of nearest
-                neighbor; in terms of
-            the output of the classifier).
-        \item Integrate the classifier into a conditional sampler based on
-            classifier-free guidance, as described in \Cref{sub:cfg} and
-            \Cref{alg:iterative_denoising_conditional_CFG}. Perform the same
-            evaluation as in the previous step, and compare the results.
-        \item Repeat the experiment on the CIFAR-10 dataset.
+            Evalúe las muestras resultantes en cuanto a su fidelidad a la
+            clase condicionante (visualmente; en términos del
+                vecino más cercano; en términos de
+            la salida del clasificador).
+        \item Integre el clasificador en un muestreador condicional basado en
+            la orientación sin clasificador, tal como se describe en la \Cref{sub:cfg} y
+            en el \Cref{alg:iterative_denoising_conditional_CFG}. Realice la misma
+            evaluación que en el paso anterior y compare los resultados.
+        \item Repita el experimento con el conjunto de datos CIFAR-10.
     \end{enumerate}
 
 \end{exercise}

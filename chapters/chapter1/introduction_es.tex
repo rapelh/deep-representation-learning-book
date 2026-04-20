@@ -2075,7 +2075,7 @@ a una secuencia de bits binarios \(\cE(S_{i})\) y un esquema de decodificación
 correspondiente \(\cD\) que mapea las cadenas de bits binarios de vuelta a segmentos
 de secuencias (digamos que sujetos a un error \(\epsilon \geq 0\) ya que tal
 esquema de codificación puede tener pérdidas). El esquema más sencillo consiste en llenar el espacio
-abarcado por todos los segmentos con esferas de radio \(\epsilon\), tal como se muestra en
+abarcado por todos los segmentos con bolas de radio \(\epsilon\), tal como se muestra en
 \Cref{fig:coding-schemes}. A continuación, numeramos las bolas, y cada
 secuencia se codifica como el índice binario de la bola más cercana, mientras que
 cada índice binario se decodifica de nuevo para obtener el centro de la bola
@@ -2087,7 +2087,7 @@ correspondiente. Por lo tanto, cada segmento puede recuperarse con una precisió
     \caption{Comparación de dos esquemas de codificación. Imaginemos que la
         distribución verdadera de los datos se ubica a lo largo de las dos líneas de flecha.
         Las muestras de estas líneas pueden codificarse con un libro de códigos de todas las
-        esferas azules, o bien con un libro de códigos de las esferas verdes. El segundo esquema
+        bolas azules, o bien con un libro de códigos de las bolas verdes. El segundo esquema
     arroja una longitud/tasa de codificación mucho menor para la misma precisión.}
     \label{fig:coding-schemes}
 \end{figure}

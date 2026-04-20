@@ -1892,12 +1892,12 @@ eliminación de ruido), el filtro de ruido memorizador apunta completamente en l
 de una sola muestra de entrenamiento (la muestra de entrenamiento que se va a regenerar
 en la iteración actual). La distribución que se está aprendiendo, o respecto a la cual se elimina el ruido,
 es simplemente la distribución empírica con unas
-esferas de radio \(\epsilon\) alrededor de cada punto,\footnote{Más formalmente, esta
+bolas de radio \(\epsilon\) alrededor de cada punto,\footnote{Más formalmente, esta
     distribución perturbada tiene su soporte en (un subconjunto de) la unión de
-    esferas de radio \(\epsilon\) centradas en cada muestra de entrenamiento. Esta imagen está
+    bolas de radio \(\epsilon\) centradas en cada muestra de entrenamiento. Esta imagen está
 respaldada por trabajos anteriores, p. ej., \cite{song2025selective}.} donde
 \(\epsilon\) es una cota superior de la magnitud de la perturbación,
-visualizado en la \Cref{fig:diffusion_perturbation} por las esferas de color naranja 
+visualizado en la \Cref{fig:diffusion_perturbation} por las bolas de color naranja 
 pálido.\footnote{En dimensiones elevadas, se plantea la hipótesis de que un mejor
     modelo para estas perturbaciones no se describe mediante esferas, sino
     más bien mediante formas mucho más anisotrópicas y adaptadas a la geometría
@@ -1910,7 +1910,7 @@ o estén muy cerca puede implicar que el modelo de difusión sea generalizable.
 
 Por lo tanto, nuestro modelo de difusión eficaz puede considerarse como una minimización de una
 \textit{tasa de codificación con pérdida}, es decir, una tasa de codificación con una precisión
-de \(\epsilon\) (de modo que se puedan ignorar las esferas de radio \(\epsilon\)
+de \(\epsilon\) (de modo que se puedan ignorar las bolas de radio \(\epsilon\)
 alrededor de cada punto). Esta noción de la tasa de codificación con pérdida resulta ser
 lo que conviene minimizar, desde una perspectiva moral, y resultará
 \textit{extremadamente} útil. Analizaremos sus aplicaciones en el
@@ -1927,7 +1927,7 @@ las que podrían considerarse las distribuciones más simples de un único subes
 el cálculo del PCA mediante el algoritmo de iteración de potencias. Como veremos en
 los próximos capítulos, la función fundamental de las redes profundas modernas
 no es ajustar distribuciones de datos o funciones arbitrarias (con ruido),
-sino más bien implementar o aproximar esos operadores de compresión
+sino más bien realizar o aproximar esos operadores de compresión
 o de eliminación de ruido (con pérdida). En capítulos posteriores derivaremos las formas precisas de esos
 operadores y las arquitecturas profundas asociadas.
 
@@ -1939,7 +1939,7 @@ la eliminación del ruido como problema computacional y estadístico. El más
 relevante de ellos es probablemente \cite{hyvarinen05a}, que utiliza explícitamente
 la función de puntuación para eliminar el ruido y realizar un análisis de componentes 
 independientes. Los trabajos posteriores más populares se basan, en esencia,
-en la coocurrencia: \cite{ho2020denoising,song2019}. Desde entonces, miles
+en la co-ocurrencia: \cite{ho2020denoising,song2019}. Desde entonces, miles
 de artículos han partido de los modelos de difusión; retomamos este tema en el
 \Cref{ch:consistent-representations}.
 
@@ -1954,7 +1954,7 @@ las combinaciones lineales de distribuciones gaussianas siguen dando lugar a
 distribuciones gaussianas, las \textit{distribuciones marginales} de
 dichos procesos siguen adoptando la forma de
 \eqref{eq:gen_additive_gaussian_noise_model}. La mayor parte de nuestro análisis
-solo requiere que las distribuciones marginales sean las que son, por lo que
+solo requiere que las distribuciones marginales sean lo que son, por lo que
 nuestro modelo, aunque sea demasiado simplista, resulta suficiente para casi todo.
 El único caso en el que las distribuciones marginales no son suficientes es cuando derivamos
 una expresión para \(\Ex[\vx_{s} \mid \vx_{t}]\) en términos de
@@ -1962,8 +1962,8 @@ una expresión para \(\Ex[\vx_{s} \mid \vx_{t}]\) en términos de
 diferentes expresiones de este tipo, que pueden utilizarse para el muestreo (y,
     por supuesto, existen otras formas de obtener muestreadores eficientes, como el
 siempre popular muestreador DDPM). El proceso descrito en
-\eqref{eq:gen_additive_gaussian_noise_model} es un auténtico
-proceso estocástico cuya iteración de eliminación de ruido «natural» adopta la
+\eqref{eq:gen_additive_gaussian_noise_model} es un 
+proceso estocástico genuino, cuya iteración de eliminación de ruido «natural» adopta la
 forma del popular algoritmo DDIM
 \cite{song2020denoising}. (Ni siquiera esta equivalencia es trivial;
 citamos \cite{de2025distributional} como justificación.)
@@ -1979,11 +1979,11 @@ caracterizaron el error de aproximación y estimación de los filtros de ruido
 cuando los datos pertenecen a una mezcla de gaussianas de bajo rango, demostrando
 que el número de muestras de entrenamiento necesarias para aprender con precisión la
 distribución varía proporcionalmente a la dimensión intrínseca de los
-datos, en lugar de a la dimensión del entorno. Existe una considerable
+datos, en lugar de la dimensión del entorno. Existe una considerable
 \textit{labor metodológica} que intenta aprovechar la
 estructura de baja dimensión de los datos para realizar diversas tareas con
 modelos de difusión. Destacamos tres: la edición de imágenes
-\citep{chen2024exploring}, la aplicación de marcas de agua \citep{li2024shallow} y
+\citep{chen2024exploring}, el marcado de agua \citep{li2024shallow} y
 el «desaprendizaje» \citep{chen2025dual}, aunque esta lista no es exhaustiva.
 
 \section{Ejercicios y extensiones}
@@ -2034,9 +2034,9 @@ el «desaprendizaje» \citep{chen2025dual}, aunque esta lista no es exhaustiva.
             \end{bmatrix}^\top
         \right]
     \end{equation*}
-    Supongamos que $\vSigma_{\vy}$ es definida positiva (y, por lo tanto,
+    Supongamos que $\vSigma_{\vy}$ es positiva definida (y, por lo tanto,
     invertible); entonces,
-    la semidefinición positiva de la matriz de covarianza es equivalente
+    el que la matriz de covarianza sea semidefinida positiva es equivalente
     a la condición del complemento de Schur
     $\vSigma_{\vx} - \vSigma_{\vx\vy}
     \vSigma_{\vy}^{-1}
@@ -2211,7 +2211,7 @@ el «desaprendizaje» \citep{chen2025dual}, aunque esta lista no es exhaustiva.
 \end{exercise}
 
 \begin{exercise}\label{exercise:velocity_prediction}
-    Consideremos la interpolación, que nos resulta algo familiar
+    Considere la interpolación, que resulta algo familiar
     \begin{equation}
         \vx_{t} = \alpha_{t}\vx + \sigma_{t}\vy, \qquad \forall t
         \in [0, T].
@@ -2225,7 +2225,7 @@ el «desaprendizaje» \citep{chen2025dual}, aunque esta lista no es exhaustiva.
     Calcule una relación algebraica que exprese \(\Ex[\vv_{t} \mid
     \vx_{t}]\) en términos de \(\Ex[\vx \mid \vx_{t}]\) y viceversa,
     demostrando que la predicción de la velocidad es algebraicamente
-    equivalente a la eliminación de ruido y, por lo tanto, también a la predicción del ruido
+    equivalente a la eliminación de ruido y, por tanto, también a la predicción de ruido
     (véase la \Cref{rem:flow_matching}).
 \end{exercise}
 

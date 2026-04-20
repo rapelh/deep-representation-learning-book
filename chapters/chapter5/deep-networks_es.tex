@@ -115,7 +115,7 @@ hemos estado utilizando redes profundas diseñadas de forma empírica para model
 o aproximar las operaciones destinadas a optimizar estos objetivos,
 como la función de puntuación para la eliminación de ruido (en
 la \Cref{sec:denoising-intro}) o la transformación que maximiza la
-reducción de la tasa (en la \Cref{sec:MCR-landscape}).
+reducción de tasa (en la \Cref{sec:MCR-landscape}).
 
 Como hemos argumentado en el capítulo anterior,
 en la \Cref{sec:chap4-representation-learning-problem} en particular, se
@@ -161,7 +161,7 @@ siguientes preguntas sobre las redes profundas:
 \section{Redes profundas de white-box mediante optimización
 desenrollada}\label{sec:chap4-white-box-model-via-unrolling}
 
-Ahora bien, si estamos de acuerdo en que maximizar la reducción de la tasa o la ganancia de información
+Ahora bien, si estamos de acuerdo en que maximizar la reducción de tasa o la ganancia de información
 conduce a la representación deseada, tal como se analiza en la
 \Cref{sec:chap4-representation-learning-problem}, la pregunta que queda por resolver
 es cómo construir y aprender un mapeo (no lineal) entre los
@@ -170,9 +170,9 @@ diseñar una arquitectura de red y un algoritmo de aprendizaje que puedan
 captar de manera eficaz las estructuras subyacentes de los datos y
 reproducir fielmente la representación óptima.
 
-\subsection{Redes profundas a partir del descenso por gradiente desenrollada}
+\subsection{Redes profundas a partir del descenso por gradiente desenrollado}
 
-En el capítulo anterior, presentamos el objetivo de reducción de la tasa
+En el capítulo anterior, presentamos el objetivo de reducción de tasa
 \eqref{eqn:maximal-rate-reduction} como un objetivo fundamentado para
 aprender representaciones discriminativas lineales de los datos. Sin embargo,
 no hemos especificado la arquitectura de la función de mapeo de características $\z =
@@ -193,7 +193,7 @@ alguna justificación rigurosa para las convoluciones (en su popular
 forma multicanal) y los operadores no lineales (por ejemplo, ReLU o softmax) que se utilizan?
 
 En este capítulo, demostramos que el uso del ascenso por gradiente para maximizar la
-reducción de la tasa $\Delta R_{\epsilon}(\Z \mid \bm \Pi)$, tal como se define en
+reducción de tasa $\Delta R_{\epsilon}(\Z \mid \bm \Pi)$, tal como se define en
 \eqref{eqn:maximal-rate-reduction}, conduce de manera natural a una red profunda de «white-box»
 que realiza el mapeo deseado. Todas las capas de la red, los operadores lineales y no lineales, 
 así como los parámetros se construyen {\em explícitamente
@@ -313,7 +313,7 @@ R_{\epsilon}}{\partial \bm Z}(\Z^\ell) \in \Re^{d\times N}$ tiene la  forma:
         q^\ell\|_2^2 + \|\bm q^\ell\|_2^2\big\}.\)}
     \end{gather}
     Obsérvese que $\bm q^\ell_\star$ es exactamente la solución de la
-    regresión de crestas para todos los puntos de datos $\bm Z^\ell$ en cuestión.
+    regresión por crestas para todos los puntos de datos $\bm Z^\ell$ en cuestión.
     Por lo tanto, $\bm E^\ell$ (y de manera similar para $\bm C^\ell_k$) es
     aproximadamente (es decir, cuando $N$ es lo suficientemente grande) la proyección
     sobre el complemento ortogonal del subespacio generado por las columnas
@@ -354,9 +354,9 @@ R_{\epsilon}}{\partial \bm Z}(\Z^\ell) \in \Re^{d\times N}$ tiene la  forma:
     \end{figure}
 
     En esencia, las operaciones lineales $\bm E^\ell$ y $\bm
-    C_k^\ell$ en el método de ascenso por gradiente para la reducción de la tasa se determinan mediante
+    C_k^\ell$ en el método de ascenso por gradiente para la reducción de tasa se determinan mediante
     los datos de entrenamiento que realizan «autorregresiones». Los recientes avances
-    en la comprensión de la regresión de crestas en un contexto sobreparametrizado
+    en la comprensión de la regresión por crestas en una configuración sobreparametrizada
     \cite{yang2020rethinking,Wu2020OnTO} indican que el uso
     de datos aparentemente muestreados de forma redundante (de cada subespacio) como
     regresores no conduce a sobreajuste.
@@ -396,7 +396,7 @@ ecuación diferencial continua:
 Por lo tanto, la red (profunda) así construida puede interpretarse como una
 determinada ecuación diferencial ordinaria neuronal \cite{chen2018neural}. Sin embargo, a diferencia de la
 ODE neuronal, donde el flujo $g$ se elige para que sea una estructura genérica, aquí
-nuestro $g(\z, \bm\theta)$ emula el flujo de gradiente de la reducción de la tasa
+nuestro $g(\z, \bm\theta)$ emula el flujo de gradiente de la reducción de tasa
 en el conjunto de características (como se muestra en la \Cref{fig:gradient-flow}):
 \begin{equation*}
     \dot{\Z} = \frac{\partial \Delta R_{\epsilon}}{\partial \bm Z},
@@ -507,7 +507,7 @@ ilustrarse mediante un diagrama en la \Cref{fig:arch-ReduNet}(a).
     \caption{\small Arquitecturas de red de ReduNet y
         comparación con otras. \textbf{(a)}: Estructura de capas de
         \textbf{ReduNet} derivada de una iteración de ascenso por gradiente
-        para optimizar la reducción de la tasa. \textbf{(b)} (izquierda): Una capa de
+        para optimizar la reducción de tasa. \textbf{(b)} (izquierda): Una capa de
         ResNet~\cite{he2016deep}; y \textbf{(b)} (derecha): Una capa de
         ResNeXt~\cite{ResNEXT}. Como veremos en la
         \Cref{sec:shift-invariant}, los operadores lineales $\bm E^\ell$ y
@@ -561,7 +561,7 @@ ilustrarse mediante un diagrama en la \Cref{fig:arch-ReduNet}(a).
         1]^{K}\)}
         \Statex{}
         \Statex{\qquad\qquad\quad\texttt{\# Actualizar
-        features \(\vz^{\ell + 1}_i\) from \(\vz^{\ell}_i\)}}
+        características \(\vz^{\ell + 1}_i\) a partir de \(\vz^{\ell}_i\)}}
         \State{\(\displaystyle\vz^{\ell + 1}_i \gets \cP_{\bS^{d -
                 1}}\rp{\vz^{\ell}_i + \eta \bp{\vE^{\ell}\vz^{\ell}_i -
                         \sum_{k = 1}^{K}\gamma_{k}\hat{\pi}_{k}(\vz^{\ell}_i)
@@ -579,9 +579,9 @@ ilustrarse mediante un diagrama en la \Cref{fig:arch-ReduNet}(a).
 
 \paragraph{Red profunda para optimizar la reducción de tasas.} Obsérvese que
 el incremento está diseñado para emular el ascenso del gradiente para la
-reducción de la tasa $\Delta R_\epsilon$. Por lo tanto, al transformar las
+reducción de tasa $\Delta R_\epsilon$. Por lo tanto, al transformar las
 características de forma iterativa mediante el proceso anterior, esperamos que la
-reducción de la tasa aumente, como veremos en la sección experimental.
+reducción de tasa aumente, como veremos en la sección experimental.
 Este proceso iterativo, una vez que converge, por ejemplo tras $L$ iteraciones,
 proporciona el mapa de características deseado $f(\x, \bm \theta)$ sobre la entrada $\x =
 \z^0$, precisamente en forma de una {\em red profunda}, en la que cada
@@ -650,7 +650,7 @@ un clasificador de subespacio más cercano.
         1]^{K}\)}
         \Statex{}
         \Statex{\qquad\quad\texttt{\# Actualizar
-        feature \(\vz^{\ell + 1}\) using \(\vz^{\ell}\)}}
+        característica \(\vz^{\ell + 1}\) utilizando \(\vz^{\ell}\)}}
         \State{\(\vz^{\ell + 1} \gets \cP_{\bS^{d - 1}}\rp{\vz^{\ell}
                     + \eta \bp{\vE^{\ell}\vz^{\ell} - \sum_{k =
                         1}^{K}\gamma_{k}\hat{\pi}_{k}(\vz^{\ell})
@@ -738,20 +738,20 @@ un clasificador de subespacio más cercano.
     \end{figure}
 \end{example}
 
-\subsection{Redes convolucionales a partir de la reducción de la tasa en 
+\subsection{Redes convolucionales a partir de la reducción de tasa en 
 invariantes}\label{sec:shift-invariant}
 
 En la sección anterior, derivamos la arquitectura por capas de una
 red profunda, la ReduNet, utilizando la optimización desenrollada para el objetivo
-de reducción de la tasa.
+de reducción de tasa.
 Concretamente, el término de compresión $R^c_\epsilon(\Z \mid\bm \Pi)$ en
 \eqref{eq:mcr-formulation} está diseñado para comprimir representaciones
 de la misma clase. Sin embargo, esta formulación no tiene en cuenta
 posibles transformaciones o deformaciones del dominio de los datos de entrada. Por
-ejemplo, desplazar ligeramente un objeto hacia la derecha no modifica
+ejemplo, desplazar ligeramente un objeto hacia la derecha no cambia
 la etiqueta semántica de una imagen.  En esta sección, demostraremos
 cómo se pueden derivar capas convolucionales maximizando un objetivo de
-reducción de la tasa que sea invariante ante ciertas deformaciones del dominio,
+reducción de tasa que sea invariante ante ciertas deformaciones del dominio,
 como las rotaciones y traslaciones de imágenes.
 
 En muchas tareas de agrupamiento o clasificación (como la detección de objetos
@@ -780,8 +780,8 @@ sea rigurosamente invariante ante tales transformaciones:
     \mbox{\em Invarianza de grupo:}\;   f(\x\circ \mathfrak{g}, \bm
     \theta) \sim f(\x,\bm \theta),\ \forall \mathfrak{g} \in \mathbb{G},
 \end{equation}
-donde «$\sim$» indica que dos características pertenecen a la misma
-clase equivalente. Aunque para garantizar la invariancia o la equivariancia,
+donde «$\sim$» indica que dos características pertenecen al mismo grupo de
+clases equivalentes. Aunque para garantizar la invariancia o la equivariancia,
 los operadores convolucionales han sido una práctica común en las redes profundas
 \cite{CohenW16}, sigue siendo un reto en la práctica entrenar una
 red convolucional (diseñada empíricamente) desde cero que pueda {\em
@@ -1187,8 +1187,8 @@ sobre los códigos dispersos de entrada.
     \centering
     \includegraphics[width=0.98\linewidth]{\toplevelprefix/chapters/chapter5/figs/learn_to_classify_diagram_updated.png}
     \caption{El proceso general para clasificar señales multiclase
-        con invariancia al desplazamiento: elevación multicanal,  codificación dispersa,
-        seguida de una ReduNet de convolución multicanal para la reducción de la tasa
+        con invariancia al desplazamiento: elevación multicanal, codificación dispersa,
+        seguida de una ReduNet de convolución multicanal para la reducción de tasa
         invariante. Estos componentes son {\em necesarios} para
         mapear señales multiclase invariantes al desplazamiento a subespacios incoherentes (lineales)
         como una LDR. Cabe señalar que las arquitecturas de la mayoría de las
@@ -1307,17 +1307,17 @@ clasificación para ofrecer una interpretación rigurosa de las principales
 características arquitectónicas de redes profundas populares como
 ResNet y las CNN: cada capa de estas redes puede considerarse como
 una imitación de un paso de gradiente que aumenta el objetivo de
-reducción de la tasa (o ganancia de información). Esta perspectiva también lleva a un
+reducción de tasa (o ganancia de información). Esta perspectiva también lleva a un
 hecho algo sorprendente: los parámetros y operadores  de las
 capas de una red tan profunda, la ReduNet, pueden  calcularse de forma
-puramente hacia adelante.
+puramente unidireccional.
 
 A pesar de la importancia teórica y conceptual de ReduNet,
 hay varios factores que limitan su aplicabilidad práctica. En primer lugar, como hemos
 comentado anteriormente, el costo computacional de calcular los
 operadores matriciales en cada capa de forma directa puede ser muy
-elevado. En segundo lugar, es posible que los operadores así calculados no sean tan eficaces a la hora de
-optimizar el objetivo y que se necesiten miles de iteraciones 
+elevado. En segundo lugar, es posible que los operadores así calculados sean menos efectivos a la hora de
+optimizar el objetivo y que se requieran miles de iteraciones 
 (y, por lo tanto, de capas). Como hemos visto en la \Cref{sec:LISTA} para LISTA, estos
 dos problemas pueden resolverse permitiendo optimizar esos operadores
 y haciendo que sean aprendibles mediante retropropagación.\footnote{O, tal vez,
@@ -1329,7 +1329,7 @@ pertenezca a una sola clase, ya que puede contener varios objetos. Por lo tanto,
 sería más general suponer que las diferentes regiones de la imagen
 pertenecen a  diferentes modelos de baja dimensión (por ejemplo, una distribución gaussiana o un
 subespacio). Como veremos, tal generalización daría lugar a una arquitectura
-tanto sencilla como general que unifica las operaciones de reducción de tasa y
+sencilla y general que unifica las operaciones de reducción de tasa y
 de eliminación de ruido que hemos visto en el capítulo anterior.
 Además, la arquitectura así obtenida se asemeja a la popular
 arquitectura de Transformador.
@@ -1389,7 +1389,7 @@ las variables aleatorias que definen nuestras representaciones, donde \(\z_{i}
 \end{remark}
 
 \paragraph{Objetivo para el aprendizaje de una representación estructurada y compacta.}
-Inspirándonos en el análisis previo sobre la reducción de la tasa
+Inspirándonos en el análisis previo sobre la reducción de tasa
 (\Cref{sec:chap4-white-box-model-via-unrolling}), proponemos que el
 objetivo del aprendizaje de representaciones
 en este modelo centrado en tokens para nuestros datos sea encontrar una
@@ -1415,7 +1415,7 @@ todas las distribuciones gaussianas.
 
 Como es habitual, para aprender buenas representaciones, queremos maximizar
 la \textit{ganancia de información} de las representaciones finales de los tokens, o
-más concretamente, maximizar una noción adecuada de la reducción de la tasa
+más concretamente, maximizar una noción adecuada de la reducción de tasa
 (véase \Cref{subsec:MCR2}), es decir,
 \begin{align}\label{eq:rate reduction}
     \mathrm{max}_{\bm Z \in \R^{d\times N}}\ \Delta R_{\epsilon}(\Z
@@ -1489,7 +1489,7 @@ bajo el libro de códigos $\bm U_{[K]}$, que se expresa como
     \centering
     \includegraphics[width=0.95\textwidth]{\toplevelprefix/chapters/chapter5/figs/coding-transform.png}
     \caption{ \small\textbf{Comparación de tres conjuntos de
-        representaciones mediante la reducción de la tasa y la dispersión. Cada $S_i$
+        representaciones mediante la reducción de tasa y la dispersión. Cada $S_i$
         representa un subespacio lineal y el número de bolas azules
         representa la diferencia entre las tasas de codificación $\Delta
         R_{\epsilon}(\vZ \mid \vU_{[K]}) = R_\epsilon(\vZ) -
@@ -1498,10 +1498,10 @@ bajo el libro de códigos $\bm U_{[K]}$, que se expresa como
     \label{fig:sparse-rate-reduction-diagram}
 \end{figure}
 
-\paragraph{Reducción dispersa de tasas.} Tenga en cuenta que el objetivo de reducción de la tasa
+\paragraph{Reducción dispersa de tasas.} Tenga en cuenta que el objetivo de reducción de tasa
 \eqref{eq:rate reduction} es invariante ante rotaciones conjuntas arbitrarias
 de las representaciones y los subespacios. En particular,
-la optimización del objetivo de reducción de la tasa puede no conducir de forma natural a
+la optimización del objetivo de reducción de tasa puede no conducir de forma natural a
 representaciones alineadas con los ejes (es decir, \textit{dispersas}). {Por ejemplo,
     considere los tres conjuntos de representaciones aprendidas en la
     \Cref{fig:sparse-rate-reduction-diagram}.} Por lo tanto, nos gustaría
@@ -1583,7 +1583,7 @@ para optimizar el problema
 \eqref{eq:sparse-rr-1}, existen diversas opciones posibles para
 lograr la optimización. Dado un modelo para $\Z^\ell$, por ejemplo, una mezcla
 de subespacios $\vU_{[K]}$, optamos por un método de \textit{minimización
-alternada} en dos pasos con una sólida base conceptual. Primero,
+alternada} en dos pasos con una sólida base teórica. Primero,
 \textit{comprimimos} los tokens $\vZ^{\ell}$ mediante un descenso de gradiente para
 minimizar el término de tasa de codificación $R^c_\epsilon (\vZ \mid
 \vU_{[K]}^\ell)$. Específicamente, tomamos un paso de gradiente en
@@ -1647,7 +1647,7 @@ arbitrariamente\footnote {Dada la elección práctica de
     \(\epsilon^{2} = p/N\), es decir, se utiliza un código más preciso para
 incorporar más información de más muestras.} a medida que aumenta la longitud de la secuencia,
 lo que hace que nuestra aproximación de Neumann
-sea cada vez más deficiente (ya que el gradiente verdadero no crece arbitrariamente en
+sea cada vez menos precisa (ya que el gradiente verdadero no crece arbitrariamente en
 tamaño con la longitud de la secuencia). Para resolver este problema práctico y
 generalizar nuestra formulación, podemos utilizar en su lugar un núcleo arbitrario para
 medir la similitud. Un núcleo especialmente adecuado
@@ -1737,7 +1737,7 @@ el siguiente problema
     \mbox{sujeto a} \quad \vZ^{\ell + 1/2} = \vD^{\ell}\vZ.
 \end{align*}
 {El programa de representación dispersa anterior suele resolverse
-    relajándolo a un programa convexo sin restricciones, conocido como LASSO
+    relajándolo en un programa convexo sin restricciones, conocido como LASSO
 \citep{Wright-Ma-2022}:}
 \begin{equation}
     \vZ^{\ell + 1} \approx \argmin_{\vZ} \left[\lambda \norm{\vZ}_1 +
@@ -1776,16 +1776,16 @@ paso ISTA \citep{beck2009fast}, para obtener la actualización:
 
 Ahora diseñamos una arquitectura de transformador de white-box, denominada Coding
 RATE Transformer (CRATE), mediante el desenrollamiento de las actualizaciones anteriores. Al
-combinar los dos pasos anteriores \eqref{eq:gd-mcr-parts} y \eqref{eq:ista-block}:
+combinar los dos pasos anteriores, \eqref{eq:gd-mcr-parts} y \eqref{eq:ista-block}:
 \begin{enumerate}
     \item Compresión local de tokens dentro de una muestra hacia una
-        estructura de mezcla de subespacios, lo que da lugar al bloque de autoatención de subespacios
+        estructura de mezcla de subespacios, generando el bloque de autoatención de subespacios
         multicabezal -- \text{MSSA};
     \item Dispersión global de conjuntos de tokens en todas las muestras
         mediante codificación dispersa, lo que da lugar al bloque de dispersión --
         \text{ISTA};
 \end{enumerate}
-podemos obtener la siguiente capa de transformadores basada en la reducción de la tasa,
+podemos obtener la siguiente capa de transformadores basada en la reducción de tasa,
 que se ilustra en la \Cref{fig:crate_backbone},
 \begin{equation}
     \vZ^{\ell+1/2} \doteq \vZ^{\ell} + \text{MSSA}(\vZ^{\ell} \mid
@@ -1824,24 +1824,23 @@ mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
     \label{fig:crate-diagram}
 \end{figure}
 
-\begin{remark}[\textbf{El papel del paso hacia adelante y de la propagación 
-    hacia atrás}]\label{sub:forward_backward}
+\begin{remark}[\textbf{El papel del paso hacia adelante y de la retropropagación}]\label{sub:forward_backward}
     A diferencia de otros enfoques de optimización desenrollada, como el
     ReduNet \cite{chan2021redunet}, \textit{modelamos explícitamente} la
     distribución de cada $\vZ^\ell$ y $\vZ^{\ell + 1/2}$ en cada
     capa, ya sea mediante una mezcla de subespacios lineales o generada de forma dispersa
-    a partir de un diccionario. Presentamos la interpretación
-    de que, en cada capa \(\ell\), las bases aprendidas para los subespacios
+    a partir de un diccionario. Hemos presentado la siguiente interpretación:
+    en cada capa \(\ell\), las bases aprendidas para los subespacios
     \(\vU_{[K]}^{\ell}\) y los diccionarios aprendidos \(\vD^{\ell}\)
     sirven conjuntamente como un \textit{libro de códigos} o \textit{filtro de análisis}
     que codifica y transforma las representaciones intermedias en
-    cada capa \(\ell\). Dado que la distribución de entrada a la capa
+    cada capa \(\ell\). Como la distribución de entrada a la capa
     \(\ell\) se modela primero mediante \(\vU_{[K]}^{\ell}\) y luego
-    se transforma mediante \(\vD^{\ell}\), la distribución de entrada a cada
-    capa es diferente, por lo que necesitamos un libro de códigos independiente en cada
+    se transforma mediante \(\vD^{\ell}\), la distribución de entrada varía
+    entre capas, por lo que necesitamos un libro de códigos independiente en cada
     capa para obtener la codificación más parsimoniosa. Los parámetros de
     estos libros de códigos (es decir, las bases del subespacio y los diccionarios),
-    que hasta ahora se suponía que se conocían perfectamente, en realidad se aprenden
+    que hasta ahora se asumía como perfectamente conocidos, en realidad se aprenden
     a partir de los datos (por ejemplo, mediante \textit{retropropagación} dentro
     del entrenamiento de extremo a extremo).
 
@@ -1850,8 +1849,8 @@ mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
     la red neuronal profunda de white-box así obtenida. Es decir, en su
     paso hacia adelante, interpretamos cada capa como un operador que,
     condicionado por un modelo aprendido (es decir, un libro de códigos) para la
-    distribución de su entrada, transforma esta distribución hacia una
-    representación más parsimoniosa. En su propagación hacia atrás,
+    distribución de su entrada, transforma esta distribución hacia 
+    representaciones más parsimoniosas. En su retropropagación,
     el libro de códigos de este modelo, para la distribución de la entrada en
     cada capa, se actualiza para ajustarse mejor a una determinada relación (supervisada)
     entre entrada y salida, tal y como se ilustra en la
@@ -1878,7 +1877,7 @@ optimiza cada término de la reducción de la tasa de dispersión; cada capa
 disminuye de manera consistente la medida de compresión y las medidas de dispersión
 de las características durante la pasada hacia adelante. En segundo lugar, en la
 \Cref{tab:crate_comparison_with_sota} mostramos que CRATE presenta
-una precisión de clasificación «top-1», comparable, en configuraciones de aprendizaje por transferencia,
+una precisión «top-1», comparable, en configuraciones de aprendizaje por transferencia,
 a la arquitectura de red neuronal Vision Transformer (ViT)
 \citep{dosovitskiy2020image} en un número similar de
 parámetros, con un comportamiento de escalabilidad prometedor: obtenemos
@@ -1900,7 +1899,7 @@ el análisis de los resultados experimentales en la \Cref{sec:image_classificati
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/backward.png}
         \caption{\bf Retropropagación}
     \end{subfigure}
-    \caption{\small {\bf Los roles del paso hacia adelante y de la propagación hacia atrás
+    \caption{\small {\bf Los roles del paso hacia adelante y de la retropropagación 
         en CRATE}. (a) Dados subespacios y
         diccionarios fijos $\{(\bm U_{[K]}^{\ell}, \bm D^{\ell})\}_{\ell=1}^L$,
         cada capa optimiza de manera incremental la reducción de la tasa de dispersión de las
@@ -1979,8 +1978,8 @@ el análisis de los resultados experimentales en la \Cref{sec:image_classificati
     \caption{\textbf{Visualización de los mapas de atención de CRATE: ¿qué
         analiza el modelo para realizar una clasificación?} Visualizamos
         los mapas de atención de la última capa, que constituyen la última fuente de
-        interacción token a token en la red y, por lo tanto, en cierto
-        sentido, la descripción más detallada de qué secciones de la imagen de entrada
+        interacción entre tokens en la red; por lo tanto representan en cierto
+        sentido, la descripción más detallada de qué regiones de la imagen de entrada
         utiliza el modelo para realizar una predicción. Observamos un
         comportamiento \textit{extremadamente interesante}: cuando se entrenan exclusivamente
         en tareas de clasificación, los mapas de atención identifican los objetos
@@ -2003,12 +2002,12 @@ familiarizados con los métodos de optimización habrán notado que
 las arquitecturas mencionadas (ReduNet o CRATE) corresponden a
 técnicas de optimización bastante básicas. Es posible que tengan mucho margen
 de mejora en cuanto a eficiencia o eficacia. Además, si
-consideramos que el marco teórico propuesto para interpretar las redes profundas
-es correcto, no solo debería ayudar a explicar las arquitecturas existentes,
-sino que también debería guiarnos en el desarrollo de arquitecturas más eficientes y
-eficaces. En esta sección, demostramos que así es:
+creemos que el marco teórico propuesto para interpretar las redes profundas
+es correcto, entonces no solo debería ayudar a explicar las arquitecturas existentes,
+sino también debería guiarnos en el desarrollo de arquitecturas más eficientes y
+efectivas. En esta sección, mostramos que esto es cierto:
 las nuevas arquitecturas resultantes no solo son totalmente
-interpretables, sino que también ofrecen una corrección garantizada y una eficiencia mejorada.
+interpretables, sino que también ofrecen corrección garantizada y una eficiencia mejorada.
 
 \subsection{Arquitectura de transformadores de solo atención} \label{sub:aot}
 
@@ -2017,7 +2016,7 @@ red neuronal más simple posible que se adapte razonablemente bien y
 comprima la representación de forma demostrable?». Según nuestra teoría previa,
 la respuesta debería ser una pila de capas MSSA, concebidas como
 operadores de compresión con pérdida. Esta arquitectura de red es lo suficientemente
-simple como para permitir analizar el rendimiento de compresión o
+simple como para que sea posible analizar el rendimiento de compresión o
 de eliminación de ruido de forma rigurosa y sistemática. Con este
 fin, formalicemos nuestro modelo de subespacios: las representaciones iniciales de los tokens
 $\bm Z^{1}$ se obtienen mediante muestreo de una mezcla ruidosa de
@@ -2079,9 +2078,9 @@ sofisticado.}
 
 Ahora, supongamos que las columnas de $\bm Z_k^{\ell}$ denotan las representaciones de tokens
 del subespacio $k$-ésimo en la capa $\ell$-ésima. Para
-cuantificar la capacidad de eliminación de ruido, definimos la razón señal-ruido
+cuantificar la capacidad de eliminación de ruido, definimos la relación señal-ruido
 (SNR) para cada bloque de las representaciones de tokens en la
-capa $\ell$-ésima de la siguiente manera:
+capa $\ell$ de la siguiente manera:
 \begin{align}\label{def:SNR}
     \mathrm{SNR}(\bm Z_k^{\ell}) \doteq  \frac{\|\bm U_k\bm U_k^T\bm
     Z_k^{\ell} \|_F}{\|(\bm I - \bm U_k\bm U_k^T)\bm Z_k^{\ell}
@@ -2133,7 +2132,7 @@ son demasiado pequeños en la función softmax.
     \end{align}
 \end{theorem}
 Este teorema demuestra que, cuando las representaciones iniciales de los tokens
-se obtienen a partir de una mezcla de distribuciones gaussianas de bajo rango con un
+se muestrean a partir de una mezcla de distribuciones gaussianas de bajo rango con un
 nivel de ruido de $O(\sqrt{\log N}/\sqrt{p})$, cada
 aplicación del operador MSSA modificado elimina el ruido de las representaciones de los tokens
 a una tasa lineal. Cabe destacar que nuestros resultados teóricos están bien respaldados por
@@ -2158,8 +2157,8 @@ posicional, la incrustación de tokens y una cabeza final específica de la tare
 diferentes aplicaciones. La \Cref{tab:aot_vision} muestra el rendimiento de 
 este transformador minimalista en la clasificación
 de imágenes; el rendimiento es razonable, a pesar de su diseño
-minimalista. A continuación, analizaremos una mejora conceptual de
-la formulación CRATE que \textit{también} mejora el rendimiento y
+minimalista. En la siguiente sección, discutiremos una mejora conceptual a
+la formulación CRATE que \textit{también} incrementará el rendimiento y
 la eficiencia.
 
 \begin{table}[!t]
@@ -2842,11 +2841,11 @@ cerrar esta brecha; ambas son objeto de líneas de investigación activas.
 \section{Resumen y Notas}
 
 Los materiales presentados en este capítulo se basan en una serie de
-trabajos recientes sobre este tema, entre los que se incluyen \cite{chan2021redunet,
+trabajos recientes sobre este tema, incluyendo \cite{chan2021redunet,
 wang2024global, wang2025attention, wu2025token, yu2023white}. Estas
 contribuciones abarcan tanto avances teóricos como metodologías prácticas
 para construir redes profundas interpretables mediante
-la optimización desenrollada. Muchos de los resultados y demostraciones clave que se analizan
+la optimización desenrollada. La mayoría de los resultados y demostraciones clave discutidos 
 en este capítulo se derivan directamente de estos
 trabajos fundamentales o se inspiran en ellos.
 
@@ -2860,13 +2859,13 @@ Cabe destacar que \cite{monga2019algorithm} demostró que estas
 redes «desenrolladas» son más interpretables, eficientes y efectivas
 en comparación con las redes genéricas.
 
-En este capítulo, partimos de esta perspectiva para desarrollar arquitecturas de redes profundas de caja abierta basadas en principios,
+En este capítulo, partimos de esta perspectiva para desarrollar arquitecturas de redes profundas de white-box basadas en principios,
 mediante la aplicación de algoritmos de optimización
 diseñados para minimizar objetivos bien fundamentados,
-como el objetivo de reducción (dispersa) de la tasa presentado
-anteriormente. Este enfoque no solo aclara la función de cada capa en
-la red, sino que también ofrece una base teórica para las decisiones
-arquitectónicas, yendo más allá del método empírico de prueba y error hacia un diseño
+como el objetivo de reducción (dispersa) de la tasa, presentado
+anteriormente. Este enfoque no solo aclara el rol de cada capa en
+la red, sino que también proporciona una base teórica para las decisiones
+arquitectónicas, desplazándose desde el método empírico de prueba y error hacia un diseño
 interpretable y orientado a objetivos. A continuación, comparamos las redes neuronales profundas (DNN) convencionales,
 que suelen construirse mediante un diseño empírico y
 un ajuste heurístico, con nuestras arquitecturas ReduNet, que cuentan con una base matemática:
@@ -2876,7 +2875,7 @@ un ajuste heurístico, con nuestras arquitecturas ReduNet, que cuentan con una b
         \hline
         & DNNs convencionales & ReduNets\\ [0.5ex]
         \hline \hline
-        Objetivos & Ajustes de entrada/salida & ganancia de información \\ [0.5ex]
+        Objetivos & Ajuste de entrada/salida & ganancia de información \\ [0.5ex]
         \hline
         Arquitecturas profundas & prueba y error & optimización iterativa \\  [0.5ex]
         \hline
@@ -2905,7 +2904,7 @@ un ajuste heurístico, con nuestras arquitecturas ReduNet, que cuentan con una b
         R(\bm Z) = \log\det\left(\bm I + \alpha\bm Z\bm Z^\top \right).
     \end{align*}
     \begin{enumerate}
-        \item Dada una dirección cualquiera $\bm D \in \R^{d\times m}$, demuestre
+        \item Dada cialquier dirección $\bm D \in \R^{d\times m}$, demuestre
             que $\nabla R(\bm Z) = \alpha\bm X^{-1}\bm Z$ y
             \begin{align*}
                 &\nabla^2 R(\bm Z)[\bm D, \bm D] \\

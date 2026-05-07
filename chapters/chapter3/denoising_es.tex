@@ -1056,10 +1056,10 @@ Si juntamos todo esto, tenemos
 es decir, una proyección de \(\vx_{t}\) sobre cada uno de los \(K\) subespacios,
 ponderada por una función softmax de una función cuadrática de \(\vx_{t}\). ¡Esta
 forma funcional es similar a un \textit{mecanismo de atención} en una 
-arquitectura de transformador! Como veremos en el
+arquitectura de transformer! Como veremos en el
 \Cref{ch:deep-networks}, esto no es en absoluto una coincidencia; el profundo
 vínculo entre la eliminación de ruido y la compresión con pérdida (que se tratará en la
-\Cref{sec:lossy_compression}) hace que los filtros de ruido basados en transformadores sean tan
+\Cref{sec:lossy_compression}) hace que los filtros de ruido basados en transformers sean tan
 eficaces en la práctica.
 
 En general, la arquitectura del filtro de ruido aprendido corresponde a un
@@ -1413,7 +1413,7 @@ de \(\vg\) utilizando la relación anterior, es decir,
 \end{equation}
 y viceversa. Por lo tanto, una buena red para estimar \(\bar{\vg}\) es
 lo mismo que una buena red para estimar \(\bar{\vx}\) \textit{más
-una conexión residual} (como se ve, por ejemplo, en los transformadores). Sus pérdidas
+una conexión residual} (como se ve, por ejemplo, en los transformers). Sus pérdidas
 son también las mismas que las del filtro de ruido, salvo por el factor
 \(\alpha_{t}/\sigma_{t}\), es decir,
 \begin{equation}
@@ -1623,7 +1623,7 @@ procesos estocásticos subyacentes.} tal y como se ha argumentado de manera heur
 \section{Memorización, generalización y tasas de codificación}\label{sec:diffusion_memorization}
 El cálculo que se presenta al final de la
 \Cref{sub:intro_diffusion_denoising} parece indicar (en términos generales)
-que, en la práctica, utilizar una red de tipo transformador es una
+que, en la práctica, utilizar una red de tipo transformer es una
 buena opción para entrenar o aproximar un filtro de ruido. Esto es
 razonable, pero ¿qué problema hay en utilizar cualquier red neuronal
 (como un perceptrón multicapa (MLP)) y simplemente ampliarla
@@ -1809,7 +1809,7 @@ generan en posiciones novedosas, lo que dificulta enormemente establecer
 criterios de memorización eficaces y prácticos basados en la distancia
 euclidiana. Para solucionar esto, \cite{pmlr-v235-zhang24cn} utiliza una función concreta
 \(f_{\mathrm{SSCD}}\) (una red neuronal preentrenada
-denominada «detector de copias autosupervisado» \cite{pizzi2022self})
+denominada «detector de copias auto-supervisado» \cite{pizzi2022self})
 para mapear imágenes a un espacio euclidiano, y luego toma el producto interno
 normalizado para obtener su similitud (coseno), de tal manera que las imágenes que
 son similares debido a esta similitud coseno se consideran

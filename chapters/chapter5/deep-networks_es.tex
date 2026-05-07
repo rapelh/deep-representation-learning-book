@@ -151,14 +151,14 @@ siguientes preguntas sobre las redes profundas:
         mediante la optimización desenrollada del objetivo?
     \item \Cref{sec:chap4-white-box-transformer} --- ¿cómo podría el
         enfoque de «desenrollado» mencionado anteriormente ofrecer una interpretación fundamentada
-        de las populares arquitecturas de transformadores? Si es así, ¿cuáles son los
+        de las populares arquitecturas de transformers? Si es así, ¿cuáles son los
         mecanismos de optimización y los objetivos asociados?
     \item \Cref{sec:chap4-derive-white-box-transformer-variants} ---
         ¿cómo nos ayudaría este marco a diseñar arquitecturas profundas más eficientes o
         más parsimoniosas?
 \end{itemize}
 
-\section{Redes profundas de white-box mediante optimización
+\section{Redes profundas (transparentes) white-box mediante optimización
 desenrollada}\label{sec:chap4-white-box-model-via-unrolling}
 
 Ahora bien, si estamos de acuerdo en que maximizar la reducción de tasa o la ganancia de información
@@ -194,7 +194,7 @@ forma multicanal) y los operadores no lineales (por ejemplo, ReLU o softmax) que
 
 En este capítulo, demostramos que el uso del ascenso por gradiente para maximizar la
 reducción de tasa $\Delta R_{\epsilon}(\Z \mid \bm \Pi)$, tal como se define en
-\eqref{eqn:maximal-rate-reduction}, conduce de manera natural a una red profunda de «white-box»
+\eqref{eqn:maximal-rate-reduction}, conduce de manera natural a una red profunda transparente tipo «white-box»
 que realiza el mapeo deseado. Todas las capas de la red, los operadores lineales y no lineales, 
 así como los parámetros se construyen {\em explícitamente
 siguiendo un enfoque de propagación puramente hacia adelante}. Además, estas
@@ -355,7 +355,7 @@ R_{\epsilon}}{\partial \bm Z}(\Z^\ell) \in \Re^{d\times N}$ tiene la  forma:
 
     En esencia, las operaciones lineales $\bm E^\ell$ y $\bm
     C_k^\ell$ en el método de ascenso por gradiente para la reducción de tasa se determinan mediante
-    los datos de entrenamiento que realizan «autorregresiones». Los recientes avances
+    los datos de entrenamiento que realizan «auto-regresiones». Los recientes avances
     en la comprensión de la regresión por crestas en una configuración sobreparametrizada
     \cite{yang2020rethinking,Wu2020OnTO} indican que el uso
     de datos aparentemente muestreados de forma redundante (de cada subespacio) como
@@ -1300,7 +1300,7 @@ sobre los códigos dispersos de entrada.
 
 \end{example}
 
-\section{Transformadores de white-box mediante optimización 
+\section{Transformadores transparentes white-box mediante optimización 
 desenrollada}\label{sec:chap4-white-box-transformer}
 Como hemos visto en la sección anterior, utilizamos el problema de la
 clasificación para ofrecer una interpretación rigurosa de las principales
@@ -1367,7 +1367,7 @@ las variables aleatorias que definen nuestras representaciones, donde \(\z_{i}
 \in \bR^{D}\).%
 
 \begin{remark}
-    En los transformadores, cada muestra de entrada se convierte normalmente en una
+    En los transformers, cada muestra de entrada se convierte normalmente en una
     secuencia de {\em tokens}. Un token es una unidad básica de información
     derivada de la entrada sin procesar: en el procesamiento del lenguaje natural,
     los tokens suelen ser palabras o subpalabras; en la visión artificial,
@@ -1375,12 +1375,12 @@ las variables aleatorias que definen nuestras representaciones, donde \(\z_{i}
     representar intervalos de tiempo, ubicaciones espaciales u otras unidades
     específicas del dominio. Una {\em incrustación de token} es una representación vectorial continua
     de un token que sirve como entrada para un
-    transformador. Asigna a cada token un punto en un espacio de alta dimensión,
+    transformer. Asigna a cada token un punto en un espacio de alta dimensión,
     lo que permite al modelo procesar entradas simbólicas mediante
     cálculos numéricos.
     Una {\em representación de token} es un vector que codifica la
     información semántica o estructural de un token, y suele ser generada
-    por las capas intermedias o finales de un transformador. Estas
+    por las capas intermedias o finales de un transformer. Estas
     representaciones están diseñadas para capturar características significativas de
     la entrada que resultan útiles para tareas posteriores, tales como
     la clasificación, la generación o la regresión. Consulte la
@@ -1537,7 +1537,7 @@ apta para algoritmos eficientes, tal como se muestra a continuación:
 Aunque se trate de un ligero uso impropio de la terminología, a menudo nos referimos a esta función objetivo
 también como la \textit{reducción dispersa de tasa }.
 
-\paragraph{Arquitectura de red de white-box mediante optimización desenrollada.}
+\paragraph{Arquitectura de red transparente white-box mediante optimización desenrollada.}
 
 Aunque resulte fácil de formular, la optimización de cada término del objetivo anterior
 plantea un reto computacional \cite{Wright-Ma-2022}. Por lo tanto,
@@ -1605,7 +1605,7 @@ respecto a un diccionario ortogonal completo $\bm D^\ell$:
 A continuación, ofrecemos detalles técnicos sobre cada uno de los dos
 pasos anteriores y derivamos actualizaciones eficientes para su implementación.
 
-\paragraph{La autoatención como descenso por gradiente en la tasa de codificación de las representaciones 
+\paragraph{La auto-atención como descenso por gradiente en la tasa de codificación de las representaciones 
 de tokens.} En el primer paso \eqref{eq:Z l+1/2}, el gradiente
 de la tasa de codificación \(\nabla_{\bm Z} R^c_\epsilon\) resulta costoso de
 calcular, ya que implica \(K\) inversas de matrices distintas, una para cada
@@ -1617,8 +1617,8 @@ uno de los \(K\) subespacios con base \(\vU_{k}^{\ell}\):
     \label{eq:rate-gradient}
 \end{equation}
 Ahora demostramos que este gradiente puede aproximarse de forma natural
-utilizando el denominado operador de autoatención de subespacios de múltiples cabezas (MSSA),
-que tiene una forma funcional similar a la del operador de autoatención de múltiples cabezas
+utilizando el denominado operador de auto-atención de subespacios de múltiples cabezas (MSSA),
+que tiene una forma funcional similar a la del operador de auto-atención de múltiples cabezas
 \citep{vaswani2017attention} con \(K\) cabezas (es decir, una para
 cada subespacio, procedente de cada inversa de matriz). Aquí, calculamos por aproximación
 el gradiente \eqref{eq:rate-gradient} utilizando la serie de Neumann de primer orden
@@ -1640,7 +1640,7 @@ el gradiente \eqref{eq:rate-gradient} utilizando la serie de Neumann de primer o
 \end{align}
 En la aproximación anterior, calculamos la similitud entre las representaciones proyectadas
 de los tokens $\{\bm U_k^\top\bm z_i\}_{i = 1}^{n}$ mediante una
-autocorrelación entre las características proyectadas, expresada como
+auto-correlación entre las características proyectadas, expresada como
 $(\vU_{k}^\top\vZ)^\top(\vU_{k}^\top\vZ)$. Aunque se normalicen todas las características de los tokens
 dentro de \(\vZ\), la norma de esta matriz puede crecer
 arbitrariamente\footnote {Dada la elección práctica de
@@ -1651,7 +1651,7 @@ sea cada vez menos precisa (ya que el gradiente verdadero no crece arbitrariamen
 tamaño con la longitud de la secuencia). Para resolver este problema práctico y
 generalizar nuestra formulación, podemos utilizar en su lugar un núcleo arbitrario para
 medir la similitud. Un núcleo especialmente adecuado
-que se ajusta a nuestra intención de realizar la autorregresión únicamente
+que se ajusta a nuestra intención de realizar la auto-rregresión únicamente
 con respecto a los tokens que pertenecen al mismo subespacio es el núcleo local
 (Nadaraya-Watson), que implica la estimación de pertenencia mediante
 softmax \citep{chaudhari2021attentive}, es decir, el cálculo de la similitud (relativa)
@@ -1688,7 +1688,7 @@ se puede aproximar de forma natural mediante
 
 \begin{remark}
     El operador SSA de \eqref{eq:SSA} se asemeja al
-    \textit{operador de atención} de un transformador típico
+    \textit{operador de atención} de un transformer típico
     \citep{vaswani2017attention}, salvo que aquí los
     operadores lineales de valor, clave y consulta  están todos configurados para ser \textit{los
     mismos} que la base del subespacio, es decir, $\vV_{k} = \vK_{k} =
@@ -1702,10 +1702,10 @@ se puede aproximar de forma natural mediante
     \textbf{S}ubspace \textbf{S}elf-\textbf{A}ttention (MSSA), agrega 
     las salidas de los cabezales de atención promediándolas
     mediante pesos dependientes del modelo, un concepto similar al popular
-    operador de autoatención multi-cabezal en las redes transformadoras
+    operador de auto-atención multi-cabezal en las redes transformers
     existentes. El paso de gradiente global \eqref{eq:gd-mcr-parts}
-    se asemeja a la autoatención de múltiples cabezas implementada con una conexión de salto
-    en los transformadores.
+    se asemeja a la auto-atención de múltiples cabezas implementada con una conexión de salto
+    en los transformers.
 \end{remark}
 
 \paragraph{MLP como descenso por gradiente proximal para la codificación dispersa de
@@ -1772,20 +1772,20 @@ paso ISTA \citep{beck2009fast}, para obtener la actualización:
     \label{fig:crate_backbone}
 \end{figure}
 
-\subsection{Arquitectura general del transformador de white-box: CRATE}
+\subsection{Arquitectura general del transformer white-box: CRATE}
 
-Ahora diseñamos una arquitectura de transformador de white-box, denominada Coding
+Ahora diseñamos una arquitectura de transformer white-box, denominada Coding
 RATE Transformer (CRATE), mediante el desenrollamiento de las actualizaciones anteriores. Al
 combinar los dos pasos anteriores, \eqref{eq:gd-mcr-parts} y \eqref{eq:ista-block}:
 \begin{enumerate}
     \item Compresión local de tokens dentro de una muestra hacia una
-        estructura de mezcla de subespacios, generando el bloque de autoatención de subespacios
+        estructura de mezcla de subespacios, generando el bloque de auto-atención de subespacios
         multicabezal -- \text{MSSA};
     \item Dispersión global de conjuntos de tokens en todas las muestras
         mediante codificación dispersa, lo que da lugar al bloque de dispersión --
         \text{ISTA};
 \end{enumerate}
-podemos obtener la siguiente capa de transformadores basada en la reducción de tasa,
+podemos obtener la siguiente capa de transformers basada en la reducción de tasa,
 que se ilustra en la \Cref{fig:crate_backbone},
 \begin{equation}
     \vZ^{\ell+1/2} \doteq \vZ^{\ell} + \text{MSSA}(\vZ^{\ell} \mid
@@ -1795,7 +1795,7 @@ que se ilustra en la \Cref{fig:crate_backbone},
 \end{equation}
 Al componer varias capas de este tipo siguiendo la construcción incremental
 de nuestra representación en \eqref{eq:incremental}, obtenemos una
-arquitectura de transformador de white-box que transforma los tokens de datos
+arquitectura de transformer transparente white-box que transforma los tokens de datos
 hacia una unión compacta y dispersa de subespacios incoherentes, donde
 $f^{\pre}: \bR^{D \times N} \rightarrow \bR^{d \times N}$ es la
 mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
@@ -1808,7 +1808,7 @@ mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/CRATE_fig1_patches.pdf}
     \vspace{-0.1in}
     \caption{
-        \textbf{El «bucle principal» del diseño de redes profundas de white-box
+        \textbf{El «bucle principal» del diseño de redes profundas transparentes tipo white-box
         de CRATE.}
         Tras codificar los datos de entrada como una secuencia de tokens $\vZ^0$,
         CRATE construye una red profunda que transforma los
@@ -1846,7 +1846,7 @@ mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
 
     Por lo tanto, nuestra metodología presenta una clara separación conceptual
     entre la «optimización» hacia adelante y el «aprendizaje» hacia atrás para
-    la red neuronal profunda de white-box así obtenida. Es decir, en su
+    la red neuronal profunda white-box así obtenida. Es decir, en su
     paso hacia adelante, interpretamos cada capa como un operador que,
     condicionado por un modelo aprendido (es decir, un libro de códigos) para la
     distribución de su entrada, transforma esta distribución hacia 
@@ -2009,7 +2009,7 @@ efectivas. En esta sección, mostramos que esto es cierto:
 las nuevas arquitecturas resultantes no solo son totalmente
 interpretables, sino que también ofrecen corrección garantizada y una eficiencia mejorada.
 
-\subsection{Arquitectura de transformadores de solo atención} \label{sub:aot}
+\subsection{Arquitectura de transformers de solo atención} \label{sub:aot}
 
 En esta subsección, planteamos y respondemos la pregunta: «¿Cuál es la
 red neuronal más simple posible que se adapte razonablemente bien y
@@ -2068,7 +2068,7 @@ sofisticado.}
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/SNR2.png}
         \caption{Nivel de ruido $\delta = 0.5$}
     \end{subfigure}
-    \caption{{\bf Desempeño en la eliminación de ruido del transformador
+    \caption{{\bf Desempeño en la eliminación de ruido del transformer
         basado únicamente en atención.} Aquí, obtenemos muestras de las representaciones iniciales de los tokens a partir de
         una mezcla de gaussianas de bajo rango en la \Cref{def:MoG}. A continuación, aplicamos
         \eqref{eq:MSSA} para actualizar las representaciones de los tokens y presentamos la
@@ -2101,7 +2101,7 @@ son demasiado pequeños en la función softmax.
 \begin{figure*}[t]
     \begin{center}
         \includegraphics[width=0.75\textwidth]{\toplevelprefix/chapters/chapter5/figs/MSSA.png}
-        \caption{\textbf{Detalles de la arquitectura del transformador de «solo atención».}
+        \caption{\textbf{Detalles de la arquitectura del transformer de «solo atención».}
             Cada capa consta del operador MSSA
             y una conexión de salto. Además, se incluye LayerNorm
             solo para tareas de lenguaje. En la práctica, se aplica la retropropagación
@@ -2138,15 +2138,15 @@ aplicación del operador MSSA modificado elimina el ruido de las representacione
 a una tasa lineal. Cabe destacar que nuestros resultados teóricos están bien respaldados por
 las observaciones experimentales realizadas con el operador MSSA \textit{real} en la
 \Cref{fig:MSSA}. Este teorema proporciona una base teórica para
-la capacidad práctica de eliminación de ruido de la arquitectura del transformador
+la capacidad práctica de eliminación de ruido de la arquitectura del transformer
 derivada mediante el desenrollado de \eqref{eq:MSSA}.
 
 \paragraph{Transformadores de solo atención.} Para verificar que esta
 capacidad de eliminación de ruido se traduce en un rendimiento razonable con datos y tareas reales,
-proponemos formalmente una arquitectura de transformador basada exclusivamente en la atención,
+proponemos formalmente una arquitectura de transformer basada exclusivamente en la atención,
 a la que denominamos AoT. Concretamente, al desenrollar
 los pasos de optimización iterativa \eqref{eq:MSSA} como capas de una red profunda,
-construimos una arquitectura de transformador tal y como se muestra en la
+construimos una arquitectura de transformer tal y como se muestra en la
 \Cref{fig:transformer}. Cada capa de la arquitectura propuesta
 consta únicamente del operador MSSA y una conexión de salto. Para las tareas
 lingüísticas, incorporamos además LayerNorm antes del operador MSSA
@@ -2155,7 +2155,7 @@ apilando dichas capas, junto con pasos esenciales de preprocesamiento
 y posprocesamiento específicos de la tarea, tales como la codificación
 posicional, la incrustación de tokens y una cabeza final específica de la tarea para adaptarse a
 diferentes aplicaciones. La \Cref{tab:aot_vision} muestra el rendimiento de 
-este transformador minimalista en la clasificación
+este transformer minimalista en la clasificación
 de imágenes; el rendimiento es razonable, a pesar de su diseño
 minimalista. En la siguiente sección, discutiremos una mejora conceptual a
 la formulación CRATE que \textit{también} incrementará el rendimiento y
@@ -2178,9 +2178,9 @@ la eficiencia.
     \label{tab:aot_vision}
 \end{table}
 
-\subsection{Atención en tiempo lineal: transformador de estadísticas de tokens}\label{sub:tost}
+\subsection{Atención en tiempo lineal: transformer de estadísticas de tokens}\label{sub:tost}
 
-En esta subsección, proponemos un nuevo operador de atención de transformador
+En esta subsección, proponemos un nuevo operador de atención de transformer
 cuya complejidad computacional varía linealmente con el número de
 tokens, basándonos en el objetivo de reducción de la tasa de codificación.  En concreto,
 derivamos una nueva forma variacional del objetivo MCR$^2$ y demostramos
@@ -2190,7 +2190,7 @@ Token Statistics Self-Attention (\text{TSSA}). \text{TSSA} tiene
 {\em una complejidad computacional y de memoria lineal} y se aleja radicalmente
 de la arquitectura de atención típica que calcula
 las similitudes por pares entre tokens.  Al sustituir el operador de atención tradicional
-de un transformador por TSSA se obtiene una nueva arquitectura de red neuronal
+de un transformer por TSSA se obtiene una nueva arquitectura de red neuronal
 denominada Token Statistics Transformer (ToST),
 que es muy eficiente y presenta un rendimiento empírico prometedor. Como
 preludio, recordemos de la ecuación \eqref{eq:MCR pi} que $\bm \Pi = [\bm
@@ -2306,7 +2306,7 @@ respecto a $\Z$ es:
 = 1/N$ presente en cada término de la suma.) Si ahora consideramos un
 paso de gradiente con respecto al token $j$-ésimo $\z_j$, 
 llegamos a nuestro operador de compresión incremental propuesto, es decir,
-nuestro sustituto de un operador de \textit{autoatención} + residual:
+nuestro sustituto de un operador de \textit{auto-atención} + residual:
 \begin{align}\label{eq:layer-operation-orig}
     \z_j^+
     &= \z_{j} - \tau \nabla_{\z_{j}}R_{c, f}^{\rm var}(\Z, \bm
@@ -2361,12 +2361,12 @@ las direcciones con momentos de segundo orden grandes, el operador de atención 
 actúa en gran medida como el operador de identidad. Por el contrario, para
 las direcciones con un momento de segundo orden pequeño, nuestro operador resta una
 proyección de los tokens a lo largo de esas direcciones, lo que da como resultado la
-supresión de dichas direcciones. En comparación con el operador de autoatención
+supresión de dichas direcciones. En comparación con el operador de auto-atención
 estándar, nuestro método claramente no calcula ninguna similitud
 por pares entre tokens. Más bien, las interacciones entre los
 elementos de $\Z$ influyen en el operador únicamente a través de su contribución
 a la estadística del segundo momento utilizada para construir los $\bm D_{k}$.
-No obstante, al igual que el operador de autoatención estándar, nuestro
+No obstante, al igual que el operador de auto-atención estándar, nuestro
 método sigue teniendo una interpretación clara como una forma de
 compresión hacia una estructura de bajo rango dependiente de los datos, en el sentido
 de que realiza una proyección aproximada de bajo rango, en la que las
@@ -2477,7 +2477,7 @@ rendimiento y la eficiencia empíricos de la arquitectura ToST.
     0},clip]{\toplevelprefix/chapters/chapter5/figs/V-CRATE.pdf}
     \vspace{-1mm}
     \caption{\small \textbf{Una capa $\ell$ del Token
-        Statistics Transformer (ToST) propuesto.} Cabe destacar que la autoatención
+        Statistics Transformer (ToST) propuesto.} Cabe destacar que la auto-atención
         de ToST transforma los tokens $\Z^{\ell}$ de manera eficiente en
         $\Z^{\ell+1}$, multiplicando cada fila del token proyectado
         por \textit{solo un escalar}. Esto conduce a una
@@ -2504,7 +2504,7 @@ rendimiento y la eficiencia empíricos de la arquitectura ToST.
     \caption{\small\textbf{Complejidad temporal y de memoria de ToST en
         la práctica} en comparación con ViT (a) y GPT-2
         (b), diseñados empíricamente. Observamos que ToST solo requiere tiempo y
-    memoria lineales, en comparación con los costos cuadráticos de los transformadores tradicionales.}
+    memoria lineales, en comparación con los costos cuadráticos de los transformers tradicionales.}
 \end{figure}
 
 \begin{table*}[t!]
@@ -2595,7 +2595,7 @@ el token muestreado al historial. Para entrenar LLM y otros
 modelos, como los de generación de vídeo, es necesario desarrollar
 arquitecturas capaces de realizar este cálculo causal de manera eficiente.
 
-Teniendo esto en cuenta y basándonos en la comprensión de los procesos autorregresivos causales
+Teniendo esto en cuenta y basándonos en la comprensión de los procesos auto-regresivos causales
 del \Cref{ch:intro}, decimos que un codificador \(f\) es
 \textit{causal} si, para cada entrada \(\vX = [\vx_{1}, \dots, \vx_{N}]\), se cumple que
 \begin{align}
@@ -2614,7 +2614,7 @@ aplicaciones mencionadas anteriormente (por ejemplo, los LLM). En particular, la
 implementaciones de CRATE y ToST presentadas anteriormente
 \textit{no son causales} (la demostración se deja como ejercicio).
 
-Podemos construir arquitecturas causales de white-box mediante diversos
+Podemos construir arquitecturas causales white-box mediante diversos
 métodos. Aquí presentaremos un método sencillo que se basa en nuestro
 marco de optimización desenrollada anterior. Específicamente, calculamos
 las características \(\vz_{1}, \dots, \vz_{N}\) correspondientes a los primeros
@@ -2794,7 +2794,7 @@ cerrar esta brecha; ambas son objeto de líneas de investigación activas.
     muy eficaces e incluso se han utilizado en algunos modelos de lenguaje a gran escala
     \citep{team2025kimi}. Mediante el diseño de objetivos más
     sofisticados y estrategias de «desenrollamiento», podríamos
-    construir una arquitectura SSM de «white-box», o un híbrido SSM-transformador,
+    construir una arquitectura SSM tipo «white-box», o un híbrido SSM-transformer,
     y así reducir la brecha en las tareas causales.
 \end{example}
 
@@ -2809,9 +2809,9 @@ cerrar esta brecha; ambas son objeto de líneas de investigación activas.
     Un enfoque sencillo para esto consiste en aplicar un bucle al modelo: introducir las características finales
     en las capas iniciales de secuencia a secuencia y permitir
     que pase por más rondas de eliminación iterativa de ruido. Esta
-    metodología se conoce en la literatura como «transformadores en bucle»
+    metodología se conoce en la literatura como «transformers en bucle»
     (en el caso de que el modelo base sea un
-    transformador diseñado empíricamente); se ha demostrado que este enfoque
+    transformer diseñado empíricamente); se ha demostrado que este enfoque
     ofrece ventajas en algunas tareas especialmente difíciles
     \citep{giannou2023looped,yang2023looped,saunshi2025reasoning}.
     Sin embargo, desde nuestro punto de vista, resulta más razonable recorrer
@@ -2859,7 +2859,7 @@ Cabe destacar que \cite{monga2019algorithm} demostró que estas
 redes «desenrolladas» son más interpretables, eficientes y efectivas
 en comparación con las redes genéricas.
 
-En este capítulo, partimos de esta perspectiva para desarrollar arquitecturas de redes profundas de white-box basadas en principios,
+En este capítulo, partimos de esta perspectiva para desarrollar arquitecturas de redes profundas transparentes white-box basadas en principios,
 mediante la aplicación de algoritmos de optimización
 diseñados para minimizar objetivos bien fundamentados,
 como el objetivo de reducción (dispersa) de la tasa, presentado

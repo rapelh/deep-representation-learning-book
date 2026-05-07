@@ -396,7 +396,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
                 \underbrace{(\vU^{\star})^{\top}\vx}_{\text{first
         layer}}}_{\text{post-activation of first layer}}}_{\text{output of NN}}
     \end{equation}
-    En concreto, el PCA puede interpretarse como \textit{el aprendizaje de un autocodificador de 
+    En concreto, el PCA puede interpretarse como \textit{el aprendizaje de un autoencoder de 
     dos capas},\footnote{De hecho, como hemos mencionado en el
         capítulo anterior, el PCA fue uno de los primeros problemas en el que se
     utilizaron redes neuronales para resolverlo \cite{Oja1982SimplifiedNM,Baldi89}.} 
@@ -698,7 +698,7 @@ de \(\Cov[\vx]\).
     En concreto, el denominado \textit{mapa de eliminación de ruido}
     \(\vU^{\star}(\vU^{\star})^{\top}\) es una proyección ortogonal
     sobre \(\cS\), que empuja los puntos con ruido hacia el subespacio de soporte
-    de la verdad fundamental. Podemos obtener un resultado técnico similar
+    de la verdad de referencia (ground truth). Podemos obtener un resultado técnico similar
     en el caso de que solo dispongamos de un número finito de muestras como en el
     \Cref{thm:pca}, pero esto requiere más esfuerzo y complejidad técnica.
     En resumen, tenemos el siguiente teorema informal.
@@ -770,7 +770,7 @@ núcleo general de verdad:
 Como era de esperar, nos encontraremos con este motivo una y otra vez en
 el resto del manuscrito, empezando por la siguiente sección.\footnote{En capítulos 
     posteriores, veremos que es posible completar datos del mundo real, como imágenes, 
-    con solo una fracción de observaciones sin enmascarar; por ejemplo, la autocodificación 
+    con solo una fracción de observaciones sin enmascarar; por ejemplo, la auto-codificación 
     enmascarada de imágenes en la \Cref{sec:image_completion}. Esto se debe también a que la 
     distribución de las imágenes naturales presenta estructuras de dimensiones bastante bajas 
     (aunque no lineales) en el espacio de todas las imágenes.}
@@ -994,7 +994,7 @@ como decodificador y $\cD = \cE^{-1}$. En forma de diagrama:
     \hspace{2mm}}   \hat{\vx}.
     \label{eqn:autoencoding-DL}
 \end{equation}
-Observamos que el par de autocodificadores $(\cE, \cD)$ para el aprendizaje
+Observamos que el par de autoencoders $(\cE, \cD)$ para el aprendizaje
 completo de un diccionario es simétrico, al igual que en el caso de un único
 subespacio lineal, lo que hace que la tarea computacional de codificación y decodificación no
 sea más difícil que en el caso lineal. Por otro lado, la tarea
@@ -1382,7 +1382,7 @@ del objetivo del PCA.
 \section{Una mezcla de subespacios sobrecompletos de baja dimensión}
 \label{sec:dictionary_learning}
 Como hemos visto, el aprendizaje de diccionarios completos se basa en una elegante
-teoría computacional en la que se mantiene una estructura de autoencodificación simétrica
+teoría computacional en la que se mantiene una estructura de auto-codificación simétrica
 $\cE(\vx) = \vU^\top \vx$, $\cD(\vz) = \vU \vz$, junto con un
 algoritmo escalable similar al método de potencias (el algoritmo MSP) para aprender
 un diccionario ortogonal $\vU$ a partir de los datos. No obstante, para
@@ -1843,7 +1843,7 @@ Por lo tanto, dada la arquitectura secuencial, para aprender el operador
 mediante la retropropagación (BP),\footnote{Véase la \Cref{sec:autodiff} para 
     una breve descripción de
 la retropropagación.} minimizando el error entre el código final $\vZ^L$ y
-la verdad fundamental $\vZ$:
+la verdad de referencia (ground truth) $\vZ$:
 \begin{equation}\label{eq:lista-training}
     \min_{\{\vA^\ell\}} \big\|\vZ^L(\vA^1, \ldots, \vA^{L}) - \vZ\big\|_2^2.
 \end{equation}
@@ -1854,7 +1854,7 @@ proceso de codificación dispersa de $\vX$ a $\vZ$. En concreto,
 se puede considerar como un \textit{algoritmo simple de aprendizaje de representaciones}.
 De hecho, esta misma metodología puede servir de base para comprender las
 representaciones calculadas en arquitecturas de red más potentes, como
-los transformadores. Desarrollamos estas implicaciones en detalle en
+los transformers. Desarrollamos estas implicaciones en detalle en
 el \Cref{ch:deep-networks}.
 
 \paragraph{Autocodificadores dispersos.}
@@ -1870,7 +1870,7 @@ modelos, el modelo de generación de datos
 ofrece una base práctica y útil
 para
 \textit{interpretar características en redes profundas preentrenadas a gran escala}, 
-tales como los transformadores, siguiendo la hipótesis de que las
+tales como los transformers, siguiendo la hipótesis de que las
 características (no interpretables, \textit{a priori}) en estas redes consisten 
 en «superposiciones» dispersa de características subyacentes, las cuales son 
 a su vez interpretables \cite{elhage2022superposition}. Estos paradigmas de 
@@ -1887,21 +1887,21 @@ las cuales se seleccionan en función de la tarea de interpretación deseada.\fo
     las entradas $\vx_i$ podrían corresponder a textos que contengan fragmentos de código informático en
     diferentes lenguajes de programación , siendo nuestra tarea tratar de identificar
     características interpretables en
-    un mapa de características del transformador $h$ que correspondan a diferentes
+    un mapa de características del transformer $h$ que correspondan a diferentes
     aspectos destacados de la entrada, tales como el lenguaje de programación específico (distinto entre las
     «clases» de la entrada) o la necesidad de insertar un paréntesis de cierre en la posición actual
     (común entre las «clases» de la entrada). Analizamos el
-    uso de redes profundas, y en particular de los transformadores, para el aprendizaje de representaciones de texto
+    uso de redes profundas, y en particular de los transformers, para el aprendizaje de representaciones de texto
 con mayor detalle en el \Cref{ch:applications}.} Para simplificar, utilizaremos $h$ para denotar el mapa de 
 características preseleccionado en cuestión, con características de dimensión $D$; dadas $N$ entradas de 
 muestra, sea $\vH \in \bR^{D \times N}$ la matriz completa de características de $h$.
-A continuación, se entrena un autocodificador disperso $f : \bR^D \to \bR^d$, con
+A continuación, se entrena un autoencoder disperso $f : \bR^D \to \bR^d$, con
 un decodificador $g : \bR^d \to \bR^D$, mediante la función de pérdida 
 LASSO \eqref{eq:sparse_dl_lasso}:
 \begin{equation}\label{eq:sae-loss}
     \min_{f, g} \| \vH - g(f(\vH))) \|_F^2 + \lambda \|f(\vH)\|_1 ,
 \end{equation}
-donde el autocodificador disperso $f$ adopta la forma de una red neuronal de una sola capa,
+donde el autoencoder disperso $f$ adopta la forma de una red neuronal de una sola capa,
 es decir, $f(\vh_i) = \sigma(\vW_{\mathrm{enc}}(\vh_i - \vb)
 + \vb_{\mathrm{enc}})$, donde $\sigma(x) = \max \{x, 0\}$ es la función de activación ReLU
 y el decodificador $g$ es lineal, de modo que $g(\vz_i)
@@ -1952,7 +1952,7 @@ y, tras algunas operaciones algebraicas, expresarlo como
 Dada la posibilidad de modificar la inicialización del código disperso $\vZ^1$ como
 un parámetro aprendible (que, en el marco actual, debe tener todas las columnas
 iguales al mismo vector aprendible), esto adopta la forma de una red neuronal ReLU
-con sesgo aprendible, ¡idéntica al autocodificador disperso $f$!
+con sesgo aprendible, ¡idéntica al autoencoder disperso $f$!
 Además, para \textit{decodificar} los códigos dispersos aprendidos $\vZ^2$, lo más natural es
 aplicar el diccionario aprendido $\vZ^2 \mapsto \vA^1 \vZ^2$. Entonces, la única
 diferencia entre esto y el decodificador SAE $g$ es el sesgo adicional $\vb$,
@@ -1968,7 +1968,7 @@ interpretación de la arquitectura LISTA en términos de codificación dispersa 
 y como se describe en \eqref{eq:ISTA-update-layerwise}. Esta conexión sugiere una gran variedad de nuevas
 estrategias de diseño para mejorar la metodología de la interpretabilidad práctica, muchas de
 las cuales siguen sin haberse explorado, lo cual resulta tentador. Comenzamos a establecer 
-algunas conexiones con la metodología más amplia de la autocodificación en 
+algunas conexiones con la metodología más amplia de la auto-codificación en 
 el \Cref{ch:consistent-representations}.
 
 \paragraph{¿Codificación dispersa aprendida por capas?}
@@ -1976,7 +1976,7 @@ el \Cref{ch:consistent-representations}.
 En el contexto supervisado, LISTA ofrece un análogo de red neuronal profunda de
 la iteración de codificación dispersa, con diccionarios aprendidos por capas, inspirado en
 la minimización alterna; incluso en el contexto no supervisado, se puede aplicar la misma metodología
-al aprendizaje, al igual que con los autocodificadores dispersos.
+al aprendizaje, al igual que con los autoencoders dispersos.
 Pero la relación entre los algoritmos de optimización
 que buscan estructuras de baja dimensión y las arquitecturas de redes profundas es mucho más 
 profunda que eso y sugiere una variedad de arquitecturas de aprendizaje neuronal escalables 
@@ -2013,7 +2013,7 @@ la optimización hacia adelante y el aprendizaje hacia atrás. Esta
 distinción entre las actualizaciones hacia adelante de las «características» efímeras
 $\vZ$ de los datos $\vX$ y las actualizaciones hacia atrás de los parámetros
 persistentes $\vA$  sigue observándose en las redes neuronales y los
-autocodificadores actuales; hablaremos mucho más sobre ello en
+autoencoders actuales; hablaremos mucho más sobre ello en
 el \Cref{ch:deep-networks} y el \Cref{ch:consistent-representations}.
 
 Obsérvese que el esquema por capas anterior también sugiere una alternativa plausible

@@ -473,9 +473,9 @@ más general, el siguiente valor puede depender de los \(d\) valores precedentes
 \end{equation}
 El número entero \(d\) se denomina el \textit{grado} de la recursión. La
 expresión anterior \eqref{eqn:recursive-d} se denomina 
-\textit{autoregresión} y la secuencia resultante es
-\textit{autoregresiva}. Cuando \(f\) es lineal, decimos que es una
-\textit{autoregresión lineal}.
+\textit{auto-regresión} y la secuencia resultante es
+\textit{auto-regresiva}. Cuando \(f\) es lineal, decimos que es una
+\textit{auto-regresión lineal}.
 
 \paragraph{El caso vectorial.}
 Para simplificar la notación, definimos un vector  \(\vx \in \R^{d}\) que
@@ -530,12 +530,12 @@ dos funciones computables \(f\) y \(h\):
     \label{eqn:recursive-closed-loop}
 \end{equation}
 De esta manera, la secuencia \(\{\vx_{n}\}\) nuevamente se hace una
-secuencia autoregresiva predecible. Cuando la entrada \(\vu_{n}\)
+secuencia auto-regresiva predecible. Cuando la entrada \(\vu_{n}\)
 depende de la salida \(\vx_{n}\), decimos que la secuencia resultante
 es generada por un sistema «en bucle cerrado» \eqref{eqn:recursive-closed-loop}. 
 Dado que el sistema en bucle cerrado ya no depende de entrada externa alguna, 
 decimos que tal sistema se ha hecho \textit{autónomo}. Esto puede verse
-como un caso especial de autoregresión. Por ejemplo, si elegimos
+como un caso especial de auto-regresión. Por ejemplo, si elegimos
 \(\vu_{n} = \vF\vx_{n}\) en el sistema lineal anterior \eqref{eqn:lineary-system},
 el sistema en bucle cerrado se transforma en
 \begin{equation}
@@ -543,7 +543,7 @@ el sistema en bucle cerrado se transforma en
     = (\vA + \vB\vF)\vx_{n},
     \label{eqn:lineary-system-closed}
 \end{equation}
-lo que es una autoregresión lineal.
+lo que es una auto-regresión lineal.
 
 \paragraph{Procesos continuos.}
 Las secuencias predecibles tienen contrapartes continuas naturales,
@@ -646,7 +646,7 @@ En la práctica, si elegimos una longitud de segmento \(D\) suficientemente
 grande, todos los segmentos muestreados a partir de la misma función predictiva 
 se encuentran en una superficie con una dimensión intrínseca \(d\), 
 significativamente menor que la del espacio ambiente \(D\). Por ejemplo, si 
-la secuencia viene dada por la autorregresión lineal
+la secuencia viene dada por la auto-regresión lineal
 \begin{equation}
     x_{n+2} = a x_{n+1} + b x_{n},
     \label{eqn:sequence-2d}
@@ -774,7 +774,7 @@ valores de los demás componentes. Por ejemplo, si sabemos que los datos están
 restringidos a una superficie de dimensión $d$ en $\R^D$, podemos realizar
 varias tareas útiles más allá de la predicción:
 \begin{itemize}
-    \item \textbf{autocompletación}: si se dan más de $d$ entradas de una
+    \item \textbf{auto-completación}: si se dan más de $d$ entradas de una
         muestra típica $\vx$, las entradas restantes suelen poder
         determinarse de forma unívoca;\footnote{La predicción se 
         convierte en un caso especial de esta propiedad.}
@@ -795,7 +795,7 @@ en un plano bidimensional.
     \includegraphics[height=0.28\linewidth]{\toplevelprefix/chapters/chapter1/figs/Denoising-low-dim.png}
     \includegraphics[height=0.32\linewidth]{\toplevelprefix/chapters/chapter1/figs/Correction-low-dim.png}
     \caption{Ilustración de las propiedades de una estructura (lineal) de baja dimensión:
-        habilita la autocompletación (izquierda), la reducción de ruido (centro) y la
+        habilita la auto-completación (izquierda), la reducción de ruido (centro) y la
     corrección de errores (derecha).}
     \label{fig:low-dim-properties}
 \end{figure}
@@ -803,7 +803,7 @@ en un plano bidimensional.
 En condiciones moderadas, estas propiedades se generalizan a muchas otras
 estructuras de baja dimensión en espacios de alta dimensión
 \cite{Wright-Ma-2022}. Veremos que estas propiedades útiles---por ejemplo, 
-la autocompletación y la reducción de ruido---sirven de inspiración
+la auto-completación y la reducción de ruido---sirven de inspiración
 para desarrollar métodos eficaces en el aprendizaje de tales estructuras.
 
 Para simplificar, hasta ahora hemos utilizado el caso determinista para
@@ -1033,7 +1033,7 @@ proyectándola sobre el subespacio de baja dimensión generado por \(\vU\):
 Si el ruido es pequeño y el subespacio de baja dimensión \(\vU\) se
 aprende correctamente, esperamos que \(\vx \approx \hat{\vx}\).
 Por lo tanto, PCA es un caso especial de lo que se conoce como esquema de 
-«autocodificación», que codifica los datos proyectándolos sobre un espacio 
+«autoencoder», que codifica los datos proyectándolos sobre un espacio 
 de menor dimensión, y decodifica un código de menor dimensión para volver 
 al espacio original:
 \begin{equation}
@@ -1065,7 +1065,7 @@ perspectiva del aprendizaje de una distribución de baja dimensión. Nuestro obj
 utilizar este modelo sencillo e idealizado con el fin de transmitir algunas de las ideas más
 fundamentales para el aprendizaje de una representación compacta de una distribución de baja 
 dimensión, incluyendo conceptos importantes como la compresión mediante la reducción de ruido 
-y la autocodificación para obtener una representación coherente.
+y la auto-codificación para obtener una representación coherente.
 
 \paragraph{Análisis de componentes independientes.}
 El análisis de componentes independientes (ICA) fue propuesto originalmente por
@@ -1110,7 +1110,7 @@ Aunque la mapeo de \(\vz\) a \(\vx\) (la decodificación) parece lineal
 y sencilla una vez que se han aprendido \(\vU\) y \(\vz\), el
 mapeo de \(\vx\) a \(\vz\) (la codificación) puede ser complicado y es posible
 que no se pueda representar mediante un simple mapeo lineal. Por lo tanto, el ICA generalmente
-proporciona una autocodificación de la forma:
+proporciona una auto-codificación de la forma:
 \begin{equation}
     \vx   \xrightarrow{\hspace{2mm} \cE\hspace{2mm}} \vz
     \xrightarrow{\hspace{2mm} \vU \hspace{2mm}} \hat{\vx}.
@@ -1228,7 +1228,7 @@ se sabe que los \(\vz_{i}\) son dispersos. Este es el
 dado que la distribución de los datos \(\vX\) es la imagen de una
 distribución dispersa estándar \(\vZ\) bajo una transformación lineal
 \(\vA\), queremos aprender tanto \(\vA\) como su mapeo «inverso»
-\(\cE\) para obtener un autocodificador:
+\(\cE\) para obtener un autoencoder:
 \begin{equation}
     \vX   \xrightarrow{\hspace{2mm} \cE\hspace{2mm}}  \vZ
     \xrightarrow{\hspace{2mm} \vA \hspace{2mm}} \hat{\vX}.
@@ -1635,27 +1635,27 @@ entre los datos originales \(\vX\) y los regenerados \(\hat{\vX}\).}:
     \min_{f,g} \|\vX - \hat{\vX}\|_{2}^{2}, \qquad \text{where} \quad
     \hat{\vX} = g(f(\vX)),
 \end{equation}
-un autocodificador puede aprenderse directamente a partir de los datos \(\vX\).
+un autoencoder puede aprenderse directamente a partir de los datos \(\vX\).
 
-¿Pero cómo podemos garantizar que una autocodificación de este tipo realmente
+¿Pero cómo podemos garantizar que una auto-codificación de este tipo realmente
 capture las verdaderas estructuras de baja dimensión en \(\vX\) en lugar de
 arrojar una representación trivial redundante? Por ejemplo, uno podría simplemente
 elegir que \(f\) y \(g\) sean mapeos de identidad y definir \(\vZ = \vX\). Para
-asegurar que la autocodificación valga la pena, la representación resultante
+asegurar que la auto-codificación valga la pena, la representación resultante
 debería ser compresiva, de acuerdo a alguna medida calculable de complejidad.
 En 1993, Geoffrey Hinton y sus colegas propusieron usar la longitud de código
-como tal medida, transformando el objetivo de autocodificación en el objetivo
+como tal medida, transformando el objetivo de auto-codificación en el objetivo
 de hallar una representación que minimice la longitud de código \cite{Hinton-1993}.
 Este trabajo estableció una conexión fundamental entre el principio de longitud
 mínima de descripción\cite{Rissanen-1978} y la minimización de la energía libre
 (Helmholtz). Los trabajos posteriores del grupo de Hinton \cite{Hinton504}
-demostraron empíricamente que esa autocodificación es capaz de aprender
+demostraron empíricamente que esa auto-codificación es capaz de aprender
 representaciones significativas de baja dimension para imágenes del mundo real.
-Pierre Baldi presentó un estudio exhaustivo sobre los autocodificadores en 2011 
+Pierre Baldi presentó un estudio exhaustivo sobre los autoencoders en 2011 
 \cite{Baldi2011}, justo antes de que las redes profundas alcanzaran una gran 
-popularidad. Analizaremos las medidas de complejidad y la autocodificación con 
+popularidad. Analizaremos las medidas de complejidad y la auto-codificación con 
 más detalle en la \Cref{sec:unifying-approach} y presentaremos un estudio 
-sistemático de la autocodificación compresiva en el \Cref{ch:consistent-representations}
+sistemático de la auto-codificación compresiva en el \Cref{ch:consistent-representations}
 desde una perspectiva más unificada.
 
 \begin{figure}
@@ -1699,7 +1699,7 @@ neuronales. De manera empírica, se descubrió que las redes más grandes y más
 profundas arrojan un mejor desempeño en tareas como la clasificación de
 imágenes. Entre las notables arquitecturas que aparecieron se cuentan
 VGG\cite{Simonyan15}, GoogLeNet \cite{Szegedy2014GoingDW}, ResNet
-\cite{He2016-lc} y, más recientemente, los transformadores\cite{vaswani2017attention}.
+\cite{He2016-lc} y, más recientemente, los transformers\cite{vaswani2017attention}.
 Pese al rápido mejoramiento empírico del desempeño, las explicaciones teóricas
 de esas arquitecturas---y las relaciones existentes entre ellas, de existir---siguieron
 siendo escasas. Una meta de este libro consiste en desvelar el objetivo común para
@@ -2319,11 +2319,11 @@ mapea la característica o los datos codificados \(\vZ\) de vuelta al espacio de
     \label{eqn:auto-encoding}
 \end{equation}
 A este par de codificación-decodificación \((\cE, \cD)\) lo denominamos
-\textit{autocodificador}. La \Cref{fig:autoencoder} ilustra este proceso.
+\textit{autoencoder}. La \Cref{fig:autoencoder} ilustra este proceso.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth]{\toplevelprefix/chapters/chapter1/figs/Autoencoder.jpg}
-    \caption{Ilustración de la arquitectura de un autocodificador.}
+    \caption{Ilustración de la arquitectura de un autoencoder.}
     \label{fig:autoencoder}
 \end{figure}
 
@@ -2333,7 +2333,7 @@ codificación, de modo que los datos (la distribución) \(\hat{\vX}\) decodifica
 cierta medida.\footnote{Más adelante aclararemos qué entendemos por
 «similar».} Si esto se cumple, podemos recuperar o predecir a partir de
 \(\vZ\) lo que ocurre en el espacio de datos original. En este caso, decimos que
-el par \((\cE, \cD)\) proporciona una autocodificación \textit{consistente}.
+el par \((\cE, \cD)\) proporciona una auto-codificación \textit{consistente}.
 A efectos prácticos, no solo necesitamos que exista tal decodificación,
 sino que también sea posible llevarla a cabo de manera eficiente y
 implementarla físicamente. Por ejemplo, si \(\vx\) es una variable de valor real, se requiere la cuantificación
@@ -2358,14 +2358,14 @@ la similitud entre \(\vX\) y \(\hat{\vX}\)\footnote{Ya sea
 \(\ell\).} y \(\rho(\vZ)\) es una medida que favorece la parsimonia y
 la riqueza de información de \(\vZ\). El análisis de componentes principales
 clásico (PCA) \cite{JolliffeI2002} es un ejemplo típico de
-autocodificación consistente, que estudiaremos en detalle en el
+auto-codificación consistente, que estudiaremos en detalle en el
 \Cref{ch:classic-models}, como precursor de estructuras de baja dimensión
 más generales. En \Cref{ch:consistent-representations}, estudiaremos cómo aprender
-una autocodificación consistente para distribuciones generales (por ejemplo, no 
+una auto-codificación consistente para distribuciones generales (por ejemplo, no 
 lineales) de baja dimensión.
 
-\subsection{Aprendizaje de representaciones autoconsistentes}
-En el objetivo de autocodificación anterior, hay que evaluar cuán cerca están los
+\subsection{Aprendizaje de representaciones auto-consistentes}
+En el objetivo de auto-codificación anterior, hay que evaluar cuán cerca están los
 datos decodificados \(\hat{\vX}\) de los originales \(\vX\). Esto suele
 requerir una supervisión o un conocimiento externos de una medida de
 similitud adecuada. El cálculo de la similitud entre \(\hat{\vX}\) y
@@ -2387,7 +2387,7 @@ comparación? ¿Cómo puede saber que \(\hat{\vX}\) es consistente con
 \Cref{ch:consistent-representations}), garantizar la consistencia entre \(\vX\) y
 \(\hat{\vX}\) se reduce a codificar \(\hat{\vX}\) como \(\hat{\vZ}\) y
 verificar la consistencia entre \(\vZ\) y \(\hat{\vZ}\). A este
-concepto lo llamamos \textit{autoconsistencia}, como se ilustra a continuación:
+concepto lo llamamos \textit{auto-consistencia}, como se ilustra a continuación:
 \begin{equation}
     \vX   \xrightarrow{\hspace{2mm} \cE\hspace{2mm}} \vZ
     \xrightarrow{\hspace{2mm} \cD \hspace{2mm}} \hat{\vX}
@@ -2408,7 +2408,7 @@ el ARN u otras proteínas.}, tal y como se muestra en la \Cref{fig:closed-loop}.
 \end{figure}
 
 Podría decirse que es cierto que cualquier ser inteligente autónomo solo necesita
-aprender una representación autoconsistente \(\vZ\) de los datos observados
+aprender una representación auto-consistente \(\vZ\) de los datos observados
 \(\vX\), ya que verificar la consistencia en el espacio de datos original
 ---lo que a menudo significa en el mundo externo---resulta demasiado costoso
 o incluso físicamente inviable. La formulación en bucle cerrado permite
@@ -2427,7 +2427,7 @@ puede resultar mucho más fácil de calcular. Una vez más, \(\rho(\vZ)\) es alg
 medida que favorece la parsimonia y la riqueza de información de \(\vZ\).
 De manera algo sorprendente, como veremos en el \Cref{ch:consistent-representations}, bajo
 condiciones bastante moderadas, como que \(\vX\) sea suficientemente
-baja en dimensión, ¡la autoconsistencia entre \((\vZ, \hat{\vZ})\)
+baja en dimensión, ¡la auto-consistencia entre \((\vZ, \hat{\vZ})\)
 implica consistencia en \((\vX, \hat{\vX})\)! Además,también veremos 
 que un sistema en bucle cerrado nos permitirá aprender la
 distribución de manera \textit{continua e incremental}
@@ -2442,7 +2442,7 @@ representación compacta y estructurada \(\vZ\) de una distribución de datos
 dada \(\vX\):
 \begin{itemize}
     \item la codificación en circuito abierto \eqref{eqn:open-loop};
-    \item la autocodificación bidireccional \eqref{eqn:auto-encoding};
+    \item la auto-codificación bidireccional \eqref{eqn:auto-encoding};
     \item la transcripción en bucle cerrado \eqref{eqn:closed-loop}.
 \end{itemize}
 En este libro, estudiaremos de forma sistemática los tres marcos, uno
@@ -2464,7 +2464,7 @@ computable} de la distribución de los datos $\X$:
 \end{equation}
 en los que se incluyen dos conjuntos de mapeos:
 \begin{enumerate}
-    \item una autocodificación entre los datos $\X$ y la representación $\Z$ de sus 
+    \item una auto-codificación entre los datos $\X$ y la representación $\Z$ de sus 
         características informativas,
     \item un proceso de difusión de reducción de ruido entre la representación
         aprendida $\Z$ y una distribución simple 

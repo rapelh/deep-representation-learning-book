@@ -20,7 +20,7 @@ aprender de manera eficaz y eficiente una representación de una variable
 $\x$ en el mundo con una distribución $p(\x)$ que tiene un
 soporte de baja dimensión en un espacio de alta dimensión. Hasta ahora, hemos
 desarrollado principalmente la metodología para el aprendizaje de representaciones y
-la autocodificación de una manera general, independiente de la distribución o la tarea.
+la auto-codificación de una manera general, independiente de la distribución o la tarea.
 Con una representación aprendida de este tipo, ya es posible utilizarla para realizar
 algunas tareas genéricas y básicas, como la clasificación (si la codificación
 se supervisa con la clase) y la generación de muestras aleatorias que
@@ -44,7 +44,7 @@ muchas tareas populares en la práctica moderna de la inteligencia artificial.
 
 \subsection{Inferencia bayesiana con distribuciones de baja dimensión}
 \paragraph{Aprovechar la baja dimensionalidad para obtener una inferencia estable y robusta.}
-En términos generales, una buena representación o autocodificación debería
+En términos generales, una buena representación o auto-codificación debería
 permitirnos hacer uso la distribución de baja dimensión aprendida de los
 datos $\x$ y su representación $\z$ para diversas tareas posteriores
 de clasificación, estimación y generación en diferentes
@@ -98,7 +98,7 @@ la relación general entre $\x$ y $\y$.
     \ref{fig:image-text-completion} muestra algunos ejemplos de este tipo de
     tareas. De hecho, son precisamente estas tareas las que han inspirado
     los métodos de entrenamiento de los modelos modernos de gran tamaño para la generación de texto (como
-    GPT) y la completación de imágenes (como el autocodificador enmascarado), que
+    GPT) y la completación de imágenes (como el autoencoder enmascarado), que
     estudiaremos con mayor detalle más adelante.
     \begin{figure}
         \centering
@@ -380,7 +380,7 @@ en cuenta la \Cref{fig:inference_roadmap}.
 
 \section{Inferencia condicional con una distribución de datos conocida}
 Obsérvese que, en el contexto que hemos analizado en capítulos anteriores, la
-red de autocodificación se entrena para reconstruir un conjunto de muestras del
+red de auto-codificación se entrena para reconstruir un conjunto de muestras del
 vector aleatorio $\x$. Esto nos permitiría regenerar muestras
 a partir de la distribución aprendida (de baja dimensión). En la práctica, la
 baja dimensión de la distribución, una vez dada o aprendida, puede
@@ -559,7 +559,7 @@ tareas de inferencia basadas en una observación $\y = h(\x) + \vw$. En esta
 sección, suponemos que el modelo de observación $h(\cdot)$ está dado y
 es conocido. En la siguiente sección estudiaremos el caso en el que $h(\cdot)$ no se da explícitamente.
 
-\subsection{Completación de imágenes mediante autocodificación enmascarada}
+\subsection{Completación de imágenes mediante auto-codificación enmascarada}
 En el caso de una imagen general $\vX$ como la que se muestra a la izquierda de la Figura
 \ref{fig:crate_mae_pipeline}, ya no podemos considerarla como una matriz de bajo rango.
 Sin embargo, los seres humanos siguen demostrando una notable capacidad para
@@ -577,7 +577,7 @@ la reconstrucción de imágenes.
         \includegraphics[width=0.99\textwidth]{\toplevelprefix/chapters/chapter7/figs/crate_mae_pipeline.png}
     \end{center}
     \caption{\small \textbf{Diagrama del proceso general  (enmascarado)
-        de autocodificación.} Las representaciones de los tokens (de imagen) se
+        de auto-codificación.} Las representaciones de los tokens (de imagen) se
         transforman de forma iterativa hacia una representación parsimoniosa (p. ej., comprimida
         y dispersa) mediante cada capa del codificador \(f^{\ell}\).
         Además, dichas representaciones se transforman de nuevo a la
@@ -589,7 +589,7 @@ la reconstrucción de imágenes.
 
 Un enfoque empírico para la tarea de completar imágenes consiste en encontrar un
 esquema de codificación y decodificación mediante la
-resolución del siguiente programa de {\em autocodificación enmascarada} (MAE) que
+resolución del siguiente programa de {\em auto-codificación enmascarada} (MAE) que
 minimice la pérdida de reconstrucción:
 \begin{equation}\label{eq:mae_loss}
     \min_{f, g} L_{\mathrm{MAE}}(f, g) \doteq \mathbb{E}\big[\norm{(g \circ
@@ -648,13 +648,13 @@ el método de descenso de gradiente.
 \end{figure}
 
 La Figura \ref{fig:mae_autoencoding-small} muestra algunos resultados representativos
-del autocodificador enmascarado así diseñado. Para obtener más detalles sobre la implementación 
-y los resultados del autocodificador enmascarado para la completación de imágenes naturales
+del autoencoder enmascarado así diseñado. Para obtener más detalles sobre la implementación 
+y los resultados del autoencoder enmascarado para la completación de imágenes naturales
 se recomienda consultar el Capítulo \ref{ch:applications} \Cref{sec:image_completion}.
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.99\textwidth]{\toplevelprefix/chapters/chapter7/figs/crate_mae_autoencoding_small.pdf}
-    \caption{\small \textbf{Visualizaciones de autocodificación de CRATE-Base
+    \caption{\small \textbf{Visualizaciones de auto-codificación de CRATE-Base
         y ViT-MAE-Base \cite{he2022masked} con el 75\% de los fragmentos enmascarados.}
         Observamos que las reconstrucciones de CRATE-Base están a la par
         con las de ViT-MAE-Base, a pesar de utilizar \(<1/3\) 
@@ -665,7 +665,7 @@ se recomienda consultar el Capítulo \ref{ch:applications} \Cref{sec:image_compl
 
 \subsection{Muestreo condicional con ajuste de medidas}
 \label{sec:conditioned-decoding}
-El problema de autocodificación (enmascarada) mencionado anteriormente 
+El problema de auto-codificación (enmascarada) mencionado anteriormente 
 tiene como objetivo generar una imagen de muestra
 que sea coherente con ciertas observaciones o condiciones. Pero
 analicemos este enfoque más detenidamente: dada la
@@ -772,7 +772,7 @@ relacionadas, su distribución conjunta $p(\x, \y)$ es, naturalmente, casi
 degenerada si el ruido $\vw$ es pequeño. En gran medida, podemos
 considerar $p(\x, \y)$ como una versión ruidosa de una hipersuperficie definida por la
 función $\y = h(\x)$ en el espacio conjunto $(\x, \y)$. En la práctica,
-consideraremos un escenario más parecido a la autocodificación enmascarada
+consideraremos un escenario más parecido a la auto-codificación enmascarada
 que a la completación de matrices puro, en el que siempre tenemos acceso a una
 muestra limpia correspondiente $\vx$ para cada observación $\vy$ que
 recibimos.\footnote{En algunas aplicaciones más especializadas, en
@@ -1348,7 +1348,7 @@ implementamos y simulamos un sencillo experimento numérico en el contexto gauss
 que se muestra en la \Cref{fig:conditional_sampling_computational_gaussian}.
 El muestreador que implementamos es una implementación directa del esquema simple
 \eqref{eq:denoising-iteration-basic} que hemos desarrollado en el \Cref{ch:denoising}
-y que hemos recordado anteriormente, utilizando el verdadero denoiser posterior condicional, es decir,
+y que hemos recordado anteriormente, utilizando el verdadero filtro de ruido posterior condicional, es decir,
 la \Cref{eq:conditional-posterior-denoiser-gaussian-case} (las muestras están marcadas con
 círculos azules) y la
 aproximación conveniente a este denoiser realizada mediante la aproximación de
@@ -1640,14 +1640,14 @@ desarrollado numerosos
 algoritmos de consistencia de mediciones de este tipo para la reconstrucción de imágenes médicas,
 incluidos los enfoques mejorados de \textcite{song2024solving} y
 \textcite{rout2023solving} (que utilizan modelos de difusión latente, tal como los hemos
-    desarrollado para los autocodificadores de representación en el
+    desarrollado para los autoencoders de representación en el
 \Cref{ch:consistent-representations}).
 La \Cref{fig:mri-reconstruction-visual} muestra comparaciones visuales de imágenes de
 resonancia magnética reconstruidas en tres muestras diferentes, comparando FISTA-TV (una versión clásica
     y acelerada del algoritmo ISTA que estudiamos en
 \Cref{ch:classic-models}),
 el enfoque de modelado de difusión basado en la consistencia de las mediciones de
-\textcite{song2022solving} y la verdad de referencia. Se puede observar que el método basado en la difusión
+\textcite{song2022solving} y la verdad de referencia (ground truth). Se puede observar que el método basado en la difusión
 permite obtener una calidad de reconstrucción superior, así como
 una mayor fidelidad a los detalles finos de la imagen de referencia.
 La \Cref{tab:mri-reconstruction} muestra los resultados de precisión de la reconstrucción de resonancia magnética
@@ -2928,7 +2928,7 @@ no tiene ninguna restricción, existen soluciones triviales simples para
 \eqref{eq:infomax-x} que no corresponden a representaciones útiles: por
 ejemplo, ¡basta con tomar $f(\vx) = \vx$ como la identidad!
 Analizamos técnicas basadas en principios para estructurar el espacio de representaciones en el
-\Cref{ch:consistent-representations} cuando tratamos el tema de la autocodificación y la transcripción en
+\Cref{ch:consistent-representations} cuando tratamos el tema de la auto-codificación y la transcripción en
 bucle cerrado; muchas de estas técnicas pueden aplicarse a nuestro
 actual contexto de incrustación conjunta y lo detallaremos más adelante en esta
 sección, cuando pasemos a la implementación práctica.
@@ -2952,7 +2952,7 @@ a través de nuestro trabajo en el
 \Cref{example:denoising-gaussian-mixture-cfg-parameterization}. Allí vimos
 que, en el caso de un modelo de mezcla de gaussianas para $\vx$, con la
 señal de condicionamiento $y$ identificando qué componente específico de la mezcla genera
-la observación, se podría construir una arquitectura de denoiser flexible mediante
+la observación, se podría construir una arquitectura flexible de filtro de ruido mediante
 una incrustación adecuada de la etiqueta de clase $y$ en el \textit{mismo espacio} que los
 datos $\vx$.
 Más concretamente, una incrustación de este tipo $\vu_y \in \R^D$ permite, cuando se correlaciona
@@ -3023,7 +3023,7 @@ del texto:\footnote{Este resultado se cumple bajo el supuesto de que los
 Por lo tanto, CLIP ofrece una fórmula práctica para aprender representaciones conjuntas de datos emparejados
 que aumenta la información mutua entre las muestras emparejadas.
 Empíricamente, se ha demostrado que CLIP es eficaz para aprender incrustaciones conjuntas
-para pares de imagen-texto, y se ha utilizado en una variedad de aplicaciones, incluyendo
+para pares de imagen-texto y se ha utilizado en una variedad de aplicaciones, incluyendo
 la subtitulación de imágenes, la recuperación de imagen-texto, la generación de imágenes y más. Veremos
 ejemplos más específicos en \Cref{ch:applications} (con detalles clave de implementación
 descritos en detalle en la \Cref{sec:CLIP}).
@@ -3102,7 +3102,7 @@ prompt de texto tokenizado $\vY \in
 \bR^{D_{\mathrm{text}} \times N}$, en lugar de una etiqueta de clase; (ii)
 La eliminación del ruido de la imagen se
 realiza en el espacio «latente» en lugar de sobre los píxeles sin procesar, utilizando un par 
-de autoencodificadores variacionales especializados y preentrenados $f : \bR^{D_{\mathrm{img}}} \to
+de autoencoders variacionales especializados y preentrenados $f : \bR^{D_{\mathrm{img}}} \to
 \bR^{d_{\mathrm{img}}}$, $g : \bR^{d_{\mathrm{img}}} \to
 \bR^{D_{\mathrm{img}}}$ (véase \Cref{sec:vae,sec:auto-encode-img-gen}), donde $f$
 es el codificador y $g$ es el decodificador.
@@ -3174,11 +3174,11 @@ d_{\mathrm{attn}} }$ para $* \in \set{\mathrm{qry}, \mathrm{key}, \mathrm{val}}$
 (así como la proyección de salida $\vU_{\mathrm{out}}$) son los parámetros
 aprendibles de la capa.
 
-Obsérvese que, según la definición de la operación de autoatención, la operación de atención cruzada
+Obsérvese que, según la definición de la operación de auto-atención, la operación de atención cruzada
 \textit{genera combinaciones lineales de las incrustaciones de texto proyectadas en valores,
 ponderadas por las correlaciones entre las características de la imagen y las incrustaciones de texto.}
 En la arquitectura del filtro de ruido utilizada por \textcite{rombach2022high},
-los bloques residuales de autoatención de la arquitectura del filtro de ruido, aplicados a la
+los bloques residuales de auto-atención de la arquitectura del filtro de ruido, aplicados a la
 representación de la imagen en la capa actual y definidos de manera análoga
 a los de \Cref{eq:vit-res-block}, que se aplican al Transformer de visión, van
 seguidos de bloques residuales de atención cruzada
@@ -3186,9 +3186,9 @@ de la forma \eqref{eq:mhca}.
 Una estructura de este tipo requiere que el codificador de texto $\tau$ comparta, en cierto
 sentido, parte de la
 estructura de su salida con la incrustación de características de la imagen $\psi$: esto se puede
-lograr mediante una incrustación conjunta,
+lograr mediante una incrustción conjunta,
 aprendida mediante un procedimiento como CLIP, tal y como se ha descrito anteriormente.
-Desde el punto de vista conceptual, este espacio de incrustación conjunta de texto e imagen y la propia capa de atención cruzada
+Desde el punto de vista conceptual, este espacio de incrustación conjunto de texto e imagen y la propia capa de atención cruzada
 presentan un gran parecido con el
 filtro de ruido de mezcla condicional de gaussianas que derivamos en la sección anterior
 (véase \eqref{eq:mog-conditional-denoising-unified-operator}), en el
@@ -3209,7 +3209,7 @@ generación condicionada de poses y en Michelangelo
 (\Cref{sec:Michelangelo}) para la generación condicional de formas 3D basada
 en imágenes o textos.
 
-\section{Inferencia condicional con autoconsistencia de la medición}
+\section{Inferencia condicional con auto-consistencia de la medición}
 \label{sec:measurement-self-consistency}
 En esta última sección, analizamos el caso más extremo, aunque en realidad
 muy común, del aprendizaje de distribuciones, en el que solo contamos con un

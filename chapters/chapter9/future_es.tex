@@ -1,0 +1,512 @@
+\providecommand{\toplevelprefix}{../..}  %
+\documentclass[../../book-main_es.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Probemas pendientes y líneas de investigación en inteligencia}
+\label{ch:future}
+
+\begin{quote}
+    ``\textit{El estudio se llevará a cabo partiendo de la hipótesis
+        de que cada aspecto del aprendizaje o cualquier otra característica de
+        la inteligencia puede describirse, en principio, con tal precisión que
+        se pueda construir una máquina capaz de simularlo. Se intentará
+        descubrir cómo hacer que las máquinas utilicen el lenguaje, formen abstracciones y
+        conceptos, resuelvan tipos de problemas que actualmente están reservados a los seres humanos y
+    se perfeccionen a sí mismas.}''
+
+    $~$\hfill -- Proposición para el programa de IA de Dartmouth, 1956
+\end{quote}
+\vspace{5mm}
+
+Este manuscrito presenta de manera sistemática los principios matemáticos y
+los mecanismos computacionales que explican cómo se puede desarrollar la memoria o el 
+conocimiento empírico a partir de datos observados de alta dimensión. La capacidad de 
+buscar la parsimonia en un mundo aparentemente aleatorio es una característica fundamental 
+de cualquier inteligencia, ya sea natural o artificial. Creemos que los principios y
+mecanismos presentados en este libro son unificadores y universales, aplicables tanto 
+a los animales como a las máquinas.
+
+Esperamos que este libro ayude a los lectores a desentrañar por completo el misterio que rodea
+las prácticas modernas de las redes neuronales profundas artificiales, mediante el desarrollo de una
+comprensión rigurosa de sus funciones y su papel en el aprendizaje de (representaciones de)
+distribuciones de baja dimensión a partir de datos de alta dimensión. Con esta
+comprensión, quedan claras las capacidades y limitaciones de los modelos
+y sistemas de IA existentes:
+\begin{enumerate}
+    \item Los modelos y sistemas de bucle abierto existentes no llegan a ser sistemas de memoria completos capaces de aprender y mejorar por sí mismos.
+    \item Las implementaciones actuales del aprendizaje de representaciones siguen siendo rudimentarias y de fuerza bruta, lejos de ser óptimas en cuanto a arquitecturas de red o estrategias de optimización.
+    \item Los modelos de IA actuales solo aprenden distribuciones de datos y
+    realizan inferencias bayesianas inductivas, lo cual difiere de
+    la inteligencia humana de alto nivel.
+\end{enumerate}
+
+Uno de los objetivos de este libro es ayudar a los lectores a adquirir una comprensión objetiva y
+sistemática de las tecnologías actuales de inteligencia artificial
+y a identificar los problemas y desafíos pendientes para seguir
+avanzando en este campo. En el último capítulo, ofrecemos
+algunas de nuestras opiniones y previsiones para el futuro.
+
+\section{¿Hacia la inteligencia autónoma: cerrar el círculo?}
+A partir de la práctica de la inteligencia artificial en la última década, ha
+quedado claro que, si se cuenta con suficientes datos y recursos computacionales,
+es posible construir un modelo lo suficientemente grande y preentrenarlo para que aprenda la
+distribución \textit{a priori} de todos los datos, es decir, \(p(\vx)\).
+En teoría, un modelo tan grande puede memorizar casi todo el
+conocimiento existente sobre el mundo que está codificado en datos como imágenes 2D,
+formas 3D, movimientos dinámicos y lenguajes naturales. Como comentamos al
+principio del libro, un modelo tan amplio desempeña un papel similar al del ADN, que
+la vida utiliza para registrar y transmitir el conocimiento sobre el mundo. 
+
+El modelo y la distribución aprendidos de esta manera pueden utilizarse para
+crear nuevas muestras de datos extraídas de la misma distribución. También se puede
+utilizar el modelo para realizar inferencias (por ejemplo, completamiento,
+estimación y predicción) con el conocimiento memorizado bajo
+diversas condiciones, por ejemplo, mediante el muestreo de la distribución \textit{posterior}
+\(p(\vx\mid \vy)\) bajo una nueva observación \(\vy\).
+En sentido estricto, dicha inferencia es inductiva o estadística.
+
+Ningún modelo preentrenado, por muy grande que sea, puede garantizar que la
+distribución que ha aprendido hasta ahora sea totalmente correcta o completa.
+Si nuestras muestras \(\hat{\vx}_{t}\) del \textit{a priori}
+\(p_{t}(\vx)\) o las estimaciones \(\hat{\vx}_{t}(\vy)\) basadas en la
+\textit{posterior} \(p_{t}(\vx\mid \vy)\) son inconsistentes con la
+verdad \(\vx\), nos gustaría corregir las distribuciones aprendidas:
+\begin{equation}
+    p_{t}(\vx) \rightarrow p_{t+1}(\vx) \quad \text{or}\quad
+    p_{t}(\vx\mid \vy) \rightarrow p_{t+1}(\vx\mid \vy),
+\end{equation}
+basado en el error \(\ve_{t} = \vx_{t} - \hat{\vx}_{t}\). Esto se
+conoce como corrección de errores basada en la retroalimentación del error, un mecanismo
+omnipresente en la naturaleza para el aprendizaje continuo. Sin embargo, cualquier modelo abierto
+carece en sí mismo del mecanismo para revisar o mejorar la distribución aprendida
+cuando esta es incorrecta o incompleta. La mejora de los modelos actuales de IA
+sigue dependiendo en gran medida de la participación humana: supervisión o
+refuerzo a través de la experimentación, la evaluación y la selección. Podríamos
+denominar a este proceso «selección artificial» de modelos grandes, en
+contraposición a la selección natural que rige la evolución de la vida.
+
+Como hemos visto anteriormente en este libro (en
+particular en el \Cref{ch:consistent-representations}), los sistemas de bucle cerrado
+alinean una representación interna
+con las observaciones del mundo externo. Pueden mejorar continuamente
+la distribución aprendida internamente y su representación para
+alcanzar la consistencia o la autoconsistencia. Un siguiente paso inmediato es
+desarrollar sistemas de memoria de bucle cerrado, tal como se ilustra en
+\Cref{fig:open-to-closed}, que aprendan de forma autónoma y continua
+las distribuciones generales de los datos y mejoren a partir de la retroalimentación de errores.
+
+Por lo tanto, la transición de los modelos de bucle abierto entrenados de extremo a extremo,
+tan populares en la actualidad, a los sistemas de bucle cerrado con aprendizaje continuo
+\begin{equation}
+    \text{\textbf{open-ended} models} \; \Longrightarrow \;
+    \text{\textbf{closed-loop} systems}
+\end{equation}
+es la clave para que las máquinas puedan emular de verdad cómo el cerebro animal aprende
+y aplica el conocimiento en un mundo abierto. Creemos que
+\begin{quote}
+    \begin{center}
+        \textit{open-ended models are for a closed world, however
+        large; \\ closed-loop systems are for an open world, however small.}
+    \end{center}
+\end{quote}
+Por lo tanto, la denominada «inteligencia artificial general» (AGI) nunca podrá
+alcanzarse simplemente con un sistema capaz de memorizar todos los datos y conocimientos
+existentes sobre el mundo. Ningún conocimiento, por mucho que sea, es verdaderamente generalizable.\footnote{Según Sir Karl Popper,
+un influyente filósofo de la ciencia, ¡todas las teorías y conocimientos científicos son falsables!} Sin embargo,
+es la capacidad de mejorar la memoria o el conocimiento existente y adaptarse a cualquier entorno nuevo lo que es
+verdaderamente generalizable. Por lo tanto, la inteligencia verdaderamente genuina es en sí misma generalizable si se alcanza
+de manera completa y correcta.\footnote{En nuestra opinión, la IGA debería representar la «inteligencia artificial genuina».}
+Esta es precisamente la esencia del programa de cibernética esbozado por Norbert Wiener en la
+década de 1940, del que hablamos al principio de este libro.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{\toplevelprefix/chapters/chapter9/figs/open-to-closed.png}
+    \caption{De una red profunda abierta a un sistema de circuito cerrado.}
+    \label{fig:open-to-closed}
+\end{figure}
+
+\section{Hacia la inteligencia natural: ¿Más allá de la retropropagación?}
+La práctica de la inteligencia artificial en los últimos años ha llevado a muchos a
+creer que es necesario construir un único modelo de gran tamaño para aprender la
+distribución de todos los datos y memorizar todo el conocimiento. Aunque esto
+es tecnológicamente posible, es probable que tal solución esté lejos de ser
+necesaria o eficiente. Como sabemos por el entrenamiento de redes profundas, el
+único método escalable conocido para entrenar este tipo de redes a gran escala es a través de
+la retropropagación (BP) \citep{Back-Prop}. Aunque la retropropagación (BP) ofrece una forma de
+corregir errores mediante señales de gradiente que se propagan hacia atrás a través de todo el
+modelo, se trata, no obstante, de un método bastante burdo y difiere
+significativamente de la forma en que aprende la naturaleza: la BP es una opción que la naturaleza
+no puede permitirse debido a su elevado costo y que, sencillamente, no puede implementar debido a
+limitaciones físicas.
+
+En términos más generales, no podemos comprender verdaderamente la inteligencia a menos que
+también comprendamos cómo se puede implementar de manera eficiente. Es decir,
+es necesario abordar la complejidad computacional que implica la implementación de los mecanismos
+asociados al logro de los objetivos de la inteligencia. 
+Históricamente, nuestra comprensión de la inteligencia (artificial) ha evolucionado
+a través de varias fases, desde la complejidad de Kolmogorov —incomputable—
+hasta la entropía de Shannon, desde la computabilidad de Turing hasta la posterior
+comprensión de la tractabilidad,\footnote{Decimos que un problema es tractable
+    si permite un algoritmo cuya complejidad es polinómica en el tamaño
+del problema.} y hasta el fuerte énfasis en la escalabilidad de los algoritmos
+en la práctica moderna del análisis de datos de alta dimensión
+\citep{Wright-Ma-2022} y la inteligencia artificial. Esta evolución se puede
+resumir de la siguiente manera:
+\begin{equation}
+    \text{\textbf{incomputable}} \;
+    \Longrightarrow \; \text{\textbf{computable}} \;
+    \Longrightarrow \; \text{\textbf{tractable}} \; \Longrightarrow \;
+    \text{\textbf{scalable}}.
+\end{equation}
+En gran medida, el éxito y la popularidad del aprendizaje profundo y
+la retropropagación se deben precisamente a que han ofrecido una implementación
+escalable con plataformas informáticas modernas (como las GPU) para
+procesar y comprimir grandes volúmenes de datos. Sin embargo, dicha
+implementación sigue siendo mucho más costosa que la forma en que la naturaleza
+llega a la inteligencia.
+
+Aún queda un margen considerable para mejorar la eficiencia de la inteligencia artificial,
+de modo que pueda emular la eficiencia de la inteligencia natural,
+la cual debería ser varios órdenes de magnitud superior a
+las actuales implementaciones basadas en la fuerza bruta. Para ello, necesitamos descubrir
+nuevas arquitecturas de aprendizaje y mecanismos de optimización que permitan
+aprender distribuciones de datos en condiciones físicas naturales y
+bajo restricciones de recursos, similares a las que enfrentan los seres inteligentes en
+la naturaleza; por ejemplo, sin acceder a todos los datos de una sola vez ni actualizar
+todos los parámetros del modelo simultáneamente (mediante BP).
+
+El marco teórico y el enfoque que se exponen en este libro pueden servirnos de guía
+para descubrir esas nuevas arquitecturas y mecanismos. Estas nuevas
+arquitecturas y mecanismos deberían permitir el aprendizaje continuo en línea
+y deberían poder actualizarse mediante optimización hacia adelante
+o hacia atrás altamente localizada y dispersa.\footnote{Para aprender una distribución, una
+    aplicación sencilla de estos requisitos se da en el caso más simple del
+    PCA, con el método de PCA en línea presentado en el
+    \Cref{ch:consistent-representations}. Una vez aprendido el modelo lineal de la
+    distribución, la tarea más sencilla de realizar predicciones en línea
+    con observaciones ruidosas puede llevarse a cabo fácilmente mediante métodos de mínimos cuadrados
+    , como el filtro de Wiener \cite{Wiener-1942,Wiener-1949}. En el caso de los sistemas dinámicos lineales, esto se convierte en el famoso
+filtro de Kalman; véase \cite[Apéndice B]{MaY2003} o \citep{peng2025mathematics}.}
+  
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.99\linewidth]{\toplevelprefix/chapters/chapter9/figs/loops.png}
+    \caption{Estructura hipotética de la corteza cerebral. La corteza
+        es un sistema de autoencodificación masivamente paralelo y distribuido
+        que consiste en una jerarquía de autoencodificadores de bucle cerrado. Estos
+        extraen información de sus entradas y maximizan la
+        ganancia de información de las representaciones que generan. Dichos procesos se llevan a cabo en múltiples
+    niveles de la jerarquía con distintos grados de abstracción de la información.}
+    \label{fig:loops}
+\end{figure}
+Tal y como nos ha enseñado la neurociencia, la corteza de nuestro cerebro
+está formada por decenas de miles de columnas corticales
+\citep{Hawkins-2021}. Todas las columnas corticales tienen estructuras
+físicas y funciones similares. Son altamente paralelas y están distribuidas,
+aunque están interconectadas de forma dispersa. Por lo tanto, creemos que para desarrollar un
+sistema de memoria más escalable y estructurado, debemos considerar
+arquitecturas que emulen las de la corteza. La \Cref{fig:loops}
+muestra una arquitectura hipotética de este tipo: un sistema masivamente distribuido y
+jerárquico compuesto por numerosos módulos de autoencodificación de bucle cerrado
+que funcionan en gran medida en paralelo.\footnote{En la bibliografía existen elementos de este tipo de
+    arquitecturas hipotéticas en diversas formas, como
+    las redes de codificación predictiva \citep{millidge2022predictive}, que cuentan
+con una estrategia de optimización que utiliza actualizaciones locales eficientes.}
+Estos módulos aprenden a codificar diferentes modalidades sensoriales o múltiples
+proyecciones de datos de cada modalidad sensorial. Nuestro análisis en
+\Cref{sec:measurement-self-consistency} de
+\Cref{ch:conditional-inference} sugiere que dicha detección
+y aprendizaje paralelos de una distribución de baja dimensión son teóricamente
+posibles. Higher-level (lossy) autoencoders can then be learned based
+on outputs of lower-level ones to develop more sparse and
+higher-level ``abstractions'' of the representations learned by the
+lower levels.
+
+La arquitectura de sistema distribuida, jerárquica y de bucle cerrado
+que se ilustra en la \Cref{fig:loops} comparte muchas características con la
+corteza cerebral. Dicha arquitectura de sistema puede abrir muchas más
+posibilidades que la actual arquitectura de un único modelo grande. Permite
+explorar mecanismos de aprendizaje y optimización mucho más eficientes
+y da como resultado una organización modular más estructurada de
+la distribución de los datos aprendidos y el conocimiento, emulando más fielmente la memoria
+de nuestro cerebro. Esto nos permitiría llevar la implementación de la inteligencia artificial
+al siguiente nivel de evolución:
+\begin{equation}
+    \text{\textbf{incomputable}}
+    \Longrightarrow \text{\textbf{computable}}
+    \Longrightarrow \text{\textbf{tractable}} \Longrightarrow
+    \text{\textbf{scalable}}
+    \Longrightarrow
+    \text{\textbf{natural}}.
+\end{equation}
+
+\section{¿Hacia la inteligencia científica: más allá del test de Turing?}
+
+\subsection{La evolución de la inteligencia en la naturaleza}
+Como hemos comentado al principio de este libro, en el \Cref{ch:intro},
+la inteligencia en la naturaleza ha evolucionado a lo largo de múltiples fases y
+se ha manifestado en cuatro formas distintas:
+\begin{equation}
+    \text{\textbf{phylogenetic}} \;
+    \Longrightarrow \; \text{\textbf{ontogenetic}} \;
+    \Longrightarrow \; \text{\textbf{societal}} \;
+    \Longrightarrow \; \text{\textbf{scientific intelligence}}.
+\end{equation}
+Todas las formas de inteligencia comparten el objetivo (y la
+característica) común de adquirir conocimientos útiles en forma de distribuciones de baja dimensión
+a partir de datos de alta dimensión sobre el mundo que se perciben.
+No obstante, difieren en los esquemas de codificación específicos que adoptan, la
+información codificada, los mecanismos computacionales para el aprendizaje y
+la mejora, y las implementaciones físicas de dichos mecanismos. Según
+los conceptos y la terminología desarrollados en este libro, las cuatro etapas
+de la inteligencia se diferencian en los tres aspectos siguientes:
+\begin{enumerate}
+    \item El \textit{libro de códigos} o esquema utilizado para codificar la
+        información o el conocimiento que se desea transmitir.
+    \item La \textit{información} o los conocimientos adquiridos y codificados
+        mediante el libro de códigos.
+    \item Los \textit{mecanismos de optimización} utilizados para crear y
+        corregir la información o el conocimiento codificados.
+\end{enumerate}
+La \Cref{tab:four-stage-intelligence} resume sus principales características.
+\begin{table}[h]
+    \centering
+    \resizebox{1\columnwidth}{!}
+    {
+        \begin{tabular}{| c | c | c | c | c |}
+            \hline & \textbf{Filogenéico} & \textbf{Ontogenético} &
+            \textbf{Social} & \textbf{Científico}\\
+            \hline
+
+            \textbf{Libro de código}  & DNAs & Neuronas/Mente & Lenguajes Naturales
+            & Abstracciones matemáticas \\ [0.5ex]
+            \hline
+
+            \textbf{Información} & Genes & Memoris & Conocimiento
+            empírico & Factos científicos\\ [0.5ex]
+            \hline
+            \textbf{Optimización} & Refuerzo & Retroalimentación de error &
+            Prueba \& error & Teorizar \& Falsar \\  [0.5ex]
+            \hline
+        \end{tabular}
+    }
+    \caption{Características principales de las cuatro etapas de la inteligencia en la naturaleza.}
+    \label{tab:four-stage-intelligence}
+\end{table}
+
+Como ya sabemos, los seres humanos han logrado dos avances decisivos en materia de inteligencia.
+\begin{enumerate}
+    \item El primero fue el desarrollo del lenguaje oral y escrito,
+        lo que permitió a los seres humanos compartir y transmitir el conocimiento adquirido
+        de una generación a otra, de manera muy similar a como lo hace el ADN en la naturaleza.
+    \item El segundo fue el desarrollo de las matemáticas y la lógica formal
+        hace aproximadamente tres mil años, que se convirtieron en el
+        lenguaje preciso de la ciencia moderna.
+\end{enumerate}
+El lenguaje de las matemáticas nos liberó de resumir el conocimiento a partir de
+las observaciones únicamente de forma empírica y nos permitió formalizar
+el conocimiento en forma de teorías verificables o falsificables mediante la deducción
+matemática o la experimentación. A través de la formulación de hipótesis, la deducción
+lógica y la verificación o falsificación experimental, ahora podemos
+descubrir y desarrollar de manera proactiva nuevos conocimientos que van mucho más allá
+de lo que se puede aprender a partir de las distribuciones de los datos
+observados.\footnote{Por ejemplo, las relaciones causales no pueden deducirse
+únicamente a partir de las distribuciones \citep{Pearl-2009}.}
+
+A pesar de las aparentes diferencias entre estas distintas etapas de
+la inteligencia, la evolución de la inteligencia comparte una característica
+común:\textit{Todos ellos utilizan ciertas formas de
+    retroalimentación\footnote{Pérdida por error y recompensa por éxito.} para crear
+    y corregir la información aprendida, y la retroalimentación y la corrección son
+    cada vez más frecuentes y eficientes a lo largo de la evolución: desde el refuerzo de bucle abierto hasta la autosupervisión de bucle cerrado, desde
+el ensayo y error colectivo hasta la formulación proactiva de hipótesis y su refutación.}
+
+\subsection{De la inteligencia inductiva a la deductiva}
+Como se mencionó en la introducción (\Cref{ch:intro}), el programa de
+«inteligencia artificial» (IA) de 1956 tenía precisamente como objetivo estudiar cómo
+dotar a las máquinas de inteligencia científica, es decir, de funciones de alto nivel
+como la abstracción matemática, la inferencia lógica y
+la resolución de problemas, que se cree que diferencian a los seres humanos de los animales:
+\begin{equation}
+    \text{\textbf{low-level} (animal) intelligence} \; \Longrightarrow \;
+    \text{\textbf{high-level} (human) intelligence.}
+\end{equation}
+Como hemos aclarado en repetidas ocasiones en este libro, la mayoría de los avances tecnológicos
+en inteligencia artificial durante la última década, aunque
+se hayan llevado a cabo bajo el nombre de «IA», están en realidad más estrechamente relacionados
+con el hecho de que las máquinas imiten formas de inteligencia de bajo nivel que comparten en gran medida
+tanto los animales como los seres humanos, incluyendo la inteligencia filogenética,
+ontogenética y social. En estos niveles, la inteligencia
+crea memoria o conocimiento \textit{empírico} (a partir de distribuciones de datos empíricos) y lleva a cabo inferencias
+que son, en su mayoría, de naturaleza \textit{inductiva}. Los principios y métodos presentados en este libro tienen como objetivo revelar los objetivos científicos y
+los mecanismos computacionales que subyacen a la inteligencia en estos niveles. Estos
+proporcionan una sólida justificación teórica y evidencia computacional
+para la afirmación:
+\begin{quote}
+    \centering
+    \textit{Las máquinas pueden adquirir conocimientos empíricos y realizar
+    inferencias inductivas.}
+\end{quote}
+Sin embargo, hasta ahora no hay pruebas teóricas ni científicas rigurosas
+que indiquen que estos mecanismos por sí solos bastarían para alcanzar
+el alto nivel de inteligencia humana que el programa original de IA realmente
+pretendía comprender y quería que las máquinas imitaran o incluso superaran.
+
+De hecho, a día de hoy, sabemos muy poco sobre cómo verificar
+o certificar de manera rigurosa si un sistema es realmente capaz de alcanzar un nivel tan alto
+de inteligencia, a pesar de que el Test de Turing, también conocido como el
+Juego de la Imitación,\footnote{En la propuesta de Turing, el evaluador, o
+    interrogador, es un ser humano. Sin embargo, la mayoría de los evaluadores humanos tienen una
+    formación y unos conocimientos científicos limitados, y sus conclusiones pueden ser
+subjetivas.} se propuso en 1950 \citep{Turing-1950}, como un primer
+intento de abordar la pregunta fundamental:
+\begin{quote}
+    \centering
+    \textit{¿Pueden pensar las máquinas?}
+\end{quote}
+Durante mucho tiempo, no se consideró
+necesario establecer una definición precisa de dicha prueba, ya que las capacidades de las máquinas estaban muy por debajo de las de los seres humanos
+(o incluso de las de los animales). Sin embargo, dados los recientes avances tecnológicos, muchos
+modelos y sistemas afirman ahora alcanzar o incluso superar la inteligencia
+humana. Por lo tanto, ya es hora de desarrollar una definición científica y
+aplicable de la prueba de Turing, es decir, un protocolo sistemático y
+riguroso para evaluar y certificar el nivel de inteligencia de un
+modelo o sistema que afirme ser «inteligente».
+
+Como argumentó Turing en su artículo original, resulta bastante difícil
+definir qué es «pensar». En su lugar, podríamos partir de algo más
+tangible e intentar determinar si un sistema es realmente capaz de
+«comprender» ciertos conceptos o conocimientos. Por ejemplo, ¿cómo podemos
+verificar rigurosamente si un modelo o sistema inteligente ha comprendido realmente
+un concepto abstracto como: 
+\begin{enumerate}
+    \item el concepto de igualdad entre dos cantidades,
+    \item el concepto de los números (naturales, racionales o reales),
+    \item el concepto de infinito,
+    \item y el concepto de inducción matemática,
+\end{enumerate}
+por mencionar solo algunos? ¿O simplemente ha memorizado una enorme cantidad de
+ejemplos de tales conceptos? Cabe señalar que los modelos de lenguaje de última generación
+siguen teniendo dificultades con preguntas matemáticas sencillas como: «¿Es
+3,11 mayor o menor que 3,9?»\footnote{Algunos modelos han
+    corregido sus respuestas a este tipo de preguntas mediante
+    ingeniería específica, o han incorporado mecanismos de razonamiento adicionales
+    que verifican las respuestas inmediatas y las corrigen durante la inferencia.
+    Sin embargo, dejamos al lector la tarea de comprobar rigurosamente
+    si algún modelo lingüístico de vanguardia comprende realmente el
+    concepto de los números (naturales, racionales, reales y complejos) y su
+    aritmética asociada.}
+
+Gracias a este libro, sabemos que los sistemas modernos de IA generativa se basan principalmente
+en la inferencia bayesiana (y, por lo tanto, inductiva) para generar sus respuestas. ¿Pueden
+las máquinas también comprender verdaderamente la inducción matemática o la deducción lógica
+general y entender su diferencia con respecto a la inducción bayesiana?
+¿Cómo verificamos si un sistema comprende realmente las reglas de
+la deducción lógica y matemática y es capaz de aplicarlas con rigor? ¿O,
+una vez más, simplemente ha memorizado una gran cantidad de ejemplos de tales
+deducciones —como datos sobre la cadena de pensamiento— y ha aprendido y
+aprovechado sus patrones de distribución? Por lo tanto, nos queda una pregunta sin respuesta:
+\begin{quote}
+    \centering
+    \textit{¿Hay alguna diferencia entre \textbf{memorizar} y
+    \textbf{comprender}?}
+\end{quote}
+Solo conociendo la diferencia podremos intentar dar una
+respuesta significativa a la pregunta: \textit{«¿Pueden las máquinas entender?»}
+
+Probablemente, lo más importante sea preguntarnos: ¿cómo verificamos si un sistema que se autodenomina
+inteligente es capaz de \textit{crear conceptos abstractos o mejorar su propio conocimiento} de manera proactiva mediante métodos deductivos? Por ejemplo, ¿puede crear nuevos conceptos matemáticos
+y descubrir nuevas leyes físicas o relaciones causales?
+La conexión entre comprender y crear puede ser bastante fundamental, como lo expresó de manera célebre el físico Richard Feynman:
+\begin{quote}
+    \centering
+    \textit{«Lo que no puedo crear, no lo entiendo».}
+\end{quote}
+
+\subsection{Pruebas científicas de inteligencia}
+Por lo tanto, ya es hora de que desarrollemos métodos de evaluación con base científica
+para determinar a cuál de las siguientes categorías pertenece la capacidad
+inteligente de un sistema:
+\begin{enumerate}[label={Level-\arabic*.}, leftmargin=*]
+    \item el mero hecho de haber aprendido la distribución de ciertos
+        datos que contienen información y ser capaz de reproducirlos;
+    \item ser capaz de aprender de forma autónoma y continua
+        nuevos conocimientos o de corregir los conocimientos existentes a partir de nuevas
+        observaciones y experiencias;
+    \item ser capaz de comprender y crear verdaderamente
+        conceptos, reglas y leyes abstractas, y saber cómo aplicarlos
+        correctamente de manera deductiva;
+    \item ser capaz de formular nuevas hipótesis científicas o conjeturas matemáticas y verificarlas o refutarlas mediante la experimentación o la deducción lógica.
+\end{enumerate}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter9/figs/tests.png}
+    \caption{Tres pruebas para diferentes niveles o tipos de
+        capacidades intelectuales: la prueba de Wiener para la inteligencia básica,
+        la prueba de Turing para la inteligencia de nivel humano y
+    la prueba de Popper para la inteligencia de nivel científico.}
+    \label{fig:three-tests}
+\end{figure}
+
+Para evaluar y distinguir estos diferentes niveles de inteligencia,
+sugerimos que probablemente deberían existir al menos tres pruebas diferentes,
+tal y como se ilustra en la \Cref{fig:three-tests}:
+\begin{enumerate}
+    \item \textit{La prueba de Norbert Wiener:} para determinar si un
+        sistema es capaz de autocorregirse y generar nuevo conocimiento (empírico)
+        por sí mismo o si simplemente recibe y actualiza información
+        de manera pasiva a través de refuerzos o supervisión externos;
+    \item \textit{El test de Alan Turing:} para determinar si un
+        sistema es capaz de crear y comprender conceptos abstractos y
+        conocimiento, o si simplemente aprende y memoriza estadísticas de las
+        muestras y las utiliza para la inferencia bayesiana;
+    \item \textit{La prueba de Karl Popper:} para determinar si un
+        sistema es capaz de explorar y crear de forma proactiva nuevo conocimiento abstracto
+        mediante la formulación y verificación de hipótesis o teorías
+        basadas en la consistencia experimental o la coherencia lógica interna.
+\end{enumerate}
+Creemos que, para este tipo de pruebas, el evaluador o el interrogador
+no debería ser una sola persona ni un grupo arbitrario de personas, sino más bien una
+entidad con acreditación científica que siga un protocolo y un proceso
+científicamente sólidos, de modo que las conclusiones sean rigurosas y fiables.
+
+Como hemos visto a lo largo de este libro, la \textit{compresión} ha desempeñado
+un papel fundamental en el desarrollo de la memoria o en la creación de conocimiento 
+empírico. Es el principio rector y un mecanismo universal para identificar una
+distribución de datos empíricos y organizar la información codificada en ellos 
+mediante una representación estructurada. En gran medida, explica la práctica de la 
+«inteligencia artificial» con redes profundas, que es en gran parte de naturaleza 
+inductiva.\footnote{Los sistemas que cuentan con mecanismos deductivos integrados para 
+llevar a cabo la verificación formal no entran en esta categoría.} Una cuestión pendiente para futuros
+estudios es si \textit{la compresión por sí sola} es suficiente para alcanzar
+toda la inteligencia deductiva de alto nivel mencionada anteriormente. 
+En concreto, ¿son la abstracción matemática, la inferencia causal, la generación de hipótesis
+y el razonamiento y la deducción lógicos algún tipo de formas ampliadas o
+superadas de la compresión? ¿Existe alguna diferencia fundamental entre aprender distribuciones de datos 
+a través de la compresión y formar conceptos y teorías de alto nivel mediante la abstracción? De ahí que 
+tengamos otra pregunta sin respuesta:
+\begin{quote}
+    \centering
+    \textit{¿Hay alguna diferencia entre la \textbf{compresión} y
+    la \textbf{abstracción}?}
+\end{quote}
+Solo conociendo la diferencia podremos intentar dar una respuesta significativa a la pregunta: 
+«¿Pueden las máquinas crear conocimiento de forma proactiva mediante la deducción?»
+
+En gran medida, la ciencia---y su libro de códigos asociado,
+las matemáticas---puede considerarse como la forma más avanzada de
+inteligencia, exclusiva de los seres humanos cultos e ilustrados. 
+El filósofo Sir Karl Popper sugirió en una ocasión:
+\begin{quote}
+    \centering
+    \textit{«La ciencia puede describirse como el arte de la
+    simplificación excesiva.»}
+\end{quote}
+Creemos que descubrir y comprender los principios matemáticos y los mecanismos computacionales subyacentes
+de esa inteligencia de alto nivel, y reproducirlos con éxito mediante máquinas,
+será la última frontera para la ciencia, las matemáticas y la computación en su conjunto.
+
+\end{document}

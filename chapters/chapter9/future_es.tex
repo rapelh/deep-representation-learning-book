@@ -3,122 +3,122 @@
 
 \begin{document}
 
-\chapter{Probemas pendientes y líneas de investigación en inteligencia}
+\chapter{Problemas abiertos y direcciones sobre inteligencia}
 \label{ch:future}
 
 \begin{quote}
-    ``\textit{El estudio se llevará a cabo partiendo de la hipótesis
-        de que cada aspecto del aprendizaje o cualquier otra característica de
-        la inteligencia puede describirse, en principio, con tal precisión que
-        se pueda construir una máquina capaz de simularlo. Se intentará
-        descubrir cómo hacer que las máquinas utilicen el lenguaje, formen abstracciones y
-        conceptos, resuelvan tipos de problemas que actualmente están reservados a los seres humanos y
-    se perfeccionen a sí mismas.}''
+    ``\textit{El estudio se desarrollará sobre la base de la conjetura de 
+        que cada aspecto del aprendizaje o cualquier otra característica de la 
+        inteligencia puede describirse, en principio, con tal precisión que sea 
+        posible hacer que una máquina lo simule. Se intentará determinar cómo hacer 
+        que las máquinas usen el lenguaje, formen abstracciones y conceptos, resuelvan 
+        clases de problemas que hoy están reservados a los seres humanos 
+    y mejoren a sí mismas.}''
 
     $~$\hfill -- Proposición para el programa de IA de Dartmouth, 1956
 \end{quote}
 \vspace{5mm}
 
-Este manuscrito presenta de manera sistemática los principios matemáticos y
-los mecanismos computacionales que explican cómo se puede desarrollar la memoria o el 
-conocimiento empírico a partir de datos observados de alta dimensión. La capacidad de 
-buscar la parsimonia en un mundo aparentemente aleatorio es una característica fundamental 
-de cualquier inteligencia, ya sea natural o artificial. Creemos que los principios y
-mecanismos presentados en este libro son unificadores y universales, aplicables tanto 
-a los animales como a las máquinas.
+Este manuscrito introduce de forma sistemática los principios matemáticos y los mecanismos 
+computacionales mediante los cuales la memoria o el conocimiento empírico se desarrolla a 
+partir de datos observados de alta dimensión. La capacidad de buscar parsimonia en un mundo 
+aparentemente caótico es una característica fundamental de cualquier inteligencia, natural o artificial.
+Creemos que los principios y mecanismos expuestos en este libro son unificadores y universales, 
+aplicables tanto a los animales como a las máquinas.
 
-Esperamos que este libro ayude a los lectores a desentrañar por completo el misterio que rodea
-las prácticas modernas de las redes neuronales profundas artificiales, mediante el desarrollo de una
-comprensión rigurosa de sus funciones y su papel en el aprendizaje de (representaciones de)
-distribuciones de baja dimensión a partir de datos de alta dimensión. Con esta
-comprensión, quedan claras las capacidades y limitaciones de los modelos
+Esperamos que este libro ayude a los lectores a clarificar por completo el misterio que rodea 
+las prácticas modernas de las redes neuronales profundas artificiales, mediante el desarrollo 
+de una comprensión rigurosa de sus funciones y roles en el aprendizaje de representaciones de 
+distribuciones de baja dimensión a partir de datos de alta dimensión.
+A partir de esta comprensión, se hacen evidentes las capacidades y limitaciones de los modelos 
 y sistemas de IA existentes:
 \begin{enumerate}
-    \item Los modelos y sistemas de bucle abierto existentes no llegan a ser sistemas de memoria completos capaces de aprender y mejorar por sí mismos.
-    \item Las implementaciones actuales del aprendizaje de representaciones siguen siendo rudimentarias y de fuerza bruta, lejos de ser óptimas en cuanto a arquitecturas de red o estrategias de optimización.
-    \item Los modelos de IA actuales solo aprenden distribuciones de datos y
-    realizan inferencias bayesianas inductivas, lo cual difiere de
-    la inteligencia humana de alto nivel.
+    \item Los modelos y sistemas de bucle abierto existentes no alcanzan la categoría de sistemas 
+      de memoria completos, capaces de aprenderse y autoimprovisarse.
+    \item Las implementaciones actuales del aprendizaje de representaciones permanecen primitivas 
+      y basadas en fuerza bruta, muy alejadas de la optimalidad en términos de arquitectura de red 
+      o estrategias de optimización.
+    \item Los modelos de IA actuales únicamente aprenden distribuciones de datos y realizan 
+      inferencia bayesiana inductiva, lo que contrasta con la inteligencia humana de alto nivel.
 \end{enumerate}
 
-Uno de los objetivos de este libro es ayudar a los lectores a adquirir una comprensión objetiva y
-sistemática de las tecnologías actuales de inteligencia artificial
-y a identificar los problemas y desafíos pendientes para seguir
-avanzando en este campo. En el último capítulo, ofrecemos
-algunas de nuestras opiniones y previsiones para el futuro.
+Un objetivo de este libro es ayudar a los lectores a establecer una comprensión objetiva y sistemática 
+de las tecnologías actuales de la inteligencia artificial y a reconocer qué problemas abiertos y 
+desafíos persisten para el avance futuro de la inteligencia artificial. En el último capítulo, 
+presentamos algunos de nuestros puntos de vista y proyecciones para el futuro. 
 
 \section{¿Hacia la inteligencia autónoma: cerrar el círculo?}
-A partir de la práctica de la inteligencia artificial en la última década, ha
-quedado claro que, si se cuenta con suficientes datos y recursos computacionales,
-es posible construir un modelo lo suficientemente grande y preentrenarlo para que aprenda la
-distribución \textit{a priori} de todos los datos, es decir, \(p(\vx)\).
-En teoría, un modelo tan grande puede memorizar casi todo el
-conocimiento existente sobre el mundo que está codificado en datos como imágenes 2D,
-formas 3D, movimientos dinámicos y lenguajes naturales. Como comentamos al
-principio del libro, un modelo tan amplio desempeña un papel similar al del ADN, que
-la vida utiliza para registrar y transmitir el conocimiento sobre el mundo. 
+De la práctica en el campo de la inteligencia artificial durante la última década ha quedado 
+claro que, dándose suficientes datos y recursos computacionales, se puede construir un modelo 
+lo suficientemente grande y preentrenarlo para aprender la distribución a priori de todos los 
+datos, digamos, \(p(\vx)\). Teóricamente, un modelo de tal magnitud podría memorizar casi todo 
+el conocimiento existente sobre el mundo que se codifica en datos, como imágenes bidimensionales, 
+formas tridimensionales, movimientos dinámicos y lenguajes naturales. Tal como se discutió al 
+inicio de este libro, dicho modelo cumple una función análoga a la del ADN, que la vida emplea 
+para registrar y transmitir conocimientos sobre el mundo.
 
-El modelo y la distribución aprendidos de esta manera pueden utilizarse para
-crear nuevas muestras de datos extraídas de la misma distribución. También se puede
-utilizar el modelo para realizar inferencias (por ejemplo, completamiento,
-estimación y predicción) con el conocimiento memorizado bajo
-diversas condiciones, por ejemplo, mediante el muestreo de la distribución \textit{posterior}
-\(p(\vx\mid \vy)\) bajo una nueva observación \(\vy\).
-En sentido estricto, dicha inferencia es inductiva o estadística.
+De este modo, el modelo y la distribución aprendidos pueden emplearse para generar nuevas 
+muestras de datos extraídas de dicha distribución. Asimismo, se puede emplear el modelo para 
+realizar inferencias (por ejemplo, completación, estimación y predicción) utilizando el 
+conocimiento memorizado en diversas condiciones, por ejemplo, mediante el muestreo de la 
+distribución \textit{posterior} \(p(\vx\mid \vy)\) ante una nueva observación \(\vy\).
+Estrictamente hablando, tal inferencia es de tipo inductivo o estadístico.
 
-Ningún modelo preentrenado, por muy grande que sea, puede garantizar que la
-distribución que ha aprendido hasta ahora sea totalmente correcta o completa.
-Si nuestras muestras \(\hat{\vx}_{t}\) del \textit{a priori}
-\(p_{t}(\vx)\) o las estimaciones \(\hat{\vx}_{t}(\vy)\) basadas en la
-\textit{posterior} \(p_{t}(\vx\mid \vy)\) son inconsistentes con la
-verdad \(\vx\), nos gustaría corregir las distribuciones aprendidas:
+Ningún modelo preentrenado, sin importar su tamaño, garantiza que la distribución aprendida 
+hasta el momento sea completamente exacta o exhaustiva. Si nuestras muestras \(\hat{\vx}_{t}\)
+derivadas del \textit{a priori} \(p_{t}(\vx)\) o nuestras estimaciones \(\hat{\vx}_{t}(\vy)\) 
+basadas en el \textit{posterior} \(p_{t}(\vx\mid \vy)\) resultan inconsistentes con la verdad 
+real \(\vx\), deseamos corregir las distribuciones aprendidas:
 \begin{equation}
     p_{t}(\vx) \rightarrow p_{t+1}(\vx) \quad \text{or}\quad
     p_{t}(\vx\mid \vy) \rightarrow p_{t+1}(\vx\mid \vy),
 \end{equation}
-basado en el error \(\ve_{t} = \vx_{t} - \hat{\vx}_{t}\). Esto se
-conoce como corrección de errores basada en la retroalimentación del error, un mecanismo
-omnipresente en la naturaleza para el aprendizaje continuo. Sin embargo, cualquier modelo abierto
-carece en sí mismo del mecanismo para revisar o mejorar la distribución aprendida
-cuando esta es incorrecta o incompleta. La mejora de los modelos actuales de IA
-sigue dependiendo en gran medida de la participación humana: supervisión o
-refuerzo a través de la experimentación, la evaluación y la selección. Podríamos
-denominar a este proceso «selección artificial» de modelos grandes, en
-contraposición a la selección natural que rige la evolución de la vida.
+basado en el error \(\ve_{t} = \vx_{t} - \hat{\vx}_{t}\). 
+Este proceso se denomina corrección de errores basada en retroalimentación de errores, un 
+mecanismo ubicuo en la naturaleza para el aprendizaje continuo. Sin embargo, cualquier 
+modelo de alcance abierto posee inherentemente la falta de un mecanismo para revisar o 
+perfeccionar la distribución aprendida cuando esta resulta errónea o incompleta.
+Mejorar los modelos actuales de inteligencia artificial depende aún considerablemente 
+de la intervención humana: supervisión o refuerzo mediante experimentación, evaluación 
+y selección. Podemos llamar a este proceso «selección artificial» de modelos masivos, 
+en contraste con la selección natural que impulsa la evolución biológica.
 
-Como hemos visto anteriormente en este libro (en
-particular en el \Cref{ch:consistent-representations}), los sistemas de bucle cerrado
-alinean una representación interna
-con las observaciones del mundo externo. Pueden mejorar continuamente
-la distribución aprendida internamente y su representación para
-alcanzar la consistencia o la autoconsistencia. Un siguiente paso inmediato es
-desarrollar sistemas de memoria de bucle cerrado, tal como se ilustra en
-\Cref{fig:open-to-closed}, que aprendan de forma autónoma y continua
-las distribuciones generales de los datos y mejoren a partir de la retroalimentación de errores.
+Tal como se estudió anteriormente en este libro (especialmente en el 
+\Cref{ch:consistent-representations}), los sistemas de bucle cerrado alinean una 
+representación interna con las observaciones sensoriales del mundo externo. Pueden 
+mejorar continuamente la distribución interna aprendida y su representación para 
+lograr progresivamente la consistencia o la autocoherencia. El siguiente paso 
+inmediato consiste en desarrollar sistemas de memoria verdaderamente cerrados, 
+ilustrados en la \Cref{fig:open-to-closed}, que aprendan de manera autónoma y continua 
+distribuciones generales de datos y se perfeccionen basándose en la 
+retroalimentación de errores. 
 
-Por lo tanto, la transición de los modelos de bucle abierto entrenados de extremo a extremo,
-tan populares en la actualidad, a los sistemas de bucle cerrado con aprendizaje continuo
+Por consiguiente, la transición desde los modelos de bucle abierto entrenados end-to-end, 
+tan populares actualmente, hacia sistemas de bucle cerrado con aprendizaje continuo 
 \begin{equation}
     \text{\textbf{open-ended} models} \; \Longrightarrow \;
     \text{\textbf{closed-loop} systems}
 \end{equation}
-es la clave para que las máquinas puedan emular de verdad cómo el cerebro animal aprende
-y aplica el conocimiento en un mundo abierto. Creemos que
+es clave para que las máquinas emulen realmente el proceso mediante el cual el cerebro 
+animal aprende y aplica conocimientos en un mundo abierto.
+Creemos que 
 \begin{quote}
     \begin{center}
-        \textit{open-ended models are for a closed world, however
-        large; \\ closed-loop systems are for an open world, however small.}
+        \textit{los modelos de alcance abierto son aptos para un mundo cerrado, sin importar cuán grande 
+        sea; \\ mientras que los sistemas de bucle cerrado son adecuados para un mundo abierto, sin importar cuán pequeño sea.}
     \end{center}
 \end{quote}
-Por lo tanto, la denominada «inteligencia artificial general» (AGI) nunca podrá
-alcanzarse simplemente con un sistema capaz de memorizar todos los datos y conocimientos
-existentes sobre el mundo. Ningún conocimiento, por mucho que sea, es verdaderamente generalizable.\footnote{Según Sir Karl Popper,
-un influyente filósofo de la ciencia, ¡todas las teorías y conocimientos científicos son falsables!} Sin embargo,
-es la capacidad de mejorar la memoria o el conocimiento existente y adaptarse a cualquier entorno nuevo lo que es
-verdaderamente generalizable. Por lo tanto, la inteligencia verdaderamente genuina es en sí misma generalizable si se alcanza
-de manera completa y correcta.\footnote{En nuestra opinión, la IGA debería representar la «inteligencia artificial genuina».}
-Esta es precisamente la esencia del programa de cibernética esbozado por Norbert Wiener en la
-década de 1940, del que hablamos al principio de este libro.
+En consecuencia, la así llamada «Inteligencia Artificial General» (IAG o AGI) jamás podrá 
+lograrse simplemente mediante un sistema diseñado para memorizar todo el conocimiento y datos 
+existentes del mundo. Ningún conocimiento, sin importar su magnitud, resulta verdaderamente 
+generalizable.\footnote{Según Sir Karl Popper, un influyente filósofo de la ciencia, ¡todas las 
+teorías y conocimientos científicos son falsables!} No obstante, es precisamente la capacidad 
+de perfeccionar la memoria o el conocimiento previo y adaptarse a cualquier nuevo entorno lo 
+que resulta verdaderamente generalizable. En consecuencia, una inteligencia verdaderamente 
+auténtica resulta intrínsecamente generalizable siempre que se materialice completamente y 
+correctamente.\footnote{En nuestra opinión, la IGA debería representar la «inteligencia artificial genuina».}
+Esto constituye exactamente la esencia del programa de cibernética propuesto por Norbert Wiener 
+durante la década de 1940, sobre el cual habíamos discutido al inicio de este libro.
 
 \begin{figure}[t]
     \centering
@@ -128,37 +128,34 @@ década de 1940, del que hablamos al principio de este libro.
 \end{figure}
 
 \section{Hacia la inteligencia natural: ¿Más allá de la retropropagación?}
-La práctica de la inteligencia artificial en los últimos años ha llevado a muchos a
-creer que es necesario construir un único modelo de gran tamaño para aprender la
-distribución de todos los datos y memorizar todo el conocimiento. Aunque esto
-es tecnológicamente posible, es probable que tal solución esté lejos de ser
-necesaria o eficiente. Como sabemos por el entrenamiento de redes profundas, el
-único método escalable conocido para entrenar este tipo de redes a gran escala es a través de
-la retropropagación (BP) \citep{Back-Prop}. Aunque la retropropagación (BP) ofrece una forma de
-corregir errores mediante señales de gradiente que se propagan hacia atrás a través de todo el
-modelo, se trata, no obstante, de un método bastante burdo y difiere
-significativamente de la forma en que aprende la naturaleza: la BP es una opción que la naturaleza
-no puede permitirse debido a su elevado costo y que, sencillamente, no puede implementar debido a
-limitaciones físicas.
+Las prácticas recientes en el campo de la inteligencia artificial han llevado a muchos a pensar que 
+se debe construir un solo modelo masivo destinado a aprender la distribución de todos los datos y 
+memorizar todo el conocimiento. Si bien esta aproximación es técnicamente factible, dicha solución 
+resulta probablemente innecesaria y poco eficiente. Al igual que en el entrenamiento de redes 
+neuronales profundas, el único método escalable conocido para entrenar tales redes a escala masiva 
+es la retropropagación (RP o BP) \citep{Back-Prop}. Aunque la retropropagación (BP) proporciona un 
+mecanismo para corregir errores mediante señales de gradiente propagadas hacia atrás a través del 
+modelo entero, se trata, sin embargo, de un enfoque puramente de fuerza bruta que difiere 
+sustancialmente de cómo aprende la naturaleza: la BP representa una opción que la naturaleza 
+no puede permitirse debido a su alto costo energético y que, simplemente, no puede implementarse 
+debido a limitaciones físicas.
 
-En términos más generales, no podemos comprender verdaderamente la inteligencia a menos que
-también comprendamos cómo se puede implementar de manera eficiente. Es decir,
-es necesario abordar la complejidad computacional que implica la implementación de los mecanismos
-asociados al logro de los objetivos de la inteligencia. 
-Históricamente, nuestra comprensión de la inteligencia (artificial) ha evolucionado
-a través de varias fases, desde la complejidad de Kolmogorov —incomputable—
-hasta la entropía de Shannon, desde la computabilidad de Turing hasta la posterior
-comprensión de la tractabilidad,\footnote{Decimos que un problema es tractable
+De modo más general, no podemos comprender realmente la inteligencia sin entender también cómo se 
+puede implementar de forma eficiente. Es decir, se requiere abordar la complejidad computacional 
+inherente a la realización de los mecanismos necesarios para alcanzar los objetivos de la inteligencia.
+Históricamente, nuestra comprensión de la inteligencia (máquina) ha evolucionado mediante varias fases: 
+desde la complejidad de Kolmogorov---incomputable---hacia la entropía de Shannon; desde la computabilidad 
+de Turing hacia la posterior noción de manejabilidad,\footnote{Decimos que un problema es tractable
     si permite un algoritmo cuya complejidad es polinómica en el tamaño
 del problema.} y hasta el fuerte énfasis en la escalabilidad de los algoritmos
 en la práctica moderna del análisis de datos de alta dimensión
-\citep{Wright-Ma-2022} y la inteligencia artificial. Esta evolución se puede
+\citep{Wright-Ma-2022} y la inteligencia artificial. Dicha evolución se puede
 resumir de la siguiente manera:
 \begin{equation}
     \text{\textbf{incomputable}} \;
     \Longrightarrow \; \text{\textbf{computable}} \;
-    \Longrightarrow \; \text{\textbf{tractable}} \; \Longrightarrow \;
-    \text{\textbf{scalable}}.
+    \Longrightarrow \; \text{\textbf{manejable}} \; \Longrightarrow \;
+    \text{\textbf{escalable}}.
 \end{equation}
 En gran medida, el éxito y la popularidad del aprendizaje profundo y
 la retropropagación se deben precisamente a que han ofrecido una implementación

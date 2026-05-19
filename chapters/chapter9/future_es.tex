@@ -34,7 +34,7 @@ A partir de esta comprensión, se hacen evidentes las capacidades y limitaciones
 y sistemas de IA existentes:
 \begin{enumerate}
     \item Los modelos y sistemas de bucle abierto existentes no alcanzan la categoría de sistemas 
-      de memoria completos, capaces de aprenderse y autoimprovisarse.
+      de memoria completos, capaces de aprenderse y automejorarse.
     \item Las implementaciones actuales del aprendizaje de representaciones permanecen primitivas 
       y basadas en fuerza bruta, muy alejadas de la optimalidad en términos de arquitectura de red 
       o estrategias de optimización.
@@ -76,7 +76,7 @@ real \(\vx\), deseamos corregir las distribuciones aprendidas:
 basado en el error \(\ve_{t} = \vx_{t} - \hat{\vx}_{t}\). 
 Este proceso se denomina corrección de errores basada en retroalimentación de errores, un 
 mecanismo ubicuo en la naturaleza para el aprendizaje continuo. Sin embargo, cualquier 
-modelo de alcance abierto posee inherentemente la falta de un mecanismo para revisar o 
+modelo abierto carece inherentemente de un mecanismo para revisar o 
 perfeccionar la distribución aprendida cuando esta resulta errónea o incompleta.
 Mejorar los modelos actuales de inteligencia artificial depende aún considerablemente 
 de la intervención humana: supervisión o refuerzo mediante experimentación, evaluación 
@@ -104,7 +104,7 @@ animal aprende y aplica conocimientos en un mundo abierto.
 Creemos que 
 \begin{quote}
     \begin{center}
-        \textit{los modelos de alcance abierto son aptos para un mundo cerrado, sin importar cuán grande 
+        \textit{los modelos abiertos son aptos para un mundo cerrado, sin importar cuán grande 
         sea; \\ mientras que los sistemas de bucle cerrado son adecuados para un mundo abierto, sin importar cuán pequeño sea.}
     \end{center}
 \end{quote}
@@ -133,7 +133,7 @@ se debe construir un solo modelo masivo destinado a aprender la distribución de
 memorizar todo el conocimiento. Si bien esta aproximación es técnicamente factible, dicha solución 
 resulta probablemente innecesaria y poco eficiente. Al igual que en el entrenamiento de redes 
 neuronales profundas, el único método escalable conocido para entrenar tales redes a escala masiva 
-es la retropropagación (RP o BP) \citep{Back-Prop}. Aunque la retropropagación (BP) proporciona un 
+es la retropropagación (BP) \citep{Back-Prop}. Aunque la retropropagación (BP) proporciona un 
 mecanismo para corregir errores mediante señales de gradiente propagadas hacia atrás a través del 
 modelo entero, se trata, sin embargo, de un enfoque puramente de fuerza bruta que difiere 
 sustancialmente de cómo aprende la naturaleza: la BP representa una opción que la naturaleza 
@@ -159,7 +159,7 @@ resumir de la siguiente manera:
 \end{equation}
 En gran medida, el éxito y la popularidad del aprendizaje profundo y
 la retropropagación se deben precisamente a que han ofrecido una implementación
-escalable con plataformas informáticas modernas (como las GPU) para
+escalable con plataformas informáticas modernas (como las GPUs) para
 procesar y comprimir grandes volúmenes de datos. Sin embargo, dicha
 implementación sigue siendo mucho más costosa que la forma en que la naturaleza
 llega a la inteligencia.
@@ -212,8 +212,8 @@ que funcionan en gran medida en paralelo.\footnote{En la bibliografía existen e
     las redes de codificación predictiva \citep{millidge2022predictive}, que cuentan
 con una estrategia de optimización que utiliza actualizaciones locales eficientes.}
 Estos módulos aprenden a codificar diferentes modalidades sensoriales o múltiples
-proyecciones de datos de cada modalidad sensorial. Nuestro análisis en
-\Cref{sec:measurement-self-consistency} de
+proyecciones de datos de cada modalidad sensorial. Nuestro análisis en la
+\Cref{sec:measurement-self-consistency} del
 \Cref{ch:conditional-inference} sugiere que dicha detección
 y aprendizaje paralelos de una distribución de baja dimensión son teóricamente
 posibles. Higher-level (lossy) autoencoders can then be learned based
@@ -277,12 +277,12 @@ La \Cref{tab:four-stage-intelligence} resume sus principales características.
             \textbf{Social} & \textbf{Científico}\\
             \hline
 
-            \textbf{Libro de código}  & DNAs & Neuronas/Mente & Lenguajes Naturales
+            \textbf{Libro de código}  & ADNs & Neuronas/Mente & Lenguajes Naturales
             & Abstracciones matemáticas \\ [0.5ex]
             \hline
 
             \textbf{Información} & Genes & Memoris & Conocimiento
-            empírico & Factos científicos\\ [0.5ex]
+            empírico & Hechos científicos\\ [0.5ex]
             \hline
             \textbf{Optimización} & Refuerzo & Retroalimentación de error &
             Prueba \& error & Teorizar \& Falsar \\  [0.5ex]
@@ -297,7 +297,7 @@ Como ya sabemos, los seres humanos han logrado dos avances decisivos en materia 
 \begin{enumerate}
     \item El primero fue el desarrollo del lenguaje oral y escrito,
         lo que permitió a los seres humanos compartir y transmitir el conocimiento adquirido
-        de una generación a otra, de manera muy similar a como lo hace el ADN en la naturaleza.
+        entre generaciones, de manera muy similar a como lo hace el ADN en la naturaleza.
     \item El segundo fue el desarrollo de las matemáticas y la lógica formal
         hace aproximadamente tres mil años, que se convirtieron en el
         lenguaje preciso de la ciencia moderna.
@@ -353,8 +353,8 @@ pretendía comprender y quería que las máquinas imitaran o incluso superaran.
 
 De hecho, a día de hoy, sabemos muy poco sobre cómo verificar
 o certificar de manera rigurosa si un sistema es realmente capaz de alcanzar un nivel tan alto
-de inteligencia, a pesar de que el Test de Turing, también conocido como el
-Juego de la Imitación,\footnote{En la propuesta de Turing, el evaluador, o
+de inteligencia, a pesar de que la prueba de Turing, también conocido como el
+juego de la imitación,\footnote{En la propuesta de Turing, el evaluador, o
     interrogador, es un ser humano. Sin embargo, la mayoría de los evaluadores humanos tienen una
     formación y unos conocimientos científicos limitados, y sus conclusiones pueden ser
 subjetivas.} se propuso en 1950 \citep{Turing-1950}, como un primer
@@ -426,9 +426,9 @@ La conexión entre comprender y crear puede ser bastante fundamental, como lo ex
 Por lo tanto, ya es hora de que desarrollemos métodos de evaluación con base científica
 para determinar a cuál de las siguientes categorías pertenece la capacidad
 inteligente de un sistema:
-\begin{enumerate}[label={Level-\arabic*.}, leftmargin=*]
+\begin{enumerate}[label={Nivel-\arabic*.}, leftmargin=*]
     \item el mero hecho de haber aprendido la distribución de ciertos
-        datos que contienen información y ser capaz de reproducirlos;
+        datos que contienen información y ser capaz de regenerarlos;
     \item ser capaz de aprender de forma autónoma y continua
         nuevos conocimientos o de corregir los conocimientos existentes a partir de nuevas
         observaciones y experiencias;
@@ -442,7 +442,7 @@ inteligente de un sistema:
     \centering
     \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter9/figs/tests.png}
     \caption{Tres pruebas para diferentes niveles o tipos de
-        capacidades intelectuales: la prueba de Wiener para la inteligencia básica,
+        capacidades cognitivas: la prueba de Wiener para la inteligencia básica,
         la prueba de Turing para la inteligencia de nivel humano y
     la prueba de Popper para la inteligencia de nivel científico.}
     \label{fig:three-tests}
@@ -463,7 +463,7 @@ tal y como se ilustra en la \Cref{fig:three-tests}:
     \item \textit{La prueba de Karl Popper:} para determinar si un
         sistema es capaz de explorar y crear de forma proactiva nuevo conocimiento abstracto
         mediante la formulación y verificación de hipótesis o teorías
-        basadas en la consistencia experimental o la coherencia lógica interna.
+        basadas en la consistencia experimental o la consistencia lógica.
 \end{enumerate}
 Creemos que, para este tipo de pruebas, el evaluador o el interrogador
 no debería ser una sola persona ni un grupo arbitrario de personas, sino más bien una
@@ -476,7 +476,7 @@ empírico. Es el principio rector y un mecanismo universal para identificar una
 distribución de datos empíricos y organizar la información codificada en ellos 
 mediante una representación estructurada. En gran medida, explica la práctica de la 
 «inteligencia artificial» con redes profundas, que es en gran parte de naturaleza 
-inductiva.\footnote{Los sistemas que cuentan con mecanismos deductivos integrados para 
+inductiva.\footnote{Los sistemas que poseen mecanismos deductivos integrados para 
 llevar a cabo la verificación formal no entran en esta categoría.} Una cuestión pendiente para futuros
 estudios es si \textit{la compresión por sí sola} es suficiente para alcanzar
 toda la inteligencia deductiva de alto nivel mencionada anteriormente. 

@@ -7,6 +7,7 @@
 \addto\captionsenglish{\renewcommand{\figurename}{Figura}}
 \addto\captionsenglish{\renewcommand{\tablename}{Tabla}}
 \addto\captionsenglish{\renewcommand{\appendixname}{Apéndice}}
+\addto\captionsenglish{\renewcommand{\proofname}{Prueba}}
 
 \makeatletter
 \@ifclassloaded{EngC}{
@@ -228,12 +229,15 @@ cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
 % Patches the command names after other packages are loaded
 \patchcmd{\definition}{Definition}{Definición}{}{}
 \patchcmd{\chapter}{Chapter}{Capítulo}{}{}
+\patchcmd{\assumption}{Assumption}{Supuesto}{}{}
+\patchcmd{\lemma}{Lemma}{Lema}{}{}
 \patchcmd{\theorem}{Theorem}{Teorema}{}{}
 \patchcmd{\corollary}{Corollary}{Corolario}{}{}
 \patchcmd{\example}{Example}{Ejemplo}{}{}
 \patchcmd{\remark}{Remark}{Nota}{}{}
 \patchcmd{\exercise}{Exercise}{Ejercicio}{}{}
 \patchcmd{\proposition}{Proposition}{Proposición}{}{}
+\patchcmd{\proof}{Proof}{Prueba}{}{}
 
 \begin{document}
 

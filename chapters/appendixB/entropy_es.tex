@@ -18,7 +18,7 @@ codificación con pérdida}\label{app:entropy}
 En este apéndice ofrecemos demostraciones de varios resultados, mencionados en el
 \Cref{ch:denoising}, relacionados con la entropía diferencial, cómo
 evoluciona en procesos de difusión y sus conexiones con la codificación con pérdida. Haremos
-la siguiente suposición moderada sobre la variable aleatoria que representa
+la siguiente supuesto moderado sobre la variable aleatoria que representa
 la fuente de datos, denotada por \(\vx\).
 
 \begin{assumption}\label{assumption:entropy_x_compact_support}
@@ -33,7 +33,7 @@ se cumple que \(R < \infty\). Utilizaremos de manera sistemática la notación
 \(\vxi\). En este sentido, el \Cref{assumption:entropy_x_compact_support}
 tiene \(\cS \subseteq B_{R}(\vzero)\).
 
-Obsérvese que esta suposición se cumple para (casi) todas las variables que nos interesan
+Obsérvese que este supuesto se cumple para (casi) todas las variables que nos interesan
 en la práctica, ya que (a menudo) viene impuesta por un paso de normalización
 durante el preprocesamiento de los datos.
 
@@ -42,7 +42,7 @@ de baja dimensión}\label{sec:low_dim_entropy}
 
 En este breve apéndice analizamos la entropía diferencial de
 las distribuciones de baja dimensión. Por definición, la entropía
-diferencial de una variable aleatoria \(\vx\) que no tiene densidad
+diferencial de una variable aleatoria \(\vx\) que no posee densidad
 es \(-\infty\); esto incluye a todas las variables aleatorias definidas en
 conjuntos de baja dimensión. El objetivo de esta sección es analizar por qué
 este es un valor «moralmente correcto».
@@ -54,7 +54,7 @@ que \(\cS\) es boreliana medible con medida boreliana \(0\).} Consideraremos
 el caso en que \(\vx\) sea uniforme en \(\cS\).\footnote{Digamos,
 con respecto a la medida de Hausdorff en \(\cS\).} Nuestro objetivo es calcular \(h(\vx)\).
 
-En este caso, \(\vx\) no tendría densidad; en el mundo contrafactual
+En este caso, \(\vx\) no tendría densidad; en el caso hipotético
 en el que no supiéramos que \(h(\vx) = -\infty\), no podríamos
 definirla directamente utilizando la definición estándar de
 entropía diferencial. En cambio, como en el resto del análisis y la teoría de la información,
@@ -65,7 +65,7 @@ tienen densidades, es decir,
     h(\vx)\ \text{``=''}\ \lim_{\eps \searrow 0}h(\vx_{\eps}).
 \end{equation}
 
-Con este fin, la idea básica consiste en tomar un engrosamiento de espesor \(\eps\) de
+Con este fin, la idea básica consiste en tomar un entorno tubular de espesor \(\eps\) de
 \(\cS\), denotado por ejemplo como \(\cS_{\eps}\), definido como
 \begin{equation}
     \cS_{\eps} = \bigcup_{\vxi \in \cS}B_{\eps}(\vxi)
@@ -93,14 +93,14 @@ y que se muestra en la \Cref{fig:entropy_eps_thickening}.
         \bigcup_{\vxi \in \cS} B_{\eps}(\vxi)$};
 
     \end{tikzpicture}
-    \caption{Ilustración del engrosamiento de espesor \(\eps\) \(\cS_\eps\) de
+    \caption{Ilustración del entorno tubular de espesor \(\eps\) \(\cS_\eps\) de
     una curva \(\cS \subseteq \R^{2}\).}
     \label{fig:entropy_eps_thickening}
 \end{figure}
 Trabajaremos con variables aleatorias cuyo soporte sea \(\cS_{\eps}\),
 que es de dimensión completa, y tomaremos el límite cuando \(\eps \to 0\).
 De hecho, definamos \(\vx_{\eps} \sim \dUnif(\cS_{\eps})\). Dado que
-\(\cS_{\eps}\) tiene volumen positivo, \(\vx_{\eps}\) tiene una densidad
+\(\cS_{\eps}\) tiene medida de Lebesgue positiva, \(\vx_{\eps}\) tiene una densidad
 \(p_{\eps}\) igual a
 \begin{equation}
     p_{\eps}(\vxi) = \indvar(\vxi \in \cS_{\eps}) \cdot
@@ -141,7 +141,7 @@ por ejemplo.
             \begin{equation}
                 h(\vx) \leq h(\dUnif(\cS)) = \log \volume(\cS).
             \end{equation}
-        \item Si \(\vx\) tiene covarianza finita tal que, para una matriz PSD
+        \item Si \(\vx\) tiene matriz de covarianza finita tal que, para una matriz PSD
             \(\vSigma \in \PSD(D)\), se cumple que \(\Cov(\vx)
             \preceq \vSigma\) (con respecto al orden PSD, es decir,
             \(\vSigma - \Cov(\vx)\) es PSD), entonces
@@ -200,12 +200,12 @@ y a partir de esta representación es posible deducir (es decir, a partir de
 infinitamente diferenciable) en \(\vxi\), también suave en \(t\), y
 positiva en todas partes. Este hecho resulta algo notable a primera vista:
 incluso para una variable aleatoria completamente irregular \(\vx\) (por ejemplo, una
-variable aleatoria de Bernoulli, que no tiene densidad), su
+variable aleatoria de Bernoulli, que no posee densidad), su
 suavizado gaussiano admite una densidad para todo \(t
 > 0\) (arbitrariamente pequeño). La demostración se deja como ejercicio para los lectores versados en
 análisis matemático.
 
-Sin embargo, también debemos añadir una suposición sobre la
+Sin embargo, también debemos añadir un supuesto sobre la
 \textit{suavidad} de la distribución de \(\vx\), lo que
 eliminará algunos problemas técnicos que surgen en torno a \(t = 0\) con
 distribuciones de baja dimensión.\footnote{Ya que entonces diversas magnitudes
@@ -260,7 +260,7 @@ de la siguiente manera.
     descripción concisa de la regularidad y la dinámica de \(p_{t}\).
     Una vez que obtenemos la dinámica de \(p_{t}\), podemos utilizar el sistema
     para obtener otra que describa la dinámica de
-    \(h(\vx_{t})\), que, al fin y al cabo, no es más que una funcional de \(p_{t}\).
+    \(h(\vx_{t})\), que, al fin y al cabo, no es más que una funcional de la densidad \(p_{t}\).
 
     La descripción de la EDP implica un objeto matemático denominado
     el laplaciano \(\Delta\). Recordemos de la clase de cálculo multivariable
@@ -302,8 +302,8 @@ de la siguiente manera.
         &> 0
     \end{align}
     donde en la última línea se cumple una desigualdad estricta porque, para que
-    no se cumpliera, \(\nabla p_{t}(\vxi)\) tendría que desaparecer casi
-    en todas partes (es decir, en todas partes excepto, posiblemente, en un conjunto de volumen), 
+    no se cumpliera, \(\nabla p_{t}(\vxi)\) tendría que ser nulo casi
+    en todas partes (es decir, en todas partes excepto, posiblemente, en un conjunto de volumen cero), 
     pero esto implicaría que \(p_{t}\) sería constante
     casi en todas partes, lo cual contradice el hecho de que \(p_{t}\) es una densidad.
 
@@ -334,8 +334,8 @@ para \(s, t \in \{t_{0}, t_{1}, \dots, t_{L}\}\) con \(s < t\) y
 < h(\hat{\vx}_{t})\), demostrando que el proceso de eliminación de ruido realmente
 reduce la entropía.
 
-Antes de ponernos manos a la obra, haremos varias observaciones sobre la
-formulación del problema. En primer lugar, la fórmula de Tweedie \eqref{eq:tweedie} establece que
+Antes de proceder con la demostración, realizaremos varias consideraciones sobre el
+planteamiento del problema. En primer lugar, la fórmula de Tweedie \eqref{eq:tweedie} establece que
 \begin{equation}
     \bar{\vx}^{\ast}(t, \vx_{t}) = \vx_{t} + t^{2}\nabla p_{t}(\vx_{t}),
 \end{equation}
@@ -415,7 +415,7 @@ es decir, formalmente:
     El cambio de variables se justifica mediante \Cref{cor:gribonval_A2},
     que se derivó originalmente en \cite{Gribonval2011-pf}.
 
-    Ahora ponemos en práctica estas ideas. A partir de \Cref{cor:gribonval_A2},
+    A continuación, aplicamos estas ideas. A partir de \Cref{cor:gribonval_A2},
     obtenemos que la función \(\bar{\vx}\), definida como
     \(\bar{\vx}(\vxi) \doteq \Ex[\vx_{s} \given \vx_{t} = \vxi]\) es
     diferenciable, inyectiva y, por lo tanto, invertible en su imagen,
@@ -427,7 +427,7 @@ es decir, formalmente:
         \bar{\vx}^{-1})(\vxi)}{\det(\bar{\vx}^{\prime}(\bar{\vx}^{-1}(\vxi)))},
     \end{equation}
     donde (recordemos, según el \Cref{sec:autodiff}) \(\bar{\vx}^{\prime}\)
-    es la jacobiana de \(\bar{\vx}\). Dado que por el
+    es el jacobiano de \(\bar{\vx}\). Dado que por el
     \Cref{lem:gribonval_A1} sabemos que \(\bar{\vx}^{\prime}\) es una
     matriz definida positiva, el determinante es positivo y, por lo tanto, la
     densidad total es positiva. De ahí se deduce que
@@ -579,7 +579,7 @@ escalado crítico es, por lo tanto,
 la condición se reduce a \(\alpha < 2J(p_{t})\). En otras
 palabras, cada paso de eliminación de ruido de tamaño
 \(t - s = \eps\, t \sim t^{7}/R^{4}\) reduce la entropía.
-Los pasos deben volverse cada vez más finos a medida que \(t \to 0\), una
+Los pasos deben volverse progresivmente más finos a medida que \(t \to 0\), una
 consecuencia del resto de segundo orden en la expansión de Taylor
 utilizada en la demostración.
 
@@ -594,14 +594,14 @@ log-cóncava), entonces \(\Delta \log p_{t} \leq 0\) en todo el espacio, y se pu
 más sencillo con conclusiones más sólidas.
 
 \subsection{Lemas técnicos y resultados
-intermedios}\label{sub:app_diffusion_intermediate_results}
+auxiliares}\label{sub:app_diffusion_intermediate_results}
 
-En esta subsección presentamos los resultados técnicos que sustentan nuestros dos
+En esta subsección presentamos los resultados técnicos que fundamentan nuestros dos
 teoremas conceptuales principales. Nuestra presentación seguirá más o menos
-el enfoque habitual en matemáticas; comenzaremos primero con los resultados de mayor nivel
-y, poco a poco, iremos retrocediendo hacia los resultados más incrementales. Los
+el enfoque habitual en matemáticas; empezaremos con los resultados de nivel más alto
+y, progresivamente volveremos a los resultados más graduales. Los
 resultados de mayor nivel utilizarán los resultados incrementales, y de esta
-manera obtenemos un orden de dependencia de los resultados fácil de seguir: ningún
+manera obtenemos un ordenamiento de dependencias legible y claro: ningún
 resultado depende de los que le preceden. Los resultados que no dependen
 unos de otros suelen ordenarse según el lugar en que aparecen en el
 par de demostraciones anterior.
@@ -624,12 +624,12 @@ y que es finita.
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    Para demostrar el \Cref{lem:diffusion_entropy_exists}.1, utilizamos un argumento analítico clásico
-    pero tedioso. Dado que \(\vx_{t}\) tiene una densidad, podemos escribir
+    Para probar el \Cref{lem:diffusion_entropy_exists}.1, emplearemos un razonamiento analítico clásico
+    y laborioso. Dado que \(\vx_{t}\) tiene una densidad, podemos escribir
     \begin{equation}
         h(\vx_{t}) = -\int_{\R^{D}}p_{t}(\vxi)\log p_{t}(\vxi) \odif{\vxi}.
     \end{equation}
-    Por consiguiente, sea \(g \colon \R^{D} \to \R\) definida como
+    En consecuencia, definimos \(g \colon \R^{D} \to \R\) como
     \begin{equation}
         g(\vxi) \doteq -p_{t}(\vxi)\log p_{t}(\vxi) \implies
         h(\vx_{t}) = \int_{\R^{D}}g(\vxi)\odif{\vxi}.
@@ -715,9 +715,9 @@ y que es finita.
 Por último, desarrollamos el argumento de la integración por partes al que se alude en
 las demostraciones de los
 \Cref{thm:diffusion_entropy_increases,thm:conditioning_reduces_entropy}.
-El argumento es conceptualmente bastante sencillo, pero requiere algunas
-estimaciones técnicas para demostrar que el término de frontera en la
-integración por partes se anula.
+El argumento es conceptualmente bastante simple, aunque exige algunas
+estimaciones técnicas precisas para mostrar que el término de borde en la
+integración por partes desaparece.
 
 \begin{lemma}\label{lem:diffusion_ibp}
     Sea \(\vx\) una variable aleatoria tal que los
@@ -895,8 +895,8 @@ generalizaciones adecuadas de los resultados correspondientes en \cite{Gribonval
     se cumplen, y sea \((\vx_{t})_{t \in [0, T]}\) el proceso estocástico
     \eqref{eq:app_additive_gaussian_noise_model}. Sea \(s, t
     \in [0, T]\) tal que \(0 \leq s < t \leq T\), y sea
-    \(\bar{\vx}(\vxi) \doteq \Ex[\vx_{s} \mid \vx_{t} = \vxi]\). La
-    jacobiana \(\bar{\vx}^{\prime}(\vxi)\) es simétrica y definida positiva.
+    \(\bar{\vx}(\vxi) \doteq \Ex[\vx_{s} \mid \vx_{t} = \vxi]\). El
+    jacobiano \(\bar{\vx}^{\prime}(\vxi)\) es simétrico y definido positivo.
 \end{lemma}
 \begin{proof}
     Tenemos
@@ -978,15 +978,15 @@ generalizaciones adecuadas de los resultados correspondientes en \cite{Gribonval
     la forma cuadrática original) es \(0\) si y solo si \(s = 0\)
     y \(\vx\) tiene un soporte totalmente contenido en un subespacio afín
     que es ortogonal a \(\vv\). Pero esto queda descartado por
-    la suposición (es decir, que \(\vx\) tiene densidad en \(\R^{D}\)), por lo que
-    la jacobiana \(\bar{\vx}^{\prime}(\vxi)\) es simétrica y definida positiva.
+    el supuesto (es decir, que \(\vx\) posee densidad en \(\R^{D}\)), por lo que
+    el jacobiano \(\bar{\vx}^{\prime}(\vxi)\) es simétrico y definido positivo.
 \end{proof}
 
 \begin{lemma}[Generalización de \cite{Gribonval2011-pf} Corolario
     A.2, Parte 1]\label{lem:gribonval_A2}
     Sea \(f \colon \R^{D} \to \R^{D}\) una función diferenciable cualquiera
-    cuya jacobiana \(f^{\prime}(\vx)\) sea simétrica y positiva
-    definida. Entonces \(f\) es inyectiva y, por lo tanto, invertible como
+    cuyo jacobiano \(f^{\prime}(\vx)\) sea simétrico y definido positivo.
+    Entonces \(f\) es inyectiva y, por lo tanto, invertible como
     función \(\R^{D} \to \Range(f)\), donde \(\Range(f)\) es el rango de \(f\).
 \end{lemma}
 \begin{proof}
@@ -1004,11 +1004,11 @@ generalizaciones adecuadas de los resultados correspondientes en \cite{Gribonval
         g^{\prime}(t^{\ast}) \doteq \vv^{\top}\bs{f^{\prime}(\vx +
         t^{\ast}\vv)}\vv > 0
     \end{equation}
-    ya que la jacobiana es definida positiva. Por lo tanto, llegamos a una
+    ya que el jacobiano es definido positivo. Por lo tanto, llegamos a una
     contradicción, tal como se ha afirmado.
 \end{proof}
 
-Al combinar los dos resultados anteriores, obtenemos el siguiente resultado fundamental.
+A partir de la combinación de los dos resultados anteriores se obtiene el siguiente resultado fundamental.
 
 \begin{corollary}[Generalización de \cite{Gribonval2011-pf} Corolario
     A.2, Parte 2]\label{cor:gribonval_A2}
@@ -1030,9 +1030,9 @@ Al combinar los dos resultados anteriores, obtenemos el siguiente resultado fund
 
 \subsubsection{Control del laplaciano \(\Delta \log p_{t}\)}
 
-Por último, elaboramos una estimación técnica necesaria para la
-demostración del \Cref{thm:conditioning_reduces_entropy} y que, de hecho,
-justifica la suposición relativa a los valores viables de \(t\).
+Finalmente, desarrollamos una estimación técnica requerida para 
+probar el \Cref{thm:conditioning_reduces_entropy} lo cual motiva directamente
+el supuesto sobre los valores admisibles de \(t\).
 
 \begin{lemma}\label{lem:app_diffusion_laplacian_control}
     Sea \(\vx\) una variable aleatoria tal que los
@@ -1124,8 +1124,8 @@ justifica la suposición relativa a los valores viables de \(t\).
 
 \subsubsection{Cálculos de derivadas}
 
-Aquí calculamos algunas derivadas útiles que se volverán a utilizar
-a lo largo del apéndice.
+A continuación presentamos algunas derivaciones útiles que serán 
+reutilizadas en todo el apéndice.
 
 \begin{proposition}\label{prop:p_t_derivatives}
     Sea \(\vx\) una variable aleatoria cualquiera tal que los
@@ -1197,7 +1197,8 @@ a lo largo del apéndice.
 \subsubsection{Derivación bajo el signo integral}
 
 En este apéndice, derivamos muchas
-veces bajo el signo de la integral, y es importante saber cuándo podemos hacerlo. Hay dos
+veces bajo el signo de la integral, y resulta esencial conocer las condiciones 
+bajo las cuales es posible proceder. Hay dos
 tipos de derivación bajo el signo de la integral:
 \begin{enumerate}
     \item Derivación de la integral \(\int f_{t}(\vxi)\odif{\vxi}\)
@@ -1206,10 +1207,10 @@ tipos de derivación bajo el signo de la integral:
         f(\vxi)g(\vxi - \vu)\odif{\vu}\) con respecto a la variable \(\vxi\).
 \end{enumerate}
 
-En cuanto a la primera categoría, ofrecemos un resultado concreto, expuesto sin
-demostración pero atribuible a
+Para la primera categoría, presentamos un resultado explícito, enunciado sin 
+prueba pero atribuible a 
 \href{https://planetmath.org/differentiationundertheintegralsign}{la
-fuente enlazada}, que deduce el siguiente resultado como un caso especial
+referencia vinculada}, que deduce el siguiente resultado como un caso especial
 de un teorema más general sobre la interacción de
 operadores diferenciales y distribuciones templadas, lo cual excede con creces el alcance del
 libro. Se puede encontrar una referencia formal completa en \cite{jones1982theory}.
@@ -1217,7 +1218,7 @@ libro. Se puede encontrar una referencia formal completa en \cite{jones1982theor
     Sea \(f \colon (0, T) \times \R^{D} \to \R\) tal que:
     \begin{itemize}
         \item \(f\) es una función conjuntamente medible de \((t, \vxi)\);
-        \item Para casi todo \(\vxi \in \R^{D}\) según Lebesgue, la
+        \item Para casi todo \(\vxi \in \R^{D}\) en el sentido de Lebesgue, la
             función \(t \mapsto f_{t}(\vxi)\) es absolutamente continua;
         \item \(\pdv{f_{t}}{t}\) es localmente integrable, es decir, para
             cada \([t_{\min}, t_{\max}] \subseteq (0, T)\) se cumple que
@@ -1264,17 +1265,17 @@ En esta sección, demostramos el \Cref{thm:covering-number-rate-distortion}.
 Siguiendo las convenciones utilizadas a lo largo de este apéndice, escribimos $\cS = \Supp(\vx)$
 para el soporte compacto de la variable aleatoria $\vx$.
 
-Tal como se ha adelantado, haremos una suposición de regularidad sobre el conjunto de soporte $\cS$
+Tal como se ha adelantado, haremos un supuesto de regularidad sobre el conjunto de soporte $\cS$
 para demostrar el \Cref{thm:covering-number-rate-distortion}. Una posibilidad para
 proceder bajo supuestos mínimos sería aplicar los resultados de
 \cite{Riegler2018-jh,Riegler2023-rr} en nuestro contexto, ya que estos resultados se aplican
 a conjuntos $\cS$ con muy baja regularidad (por ejemplo, conjuntos tipo Cantor con estructura
-fractal). Sin embargo, hemos constatado que calcular con precisión las constantes en estos
-resultados---una tarea necesaria para demostrar una conclusión como el
-\Cref{thm:covering-number-rate-distortion}---resulta algo laborioso en nuestro
+fractal). Sin embargo, hemos encontrado que el cálculo preciso de estas constantes 
+---una tarea necesaria para demostrar una conclusión como el
+\Cref{thm:covering-number-rate-distortion}---resulta bastante tedioso en nuestro
 contexto.
-Por lo tanto, nuestro enfoque consiste en añadir una suposición de regularidad geométrica sobre
-el conjunto $\cS$ que sacrifica cierta generalidad, pero nos permite desarrollar
+Por lo tanto, nuestro enfoque consiste en añadir un supuesto de regularidad geométrica sobre
+el conjunto $\cS$ que cede en términos de generalidad, pero nos permite desarrollar
 un argumento más transparente. Para evitar sacrificar demasiada generalidad, debemos
 asegurarnos de que no se prohíba la baja dimensionalidad en el conjunto $\cS$.
 Por lo tanto, consideramos el ejemplo que hemos utilizado a lo largo del libro: la
@@ -1283,11 +1284,11 @@ modelamos $\cS$ como una unión de hiperesferas, cada una de dimensión $d_k$ (p
 mucho menor que $D$), situadas en subespacios mutuamente ortogonales de $\R^D$.
 Esta es una simplificación geométrica del modelo de mezcla gaussiana: el soporte de cada
 componente se aproxima mediante una esfera en el subespacio generado por sus
-direcciones principales. Cuando las dimensiones de los componentes $d_k$ son grandes, esta
-suposición equivale a una suposición de mezcla de gaussianas de bajo rango, debido a
+direcciones principales. Cuando las dimensiones de los componentes $d_k$ son grandes, este
+supuesto equivale a un supuesto de mezcla de gaussianas de bajo rango, debido a
 la concentración de medidas en espacios de alta dimensión. Los modelos CRATE que desarrollamos y entrenamos en los
 \Cref{ch:deep-networks,ch:applications} tienen sus \textit{dimensiones de subespacio}
-establecidas de manera compatible con esta suposición.
+establecidas de manera compatible con este supuesto.
 
 \begin{assumption}\label{assumption:union-of-spheres}
     El soporte $\cS \subset \R^D$ de la variable aleatoria $\vx$ es una unión finita
@@ -1413,7 +1414,7 @@ Ahora bien, la restricción importante para nuestros propósitos actuales es que
 exige que la variable aleatoria $\vx$ tenga una densidad, lo que descarta muchas
 distribuciones de interés de baja dimensión.
 Pero consideremos por un momento la situación en la que $\vx$ sí admite una densidad.
-La suposición de que $\vx$ sigue una distribución uniforme en su soporte se formaliza fácilmente
+El supuesto de que $\vx$ sigue una distribución uniforme en su soporte se formaliza fácilmente
 en este contexto: para cualquier conjunto de Borel $A \subset \cS$, tenemos
 \begin{equation}
     \Pr[\vx \in A] = \int_{A} \frac{1}{\volume(\cS)} \odif \vx.
@@ -1439,7 +1440,7 @@ obtener la conclusión deseada en el \Cref{thm:covering-number-rate-distortion}.
 
 \begin{definition}\label{def:thickening-set}
     Sea $\cS$ un conjunto compacto.
-    Para cualquier $\delta > 0$, definimos el engrosamiento de $\cS$ de espesor $\delta$, denotado
+    Para cualquier $\delta > 0$, definimos el entorno tubular de $\cS$ de espesor $\delta$, denotado
     $\cS_{\delta}$, como
     \begin{equation}
         \cS_{\delta} = \set*{\vxi \in \R^D \given \mathrm{dist}(\vxi, \cS) \leq
@@ -1578,7 +1579,7 @@ con respecto a la medida de Lebesgue.
 \begin{proof}[(Demostración de \Cref{lem:rate-distortion-lb-uos})]
     Basta con demostrar que cualquier código para $\vx$ con una distorsión cuadrática esperada
     de $\epsilon^2$ produce un código para $\vx_{\delta}$ con la misma tasa y
-    una distorsión no mucho mayor, si se elige un valor adecuado de $\delta$.
+    una distorsión ligeramente superior, si se elige un valor adecuado de $\delta$.
     Así pues, fijemos un código de este tipo para $\vx$, que alcance una tasa de $R$ y una distorsión cuadrática
     esperada de $\epsilon^2$. Denotamos por $\hat{\vx}$ la variable aleatoria
     reconstruida mediante este código, y por $\mathrm{q} : \Supp(\vx) \to \Supp(\vx)$
@@ -1704,7 +1705,7 @@ con respecto a la medida de Lebesgue.
         }_2
         \leq \delta,
     \end{align}
-    donde la segunda línea se basa en la suposición de ortogonalidad de los subespacios
+    donde la segunda línea se basa en el supuesto de ortogonalidad de los subespacios
     $\vU_k$, y la tercera se basa en el hecho de que las proyecciones ortogonales son
     no expansivas.
     Por lo tanto, la $j$-ésima distancia cumple que
@@ -1852,7 +1853,7 @@ con respecto a la medida de Lebesgue.
 
     Por lo tanto, del argumento anterior se deduce que $\pi_{\cS}(\vx_{\delta})$ es
     uniforme.
-    Dado que la suposición sobre $\delta$ implica que los componentes de la mezcla en
+    Dado que el supuesto sobre $\delta$ implica que los componentes de la mezcla en
     la distribución de $\vx_{\delta}$ no se superponen, los pesos de mezcla
     $\pi_k$ también se conservan en la imagen $\pi_{\cS}(\vx_{\delta})$, y en
     particular, la distribución de $\pi_{\cS}(\vx_{\delta})$ es igual a la
@@ -1877,7 +1878,7 @@ con respecto a la medida de Lebesgue.
         \leq
         R_{\epsilon}(\vx),
     \end{equation}
-    como se debía demostrar.
+    como se quería demostrar.
 
 \end{proof}
 

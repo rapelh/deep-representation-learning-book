@@ -1,6 +1,8 @@
 \documentclass{book}
 
 \usepackage[english]{babel}
+%\usepackage[spanish,english]{babel}
+%\selectlanguage{spanish}
 
 \usepackage{fancyhdr}
 \addto\captionsenglish{\renewcommand{\bibname}{Bibliografía}}
@@ -82,6 +84,7 @@ decorations.pathmorphing, decorations.markings}
     backref=false,
     natbib=true,
 ]{biblatex}
+
 \renewbibmacro{in:}{}
 \AtEveryBibitem{%
     \clearlist{language}%

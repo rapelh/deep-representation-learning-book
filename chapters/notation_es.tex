@@ -17,15 +17,15 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
 \begin{itemize}
     \item Los escalares (ya sean deterministas o aleatorios) no están en negrita,
         por ejemplo, \(x\), \(X\).
-    \item Los vectores (ya sea deterministas o aleatorios) están en negrita, 
+    \item Los vectores (ya sea deterministas o aleatorios) están en negrita minúscula, 
         por ejemplo, \(\vx\), \(\vpi\). Los componentes de vectores se 
         denotan \(x_{i}\) o \(\pi_{i}\), alternativamente \((\vx)_{i}\).
         Los términos genéricos (que pueden ser escalares, vectores, matrices o
         tensores de orden superior) también están en negrita.
-    \item Las matrices (ya sean deterministas o aleatorios) están en negrita, 
-        por ejemplo, \(\vX, \vPi\). Las entradas de matrices se denotan
+    \item Las matrices (ya sean deterministas o aleatorias) están en negrita mayúscula, 
+        por ejemplo, \(\vX, \vPi\). Los elementos de matrices se denotan
         \(X_{ij}\) o \(\Pi_{ij}\), alternativamente \((\vX)_{ij}\).
-        Las columnas de matrices son vectores en negrita, por ejemplo,
+        Las columnas de matrices son vectores en negrita minúscula, por ejemplo,
         \(\vx_{i}\) es la \(i\)-ésima columna de \(\vX\), a no ser que se defina 
         de otra manera.
     \item La transpuesta de una matriz es \(\top\), por ejemplo,
@@ -34,8 +34,8 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
     \item El rango de una matriz es \(\rank(\vA)\), la traza es
         \(\tr(\vA)\), el determinante es \(\det(\vA)\) y el
         determinante logarítmico es \(\logdet(\vA)\).
-    \item La multiplicación entrada por entrada de matrices es \(\vA \hada
-        \vB\). La cuadratura entrada por entrada es 
+    \item La multiplicación elenento por elenento de matrices es \(\vA \hada
+        \vB\). La cuadratura elenento por elenento es 
         \(\vA^{\hada 2}\), etc. De manera similar, el producto Kronecker de
         matrices es \(\vA \kron \vB\). El producto Kronecker iterado
         es \(\vA^{\kron 2}\), etc.
@@ -61,16 +61,16 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
         ordenan de modo que \(\sigma_{1}(\vA) \geq \cdots \geq
         \sigma_{r}(\vA) > 0\). Por convención, se define \(\sigma_{r +
         1}(\vA) = \sigma_{r + 2}(\vA) = \cdots = 0\).
-    \item La proyección en un conjunto \(\cK\) se denota \(\proj_{\cK}\).
+    \item La proyección sobre un conjunto \(\cK\) se denota \(\proj_{\cK}\).
     \item Las normas \(\ell^{p}\) de vectores se denotan como
         \(\norm{\vx}_{p}\), \(p \in [0, \infty]\).
     \item La norma euclidiana de operadores sobre matrices es \(\norm{\vA} =
         \sigma_{1}(\vA)\).
     \item La norma Frobenius de matrices es \(\norm{\vA}_{F} =
         \tr(\vA^{\top}\vA)\).
-    \item El producto interno euclidiano de vectores es \(\ip{\vx}{\vy} =
+    \item El producto escalar euclidiano de vectores es \(\ip{\vx}{\vy} =
         \vy^{\top} \vx\).
-    \item El producto interno Frobenius de matrices es \(\ip{\vX}{\vY}
+    \item El producto escalar Frobenius de matrices es \(\ip{\vX}{\vY}
         = \tr(\vY^{\top}\vX)\).
     \item Un vector o matriz con todos los elementos iguales a uno se denota \(\vone\) 
         (la dimensión debería ser obvia por contexto). De manera similar, 
@@ -124,10 +124,10 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
 
 \begin{itemize}
     \item Los codificadores y reductores de ruido normalmente se denotan por 
-        \(f\) y usualmente tienen parámetros \(\theta \in \Theta\). Usualmente
+        \(f\) y suelen tener parámetros \(\theta \in \Theta\). Normalmente
         escribiremos las características como \(\vz = f_{\theta}(\vx)\).
-    \item Los decodificadores normalmente se denotan por \(g\) y usualmente 
-        tienen parámetros \(\eta\). Usualmente escribiremos la autocodificación
+    \item Los decodificadores normalmente se denotan por \(g\) y suelen 
+        tener parámetros \(\eta\). Normalmente escribiremos la autocodificación
         como \(\hat{\vx} = g_{\eta}(\vz)\) correspondiente a \(\vx\).
     \item Cuando \(f\) y \(g\) se implementan como redes neurales,
         tendrán el mismo número de capas sin pérdida de generalidad;
@@ -138,7 +138,7 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
     \item Escribiremos las características a la entrada a la capa \(\ell\) como
         \(\vz^{\ell}\) de modo que \(\vz^{\ell + 1} =
         f^{\ell}(\vz^{\ell})\) con \(\vz^{1} = f^{\pre}(\vx)\) y
-        \(\vz = \vz^{L + 1}\). Similarmente, las características de autocodificación 
+        \(\vz = \vz^{L + 1}\). Del mismo modo, las características de autocodificación 
         son \(\hat{\vx}^{\ell}\) con \(\hat{\vx}^{\ell + 1} =
         g^{\ell}(\hat{\vx}^{\ell})\) con \(\hat{\vx}^{1} = \vz\) y
         \(\hat{\vx} = g^{\post}(\hat{\vx}^{L + 1})\).
@@ -152,12 +152,12 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
 \begin{itemize}
     \item Tal como en las secciones anteriores de notación de probabilidades y de aprendizaje automático,
         cuando tenemos un modelo, digamos, para las realizaciones de
-        una distribución de datos soportada en $\bR^D$, siempre lo denotamos con
-        variables acentuadas «ordinarias», p.ej. $\vx$.
+        una distribución de datos definida en $\bR^D$, siempre lo denotamos con
+        variables «ordinarias», sin marca diacrítica, p.ej. $\vx$.
     \item En los casos en que suponemos que los datos $\vx$ son generados por un modelo de 
         una clase restringida de \textit{modelos paramétricos}, digamos, con
         un parámetro $\vmu$, también denotamos el \textit{parámetro verdadero} con
-        acentuación simple.\footnote{Esto podría surgir ya sea por haber hecho una 
+        acentuación simple, sin marca diacrítica.\footnote{Esto podría surgir ya sea por haber hecho una 
         suposición sobre de los datos, o bien debido a que los datos hayan sido generados
         sintéticamente. Esta convención nos permite adoptar una notación concisa tanto en
         contextos `probabilísticos' como `analíticos' de modelación. Aquellos lectores más

@@ -1,8 +1,10 @@
 # "Learning Deep Representations of Data Distributions"
 
 
-This repository is the _source code_ for the book "Learning Deep Representations of Data Distributions". 
-If you just want to read the book, _you should not need this repository_. We have a copy at [this link](https://ma-lab-berkeley.github.io/deep-representation-learning-book/assets/book-main.pdf) that will be updated periodically.
+This repository is the _source code_ for the book "Learning Deep Representations of Data Distributions" extended with a Spanish translation. 
+If you just want to read the book in English, _you should not need this repository_. We have a copy at [this link](https://ma-lab-berkeley.github.io/deep-representation-learning-book/assets/book-main.pdf) that will be updated periodically.
+
+If you want to read the book in Spanish, we have a copy at [this link](https://rapelh.github.io/deep-representation-learning-book/assets/book-main.pdf) that will be updated periodically too.
 
 Generally, you should be accessing the source code for one of the following purposes:
 - You want to build the book, or one of its chapters, from scratch. See [this section](#building-the-book-or-chapter).

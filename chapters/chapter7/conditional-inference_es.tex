@@ -98,14 +98,14 @@ la relación general entre $\x$ y $\y$.
     \ref{fig:image-text-completion} muestra algunos ejemplos de este tipo de
     tareas. De hecho, son precisamente estas tareas las que han inspirado
     los métodos de entrenamiento de los modelos modernos de gran tamaño para la generación de texto (como
-    GPT) y la completación de imágenes (como el autoencoder enmascarado), que
+    GPT) y el completamiento de imágenes (como el autoencoder enmascarado), que
     estudiaremos con mayor detalle más adelante.
     \begin{figure}
         \centering
         \includegraphics[height=0.4\linewidth]{\toplevelprefix/chapters/chapter7/figs/image-completion.jpg}
         \hspace{10mm}
         \includegraphics[height=0.45\linewidth]{\toplevelprefix/chapters/chapter7/figs/text-prediction.jpg}
-        \caption{Izquierda: completación de imágenes. Derecha: predicción de texto. En
+        \caption{Izquierda: completamiento de imágenes. Derecha: predicción de texto. En
             particular, la predicción de texto es la fuente de inspiración del
         popular Generative Pre-trained Transformer (GPT).}
         \label{fig:image-text-completion}
@@ -353,7 +353,7 @@ desde el punto de vista conceptual, presentan un grado de dificultad cada vez ma
         {\em inferencia bayesiana empírica}.} Es necesario
         aprender un modelo para la distribución $p(\x)$ de $\x$ y,
         posteriormente, la distribución condicional
-        $p(\x\mid \y)$. La completación natural de imágenes o 
+        $p(\x\mid \y)$. El completamiento natural de imágenes o 
         del lenguaje natural (por ejemplo, BERT y GPT) son ejemplos típicos de esta
         clase de problemas.
     \item {\em Caso 3:} Solo disponemos de algunas muestras emparejadas: $(\X, \Y) =
@@ -384,7 +384,7 @@ red de auto-codificación se entrena para reconstruir un conjunto de muestras de
 vector aleatorio $\x$. Esto nos permitiría regenerar muestras
 a partir de la distribución aprendida (de baja dimensión). En la práctica, la
 baja dimensión de la distribución, una vez dada o aprendida, puede
-explotarse para tareas de recuperación, completación o predicción
+explotarse para tareas de recuperación, completamiento o predicción
 estables y robustas. Es decir, bajo condiciones bastante suaves, es posible recuperar $\x$
 a partir de medidas de $\x$ altamente comprimidas, parciales, ruidosas o incluso corrompidas,
 del tipo:
@@ -411,7 +411,7 @@ a partir de la observación de solo una fracción de la misma:
 donde $\mathcal{P}_{\Omega}(\spcdot)$ representa una operación de enmascaramiento
 (véase la \Cref{fig:matrix-completion} por un ejemplo).
 
-En esta sección y en la siguiente, estudiaremos la tarea de completación en
+En esta sección y en la siguiente, estudiaremos la tarea de completamiento en
 dos escenarios diferentes: uno es aquel en el que la distribución de los datos
 $\x$ de interés ya se conoce {\em a priori}, incluso en una determinada
 forma analítica. Este es el caso que prevalece en el procesamiento clásico de señales,
@@ -419,16 +419,16 @@ donde se supone que las estructuras de las señales son
 conocidas; por ejemplo, de banda limitada, dispersas o de bajo rango. El otro caso es
 cuando solo se dispone de muestras sin procesar de $\x$ y necesitamos aprender la
 distribución de baja dimensión a partir de las muestras para resolver
-adecuadamente la tarea de completación. Este es el caso de las tareas de
-completación de imágenes naturales o predicción de fotogramas de video. Como introducción al resto
-del capítulo, comenzaremos con el caso más sencillo de completación de imágenes:
+adecuadamente la tarea de completamiento. Este es el caso de las tareas de
+completamiento de imágenes naturales o predicción de fotogramas de video. Como introducción al resto
+del capítulo, comenzaremos con el caso más sencillo de completamiento de imágenes:
 cuando la imagen que hay que completar se puede representar adecuadamente como una matriz de rango bajo.
 Más adelante pasaremos a casos cada vez más generales y a entornos más
 complejos.
 
 \paragraph{Completación de matrices de rango bajo.}
-El problema de la {\em completación de matrices
-de rango bajo} es un problema clásico en el ámbito de la completación de datos cuando
+El problema del {\em completamiento de matrices
+de rango bajo} es un problema clásico en el ámbito del completamiento de datos cuando
 su distribución es de baja dimensión y conocida. Consideremos una muestra aleatoria
 de una matriz $\X_o =
 [\x_1, \ldots, \x_n] \in \mathbb{R}^{m\times n}$ del espacio de
@@ -456,7 +456,7 @@ ejemplo de cómo completar una matriz de este tipo.
     \includegraphics[width=0.3\linewidth]{\toplevelprefix/chapters/chapter7/figs/masked-checkerboard.png}\;\;
     \includegraphics[width=0.3\linewidth]{\toplevelprefix/chapters/chapter7/figs/mask.png}\;\;
     \includegraphics[width=0.3\linewidth]{\toplevelprefix/chapters/chapter7/figs/checkerboard.png}
-    \caption{Ilustración de la completación de una imagen como matriz de rango bajo
+    \caption{Ilustración del completamiento de una imagen como matriz de rango bajo
         con algunas entradas enmascaradas o dañadas. Izquierda: la imagen enmascarada/dañada
         $\Y$; centro: la máscara $\Omega$; derecha: la imagen reconstruida
     $\hat \X$.}
@@ -476,7 +476,7 @@ matrices que tengan entradas que coincidan con las observadas:
     \Y = \mathcal{P}_{\Omega}(\X).
     \label{eqn:rank-min}
 \end{equation}
-Esto se conoce como el problema de la {\em completación de matrices de rango bajo}. Véase
+Esto se conoce como el problema del {\em completamiento de matrices de rango bajo}. Véase
 \cite{Wright-Ma-2022} para una caracterización completa del espacio de todas las
 matrices de rango bajo. Dado que la función de rango es discontinua y la minimización del rango
 es, en general, un problema NP-difícil; por tranto, nos gustaría relajarlo mediante
@@ -494,7 +494,7 @@ volumen generado por $\X$) de los datos en $\X$ sea pequeña:
     \label{eqn:rate-min}
 \end{equation}
 El problema puede considerarse como una relajación continua del
-problema de completación de matrices de rango bajo mencionado anteriormente \eqref{eqn:rank-min} y puede
+problema de completamiento de matrices de rango bajo mencionado anteriormente \eqref{eqn:rank-min} y puede
 resolverse mediante el método del descenso por gradiente. Se puede demostrar que el operador de descenso por gradiente
 para el objetivo $\log\det$ minimiza precisamente un
 sustituto cercano del rango de la matriz $\X\X^\top$.
@@ -507,10 +507,10 @@ relajación convexa bastante eficaz: la
 norma nuclear, es decir, la suma de todos los valores singulares de la matriz $\X$. Como
 se muestra en la bibliografía sobre detección compresiva, bajo condiciones bastante
 amplias,\footnote{Por lo general, dichas condiciones especifican la
-    cantidad necesaria y suficiente de entradas requeridas para que la
-    completación sea computacionalmente viable. Estas condiciones han sido
-caracterizadas sistemáticamente en \cite{Wright-Ma-2022}.} el problema de la
-completación de matrices \eqref{eqn:rank-min}
+    cantidad necesaria y suficiente de entradas requeridas para que el
+    completamiento sea computacionalmente viable. Estas condiciones han sido
+caracterizadas sistemáticamente en \cite{Wright-Ma-2022}.} el problema del
+completamiento de matrices \eqref{eqn:rank-min}
 puede resolverse eficazmente mediante el siguiente programa convexo:
 \begin{equation}
     \min \|\X\|_* \quad \mbox{sujeto a}
@@ -566,7 +566,7 @@ Sin embargo, los seres humanos siguen demostrando una notable capacidad para
 completar escenas y reconocer objetos familiares a pesar de 
 oclusiones severas. Esto sugiere que nuestro cerebro ha aprendido la
 distribución de baja dimensión de las imágenes naturales y puede utilizarla para
-la completación y, por lo tanto, para el reconocimiento. Sin embargo, la distribución de todas las
+el completamiento y, por lo tanto, para el reconocimiento. Sin embargo, la distribución de todas las
 imágenes naturales no es tan simple como un subespacio lineal de baja dimensión.
 Por lo tanto, surge la pregunta de si podemos aprender la distribución más
 sofisticada de las imágenes naturales y utilizarla para realizar
@@ -595,7 +595,7 @@ minimice la pérdida de reconstrucción:
     \min_{f, g} L_{\mathrm{MAE}}(f, g) \doteq \mathbb{E}\big[\norm{(g \circ
     f)(\mathcal{P}_\Omega(\vX)) - \vX}_{2}^{2}].
 \end{equation}
-A diferencia del problema de completación de matrices, que tiene una estructura subyacente simple,
+A diferencia del problema de completamiento de matrices, que tiene una estructura subyacente simple,
 ya no debemos esperar que las correspondencias de codificación y decodificación
 admitan formas cerradas simples ni que el problema pueda resolverse mediante
 algoritmos explícitos.
@@ -649,7 +649,7 @@ el método de descenso de gradiente.
 
 La Figura \ref{fig:mae_autoencoding-small} muestra algunos resultados representativos
 del autoencoder enmascarado así diseñado. Para obtener más detalles sobre la implementación 
-y los resultados del autoencoder enmascarado para la completación de imágenes naturales
+y los resultados del autoencoder enmascarado para el completamiento de imágenes naturales
 se recomienda consultar el Capítulo \ref{ch:applications} \Cref{sec:image_completion}.
 \begin{figure}[t]
     \centering
@@ -694,7 +694,7 @@ parte suficiente de $\X$, $\X_v$, esta determine completamente
 $\X$ y, por lo tanto, la parte faltante $\X_m$. En otras palabras, la distribución
 $p_{\X \mid \X_v}$ es una función generalizada (análoga a la función delta).
 
-Por lo tanto, en lugar de abordar la tarea de completación como un problema de estimación condicional,
+Por lo tanto, en lugar de abordar la tarea de completamiento como un problema de estimación condicional,
 deberíamos tratarla como un problema de muestreo condicional.
 Para ello, primero deberíamos aprender la distribución (de baja dimensión)
 de todas las imágenes naturales $\X$. Si contamos con suficientes
@@ -729,7 +729,7 @@ donde $\vA$ es un operador lineal en el espacio matricial\footnote{es decir, si
     imaginamos que desplegamos \(\vX\) en un vector largo, entonces \(\vA\) desempeña el
 papel de una matriz en el espacio de \(\vX\)} y $\vG \sim
 \mathcal{N}(\boldsymbol{0}, \vI)$. El operador de enmascaramiento
-$\mathcal{P}_{\Omega}(\cdot)$ en la tarea de completación de imágenes es un
+$\mathcal{P}_{\Omega}(\cdot)$ en la tarea de completamiento de imágenes es un
 ejemplo de dicho modelo lineal. Entonces, se ha demostrado por
 \cite{daras2023ambient} que
 \begin{equation}
@@ -758,7 +758,7 @@ que es coherente con la medición, tal y como se muestra en la
 \Cref{fig:ambient_diffusion} (véase la \Cref{fig:mae_autoencoding-small}).
 
 \paragraph{Mediciones no lineales generales.}
-Para generalizar los problemas de completación (de imágenes) mencionados anteriormente y hacer el análisis
+Para generalizar los problemas de completamiento (de imágenes) mencionados anteriormente y hacer el análisis
 más riguroso, podemos considerar que un vector aleatorio $\vx \sim p$ se
 observa parcialmente a través de una función de observación más
 general:
@@ -773,7 +773,7 @@ degenerada si el ruido $\vw$ es pequeño. En gran medida, podemos
 considerar $p(\x, \y)$ como una versión ruidosa de una hipersuperficie definida por la
 función $\y = h(\x)$ en el espacio conjunto $(\x, \y)$. En la práctica,
 consideraremos un escenario más parecido a la auto-codificación enmascarada
-que a la completación de matrices puro, en el que siempre tenemos acceso a una
+que al completamiento de matrices puro, en el que siempre tenemos acceso a una
 muestra limpia correspondiente $\vx$ para cada observación $\vy$ que
 recibimos.\footnote{En algunas aplicaciones más especializadas, en
     particular en el procesamiento de imágenes científicas, resulta interesante poder

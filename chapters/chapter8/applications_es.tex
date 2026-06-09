@@ -167,7 +167,7 @@ gran variedad de aplicaciones que presentamos en este capítulo, recordamos prim
 que en el resto del libro tratamos dos tipos diferentes de arquitecturas de modelos.
 \begin{itemize}
     \item Una arquitectura de \textit{codificador}, parametrizada por
-        \(\theta\), que se compone de varios componentes:
+        \(\theta\), que se compone de varias componentes:
         \begin{itemize}
             \item Una \textit{incrustación} \(f_{\theta}^{\emb} \colon
                 \cD \to (\R^{d})^{*}\), que convierte los datos de entrada
@@ -199,7 +199,7 @@ que en el resto del libro tratamos dos tipos diferentes de arquitecturas de mode
         f_{\theta}^{\ext}(\vZ_{\theta}(\vX))\). El proceso general
         se muestra en la \Cref{fig:overall_encoder_pipeline}.
     \item Una arquitectura de \textit{autoencoder}, que se compone de
-        varios componentes:
+        varias componentes:
         \begin{itemize}
             \item Una \textit{incrustación} \(f_{\theta}^{\emb} \colon
                 \cD \to (\R^{d})^{*}\), que convierte los datos de entrada
@@ -373,7 +373,7 @@ y \(H \colon \Delta_{m} \to \R\) es la entropía de una variable aleatoria. Obs�
 que \(\KL(\vp\mid \vq)\) se minimiza si y solo si \(\vp = \vq\).
 Así que minimizar \(d_{\CE}\) hace dos cosas: hace que \(\vp = \vq\),
 y hace que \(\vp\) y \(\vq\) tengan entropía mínima (es decir, vectores
-    con \(1\) en un solo componente y \(0\) en el resto --- denominados
+    con \(1\) en una sola componente y \(0\) en el resto --- denominados
 \textit{vectores «one-hot»}). En general, la meta de este objetivo no es
 \textit{solo} hacer coincidir \(\vp\) y \(\vq\), sino también darles una forma
 determinada para que tengan baja entropía. Tengamos esto en cuenta cuando
@@ -1124,7 +1124,7 @@ siguiente canal de procesamiento:
 En concreto, analizamos qué revelan los mapas de atención de una entrada determinada
 sobre los objetos salientes de la imagen de entrada, es decir, qué
 partes de la imagen proporcionan la información más relevante a nivel global para
-el token de clase. Una forma concreta de hacerlo consiste en examinar el
+el token de clase. Una forma concreta de hacerlo consiste en examinar la
 componente del mapa de atención en el que el token de clase se extrae como
 consulta y se elimina de la matriz de valores, es decir, \(\vA_{2:, 1}^{k,
 L} \in \R^{1 \times (n - 1)} = \R^{1 \times N}\) o su transpuesta
@@ -1495,7 +1495,7 @@ oración o un documento), la representamos como una secuencia de tokens en
 Todos los parámetros \(\vz_{\cls}^{1}, \vW^{\tok}, \vE^{\pos}\) están
 incluidos en el conjunto de parámetros \(\theta\). El vocabulario \(\cV\) y el tokenizador \(t^{\tok}\) son fijos.
 
-Otros componentes de la torre textual, como la columna vertebral y el cabezal específico para cada 
+Otras componentes de la torre textual, como la columna vertebral y el cabezal específico para cada 
 tarea, siguen opciones de diseño similares a las de la torre visual y se omiten por motivos de 
 brevedad. También cabe señalar que trabajos posteriores han demostrado una flexibilidad considerable 
 en la elección del codificador de texto de CLIP: las representaciones de texto fijas contenidas en 
@@ -1750,7 +1750,7 @@ entrenamiento, solo calcular los gradientes y actualizar el codificador visual
 \(f_{\theta}\) de forma online. La torre visual \(f_{\theta}:\cI\to\R^{d}\) sigue la misma 
 estructura que en \Cref{sub:clip_vision_tower}, con la dimensión de salida del cabezal de 
 proyección establecida en \(d\) para que coincida con la dimensión del espacio de incrustación 
-de texto fijo. Aparte de fijar \(g_{\plainphi}\) y ajustar la dimensión de proyección, los 
+de texto fijo. Aparte de fijar \(g_{\plainphi}\) y ajustar la dimensión de proyección, las 
 componentes restantes---incluida la pérdida contrastiva y el procedimiento de optimización---siguen 
 los mismos principios de diseño que CLIP.
 
@@ -1985,7 +1985,7 @@ imagen de modo que el lado más corto tenga un tamaño de \(256\) (es decir, \(S
 \(S_{\cc} = 224\)), tanto en la evaluación como en el entrenamiento. Se toma un tamaño de parche
 de \(16\) (es decir, \(P_{H} = P_{W} = 16\)). Se utilizan los modelos tiny, small,
 base y large de la arquitectura ViT \cite{dosovitskiy2020image}
-como red de incrustación y red troncal, sustituyendo los componentes MHSA y
+como red de incrustación y red troncal, sustituyendo las componentes MHSA y
 MLP por MSSA e ISTA, respectivamente, utilizando el mismo número
 de cabezas y la misma dimensión de cabeza en el caso de MSSA, lo que
 reduce drásticamente el número de parámetros de entrenamiento. Para CRATE,
@@ -2334,7 +2334,7 @@ tamaño \(224 \times 224\) (es decir, \(S_{\mathrm{mask}} = 224\)), y
 enmascarando \(p_{\mathrm{mask}} = \frac{3}{4}\) de los parches. Se toma
 un tamaño de parche de \(16\) (es decir, \(P_{H} = P_{W} = 16\)). Se utilizan las variantes 'small'
 y 'base' de la arquitectura ViT-MAE como incrustación y
-backbone tanto para el codificador como para el decodificador, sustituyendo los componentes MHSA y
+backbone tanto para el codificador como para el decodificador, sustituyendo las componentes MHSA y
 MLP por MSSA, ISTA y capas lineales, respectivamente. En el caso de MSSA,
 se emplean el mismo número de cabezales y la misma dimensión de cabezales.
 Sin embargo, el ViT-MAE original utiliza un codificador que emplea casi todas
@@ -3320,7 +3320,7 @@ especialmente en la generación de imágenes a partir de texto. Los datos visual
 encuentran en un espacio de píxeles continuo y de alta dimensión $\mathbb{R}^{H \times W \times 3}$, 
 mientras que la condición $\vc$ suele residir en un espacio simbólico discreto (el lenguaje). 
 No existe una métrica euclidiana natural que permita medir directamente la distancia $\| \x - \vc \|$.
-Por lo tanto, el componente crítico $\tau_\phi(\vc)$ mencionado anteriormente debe alinear las 
+Por lo tanto, la componente crítica $\tau_\phi(\vc)$ mencionada anteriormente debe alinear las 
 modalidades. Tal y como se explica en el Capítulo \ref{ch:conditional-inference}, los enfoques 
 modernos se basan en codificadores contrastivos preentrenados (como CLIP) o en grandes modelos 
 de lenguaje (como T5~\citep{raffel2020exploring}) para mapear tokens de lenguaje discretos en un 
@@ -3556,7 +3556,7 @@ detallamos la implementación de cada componente.
 El primer pilar de la arquitectura es un autoencoder variacional (VAE) entrenado para 
 aprender a abstraer los detalles de alta frecuencia que, aunque son insignificantes perceptualmente,
 resultan computacionalmente costosos de modelar. Tal 
-y como se presentó en la Sección~\ref{sec:VAE-implement}, este componente define el 
+y como se presentó en la Sección~\ref{sec:VAE-implement}, esta componente define el 
 \textbf{espacio latente} en el que tiene lugar la generación.
 \begin{itemize}
     \item \textbf{El codificador ($\mathcal{E}$):} El codificador mapea una imagen RGB de 
@@ -3607,7 +3607,7 @@ condicionamiento.
               componentes de baja y alta frecuencia), seguida de una red neuronal multicapa (MLP) compuesta por 
               capas `Linear` $\to$ `SiLU` $\to$ `Linear`. Esto produce un vector de incrustación temporal global 
               (por ejemplo, de 1280 dimensiones) que se inyecta en cada bloque ResNet de la U-Net.
-        \item \textbf{Flujo contextual:} Las incrustaciones de texto $\tau_\theta(\vc)$ del componente 2.
+        \item \textbf{Flujo contextual:} Las incrustaciones de texto $\tau_\theta(\vc)$ de la componente 2.
     \end{enumerate}
     \item \textbf{Mecanismo de condicionamiento (atención cruzada):} La interacción entre el contenido visual y la 
           indicación de texto se gestiona mediante capas de atención cruzada intercaladas a lo largo de la red U-Net. 
@@ -3646,7 +3646,7 @@ condicionamiento.
 \end{itemize}
 
 \paragraph{Objetivo de entrenamiento.}
-El proceso de entrenamiento unifica estos componentes. Tomamos una imagen aleatoria $\x$, la 
+El proceso de entrenamiento unifica estas componentes. Tomamos una imagen aleatoria $\x$, la 
 comprimimos utilizando el codificador congelado $\z_0 = \mathcal{E}(\x)$ y le añadimos ruido 
 gaussiano $\epsilon$ para generar $\z_t$. A continuación, se entrena la red U-Net $\epsilon_\theta$ 
 para predecir y corregir este ruido, condicionado por el texto condicionador $\vc$ y el paso de tiempo de difusión $t$:
@@ -5330,8 +5330,8 @@ geométrica en 3D como la fidelidad de la apariencia en comparación con la imag
 
 \begin{remark}[Procesos generativos desacoplados]
 Obsérvese que el marco de dos etapas anterior desacopla la distribución
-de los objetos 3D en varios componentes interrelacionados---forma, pose y
-apariencia---y aprende cada uno de forma independiente. Aunque esto implica que debemos
+de los objetos 3D en varias componentes interrelacionadas ---forma, pose y
+apariencia--- y aprende cada uno de forma independiente. Aunque esto implica que debemos
 aprender dos modelos generativos de eliminación de ruido al mismo tiempo, las representaciones aprendidas
 resultantes están mucho mejor estructuradas y permiten un razonamiento espacial y una generación mucho más
 precisos y flexibles.
@@ -5467,14 +5467,14 @@ donde $\boldsymbol{p}_i$ representa las coordenadas métricas del objetivo en el
 de la cámara, derivadas del modelo de base de profundidad.
 
 En la segunda etapa, calculamos una transformación de similitud por objeto 
-$\mathcal{T}_{k} = \{s_{k}, \boldsymbol{R}_{k}, \boldsymbol{t}_{k}\}$ para situar todos los componentes 
+$\mathcal{T}_{k} = \{s_{k}, \boldsymbol{R}_{k}, \boldsymbol{t}_{k}\}$ para situar todos las componentes 
 en un sistema de coordenadas unificado. Determinamos estos parámetros utilizando el método de 
 Umeyama~\citep{umeyama2002least} minimizando el error de alineación sobre los píxeles visibles de cada objeto:
 \begin{equation}
     \mathcal{T}_{k}^* = \argmin_{s_k, \boldsymbol{R}_k, \boldsymbol{t}_k} \sum_{i} \left\| \boldsymbol{p}_i - \left(s_k \boldsymbol{R}_k \boldsymbol{x}_i^{(k)} + \boldsymbol{t}_k\right) \right\|^2.
 \end{equation}
 La aplicación de estas transformaciones óptimas da como resultado una composición de escena 
-métricamente consistente, en la que todos los componentes generados están correctamente posicionados 
+métricamente consistente, en la que todas las componentes generados están correctamente posicionados 
 y escalados entre sí. Consulte la Figura~\ref{fig:cupid_scene} para ver más ejemplos de composición de escenas.
 
 \begin{figure}
@@ -5484,7 +5484,7 @@ y escalados entre sí. Consulte la Figura~\ref{fig:cupid_scene} para ver más ej
     \caption{\textbf{Ejemplos adicionales de reconstrucción de escenas alineadas por componentes.} 
              En cada uno de los ejemplos mostrados, los paneles muestran: (arriba a la izquierda) 
              la imagen de entrada, (arriba a la derecha o abajo a la izquierda) el resultado final 
-             renderizado y (abajo) los componentes individuales reconstruidos, codificados por 
+             renderizado y (abajo) las componentes individuales reconstruidas, codificadas por 
              colores para mayor claridad.
     }
     \label{fig:cupid_scene}
@@ -6061,7 +6061,7 @@ $\mathcal{L}_{\text{guide}}$ que mide la coherencia entre una
 hipótesis de movimiento y las observaciones.
 
 \paragraph{La energía de guía.}
-La energía de guía total combina varios componentes:
+La energía de guía total combina varias componentes:
 \begin{equation}
     \mathcal{L}_{\text{guide}}(\boldsymbol{x}_0) =
     \lambda_{3D}\mathcal{L}_{3D} + \lambda_{2D}\mathcal{L}_{2D} +
@@ -6176,7 +6176,7 @@ en cada paso de eliminación de ruido.
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter8/figs/egoallo/egoallo-overview.png}
-    \caption{\textbf{Resumen de los componentes del marco EgoAllo}. 
+    \caption{\textbf{Resumen de las componentes del marco EgoAllo}. 
         El modelo de difusión se limita a los parámetros corporales
         locales. Se utiliza una parametrización invariante
         g(·) de las poses SLAM (de la cabeza) para
@@ -6414,14 +6414,14 @@ modelo de difusión condicionado por la cabeza---se combina con
 restricciones de medición, como observaciones de la mano y 
 restricciones físicas, mediante un muestreo guiado. Este mismo patrón de
 «prior más guía» se repite en diversos ámbitos, desde la
-generación de imágenes hasta la estimación de movimiento. Los
+generación de imágenes hasta la estimación de movimiento. Las
 componentes son modulares: podemos intercambiar diferentes priors o
 términos de guía sin alterar el marco general.
 
 \paragraph{La estimación holística supera a los flujos de proceso modulares.}
 La relación simbiótica entre la estimación del cuerpo y la de la mano sugiere
 que la inferencia conjunta sobre toda la cadena cinemática supera a
-la estimación independiente de los componentes. El movimiento de la cabeza informa la postura del cuerpo;
+la estimación independiente de las componentes. El movimiento de la cabeza informa la postura del cuerpo;
 la postura del cuerpo proporciona contexto para la localización de la mano; y las observaciones de la mano
 refinan ambas estimaciones (cuerpo y mano). Este beneficio mutuo surge
 en forma natural de la formulación a posteriori, donde todas las variables están
@@ -6645,7 +6645,7 @@ esta característica en el simplex de probabilidad de dimensión \(V\)
 \(\Delta_{V}\). Esta proyección \(\vp_{\theta}(\vX_{:n}) \doteq
 h_{\theta}(\vz_{\theta}(\vX_{:n}))\) sirve como una distribución de probabilidad estimada
 del siguiente token. Entonces, utilizando la notación
-\(\vone(\vx_{n + 1}) \in \Delta_{V}\) para indicar que es \(1\) en el componente \(\vx_{n +
+\(\vone(\vx_{n + 1}) \in \Delta_{V}\) para indicar que es \(1\) en la componente \(\vx_{n +
 1}\) y \(0\) en el resto, la pérdida del modelo de lenguaje causal es
 \begin{equation}\label{eq:clm_loss}
 \min_{\theta}\bc{\cL_{\mathrm{CLM}}(\theta) \doteq
@@ -7429,7 +7429,7 @@ Lea el artículo de DINO \cite{caron2021emerging}.
 \end{exercise}
 
 \begin{exercise}
-DINO v2 \cite{oquab2023dinov2} utiliza todos los componentes de DINO v1, pero además,
+DINO v2 \cite{oquab2023dinov2} utiliza todas las componentes de DINO v1, pero además,
 durante la fase de aumento de datos, enmascara aleatoriamente los parches dentro
 de cada vista. Este tipo de aumento debería garantizar que las características
 de las imágenes con información local similar sean también similares. Formule un

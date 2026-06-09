@@ -851,7 +851,7 @@ Queremos generar muestras $\hat{\x}$ tales que:
 
 Recordemos que en \Cref{sub:compression_denoising} hemos desarrollado una forma natural y
 eficaz de generar muestras \textit{incondicionales} de la distribución de datos
-$p$. Los componentes son los filtros de ruido $\bar{\x}^\ast(t, \vxi) = \bE[ \x \mid
+$p$. Las componentes son los filtros de ruido $\bar{\x}^\ast(t, \vxi) = \bE[ \x \mid
 \vx_t=\vxi ]$, o sus aproximaciones aprendidas $\bar{\x}_{\theta}(t, \vxi)$,
 para diferentes niveles de observaciones ruidosas $\x_t = \x + t \vg$ (y $\vxi$ para
 sus realizaciones) bajo
@@ -2951,14 +2951,14 @@ Para diseñar los codificadores $f$ y $g$, recordemos la intuición que obtuvimo
 a través de nuestro trabajo en el
 \Cref{example:denoising-gaussian-mixture-cfg-parameterization}. Allí vimos
 que, en el caso de un modelo de mezcla de gaussianas para $\vx$, con la
-señal de condicionamiento $y$ identificando qué componente específico de la mezcla genera
+señal de condicionamiento $y$ identificando qué componente específica de la mezcla genera
 la observación, se podría construir una arquitectura flexible de filtro de ruido mediante
 una incrustación adecuada de la etiqueta de clase $y$ en el \textit{mismo espacio} que los
 datos $\vx$.
 Más concretamente, una incrustación de este tipo $\vu_y \in \R^D$ permite, cuando se correlaciona
 con las incrustaciones $\vU_{\vx}$ de $\vx \in \R^D$ (generalmente una
 matriz) mediante $\vu_y^\top
-\vU_{\vx}$, «seleccionar» únicamente las incrustaciones relevantes para el componente de mezcla
+\vU_{\vx}$, «seleccionar» únicamente las incrustaciones relevantes para la componente de mezcla
 correcto de la distribución.
 Cómo diseñar exactamente estas capas para su uso en redes neuronales que se entrenan con
 datos no lineales de alta dimensión
@@ -3287,7 +3287,7 @@ Obsérvese que este proceso no toma muestras de la distribución de
 $\vx_t$. En particular, hay componentes de $\vx$ en el espacio o núcleo nulo
 de $\vA$ que nunca pueden recuperarse a partir de las observaciones.
 Por lo tanto, en sentido estricto, se necesita más información para recuperar la distribución completa de
-$\vx$. Sin embargo, esto permite recuperar el componente de $\vx$
+$\vx$. Sin embargo, esto permite recuperar la componente de $\vx$
 que es ortogonal al espacio nulo de $\vA$.
 
 \subsection{Aprendizaje de modelos 3D a partir de imágenes 2D}

@@ -2079,11 +2079,11 @@ como un subespacio principal en el espacio de características. %
 
 \paragraph{Reconstrucción de imágenes de muestras a partir de componentes principales.}
 Dado que las características de cada clase pueden modelarse como un subespacio principal,
-visualizamos además los componentes principales individuales dentro de cada
+visualizamos además las componentes principales individuales dentro de cada
 uno de esos subespacios. La \Cref{fig:pca_sampling_main} muestra las imágenes
-reconstruidas a partir de características muestreadas a lo largo de los cuatro componentes principales
+reconstruidas a partir de características muestreadas a lo largo de las cuatro componentes principales
 para diferentes clases, en MNIST y CIFAR-10, respectivamente. Cada fila
-representa muestras a lo largo de un componente principal y estas muestran claramente
+representa muestras a lo largo de una componente principal y estas muestran claramente
 características visuales similares, pero son claramente diferentes
 de las de otras filas. Vemos que el modelo recuerda diferentes
 posturas del «4» después de haber aprendido todas las demás clases. En el caso
@@ -2115,7 +2115,7 @@ de caballos y barcos.
         \caption{$\hat{\x}_{old}$ muestreado de «barco»}
     \end{subfigure}
     \caption{\small Visualización de 5 $\hat \x=g(\z)$ reconstruidos
-        a partir de los valores de $\z$ más cercanos a los (4 principales) componentes
+        a partir de los valores de $\z$ más cercanos a las (4 principales) componentes
         principales de las características aprendidas para {MNIST} (clase «4» y clase
     «7») y {CIFAR-10} (clases «caballo» y «barco»).}
     \label{fig:pca_sampling_main}
@@ -2127,12 +2127,12 @@ mediante una fase de repaso incremental no supervisada
 descrita anteriormente. Los experimentos se llevan a cabo en CIFAR-10, con 10
 pasos. La \Cref{fig:memory_review} a la izquierda muestra imágenes reproducidas de la
 primera clase «avión» al final del aprendizaje incremental de las diez
-clases, muestreadas a lo largo de los tres componentes principales principales: cada dos
+clases, muestreadas a lo largo de las tres componentes principales principales: cada dos
 filas (16 imágenes) se encuentran a lo largo de una dirección principal. Su calidad visual
 sigue siendo muy aceptable: apenas observamos pérdida de información. La
 figura de la derecha muestra las imágenes reproducidas tras repasar la primera clase
 una vez. Se aprecia una mejora significativa en la calidad visual tras
-el repaso y los componentes principales de las características en el subespacio
+el repaso y las componentes principales de las características en el subespacio
 comienzan a corresponder a atributos visuales claramente diferenciados
 dentro de la misma clase.
 
@@ -2349,7 +2349,7 @@ resolvemos el siguiente problema de optimización sobre $\bm \Pi$:
 \end{align}
 En la \Cref{fig:vis_clustering}, visualizamos imágenes generadas a partir de los
 diez clústeres no supervisados de \eqref{eqn:cluster_mcr}. Cada bloque
-representa un grupo y cada fila representa un componente principal
+representa un grupo y cada fila representa una componente principal
 para cada clúster. A pesar de haberse aprendido y entrenado sin
 etiquetas, el modelo no solo organiza las muestras en los grupos correctos,
 sino que también es capaz de preservar la diversidad estadística dentro de cada
@@ -2366,7 +2366,7 @@ para la generación y estimación condicionales.
 \includegraphics[width=0.95\textwidth]{\toplevelprefix/chapters/chapter6/figs/CIFAR10_generatedfromcluster.png}
 \caption{\small Generación condicional de imágenes sin supervisión a partir de cada
 clúster de CIFAR-10, utilizando u-CTRL. Las imágenes de las diferentes filas corresponden a
-la generación a partir de los diferentes componentes principales de cada grupo.}
+la generación a partir de las diferentes componentes principales de cada grupo.}
 \label{fig:vis_clustering}
 \end{figure}
 
@@ -2381,7 +2381,7 @@ Los trabajos que hemos destacado a lo largo del capítulo, especialmente el de
 \cite{Hinton504}, sirvieron como catalizadores del interés por la investigación en redes neuronales
 en una época en la que, de otro modo, estas no eran tan destacadas en el panorama de la investigación
 en aprendizaje automático.
-En la práctica actual, los autoencoders siguen siendo componentes fundamentales de muchos sistemas a gran escala
+En la práctica actual, los autocodificadores siguen siendo componentes fundamentales de muchos sistemas a gran escala
 destinados a generar datos altamente estructurados, como datos visuales, datos de voz
 y datos moleculares, especialmente el enfoque VQ-VAE
 \cite{van-den-Oord2017-jr}, que se fundamenta en la metodología de los autoencoders variacionales
@@ -2440,7 +2440,7 @@ de investigación que intenta abordar este tema).
 Consideremos datos situados en una variedad curva $\cM$ incrustada en $\R^D$ (como
 una superficie curva en el espacio tridimensional), tal y como se expone en la subsección sobre
 el aplanamiento de variedades en la \Cref{sub:nonlinear-pca}.
-En este ejercicio, describiremos los componentes básicos del algoritmo de
+En este ejercicio, describiremos las componentes básicos del algoritmo de
 aplanamiento de variedades de \cite{Psenka-JMLR24}.
 Una variedad se denomina plana si constituye un conjunto abierto en el espacio euclídeo (o,
 más en general, un conjunto abierto en un subespacio).

@@ -1284,7 +1284,7 @@ modelamos $\cS$ como una unión de hiperesferas, cada una de dimensión $d_k$ (p
 mucho menor que $D$), situadas en subespacios mutuamente ortogonales de $\R^D$.
 Esta es una simplificación geométrica del modelo de mezcla gaussiana: el soporte de cada
 componente se aproxima mediante una esfera en el subespacio generado por sus
-direcciones principales. Cuando las dimensiones de los componentes $d_k$ son grandes, este
+direcciones principales. Cuando las dimensiones de las componentes $d_k$ son grandes, este
 supuesto equivale a un supuesto de mezcla de gaussianas de bajo rango, debido a
 la concentración de medidas en espacios de alta dimensión. Los modelos CRATE que desarrollamos y entrenamos en los
 \Cref{ch:deep-networks,ch:applications} tienen sus \textit{dimensiones de subespacio}
@@ -1465,7 +1465,7 @@ establecer la siguiente definición de una variable aleatoria engrosada, especia
     Denotemos por $\cS_k$ el soporte de cada componente de la mezcla.
     Definamos la variable aleatoria engrosada $\vx_{\delta}$ como la mezcla de
     medidas en la que cada medida componente es uniforme en el conjunto engrosado
-    $\cS_{k, \delta}$ (\Cref{def:conjunto-engrosado}), para $k \in [K]$, con pesos de mezcla
+    $\cS_{k, \delta}$ (\Cref{def:thickening-set}), para $k \in [K]$, con pesos de mezcla
     $\pi_k$.
 \end{definition}
 
@@ -1763,7 +1763,7 @@ con respecto a la medida de Lebesgue.
     densidad de $\vx$ —la cual, tal y como implica el \Cref{assumption:union-of-spheres}, es
     una mezcla de distribuciones uniformes en cada subesfera $\cS_k$.
     Según el argumento anterior, cada punto $\vxi \in \cS_{\delta}$ puede asociarse
-    a un único subespacio $\vU_k$, lo que significa que los componentes de la mezcla
+    a un único subespacio $\vU_k$, lo que significa que las componentes de la mezcla
     en la definición de $\cS_{\delta}$ (recordemos la
     \Cref{def:thickening-rv-uos}) no se superponen. Por lo tanto, la densidad
     $\pi_{\cS}(\vx_{\delta})$ puede caracterizarse estudiando el efecto de
@@ -1844,7 +1844,7 @@ con respecto a la medida de Lebesgue.
         \odif r \odif \vtheta^{d_k} \odif \vxi^{\perp}.
     \end{equation}
     Si comparamos con la representación de fibra \eqref{eq:fiber-of-uos},
-    vemos que necesitamos «integrar» sobre los componentes $r$ y $\vxi^\perp$
+    vemos que necesitamos «integrar» sobre las componentes $r$ y $\vxi^\perp$
     de la integral anterior para verificar que el pushforward
     es uniforme.
     Pero esto es evidente, ya que la expresión anterior muestra que el valor de esta
@@ -1853,7 +1853,7 @@ con respecto a la medida de Lebesgue.
 
     Por lo tanto, del argumento anterior se deduce que $\pi_{\cS}(\vx_{\delta})$ es
     uniforme.
-    Dado que el supuesto sobre $\delta$ implica que los componentes de la mezcla en
+    Dado que el supuesto sobre $\delta$ implica que las componentes de la mezcla en
     la distribución de $\vx_{\delta}$ no se superponen, los pesos de mezcla
     $\pi_k$ también se conservan en la imagen $\pi_{\cS}(\vx_{\delta})$, y en
     particular, la distribución de $\pi_{\cS}(\vx_{\delta})$ es igual a la

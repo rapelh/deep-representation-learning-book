@@ -325,6 +325,7 @@ lo expuesto anteriormente, obtenemos el siguiente teorema informal.
     conjunto de datos vienen dadas por los \(d\) primeros vectores propios de \(\vX\vX^{\top}/N\),
     donde \(\vX = [\vx_{1}, \dots, \vx_{N}] \in \R^{D \times N}\) y
     corresponden aproximadamente al filtro de ruido lineal óptimo:
+    \(\vU^{\star}(\vU^{\star})^{\top} \approx \vU\vU^{\top}\).
 \end{theorem}
 Aquí no indicamos tasas explícitas de aproximación, ya que pueden resultar bastante
 técnicas. En el caso especial en que \(\veps_{i} = \vzero\) para todo \(i\), el
@@ -340,7 +341,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
     son los \(d\) primeros vectores propios de \(\vX^{\top}\vX/N\).
 \end{remark}
 
-\begin{remark}[Selección base mediante valores propios con reducción de ruido]
+\begin{remark}[Selección de base mediante valores propios de la reducción de ruido]
     En muchos casos, nuestros datos no estarán distribuidos realmente
     según un modelo de subespacio más ruido, o bien no conoceremos la
     verdadera dimensión subyacente \(d\) del subespacio. En este caso,
@@ -359,7 +360,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
 \end{remark}
 
 \begin{remark}[Reducción de ruido en muestras]
-    La expresión del lado derecho de la Ecuación
+    La expresión del lado derecho de 
     \eqref{eq:pca_equals_denoising}, es decir,
     \begin{equation}\label{eq:orthogonal_denoising}
         \min_{\tilde{\vU}}\frac{1}{N}\sum_{i = 1}^{N}\norm{\vx_{i} -
@@ -368,9 +369,9 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
     es lo que se conoce como un \textit{problema de reducción de ruido}, llamado así
     porque se trata de un problema de optimización cuya solución
     \textit{elimina el ruido de las muestras para que estas se ajusten al
-    subespacio}. La reducción de ruido---el aprendizaje de un mapa que elimina el ruido de
+    subespacio}. La reducción de ruido ---el aprendizaje de un mapa que elimina el ruido de
     muestras ruidosas para que se ajuste a la estructura de datos (como en
-    \eqref{eq:pca_dgp}, aunque quizá de forma más compleja)---es un método habitual
+    \eqref{eq:pca_dgp}, aunque quizá de forma más compleja)--- es un método habitual
     para el aprendizaje de distribuciones que se analizará en la
     siguiente sección y a lo largo de todo el manuscrito. Nótese que ya hemos
     tratado este concepto, pero vale la pena repetirlo debido a su gran
@@ -381,31 +382,31 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
     Si realizamos un análisis de componentes principales (PCA), recuperamos aproximadamente el soporte de la distribución
     codificada por el parámetro \(\vU^{\star}\). El mapa de reducción de ruido aprendido adopta entonces
     la forma \(\vU^{\star}(\vU^{\star})^{\top}\). Además de ser un filtro de reducción de ruido, esto 
-    puede considerarse como una \textit{red neuronal lineal simple de dos capas con pesos vinculados}: la 
+    puede considerarse como una \textit{red neuronal lineal simple de dos capas con pesos vinculados} RN: la 
     primera capa multiplica por \((\vU^{\star})^{\top}\) y la segunda multiplica por \(\vU^{\star}\), es decir
     \begin{equation}
-        \operatorname{denoise}(\vx) = \underbrace{\vU^{\star} \circ
+        \operatorname{reduce_ruido}(\vx) = \underbrace{\vU^{\star} \circ
             \underbrace{\id \circ
-                \underbrace{(\vU^{\star})^{\top}\vx}_{\text{first
-            ``layer''}}}_{\text{post-activation of first
-        ``layer''}}}_{\text{output of ``NN''}}
+                \underbrace{(\vU^{\star})^{\top}\vx}_{\text{primera
+            ``capa''}}}_{\text{post-activación de la primera
+        ``capa''}}}_{\text{salida de la ``RN''}}
     \end{equation}
-    Si lo comparamos con una red neuronal estándar de dos capas, observamos una
+    Si lo comparamos con una red neuronal estándar de dos capas RN, observamos una
     similitud estructural:
     \begin{equation}
-        \operatorname{NN}(\vx) = \underbrace{\vW^{\star} \circ
+        \operatorname{RN}(\vx) = \underbrace{\vW^{\star} \circ
             \underbrace{\mathrm{ReLU} \circ
-                \underbrace{(\vU^{\star})^{\top}\vx}_{\text{first
-        layer}}}_{\text{post-activation of first layer}}}_{\text{output of NN}}
+                \underbrace{(\vU^{\star})^{\top}\vx}_{\text{primera
+        capa}}}_{\text{post-activación de la primera capa}}}_{\text{salida de la RN}}
     \end{equation}
-    En concreto, el PCA puede interpretarse como \textit{el aprendizaje de un autoencoder de 
+    En concreto, el PCA puede interpretarse como \textit{el aprendizaje de un autocodificador de 
     dos capas},\footnote{De hecho, como hemos mencionado en el
         capítulo anterior, el PCA fue uno de los primeros problemas en el que se
     utilizaron redes neuronales para resolverlo \cite{Oja1982SimplifiedNM,Baldi89}.} 
     uno de los ejemplos más simples de una red neuronal no trivial. De este modo, el PCA sirve
     como problema modelo para el aprendizaje de representaciones (profundas), al que
     recurriremos más adelante en la monografía. Obsérvese que, en esta
-    analogía, las representaciones reflejan---o son proyecciones de---los
+    analogía, las representaciones reflejan ---o son proyecciones de--- los
     datos de entrada hacia una estructura aprendida de baja dimensión. Esta
     propiedad será especialmente relevante en el futuro.
 \end{remark}
@@ -441,7 +442,7 @@ la siguiente ecuación:
         \frac{\vM\vv_{t}}{\norm{\vM\vv_{t}}_{2}},
     \end{equation}
     entonces, en el límite, \(\vv_{t}\) convergerá hacia un vector propio de \(\vM\)
-    de norma unitaria con valor propio dominante.
+    de norma unitaria con el mayor de los valores propios.
 \end{theorem}
 
 \begin{proof} En primer lugar, nótese que, para todo \(t\), tenemos
@@ -548,14 +549,14 @@ trabajo de Oja en 1982 \cite{Oja1982SimplifiedNM}.
     \begin{equation}
         \eta_i = \vu_i^T \x_i
     \end{equation}
-    y actualizamos el vector de pesos según el siguiente esquema:
+    y actualicemos el vector de pesos según el siguiente esquema:
     \begin{equation}
         \vu_{i+1} = \frac{\vu_i + \gamma \eta_i \x_i}{\|\vu_i + \gamma
         \eta_i \x_i\|_2}
         \label{eqn:Hebbian}
     \end{equation}
     para alguna ganancia pequeña $\gamma > 0$. Este esquema de actualización puede considerarse
-    como un esquema hebbiano normalizado, en el que los pesos de las conexiones
+    como un esquema normalizado de aprendizaje hebbiano, en el que los pesos de las conexiones
     entre neuronas se fortalecen si tanto la entrada $\x$ como la salida $\eta$ 
     (o sus productos) son fuertes. Se puede considerar que el vector de
     pesos $\vu$ se «aprende» a partir de una forma de retroalimentación procedente de la
@@ -674,7 +675,7 @@ de \(\Cov[\vx]\).
 \begin{remark}
     Al aplicar el enfoque probabilístico del PCA, logramos una comprensión más clara
     y cuantitativa de cómo se relaciona con la eliminación de ruido. En primer lugar, 
-    consideremos el problema de eliminación de ruido en la \eqref{eq:ppca_denoising}, 
+    consideremos el problema de eliminación de ruido en \eqref{eq:ppca_denoising}, 
     es decir
     \begin{equation}
         \min_{\tilde{\vU}}\Ex\norm{\vx -
@@ -740,9 +741,20 @@ nuestra observación se vio alterada en el camino y que obtuvimos
 donde \(\vM \in \{0, 1\}^{D \times N}\) es una \textit{máscara} que conocemos
 y \(\hada\) es la multiplicación elemento por elemento. En este caso, nuestro objetivo
 es recuperar \(\vX\) (a partir de ahí podemos utilizar el PCA para recuperar
-\(\vU\), etc.), partiendo únicamente de la observación dañada \(\vY\), la máscara
+\(\vU\), etc.), partiendo únicamente de la observación corrupta \(\vY\), la máscara
 \(\vM\) y el hecho de que \(\vX\) es (aproximadamente) de bajo rango.
-Esto se denomina \textit{completación de matrices de bajo rango}. Por otro lado,
+Esto se denomina \textit{completación de matrices de bajo rango}. 
+
+Este y otros problemas similares de recuperación de estructuras de bajo rango
+se denominan problemas de «PCA robusta». Existen
+muchos recursos excelentes que analizan algoritmos y enfoques para
+resolver estos problemas \cite{Wright-Ma-2022}. Por lo tanto, no entraremos
+en detalle sobre el método de solución en este contexto. En su lugar, analizaremos bajo qué
+condiciones es \textit{plausible} resolver este problema. Por un lado,
+en el caso más absurdo, supongamos que cada entrada de la matriz
+\(\vX\) se eligiera independientemente de todas las demás. Entonces
+no habría ninguna posibilidad de recuperar \(\vX\) con exactitud, incluso si solo faltara una entrada
+y tuviéramos \(DN - 1\) entradas. Por otro lado,
 supongamos que sabemos que \(\vX\) tiene exactamente rango 1, lo cual es una
 condición extremadamente fuerte sobre la estructura de baja dimensión de los
 datos y que estuviéramos trabajando con la máscara

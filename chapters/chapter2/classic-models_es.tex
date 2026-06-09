@@ -8,7 +8,7 @@
 
 \begin{quote}
     \hfill  «{\em El arte de hacer matemáticas consiste en encontrar 
-    el caso particular que contiene el germen de la generalidad}.»
+    ese caso particular que contenga todos los gérmenes de la generalidad}.»
 
     $~$\hfill -- David Hilbert
 \end{quote}
@@ -22,7 +22,7 @@ el ruido estático RGB en una pantalla de tamaño \(H \times W\) se
 muestrea, a grandes rasgos, de forma independiente a partir de una 
 distribución uniforme en \([0, 1]^{3 \times H \times W}\). En teoría, la
 imagen estática \textit{podría} convertirse en una imagen natural en cualquier fotograma,
-pero aunque pases mil años mirando la pantalla del televisor,
+pero aunque alguien pase mil años mirando la pantalla del televisor,
 eso no sucederá. Esta discrepancia se explica por el hecho de que el conjunto de
 \(H \times W\) imágenes naturales ocupa una fracción infinitesimal
 del hipercubo \([0, 1]^{3 \times H \times W}\). En particular,
@@ -44,9 +44,9 @@ motivan, inspiran y sirven como precursores o equivalentes de métodos más
 modernos para distribuciones más generales que involucran el aprendizaje profundo
 (de representaciones).
 
-Nuestro enfoque principal (y formulación general del problema) se puede resumir así:
+Nuestro enfoque principal (y la formulación general del problema) se puede resumir así:
 \begin{tcolorbox}\centering
-    \textbf{Problema:} \textit{Dada una o varias observaciones (con ruido o
+    \textbf{Problema:} \textit{Dadas una o varias observaciones (con ruido o
         incompletas) de una muestra de referencia de la distribución de los datos reales,
     obtenga una estimación de dicha muestra.}
 \end{tcolorbox}
@@ -69,8 +69,8 @@ que analizamos en este capítulo.
         la muestra verdadera, que también tenga esa propiedad.
 \end{itemize}
 
-En este capítulo, tal y como se ha descrito anteriormente, formulamos supuestos simplificadores de modelización
-que, en esencia, asumen que (el soporte de) la distribución de los datos
+En este capítulo, tal y como se ha descrito anteriormente, formulamos supuestos simplificadores de modelación
+que, en esencia, suponen que (el soporte de) la distribución de los datos
 presenta estructuras geométricamente (casi, por tramos) lineales
 y componentes estadísticamente independientes, tal y como se ilustra
 en la \Cref{fig:subspaces}.
@@ -85,7 +85,7 @@ en la \Cref{fig:subspaces}.
     = \mathop{\mathrm{col}}(\vU_j)$.}
     \label{fig:subspaces}
 \end{figure}
-En el \Cref{ch:intro}, nos hemos referido a este tipo de modelos de datos como
+En el \Cref{ch:intro} nos hemos referido a este tipo de modelos de datos como
 «modelos analíticos». Estas hipótesis de modelado nos permiten derivar
 algoritmos eficientes con garantías de eficiencia demostrables,
 tanto en términos de datos como de complejidad computacional,
@@ -96,9 +96,9 @@ que las garantías que ofrece el análisis detallado de estos algoritmos
 también solo se cumplen de manera aproximada en el caso de datos reales.
 
 No obstante, las técnicas que se analizan en este capítulo son útiles
-por sí mismas y, además, sirven como «caso especial con el germen de la generalidad», 
+por sí mismas y, además, sirven como «caso especial con gérmenes de generalidad», 
 por así decirlo, en el sentido de que ofrecen una motivación e intuición orientativas 
-para los paradigmas más generales dentro del aprendizaje (profundo)
+para los paradigmas más generales en materias de aprendizaje (profundo)
 de distribuciones más generales que abordaremos más adelante. Como
 veremos en capítulos posteriores, en la era del aprendizaje profundo, 
 los enfoques modernos «basados en datos» o «no paramétricos» para aprender
@@ -108,8 +108,8 @@ conceptos e ideas para el aprendizaje.
 \paragraph{Una nota acerca de la notación.} Recomendamos al lector que consulte
 el capítulo \nameref{ch:notation}, en particular la sección «Notación de modelado y
 optimización», al comenzar a leer este capítulo. A lo largo del libro empleamos 
-las mismas convenciones de notación para modelar datos y optimizar los parámetros 
-de estos modelos.  Los modelos sencillos y explícitos que estudiamos en este capítulo
+las mismas convenciones de notación para la modelación de datos y la optimización de los parámetros 
+de estos modelos. Los modelos sencillos y explícitos que estudiamos en este capítulo
 ayudan a aclarar el contenido «semántico» de estas convenciones.
 
 \section{Un subespacio de baja dimensión} \label{sec:lowrank}
@@ -118,9 +118,12 @@ ayudan a aclarar el contenido «semántico» de estas convenciones.
 
 Quizás la hipótesis de modelado más simple posible para una estructura de baja dimensión
 sea la denominada hipótesis de «bajo rango». Sea \(D\) la dimensión de
-nuestro espacio de datos; supongamos que nuestros datos pertenecen a un subespacio de baja dimensión
- \(d \ll D\), posiblemente con algunas pequeñas
-perturbaciones. Esta suposición resulta ser bastante válida para algunos
+nuestro espacio de datos; supongamos que nuestros datos pertenecen a un subespacio 
+de baja dimensión \(d \ll D\), posiblemente con algunas pequeñas 
+perturbaciones.\footnote{Además, posiblemente, un desplazamiento no trivial con respecto a
+    \(\vzero\); en la práctica, tenemos en cuenta este desplazamiento restando la
+    media empírica de las muestras de datos de cada muestra, y en el
+siguiente capítulo ya no le prestamos más atención.} Esta suposición resulta ser bastante válida para algunos
 datos sorprendentemente complejos, como las imágenes de dígitos escritos a mano y
 los datos faciales \cite{BasriR2003-PAMI}, tal como se muestra en la \Cref{fig:faces-digits},
 pero, como veremos, se prestará muy bien a un análisis exhaustivo.
@@ -162,8 +165,8 @@ nuestro modelo. El verdadero subespacio de base es \(\cS \doteq
 procesar toda la información posible a partir de estos datos, necesitamos recuperar 
 \(\cS\); para ello basta con recuperar \(\vU\), también denominadas 
 \textit{componentes principales}. Afortunadamente, se trata de una tarea 
-computacionalmente manejable denominada «Análisis de componentes principales» y
-ahora veremos cómo resolverla.
+computacionalmente manejable denominada {\bf Análisis de Componentes Principales} 
+(PCA por su sigla en inglés) y ahora veremos cómo resolverla.
 
 Dados los datos \(\{\vx_{i}\}_{i = 1}^{N}\) distribuidos como en \eqref{eq:pca_dgp}, nuestro
 objetivo es recuperar el modelo \(\vU\). Un enfoque natural consiste en encontrar el subespacio
@@ -206,13 +209,13 @@ los siguientes dos problemas equivalentes:
     \tilde{\vU}\tilde{\vU}^{\top}\vx_{i}}_{2}^{2}.
 \end{equation}
 Téngase en cuenta que el problema que aparece en el lado derecho de \eqref{eq:pca_equals_denoising}
-es un problema de reducción de ruido: dadas observaciones ruidosas \(\vx_{i}\) de
-datos de bajo rango, nuestro objetivo es encontrar la copia sin ruido de \(\vx_{i}\), que
+es un problema de \textit{reducción de ruido}: dadas observaciones ruidosas \(\vx_{i}\) de
+datos de bajo rango, nuestro objetivo es encontrar la copia \textit{sin ruido} de \(\vx_{i}\), que
 bajo el modelo \eqref{eq:pca_dgp} es $\vU\vz_{i}$. Es decir, la entrada sin ruido
 $\hat{\vx}_i = \vU\vU^\top \vx_i$. Nótese que este es el punto del subespacio
 que se encuentra más cerca de $\vx_i$, tal como se muestra en la \Cref{fig:pca-geometry}.
 Aquí, al resolver el problema equivalente de encontrar el mejor subespacio, parametrizado por
-la base aprendida \(\vU^{\star}\), aprendemos una aproximación al \textit{denoiser}, es decir, 
+la base aprendida \(\vU^{\star}\), aprendemos una aproximación al \textit{filtro de ruido}, es decir, 
 la matriz de proyección \(\vU^{\star}(\vU^{\star})^{\top} \approx \vU\vU^{\top}\) que
 proyecta el punto de datos ruidoso $\vx_i$ en el subespacio \(\cS\). %
 
@@ -233,7 +236,7 @@ proyecta el punto de datos ruidoso $\vx_i$ en el subespacio \(\cS\). %
         \node at (2.75, 1) {\color{brown}\(\varepsilon\)};
     \end{tikzpicture}
     \caption{\small \textbf{La geometría de PCA.} Un punto de datos $\vx$
-        (en rojo) se proyecta sobre el subespacio aprendido unidimensional
+        (en rojo) se proyecta sobre el subespacio unidimensional aprendido,
         generado por el vector base unitario $\vu_1$ (flecha azul). La
         proyección $\vU\vU^\top\vx = \vu_{1}\vu_{1}^{\top}\vx$ (en verde) es
         la versión sin ruido de $\vx$ utilizando la estructura de baja dimensión
@@ -251,11 +254,10 @@ espacio (latente) de menor dimensión $\R^d$ y, a continuación, de vuelta a $\R
     \xrightarrow{\hspace{2mm} \mathcal{D} = \vU^\star \hspace{2mm}}   \hat{\x}.
     \label{eqn:autoencoding-PCA}
 \end{equation}
-En este contexto, $\vz \in \R^d$ puede considerarse como el código compacto de baja dimensión (o
-una representación latente) de un punto de datos  $\vx \in \R^D$ y la
-base del subespacio
-aprendido $\vU^\star$ como el libro de códigos asociado, cuyas columnas son las palabras de código
-óptimas (aprendidas). El proceso logra eliminar el ruido de $\vx$ mediante
+En este contexto, $\vz \in \R^d$ se puede considerar como el código compacto de baja dimensión (o
+una representación latente) de un punto de datos  $\vx \in \R^D$, mientras que la base del subespacio
+aprendido $\vU^\star$ se puede entender como el libro de códigos asociado, cuyas columnas son las 
+palabras de código óptimas (aprendidas). El proceso logra eliminar el ruido de $\vx$ mediante
 su proyección en el subespacio generado por $\vU^\star$.
 
 \paragraph{Cálculo de la base del subespacio.}
@@ -270,7 +272,7 @@ las observaciones \(\vx_{i}\). Tenemos (demostración como ejercicio)
     &=
     \argmax_{\tilde{\vU}}\tr\rc{\tilde{\vU}^{\top}\bp{\frac{\vX\vX^{\top}}{N}}\tilde{\vU}}.
 \end{align}
-Por lo tanto, para calcular los componentes principales, se busca la matriz ortonormal
+Por lo tanto, para calcular las componentes principales, se busca la matriz ortonormal
 \(\tilde{\vU}\) que maximice el término 
 \(\tr(\tilde{\vU}^{\top}(\vX\vX^{\top}/N)\tilde{\vU})\). Podemos demostrar por
 inducción que esta matriz \(\vU^{\star}\) tiene columnas que son los
@@ -319,7 +321,7 @@ lo expuesto anteriormente, obtenemos el siguiente teorema informal.
     \(\{\vz_{i}\}_{i = 1}^{N} \subseteq \R^{d}\) son los \textit{códigos compactos}
     de los datos y \(\{\veps_{i}\}_{i = 1}^{N} \subseteq \R^{D}\) son pequeños
     vectores que indican la desviación de nuestros datos respecto al modelo de bajo rango. Entonces,
-    los \textit{componentes principales} \(\vU^{\star} \in \O(D, d)\) de nuestro
+    las \textit{componentes principales} \(\vU^{\star} \in \O(D, d)\) de nuestro
     conjunto de datos vienen dadas por los \(d\) primeros vectores propios de \(\vX\vX^{\top}/N\),
     donde \(\vX = [\vx_{1}, \dots, \vx_{N}] \in \R^{D \times N}\) y
     corresponden aproximadamente al filtro de ruido lineal óptimo:
@@ -334,7 +336,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
 \begin{remark}
     En algunas tareas de análisis de datos, la matriz de datos \(\vX\) se presenta
     de tal manera que cada punto de datos es una \textit{fila} en lugar de una
-    \textit{columna}, como se muestra aquí. En este caso, los componentes principales
+    \textit{columna}, como se muestra aquí. En este caso, las componentes principales
     son los \(d\) primeros vectores propios de \(\vX^{\top}\vX/N\).
 \end{remark}
 
@@ -514,7 +516,7 @@ veces seguidas, podemos estimar de manera muy eficiente los \(d\)
 vectores propios principales de \(\vM\) para cualquier matriz simétrica semidefinida positiva
 \(\vM\). Por lo tanto, también podemos aplicarlo a \(\vX\vX^{\top}/N\) para
 recuperar las primeras \(d\) componentes principales, que es lo que
-buscábamos desde un principio. Obsérvese que este enfoque recupera un
+buscábamos desde un principio. Obsérvese que este enfoque recupera una
 componente principal a la vez; en secciones posteriores lo compararemos con otros
 enfoques algorítmicos, como el descenso por gradiente sobre todos los vectores propios.
 
@@ -642,7 +644,7 @@ subespacio. Como antes, obtenemos
 y la solución a este último problema consiste simplemente en las \(d\) primeras
 componentes principales de la matriz de momentos de segundo orden
 \(\Ex[\vx\vx^{\top}]\). En realidad, los problemas anteriores son visualmente
-muy similares a las ecuaciones para calcular los componentes principales
+muy similares a las ecuaciones para calcular las componentes principales
 de la subsección anterior, salvo que \(\Ex[\vx\vx^{\top}]\)
 sustituye a \(\vX\vX^{\top}/N\). De hecho, esta última cantidad es una
 estimación de la primera. Ambas formulaciones hacen efectivamente lo mismo
@@ -665,7 +667,7 @@ En particular, si \(\Cov[\veps]\) es pequeño, se cumple que \(\Cov[\vx]
 = \Ex[\vx\vx^{\top}]\) es aproximadamente una matriz de bajo rango,
 concretamente de rango \(d\). Por lo tanto, los \(d\) vectores propios principales de
 \(\Ex[\vx\vx^{\top}]\) resumen esencialmente toda la matriz de covarianza.
-Pero también son los componentes principales, por lo que podemos
+Pero también son las componentes principales, por lo que podemos
 interpretar el análisis de componentes principales como una descomposición de bajo rango
 de \(\Cov[\vx]\).
 
@@ -712,7 +714,7 @@ de \(\Cov[\vx]\).
     donde \(\vU \in \O(D, d)\) representa la \textit{estructura de bajo rango}, \(\vz\)
     es un vector aleatorio que toma valores en \(\R^{d}\) y \(\veps\) es un vector aleatorio
     que toma valores en \(\R^{D}\), de tal manera que \(\vz\) y \(\veps\) son
-    independientes y \(\veps\) es pequeño. Entonces, los \textit{componentes principales}
+    independientes y \(\veps\) es pequeño. Entonces, las \textit{componentes principales}
     \(\vU^{\star} \in \O(D, d)\) de nuestro conjunto de datos vienen dados por los \(d\) primeros
     vectores propios de \(\Ex[\vx\vx^{\top}]\) y corresponden aproximadamente al
     filtro de reducción de ruido lineal óptimo: \(\vU^{\star}(\vU^{\star})^{\top}
@@ -823,7 +825,7 @@ desplazamiento independiente (\Cref{fig:multiple-subspaces} izquierda).
 Bajo supuestos adecuados sobre los movimientos individuales, cada objeto
 se convierte en responsable de un subespacio independiente de baja dimensión en
 la secuencia concatenada de fotogramas de vídeo \cite{VidalR2004-ECCV}.
-Como otro ejemplo, pensemos en la modelización de imágenes naturales mediante el aprendizaje de un modelo para
+Como otro ejemplo, pensemos en la modelación de imágenes naturales mediante el aprendizaje de un modelo para
 la distribución de \textit{parches}, conjuntos de píxeles espacialmente contiguos 
 dentro de una imagen (\Cref{fig:multiple-subspaces} a la derecha). A diferencia del
 entorno simplificado de la \Cref{fig:faces-digits}, donde las imágenes de
@@ -869,7 +871,7 @@ la arquitectura del decodificador anterior desde la perspectiva de la dispersió
 correspondiente del codificador (obtenida mediante un algoritmo similar al método de potencias, análogo
 al del análisis de componentes principales) y garantías sólidas de corrección
 y eficiencia para el aprendizaje de dichos pares codificador-decodificador a partir de los datos.
-En este sentido, el caso de las estructuras lineales mixtas de baja dimensión ya nos lleva a muchos de los
+En este sentido, el caso de las estructuras lineales mixtas de baja dimensión ya nos lleva a muchos de las
 componentes conceptuales clave del aprendizaje de representaciones estructuradas que
 desarrollaremos con una generalidad mucho mayor en este libro.
 
@@ -1205,7 +1207,7 @@ entre el aprendizaje por diccionario y el análisis clásico de componentes inde
 (ICA), hasta el punto de que los algoritmos diseñados para resolver un problema
 pueden utilizarse para resolver el otro.\footnote{Analizamos este tema con
     mayor profundidad en el \Cref{exercise:symmetry-identifiability}, donde se
-    establece una relación entre la no gaussianidad de los componentes independientes y
+    establece una relación entre la no gaussianidad de las componentes independientes y
     el concepto puramente geométrico de simetría. Este problema está
     relacionado con nuestra observación anterior de que el PCA no sirve para
     recuperar diccionarios ortogonales de uso disperso: en el contexto
@@ -1214,7 +1216,7 @@ pueden utilizarse para resolver el otro.\footnote{Analizamos este tema con
 
 Con el fin de derivar un algoritmo basado en ICA, nos centramos en una función objetivo
 conocida como \textit{curtosis}, que se utiliza en el ICA como consecuencia directa
-de la naturaleza no gaussiana de los componentes. La \textit{curtosis}, o cumulante de 
+de la naturaleza no gaussiana de las componentes. La \textit{curtosis}, o cumulante de 
 cuarto orden, de una variable aleatoria $X$ de media cero se define como
 \begin{equation}\label{eq:kurtosis}
     \kurt(X) = \Ex{X^4} - 3 (\Ex{X^2})^2.
@@ -1269,7 +1271,7 @@ sobre su corrección como formulación para recuperar el diccionario $\vU$.
 Por ejemplo, en el contexto poblacional donde $N \to \infty$,
 podemos utilizar las propiedades de aditividad de la curtosis
 (\Cref{exercise:kurtosis-linearity-properties}) y nuestra suposición
-de normalización de los componentes independientes para expresar el problema anterior
+de normalización de las componentes independientes para expresar el problema anterior
 de forma equivalente como
 \begin{equation}\label{eq:kurtosis-maximization-sphere-population-simple}
     \max_{\norm{\tilde{\vw}}_2^2 = 1}\,
@@ -1279,7 +1281,7 @@ Se puede mostrar que, bajo el supuesto Bernoulli-gaussiano, el
 paisaje de optimización de este problema es «benigno»
 (\Cref{exercise:kurtosis-sphere-landscape})---lo que significa que todos los máximos locales
 de la función objetivo corresponden a la recuperación de uno de
-los componentes independientes.
+las componentes independientes.
 
 En la práctica, no podemos calcular directamente el cambio de variables que lleva de
 $\tilde{\vu}$ a $\tilde{\vw}$, ya que requiere el diccionario de referencia
@@ -2359,7 +2361,7 @@ más complejas.
             S^+$. Se concluye que los maximizadores globales de
             \eqref{eq:kurtosis-maximization-sphere-population-simple}
             son los vectores con un solo elemento distinto de cero y signo, correspondientes a
-            los componentes con máxima curtosis. %
+            las componentes con máxima curtosis. %
             (\textit{Pista: cuente el número de valores propios positivos y negativos
                     de la matriz hessiana riemanniana
             \eqref{eq:exercise-riemann-hess-sphere} en cada punto crítico.})

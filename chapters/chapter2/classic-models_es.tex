@@ -747,7 +747,7 @@ Esto se denomina \textit{completación de matrices de bajo rango}.
 
 Este y otros problemas similares de recuperación de estructuras de bajo rango
 se denominan problemas de «PCA robusta». Existen
-muchos recursos excelentes que analizan algoritmos y enfoques para
+muchas fuentes excelentes que analizan algoritmos y enfoques para
 resolver estos problemas \cite{Wright-Ma-2022}. Por lo tanto, no entraremos
 en detalle sobre el método de solución en este contexto. En su lugar, analizaremos bajo qué
 condiciones es \textit{plausible} resolver este problema. Por un lado,
@@ -800,7 +800,7 @@ Estos modelos implican un proceso de aprendizaje de representaciones \textit{lin
 \begin{equation*}
     \vz = \cE(\vx) = \vU^\top \vx, \quad \hat{\vx} = \cD(\vz) = \vU \vz,
 \end{equation*}
-de la que se puede demostrar que se aprende a partir de muestras finitas de $\vx$ mediante
+de la que se puede demostrar que se aprende a partir de un número finito de muestras de $\vx$ mediante
 el análisis de componentes principales (resuelto de manera eficiente, por ejemplo, con el 
 método de potencias) siempre que la distribución de $\vx$ sea realmente lineal.
 Se trata de una hipótesis restrictiva, pues, tal y como objetó Harold Hotelling, el
@@ -833,7 +833,7 @@ prácticas, la estructura generada por una \textit{mezcla} de
 subespacios distintos de baja dimensión ofrece un modelo más realista.
 Por ejemplo, consideremos una secuencia de vídeo que captura el movimiento de
 varios objetos distintos, cada uno de los cuales está sujeto a su propio 
-desplazamiento independiente (\Cref{fig:multiple-subspaces} izquierda).
+desplazamiento independiente (\Cref{fig:multiple-subspaces} a la izquierda).
 Bajo supuestos adecuados sobre los movimientos individuales, cada objeto
 se convierte en responsable de un subespacio independiente de baja dimensión en
 la secuencia concatenada de fotogramas de vídeo \cite{VidalR2004-ECCV}.
@@ -883,7 +883,7 @@ la arquitectura del decodificador anterior desde la perspectiva de la dispersió
 correspondiente del codificador (obtenida mediante un algoritmo similar al método de potencias, análogo
 al del análisis de componentes principales) y garantías sólidas de corrección
 y eficiencia para el aprendizaje de dichos pares codificador-decodificador a partir de los datos.
-En este sentido, el caso de las estructuras lineales mixtas de baja dimensión ya nos lleva a muchos de las
+En este sentido, el caso de las estructuras lineales mixtas de baja dimensión ya nos lleva a muchas de las
 componentes conceptuales clave del aprendizaje de representaciones estructuradas que
 desarrollaremos con una generalidad mucho mayor en este libro.
 
@@ -960,7 +960,7 @@ contando el número de entradas distintas de cero:
 y la matriz $\vU \in \R^{D \times Kd}$ se denomina \textit{diccionario}, 
 siendo todos los elementos $\{\vU_i\}_{i=1}^K$ palabras de código.
 En general, si el número de subespacios en la mezcla $K$ es lo suficientemente
-grande, no hay ninguna cota en cuanto al número de columnas que contiene el
+grande, no hay ningún límite en cuanto al número de columnas que contiene el
 diccionario $\vU$. En el caso de que $Kd < D$, $\vU$ se denomina
 \textit{subcompleta}, cuando $Kd = D$, se denomina \textit{completa} y cuando $Kd > D$,
 se denomina \textit{sobrecompleta}.
@@ -1008,7 +1008,7 @@ como decodificador y $\cD = \cE^{-1}$. En forma de diagrama:
     \hspace{2mm}}   \hat{\vx}.
     \label{eqn:autoencoding-DL}
 \end{equation}
-Observamos que el par de autoencoders $(\cE, \cD)$ para el aprendizaje
+Observamos que el par de autocodificadores $(\cE, \cD)$ para el aprendizaje
 completo de un diccionario es simétrico, al igual que en el caso de un único
 subespacio lineal, lo que hace que la tarea computacional de codificación y decodificación no
 sea más difícil que en el caso lineal. Por otro lado, la tarea
@@ -1048,7 +1048,7 @@ es el producto de una variable aleatoria de Bernoulli con una probabilidad
 de $\theta$ de ser $1$ y de $1-\theta$ de ser $0$ y una variable aleatoria gaussiana independiente
 con varianza $1/\theta$. Esta distribución se conoce formalmente como distribución {\em de Bernoulli-Gauss}.
 La normalización se elige de tal manera que $\Var(z_i) = 1$ y, por lo tanto,
-$\bE[\norm{\vz}_2^2]=d$. Esta suposición del modelo implica que el vector de componentes independientes
+$\bE[\norm{\vz}_2^2]=d$. Este supuesto del modelado implica que el vector de componentes independientes
 $\vz$ suele ser muy disperso:
 calculamos $\bE\left[\norm{\vz}_0\right] = d\theta$, que es pequeño
 cuando $\theta$ es inversamente proporcional a $d$.
@@ -1171,7 +1171,7 @@ a un ritmo superlineal.
 
 \begin{remark}[Optimicidad global de la maximización de $\ell^4$]\label{rem:L4-global}
     El problema de maximización con restricciones de $\ell^4$ es un programa
-    no convexo. En general, \textit{no} se debe esperar que ningún
+    no convexo. En general, \textit{no} se debe esperar que algún
     algoritmo voraz (por ejemplo, del tipo de descenso por gradiente) converja hacia
     la solución óptima global. Sorprendentemente, se puede demostrar que,
     a diferencia de los programas no convexos generales, el paisaje de la maximización de $\ell^4$
@@ -1215,11 +1215,11 @@ a un ritmo superlineal.
 \subsection{Relación con ICA y la curtosis}
 En el modelo de Bernoulli-Gauss, las variables $z_i$ son
 independientes y no gaussianas. Además, existe una clara correspondencia
-entre el aprendizaje por diccionario y el análisis clásico de componentes independientes
+entre el aprendizaje de diccionarios y el análisis clásico de componentes independientes
 (ICA), hasta el punto de que los algoritmos diseñados para resolver un problema
 pueden utilizarse para resolver el otro.\footnote{Analizamos este tema con
     mayor profundidad en el \Cref{exercise:symmetry-identifiability}, donde se
-    establece una relación entre la no gaussianidad de las componentes independientes y
+    establece una relación entre la naturaleza no gaussiana de las componentes independientes y
     el concepto puramente geométrico de simetría. Este problema está
     relacionado con nuestra observación anterior de que el PCA no sirve para
     recuperar diccionarios ortogonales de uso disperso: en el contexto
@@ -1291,13 +1291,13 @@ de forma equivalente como
 \end{equation}
 Se puede mostrar que, bajo el supuesto Bernoulli-gaussiano, el
 paisaje de optimización de este problema es «benigno»
-(\Cref{exercise:kurtosis-sphere-landscape})---lo que significa que todos los máximos locales
+(\Cref{exercise:kurtosis-sphere-landscape}) --- lo que significa que todos los máximos locales
 de la función objetivo corresponden a la recuperación de uno de
 las componentes independientes.
 
 En la práctica, no podemos calcular directamente el cambio de variables que lleva de
 $\tilde{\vu}$ a $\tilde{\vw}$, ya que requiere el diccionario de referencia
-$\vU$, por lo que desarrollamos algoritmos directamente para la parametrización de $\tilde{\vu}$
+$\vU$, por lo que desarrollamos directamente algoritmos para la parametrización de $\tilde{\vu}$
 y la matriz de datos $\vX$.
 Entonces, una forma eficaz y escalable de calcular uno de estos máximos es mediante
 algoritmos de optimización de primer orden, que siguen de forma iterativa el
@@ -1331,9 +1331,9 @@ y el conjunto de restricciones, que son las siguientes:
 \end{align}
 donde el valor concreto de $\lambda$ se determina utilizando la restricción de norma unitaria
 sobre $\tilde{\vu}$.
-El \Cref{exercise:sphere-calculus} describe los fundamentos matemáticos
+En el \Cref{exercise:sphere-calculus} se describen los fundamentos matemáticos
 necesarios para derivar estas condiciones de optimalidad a partir de los principios básicos.
-La ecuación \eqref{eq:kurtosis-max-sphere-stationarity} es satisfecha por
+La Ecuación \eqref{eq:kurtosis-max-sphere-stationarity} es satisfecha por
 \textit{cualquier} punto crítico del problema de maximización de la curtosis; queremos
 derivar una ecuación que sea satisfecha únicamente por los maximizadores.
 Tras observar que $\lambda = \norm{\vX^\top \tilde{\vu}}_4^4$,
@@ -1372,9 +1372,8 @@ maximizador de \eqref{eq:kurtosis-maximization-sphere-finitesample}:
     =
     \tilde{\vu}.
 \end{align}
-Al iterar la aplicación definida por el lado izquierdo de esta expresión de punto fijo,
-se obtiene el algoritmo FastICA de Hyvärinen
-y Oja \cite{hyvarinen-1997}:
+Al iterar el mapeo definido por el lado izquierdo de esta expresión de punto fijo,
+se obtiene el algoritmo FastICA de Hyvärinen y Oja \cite{hyvarinen-1997}:
 \begin{equation}
     \begin{split}\label{eq:fast-ica}
         \tilde{\vv}^+ &= \tfrac{1}{N}\vX (\vX^\top
@@ -1399,7 +1398,7 @@ Como hemos visto, el aprendizaje de diccionarios completos se basa en una elegan
 teoría computacional en la que se mantiene una estructura de auto-codificación simétrica
 $\cE(\vx) = \vU^\top \vx$, $\cD(\vz) = \vU \vz$, junto con un
 algoritmo escalable similar al método de potencias (el algoritmo MSP) para aprender
-un diccionario ortogonal $\vU$ a partir de los datos. No obstante, para
+un diccionario/libro de códigos ortogonal $\vU$ a partir de los datos. No obstante, para
 aprender representaciones de distribuciones generales de datos de alta dimensión,
 es necesario ampliar el tamaño del libro de códigos más allá del
 requisito de ortogonalidad, lo que significa que debemos tener $\vA \in \R^{D
@@ -1556,7 +1555,7 @@ agrupar los \(\veps_{i}\) en \(\vE = \mat{\veps_{1}, \dots,
     \vX = \vA\vZ + \vE.
 \end{equation}
 Un enfoque natural para resolver el problema de la codificación dispersa consiste en buscar las señales más dispersas
-que sean compatibles con nuestras observaciones, lo que nos lleva naturalmente al
+que sean consistentes con nuestras observaciones, lo que nos lleva naturalmente al
 siguiente problema de optimización:
 \begin{equation}\label{eq:sparse_dl_lasso}
     \min_{\tilde{\vZ} \in \R^{d \times N}}\bc{\norm{\vX -
@@ -1661,15 +1660,15 @@ directamente una tasa de convergencia precisa \cite{Wright-Ma-2022}.
 Ahora nos detendremos un momento para comentar la forma funcional del operador de actualización
 en \eqref{eq:ista_update}. Adopta la forma de
 \begin{equation}
-    \tilde{\vZ}_{t + 1} = \texttt{nonlinearity}(\tilde{\vZ}_{t} +
-    \texttt{linear}^{\top}(\texttt{linear}(\tilde{\vZ}_{t}) + \texttt{bias})).
+    \tilde{\vZ}_{t + 1} = \texttt{nolinealidad}(\tilde{\vZ}_{t} +
+    \texttt{lineal}^{\top}(\texttt{lineal}(\tilde{\vZ}_{t}) + \texttt{sesgo})).
 \end{equation}
 Esta forma funcional es muy similar a la de una capa de red residual,
 es decir,
 \begin{equation}
     \tilde{\vZ}_{t + 1} = \tilde{\vZ}_{t} +
-    \texttt{linear}_{1}^{\top}(\texttt{nonlinearity}(\texttt{linear}_{2}(\tilde{\vZ}_{t})
-        + \texttt{bias}_{1}) + \texttt{bias}_{2},
+    \texttt{lineal}_{1}^{\top}(\texttt{nolinealidad}(\texttt{lineal}_{2}(\tilde{\vZ}_{t})
+        + \texttt{sesgo}_{1}) + \texttt{bias}_{2},
     \end{equation}
 simplemente desacoplando las transformaciones lineales (es decir, las multiplicaciones matriciales),
 añadiendo un sesgo y desplazando la no linealidad.
@@ -1789,7 +1788,7 @@ que cada columna tenga una norma $\ell^2$ máxima de la unidad,
 mediante $\vA_j \mapsto \vA_j / \max \set{\norm{\vA_j}_2,1}$ y 
 donde $\vA_+$ se inicializa con cada columna independiente e 
 idénticamente distribuida $\cN(\Zero, \tfrac{1}{D} \vI)$.
-Lo anterior consiste en un «bloque» de minimización alterna,
+Lo anterior consiste en un «bloque» de minimización alternada,
 repitiéndose dichos bloques, cada uno con inicializaciones 
 independientes, hasta alcanzar la convergencia.
 Arriba, hemos utilizado dos índices distintos, $\{t\}$ y $\{\ell\}$
@@ -1798,7 +1797,7 @@ permite interpretar las dos actualizaciones por separado en el
 contexto del aprendizaje profundo.
 
 A pesar de que el problema del aprendizaje de diccionarios es un problema no convexo,
-se ha demostrado que los algoritmos de tipo de minimización alterna convergen efectivamente hacia
+se ha demostrado que los algoritmos de tipo de minimización alternada convergen efectivamente hacia
 la solución correcta, al menos localmente. Véase, por ejemplo, \cite{alekh-2016}.
 A modo de demostración práctica, se utilizó el algoritmo anterior (con $L = T =
 1$) para generar los resultados del aprendizaje de diccionarios sobrecompletos que se muestran en
@@ -1806,7 +1805,7 @@ la \Cref{fig:ReconMNIST}.
 
 \subsection{Codificación dispersa profunda aprendida}
 \label{sec:LISTA}
-La idea principal del algoritmo de minimización alterna para
+La idea principal del algoritmo de minimización alternada para
 el aprendizaje de diccionarios sobrecompletos en la sección anterior
 (\Cref{eqn:ISTA-update,eqn:DL-update}) es observar que \textit{cuando
     fijamos \(\vA\), la actualización ISTA para $\vZ^\ell$
@@ -1817,14 +1816,14 @@ el aprendizaje de diccionarios sobrecompletos en la sección anterior
 y la estimación actual $\vA_+$ podría ser errónea. Por lo tanto, es 
 necesario actualizarla utilizando \eqref{eqn:DL-update} a partir del 
 residuo obtenido al utilizar la estimación actual de los
-códigos dispersos $\vZ^+$ para reconstruir $\vX$. El algoritmo de minimización alterna
+códigos dispersos $\vZ^+$ para reconstruir $\vX$. El algoritmo de minimización alternada
 repite estos dos procedimientos hasta alcanzar la convergencia. Pero, en su lugar,
 podemos extrapolar y diseñar otros procedimientos de aprendizaje combinando
 estas ideas con técnicas del aprendizaje profundo. Esto da lugar a arquitecturas 
 de red más interpretables, lo cual será un tema recurrente a lo largo de este manuscrito.
 
 \paragraph{ISTA aprendido.} La interpretación anterior, en términos de redes profundas, de la
-minimización alterna es más conceptual que práctica, ya que el proceso podría
+minimización alternada es más conceptual que práctica, ya que el proceso podría
 resultar bastante ineficiente y requerir muchas capas o iteraciones para converger.
 Pero esto se debe principalmente a que intentamos deducir tanto \(\vZ\) como \(\vA\) 
 a partir de \(\vX\). El problema puede simplificarse considerablemente y las iteraciones 
@@ -1886,7 +1885,7 @@ para
 \textit{interpretar características en redes profundas preentrenadas a gran escala}, 
 tales como los transformers, siguiendo la hipótesis de que las
 características (no interpretables, \textit{a priori}) en estas redes consisten 
-en «superposiciones» dispersa de características subyacentes, las cuales son 
+en «superposiciones» dispersas de características subyacentes, las cuales son 
 a su vez interpretables \cite{elhage2022superposition}. Estos paradigmas de 
 aprendizaje \textit{sin supervisión} suelen ser también más eficientes en 
 cuanto al uso de datos que LISTA, que requiere grandes cantidades
@@ -1899,7 +1898,7 @@ gao2025scaling}), se recopila un gran número de características de una
 red profunda preentrenada $h$ a partir de diferentes entradas $\vx_i$, 
 las cuales se seleccionan en función de la tarea de interpretación deseada.\footnote{Por ejemplo, 
     las entradas $\vx_i$ podrían corresponder a textos que contengan fragmentos de código informático en
-    diferentes lenguajes de programación , siendo nuestra tarea tratar de identificar
+    diferentes lenguajes de programación, siendo nuestra tarea tratar de identificar
     características interpretables en
     un mapa de características del transformer $h$ que correspondan a diferentes
     aspectos destacados de la entrada, tales como el lenguaje de programación específico (distinto entre las
@@ -1909,13 +1908,13 @@ las cuales se seleccionan en función de la tarea de interpretación deseada.\fo
 con mayor detalle en el \Cref{ch:applications}.} Para simplificar, utilizaremos $h$ para denotar el mapa de 
 características preseleccionado en cuestión, con características de dimensión $D$; dadas $N$ entradas de 
 muestra, sea $\vH \in \bR^{D \times N}$ la matriz completa de características de $h$.
-A continuación, se entrena un autoencoder disperso $f : \bR^D \to \bR^d$, con
+A continuación, se entrena un autocodificador disperso $f : \bR^D \to \bR^d$, con
 un decodificador $g : \bR^d \to \bR^D$, mediante la función de pérdida 
 LASSO \eqref{eq:sparse_dl_lasso}:
 \begin{equation}\label{eq:sae-loss}
     \min_{f, g} \| \vH - g(f(\vH))) \|_F^2 + \lambda \|f(\vH)\|_1 ,
 \end{equation}
-donde el autoencoder disperso $f$ adopta la forma de una red neuronal de una sola capa,
+donde el autocodificador disperso $f$ adopta la forma de una red neuronal de una sola capa,
 es decir, $f(\vh_i) = \sigma(\vW_{\mathrm{enc}}(\vh_i - \vb)
 + \vb_{\mathrm{enc}})$, donde $\sigma(x) = \max \{x, 0\}$ es la función de activación ReLU
 y el decodificador $g$ es lineal, de modo que $g(\vz_i)
@@ -1966,7 +1965,7 @@ y, tras algunas operaciones algebraicas, expresarlo como
 Dada la posibilidad de modificar la inicialización del código disperso $\vZ^1$ como
 un parámetro aprendible (que, en el marco actual, debe tener todas las columnas
 iguales al mismo vector aprendible), esto adopta la forma de una red neuronal ReLU
-con sesgo aprendible, ¡idéntica al autoencoder disperso $f$!
+con sesgo aprendible, ¡idéntica al autocodificador disperso $f$!
 Además, para \textit{decodificar} los códigos dispersos aprendidos $\vZ^2$, lo más natural es
 aplicar el diccionario aprendido $\vZ^2 \mapsto \vA^1 \vZ^2$. Entonces, la única
 diferencia entre esto y el decodificador SAE $g$ es el sesgo adicional $\vb$,
@@ -1974,7 +1973,7 @@ que técnicamente puede absorberse en $\vH$ y $f$ en el objetivo de entrenamient
 \eqref{eq:sae-loss}.
 
 Por lo tanto, el procedimiento de parametrización y entrenamiento de SAE coincide con
-el entrenamiento de LISTA con $L=1$ y un objetivo de entrenamiento modificado---utilizando el
+el entrenamiento de LISTA con $L=1$ y un objetivo de entrenamiento modificado --- utilizando el
 objetivo LASSO \eqref{eq:sparse_dl_lasso}, que sigue siendo {\em no supervisado}, en lugar 
 de la pérdida de reconstrucción supervisada \eqref{eq:lista-training} utilizada en el método
 LISTA estándar. En concreto, podemos entender la arquitectura SAE a partir de nuestra
@@ -1989,8 +1988,8 @@ el \Cref{ch:consistent-representations}.
 
 En el contexto supervisado, LISTA ofrece un análogo de red neuronal profunda de
 la iteración de codificación dispersa, con diccionarios aprendidos por capas, inspirado en
-la minimización alterna; incluso en el contexto no supervisado, se puede aplicar la misma metodología
-al aprendizaje, al igual que con los autoencoders dispersos.
+la minimización alternada; incluso en el contexto no supervisado, se puede aplicar la misma metodología
+al aprendizaje, al igual que con los autocodificadores dispersos.
 Pero la relación entre los algoritmos de optimización
 que buscan estructuras de baja dimensión y las arquitecturas de redes profundas es mucho más 
 profunda que eso y sugiere una variedad de arquitecturas de aprendizaje neuronal escalables 
@@ -2015,7 +2014,7 @@ $\vA_\ell$, se actualice con el tiempo, esto da lugar a un esquema de codificaci
     & \vA_{\ell + 1} = \vA_{\ell}- 2\nu (\vA_{\ell}\vZ^{\ell + 1}
     - \vX)(\vZ^{\ell + 1})^\top.
 \end{align}
-Tenga en cuenta que esta iteración %
+Téngase en cuenta que esta iteración %
 corresponde a un reetiquetamiento de \eqref{eqn:ISTA-update} y \eqref{eqn:DL-update}
 para $T = L = 1$, sobre un número infinito de bloques.
 Cada uno de los pasos «internos» que actualizan $\vZ$ puede considerarse como una pasada 
@@ -2027,7 +2026,7 @@ la optimización hacia adelante y el aprendizaje hacia atrás. Esta
 distinción entre las actualizaciones hacia adelante de las «características» efímeras
 $\vZ$ de los datos $\vX$ y las actualizaciones hacia atrás de los parámetros
 persistentes $\vA$  sigue observándose en las redes neuronales y los
-autoencoders actuales; hablaremos mucho más sobre ello en
+autocodificadores actuales; hablaremos mucho más sobre ello en
 el \Cref{ch:deep-networks} y el \Cref{ch:consistent-representations}.
 
 Obsérvese que el esquema por capas anterior también sugiere una alternativa plausible
@@ -2040,13 +2039,13 @@ analizaremos con más detalle al final del libro en el \Cref{ch:future}.
 \section{Resumen y notas}
 
 \paragraph{Mensajes clave.} Los modelos idealizados que hemos presentado en
-este capítulo---el PCA, el ICA y el aprendizaje de diccionarios---se 
-desarrollaron a lo largo del siglo XX.  Muchos libros se han dedicado 
+este capítulo ---el PCA, el ICA y el aprendizaje de diccionarios--- se 
+desarrollaron a lo largo del Siglo XX.  Muchos libros se han dedicado 
 a estos métodos, por lo que aquí solo ofrecemos una visión general de los conceptos y resultados clave. Como
 veremos en los próximos capítulos, aunque podría decirse que se trata de
 modelos bastante idealizados y sencillos para distribuciones de datos de baja dimensión, las
 ideas básicas e incluso los algoritmos resultantes para identificar tales
-distribuciones pueden generalizarse o ampliarse de forma natural a cualquier
+distribuciones pueden generalizarse o ampliarse de manera natural a cualquier
 distribución de baja dimensión: esa es la tesis de este libro. Además,
 como veremos en los próximos capítulos, estos modelos básicos (lineales)
 pueden servir, en gran medida, como prototipos locales para

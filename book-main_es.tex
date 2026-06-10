@@ -1,3 +1,10 @@
+\newenvironment{nohyphens}
+  {\par
+   \hyphenpenalty=10000
+   \exhyphenpenalty=10000
+   \sloppy} % Allows wider spaces to prevent overfull boxes
+  {\par}
+
 \documentclass{book}
 
 \usepackage[english]{babel}
@@ -148,10 +155,8 @@ decorations.pathmorphing, decorations.markings}
 \crefname{proposition}{proposición}{proposiciones}
 \Crefname{proposition}{Proposición}{Proposiciones}
 
-%\hyphenation{line-break line-breaks docu-ment triangle cambridge amsthdoc
-%cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
-\righthyphenmin=62
-\lefthyphenmin=62
+\hyphenation{line-break line-breaks docu-ment triangle cambridge amsthdoc
+cambridgemods baseline-skip author authors cambridgestyle en-vir-on-ment polar}
 
 \setcounter{tocdepth}{2}% list subsections in the table of contents
 % Algorithm packages -- should go after hyperref
@@ -248,6 +253,7 @@ decorations.pathmorphing, decorations.markings}
 \patchcmd{\proof}{Proof}{Demostración}{}{}
 
 \begin{document}
+\begin{nohyphens}
 
 \makeatletter
 \@ifclassloaded{EngC}{
@@ -398,4 +404,5 @@ de código abierto}
 % \printindex{authors}{Author index}
 % \printindex{subject}{Subject index}
 
+\end{nohyphens}
 \end{document}

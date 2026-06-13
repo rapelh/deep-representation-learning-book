@@ -96,7 +96,7 @@ introducido por Shannon en 1948~\cite{Shannon-1948}.
 
 Para ilustrar el carácter constructivo de la entropía, comencemos con
 el caso más sencillo. Supongamos que tenemos una variable aleatoria discreta
-que toma \(N\) valores distintos, o \textit{elementos}, \(\{\vx_{1},
+que toma \(N\) valores distintos, o \textit{tokens}, \(\{\vx_{1},
 \dots, \vx_{N}\}\) con una probabilidad igual de \(1/N\). Podemos
 codificar cada token \(\vx_{i}\) utilizando la representación binaria de \(\log_{2} N\) bits
 del número \(i\). Este esquema de codificación puede generalizarse para
@@ -220,7 +220,7 @@ genérica. En particular, podrían interpretarse como cualquiera de las siguient
         verdadera \(p\). 
 \end{enumerate}
 La pregunta es: ¿qué interpretación es mejor y en qué sentido? Supongamos
-que crees que estos datos \(\vX\) provienen de una distribución concreta
+que creemos que estos datos \(\vX\) provienen de una distribución concreta
 \(q(\vx)\), que podría ser una de las anteriores. Entonces podríamos
 codificar los puntos de datos con el libro de códigos óptimo para la distribución
 \(q(\vx)\). Entonces, a medida que el número de muestras \(N\) aumenta, la
@@ -267,7 +267,7 @@ Sugiere dos posibles enfoques:
 En teoría, tanto el enfoque A1 como el A2 pretenden lograr lo mismo.
 Para A1, debemos asegurarnos de que exista tal ruta de transformación y de que sea
 computable. Para A2, es necesario que la familia elegida sea lo suficientemente amplia
-y pueda aproximarse bastante (o abarcar) la distribución real. En cualquiera de 
+y pueda aproximarse bastante (o abarcar) a la distribución real. En cualquiera de 
 los dos enfoques, debemos asegurarnos de que las soluciones con menor entropía 
 o mejores tasas de codificación puedan calcularse de manera eficiente
 y converjan rápidamente hacia la distribución deseada.\footnote{Por ejemplo, 
@@ -312,7 +312,7 @@ condiciones hacen que nuestro enfoque sea viable.
 \subsubsection{Procesos de difusión}
 
 Aumentaremos la entropía de la forma más sencilla posible,
-es decir, \textit{añadiendo ruido gaussiano isotrópico}. Más concretamente, dada
+es decir, \textit{añadiendo ruido gaussiano isotrópico}. Más precisamente, dada
 la variable aleatoria \(\vx\), podemos considerar el \textit{proceso estocástico}
 \((\vx_{t})_{t \in [0, T]}\) que le añade ruido gradualmente, es decir,
 \begin{equation}\label{eq:additive_gaussian_noise_model}
@@ -441,7 +441,7 @@ condicional). En resumen, intenta eliminar el ruido de la entrada ruidosa
 y genera la mejor estimación posible (en términos de esperanza y con
 respecto a la distancia \(\ell^{2}\)) de la variable aleatoria original sin ruido.
 
-\begin{example}[Eliminación del ruido gaussiano a partir de una mezcla de
+\begin{example}[Eliminación del ruido gaussiano de una mezcla de
     distribuciones gaussianas]\label{example:denoising_gaussian_mixture}
     En este ejemplo calculamos el filtro óptimo de reducción de ruido de Bayes para una
     clase importante de distribuciones: el modelo de mezcla gaussiana
@@ -559,7 +559,7 @@ respecto a la distancia \(\ell^{2}\)) de la variable aleatoria original sin ruid
         \Cref{fig:ve_forward_density}, mostramos el efecto del
         filtro de ruido óptimo de Bayes \(\bar{\vx}^{\star}\) representando gráficamente
         \(\vx_{t}\) (rojo) y \(\bar{\vx}^{\star}(t, \vx_{t})\) (verde)
-        para una selección de \(t\) y \(\vx_{t}\). Según la fórmula de Tweedie
+        para una selección de \(t\) y \(\vx_{t}\). Según la fórmula de Tweedie,
         \Cref{thm:tweedie}, el residuo entre ambos es proporcional a
         la denominada puntuación (Hyv\"arinen) \(\nabla_{\vx_{t}}\log
         p_{t}(\vx_{t})\). Podemos observar que la puntuación apunta hacia los
@@ -729,8 +729,8 @@ iteración actual y conservamos únicamente la salida del filtro de ruido.
     \caption{\small\textbf{Eliminación del ruido en una mezcla de gaussianas
         de rango bajo.} Cada figura visualiza muestras de la distribución real de los datos
         (gris, naranja, rojo) y muestras sometidas al
-        proceso de eliminación de ruido \eqref{eq:denoising-iteration-basic} (azul
-        claro). En la parte superior izquierda, el proceso acaba de comenzar y el ruido
+        proceso de eliminación de ruido \eqref{eq:denoising-iteration-basic} (celeste). 
+        En la parte superior izquierda, el proceso acaba de comenzar y el ruido
         es muy intenso. A medida que avanza el proceso, el ruido se desplaza
         cada vez más hacia el soporte de la distribución de datos de rango bajo.
         Por último, en la parte inferior derecha, las muestras generadas se alinean perfectamente
@@ -1056,10 +1056,10 @@ Si juntamos todo esto, tenemos
 es decir, una proyección de \(\vx_{t}\) sobre cada uno de los \(K\) subespacios,
 ponderada por una función softmax de una función cuadrática de \(\vx_{t}\). ¡Esta
 forma funcional es similar a un \textit{mecanismo de atención} en una 
-arquitectura de transformer! Como veremos en el
+arquitectura de Transformer! Como veremos en el
 \Cref{ch:deep-networks}, esto no es en absoluto una coincidencia; el profundo
 vínculo entre la eliminación de ruido y la compresión con pérdida (que se tratará en la
-\Cref{sec:lossy_compression}) hace que los filtros de ruido basados en transformers sean tan
+\Cref{sec:lossy_compression}) hace que los filtros de ruido basados en Transformers sean tan
 eficaces en la práctica.
 
 En general, la arquitectura del filtro de ruido aprendido corresponde a un
@@ -1197,7 +1197,7 @@ T] \to \R_{\geq 0}\) y la tasa de contracción se denota por \(\alpha
 \end{equation}
 En la configuración anterior, \(\alpha_{t} = 1\) y \(\sigma_{t} = t\) y
 esto se conoce como el \textit{proceso de varianza explosiva (VE)}. Una
-opción habitual que reduce la contribución de \(\vx\), tal y como
+opción habitual que reduce la contribución de \(\vx\), tal y como lo
 describimos inicialmente, es aquella en la que \(T = 1\) (de modo que \(t \in [0, 1]\)),
 \(\alpha_{t} = \sqrt{1 - t^{2}}\) y \(\sigma_{t} = t\); este es el
 \textit{proceso de preservación de la varianza (VP)}. Nótese que, en el proceso VP,
@@ -1413,7 +1413,7 @@ de \(\vg\) utilizando la relación anterior, es decir,
 \end{equation}
 y viceversa. Por lo tanto, una buena red para estimar \(\bar{\vg}\) es
 lo mismo que una buena red para estimar \(\bar{\vx}\) \textit{más
-una conexión residual} (como se ve, por ejemplo, en los transformers). Sus pérdidas
+una conexión residual} (como se ve, por ejemplo, en los Transformers). Sus pérdidas
 son también las mismas que las del filtro de ruido, salvo por el factor
 \(\alpha_{t}/\sigma_{t}\), es decir,
 \begin{equation}
@@ -1484,11 +1484,11 @@ limitar el error en cada paso, distinguir las fuentes de error (entre
 el error de discretización y el del filtro de ruido) y asegurarse cuidadosamente de que
 los errores no se acumulen en exceso (o incluso se anulen entre sí).
 
-Tenga en cuenta que si \(L \to \infty\) y aprendemos correctamente el filtro de ruido óptimo de Bayes
+Téngase en cuenta que si \(L \to \infty\) y aprendemos correctamente el filtro de ruido óptimo de Bayes
 \(\bar{\vx} = \bar{\vx}^{\star}\) (de modo que el error excedente es
 \(0\)), entonces el proceso de muestreo en el
 \Cref{alg:iterative_denoising} produce una \textit{inversa perfecta (en
-distribución)} del proceso de ruido, ya que la tasa de error en el
+distribución)} del proceso de adición de ruido, ya que la tasa de error en el
 \Cref{thm:diffusion_sampler_convergence} tiende a
 \(0\),\footnote{Se obtienen resultados similares para los procesos VE; los
     conjuntos de herramientas teóricas utilizados para las demostraciones difieren debido a la estructura de los
@@ -1497,10 +1497,10 @@ procesos estocásticos subyacentes.} tal y como se ha argumentado de manera heur
 \begin{remark}
     ¿Qué pasa si los datos son de baja dimensión, es decir, si se encuentran en un
     \textit{subespacio de rango bajo} del espacio de alta dimensión
-    \(\R^{D}\)? Si la distribución de los datos tiene soporte compacto---por ejemplo,
+    \(\R^{D}\)? Si la distribución de los datos tiene soporte compacto ---por ejemplo,
     si los datos se normalizan al hipercubo unitario, lo cual suele
     garantizarse como paso previo al procesamiento de datos reales, como
-    las imágenes---es posible obtener mejores resultados. Concretamente, los autores de
+    las imágenes--- es posible obtener mejores resultados. Concretamente, los autores de
     \cite{li2024d} también definen una medida de la \textit{dimensión intrínseca
     aproximada} \(\kappa\) utilizando la asintótica del denominado
     número de cobertura, que es extremadamente similar en su intuición (si no
@@ -1588,9 +1588,9 @@ procesos estocásticos subyacentes.} tal y como se ha argumentado de manera heur
         \bar{\vv}_{\theta}(t_{\ell}, \hat{\vx}_{t_{\ell}}) \Delta t,
     \end{equation}
     donde \(\Delta t = t_{\ell} - t_{\ell - 1}\) es el intervalo de tiempo.
-    Tenga en cuenta que la predicción de velocidad es algebraicamente equivalente a
-    la eliminación de ruido (véase el \Cref{exercise:velocity_prediction}). Consulte las
-    \Cref{sec:auto-encode-img-gen,sec:shape-and-pose} para ver aplicaciones prácticas
+    Ténase en cuenta que la predicción de velocidad es algebraicamente equivalente a
+    la eliminación de ruido (véase el \Cref{exercise:velocity_prediction}). Las
+    \Cref{sec:auto-encode-img-gen,sec:shape-and-pose} contienen aplicaciones prácticas
     del flow matching.
 \end{remark}
 
@@ -1623,10 +1623,10 @@ procesos estocásticos subyacentes.} tal y como se ha argumentado de manera heur
 \section{Memorización, generalización y tasas de codificación}\label{sec:diffusion_memorization}
 El cálculo que se presenta al final de la
 \Cref{sub:intro_diffusion_denoising} parece indicar (en términos generales)
-que, en la práctica, utilizar una red de tipo transformer es una
+que, en la práctica, utilizar una red de tipo Transformer es una
 buena opción para entrenar o aproximar un filtro de ruido. Esto es
-razonable, pero ¿qué problema hay en utilizar cualquier red neuronal
-(como un perceptrón multicapa (MLP)) y simplemente ampliarla
+razonable, pero ¿qué problema hay en utilizar cualquier red neuronal antigua
+(como un perceptrón multicapa (MLP)) y simplemente escalarla
 hasta el infinito? Para responder a esta pregunta, consideremos una restricción
 que hasta ahora hemos ignorado o pasado por alto en este capítulo: solo
 disponemos de datos finitos con los que entrenar el filtro de ruido. De hecho, consideremos
@@ -1735,17 +1735,17 @@ ajustarse al (verdadero) filtro de ruido memorizador. Por lo tanto, es pertinent
 si esto se confirma realmente en la práctica: ¿los modelos muy grandes
 (en relación con el conjunto de datos) aprenden a memorizar los datos de entrenamiento? Resulta
 que esto es cierto desde el punto de vista empírico. Uno de los primeros estudios al respecto
-fue \cite{yoon2023diffusion}. Para comprender sus resultados, definimos el
-índice de memorización como la probabilidad de memorización:
+fue \cite{yoon2023diffusion}. Para comprender sus resultados, definimos la
+tasa de memorización como la probabilidad de memorización:
 \begin{equation}
-    \mathrm{MemRatio}(\bar{\vx}) = \Pr_{\hat{\vx} \sim
-    \mathrm{DM}(\bar{\vx})}[\hat{\vx}\ \text{is memorized}],
+    \mathrm{TasaMem}(\bar{\vx}) = \Pr_{\hat{\vx} \sim
+    \mathrm{DM}(\bar{\vx})}[\hat{\vx}\ \text{está memorizado}],
 \end{equation}
 donde \(\mathrm{DM}(\bar{\vx})\) es la distribución inducida por el
 modelo de difusión que utiliza el filtro de ruido \(\bar{\vx}\), y la muestra
 \(\hat{\vx}\) se memoriza utilizando el siguiente criterio:
 \begin{equation}\label{eq:diffusion_euclidean_memorization_criterion}
-    \hat{\vx}\ \text{is memorized}\ \iff \frac{\norm{\hat{\vx} -
+    \hat{\vx}\ \text{está memorizado}\ \iff \frac{\norm{\hat{\vx} -
     \vx_{(1)}(\hat{\vx})}_{2}}{\norm{\hat{\vx} -
     \vx_{(2)}(\hat{\vx})}_{2}} < \frac{1}{3},
 \end{equation}
@@ -1807,17 +1807,17 @@ dimensión de las imágenes). Esto no tiene en cuenta los casos en los que ciert
 \textit{conceptos} (como los personajes de dibujos animados protegidos por derechos de autor) se
 generan en posiciones novedosas, lo que dificulta enormemente establecer
 criterios de memorización eficaces y prácticos basados en la distancia
-euclidiana. Para solucionar esto, \cite{pmlr-v235-zhang24cn} utiliza una función concreta
+euclidiana. Para solucionar esto, \cite{pmlr-v235-zhang24cn} utiliza una función específica
 \(f_{\mathrm{SSCD}}\) (una red neuronal preentrenada
 denominada «detector de copias auto-supervisado» \cite{pizzi2022self})
-para mapear imágenes a un espacio euclidiano, y luego toma el producto interno
+para mapear imágenes a un espacio euclidiano y luego toma el producto interno
 normalizado para obtener su similitud (coseno), de tal manera que las imágenes que
 son similares debido a esta similitud coseno se consideran
 conceptualmente similares en el sentido necesario para la memorización. Entonces,
 \cite{pmlr-v235-zhang24cn} afirma que una muestra \(\hat{\vx}\) ha sido memorizada si su
 similitud con cualquier punto de entrenamiento es \(> 3/5\), es decir,
 \begin{equation}\label{eq:diffusion_sscd_memorization_criterion}
-    \hat{\vx}\ \text{is memorized} \iff \max_{i \in [N]}
+    \hat{\vx}\ \text{está memorizada} \iff \max_{i \in [N]}
     \frac{f_{\mathrm{SSCD}}(\hat{\vx})^{\top}f_{\mathrm{SSCD}}(\vx^{(i)})}{\norm{f_{\mathrm{SSCD}}(\hat{\vx})}_{2}\norm{f_{\mathrm{SSCD}}(\vx^{(i)})}_{2}}
     > \frac{3}{5}
 \end{equation}
@@ -1847,7 +1847,7 @@ diferentes regímenes
     \includegraphics[width=0.4\textwidth]{\toplevelprefix/chapters/chapter3/figs/diffusion_perturbation.png}
     \caption{\small\textbf{Visualización del funcionamiento de un
         filtro de ruido bien entrenado} como una perturbación del filtro empírico en
-        \textit{intervalos de tiempo cortos}, cuando el filtro con memoria actúa como una
+        \textit{intervalos de tiempo cortos}, cuando el filtro memorizador actúa como una
     proyección sobre el punto más cercano del conjunto de entrenamiento.}
     \label{fig:diffusion_perturbation}
 \end{figure}

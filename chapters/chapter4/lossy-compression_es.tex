@@ -18,7 +18,7 @@ posible identificar y acceder a una distribución con un soporte de
 dimensiones arbitrariamente bajas, como la que se ilustra en la
 \Cref{fig:representation-learning} (izquierda), transformando gradualmente
 la distribución de ruido puro (alta entropía) en la distribución que 
-se desea aprender mediante \textit{eliminación de ruido iterativo}. Hemos
+se desea aprender mediante \textit{eliminación iterativa de ruido}. Hemos
 mostrado que el filtro de eliminación de ruido en cada iteración está directamente relacionado con
 el gradiente de la densidad logarítmica de la distribución mediante la fórmula de Tweedie
 \eqref{eq:tweedie}. Demostramos que, en la práctica, ese filtro de eliminación de ruido
@@ -50,7 +50,7 @@ medidas típicas de parsimonia: la dimensión, el volumen o la
 entropía diferencial. Si usamos la dimensión, es obvio que el mejor modelo para un
 conjunto de datos dado es la propia distribución empírica, que es
 de dimensión cero.\footnote{En la Introducción
-    \Cref{ch:intro}, sostuvimos que un objetivo importante de la inteligencia es
+    (\Cref{ch:intro}), sostuvimos que un objetivo importante de la inteligencia es
     buscar estructuras de baja dimensión en los datos observados. Sin embargo,
     desde el punto de vista técnico, no se debe interpretar el término
     «de baja dimensión» de manera literal. El objetivo de este capítulo es
@@ -129,10 +129,10 @@ pérdidas en relación con estas patologías (\Cref{sub:rate-dist}); a continuac
 demostramos que la función de tasa-distorsión relaciona esta medida de la teoría 
 de la codificación con la geometría del soporte de datos
 por medio del recubrimiento esférico (\Cref{thm:covering-number-rate-distortion}).
-Esta conexión constituye el puente entre los enfoques basados en la teoría de la información y los geométricos
+Esta conexión constituye el puente entre los enfoques basados en la teoría de la información y los enfoques geométricos
 para el aprendizaje de distribuciones de baja dimensión. Por último, desarrollamos
 una aproximación exacta en forma cerrada de la tasa de codificación con pérdida para las distribuciones gaussianas
-(\Cref{subsec:lossy DR}) y un algoritmo eficaz para agrupar mezclas de
+(\Cref{subsec:lossy DR}), así como un algoritmo eficaz para agrupar mezclas de
 distribuciones gaussianas de baja dimensión (\Cref{sec:clustering-Gaussians}), que se
 generalizará a distribuciones no lineales en la siguiente sección.
 
@@ -151,7 +151,7 @@ algunas de las dificultades conceptuales y técnicas con ejemplos concretos.
     Para el ejemplo que se muestra en la parte superior de la \Cref{fig:1d-line}, supongamos
     que hemos tomado algunas muestras de una distribución uniforme en una recta
     (por ejemplo, en un plano bidimensional). El volumen de la línea o de los conjuntos de muestras es cero.
-    Desde el punto de vista geométrico, la distribución empírica sobre el conjunto de muestras finito
+    Desde el punto de vista geométrico, la distribución empírica sobre el conjunto finito de muestras 
     obtenido es aquella de {\em dimensión mínima} capaz de generar
     dicho conjunto de muestras finito.\footnote{Un conjunto de muestras discretas tiene
     dimensión cero, mientras que la línea de apoyo tiene dimensión uno.}
@@ -167,7 +167,7 @@ algunas de las dificultades conceptuales y técnicas con ejemplos concretos.
 \end{example}
 
 \begin{example}[Densidad]\label{eg:density} Consideremos los dos conjuntos de
-    puntos de datos muestreados que se muestran en la \Cref{fig:1d-line}. Geométricamente,
+    puntos de datos muestreados que se exhiben en la \Cref{fig:1d-line}. Geométricamente,
     son esencialmente iguales: cada conjunto consta de ocho puntos
     y cada punto ha aparecido con una frecuencia igual a 1/8. La
     única diferencia es que, en el segundo conjunto de datos, algunos puntos están
@@ -185,8 +185,8 @@ algunas de las dificultades conceptuales y técnicas con ejemplos concretos.
     \end{figure}
 \end{example}
 
-Existe otra dificultad técnica relacionada con
-la creación de un esquema explícito de codificación y decodificación para un conjunto de datos.
+Existe otra dificultad técnica adicional relacionada con
+la construcción de un esquema explícito de codificación y decodificación para un conjunto de datos.
 Dado un conjunto de datos muestreados en $\vX = [\vx_1, \ldots, \vx_N]$, ¿cómo
 se puede diseñar un esquema de codificación que sea implementable en máquinas con
 recursos computacionales y de memoria finitos? Nótese que incluso para representar un número real
@@ -222,7 +222,7 @@ concretamente, nos gustaría considerar esquemas de codificación
 \begin{equation}
     \vx \mapsto \hat \vx
 \end{equation}
-de tal manera que el error esperado causado por la cuantificación esté acotado por
+de tal manera que el error esperado causado por la cuantización esté acotado por
 $\epsilon$. Es matemáticamente más conveniente, y conceptualmente
 prácticamente idéntico, acotar el error esperado \textit{al cuadrado} por
 \(\epsilon^{2}\), es decir,
@@ -286,7 +286,7 @@ Una vez establecidas las definiciones anteriores, podemos expresar la tasa-disto
     \label{eqn:rate-distortion-general}
 \end{equation}
 
-Tenga en cuenta que la minimización
+Tengamos en cuenta que la minimización
 en \eqref{eqn:rate-distortion-general} se realiza sobre todas las distribuciones condicionales
 $p(\hat \vx \mid \vx)$ 
 que satisfacen la restricción de distorsión $\Ex[\norm{\vx-
@@ -350,7 +350,7 @@ no creciente} en $\epsilon$.
     \begin{equation}\label{eq:mutual}
         I(\vx; \hat\vx) = H(\vx) - H(\vx \mid \hat \vx),
     \end{equation}
-    donde $H(\vx)$ se define en la \eqref{eqn:entropy-discrete} de la
+    donde $H(\vx)$ se define en la ecuación \eqref{eqn:entropy-discrete} de la
     \Cref{sub:min_entropy}.
     En términos más generales, se pueden emplear conceptos matemáticos avanzados de la teoría de la medida
     para definir la información mutua (y, por lo tanto, la tasa-distorsión) para
@@ -373,7 +373,7 @@ no creciente} en $\epsilon$.
     no están tan uniformemente
     distribuidas y muchas se agrupan muy cerca unas de otras. Por lo tanto, para la
     segunda distribución que se muestra en la \Cref{fig:1d-line}, si se elige adecuadamente
-    el error de cuantificación  $\epsilon$, la tasa de codificación con pérdida que se puede alcanzar puede ser
+    el error de cuantización  $\epsilon$, la tasa de codificación con pérdida que se puede alcanzar puede ser
     significativamente menor que si se codificara como una distribución 
     uniforme.\footnote{No obstante, para esta distribución uniforme discreta,
         cuando $\epsilon$ es lo suficientemente pequeño, siempre se cumple que $H(\vX) \approx
@@ -420,7 +420,7 @@ no creciente} en $\epsilon$.
     \centering
     \includegraphics[width=0.6\textwidth]{\toplevelprefix/chapters/chapter4/figs/continuation.png}
     \caption{\small\textbf{La aproximación de una distribución de baja dimensión
-        mediante \(\epsilon\) bolas.} Podemos observar que, a medida que el parámetro \(\epsilon\)
+        mediante bolas de radio \(\epsilon\).} Podemos observar que, a medida que el parámetro \(\epsilon\)
         se reduce, la unión de las bolas de radio \(\epsilon\) se aproxima cada vez mejor al soporte de la
         distribución real (negra). Además, los
         filtros de eliminación de ruido asociados (cuya correspondencia entre entrada y salida viene dada por las flechas proporcionadas)
@@ -541,7 +541,7 @@ capítulo.
     \end{equation}
     donde $C_D > 0$ es una constante que depende únicamente de $D$. Además,
     esta cota inferior
-    es, de hecho, exacto cuando $\epsilon \to 0$: es decir,
+    es, de hecho, exacta cuando $\epsilon \to 0$: es decir,
     \begin{equation}
         \lim_{\epsilon \to 0} \cR_{\epsilon}(\vx) - \left[ h(\vx) - \log_2
         \volume(B_{\epsilon}) - C_D\right] = 0.
@@ -598,7 +598,7 @@ capítulo.
     cota inferior de Shannon, ya que se deriva de la entropía de una versión con ruido de
     $\vx$, con un nivel de ruido proporcional al nivel de distorsión $\epsilon$.
 
-    Por lo tanto, este enfoque de distorsión de tasa finita mediante el recubrimiento de esferas reactiva o
+    Por lo tanto, este enfoque de tasa-distorsión finita mediante el recubrimiento de esferas reactiva o
     generaliza todas las medidas anteriores de complejidad de la
     distribución, lo que nos permite
     diferenciar y clasificar las distintas distribuciones de manera unificada.
@@ -631,7 +631,7 @@ con cierta precisión, digamos
     \hat \vx_i\|_2 \le \epsilon.
 \end{equation}
 Nótese que se trata de una condición suficiente, explícita e interpretable que
-garantiza que los datos se codifican de tal manera que \(\frac{1}{N}\sum_{i = 1}^{N}
+garantiza que los datos se codifiquen de tal manera que \(\frac{1}{N}\sum_{i = 1}^{N}
 \norm{\vx_i- \hat \vx_i}_2^{2} \le \epsilon^{2}\). Esta última
 desigualdad es precisamente la restricción de tasa-distorsión para la distribución
 empírica dada y su codificación. Por ejemplo, en el
@@ -667,7 +667,7 @@ independiente de $\vx_i$. Entonces, la covarianza de $\hat \vx_i$ viene dada por
     \vx_i^\top\right] = \frac{\epsilon^2}{D} \boldsymbol{I} +
     \frac{1}{N} \vX\vX^\top.
 \end{equation}
-Tenga en cuenta que el volumen de la región delimitada por los vectores $\vx_i$ es
+Tengamos presente que el volumen de la región delimitada por los vectores $\vx_i$ es
 proporcional a la raíz cuadrada del determinante de la
 matriz de covarianza
 \begin{equation}
@@ -731,16 +731,16 @@ fuente gaussiana perturbada.
     bidimensional. La región está cubierta por pequeñas bolas de
     tamaño $\epsilon$. Todas las bolas están numeradas del $1$ al, digamos, $n$.
     Entonces, dado cualquier vector $\vx$ en esta región,
-    solo necesitamos determinar a qué centro de bolas de $\epsilon$ está
-    más cerca, lo que se denota como $\operatorname{ball}_{\epsilon}(\vx)$. Para
+    solo necesitamos determinar cuál es la bola de radio $\epsilon$ cuyo centro está
+    más cerca, lo que se denota como $\operatorname{bola}_{\epsilon}(\vx)$. Para
     recordar $\vx$, solo necesitamos recordar el número de esta bola,
     cuyo almacenamiento requiere $\log(n)$ bits. Si necesitamos decodificar $\vx$
     a partir de este número, simplemente tomamos $\hat \vx$ como el centro de la
     bola. Esto da lugar a un esquema explícito de codificación y decodificación:
     \begin{equation}
-        \vx \longrightarrow \operatorname{ball}_{\epsilon}(\vx)
+        \vx \longrightarrow \operatorname{bola}_{\epsilon}(\vx)
         \longrightarrow \hat \vx = \mbox{centro de}
-        \operatorname{ball}_{\epsilon}(\vx).
+        \operatorname{bola}_{\epsilon}(\vx).
     \end{equation}
     Se puede decir que estos centros de las bolas son los «códigos» de un libro de códigos
     o de un diccionario para el esquema de codificación. Es fácil ver que
@@ -863,7 +863,7 @@ codificación (y decodificación) más eficiente.
 Para cualquier conjunto de datos dado $\vX$, ya existen dos esquemas de codificación
 obvios que sirven de referencia. Estos representan dos formas extremas de codificar los datos:
 \begin{itemize}
-    \item Basta con considerar todas las muestras juntas como si procedieran de una
+    \item Simplemente considerar todas las muestras juntas como si procedieran de una
         única distribución gaussiana. La tasa de codificación asociada, tal y como se ha
         deducido anteriormente, viene dada por: 
         \begin{equation}
@@ -871,15 +871,15 @@ obvios que sirven de referencia. Estos representan dos formas extremas de codifi
             \frac{1}{2} \log \det \left(\boldsymbol{I} +
             \frac{D}{N\epsilon^2} \vX\vX^\top \right).
         \end{equation}
-    \item Basta con memorizar todas las muestras por separado asignando un
+    \item Simplemente memorizar todas las muestras por separado asignando un
         número diferente a cada una. La tasa de codificación sería: 
         \begin{equation}
             \cR_0(\vX) = \log(N).
         \end{equation}
 \end{itemize}
 
-Tenga en cuenta que cualquiera de los dos esquemas de codificación puede convertirse en la solución «óptima»
-para una determinada elección (extrema) del error de cuantificación $\epsilon$:
+Tengamos en cuenta que cualquiera de los dos esquemas de codificación puede convertirse en la solución «óptima»
+para una determinada elección (extrema) del error de cuantización $\epsilon$:
 \begin{enumerate}
     \item {\em Régimen perezoso}: Si elegimos un valor de $\epsilon$ extremadamente
         grande, todas las muestras de $\vX$ pueden quedar cubiertas por una sola bola.
@@ -890,7 +890,7 @@ para una determinada elección (extrema) del error de cuantificación $\epsilon$
         bola de $\epsilon$ diferente, por lo que el total es $N$. La tasa es
         $\lim_{\epsilon \rightarrow 0} \cR_\epsilon \rightarrow \log(N)$. 
 \end{enumerate}
-Tenga en cuenta que el primer esquema corresponde al caso en el que
+Tengamos presente que el primer esquema corresponde al caso en el que
 no nos interesa en absoluto ningún aspecto relevante de la distribución.
 No queremos reservar ningún bit para información relevante. A esto lo llamamos
 el «régimen perezoso». El segundo esquema corresponde al
@@ -921,7 +921,7 @@ se puede estudiar un caso para comprender el otro.
     un número, digamos $N$, de muestras distribuidas aleatoriamente en un
     área unitaria sobre un plano bidimensional.\footnote{Supongamos que los puntos se generan mediante un
     proceso de Poisson con una densidad de $N$ puntos por área unitaria.} Imaginemos
-    que intentamos diseñar un esquema de codificación con pérdida con un error de cuantificación
+    que intentamos diseñar un esquema de codificación con pérdida con un error de cuantización
     fijo $\epsilon$. Esto equivale a colocar un
     disco de $\epsilon$ alrededor de cada muestra, como se muestra en la
     \Cref{fig:circle-packing}. Cuando $N$ es pequeño, la probabilidad de que todos
@@ -967,7 +967,7 @@ de baja dimensión}. El régimen interesante se encuentra entre estos dos.
     pequeños (cercanos a cero) hasta valores muy grandes (cercanos al infinito), el número óptimo de
     grupos cuando la tasa de codificación es mínima. Se pueden observar claramente el régimen «perezoso»
     y el régimen de memorización en los dos extremos de los gráficos. Pero también se puede
-    observar en el gráfico (b) que, cuando el error de cuantificación $\epsilon$ se elige
+    observar en el gráfico (b) que, cuando el error de cuantización $\epsilon$ se elige
     en torno al nivel de la varianza real del ruido $\epsilon_0$, el número óptimo
     de agrupaciones es el número «correcto» tres, que representa dos líneas y
     un plano.  Nos referimos informalmente a este régimen intermedio como el
@@ -978,11 +978,11 @@ de baja dimensión}. El régimen interesante se encuentra entre estos dos.
 \end{example}
 
 A partir del análisis y los ejemplos anteriores, vemos que, cuando el
-error de cuantificación en relación con la densidad de la muestra\footnote{o la
-densidad de la muestra en relación con el error de cuantificación} se encuentra dentro de un
+error de cuantización en relación con la densidad de la muestra\footnote{o la
+densidad de la muestra en relación con el error de cuantización} se encuentra dentro de un
 rango adecuado, minimizar la tasa de codificación con pérdida nos permitiría descubrir
 la distribución subyacente (de baja dimensión) de los datos muestreados.
-{\em Por lo tanto, la cuantificación, que comenzó como una elección de carácter práctico, parece
+{\em Por lo tanto, la cuantización, que comenzó como una elección de carácter práctico, parece
     estar convirtiéndose en algo necesario para aprender una distribución continua a partir de
 su distribución empírica con un número finito de muestras.} Aunque aún no se ha logrado establecer una teoría rigurosa
 que explique este fenómeno, aquí, con
@@ -1044,7 +1044,7 @@ El segundo enfoque fue propuesto originalmente en el trabajo de
 evaluar la tasa de codificación de manera eficiente (por ejemplo, mediante una fórmula
 analítica). Gracias a ello, los grupos (de baja dimensión) de los datos pueden
 identificarse de forma bastante eficiente y eficaz mediante el principio de
-minimización de la longitud de codificación (MCL). Tenga en cuenta que, para un clúster $\vX_k$ con
+minimización de la longitud de codificación (MCL). Tengamos en cuenta que, para un clúster $\vX_k$ con
 $N_k$ muestras, la longitud de bits binarios necesaria para codificar todas las
 muestras de $\vX_k$ viene dada por:\footnote{De hecho, una estimación más precisa
     de la longitud de codificación es $L(\vX_k) = (N_k+D) R_\epsilon(\vX_k)$
@@ -1403,7 +1403,7 @@ exista un decodificador $g(\vz,\eta)$ de modo que:
 Introduciremos formalmente dicho esquema de codificación-decodificación como un
 «autoencoder» y dicha representación $\vz$ como una representación «consistente»
 en el \Cref{ch:consistent-representations}. Por ahora, el lector
-puede considerarlo simplemente como una generalización del código de cuantificación
+puede considerarlo simplemente como una generalización del código de cuantización
 $\hat \vx$ introducido en la sección anterior para la tasa-distorsión
 (en el dominio de datos nativos $\vx$).
 
@@ -1507,7 +1507,7 @@ subvariedades acaben convirtiéndose en subespacios lineales mutuamente incohere
     proyección lineal de los datos que maximice la separabilidad de las clases.
     En concreto, a partir de datos etiquetados, el LDA busca una transformación lineal
     que proyecte las entradas de alta dimensión en un espacio de menor dimensión
-    en el que las clases estén separadas al máximo. Tenga en cuenta que el PCA es un
+    en el que las clases estén separadas al máximo. Tengamos en cuenta que el PCA es un
     método no supervisado que proyecta los datos en direcciones de máxima
     varianza sin tener en cuenta las etiquetas de clase. Mientras que el PCA se centra exclusivamente
     en preservar la estructura global de la varianza, el LDA aprovecha explícitamente
@@ -1718,7 +1718,7 @@ se pueden ilustrar mediante el siguiente diagrama:
     R_{\epsilon}(\vZ).
     \label{chap4-eqn:flow}
 \end{equation}
-Tenga en cuenta que $\Delta R_{\epsilon}$ es {\em monótono} en la escala de
+Recordemos que $\Delta R_{\epsilon}$ es {\em monótono} en la escala de
 las características $\vZ$. Para garantizar una comparación justa entre las diferentes
 representaciones, es esencial {\em normalizar la escala} de las
 características aprendidas. Esto se puede lograr ya sea imponiendo que la
@@ -1781,7 +1781,7 @@ término de información mutua $I(\vz; \y)$ introducido en el objetivo
     características y el que realmente ocupan las características es máximo.}
 \end{example}
 
-Tenga en cuenta que el principio MCR$^2$ mencionado anteriormente está diseñado para problemas de aprendizaje supervisado,
+Tengamos presente que el principio MCR$^2$ mencionado anteriormente está diseñado para problemas de aprendizaje supervisado,
 en los que se conocen las pertenencias a grupos (o etiquetas de clase).
 Existen diversas formas de aplicar este principio, o generalizaciones adecuadas,
 de manera que se eluda este requisito de las etiquetas de clase;
@@ -2405,7 +2405,7 @@ computable} para dicha distribución. En el caso de
 las distribuciones continuas y, posiblemente, de baja dimensión, hemos
 argumentado que dicho esquema es necesariamente {\em con pérdida}; de ahí
 la importancia del concepto de tasa-distorsión. El ruido
-introducido por la distorsión, debido a la cuantificación, desempeña un papel relacionado
+introducido por la distorsión, debido a la cuantización, desempeña un papel relacionado
 pero distinto del ruido que hemos estudiado en el capítulo anterior.
 Se podría considerar que el ruido analizado en el
 \Cref{ch:denoising} se encuentra «fuera» de la subvariedad del soporte

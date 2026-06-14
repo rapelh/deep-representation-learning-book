@@ -4280,7 +4280,7 @@ en un espacio latente compacto y de baja dimensión donde se agrega la informaci
 lo que permite separar de manera efectiva la reconstrucción geométrica del modelado estructural.
 
 \textbf{Cuantificación de vectores latentes estándar.} Este enfoque aprende un
-libro de códigos discreto para representar la forma mediante la cuantificación de vectores (VQ). 
+libro de códigos discreto para representar la forma mediante la cuantización de vectores (VQ). 
 Un método representativo es  AutoSDF~\cite {mittal2022autosdf}. En este marco, una entrada de alta dimensión
 (por ejemplo, una malla de vóxeles $X$ o un campo de funciones implícito $F_\theta$)
 es comprimida por un codificador $E$ en una
@@ -4329,7 +4329,7 @@ secuencia de tokens implica tres pasos clave:
     unidades discretas y tokenizables.
 
 \item \textbf{Cuantificación de características.} Al mismo tiempo, el vector de características locales 
-asociado a cada punto se comprime en un índice de libro de códigos discreto $z_i$ mediante cuantificación vectorial (VQ):
+asociado a cada punto se comprime en un índice de libro de códigos discreto $z_i$ mediante cuantización vectorial (VQ):
 \begin{equation}
     z_i \in \{0, 1, \dots, D-1\},
 \end{equation}

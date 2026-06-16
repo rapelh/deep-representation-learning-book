@@ -100,7 +100,7 @@ este capítulo formalizaremos este proceso como «aprendizaje de representacione
     \caption{Aprender una representación estructurada (derecha) de la distribución de los datos
         (izquierda). Obsérvese que, además de aprender (y
         muestrear) la distribución de los datos originales como hicimos en el
-        anterior \Cref{ch:denoising}, aquí queremos aprender una transformación
+        \Cref{ch:denoising} anterior, aquí queremos aprender una transformación
         $f(\vx, \theta)$ para la distribución de datos, de modo que se obtenga una
         representación que tenga las propiedades geométricas o estadísticas deseadas,
     por ejemplo, lineal e incoherente.}\label{fig:representation-learning}
@@ -1001,8 +1001,8 @@ cada muestra, por ejemplo, mediante la codificación de Huffman.}
 \end{equation}
 donde utilizamos $\boldsymbol{\Pi}$ para indicar la pertenencia a la
 partición. Si la partición respeta las estructuras de baja dimensión
-de la distribución —en este caso, la pertenencia de $\vX_1$ y $\vX_2$ a los
-dos subespacios, respectivamente—, entonces la tasa de codificación resultante debería ser
+de la distribución --- en este caso, la pertenencia de $\vX_1$ y $\vX_2$ a los
+dos subespacios, respectivamente, entonces la tasa de codificación resultante debería ser
 significativamente menor que la de los dos esquemas básicos anteriores:
 \begin{equation}
     R_{\epsilon}^c(\vX \mid \boldsymbol{\Pi}) \ll R_{\epsilon}(\vX),
@@ -1248,9 +1248,9 @@ una mezcla de $K$ distribuciones (componentes)  $\mathcal{D} =
 [\vx_1, \vx_2, \ldots, \vx_N] \in \Re^{D\times N}$ del vector aleatorio
 $\bm x$, {\em buscamos una buena representación}
 mediante una aplicación continua $f(\vx): \R^D \rightarrow \R^d$ que capte
-las estructuras intrínsecas de $\vx$ y facilite al máximo la posterior
-tarea de clasificación.\footnote{La clasificación es el ámbito en el que el
-    aprendizaje profundo demostró sus primeros éxitos, lo que desató un
+las estructuras intrínsecas de $\vx$ y facilite al máximo la tarea posterior
+de clasificación.\footnote{La clasificación es el ámbito en el que el
+    aprendizaje profundo mostró sus primeros éxitos, lo que desató un
     interés explosivo por las redes profundas. Aunque nuestro estudio se centra en
     la clasificación, creemos que las ideas y los principios pueden
 generalizarse de forma natural a otros contextos, como la regresión.} Para facilitar la tarea
@@ -1259,7 +1259,7 @@ clasificación supervisada, se asigna a cada muestra $\vx_i$ una etiqueta de cla
 clase), representada normalmente por un vector one-hot $\y_i \in \R^K$.
 
 \paragraph{Codificación de la información de clases mediante la entropía cruzada.} Numerosos
-estudios han demostrado que, para muchos conjuntos de datos prácticos (por ejemplo, imágenes,
+estudios han mostrado que, para muchos conjuntos de datos prácticos (por ejemplo, imágenes,
 audio y lenguajes naturales), el mapeo (de codificación) entre los datos
 $\bm{x}$ y su etiqueta de clase $\bm{y}$ puede modelarse de manera eficaz mediante
 el entrenamiento de una red profunda,\footnote{Por ahora, no nos preocupemos
@@ -1284,9 +1284,9 @@ como vectores en \(\R^{K}\).}
     \label{chap4-eqn:cross-entropy}
 \end{equation}
 Los parámetros óptimos $\theta$ de la red suelen obtenerse
-optimizando el objetivo anterior mediante un método eficiente de descenso de gradientes,
+optimizando el objetivo anterior mediante un método eficiente de descenso por gradientes,
 en el que los gradientes se calculan mediante retropropagación, tal y como
-se describe en la \Cref{app:BP-section} del \Cref{app:optimization}.
+se describe en la Sección \ref{app:BP-section} del \Cref{app:optimization}.
 
 A pesar de su eficacia y su enorme popularidad, este enfoque presenta dos
 limitaciones importantes: (1) Su único objetivo es predecir
@@ -1381,7 +1381,7 @@ en el \Cref{eg:Rate-Reduction-CIFAR10}.}
     \label{remark:neural-collapse}
 \end{remark}
 
-A partir del ejemplo de clasificación anterior, vemos que la representación
+A partir del ejemplo de clasificación anterior, vemos que la representación así
 aprendida $\vz$ de $\vx$ da lugar a un codificador muy sencillo que,
 en esencia, asigna a cada clase de datos una sola palabra de código: el
 vector «one-hot» que representa cada clase. Desde el punto de vista de la compresión con pérdidas,
@@ -1401,7 +1401,7 @@ exista un decodificador $g(\vz,\eta)$ de modo que:
     = g(f(\vx)).
 \end{equation}
 Introduciremos formalmente dicho esquema de codificación-decodificación como un
-«autoencoder» y dicha representación $\vz$ como una representación «consistente»
+«autocodificador» y dicha representación $\vz$ como una representación «consistente»
 en el \Cref{ch:consistent-representations}. Por ahora, el lector
 puede considerarlo simplemente como una generalización del código de cuantización
 $\hat \vx$ introducido en la sección anterior para la tasa-distorsión
@@ -1442,7 +1442,7 @@ de cada clase presenta estructuras intrínsecas
 de relativamente {\em baja dimensión}. Por lo tanto, podemos suponer que la distribución $\mathcal{D}_k$
 de cada clase tiene su soporte en una subvariedad de baja dimensión, digamos
 $\mathcal{M}_k$ con dimensión $d_k \ll D$, y que la distribución
-$\mathcal D$ de $\vx$ se apoya en la mezcla de esas
+$\mathcal D$ de $\vx$ está definida sobre la mezcla de esas
 subvariedades, $\mathcal M = \cup_{k=1}^K \mathcal{M}_k$,  en el
 espacio ambiental de alta dimensión $\Re^D$, como se ilustró anteriormente en la
 \Cref{fig:representation-learning}.
@@ -1469,7 +1469,7 @@ lineal} (LDR).
 
 Obsérvese que la primera propiedad concuerda bien con el objetivo del
 clásico {\em análisis de componentes principales} (PCA) que hemos
-analizado en la \Cref{sub:pca}. En esencia, esto significa que las características de
+expuesto en la \Cref{sub:pca}. En esencia, esto significa que las características de
 las muestras que pertenecen a la misma clase\footnote{incluidas las
 instancias aumentadas de las mismas muestras} deben volverse o
 hacerse altamente correlacionadas. En otras palabras, la representación de características debe ser {\em
@@ -1515,7 +1515,7 @@ subvariedades acaben convirtiéndose en subespacios lineales mutuamente incohere
     en la \Cref{fig:LDA}.
     \begin{figure}
         \centering
-        \includegraphics[width=0.75\linewidth]{\toplevelprefix/chapters/chapter4/figs/LDA.png}\vspace{-0.1in}
+        \includegraphics[width=0.75\linewidth]{\toplevelprefix/chapters/chapter4/figs/LDA_es.png}\vspace{-0.1in}
         \caption{Comparación entre el PCA y el LDA. Figuras tomadas de
         \url{https://sebastianraschka.com/Articles/2014_python_lda.html}.}
         \label{fig:LDA}
@@ -1574,7 +1574,7 @@ generación de imágenes. Por ejemplo, si tomamos diferentes puntos de muestra d
 subespacio de características de «manzana», deberíamos poder decodificarlos, mediante
 una aplicación inversa $g(\vz, \eta)$, para generar diversas imágenes de manzanas.
 Este par de aplicaciones mutuamente inversas $f$ y $g$ constituye un
-autoencoder que estudiaremos con gran detalle en el
+autocodificador que estudiaremos con gran detalle en el
 \Cref{ch:consistent-representations}. Obsérvese que las representaciones de características
 aprendidas a partir de la minimización de la entropía cruzada \eqref{chap4-eqn:cross-entropy}
 normalmente no presentan esta propiedad, ya que adolecen del denominado fenómeno del {\em
@@ -1607,9 +1607,9 @@ de la distribución de los datos a representaciones discriminativas lineales.
 \subsection{El principio de la reducción máxima de la tasa de 
 codificación}\label{subsec:MCR2}
 
-Aunque las tres propiedades —{\em discriminación entre clases}, {\em
-compresibilidad dentro de las clases} y {\em representación de máxima diversidad
-}---de las representaciones discriminativas lineales (LDR)
+Aunque las tres propiedades ---{\em discriminación entre clases}, {\em
+compresibilidad intraclases} y {\em representación de máxima diversidad
+}--- de las representaciones discriminativas lineales (LDR)
 son todas propiedades muy deseables de la representación aprendida
 $\vz$, no son en absoluto fáciles de obtener: ¿Son estas propiedades
 compatibles entre sí, de modo que podamos esperar alcanzarlas todas a la vez? Si es así,
@@ -1617,8 +1617,8 @@ compatibles entre sí, de modo que podamos esperar alcanzarlas todas a la vez? S
 calidad de las representaciones resultantes en función de todas estas
 propiedades? La clave para responder a estas preguntas {es encontrar} una
 «medida de compacidad» o «ganancia de información» fundamentada para la
-distribución de una variable aleatoria $\vz$ o a partir de sus muestras finitas
-$\{\bm z_i\}_{i=1}^N$. Dicha medida debería caracterizar de manera directa y precisa
+distribución de una variable aleatoria $\vz$ o a partir de un número finito de muestras 
+$\{\bm z_i\}_{i=1}^N$ de la misma. Dicha medida debería caracterizar de manera directa y precisa
 las propiedades geométricas o estadísticas intrínsecas de la
 distribución, en términos de su dimensión intrínseca o {volumen}. A diferencia
 de la entropía cruzada \eqref{chap4-eqn:cross-entropy} o el cuello de botella de información
@@ -1643,7 +1643,7 @@ es decir, $\vX=[\vx_1,\dots,\vx_N] $. Bajo una aplicación de codificación:
 \begin{equation}
     \vx  \xrightarrow{\hspace{2mm} f(\vx)\hspace{2mm}} \vz,
 \end{equation}
-Las muestras de entrada se mapean a $\vz_i = f(\vx_i)$ para cada
+las muestras de entrada se mapean a $\vz_i = f(\vx_i)$ para cada
 $i=1,\dots,N$. Abusando un poco de la notación, también escribimos $\vZ_k =
 f(\vX_k)$ y $\vZ = f(\vX)$. Por lo tanto, tenemos $\vZ = [\bm
 Z_1,\dots,\bm Z_K]$ y $\vZ = [\vz_1,\dots\vz_N]$.
@@ -1678,7 +1678,7 @@ sujeta a un nivel de precisión $\epsilon > 0$ (véase
 Por otro lado, esperamos que una transformación no lineal $f(\vx)$
 asigne a cada subvariedad específica de clase $\mathcal{M}_k \subset
 \R^D$ un subespacio lineal maximamente incoherente
-$\mathcal{S}_k \subset \R^D$, de tal manera que las características aprendidas
+$\mathcal{S}_k \subset \R^D$, de manera que las características aprendidas
 $\vZ$ se encuentren en una unión de subespacios de baja dimensión. Esta estructura
 permite una evaluación más precisa de la tasa de codificación mediante el análisis
 separado de cada subespacio. %
@@ -1763,7 +1763,7 @@ término de información mutua $I(\vz; \y)$ introducido en el objetivo
         \centering
         \includegraphics[width=0.99\linewidth]{\toplevelprefix/chapters/chapter4/figs/Expansion2.png}
         \caption{Tras identificar la distribución de los datos en baja dimensión,
-            nos gustaría transformar aún más la distribución de los datos en una
+            quisiéramos transformar aún más la distribución de los datos en una
             representación estructurada más informativa: $R$ es el número de
             bolas de radio $\epsilon$ que cubren todo el espacio y $R^c$
             es la suma de
@@ -1827,7 +1827,7 @@ el problema \eqref{eq:MCR pi} puede recuperar el problema
     \label{fig:mcr-global}
 \end{figure}
 
-\begin{remark}[El cálculo de las tasas de codficación]
+\begin{remark}[Cálculo de las tasas de codficación]
     Es un hecho bien conocido que calcular el logaritmo del determinante de una
     matriz \(n \times n\) requiere un tiempo de orden \(\cO(n^{3})\). Por lo tanto,
     calcular las tasas de codificación \(\Delta R_{\epsilon}\) o
@@ -1844,7 +1844,7 @@ el problema \eqref{eq:MCR pi} puede recuperar el problema
             por lo que calcular el producto matricial y las tasas de codificación
             requiere un tiempo del orden de \(\min\{d^{2}n +
             d^{3}, dn^{2} + n^{3}\}\).
-        \item \textit{Utilizar la simetría del Gramiano.}
+        \item \textit{Utilizar la simetría de la matriz de Gram.}
             Obsérvese que \(\vZ\vZ^{\top}\) (y, de manera similar,
             \(\vZ^{\top}\vZ\)) es una matriz simétrica. Por lo tanto, resulta
             relativamente sencillo (aunque sigue siendo de tiempo cúbico) calcular sus
@@ -2002,7 +2002,7 @@ caracterizar explícitamente sus óptimos locales y globales de la siguiente man
     \centering
     \includegraphics[width=0.9\linewidth]{\toplevelprefix/chapters/chapter4/figs/mcr2-global-local.png}
     \caption{{\bf Paisaje de optimización global:} Según
-        \cite{sun2015nonconvex,lee2016gradient},
+        \cite{sun2015nonconvex,lee2016gradient}, los
         \Cref{thm:mcr-global-opt,thm:mcr-benign-opt-landscape}, tanto los máximos globales
         como los locales del objetivo de reducción de la tasa (regularizado)
         corresponden a una solución con subespacios mutuamente incoherentes. Todos
@@ -2043,22 +2043,22 @@ para obtener demostraciones detalladas).
 En conjunto, los dos teoremas anteriores 
 demuestran que las características aprendidas asociadas a cada
 máximo local del objetivo de
-reducción de la tasa---y no solo a los maximizadores globales---se estructuran
+reducción de la tasa ---y no solo a los maximizadores globales--- se estructuran
 como subespacios incoherentes de baja dimensión. Además, el
 objetivo de reducción de la tasa (regularizado)
 \eqref{eqn:maximal-rate-reduction} presenta un paisaje muy benigno, con
-solo máximos locales y sillas de montar estrictas como puntos críticos, tal y como
+solo máximos locales y puntos de silla estrictos como puntos críticos, tal y como
 se ilustra en \Cref{fig:mcr-global-local}.
-Según \cite{sun2015nonconvex,lee2016gradient},
+Según \cite{sun2015nonconvex,lee2016gradient}, los
 \Cref{thm:mcr-global-opt,thm:mcr-benign-opt-landscape} implican que
 las representaciones de baja dimensión y discriminativas (LDR) pueden
 encontrarse de manera eficiente aplicando el descenso por gradiente (estocástico) al
 objetivo de reducción de tasa \eqref{eqn:maximal-rate-reduction} a partir de 
-una inicialización aleatoria. Estos resultados también explican indirectamente por qué en
+una inicialización aleatoria. Estos resultados también explican indirectamente por qué en la
 \Cref{eg:Rate-Reduction-CIFAR10}, si la red elegida es lo suficientemente expresiva
 y está bien entrenada, la representación resultante suele ofrecer
 una representación lineal incoherente que probablemente corresponda a la
-solución óptima global.  Se remite a los lectores interesados a 
+solución óptima global. Se remite a los lectores interesados a 
 \cite{wang2024global} para consultar las demostraciones.
 
 \section{El aprendizaje de representaciones para datos de imágenes}
@@ -2073,10 +2073,10 @@ que la entropía cruzada (CE) \eqref{chap4-eqn:cross-entropy} para la clasificac
 de imágenes. Aquí, para simplificar,\footnote{Estudiaremos y justificaremos rigurosamente
     cómo diseñar o derivar una arquitectura profunda adecuada
 a partir del objetivo MCR$^2$ y para este en el \Cref{ch:deep-networks}.}
-adoptamos la popular arquitectura de redes neuronales, la
+adoptamos una popular arquitectura de redes neuronales, la
 ResNet-18~\cite{he2016deep}, para modelar el mapeo de características $\vz =
 f(\vx,\theta)$. Optimizamos los parámetros de la red neuronal $\theta$ mediante
-el algoritmo de retropropagación (detallado en
+el algoritmo de retropropagación (detallado en la
 \Cref{app:BP-section}) para maximizar la reducción de la tasa de codificación. Se pueden encontrar más
 detalles sobre la implementación de este experimento en
 \cite{chan2021redunet}.
@@ -2153,13 +2153,13 @@ ajustarse a las etiquetas de las muestras individuales.
 
 La \Cref{fig:feature-pca} muestra la distribución de los valores singulares de
 las características aprendidas $\vZ_k$ por clase. A partir de la distribución de los
-valores singulares mostrada en \Cref{fig:MCR-pca}, vemos que las
+valores singulares mostrada en la \Cref{fig:MCR-pca}, vemos que las
 características $\vz$ aprendidas de MCR$^2$ para cada clase se distribuyen en
 un subespacio de dimensión alrededor de 10-12, mientras que las características de la
-entropía cruzada \Cref{fig:CE-pca} son de una dimensión mucho menor.\footnote{Si
+entropía cruzada de la \Cref{fig:CE-pca} son de una dimensión mucho menor.\footnote{Si
     se continúa entrenando con más iteraciones, las características de CE podrían
     incluso reducirse a una sola dimensión, lo que se conoce como el fenómeno del colapso neuronal
-, comentado anteriormente en \Cref{remark:neural-collapse}.}
+, comentado anteriormente en la \Cref{remark:neural-collapse}.}
 
 La \Cref{fig:heatmap-plot} muestra las similitudes coseno entre las
 características aprendidas, ordenadas por clase. También comparamos las similitudes de
@@ -2170,7 +2170,7 @@ que las características aprendidas por el objetivo MCR$^2$ para las diferentes
 clases son mucho más incoherentes (o independientes) que las características
 aprendidas utilizando la pérdida de entropía cruzada. Dentro de cada clase, las características
 también son menos coherentes y, por lo tanto, más diversas, tal y como indica la
-distribución de sus valores singulares que se muestra en \Cref{fig:MCR-pca}.
+distribución de sus valores singulares que se muestra en la \Cref{fig:MCR-pca}.
 
 Visualizamos las imágenes que se proyectan a lo largo de diferentes vectores singulares
 en el subespacio de características de cada clase, a las que denominamos
@@ -2193,9 +2193,9 @@ justificación de las arquitecturas de red utilizadas en los experimentos
 anteriores. Aún no está claro por qué la red adoptada aquí (la
 ResNet-18) es adecuada para representar la función $f(\vx, \theta)$ y mucho
 menos para interpretar los operadores de capa y los parámetros $\theta$
-aprendidos en su interior. En \Cref{ch:deep-networks}, {\em mostraremos
+aprendidos en su interior. En el \Cref{ch:deep-networks}, {\em mostraremos
     cómo derivar arquitecturas y componentes de redes de forma totalmente
-``transparente'' a partir del objetivo deseado (por ejemplo, la reducción de la tasa)}.
+``transparente'' o de ``caja blanca'' a partir del objetivo deseado (por ejemplo, la reducción de la tasa)}.
 
 \subsection{Aprendizaje no supervisado de representaciones}
 \label{sec:SimDINO}
@@ -2243,7 +2243,7 @@ objetivo no supervisado \eqref{eqn:maximal-rate-reduction-unsupervised}.
 Tras el entrenamiento con el conjunto de datos CIFAR-10, visualizamos la evolución de
 las dos tasas y su diferencia (tanto para los datos de entrenamiento como para los de prueba)
 a lo largo de las épocas de entrenamiento en la \Cref{fig:train-test-loss-selfsup-mcr}.
-Al igual que en el caso del aprendizaje supervisado, tras una fase inicial,
+En forma similar al caso del aprendizaje supervisado, tras una fase inicial,
 $R_\epsilon$ aumenta gradualmente mientras que $R^c_\epsilon$ disminuye,
 lo que indica que las características $\bm Z$ se están expandiendo en su conjunto, mientras que cada
 grupo $\bm Z_k$ se está comprimiendo. En comparación con el caso supervisado
@@ -2339,8 +2339,8 @@ SimCLR \cite{chen2020simple} y DINO \cite{caron2021emerging}, que
 han sido diseñados para aprender representaciones de alta calidad a partir de
 una gran cantidad de imágenes.
 
-Como mostraremos más adelante en
-\Cref{sub:contrastive_learning_objective} de
+Como mostraremos más adelante en la
+\Cref{sub:contrastive_learning_objective} del
 \Cref{ch:applications}, este objetivo
 \eqref{eqn:maximal-rate-reduction-unsupervised-simdino} puede
 implementarse de manera muy eficiente para aprender una representación
@@ -2361,54 +2361,54 @@ la segmentación no supervisada\footnote{En concreto, adoptamos MaskCut
     características de una red de visión preentrenada con el fin de realizar la detección de objetos y
 la segmentación de instancias.}, tal y como se ilustra en la
 \Cref{fig:maskcut_segmentation}. En el
-\Cref{ch:applications} se presentarán más detalles sobre la implementación y
-los resultados experimentales de SimDINO.
+	\Cref{ch:applications} se presentarán más detalles sobre la implementación y
+	los resultados experimentales de SimDINO.
 
-\begin{table}
-    \centering
-    \begin{tabular}{@{}lcccc@{}} %
-        \toprule
-        Método & Modelo & Épocas & 20-NN & Sondeo Lineal
-        \\
-        \midrule
-        DINO & ViT-B & 100 & 72.9 & 76.3 \\
-        SimDINO & ViT-B & 100 & \bf 74.9 & \bf 77.3 \\
-        DINO & ViT-L & 100 & -- & -- \\
-        SimDINO & ViT-L & 100 & \bf 75.6 & \bf 77.4 \\
+	\begin{table}
+	    \centering
+	    \begin{tabular}{@{}lcccc@{}} %
+		\toprule
+		Método & Modelo & Épocas & 20-NN & Sondeo Lineal
+		\\
+		\midrule
+		DINO & ViT-B & 100 & 72.9 & 76.3 \\
+		SimDINO & ViT-B & 100 & \bf 74.9 & \bf 77.3 \\
+		DINO & ViT-L & 100 & -- & -- \\
+		SimDINO & ViT-L & 100 & \bf 75.6 & \bf 77.4 \\
 
-        \bottomrule
-    \end{tabular}\smallskip
-    \caption{\small\textbf{Rendimiento de la clasificación} en el conjunto de prueba de ImageNet-1k
-        para DINO y SimDINO, utilizando tanto la precisión del método de los \(k\) vecinos más cercanos
-        (\(k = 20\)) como el sondeo lineal. SimDINO
-        supera a DINO tanto
-        en precisión como en estabilidad del entrenamiento. El entrenamiento de DINO en ViT-L es
-    inestable y diverge rápidamente, mientras que SimDINO se entrena de forma estable.}
-    \label{tab:dino_imagenet_linear_probing_teaser}
-\end{table}
+		\bottomrule
+	    \end{tabular}\smallskip
+	    \caption{\small\textbf{Rendimiento de la clasificación} en el conjunto de prueba de ImageNet-1k
+		para DINO y SimDINO, utilizando tanto la precisión del método de los \(k\) vecinos más cercanos
+		(\(k = 20\)) como el sondeo lineal. SimDINO
+		supera a DINO tanto
+		en precisión como en estabilidad del entrenamiento. El entrenamiento de DINO en ViT-L es
+	    inestable y diverge rápidamente, mientras que SimDINO se entrena de forma estable.}
+	    \label{tab:dino_imagenet_linear_probing_teaser}
+	\end{table}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{chapters/chapter4/figs/maskcut_demo.pdf}
-    \caption{\small \textbf{Visualización de los resultados de la segmentación no supervisada}
-        de DINO ViT-B/16 (fila 1), SimDINO ViT-B/16 (fila 2) y
-    SimDINO ViT-L/16 (fila 3).}
-    \label{fig:maskcut_segmentation}
-\end{figure}
+	\begin{figure}
+	    \centering
+	    \includegraphics[width=\linewidth]{chapters/chapter4/figs/maskcut_demo.pdf}
+	    \caption{\small \textbf{Visualización de los resultados de la segmentación no supervisada}
+		de DINO ViT-B/16 (fila 1), SimDINO ViT-B/16 (fila 2) y
+	    SimDINO ViT-L/16 (fila 3).}
+	    \label{fig:maskcut_segmentation}
+	\end{figure}
 
-\section{Resumen y notas}
+	\section{Resumen y notas}
 
-\paragraph{Mensajes clave.}
-En este capítulo, hemos estudiado los conceptos e ideas básicos que subyacen a la forma de
-aprender una distribución a partir un número finito de muestras y obtener un esquema de codificación y decodificación {\em
-computable} para dicha distribución. En el caso de
-las distribuciones continuas y, posiblemente, de baja dimensión, hemos
-argumentado que dicho esquema es necesariamente {\em con pérdida}; de ahí
-la importancia del concepto de tasa-distorsión. El ruido
-introducido por la distorsión, debido a la cuantización, desempeña un papel relacionado
-pero distinto del ruido que hemos estudiado en el capítulo anterior.
-Se podría considerar que el ruido analizado en el
-\Cref{ch:denoising} se encuentra «fuera» de la subvariedad del soporte
+	\paragraph{Mensajes clave.}
+	En este capítulo, hemos estudiado los conceptos e ideas básicos que subyacen a la forma de
+	aprender una distribución a partir un número finito de muestras y obtener un esquema de codificación y decodificación {\em
+	computable} para dicha distribución. En el caso de
+	las distribuciones continuas y, posiblemente, de baja dimensión, hemos
+	argumentado que dicho esquema es necesariamente {\em con pérdidas}; de ahí
+	la importancia del concepto de tasa-distorsión. El ruido
+	introducido por la distorsión, debido a la cuantización, desempeña un papel relacionado
+	pero distinto del ruido que hemos estudiado en el capítulo anterior.
+	Se podría considerar que el ruido analizado en el
+	\Cref{ch:denoising} se encuentra «fuera» de la subvariedad del soporte
 de la distribución, mientras que el ruido analizado en este capítulo se encuentra
 «dentro» del soporte. De manera informal, podemos referirnos al
 proceso de difusión/eliminación de ruido fuera del soporte como
@@ -2422,7 +2422,7 @@ considerado el caso posiblemente más sencillo: el de la clasificación. Si
 se considera la etiqueta de clasificación $\y$ como un código fijo simple (con
 pérdidas considerables) para los datos $\vx$, podemos buscar una representación 
 consistente\footnote{Es decir, podemos recuperar fielmente $\vx$ a partir de 
-    $\vz$, ya que aclararemos el concepto de representaciones «consistentes» más adelante en
+    $\vz$, ya que aclararemos el concepto de representaciones «consistentes» más adelante en el
 \Cref{ch:consistent-representations}.} $\vz = f(\vx)$ de los datos $\vx$
 de tal manera que tienda a maximizar la información mutua entre la
 representación y este código simple:

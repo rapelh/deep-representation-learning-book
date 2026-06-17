@@ -324,7 +324,7 @@ es un ejemplo de \textit{proceso de difusión}, llamado así porque
 distribuye (es decir, \textit{difunde}) la masa de probabilidad por todo
 \(\R^{D}\) a medida que pasa el tiempo, aumentando la entropía. Esta
 intuición queda confirmada gráficamente en la \Cref{fig:ve_forward_density},
-así como de forma rigurosa mediante el siguiente teorema.
+así como en forma rigurosa mediante el siguiente teorema.
 \begin{theorem}[Versión simplificada del \Cref{thm:diffusion_entropy_increases}]
     Supongamos que \((\vx_{t})_{t \in [0, T]}\) sigue el modelo
     \eqref{eq:additive_gaussian_noise_model}. Para cualquier \(t \in (0,
@@ -638,7 +638,7 @@ la fórmula de Tweedie \cite{Robbins1956AnEB}.
 \end{proof}
 Este resultado establece una conexión entre la eliminación de ruido y la optimización:
 el filtro de ruido óptimo de Bayes da un único paso de ascenso por gradiente en
-la densidad de datos perturbada \(p_{t}\), y el tamaño del paso se reduce de forma adaptativa
+la densidad de datos perturbada \(p_{t}\), y el tamaño del paso se reduce en forma adaptativa
 (es decir, da pasos más precisos) a medida que la perturbación
 de la distribución de datos se va reduciendo. La cantidad
 \(\nabla_{\vx_{t}}\log p_{t}(\vx_{t})\) se denomina
@@ -683,7 +683,7 @@ en el siguiente ejemplo.
 \subsubsection{Reducción de ruido incremental}
 Por lo tanto, para eliminar el ruido de la muestra muy ruidosa \(\vx_{T}\) (donde,
 como recordaremos, \(T\) es el tiempo máximo), no podemos utilizar el filtro de eliminación de ruido solo
-una vez. En cambio, debemos aplicarlo muchas veces, de forma análoga al descenso por gradiente
+una vez. En cambio, debemos aplicarlo muchas veces, en forma análoga al descenso por gradiente
 con pasos decrecientes, para converger hacia un punto estacionario
 \(\hat{\vx}\). Es decir, utilizamos el filtro de eliminación de ruido para pasar de \(\vx_{T}\) a
 \(\hat{\vx}_{T - \delta}\), que se aproxima a \(\vx_{T - \delta}\),
@@ -818,7 +818,7 @@ proceso iterativo de eliminación de ruido aplicado a una distribución de datos
 \end{example}
 
 Recordemos que queríamos construir el proceso iterativo de eliminación de ruido para
-reducir la entropía de las iteraciones. Aunque lo hemos hecho de forma indirecta,
+reducir la entropía de las iteraciones. Aunque lo hemos hecho en forma indirecta,
 invirtiendo un proceso que añade entropía, ahora es el momento de
 pagar las consecuencias y confirmar que nuestro proceso iterativo de eliminación de ruido reduce la
 entropía.
@@ -1203,7 +1203,7 @@ describimos inicialmente, es aquella en la que \(T = 1\) (de modo que \(t \in [0
 \textit{proceso de preservación de la varianza (VP)}. Nótese que, en el proceso VP,
 \(\vx_{1} \sim \dNorm(\vzero, \vI)\) exactamente, por lo que basta con
 tomar muestras de esta distribución estándar y aplicar el proceso de eliminación 
-de ruido de forma iterativa. Como
+de ruido en forma iterativa. Como
 resultado, el proceso VP es mucho más fácil de analizar teóricamente y
 más estable empíricamente.\footnote{¿Por qué utilizar toda la configuración de \(\alpha,
     \sigma\)? Como veremos en el
@@ -1523,7 +1523,7 @@ procesos estocásticos subyacentes.} tal y como se ha argumentado de manera heur
         permite una mejor cobertura del intervalo \([0, T]\), lo que ayuda
     a la red a aprender una relación que se generaliza sobre \(t\))
     y en la fase de muestreo (donde un \(L\) menor implica un muestreo más eficiente).
-    Incluso se pueden seleccionar los intervalos de tiempo de forma adaptativa en el momento del muestreo
+    Incluso se pueden seleccionar los intervalos de tiempo en forma adaptativa en el momento del muestreo
     para optimizar este equilibrio \cite{bao2022analytic}.
 \end{remark}
 
@@ -1802,7 +1802,7 @@ siguiendo el siguiente razonamiento. En el espacio de dimensiones muy elevadas d
 las imágenes naturales, las distancias euclidianas entre puntos se vuelven mucho más
 estrictas \cite{Wright-Ma-2022}, en el sentido de que, si dos imágenes no
 coinciden a la perfección a nivel de píxeles, sus distancias euclidianas
-se concentrarán de forma marcada en torno a un valor fijo (que varía en función de la
+se concentrarán en forma marcada en torno a un valor fijo (que varía en función de la
 dimensión de las imágenes). Esto no tiene en cuenta los casos en los que ciertos
 \textit{conceptos} (como los personajes de dibujos animados protegidos por derechos de autor) se
 generan en posiciones novedosas, lo que dificulta enormemente establecer

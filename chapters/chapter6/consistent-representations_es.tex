@@ -467,7 +467,7 @@ distribución de datos del mundo real de alta dimensión, como las imágenes, el
 de muestras y de nodos ocultos puede ser enorme.
 Además, como medida de la compacidad de la representación aprendida, la
 dimensión (menor) de $\z$ para la capa de cuello de botella suele elegirse
-de forma heurística.\footnote{En el trabajo posterior \cite{Hinton-1993}, Hinton
+en forma heurística.\footnote{En el trabajo posterior \cite{Hinton-1993}, Hinton
     et al. sugirieron utilizar el principio de la longitud mínima de descripción (MDL)
     para promover
     la compacidad del esquema de codificación aprendido, en un espíritu muy
@@ -575,7 +575,7 @@ original $D$, con el fin de imponer o promover explícitamente que la representa
 sea de baja dimensión. Sin embargo, en la práctica,
 normalmente desconocemos la dimensión intrínseca de la distribución de los datos.
 Por lo tanto, la elección de la dimensión del espacio de características para
-la auto-codificación suele realizarse de forma empírica. En situaciones más generales,
+la auto-codificación suele realizarse en forma empírica. En situaciones más generales,
 la distribución de los datos puede ser una mezcla de unos pocos subespacios
 o subvariedades de baja dimensión. En estos casos, ya no es viable
 imponer un único espacio de baja dimensión para todas las características en conjunto.
@@ -606,7 +606,7 @@ Esto es muy similar al objetivo de reducción de la tasa de dispersión
     \label{fig:SAE}
 \end{figure}
 
-Como método para aprender pares de auto-codificación de forma integral, la auto-codificación
+Como método para aprender pares de auto-codificación en forma integral, la auto-codificación
 dispersa se ha utilizado en el pasado
 \cite{Ranzato2006-oq,10.5555/3042573.3042641}, pero casi todos los marcos modernos
 de auto-codificación se basan, en cambio, en un marco de auto-codificación probabilístico
@@ -1070,7 +1070,7 @@ un filtro de ruido para acceder a su distribución, tal y como hemos estudiado e
 \Cref{ch:denoising}. Concretamente, supongamos que tenemos un modelo probabilístico $p(\z)$
 que captura la distribución (marginal) de las representaciones aprendidas $\vZ$ y una
 distribución gaussiana estándar inicial $\cN(\Zero, \vI)$. Nuestro objetivo es aprender
-un filtro de ruido $\bar{\z}$ que elimine el ruido de forma iterativa en una muestra, pasando de la
+un filtro de ruido $\bar{\z}$ que elimine el ruido en forma iterativa en una muestra, pasando de la
 distribución inicial a la distribución objetivo de las representaciones aprendidas.
 Este filtro de ruido puede entrenarse utilizando los objetivos presentados en el \Cref{ch:denoising}
 (véase también el \Cref{ch:conditional-inference} para los filtros de ruido condicionales). Por
@@ -1242,7 +1242,7 @@ la distancia de Earth Mover (EM) o la distancia de Wasserstein.
     soportes de baja dimensión que pueden no solaparse, la
     divergencia de JS se comporta como la norma $\ell^0$ y la distancia EM
 se comporta como la norma $\ell^1$.} Sin embargo, tanto la divergencia de JS como
-la distancia de Wasserstein solo pueden calcularse de forma aproximada entre dos
+la distancia de Wasserstein solo pueden calcularse en forma aproximada entre dos
 distribuciones generales.\footnote{Por ejemplo, la distancia de Wasserstein
     requiere calcular la diferencia máxima entre
     las esperanzas de las dos distribuciones sobre todas las funciones 
@@ -1386,7 +1386,7 @@ que dicha medida discriminativa es consistente con el concepto de GAN
 \eqref{eqn:GAN}, que intenta separar $\X$ y $\hat \X$ en dos
 clases, según la entropía cruzada.
 
-No obstante, en este caso el codificador discriminativo $f$ se generaliza de forma natural
+No obstante, en este caso el codificador discriminativo $f$ se generaliza en forma natural
 a casos en los que las distribuciones de datos son multiclase o
 multimodales y la capacidad discriminativa se mide con un indicador más
 refinado---la reducción de la tasa---en lugar de la típica
@@ -1465,7 +1465,7 @@ donde $\Z_k = f(\X_k,\bm \theta)$ y $\hat \Z_k = f(\hat{\X}_k,\bm\theta)$.
 Al comparar la naturaleza contractiva y contrastiva de
 \eqref{eqn:min-distance} y \eqref{eqn:max-distance} en la misma
 medida de distancia, vemos que los roles del codificador $f(\cdot, \bm
-\theta)$ y el decodificador $g(\cdot, \bm \eta)$ de forma natural como 
+\theta)$ y el decodificador $g(\cdot, \bm \eta)$ en forma natural como 
 «{\bf un juego de dos jugadores}»: {\em mientras que el codificador $f$ 
     intenta magnificar la diferencia entre los datos originales y sus datos transcritos, el
 decodificador $g$ busca minimizar la diferencia.} Ahora, por conveniencia,
@@ -1847,7 +1847,7 @@ marco de transcripción en bucle cerrado soportar igualmente un aprendizaje incr
 discriminativa lineal (LDR).} Las estructuras lineales simples de 
 LDR lo hacen especialmente adecuado para el aprendizaje incremental:
 la distribución de características $\Z_j$ de cada clase aprendida previamente
-puede representarse de forma explícita y concisa mediante un subespacio principal
+puede representarse en forma explícita y concisa mediante un subespacio principal
 $\mathcal{S}_j$ en el espacio de características. Para conservar la memoria de una
 clase anterior $j$, solo necesitamos conservar el subespacio mientras aprendemos
 nuevas clases. Para ello, simplemente tomamos una muestra de $m$ características prototípicas
@@ -1872,7 +1872,7 @@ cálculo de la media y la covarianza, véase el trabajo de
         en bucle cerrado para una memoria LDR
         estructurada. Solo se necesita una única red de codificación-decodificación, totalmente autónoma:
         para una nueva clase de datos
-        $\X_{new}$, se aprende de forma incremental una nueva memoria LDR $\Z_{new}$
+        $\X_{new}$, se aprende en forma incremental una nueva memoria LDR $\Z_{new}$
         como un juego minimax entre el codificador y el decodificador,
         sujeto a la restricción de que la memoria antigua de clases pasadas
         $\Z_{old}$ permanezca intacta a través de la transcripción
@@ -1892,7 +1892,7 @@ reproducir explícitamente las imágenes a partir de las características. La me
 conservar de manera eficaz mediante una optimización centrada exclusivamente en las
 propiedades de las propias características.
 
-Consideremos la tarea de aprender de forma incremental una nueva clase de
+Consideremos la tarea de aprender en forma incremental una nueva clase de
 objetos.\footnote{Por supuesto, también se puede considerar el caso más general
     en el que la tarea incluye un pequeño conjunto de nuevas clases, sin
 modificaciones significativas.} Denotamos el nuevo conjunto de muestras correspondiente como
@@ -1975,7 +1975,7 @@ clase de objetos se aprende solo una vez, es de esperar que el recuerdo
 se desvanezca a medida que seguimos aprendiendo otras nuevas, a menos que el recuerdo
 pueda consolidarse mediante el repaso de clases de objetos anteriores. %
 
-Para emular esta fase de formación de la memoria, tras aprender de forma incremental
+Para emular esta fase en formación de la memoria, tras aprender en forma incremental
 todo un conjunto de datos, podemos volver atrás para revisar todas las clases de nuevo, una
 por una. Nos referimos a recorrer todas las clases una vez como un
 «ciclo» de repaso.\footnote{Para distinguirlo del término «época»
@@ -1993,7 +1993,7 @@ para reemplazar o fusionarlo con el subespacio anterior $\mathcal{S}_j$. Como mu
 experimentos, este proceso de revisión incremental sin supervisión de clases
 puede mejorar gradualmente tanto el rendimiento discriminativo como el generativo
 de la memoria LDR, hasta converger finalmente en el de una
-memoria aprendida de forma conjunta.
+memoria aprendida en forma conjunta.
 
 \paragraph{Verificación experimental.}
 Presentamos algunos resultados experimentales en los siguientes conjuntos de datos: MNIST
@@ -2010,7 +2010,7 @@ en el trabajo \cite{tong2023incremental}.
 \paragraph{Visualización de las propiedades de la auto-codificación.}
 Comenzamos visualizando cualitativamente algunas imágenes representativas $\X$
 y su réplica correspondiente $\hat{\X}$ en MNIST y CIFAR-10. El
-modelo se entrena de forma incremental con los conjuntos de datos divididos en 5 tareas. 
+modelo se entrena en forma incremental con los conjuntos de datos divididos en 5 tareas. 
 Los resultados se muestran en la \Cref{fig:justify_xhat_equals_x_incremental},
 donde observamos que el $\hat{\X}$ reconstruido conserva las principales
 características visuales de $\X$, incluyendo formas y texturas. En el caso de un
@@ -2087,7 +2087,7 @@ representa muestras a lo largo de una componente principal y estas muestran clar
 características visuales similares, pero son claramente diferentes
 de las de otras filas. Vemos que el modelo recuerda diferentes
 posturas del «4» después de haber aprendido todas las demás clases. En el caso
-de CIFAR-10, la memoria aprendida de forma incremental recuerda posturas y formas representativas
+de CIFAR-10, la memoria aprendida en forma incremental recuerda posturas y formas representativas
 de caballos y barcos.
 
 \begin{figure}[t]
@@ -2122,7 +2122,7 @@ de caballos y barcos.
 \end{figure}
 
 \paragraph{Eficacia del repaso incremental.}
-Verificamos cómo la memoria LDR aprendida de forma incremental puede consolidarse aún más
+Verificamos cómo la memoria LDR aprendida en forma incremental puede consolidarse aún más
 mediante una fase de repaso incremental no supervisada
 descrita anteriormente. Los experimentos se llevan a cabo en CIFAR-10, con 10
 pasos. La \Cref{fig:memory_review} a la izquierda muestra imágenes reproducidas de la
@@ -2287,7 +2287,7 @@ del aprendizaje auto-supervisado \cite{chen2020simple}. Se puede consultar
 \cite{pmlr-v234-tong24a} para ver experimentos con conjuntos de datos más numerosos y de mayor tamaño
 y sus evaluaciones cuantitativas.
 
-Como se puede observar en los experimentos, de hecho surge de forma natural una estructura específica y única
+Como se puede observar en los experimentos, de hecho surge en forma natural una estructura específica y única
 en las representaciones aprendidas mediante u-CTRL:
 a nivel global, las características de las imágenes de una misma clase tienden a agruparse
 bien juntas y a separarse de las de otras clases, como se muestra en la
@@ -2404,7 +2404,7 @@ La \Cref{sec:class-wise-incremental} y
 la \Cref{sec:sample-wise-incremental} se basan en los trabajos de
 \cite{tong2023incremental} y \cite{pmlr-v234-tong24a},
 respectivamente. Demuestran que el marco de bucle cerrado
-facilita de forma natural el aprendizaje incremental y continuo, ya sea en un
+facilita en forma natural el aprendizaje incremental y continuo, ya sea en un
 entorno por clases o por muestras. El lector puede consultar estos
 artículos para obtener más detalles técnicos y experimentales.
 

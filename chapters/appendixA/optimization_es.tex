@@ -61,7 +61,7 @@ incluidos los algoritmos que asumen oráculos de orden superior.}
 El método más sencillo y más utilizado para la optimización es
 el \textit{descenso por gradiente} (GD). Fue introducido por primera vez por Cauchy en
 1847. La idea es muy sencilla: partiendo de un estado inicial,
-damos pequeños pasos de forma iterativa, de modo que cada paso reduzca el valor de
+damos pequeños pasos en forma iterativa, de modo que cada paso reduzca el valor de
 la función \(\cL(\theta)\).
 
 Supongamos que el estado actual es \(\theta\). Queremos dar un pequeño
@@ -787,7 +787,7 @@ podemos escribir
     \theta_{k + 1} = \theta_{k} - \eta_{k} \hada \vg_{k} \qquad \text{where}
     \qquad \eta_{k} = h \vs_{k}^{\hada (-\frac{1}{2})}
 \end{equation}
-donde \(\eta_{k}\) es la tasa de aprendizaje establecida de forma adaptativa para cada parámetro.
+donde \(\eta_{k}\) es la tasa de aprendizaje establecida en forma adaptativa para cada parámetro.
 Este esquema se denomina «adaptativo» porque, si el gradiente de un
 parámetro concreto es elevado hasta la iteración \(k\), la
 tasa de aprendizaje para ese parámetro se reduce para compensar, y
@@ -1695,7 +1695,7 @@ equilibrios de Stackelberg y viceversa. El trabajo
 \cite{zamani2024convergence} demuestra que el GDA (de nuevo, con \(T = 1\))
 con un tamaño de paso \(h\) suficientemente pequeño converge a un punto de silla
 (y, por lo tanto, a un equilibrio de Stackelberg) a una velocidad exponencial si existe alguno,
-de forma análoga al descenso por gradiente para funciones fuertemente convexas con
+en forma análoga al descenso por gradiente para funciones fuertemente convexas con
 gradiente de Lipschitz.\footnote{No proporcionamos el tamaño del paso ni
     la base exponencial, ya que se trata de funciones complejas de la
     constante de convexidad/concavidad/Lipschitz del gradiente. Por supuesto,

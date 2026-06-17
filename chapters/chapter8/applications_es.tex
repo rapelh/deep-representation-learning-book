@@ -1745,9 +1745,9 @@ codificador de texto potente basado en un LLM \(g_{\plainphi}:\ cT\to\R^{d}\) pa
 incrustaciones de texto, donde \(\plainphi\) no se actualiza durante el entrenamiento. En nuestra 
 implementación, adoptamos el codificador de texto NV-Embed-V2, para el cual la dimensión de 
 incrustación es \(d=4096\). Dado que la torre textual \(g_{\theta}\) es fija, podemos precalcular 
-todas las incrustaciones de texto \(\{g_{\theta}(\vT)\}\) de forma offline y, durante el 
+todas las incrustaciones de texto \(\{g_{\theta}(\vT)\}\) en forma offline y, durante el 
 entrenamiento, solo calcular los gradientes y actualizar el codificador visual 
-\(f_{\theta}\) de forma online. La torre visual \(f_{\theta}:\cI\to\R^{d}\) sigue la misma 
+\(f_{\theta}\) en forma online. La torre visual \(f_{\theta}:\cI\to\R^{d}\) sigue la misma 
 estructura que en \Cref{sub:clip_vision_tower}, con la dimensión de salida del cabezal de 
 proyección establecida en \(d\) para que coincida con la dimensión del espacio de incrustación 
 de texto fijo. Aparte de fijar \(g_{\plainphi}\) y ajustar la dimensión de proyección, las 
@@ -3195,7 +3195,7 @@ conjuntamente ambas modalidades.
 Tras el último bloque DiT, el modelo debe decodificar la secuencia de representaciones de 
 tokens para convertirla de nuevo en una predicción espacial. Se aplica una normalización de 
 capa adaptativa final (condicionada por $\boldsymbol{e}$), seguida de una capa lineal que 
-proyecta cada token en un tensor de forma $p \times p \times 2c$. El factor de $2c$ da 
+proyecta cada token en un tensor en forma $p \times p \times 2c$. El factor de $2c$ da 
 cuenta de las dos magnitudes que predice el modelo: la estimación del ruido 
 $\hat{\boldsymbol{\epsilon}} \in \mathbb{R}^{h \times w \times c}$ y la covarianza diagonal 
 $\boldsymbol{\Sigma}_\theta \in \mathbb{R}^{h \times w \times c}$. A continuación, los tokens 

@@ -19,7 +19,7 @@ Para entender por qué esto es así, consideremos el sencillo caso de
 la interferencia en un televisor cuando el satélite no funciona.
 En cada fotograma (aproximadamente cada \(\frac{1}{30}\) segundos), 
 el ruido estático RGB en una pantalla de tamaño \(H \times W\) se 
-muestrea, a grandes rasgos, de forma independiente a partir de una 
+muestrea, a grandes rasgos, en forma independiente a partir de una 
 distribución uniforme en \([0, 1]^{3 \times H \times W}\). En teoría, la
 imagen estática \textit{podría} convertirse en una imagen natural en cualquier fotograma,
 pero aunque alguien pase mil años mirando la pantalla del televisor,
@@ -371,7 +371,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
     \textit{elimina el ruido de las muestras para que estas se ajusten al
     subespacio}. La reducción de ruido ---el aprendizaje de un mapa que elimina el ruido de
     muestras ruidosas para que se ajuste a la estructura de datos (como en
-    \eqref{eq:pca_dgp}, aunque quizá de forma más compleja)--- es un método habitual
+    \eqref{eq:pca_dgp}, aunque quizá en forma más compleja)--- es un método habitual
     para el aprendizaje de distribuciones que se analizará en la
     siguiente sección y a lo largo de todo el manuscrito. Nótese que ya hemos
     tratado este concepto, pero vale la pena repetirlo debido a su gran
@@ -819,7 +819,7 @@ programación lineal por primera vez \cite{Dantzig2002-eh},
     \includegraphics[height=0.35\linewidth]{\toplevelprefix/chapters/chapter2/figs/motion.png}
     \hspace{5mm}
     \includegraphics[height=0.349\linewidth]{\toplevelprefix/chapters/chapter2/figs/segment.png}
-    \caption{\textbf{Izquierda:} características detectadas en objetos que se mueven de forma independiente
+    \caption{\textbf{Izquierda:} características detectadas en objetos que se mueven en forma independiente
         dentro de una escena. \textbf{Derecha:} fragmentos de imagen asociados a
     diferentes regiones de una imagen.}
     \label{fig:multiple-subspaces}
@@ -932,7 +932,7 @@ representación condicional. Consideremos un vector de representación \textit{e
 = [\vz_1^\top, \dots, \vz_K^\top]^\top \in \R^{dK}$, tal que $\vz$
 es \textit{$d$-disperso} y tiene su soporte en uno de los $K$ bloques consecutivos
 no superpuestos de $d$ coordenadas de entre las $dK$. Entonces, 
-\eqref{eq:mixture-of-subspaces-geometric} puede escribirse de forma equivalente como
+\eqref{eq:mixture-of-subspaces-geometric} puede escribirse en forma equivalente como
 \begin{equation}\label{eq:mixture-of-subspaces-dictionary-pre}
     \vx =
     \underbrace{
@@ -1157,7 +1157,7 @@ matrices ortogonales $\mathrm O(D)$.\footnote{Para cualquier matriz $\vM$
     con SVD $\vM = \vU\bm \Sigma \vV^\top$, $\mathcal{P}_{\mathrm
 O(D)}[\vM] = \vU \vV^\top$. Dejamos esto como ejercicio para el lector.}
 
-Para calcular el punto fijo de la ecuación anterior, de forma similar a como calculamos
+Para calcular el punto fijo de la ecuación anterior, en forma similar a como calculamos
 los vectores propios para el PCA \eqref{eqn:PCA-fixed-point}, podemos utilizar la siguiente
 iteración de potencias:
 \begin{equation}\label{eq:msp_iteration}
@@ -1284,7 +1284,7 @@ Por ejemplo, en el contexto poblacional donde $N \to \infty$,
 podemos utilizar las propiedades de aditividad de la curtosis
 (\Cref{exercise:kurtosis-linearity-properties}) y nuestra suposición
 de normalización de las componentes independientes para expresar el problema anterior
-de forma equivalente como
+en forma equivalente como
 \begin{equation}\label{eq:kurtosis-maximization-sphere-population-simple}
     \max_{\norm{\tilde{\vw}}_2^2 = 1}\,
     \sum_{i=1}^d \mathrm{kurt}(z_i) \tilde{w}_i^4.
@@ -1300,7 +1300,7 @@ $\tilde{\vu}$ a $\tilde{\vw}$, ya que requiere el diccionario de referencia
 $\vU$, por lo que desarrollamos directamente algoritmos para la parametrización de $\tilde{\vu}$
 y la matriz de datos $\vX$.
 Entonces, una forma eficaz y escalable de calcular uno de estos máximos es mediante
-algoritmos de optimización de primer orden, que siguen de forma iterativa el
+algoritmos de optimización de primer orden, que siguen en forma iterativa el
 gradiente de la función objetivo y se proyectan sobre el conjunto de restricciones
 $\set{\tilde{\vu} \given \norm{\tilde{\vu}}_2^2 = 1}$.
 Dado que hemos supuesto que cada $z_i$ cumple que $\Var(z_i)=1$, tenemos
@@ -1337,7 +1337,7 @@ La Ecuación \eqref{eq:kurtosis-max-sphere-stationarity} es satisfecha por
 \textit{cualquier} punto crítico del problema de maximización de la curtosis; queremos
 derivar una ecuación que sea satisfecha únicamente por los maximizadores.
 Tras observar que $\lambda = \norm{\vX^\top \tilde{\vu}}_4^4$,
-reexpresamos de forma equivalente la ecuación \eqref{eq:kurtosis-max-sphere-stationarity}
+reexpresamos en forma equivalente la ecuación \eqref{eq:kurtosis-max-sphere-stationarity}
 como la ecuación modificada
 \begin{align}\label{eq:kurtosis-max-sphere-stationarity-modified}
     \frac{1}{N}\vX (\vX^\top \tilde{\vu})^{\hada 3}
@@ -1417,7 +1417,7 @@ pasar al caso sobrecompleto.
 Desde el punto de vista geométrico, recordemos que en nuestra reducción original del modelo de datos de mezcla
 de subespacios al modelo de diccionario disperso, una mezcla de
 $K$ subespacios en $\R^D$, cada uno de dimensión $d$, dio lugar a un diccionario
-de forma $\vA \in \R^{D \times Kd}$. 
+en forma $\vA \in \R^{D \times Kd}$. 
 En otras palabras, los diccionarios sobrecompletos corresponden a
 mezclas \textit{más ricas} de subespacios, con más modos distintos de
 variabilidad para modelar la distribución de datos en espacios de alta dimensión.
@@ -1920,7 +1920,7 @@ es decir, $f(\vh_i) = \sigma(\vW_{\mathrm{enc}}(\vh_i - \vb)
 y el decodificador $g$ es lineal, de modo que $g(\vz_i)
 = \vW_{\mathrm{dec}}\vz + \vb$.\footnote{Dado que \(f\) es un operador de
     dispersión, lo denotamos de manera análoga al \(f\) utilizado anteriormente, por ejemplo,
-    en LISTA, donde \(f\) denota un algoritmo de optimización para codificar de forma
+    en LISTA, donde \(f\) denota un algoritmo de optimización para codificar en forma
     dispersa la entrada. A lo largo del libro, se utilizará \(f\) para referirse a
     esas transformaciones dispersas y estructuradas de otro modo, incluidas las
     de los \textit{codificadores de redes profundas}
@@ -2480,7 +2480,7 @@ más complejas.
                     este isomorfismo en
                     \eqref{eq:exercise-riemann-hess-orthogonal-group} con el
                     fin de definir el producto de Kronecker de dos matrices como
-            un operador sobre matrices de forma canónica.})
+            un operador sobre matrices en forma canónica.})
 
         \item Supongamos ahora que $\vX \in \R^{d\times d}$ es de rango completo. En
             esta y la siguiente parte del ejercicio, consideramos la

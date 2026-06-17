@@ -776,13 +776,13 @@ varias tareas útiles más allá de la predicción:
 \begin{itemize}
     \item \textbf{auto-completación}: si se dan más de $d$ entradas de una
         muestra típica $\vx$, las entradas restantes suelen poder
-        determinarse de forma unívoca;\footnote{La predicción se 
+        determinarse en forma unívoca;\footnote{La predicción se 
         convierte en un caso especial de esta propiedad.}
     \item \textbf{reducción de ruido}: si los valores de una muestra 
         $\vx$ son perturbados por un ruido leve, este ruido puede 
         eliminarse eficazmente proyectando $\vx$ de vuelta sobre la superficie;
     \item \textbf{corrección de errores}: si un pequeño número de 
-        entradas desconocidas de $\vx$ se corrompen de forma arbitraria, 
+        entradas desconocidas de $\vx$ se corrompen en forma arbitraria, 
         pueden corregirse de manera eficiente.
 \end{itemize}
 La \Cref{fig:low-dim-properties} ilustra estas propiedades usando una
@@ -1047,7 +1047,7 @@ Debido a la sencillez de la estructura de datos, tanto el codificador \(\cE\) co
 Este problema clásico de la estadística se conoce como análisis de componentes principales
 (PCA). Fue estudiado por primera vez por Pearson en 1901
 \cite{Pearson1901} y, posteriormente, de manera independiente por Hotelling en 1933
-\cite{Hotelling1933}. El tema se resume de forma sistemática en el
+\cite{Hotelling1933}. El tema se resume en forma sistemática en el
 libro clásico \cite{Jolliffe1986,JolliffeI2002}. También se puede suponer 
 explícitamente que los datos \(\vx\) se distribuyen
 según una única gaussiana de baja dimensión:
@@ -1366,7 +1366,7 @@ menor dimensión. Por ejemplo, la distribución \(p(\vx)\) en la
     \(p^{*}(\vx) = p^{*}(\vx_{1})\delta(\vx-\vx_{1}) +
     p^{*}(\vx_{2}) \delta(\vx-\vx_{2})\) con \(p^{*}(\vx_{1}) +
 p^{*}(\vx_{2}) = 1\).}\footnote{Obsérvese que en esta sección
-    analizamos el proceso de reducir el ruido y comprimir de forma iterativa una
+    analizamos el proceso de reducir el ruido y comprimir en forma iterativa una
     distribución con ruido y de alta entropía hasta que converja a la distribución de datos de baja entropía.
     Como veremos en el \Cref{ch:denoising}, este
     problema es dual al problema de aprender una codificación óptima para
@@ -1591,7 +1591,7 @@ fueron los primeros en aplicarla para entrenar un perceptrón multicapa (MLP)
 para entrenar redes profundas, ya que es escalable y puede
 implementarse de manera eficiente en plataformas informáticas
 paralelas y distribuidas. Sin embargo, es probable que la naturaleza no utilice la BP,\footnote{Como
-    hemos comentado anteriormente, la naturaleza aprende casi de forma generalizada a corregir
+    hemos comentado anteriormente, la naturaleza aprende casi en forma generalizada a corregir
 los errores mediante la retroalimentación en bucle cerrado.} ya que el mecanismo resulta demasiado costoso
 para su implementación física.\footnote{La BP de extremo a extremo
     resulta computacionalmente inmanejable para estructuras neuronales tan complejas como el
@@ -1723,7 +1723,7 @@ de decisión/control (es decir, una distribución de probabilidad sobre
 las acciones que se deben realizar para maximizar la recompensa esperada) o la
 función de valor óptimo asociada (una estimación de la recompensa esperada
 partiendo de un estado dado), tal y como se muestra en la \Cref{fig:Alpha-Go}.
-Los parámetros de la red se optimizan de forma incremental\footnote{Normalmente mediante
+Los parámetros de la red se optimizan en forma incremental\footnote{Normalmente mediante
 retropropagación (BP)} en función de las recompensas obtenidas por el éxito o
 el fracaso al jugar la partida con la política actual. Este paradigma de aprendizaje
 se denomina \textit{aprendizaje por refuerzo} \cite{Sutton-Barto}; tiene su origen en 
@@ -1808,7 +1808,7 @@ dimensión intrínseca.\footnote{Esto sigue siendo cierto incluso cuando se
     especifica una familia paramétrica de distribuciones para \(\vX\). 
     La distancia suele volverse mal condicionada o mal definida para 
     distribuciones con soportes de baja dimensión.  Peor aún, la familia 
-    elegida podría aproximar de forma deficiente la verdadera 
+    elegida podría aproximar en forma deficiente la verdadera 
 distribución de interés.}
 
 En 2007, Zhuowen Tu, decepcionado por los primeros intentos analíticos de
@@ -1978,8 +1978,8 @@ de sus algoritmos de aprendizaje y computación:
 
 Esto es porque cualquiera que sea el algoritmo que los seres inteligentes usen para aprender
 información útil éste tiene que ser \textit{escalable}. Más concretamente, la
-complejidad computacional de los algoritmos debería escalar de forma adecuada---por 
-lo general, de manera lineal o incluso sublineal---en función del tamaño y
+complejidad computacional de los algoritmos debería escalar en forma adecuada ---por 
+lo general, de manera lineal o incluso sublineal--- en función del tamaño y
 la dimensión de los datos. En un nivel técnico, esto requiere que las operaciones
 en las que se basan los algoritmos para aprender sólo pueden utilizar información
 de oráculo que pueda calcularse de manera eficiente a partir de los datos. Más
@@ -2208,10 +2208,10 @@ aproximarse con precisión. En algunos casos sencillos, incluso podemos obtener
 fórmulas en forma cerrada, como, por ejemplo, modelos de subespacio y gaussianos.
     
 Además, este marco computacional da lugar a un enfoque basado en principios
-que revela de forma natural el papel que desempeñan las redes profundas en este
+que revela en forma natural el papel que desempeñan las redes profundas en este
 proceso de aprendizaje. Como derivaremos sistemáticamente en el
 \Cref{ch:deep-networks}, las capas de una red profunda realizan
-operaciones que optimizan de forma incremental la función objetivo de
+operaciones que optimizan en forma incremental la función objetivo de
 interés. Desde esta perspectiva, el papel de las redes profundas puede
 interpretarse precisamente como la emulación de un determinado algoritmo de optimización iterativa
 ---por ejemplo, el descenso por gradiente---para optimizar el objetivo de
@@ -2273,7 +2273,7 @@ medida (empírica) de parsimonia para la representación aprendida:
     \(\vz\). Como indicaban las primeras prácticas con redes profundas
     \cite{krizhevsky2012imagenet}, si se dispone de suficientes datos, un
     esquema de codificación de este tipo a menudo puede representarse mediante una red profunda y
-    aprenderse de forma integral mediante la optimización de la entropía cruzada.
+    aprenderse en forma integral mediante la optimización de la entropía cruzada.
 \end{example}
 
 La entropía cruzada \(\ell(\hat{\vz}, \vz)\) puede verse como una
@@ -2379,7 +2379,7 @@ similitud adecuada. El cálculo de la similitud entre \(\hat{\vX}\) y
 \(\vX\) puede resultar excesivamente costoso, o incluso
 imposible. \footnote{Por ejemplo, minimizar la distancia de distribución
     entre las dos variables aleatorias resulta difícil tanto desde el punto de vista estadístico como
-computacional.} En la naturaleza, los animales aprenden de forma autónoma
+computacional.} En la naturaleza, los animales aprenden en forma autónoma
 sin comparar su estimación \(\hat{\vX}\) con los datos reales
 \(\vX\) en el espacio de datos; por lo general, carecen de esa
 opción.\footnote{Tanto en los animales como en los seres humanos, los ojos procesan la información visual
@@ -2451,7 +2451,7 @@ dada \(\vX\):
     \item la auto-codificación bidireccional \eqref{eqn:auto-encoding};
     \item la transcripción en bucle cerrado \eqref{eqn:closed-loop}.
 \end{itemize}
-En este libro, estudiaremos de forma sistemática los tres marcos, uno
+En este libro, estudiaremos en forma sistemática los tres marcos, uno
 tras otro:
 \begin{equation}
     \text{\textbf{circuito abierto}} \; \Longrightarrow \;
@@ -2491,7 +2491,7 @@ puede interpretarse precisamente como la realización de los
 operadores\footnote{mediante optimización desenrollada, como veremos} necesarios
 para llevar a cabo las transformaciones anteriores entre distribuciones.
 Las arquitecturas populares de redes neuronales profundas (como las CNN, ResNet o
-Transformers) que se desarrollaron de forma empírica
+Transformers) que se desarrollaron en forma empírica
 se interpretarán matemáticamente, se justificarán y se mejorarán mediante este enfoque.
 
 \begin{figure}[t]

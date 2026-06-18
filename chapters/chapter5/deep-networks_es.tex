@@ -1504,8 +1504,9 @@ de las representaciones y los subespacios. En particular,
 la optimización del objetivo de reducción de tasa puede no conducir en forma natural a
 representaciones alineadas con los ejes (es decir, \textit{dispersas}). {Por ejemplo,
     considere los tres conjuntos de representaciones aprendidas en la
-    \Cref{fig:sparse-rate-reduction-diagram}.} Por lo tanto, nos gustaría
-transformar las representaciones (y sus subespacios
+    \Cref{fig:sparse-rate-reduction-diagram}.} La reducción de la tasa de codificación aumenta
+de (a) a (b), pero como es invariante ante rotaciones, se mantiene igual
+de (b) a (c). Por lo tanto, nos gustaría transformar las representaciones (y sus subespacios
 de soporte) de tal manera que las representaciones $\vZ$ acaben siendo
 dispersas\footnote{Concretamente, con pocas entradas distintas de cero.} con respecto
 a las coordenadas estándar del espacio de representaciones resultante {como
@@ -1540,13 +1541,12 @@ también como la \textit{reducción dispersa de tasa }.
 \paragraph{Arquitectura de red transparente white-box mediante optimización desenrollada.}
 
 Aunque resulte fácil de formular, la optimización de cada término del objetivo anterior
-plantea un reto computacional \cite{Wright-Ma-2022}. Por lo tanto,
+plantea un desafío computacional \cite{Wright-Ma-2022}. Por lo tanto,
 es natural adoptar un enfoque de aproximación que realice la
 transformación global $f$ para optimizar 
 \eqref{eq:sparse-rr} mediante una concatenación de múltiples, digamos $L$,
 operaciones simples \textit{incrementales y locales} $f^\ell$ que empujan
-la distribución de la representación hacia la distribución del modelo parsimonioso
-deseada:
+la distribución de la representación hacia la distribución deseada del modelo parsimonioso:
 \begin{equation}
     f\colon \X \xrightarrow{\hspace{1mm} f^{\mathrm{pre}} \hspace{1mm}}
     \Z^1 \rightarrow \cdots \rightarrow \Z^\ell
@@ -1651,7 +1651,7 @@ sea cada vez menos precisa (ya que el gradiente verdadero no crece arbitrariamen
 tamaño con la longitud de la secuencia). Para resolver este problema práctico y
 generalizar nuestra formulación, podemos utilizar en su lugar un núcleo arbitrario para
 medir la similitud. Un núcleo especialmente adecuado
-que se ajusta a nuestra intención de realizar la auto-rregresión únicamente
+que se ajusta a nuestra intención de realizar la auto-regresión únicamente
 con respecto a los tokens que pertenecen al mismo subespacio es el núcleo local
 (Nadaraya-Watson), que implica la estimación de pertenencia mediante
 softmax \citep{chaudhari2021attentive}, es decir, el cálculo de la similitud (relativa)
@@ -1721,8 +1721,8 @@ diccionario (completo) incoherente u ortogonal $\vD^{\ell} \in \bR^{d
 \times d}$ y buscamos ralear las iteraciones intermedias $\vZ^{\ell
 + 1/2}$ con respecto a \(\vD^{\ell}\). Es decir, $\vZ^{\ell + 1/2}
 \approx \vD^{\ell} \vZ^{\ell + 1}$ donde $\vZ^{\ell + 1}$ es más
-disperso; es decir, es una \textit{codificación esparsa} de \(\vZ^{\ell +
-1/2}\). El diccionario \(\vD^{\ell}\) se utiliza para reducir la densidad de todos los tokens
+disperso; es decir, es una \textit{codificación dispersa} de \(\vZ^{\ell +
+1/2}\). El diccionario \(\vD^{\ell}\) se utiliza para ralear todos los tokens
 simultáneamente.
 Según la suposición de incoherencia, tenemos que $(\vD^{\ell})^\top(\vD^{\ell})
 \approx \vI$. Por lo tanto, a partir de \eqref{eq:coding_rate} tenemos que
@@ -1768,14 +1768,14 @@ paso ISTA \citep{beck2009fast}, para obtener la actualización:
     \caption{\small \textbf{Una capa de la arquitectura del codificador CRATE.} 
         La arquitectura completa no es más que una concatenación de
         dichas capas, con un tokenizador inicial, un módulo de preprocesamiento
-    y un módulo final específico para la tarea (es decir, un módulo de clasificación).}
+    y un módulo final específico para la tarea (es decir, un cabezal de clasificación).}
     \label{fig:crate_backbone}
 \end{figure}
 
 \subsection{Arquitectura general del transformer white-box: CRATE}
 
 Ahora diseñamos una arquitectura de transformer white-box, denominada Coding
-RATE Transformer (CRATE), mediante el desenrollamiento de las actualizaciones anteriores. Al
+RATE Transformer (CRATE), mediante el desenrollado de las actualizaciones anteriores. Al
 combinar los dos pasos anteriores, \eqref{eq:gd-mcr-parts} y \eqref{eq:ista-block}:
 \begin{enumerate}
     \item Compresión local de tokens dentro de una muestra hacia una
@@ -1815,7 +1815,7 @@ mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
         datos en una configuración canónica de subespacios de baja dimensión
         mediante sucesivas   {\textit{\textbf{compresiones}}}
         frente a un modelo local de la distribución, generando
-        $\vZ^{\ell+1/2}$ y      {\textit{\textbf{raleza}}}
+        $\vZ^{\ell+1/2}$ y {\textit{\textbf{dispersión}}}
         frente a un diccionario global, generando $\vZ^{\ell+1}$.
         Al apilar repetidamente estos bloques y entrenar los parámetros del modelo
         mediante retropropagación, se obtiene una representación potente e
@@ -1861,7 +1861,7 @@ mapeo de preprocesamiento que transforma los tokens de entrada $\vX \in
     bien ajustados, lo que asegura que el modelo produzca representaciones parsimoniosas.
 \end{remark}
 
-Hay tres preguntas lógicas que podemos plantearnos sobre CRATE:
+Hay tres preguntas naturales que podemos plantearnos sobre CRATE:
 \begin{itemize}
     \item Estos modelos CRATE construidos, ¿aprenden características útiles mediante
         la optimización de la reducción dispersa de tasa?
@@ -1946,7 +1946,7 @@ el análisis de los resultados experimentales en la \Cref{sec:image_classificati
     \resizebox{0.98\textwidth}{!}{
         \begin{tabular}{@{}lcccc|cc@{}}
             \toprule
-            \textbf{Model} & CRATE{-T}  &
+            \textbf{Modelo} & CRATE{-T}  &
             CRATE{-S} & CRATE{-B} &
             CRATE{-L} & { ViT-T} &  {
             ViT-S } \\
@@ -1975,8 +1975,8 @@ el análisis de los resultados experimentales en la \Cref{sec:image_classificati
 \begin{figure}[t!]
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/crate_semantic_heads.pdf}
-    \caption{\textbf{Visualización de los mapas de atención de CRATE: ¿qué
-        analiza el modelo para realizar una clasificación?} Visualizamos
+    \caption{\textbf{Visualización de los mapas de atención de CRATE: ¿en qué
+        se fija el modelo para realizar una clasificación?} Visualizamos
         los mapas de atención de la última capa, que constituyen la última fuente de
         interacción entre tokens en la red; por lo tanto representan en cierto
         sentido, la descripción más detallada de qué regiones de la imagen de entrada
@@ -2021,7 +2021,7 @@ de eliminación de ruido en forma rigurosa y sistemática. Con este
 fin, formalicemos nuestro modelo de subespacios: las representaciones iniciales de los tokens
 $\bm Z^{1}$ se obtienen mediante muestreo de una mezcla ruidosa de
 distribuciones gaussianas de bajo rango, definidas en subespacios generados por \(\vU_{k} \in
-\R^{d \times p}\), de la siguiente manera: dividimos los \(N\) índices de tokens
+\R^{d \times p}\), de la siguiente manera: distribuimos los \(N\) índices de tokens
 en subconjuntos conocidos \(C_{1}, \dots, C_{K}\), de tal manera que:
 \begin{equation}\label{def:MoG}
     \bm z_i = \underbrace{\bm U_{k} \bm a_i}_{signal} +
@@ -2167,7 +2167,7 @@ la eficiencia.
     \centering
     \begin{tabular}{lcccc}
         \toprule
-        Models & Accuracy  & \# of Parameters \\
+        Modelos & Precisión  & \# de parámetros \\
         \midrule
         \midrule
         AoT   & 71.7\% & 22M \\
@@ -2187,10 +2187,10 @@ derivamos una nueva forma variacional del objetivo MCR$^2$ y demostramos
 que la arquitectura resultante del descenso de gradiente desenrollado de
 este objetivo variacional da lugar a un nuevo módulo de atención denominado
 Token Statistics Self-Attention (\text{TSSA}). \text{TSSA} tiene
-{\em una complejidad computacional y de memoria lineal} y se aleja radicalmente
+{\em una complejidad computacional y de memoria lineales} y se aparta radicalmente
 de la arquitectura de atención típica que calcula
 las similitudes por pares entre tokens.  Al sustituir el operador de atención tradicional
-de un transformer por TSSA se obtiene una nueva arquitectura de red neuronal
+de un transformer con TSSA se obtiene una nueva arquitectura de red neuronal
 denominada Token Statistics Transformer (ToST),
 que es muy eficiente y presenta un rendimiento empírico prometedor. Como
 preludio, recordemos de la ecuación \eqref{eq:MCR pi} que $\bm \Pi = [\bm
@@ -2257,11 +2257,11 @@ R_{c,f} (\Z,\bm \Pi)$. Tenga en cuenta que, en general, alcanzar este límite
 requeriría seleccionar, para cada instancia muestreada de $\Z$, un nuevo
 conjunto óptimo de matrices de parámetros $\bm U_{k}$ que diagonalicen cada
 $\Z\mathrm{Diag}(\bm \pi_{k})\Z^{\top}$, lo cual es claramente inviable
-para la arquitectura de la red.
+como arquitectura de la red.
 En cambio, desde un punto de vista alternativo, en lugar de considerar los
 datos ($\Z$) como fijos e intentar optimizar los parámetros $\bm U_k$
 para alcanzar el límite variacional más estricto, podemos adoptar el
-principio de diseño de «desenrollamiento» algorítmico descrito anteriormente y diseñar un
+principio de diseño de «desenrollado» algorítmico descrito anteriormente y diseñar un
 operador que perturbe $\Z$ para minimizar en forma incremental $R_{c, f}^{\rm
 var}(\cdot \mid \bm U_{[K]})$. Para dejarlo claro, cada
 límite variacional se vuelve estricto cuando los espacios propios de $\Z
@@ -2329,9 +2329,9 @@ que \(\sum_{k = 1}^{K}\Pi_{jk} = 1\), podemos reescribir
     \label{eq:z_up}
     \z_j^+ = \sum_{k=1}^K \Pi_{jk} \Big[ \z_j \underbrace{-
             \frac{\tau}{n} \bm U_{k} \bm D(\Z, \bm \pi_{k} \mid \bm U_{k})
-    \bm U_{k}^{\top}}_{\text{action of one attention head}} \z_j \Big].
+    \bm U_{k}^{\top}}_{\text{acción de un cabezal de atención}} \z_j \Big].
 \end{equation}
-Es decir, podemos considerar que cada cabeza de atención primero proyecta las características de los tokens
+Es decir, podemos considerar que cada cabezal de atención primero proyecta las características de los tokens
 sobre la base $\bm U_{k}$ multiplicándolas por $\bm U_k^\top$, las multiplica por la
 matriz diagonal $\bm D(\Z, \bm \pi_{k} \mid \bm U_{k})$ (abreviada como \(\bm
 D_{k}\)), proyectándolas de nuevo en la base estándar mediante la multiplicación por $\bm
@@ -2424,7 +2424,7 @@ siguiente corolario.
 El último paso para definir nuestro operador de atención consiste en estimar la
 pertenencia al grupo $\bm\Pi$. Para ello, planteamos un modelo sencillo de cómo
 cada característica \(\z_{j}\) se desvía de su subespacio de soporte y
-luego hallamos la asignación óptima de subespacios. \cite{yu2023white} muestran
+luego hallamos la asignación óptima de subespacios. En \cite{yu2023white} se muestra
 que si modelamos independientemente cada \(\z_{j}\) como perteneciente a un
 modelo de mezcla gaussiana de baja dimensión, donde cada gaussiana tiene una
 matriz de covarianza con espectro idéntico y está apoyada en un
@@ -2446,11 +2446,11 @@ U_{[K]})\) de la siguiente manera:
     \end{bmatrix} \right), \quad \forall j \in [n],
 \end{align}
 donde $\eta$ se convierte en un parámetro de temperatura aprendible. Así, dada
-una característica de entrada \(\Z\), estimamos \(\bm\Pi\) utilizando \eqref{eq:pi}
-y luego calculamos el operador de atención. Al combinar la construcción
+una característica de entrada \(\Z\), se estima \(\bm\Pi\) utilizando \eqref{eq:pi}
+y luego se calcula el operador de atención. Al combinar la construcción
 de $\bm\Pi$ en \eqref{eq:pi} con
 \eqref{eq:layer-operation-orig}, obtenemos el operador {\em Token Statistics
-Self-Attention}:
+Self-Attention} (TSSA):
 \begin{equation}
     \label{eq:tssa}
     \operatorname{TSSA}(\Z \mid \bm U_{[K]}) \doteq -\frac{\tau}{n}\sum_{k
@@ -2464,7 +2464,7 @@ U_{[K]})\) definidas en \eqref{eq:pi} y \(\bm D\) se define en
 Partiendo de una arquitectura Transformer estándar y sustituyendo
 el operador de atención por TSSA, obtenemos una arquitectura denominada
 Token Statistics Transformer (ToST), que se muestra en la
-\Cref{fig:vcrate-architecture}. Nos gustaría volver a destacar que
+\Cref{fig:vcrate-architecture}. Quisiéramos volver a destacar que
 el operador TSSA reduce la complejidad temporal y de memoria habitual del
 operador de atención, en particular al reducir la complejidad temporal y
 de memoria cuadrática a lineal, lo que hace que ToST sea mucho más eficiente
@@ -2522,11 +2522,11 @@ rendimiento y la eficiencia empíricos de la arquitectura ToST.
     \resizebox{0.95\textwidth}{!}{%
         \begin{tabular}{@{}lccc|cc@{}}
             \toprule
-            Datasets & ToST-T(iny) & ToST-S(mall) &
+            C.Datos & ToST-T(iny) & ToST-S(mall) &
             ToST-M(edium) &  ViT-S &
             ViT-B(ase)\\
             \toprule
-            \# parameters & 5.8M & 22.6M & 68.1M &  22.1M & 86.6 M  \\
+            \# parámetros & 5.8M & 22.6M & 68.1M &  22.1M & 86.6 M  \\
             \midrule
             \midrule
             ImageNet & 67.3 & 77.9 & 80.3 & 79.8 & 81.8 \\
@@ -2552,8 +2552,8 @@ rendimiento y la eficiencia empíricos de la arquitectura ToST.
     \resizebox{0.8\textwidth}{!}{%
         \begin{tabular}{@{}lccccccc@{}}
             \toprule
-            Model        & ListOps  & Text     & Retrieval & Image
-            & Pathfinder & Avg      \\
+            Modelo       & ListOps  & Texto    & Recuperación & Imagen
+            & Pathfinder & Promedio      \\
             \midrule
             \midrule
             Reformer              & 37.27 & 56.10
@@ -2591,7 +2591,7 @@ se entrenan para predecir (la distribución de probabilidad del) siguiente
 token de una secuencia basándose \textit{únicamente en el historial de los tokens 
 anteriores}. A continuación, para obtener una muestra de un LLM, basta con realizar un muestreo iterativo
 a partir de la distribución prevista para el siguiente token y, a continuación, añadir
-el token muestreado al historial. Para entrenar LLM y otros
+el token muestreado al historial. Para entrenar un LLM u otros
 modelos, como los de generación de vídeo, es necesario desarrollar
 arquitecturas capaces de realizar este cálculo causal de manera eficiente.
 
@@ -2625,7 +2625,7 @@ objetivo de aprendizaje de la representación, como la reducción dispersa de la
     \max_{\vz_{i}}\ \Delta R(\vZ_{1:i} \mid \vU_{[K]}) - \lambda
     \|\vZ_{1:i}\|_{1},\ \forall i \in [N].
 \end{equation}
-Si seguimos el procedimiento de desenrollamiento en dos pasos que
+Si seguimos el procedimiento de desenrollado en dos pasos que
 dio lugar a CRATE, podemos obtener la iteración:
 \begin{align}
     \vz_{i}^{\ell + 1/2} &\approx \vz_{i}^{\ell} - \kappa
@@ -2756,7 +2756,7 @@ tal y como se muestra en la \Cref{tab:causal-crate-results}.
     {
         \begin{tabular}{ccccccc}
             \hline
-            & \#parameters & OWT & LAMBADA &
+            & \#parámetros & OWT & LAMBADA &
             WikiText & PTB & Avg \\
             \hline
             \hline
@@ -2793,7 +2793,7 @@ cerrar esta brecha; ambas son objeto de líneas de investigación activas.
     atención multicabezal. A pesar de esta mejora en la eficiencia, son
     muy eficaces e incluso se han utilizado en algunos modelos de lenguaje a gran escala
     \citep{team2025kimi}. Mediante el diseño de objetivos más
-    sofisticados y estrategias de «desenrollamiento», podríamos
+    sofisticados y estrategias de «desenrollado», podríamos
     construir una arquitectura SSM tipo «white-box», o un híbrido SSM-transformer,
     y así reducir la brecha en las tareas causales.
 \end{example}
@@ -2802,8 +2802,8 @@ cerrar esta brecha; ambas son objeto de líneas de investigación activas.
     Otra forma de mejorar los modelos causales consiste en utilizar más estrategias denominadas
     \textit{de cálculo en tiempo de inferencia}: durante la inferencia
     (como el muestreo a partir de un modelo de lenguaje grande, o LLM), hay que encontrar la manera de dedicar más
-    recursos computacionales para obtener un mejor resultado. Si logramos
-    hacerlo, podremos resolver problemas más complejos asignando más
+    recursos computacionales para obtener un mejor resultado. Si esto se logra,
+    se pueden resolver problemas más complejos asignando más
     recursos computacionales a la tarea en cuestión.
 
     Un enfoque sencillo para esto consiste en aplicar un bucle al modelo: introducir las características finales
@@ -2819,7 +2819,7 @@ cerrar esta brecha; ambas son objeto de líneas de investigación activas.
     varios pasos de eliminación de ruido o compresión locales sobre el
     \textit{mismo modelo} en cada capa antes de pasar a la siguiente.
 
-    Otra metodología posible se basa en nuestra comprensión
+    Otra metodología posible adicional se basa en nuestra comprensión
     de la estructura de baja dimensión de las características y los parámetros
     del modelo. Por ejemplo, dado que se supone que las matrices \(\vU_{[K]}\)
     son soportes de los subespacios generados por las
@@ -2852,8 +2852,8 @@ trabajos fundamentales o se inspiran en ellos.
 La idea de «desenrollar» un algoritmo de optimización para construir una red neuronal
 se remonta al trabajo pionero \cite{gregor2010learning}. En
 este trabajo, los autores demostraron que los algoritmos de codificación
-dispersa---como el algoritmo de umbralización y contracción iterativa
-(ISTA)---pueden desenrollarse para formar perceptrones multicapa (MLP),
+dispersa ---como el algoritmo de umbralización y contracción iterativa
+(ISTA)--- pueden desenrollarse para formar perceptrones multicapa (MLP),
 uniendo de manera efectiva la optimización iterativa y el diseño de redes neuronales.
 Cabe destacar que \cite{monga2019algorithm} demostró que estas
 redes «desenrolladas» son más interpretables, eficientes y efectivas
@@ -2904,7 +2904,7 @@ un ajuste heurístico, con nuestras arquitecturas ReduNet, que cuentan con una b
         R(\bm Z) = \log\det\left(\bm I + \alpha\bm Z\bm Z^\top \right).
     \end{align*}
     \begin{enumerate}
-        \item Dada cialquier dirección $\bm D \in \R^{d\times m}$, demuestre
+        \item Dada cualquier dirección $\bm D \in \R^{d\times m}$, demuestre
             que $\nabla R(\bm Z) = \alpha\bm X^{-1}\bm Z$ y
             \begin{align*}
                 &\nabla^2 R(\bm Z)[\bm D, \bm D] \\

@@ -399,7 +399,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
                 \underbrace{(\vU^{\star})^{\top}\vx}_{\text{primera
         capa}}}_{\text{post-activación de la primera capa}}}_{\text{salida de la RN}}
     \end{equation}
-    En concreto, el PCA puede interpretarse como \textit{el aprendizaje de un autocodificador de 
+    En concreto, el PCA puede interpretarse como \textit{el aprendizaje de un auto-codificador de 
     dos capas},\footnote{De hecho, como hemos mencionado en el
         capítulo anterior, el PCA fue uno de los primeros problemas en el que se
     utilizaron redes neuronales para resolverlo \cite{Oja1982SimplifiedNM,Baldi89}.} 
@@ -1008,7 +1008,7 @@ como decodificador y $\cD = \cE^{-1}$. En forma de diagrama:
     \hspace{2mm}}   \hat{\vx}.
     \label{eqn:autoencoding-DL}
 \end{equation}
-Observamos que el par de autocodificadores $(\cE, \cD)$ para el aprendizaje
+Observamos que el par de auto-codificadores $(\cE, \cD)$ para el aprendizaje
 completo de un diccionario es simétrico, al igual que en el caso de un único
 subespacio lineal, lo que hace que la tarea computacional de codificación y decodificación no
 sea más difícil que en el caso lineal. Por otro lado, la tarea
@@ -1908,13 +1908,13 @@ las cuales se seleccionan en función de la tarea de interpretación deseada.\fo
 con mayor detalle en el \Cref{ch:applications}.} Para simplificar, utilizaremos $h$ para denotar el mapa de 
 características preseleccionado en cuestión, con características de dimensión $D$; dadas $N$ entradas de 
 muestra, sea $\vH \in \bR^{D \times N}$ la matriz completa de características de $h$.
-A continuación, se entrena un autocodificador disperso $f : \bR^D \to \bR^d$, con
+A continuación, se entrena un auto-codificador disperso $f : \bR^D \to \bR^d$, con
 un decodificador $g : \bR^d \to \bR^D$, mediante la función de pérdida 
 LASSO \eqref{eq:sparse_dl_lasso}:
 \begin{equation}\label{eq:sae-loss}
     \min_{f, g} \| \vH - g(f(\vH))) \|_F^2 + \lambda \|f(\vH)\|_1 ,
 \end{equation}
-donde el autocodificador disperso $f$ adopta la forma de una red neuronal de una sola capa,
+donde el auto-codificador disperso $f$ adopta la forma de una red neuronal de una sola capa,
 es decir, $f(\vh_i) = \sigma(\vW_{\mathrm{enc}}(\vh_i - \vb)
 + \vb_{\mathrm{enc}})$, donde $\sigma(x) = \max \{x, 0\}$ es la función de activación ReLU
 y el decodificador $g$ es lineal, de modo que $g(\vz_i)
@@ -1965,7 +1965,7 @@ y, tras algunas operaciones algebraicas, expresarlo como
 Dada la posibilidad de modificar la inicialización del código disperso $\vZ^1$ como
 un parámetro aprendible (que, en el marco actual, debe tener todas las columnas
 iguales al mismo vector aprendible), esto adopta la forma de una red neuronal ReLU
-con sesgo aprendible, ¡idéntica al autocodificador disperso $f$!
+con sesgo aprendible, ¡idéntica al auto-codificador disperso $f$!
 Además, para \textit{decodificar} los códigos dispersos aprendidos $\vZ^2$, lo más natural es
 aplicar el diccionario aprendido $\vZ^2 \mapsto \vA^1 \vZ^2$. Entonces, la única
 diferencia entre esto y el decodificador SAE $g$ es el sesgo adicional $\vb$,
@@ -1989,7 +1989,7 @@ el \Cref{ch:consistent-representations}.
 En el contexto supervisado, LISTA ofrece un análogo de red neuronal profunda de
 la iteración de codificación dispersa, con diccionarios aprendidos por capas, inspirado en
 la minimización alternada; incluso en el contexto no supervisado, se puede aplicar la misma metodología
-al aprendizaje, al igual que con los autocodificadores dispersos.
+al aprendizaje, al igual que con los auto-codificadores dispersos.
 Pero la relación entre los algoritmos de optimización
 que buscan estructuras de baja dimensión y las arquitecturas de redes profundas es mucho más 
 profunda que eso y sugiere una variedad de arquitecturas de aprendizaje neuronal escalables 
@@ -2026,7 +2026,7 @@ la optimización hacia adelante y el aprendizaje hacia atrás. Esta
 distinción entre las actualizaciones hacia adelante de las «características» efímeras
 $\vZ$ de los datos $\vX$ y las actualizaciones hacia atrás de los parámetros
 persistentes $\vA$  sigue observándose en las redes neuronales y los
-autocodificadores actuales; hablaremos mucho más sobre ello en
+auto-codificadores actuales; hablaremos mucho más sobre ello en
 el \Cref{ch:deep-networks} y el \Cref{ch:consistent-representations}.
 
 Obsérvese que el esquema por capas anterior también sugiere una alternativa plausible

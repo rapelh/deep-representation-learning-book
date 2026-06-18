@@ -87,7 +87,7 @@ Tal como se estudió anteriormente en este libro (especialmente en el
 \Cref{ch:consistent-representations}), los sistemas de bucle cerrado alinean una 
 representación interna con las observaciones sensoriales del mundo externo. Pueden 
 mejorar continuamente la distribución interna aprendida y su representación para 
-lograr progresivamente la consistencia o la autocoherencia. El siguiente paso 
+lograr progresivamente la consistencia o la auto-coherencia. El siguiente paso 
 inmediato consiste en desarrollar sistemas de memoria verdaderamente cerrados, 
 ilustrados en la \Cref{fig:open-to-closed}, que aprendan de manera autónoma y continua 
 distribuciones generales de datos y se perfeccionen basándose en la 
@@ -191,8 +191,8 @@ filtro de Kalman; véase \cite[Apéndice B]{MaY2003} o \citep{peng2025mathematic
     \centering
     \includegraphics[width=0.99\linewidth]{\toplevelprefix/chapters/chapter9/figs/loops.png}
     \caption{Estructura hipotética de la corteza cerebral. La corteza
-        es un sistema de autoencodificación masivamente paralelo y distribuido
-        que consiste en una jerarquía de autoencodificadores de bucle cerrado. Estos
+        es un sistema de auto-codificación masivamente paralelo y distribuido
+        que consiste en una jerarquía de auto-codificadores de bucle cerrado. Estos
         extraen información de sus entradas y maximizan la
         ganancia de información de las representaciones que generan. Dichos procesos se llevan a cabo en múltiples
     niveles de la jerarquía con distintos grados de abstracción de la información.}
@@ -206,7 +206,7 @@ aunque están interconectadas en forma dispersa. Por lo tanto, creemos que para 
 sistema de memoria más escalable y estructurado, debemos considerar
 arquitecturas que emulen las de la corteza. La \Cref{fig:loops}
 muestra una arquitectura hipotética de este tipo: un sistema masivamente distribuido y
-jerárquico compuesto por numerosos módulos de autoencodificación de bucle cerrado
+jerárquico compuesto por numerosos módulos de auto-codificación de bucle cerrado
 que funcionan en gran medida en paralelo.\footnote{En la bibliografía existen elementos de este tipo de
     arquitecturas hipotéticas en diversas formas, como
     las redes de codificación predictiva \citep{millidge2022predictive}, que cuentan
@@ -216,10 +216,9 @@ proyecciones de datos de cada modalidad sensorial. Nuestro análisis en la
 \Cref{sec:measurement-self-consistency} del
 \Cref{ch:conditional-inference} sugiere que dicha detección
 y aprendizaje paralelos de una distribución de baja dimensión son teóricamente
-posibles. Higher-level (lossy) autoencoders can then be learned based
-on outputs of lower-level ones to develop more sparse and
-higher-level ``abstractions'' of the representations learned by the
-lower levels.
+posibles. Luego se pueden entrenar auto-codificadores de nivel superior (con pérdida) basándose
+en las salidas de los de nivel inferior para desarrollar «abstracciones» más dispersas y
+de mayor nivel de las representaciones aprendidas por los niveles inferiores.
 
 La arquitectura de sistema distribuida, jerárquica y de bucle cerrado
 que se ilustra en la \Cref{fig:loops} comparte muchas características con la

@@ -100,7 +100,7 @@ de dicha representación. Hemos estudiado algunos casos especiales importantes
 en el \Cref{ch:classic-models} donde los soportes de la distribución son
 lineales por tramos. En
 la \Cref{sec:consistent-representation}, estudiaremos cómo
-extender el autoencoder a clases más generales de distribuciones cuyos
+extender el auto-codificador a clases más generales de distribuciones cuyos
 soportes son no lineales, tal como se ilustra en la figura
 \ref{fig:manifold-autoencoding}, al tiempo que se garantiza la consistencia
 entre $\X$ y $\hat \X$.
@@ -143,7 +143,7 @@ Demostraremos los vínculos entre los fundamentos que hemos desarrollado en el
 y los últimos avances en la \Cref{sec:RAE},
 % \Cref{sec:SimDINO}, where we describe ``open-loop'' representation learning
 % in SimDINO, and in \Cref{sec:RAE-implement},
-donde el marco del «autoencoder de representaciones» muestra cómo las representaciones aprendidas en bucle abierto
+donde el marco del «auto-codificador de representaciones» muestra cómo las representaciones aprendidas en bucle abierto
 (que analizamos en la \Cref{sec:SimDINO} y que
 revisaremos)
 %learned from DINO/SimDINO 
@@ -299,7 +299,7 @@ la \Cref{fig:AE}.
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter6/figs/autoencoder.png}
-    \caption{Ilustración de un autoencoder típico, como el PCA, que busca
+    \caption{Ilustración de un aut-codificador típico, como el PCA, que busca
     una representación de baja dimensión $\z$ para datos de alta dimensión $\vx$.}
     \label{fig:AE}
 \end{figure}
@@ -458,9 +458,9 @@ En comparación con el caso sencillo del PCA, utilizamos el mismo objetivo de re
 para el aprendizaje, pero una clase de modelos no lineales mucho más compleja para
 parametrizar y entrenar el codificador y el decodificador. Aunque las propiedades de aproximación universal,
 como las de Cybenko, sugieren que, \textit{en principio},
-es posible aprender autoencoders consistentes mediante este marco---puesto que, para
-cualquier muestra aleatoria de datos, siempre que se disponga de suficientes parámetros, existen tales pares de autoencoders---
-encontrarlos mediante descenso por gradiente muchas veces resulta extremadamte no trivial.
+es posible aprender auto-codificadores consistentes mediante este marco ---puesto que, para
+cualquier muestra aleatoria de datos, siempre que se disponga de suficientes parámetros, existen tales pares de 
+auto-codificadores--- encontrarlos mediante descenso por gradiente muchas veces resulta extremadamte no trivial.
 Además, para obtener un objetivo de reconstrucción y un modelo suficientemente informativos
 para la
 distribución de datos del mundo real de alta dimensión, como las imágenes, el número necesario
@@ -546,7 +546,7 @@ más profunda
 
 A la luz de teoremas de aproximación universal como el de Cybenko, uno
 podría preguntarse inicialmente por qué, desde un punto de vista conceptual, se deberían preferir
-los autoencoders más profundos a los menos profundos.
+los auto-codificadores más profundos a los menos profundos.
 Desde una perspectiva puramente expresiva, podemos entender este fenómeno
 desde un ángulo geométrico relacionado con la tarea de aplanar la variedad no lineal
 sobre la que se sustenta nuestra distribución hipotética de datos. Un enfoque puramente
@@ -580,7 +580,7 @@ la distribución de los datos puede ser una mezcla de unos pocos subespacios
 o subvariedades de baja dimensión. En estos casos, ya no es viable
 imponer un único espacio de baja dimensión para todas las características en conjunto.
 
-El autoencoder disperso está diseñado para resolver algunas de estas limitaciones. En
+El auto-codificador disperso está diseñado para resolver algunas de estas limitaciones. En
 particular, la dimensión del espacio de características puede ser igual o
 incluso mayor que la del espacio de datos, tal como se ilustra en la
 \Cref{fig:SAE}. Sin embargo, se requiere que las características sean muy
@@ -601,8 +601,8 @@ Esto es muy similar al objetivo de reducción de la tasa de dispersión
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter6/figs/SAE_diagram.png}
-    \caption{Ilustración de un autoencoder disperso (SAE), en comparación con
-    la de un autoencoder típico (AE) en la \Cref{fig:AE}. }
+    \caption{Ilustración de un auto-codificador disperso (SAE), en comparación con
+    la de un auto-codificador típico (AE) en la \Cref{fig:AE}. }
     \label{fig:SAE}
 \end{figure}
 
@@ -724,7 +724,7 @@ distribuciones gaussianas:
     \vx \mid \vz &\sim \cN(g_1(\vz), \diag(e^{g_2(\vz)}) \vI),
 \end{align*}
 donde $g = (g_1, g_2)$ son redes profundas con parámetros $\vtheta$, que
-corresponden al \textit{decodificador} del autoencoder.
+corresponden al \textit{decodificador} del auto-codificador.
 De manera similar, para la distribución a posteriori aproximada, utilizamos
 una distribución gaussiana cuyos parámetros vienen dados por un
 MLP codificador $f = (f_1, f_2)$ con parámetros $\veta$:
@@ -820,7 +820,7 @@ nuevas muestras a partir de ella, como se ilustra en la \Cref{fig:VAE-SD}.
 \begin{figure}[t]
     \centering\includegraphics[width=0.8\linewidth]{\toplevelprefix/chapters/chapter6/figs/VAE-SD.png}
     \caption{Diagrama del modelo de difusión latente tomado del trabajo de
-        \cite{rombach2022high}, que utiliza un autoencoder variacional
+        \cite{rombach2022high}, que utiliza un auto-codificador variacional
         (recuadro rojo a la izquierda) para aprender una representación latente de los
         datos $\x$. A continuación, se aprende un modelo de difusión/eliminación de ruido (recuadro verde en el
         centro) para acceder a la representación $\z$. El bloque
@@ -841,7 +841,7 @@ las distribuciones a posteriori gaussianas en las VAE se aplican punto por punto
 se aprende ninguna estructura conjunta entre las muestras, lo que puede limitar considerablemente
 la calidad de las representaciones aprendidas.
 Estos retos han impulsado el desarrollo de enfoques alternativos,
-como los autoencoders de representación (RAE), que se
+como los auto-codificadores de representación (RAE), que se
 presentarán a continuación y cuyo objetivo es superar algunas de las limitaciones de los VAE,
 sin dejar de proporcionar representaciones latentes eficaces para las tareas de modelado generativo.
 
@@ -968,10 +968,10 @@ sin dejar de proporcionar representaciones latentes eficaces para las tareas de 
 \subsection{Aprendizaje conjunto de representación y distribución}
 \label{sec:RAE}
 
-Los enfoques anteriores para entrenar pares de autoencoders con el fin de aprender representaciones
+Los enfoques anteriores para entrenar pares de auto-codificadores con el fin de aprender representaciones
 comparten una limitación común: no \textit{organizan explícitamente} el
 espacio de representaciones $\vZ$, sino que solo lo fomentan de manera indirecta (por ejemplo, imponiendo
-la dispersión en el autoencoder disperso o la gaussianidad en el VAE).
+la dispersión en el auto-codificador disperso o la gaussianidad en el VAE).
 Como insinuamos al principio del capítulo, ya hemos visto anteriormente (en el \Cref{ch:lossy-compression}) 
 cómo obtener resultados mucho mejores, aprendiendo una representación $\vZ$ mediante la maximización de 
 la reducción de la tasa de codificación $\Delta
@@ -1028,7 +1028,7 @@ presentado en el \Cref{ch:deep-networks}.
     \label{fig:RAE}
 \end{figure}
 
-Por lo tanto, en definitiva, queremos entrenar un autoencoder para los datos $\X$
+Por lo tanto, en definitiva, queremos entrenar un auto-codificador para los datos $\X$
 cuya representación $\Z$ sea fácilmente accesible.
 Concretamente, deseamos aprender un codificador $f$ y un decodificador $g$ tales que:
 \begin{enumerate}
@@ -1117,7 +1117,7 @@ la geometría subyacente del espacio de representación.
 Una vez que hayamos entrenado el filtro de ruido, podemos utilizarlo para generar nuevas muestras a partir de
 la distribución de representaciones aprendida mediante un proceso de difusión, tal y como hemos
 mostrado en el \Cref{ch:denoising}. Con esto queda completado el aprendizaje de
-un \textit{autoencoder de representaciones} (RAE) con una distribución de representaciones accesible.
+un \textit{auto-codificador de representaciones} (RAE) con una distribución de representaciones accesible.
 En el \Cref{ch:applications} (específicamente en la \Cref{sec:RAE-implement}), veremos una implementación específica de
 RAE y sus aplicaciones en la generación de imágenes.
 
@@ -1339,7 +1339,7 @@ f(\X,\bm\theta)$ y volver al espacio de datos $\x$: $\hat \X = g(\Z, \bm\eta)$:
     \label{eqn:autoencoding-ch6}
 \end{equation}
 y comprueba cuán cerca están $\X$ y $\hat \X$. Esto forma un
-autoencoder, que es lo que hemos estudiado en profundidad anteriormente en este capítulo.
+auto-codificador, que es lo que hemos estudiado en profundidad anteriormente en este capítulo.
 
 \paragraph{Medición de distancias en el espacio de características.}
 Sin embargo, como hemos comentado anteriormente, si no tenemos la opción de
@@ -1882,7 +1882,7 @@ cálculo de la media y la covarianza, véase el trabajo de
 \end{figure*}
 
 \paragraph{Aprendizaje incremental de LDR con una restricción de memoria antigua.}
-Obsérvese que, con el autoencoder aprendido
+Obsérvese que, con el auto-codificador aprendido
 \eqref{eqn:autoencoding-ch6}, se pueden reproducir y utilizar las imágenes, por ejemplo
 $\hat\X_{old} = g(\Z_{old}, \bm \eta)$, asociadas con las características de la memoria
 para evitar el olvido mientras se aprenden nuevas clases. Así es
@@ -2053,7 +2053,7 @@ calidad visual, ya que capturamos fielmente la esencia de cada imagen.
 \end{figure}
 
 \paragraph{Subespacios principales de las características aprendidas.}
-La mayoría de los métodos generativos basados en memoria utilizan autoencoders, VAE o
+La mayoría de los métodos generativos basados en memoria utilizan auto-codificadores, VAE o
 GAN para la reproducción. La estructura o distribución de las
 características aprendidas $\Z_j$ para cada clase no está clara en el espacio de características.
 Las características $\Z_j$ de la memoria LDR, por otro lado, tienen
@@ -2381,10 +2381,10 @@ Los trabajos que hemos destacado a lo largo del capítulo, especialmente el de
 \cite{Hinton504}, sirvieron como catalizadores del interés por la investigación en redes neuronales
 en una época en la que, de otro modo, estas no eran tan destacadas en el panorama de la investigación
 en aprendizaje automático.
-En la práctica actual, los autocodificadores siguen siendo componentes fundamentales de muchos sistemas a gran escala
+En la práctica actual, los auto-codificadores siguen siendo componentes fundamentales de muchos sistemas a gran escala
 destinados a generar datos altamente estructurados, como datos visuales, datos de voz
 y datos moleculares, especialmente el enfoque VQ-VAE
-\cite{van-den-Oord2017-jr}, que se fundamenta en la metodología de los autoencoders variacionales
+\cite{van-den-Oord2017-jr}, que se fundamenta en la metodología de los auto-codificadores variacionales
 que analizamos en la \Cref{sec:vae}.
 El problema central de la auto-codificación sigue revistiendo una importancia intelectual fundamental
 debido a su estrecha vinculación con el aprendizaje de representaciones y anticipamos que

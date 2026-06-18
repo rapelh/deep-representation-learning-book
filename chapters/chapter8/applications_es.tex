@@ -142,7 +142,7 @@ se relacionan con los principios presentados anteriormente en el libro.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/autoencoder_pipeline.pdf}
-    \caption{\small\textbf{Un diagrama del proceso del autoencoder.}
+    \caption{\small\textbf{Un diagrama del proceso del auto-codificador.}
         Los datos \(\vX \in \cD\) se introducen en la función de incrustación
         \(f_{\theta}^{\emb}\) para obtener una secuencia en \((\R^{d})^{*}\). La
         incrustación pasa por una red troncal del codificador
@@ -198,7 +198,7 @@ que en el resto del libro tratamos dos tipos diferentes de arquitecturas de mode
         f_{\theta}(\vX)\) y \(\vz_{\theta}(\vX) \doteq
         f_{\theta}^{\ext}(\vZ_{\theta}(\vX))\). El proceso general
         se muestra en la \Cref{fig:overall_encoder_pipeline}.
-    \item Una arquitectura de \textit{autoencoder}, que se compone de
+    \item Una arquitectura de \textit{auto-codificador}, que se compone de
         varias componentes:
         \begin{itemize}
             \item Una \textit{incrustación} \(f_{\theta}^{\emb} \colon
@@ -2112,7 +2112,7 @@ En esta sección, se muestra cómo aplicar la arquitectura CRATE al
 problema del \textit{completamiento de imágenes}, también conocido como \textit{auto-codificación enmascarada} 
 (MAE), que puede considerarse una generalización del
 problema del completamiento de matrices de rango bajo tratado en el \Cref{ch:classic-models}.
-El autoencoder enmascarado, desde su introducción en el contexto del aprendizaje profundo
+El auto-codificador enmascarado, desde su introducción en el contexto del aprendizaje profundo
 por \cite{he2022masked}, ha sido un método básico y sencillo
 de aprendizaje de representaciones auto-supervisado, cuyo objetivo es dotar
 a cada característica de parche dentro de \(\vZ_{\theta}\) de información agregada
@@ -2156,7 +2156,7 @@ En esencia, esto significa que las características \(\vZ_{\theta}(\vX_{m})\) de
 la vista \(\vX_{m} \doteq v_{m}(\vX)\) deben contener información sobre
 los \textit{parches enmascarados}, así como sobre los parches no enmascarados. Desde la
 perspectiva de los modelos transparentes white-box basados en compresión descritos en
-\Cref{ch:deep-networks}, si un autoencoder white-box  \((f_{\theta},
+\Cref{ch:deep-networks}, si un auto-codificador white-box  \((f_{\theta},
 g_{\eta})\) tiene éxito en esta tarea, significa que los
 subespacios y diccionarios aprendidos realizan una codificación \textit{redundante} de con compresión
 los datos, de tal manera que puede reconstruir las partes faltantes de los datos a partir de
@@ -2175,7 +2175,7 @@ parches con información local y global similar deberían estar relacionadas
 \centering
 \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/crate_ae_backbone.pdf}
 \caption{\small\textbf{Una capa del codificador y del decodificador en una
-    estructura central de autoencoder CRATE.} Tanto las capas del codificador como las del decodificador pasan
+    estructura central de auto-codificador CRATE.} Tanto las capas del codificador como las del decodificador pasan
     sus entradas a través de una auto-atención de subespacio de múltiples cabezas y un
     paso de aprendizaje de diccionario o codificación de diccionario. Tenga en cuenta que las
     capas del codificador y del decodificador están diseñadas simétricamente; el objetivo conceptual
@@ -2254,7 +2254,7 @@ es posible establecer directamente \(\tilde{\vE}^{\pos}\) igual a la
 codificación posicional \(\vE^{\pos}\) y utilizar las mismas codificaciones posicionales interpoladas
 para cada entrada tanto en el codificador como en el decodificador.}
 
-Esta arquitectura es un autoencoder white-box \((f_{\theta},
+Esta arquitectura es un auto-codificador white-box \((f_{\theta},
 g_{\eta})\), donde (recordemos) \(f_{\theta} = f_{\theta}^{\backbone}
 \circ f_{\theta}^{\emb}\) y \(g_{\eta} = g_{\eta}^{\unemb} \circ
 g_{\eta}^{\backbone}\). En particular, podemos usarla para calcular una
@@ -2296,7 +2296,7 @@ gradientes mencionados anteriormente. Para cada paso temporal \(k\), se hace lo 
 
 \subsection{Evaluación} \label{sub:image_completion_optimization_1}
 
-Esta es la primera red de autoencoders que se analiza en este capítulo. Se utiliza
+Esta es la primera red de auto-codificador que se analiza en este capítulo. Se utiliza
 la misma vista recortada central \(v_{\cc}\) que en
 \Cref{sub:contrastive_learning_evals,sub:image_classification_evals},
 redimensionando la imagen final a un cuadrado con una longitud de lado de \(S_{\cc} =
@@ -2423,7 +2423,7 @@ para aprender una auto-codificación de imágenes naturales $\x \sim p(\x)$:
 \x\xrightarrow{\hspace{1mm} \mathcal{E} = f \hspace{1mm}} \z
 \xrightarrow{\hspace{1mm} \mathcal{D} = g \hspace{1mm}} \hat{\x}.
 \end{equation}
-donde $\z = f(\x)$ es un determinado espacio de características. Este autoencoder está diseñado 
+donde $\z = f(\x)$ es un determinado espacio de características. Este auto-codificador está diseñado 
 para aprender la correlación, o coocurrencia, entre los parches que componen una imagen natural.
 
 Sin embargo, el MAE no impone que la distribución de las características aprendidas $\z$ tenga 
@@ -2465,7 +2465,7 @@ al de maximizar la tasa de codificación de todas las características.}
 
 Aquí presentamos una implementación muy utilizada de una VAE para datos de imágenes, siguiendo el 
 modelo de compresión perceptual empleado en Stable Diffusion~\citep{rombach2022high}. La idea clave 
-es entrenar un autoencoder que mapee imágenes de alta resolución en un espacio latente de baja 
+es entrenar un auto-codificador que mapee imágenes de alta resolución en un espacio latente de baja 
 dimensión, al tiempo que se impone una regularización KL sobre la distribución latente para fomentar 
 que se acerque a una gaussiana estándar $\mathcal{N}(\boldsymbol{0}, \boldsymbol{I})$. Este espacio 
 latente puede funcionar posteriormente como un espacio de trabajo eficaz para modelos generativos posteriores, como 
@@ -2486,7 +2486,7 @@ etapas, un bloque intermedio compuesto por dos bloques ResNet adicionales refina
 Por último, una convolución de salida proyecta las características en $2c$ canales, que se dividen en las 
 dos magnitudes que parametrizan la distribución latente (descrita a continuación).
 
-A diferencia de un autoencoder estándar---y esto es fundamental---el codificador no genera un único 
+A diferencia de un auto-codificador estándar---y esto es fundamental---el codificador no genera un único 
 vector latente determinista. En su lugar, parametriza una distribución gaussiana diagonal posterior 
 $q(\z | \x) = \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\sigma}^2 \boldsymbol{I})$ generando dos magnitudes:
 \begin{itemize}
@@ -2514,13 +2514,13 @@ introducido en ~\citep{esser2021taming}.
 \subsubsection{Datos}
 Suponemos que se dispone de un conjunto de datos $\mathcal{D} = \{\x_i\}_{i=1}^N$ de muestras procedentes 
 de la distribución original de los datos. Cada muestra es una imagen de la forma $\x \in \mathbb{R}^{H \times W \times 3}$, 
-donde $H$ y $W$ son la altura y el ancho, respectivamente. En~\citep{rombach2022high}, el autoencoder se 
+donde $H$ y $W$ son la altura y el ancho, respectivamente. En~\citep{rombach2022high}, el auto-codificador se 
 entrena en el conjunto de datos OpenImages con imágenes recortadas a una resolución de $256 \times 256$.
 
 Dado el factor de submuestreo $f = 8$ y el número de canales latentes $c = 4$, el codificador mapea cada imagen 
 de entrada a un tensor latente $\z \in \mathbb{R}^{H/f \times W/f \times c}$. Para la resolución de entrenamiento 
 predeterminada, esto da como resultado un tensor latente de tamaño $32 \times 32 \times 4$. En el momento de la 
-inferencia, el autoencoder se generaliza a otras resoluciones; por ejemplo, una entrada 
+inferencia, el auto-codificador se generaliza a otras resoluciones; por ejemplo, una entrada 
 de $512 \times 512 \times 3$ se codifica en un latente de $64 \times 64 \times 4$.
 
 \subsubsection{Objetivo y métricas de evaluación}
@@ -2590,7 +2590,7 @@ a partir de su representación aprendida. Por lo tanto, es lógico preguntarse: 
 consistente la representación aprendida por métodos como DINO y puede
 decodificarse de manera efectiva en un marco de auto-codificación?
 
-Para averiguarlo, podemos entrenar un \textit{autoencoder de representación}
+Para averiguarlo, podemos entrenar un \textit{auto-codificador de representación}
 (RAE) que consta de un codificador de representación preentrenado (por ejemplo,
 DINO) y un decodificador entrenable, siguiendo el trabajo:\\
 \centerline{\url{https://rae-dit.github.io}.}\\
@@ -2655,7 +2655,7 @@ indica una mejor calidad de reconstrucción.
 \subsubsection{Resultados experimentales}
 Podemos comparar RAE entrenados con diferentes codificadores preentrenados,
 entre ellos DINOv2, MAE y SigLIP2. Como referencia, también consideramos un
-autoencoder variacional (VAE) básico entrenado directamente sobre los píxeles de la imagen
+auto-codificador variacional (VAE) básico entrenado directamente sobre los píxeles de la imagen
 sin ningún codificador preentrenado. Una opción común es el SD-VAE.
 Los decodificadores RAE se entrenan en el conjunto de entrenamiento ImageNet-1K y
 se evalúan en el conjunto de validación ImageNet-1K. Los resultados se
@@ -3011,7 +3011,7 @@ la Sección~\ref{sec:DiT-implement}.
 Mientras que ADM opera directamente en el espacio de píxeles, Rombach et al.~\citep{rombach2022high} 
 observaron que gran parte de la carga computacional se dedica a modelar detalles de alta frecuencia 
 que son irrelevantes desde el punto de vista perceptivo. Su idea clave es separar 
-la \emph{compresión perceptual} del \emph{modelado generativo}: un autoencoder preentrenado 
+la \emph{compresión perceptual} del \emph{modelado generativo}: un auto-codificador preentrenado 
 (Sección~\ref{sec:VAE-implement}) primero comprime la imagen en un espacio latente de baja dimensión 
 y luego el modelo de difusión opera completamente dentro de este espacio latente. Para una imagen de 
 $256 \times 256$ con un factor de submuestreo $f = 8$, U-Net procesa un tensor latente de 
@@ -3553,7 +3553,7 @@ detallamos la implementación de cada componente.
 
 
 \paragraph{Componente 1: Compresión perceptual (el VAE).}
-El primer pilar de la arquitectura es un autoencoder variacional (VAE) entrenado para 
+El primer pilar de la arquitectura es un auto-codificador variacional (VAE) entrenado para 
 aprender a abstraer los detalles de alta frecuencia que, aunque son insignificantes perceptualmente,
 resultan computacionalmente costosos de modelar. Tal 
 y como se presentó en la Sección~\ref{sec:VAE-implement}, esta componente define el 
@@ -4601,7 +4601,7 @@ formas 3D de alta calidad que se ajustan mejor a las entradas condicionales visu
 
 El modelo de difusión latente de formas alineadas (ASLDM) se basa en un
 transformer similar a UNet~\cite{10203178}, con el objetivo de ajustar una distribución
-de las incrustaciones latentes de formas, acompañado de un autoencoder para
+de las incrustaciones latentes de formas, acompañado de un auto-codificador para
 codificar muestras de datos en el espacio latente y reconstruir las
 muestras de datos a partir del latente muestreado. Al aprender en el espacio latente,
 el modelo de difusión latente es computacionalmente eficiente, y

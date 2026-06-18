@@ -98,7 +98,7 @@ la relación general entre $\x$ y $\y$.
     \ref{fig:image-text-completion} muestra algunos ejemplos de este tipo de
     tareas. De hecho, son precisamente estas tareas las que han inspirado
     los métodos de entrenamiento de los modelos modernos de gran tamaño para la generación de texto (como
-    GPT) y el completamiento de imágenes (como el autoencoder enmascarado), que
+    GPT) y el completamiento de imágenes (como el auto-codificador enmascarado), que
     estudiaremos con mayor detalle más adelante.
     \begin{figure}
         \centering
@@ -648,8 +648,8 @@ el método de descenso de gradiente.
 \end{figure}
 
 La Figura \ref{fig:mae_autoencoding-small} muestra algunos resultados representativos
-del autoencoder enmascarado así diseñado. Para obtener más detalles sobre la implementación 
-y los resultados del autoencoder enmascarado para el completamiento de imágenes naturales
+del auto-codificador enmascarado así diseñado. Para obtener más detalles sobre la implementación 
+y los resultados del auto-codificador enmascarado para el completamiento de imágenes naturales
 se recomienda consultar el Capítulo \ref{ch:applications} \Cref{sec:image_completion}.
 \begin{figure}[t]
     \centering
@@ -1640,7 +1640,7 @@ desarrollado numerosos
 algoritmos de consistencia de mediciones de este tipo para la reconstrucción de imágenes médicas,
 incluidos los enfoques mejorados de \textcite{song2024solving} y
 \textcite{rout2023solving} (que utilizan modelos de difusión latente, tal como los hemos
-    desarrollado para los autoencoders de representación en el
+    desarrollado para los auto-codificadores de representación en el
 \Cref{ch:consistent-representations}).
 La \Cref{fig:mri-reconstruction-visual} muestra comparaciones visuales de imágenes de
 resonancia magnética reconstruidas en tres muestras diferentes, comparando FISTA-TV (una versión clásica
@@ -3102,7 +3102,7 @@ prompt de texto tokenizado $\vY \in
 \bR^{D_{\mathrm{text}} \times N}$, en lugar de una etiqueta de clase; (ii)
 La eliminación del ruido de la imagen se
 realiza en el espacio «latente» en lugar de sobre los píxeles sin procesar, utilizando un par 
-de autoencoders variacionales especializados y preentrenados $f : \bR^{D_{\mathrm{img}}} \to
+de auto-codificadores variacionales especializados y preentrenados $f : \bR^{D_{\mathrm{img}}} \to
 \bR^{d_{\mathrm{img}}}$, $g : \bR^{d_{\mathrm{img}}} \to
 \bR^{D_{\mathrm{img}}}$ (véase \Cref{sec:vae,sec:auto-encode-img-gen}), donde $f$
 es el codificador y $g$ es el decodificador.

@@ -1033,7 +1033,7 @@ proyectándola sobre el subespacio de baja dimensión generado por \(\vU\):
 Si el ruido es pequeño y el subespacio de baja dimensión \(\vU\) se
 aprende correctamente, esperamos que \(\vx \approx \hat{\vx}\).
 Por lo tanto, PCA es un caso especial de lo que se conoce como esquema de 
-«autocodificador», que codifica los datos proyectándolos sobre un espacio 
+«auto-codificador», que codifica los datos proyectándolos sobre un espacio 
 de menor dimensión, y decodifica un código de menor dimensión para volver 
 al espacio original:
 \begin{equation}
@@ -1228,7 +1228,7 @@ se sabe que los \(\vz_{i}\) son dispersos. Este es el
 dado que la distribución de los datos \(\vX\) es la imagen de una
 distribución dispersa estándar \(\vZ\) bajo una transformación lineal
 \(\vA\), queremos aprender tanto \(\vA\) como su mapeo «inverso»
-\(\cE\) para obtener un autocodificador:
+\(\cE\) para obtener un auto-codificador:
 \begin{equation}
     \vX   \xrightarrow{\hspace{2mm} \cE\hspace{2mm}}  \vZ
     \xrightarrow{\hspace{2mm} \vA \hspace{2mm}} \hat{\vX}.
@@ -1658,7 +1658,7 @@ mínima de descripción\cite{Rissanen-1978} y la minimización de la energía li
 (Helmholtz). Los trabajos posteriores del grupo de Hinton \cite{Hinton504}
 demostraron empíricamente que esa auto-codificación es capaz de aprender
 representaciones significativas de baja dimension para imágenes del mundo real.
-Pierre Baldi presentó un estudio exhaustivo sobre los autoencoders en 2011 
+Pierre Baldi presentó un estudio exhaustivo sobre los auto-codificadores en 2011 
 \cite{Baldi2011}, justo antes de que las redes profundas alcanzaran una gran 
 popularidad. Analizaremos las medidas de complejidad y la auto-codificación con 
 más detalle en la \Cref{sec:unifying-approach} y presentaremos un estudio 
@@ -2326,11 +2326,11 @@ mapea la característica o los datos codificados \(\vZ\) de vuelta al espacio de
     \label{eqn:auto-encoding}
 \end{equation}
 A este par de codificación-decodificación \((\cE, \cD)\) lo denominamos
-\textit{autocodificación}. La \Cref{fig:autoencoder} ilustra este proceso.
+\textit{auto-codificación}. La \Cref{fig:autoencoder} ilustra este proceso.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth]{\toplevelprefix/chapters/chapter1/figs/Autoencoder.jpg}
-    \caption{Ilustración de la arquitectura de un autocodificador.}
+    \caption{Ilustración de la arquitectura de un auto-codificador.}
     \label{fig:autoencoder}
 \end{figure}
 

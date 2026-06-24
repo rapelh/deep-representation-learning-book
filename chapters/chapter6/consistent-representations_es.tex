@@ -91,11 +91,13 @@ en términos de alguna medida de similitud:
 \begin{equation}
     d(\X, \hat \X).
 \end{equation}
-Esto nos lleva al concepto de {\em representación auto-consistente}. Como
+Esto nos lleva al concepto de {\em representación consistente}.\footnote{Téngase en cuenta que, 
+en este contexto, el concepto de consistencia es de naturaleza empírica o inductiva. Es 
+diferente del concepto de consistencia lógica y deductiva en matemáticas, también conocido como 
+el Principio de Hilbert, del cual hablaremos con más detalle en el capítulo \ref{ch:future}. } Como
 ya mencionamos brevemente en el
-\Cref{ch:intro} (véase la \Cref{fig:autoencoder}), la {\em auto-codificación}
----que integra los
-procesos de codificación y decodificación---constituye un marco natural para el aprendizaje
+\Cref{ch:intro} (véase la \Cref{fig:autoencoder}), la {\em auto-codificación} ---que integra los
+procesos de codificación y decodificación--- constituye un marco natural para el aprendizaje
 de dicha representación. Hemos estudiado algunos casos especiales importantes
 en el \Cref{ch:classic-models} donde los soportes de la distribución son
 lineales por tramos. En
@@ -188,7 +190,7 @@ las tareas de finalización o generación condicionadas.
 \section{El aprendizaje de representaciones
 consistentes}\label{sec:consistent-representation}
 
-A continuación ofrecemos una definición formal de las representaciones consistentes, que
+A continuación ofrecemos una definición formal de representaciones consistentes, que
 están estrechamente relacionadas con el concepto de auto-codificación. %
 \begin{definition}[Representaciones consistentes]\label{def:bidirectional_rep}
     Dados los datos \(\vX\), una \textit{representación consistente} es un par
@@ -238,9 +240,9 @@ una opción habitual es minimizar el error de reconstrucción esperado:
     d(\X, \hat \X) = \mathbb{E}[\|\X - \hat\X\|_2^2].
 \end{equation}
 Para garantizar la coherencia distribucional, una opción habitual consiste en minimizar una
-determinada distancia distributiva, como la divergencia KL
+determinada distancia entre distribuciones, como la divergencia KL
 \footnote{Cabe señalar que, en el caso de distribuciones sin
-    soporte común---algo habitual en las distribuciones degeneradas---la divergencia KL
+    soporte común ---algo habitual en las distribuciones degeneradas--- la divergencia KL
     puede incluso no estar bien definida. De hecho, gran parte de la literatura sobre
     aprendizaje de distribuciones intenta abordar esta dificultad técnica
     sustituyéndola o aproximándola con algo bien definido y
@@ -257,7 +259,7 @@ un decodificador $g$ tales que
     \min_{f, g} [- \Delta R_{\epsilon}(\Z) + d(\X, \hat \X)].
     \label{eqn:autoencode-objective-ch5}
 \end{equation}
-Observe que el error de cuantización $\epsilon$ actúa como parámetro de trade-off
+Observe que el error de cuantización $\epsilon$ actúa como parámetro de compromiso 
 en esta relajación lagrangiana.
 
 En el resto de esta sección, estudiaremos cómo resolver este tipo de
@@ -268,7 +270,7 @@ Concluiremos con una instanciación eficiente de
 garantiza que el espacio de representación $\vZ$ sea compacto y estructurado, al tiempo que
 permite una reconstrucción precisa y un muestreo eficiente.
 
-\subsection{Autocodificación lineal mediante PCA}% or Online PCA}
+\subsection{Auto-codificación lineal mediante PCA}% or Online PCA}
 
 Según \cite{Baldi2011}, el término «autoencoder» fue
 introducido por primera vez por Hinton y Rumelhart \cite{Rumelhart1986} con el fin de que se pudiera
@@ -299,7 +301,7 @@ la \Cref{fig:AE}.
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter6/figs/autoencoder.png}
-    \caption{Ilustración de un aut-codificador típico, como el PCA, que busca
+    \caption{Ilustración de un auto-codificador típico, como el PCA, que busca
     una representación de baja dimensión $\z$ para datos de alta dimensión $\vx$.}
     \label{fig:AE}
 \end{figure}
@@ -324,7 +326,7 @@ Nótese que, en el caso del PCA, el término de reducción de la tasa en
 sobre la representación $\Z$ buscada es explícita: abarca todo el
 subespacio de menor dimensión\footnote{En este caso, se puede considerar que $\Delta R = 0$}.
 
-\subsection{Análisis de Componentes Principales no lineal y 
+\subsection{PCA no lineal y 
 auto-codificación}\label{sub:nonlinear-pca}\label{sec:NLPCA}
 Por supuesto, cabe esperar que la situación deje de ser tan sencilla
 cuando nos enfrentemos a distribuciones más complejas cuyas estructuras subyacentes
@@ -354,7 +356,7 @@ un soporte de muy baja dimensión).
 %notions of compact and structured features in the low-dimensional manifold
 %model for the data distribution.
 En general, el problema de aprender un mapeo de auto-codificación de este tipo para esta clase
-de distribuciones de datos se conoce como {\em análisis de componentes principales no lineal}
+de distribuciones de datos se conoce como {\em análisis no lineal de componentes principales}
 (NLPCA).
 
 \begin{figure}
@@ -478,7 +480,7 @@ medida de distorsión de tasa introducida en este libro.}
 Según la práctica actual de las redes profundas, se sabe que estas arquitecturas clásicas de redes poco profundas
 y anchas son bastante difíciles de
 entrenar de manera eficaz y eficiente mediante la retropropagación (BP), en parte
-debido al gradiente desvanecido de la función sigmoide. Por lo tanto, la
+debido a que el gradiente de la función sigmoide se desvanece. Por lo tanto, la
 práctica actual suele recomendar descomponer
 la transformada no lineal $f$ (o $g$) en una composición de
 muchas más capas de transformadas más simples, lo que da como resultado una arquitectura de red
@@ -568,7 +570,7 @@ una aplicabilidad limitada a distribuciones de datos de alta dimensión, como
 las imágenes, debido a una escalabilidad desfavorable, lo que ha motivado el desarrollo de métodos más
 flexibles para la auto-codificación incremental.
 
-\subsection{Autocodificación dispersa}
+\subsection{Auto-codificación dispersa}
 En los esquemas de auto-codificación mencionados anteriormente, la dimensión del espacio de características
 $d$ suele elegirse de modo que sea significativamente menor que la del espacio de datos
 original $D$, con el fin de imponer o promover explícitamente que la representación aprendida
@@ -612,7 +614,7 @@ dispersa se ha utilizado en el pasado
 de auto-codificación se basan, en cambio, en un marco de auto-codificación probabilístico
 diferente, que estudiaremos a continuación.
 
-\subsection{Autocodificación variacional}\label{sec:vae}
+\subsection{Auto-codificación variacional}\label{sec:vae}
 
 %In the classical conception of autoencoding, following Hinton and Rumelhart
 %\cite{Rumelhart1986}, the data distribution plays a very minor role in the
@@ -2171,7 +2173,7 @@ mecanismos adicionales para el juego de maximin CTRL-Binary mencionado anteriorm
 se formularán como restricciones de igualdad sobre las medidas de reducción de la tasa,
 pero en la práctica pueden imponerse en forma suave durante el proceso de optimización.
 
-\paragraph{Autoconsistencia muestra por muestra mediante transcripción en bucle cerrado.}
+\paragraph{Auto-consistencia muestra por muestra mediante transcripción en bucle cerrado.}
 En primer lugar, para abordar el problema de que CTRL-Binary no aprende una
 auto-codificación consistente a nivel de muestra, necesitamos promover la proximidad entre $\hat \x$
 y $\x$ para cada muestra individual. En el marco de CTRL, esto se puede
@@ -2187,7 +2189,7 @@ Esta distancia puede medirse mediante la reducción de la tasa:
 \end{align}
 Tenga en cuenta que esto evita, una vez más, medir diferencias en el espacio de imágenes.
 
-\paragraph{Autosupervisión mediante la compresión de muestras aumentadas.}
+\paragraph{Auto-supervisión mediante la compresión de muestras aumentadas.}
 Dado que en el contexto no supervisado no conocemos la información sobre las etiquetas de clase entre las muestras,
 lo mejor que podemos hacer es tratar cada muestra
 junto con sus aumentaciones (por ejemplo, mediante traslación, rotación, oclusión,

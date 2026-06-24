@@ -653,7 +653,7 @@ una aplicación significativa en la actualidad es la \textit{auto-codificación 
 Formula el problema del aprendizaje de representaciones en términos probabilísticos, como la
 búsqueda de un modelo $p(\vx; \vtheta)$
 que maximice la verosimilitud de una muestra de datos (o, de manera más general, la
-distribución de datos poblacional):
+distribución poblacional de datos):
 \begin{equation*}
     \max_{\vtheta}\, \bE_{\vx}[ \log p(\vx;\, \vtheta) ].
 \end{equation*}
@@ -664,7 +664,7 @@ distribución de datos poblacional):
 %knowledge that $\vx$ has low-dimensional structure by seeking to factor the
 %distribution $p(\vx ;\, \vtheta)$ according to a low-dimensional ``latent''
 %variable model $\vz$. Indeed,
-Mediante la condición, podemos escribir $p(\vx, \vz ;\, \vtheta)
+Mediante un condicionamiento, podemos escribir $p(\vx, \vz ;\, \vtheta)
 = p(\vz;\, \vtheta) p(\vx \mid \vz;\, \vtheta)$ y
 \begin{align*}
     p(\vx; \vtheta) &= \int p(\vz;\, \vtheta) p(\vx \mid \vz;\,
@@ -729,7 +729,7 @@ donde $g = (g_1, g_2)$ son redes profundas con parámetros $\vtheta$, que
 corresponden al \textit{decodificador} del auto-codificador.
 De manera similar, para la distribución a posteriori aproximada, utilizamos
 una distribución gaussiana cuyos parámetros vienen dados por un
-MLP codificador $f = (f_1, f_2)$ con parámetros $\veta$:
+codificador MLP $f = (f_1, f_2)$ con parámetros $\veta$:
 \begin{equation*}
     \vz \mid \vx \sim \cN(f_1(\vx), \diag(e^{f_2(\vx)}) \vI).
 \end{equation*}
@@ -826,7 +826,7 @@ nuevas muestras a partir de ella, como se ilustra en la \Cref{fig:VAE-SD}.
         (recuadro rojo a la izquierda) para aprender una representación latente de los
         datos $\x$. A continuación, se aprende un modelo de difusión/eliminación de ruido (recuadro verde en el
         centro) para acceder a la representación $\z$. El bloque
-        de la derecha trata sobre cómo controlar el proceso de muestreo para la eliminación de ruido
+        de la derecha trata de cómo controlar el proceso de muestreo para la eliminación de ruido
         mediante una señal de control (basada en texto) que estudiaremos en el
     \Cref{ch:conditional-inference}.}
     \label{fig:VAE-SD}
@@ -837,12 +837,12 @@ aprendido.\footnote{Muchos de los primeros modelos generativos de imágenes o vi
     se basan en este marco de difusión latente, tal como lo describimos
     con más detalle en la \Cref{sub:text-cond} y en términos de implementación en el
     \Cref{ch:applications}.} Sin embargo, el entrenamiento de las VAE puede resultar
-complicado debido a problemas como el colapso posterior y el equilibrio
+complicado debido a problemas como el colapso de la distribución a posteriori y el equilibrio
 entre los términos de reconstrucción y regularización en el ELBO. Además,
 las distribuciones a posteriori gaussianas en las VAE se aplican punto por punto y no
 se aprende ninguna estructura conjunta entre las muestras, lo que puede limitar considerablemente
 la calidad de las representaciones aprendidas.
-Estos retos han impulsado el desarrollo de enfoques alternativos,
+Estos desafíos han impulsado el desarrollo de enfoques alternativos,
 como los auto-codificadores de representación (RAE), que se
 presentarán a continuación y cuyo objetivo es superar algunas de las limitaciones de los VAE,
 sin dejar de proporcionar representaciones latentes eficaces para las tareas de modelado generativo.
@@ -1010,7 +1010,7 @@ necesitamos poder acceder también a sus distribuciones. En el
 \Cref{ch:denoising}, hemos aprendido que la eliminación de ruido es un enfoque general
 para identificar y, por lo tanto, acceder a dichas representaciones de baja dimensión. Por lo tanto,
 podemos acceder a la distribución de las características aprendidas a través de un
-proceso de eliminación de ruido (aprendido) a partir de un ruido aleatorio:
+proceso (aprendido) de eliminación de ruido aplicado a un ruido aleatorio:
 \begin{equation}
     h: \bm{G} \rightarrow \Z.
 \end{equation}
@@ -1250,8 +1250,8 @@ distribuciones generales.\footnote{Por ejemplo, la distancia de Wasserstein
     las esperanzas de las dos distribuciones sobre todas las funciones 
 1-Lipschitz.} Además, ni la divergencia de JS ni la
 distancia de Wasserstein tienen fórmulas en forma cerrada, ni siquiera para las 
-distribuciones gaussianas.\footnote{La distancia de Wasserstein (norma $\ell^1$) puede
-    acotarse por la distancia de Wasserstein (norma $\ell^2$), que tiene una
+distribuciones gaussianas.\footnote{La distancia de Wasserstein (con norma $\ell^1$) puede
+    acotarse por la distancia de Wasserstein (con norma $\ell^2$), que tiene una
     fórmula cerrada \cite{salmona2021gromovwasserstein}. Sin embargo, como es
     bien sabido en geometría de alta dimensión, la norma $\ell^1$ y la norma $\ell^2$
     se desvían significativamente en cuanto a sus propiedades geométricas y
@@ -1391,7 +1391,7 @@ clases, según la entropía cruzada.
 No obstante, en este caso el codificador discriminativo $f$ se generaliza en forma natural
 a casos en los que las distribuciones de datos son multiclase o
 multimodales y la capacidad discriminativa se mide con un indicador más
-refinado---la reducción de la tasa---en lugar de la típica
+refinado ---la reducción de la tasa--- en lugar de la típica
 pérdida de dos clases (por ejemplo, la entropía cruzada) utilizada en las GAN. Es decir, podemos
 considerar el codificador $f$ como un discriminador generalizado que reemplaza al
 clasificador binario $d$ en \eqref{eqn:GAN}:
@@ -1466,7 +1466,7 @@ donde $\Z_k = f(\X_k,\bm \theta)$ y $\hat \Z_k = f(\hat{\X}_k,\bm\theta)$.
 
 Al comparar la naturaleza contractiva y contrastiva de
 \eqref{eqn:min-distance} y \eqref{eqn:max-distance} en la misma
-medida de distancia, vemos que los roles del codificador $f(\cdot, \bm
+medida de distancia, vemos los roles del codificador $f(\cdot, \bm
 \theta)$ y el decodificador $g(\cdot, \bm \eta)$ en forma natural como 
 «{\bf un juego de dos jugadores}»: {\em mientras que el codificador $f$ 
     intenta magnificar la diferencia entre los datos originales y sus datos transcritos, el
@@ -1482,7 +1482,7 @@ Lo ideal sería que esta función fuera muy similar a $f(\x, \bm
 similares. Con esta notación, combinando \eqref{eqn:min-distance} y
 \eqref{eqn:max-distance}, se puede calcular una noción de «distancia» de bucle cerrado
 entre $\X$ y $\hat \X$ como {\em un punto de equilibrio} del 
-siguiente juego de Stackelberg (véase la \Cref{sec:minimax}) para
+siguiente juego de Stackelberg (véase el \Cref{sec:minimax}) para
 la misma utilidad en términos de reducción de la tasa:
 \begin{equation}
     \mathcal{D}(\X, \hat \X) \doteq  \max_{\bm \theta} \min_{\bm
@@ -1811,10 +1811,10 @@ las redes neuronales artificiales suelen requerir, o bien almacenar ejemplos sin
 \cite{icarl,chaudhry2019tiny}, o bien proporcionar mecanismos externos
 \cite{EWC}. Los ejemplos sin procesar, especialmente en el caso de
 entradas de alta dimensión como las imágenes, son costosos y difíciles de
-escalar, mientras que los mecanismos externos---que suelen incluir redes secundarias
+escalar, mientras que los mecanismos externos ---que suelen incluir redes secundarias
 y espacios de representación para la reproducción generativa, la asignación incremental
 de recursos de red, la duplicación de redes o el aislamiento explícito
-de las partes utilizadas y no utilizadas de la red---recurren a
+de las partes utilizadas y no utilizadas de la red--- recurren a
 heurísticas e incurren en costos ocultos.
 
 En este caso, nos interesa un entorno de aprendizaje incremental que sea
@@ -1827,7 +1827,7 @@ similar al de la naturaleza. Este se contrapone a las prácticas existentes con 
         antiguas, como representaciones generativas aprendidas de manera incremental
         de las clases antiguas, así como los correspondientes mapeos de 
         codificación y decodificación \cite{fearnet}.
-    \item Que sea \emph{autónomo}.
+    \item Que sea \emph{auto-contenido}.
         El aprendizaje incremental tiene lugar en un único sistema neuronal
         con una capacidad fija y en un espacio de representación común.
         La capacidad de minimizar el olvido se deriva de la optimización
@@ -1836,7 +1836,7 @@ similar al de la naturaleza. Este se contrapone a las prácticas existentes con 
 \end{enumerate}
 
 Las estructuras lineales incoherentes para características de diferentes clases
-muestran resemblanzas cercanas a la forma en que se codifican los objetos en diferentes áreas de la
+se asemejan mucho a la forma en que se codifican los objetos en diferentes áreas de la
 corteza inferotemporal de los cerebros de los animales
 \cite{Chang-Cell-2017,Bao2020AMO}. La transcripción de bucle cerrado $\X
 \rightarrow \Z \rightarrow \hat{\X} \rightarrow \hat{\Z}$ también
@@ -2061,7 +2061,7 @@ características aprendidas $\Z_j$ para cada clase no está clara en el espacio 
 Las características $\Z_j$ de la memoria LDR, por otro lado, tienen
 una estructura lineal clara. La \Cref{fig:cifar_10_pca_sampling_main}
 visualiza las correlaciones entre todas las características aprendidas $|\Z^\top\Z|$, en
-las que observamos patrones diagonales en bloques claros para ambos
+las que claramente observamos patrones diagonales en bloques para ambos
 conjuntos de datos.\footnote{Obsérvese que estos patrones se asemejan mucho a la
     matriz de similitud de los perfiles de respuesta de las categorías de objetos procedentes de
     diferentes áreas de la corteza inferotemporal, tal y como se muestra en la
@@ -2390,7 +2390,7 @@ y datos moleculares, especialmente el enfoque VQ-VAE
 que analizamos en la \Cref{sec:vae}.
 El problema central de la auto-codificación sigue revistiendo una importancia intelectual fundamental
 debido a su estrecha vinculación con el aprendizaje de representaciones y anticipamos que
-volverá a er una prioridad para los investigadores prácticos en el futuro, a medida que
+volverá a ser una prioridad para los investigadores prácticos en el futuro, a medida que
 la eficiencia en el entrenamiento y la implementación de modelos a gran escala siga cobrando
 mayor importancia.
 

@@ -2443,7 +2443,7 @@ imágenes decodificadas a partir de dichas características sean mucho más fiel
 de las imágenes naturales; es decir, que tengan una calidad visual mucho mejor.
 
 
-\subsection{Autocodificación variacional de datos de imágenes}
+\subsection{Auto-codificación variacional de datos de imágenes}
 % As we have introduced in Section \ref{sec:vae} of Chapter \ref{ch:consistent-representations}, variational auto-encoding is a method that aims to promote the distribution of learned features $\z$ and the conditional distributions between $\x$ and $\z$ to be more Gaussian like.\footnote{One may view such prior is to promote the learned the features to be diverse, in a similar spirit to maximizing the coding rate of all features.} 
 
 % Here we introduce a popular implementation of a VAE for imagery data...
@@ -2565,7 +2565,7 @@ Para la evaluación, medimos la calidad de la reconstrucción calculando la punt
 FID~\citep{heusel2017gans} en las imágenes reconstruidas del conjunto de validación ImageNet-1k, 
 lo que denominamos rFID. Un valor rFID más bajo indica una mejor calidad de reconstrucción.
 
-\subsection{Autocodificación de representaciones de datos de imágenes}
+\subsection{Auto-codificación de representaciones de datos de imágenes}
 \label{sec:RAE-implement}
 % \yima{Conceptual connections and necessity... Practical
 % implementations details... (Robin and Peter)}
@@ -4401,7 +4401,7 @@ clip=true,width=.99\linewidth]{\toplevelprefix/chapters/chapter8/figs/michelange
 % Introduce network and loss func
 \subsection{Arquitectura y objetivo}
 
-\paragraph{Autocodificador variacional alineado con forma, imagen y texto.}
+\paragraph{Auto-codificador variacional alineado con forma, imagen y texto.}
 
 Inspirado en CLIP~\cite{pmlr-v139-radford21a}, el enfoque adoptado por
 el proyecto Michelangelo inyecta información semántica en el espacio latente
@@ -4576,7 +4576,7 @@ $\mathcal{O} (\vx)$. La pérdida de entrenamiento se expresa como:
 \mathcal{D}(\vx \mid \vE_{\mathrm{s}} ), \mathcal{O}(\vx) )],
 \end{equation}
 donde BCE es la pérdida de entropía cruzada binaria, y la pérdida total para
-el entrenamiento del Autoencoder Variacional Alineado de Forma, Imagen y Texto (SITA) se expresa como:
+el entrenamiento del Auto-codificador Variacional Alineado de Forma, Imagen y Texto (SITA) se expresa como:
 
 \begin{equation}
 \mathcal{L}_{SITA} = \lambda_c (\mathcal{L}_{(\mathrm{s},\mathrm{i})}

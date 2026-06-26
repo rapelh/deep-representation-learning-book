@@ -4245,7 +4245,7 @@ se cuantifican directamente y se ordenan en secuencias.
 Tomando como ejemplo PolyGen~\cite{nash2020polygen}, la malla se representa como un conjunto de
 vértices $V = \{v_1, \dots, v_n\}$ (donde cada $v_i \in \mathbb{R}^3$) y caras
 $F = \{f_1, \dots, f_m\}$ (donde cada $f_j$ es una tupla de índices de vértices).
-El modelo aprende la distribución conjunta $P(V, F)$ al dividirla en dos etapas secuenciales:
+El modelo aprende la distribución multivariada $P(V, F)$ al dividirla en dos etapas secuenciales:
 un modelo de vértices que predice coordenadas cuantificadas y un modelo de caras que predice índices de vértices
 \begin{equation}
     P(V, F) = P(V) \cdot P(F \mid V) = \prod_{i=1}^{n} P(v_i \mid v_{<i}) \cdot \prod_{j=1}^{m} P(f_j \mid f_{<j}, V).

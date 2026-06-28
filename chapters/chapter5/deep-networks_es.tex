@@ -1332,7 +1332,7 @@ subespacio). Como veremos, tal generalización daría lugar a una arquitectura
 sencilla y general que unifica las operaciones de reducción de tasa y
 de eliminación de ruido que hemos visto en el capítulo anterior.
 Además, la arquitectura así obtenida se asemeja a la popular
-arquitectura de Transformer.
+arquitectura de transformer.
 
 \subsection{Optimización desenrollada para la reducción dispersa de la tasa (de codificación)}
 
@@ -1344,7 +1344,7 @@ Este cambio de perspectiva ofrece ventajas tanto filosóficas como prácticas:
 desde el punto de vista filosófico, nos permite medir y modelar cada
 parte de la entrada y sus interacciones; desde el punto de vista práctico, nos permite
 utilizar redes profundas similares, \textit{modelos secuencia-a-secuencia}
-como los omnipresentes Transformers, para aprender todo tipo de
+como los omnipresentes transformers, para aprender todo tipo de
 distribuciones de datos. Ahora nos corresponde comprender el aprendizaje de representaciones
 en el modelo «centrado en tokens» de datos como secuencias de tokens,
 y hacer frente a los retos mencionados anteriormente (como, por ejemplo, en el
@@ -1467,12 +1467,12 @@ bajo el libro de códigos $\bm U_{[K]}$, que se expresa como
     Cabe destacar que este conjunto de requisitos para el aprendizaje de representaciones
     concuerda bien con dos hipótesis empíricas bien establecidas sobre
     la estructura de las representaciones de tokens en los modelos entrenados que
-    utilizan la omnipresente arquitectura de redes neuronales de Transformers: la
+    utilizan la omnipresente arquitectura de redes neuronales de transformers: la
     «hipótesis de la representación lineal»
     \citep{jiang2024origins,park2023linear} y la «hipótesis de la superposición»
     » \citep{elhage2022toy,yun2021transformer}. La hipótesis de la
     representación lineal postula que las representaciones de tokens en
-    los modelos de Transformer se encuentran en subespacios lineales de baja dimensión que
+    los modelos de transformer se encuentran en subespacios lineales de baja dimensión que
     codifican características semánticas. De manera similar, la hipótesis de la superposición
     sugiere que estas representaciones pueden expresarse, de manera aproximada,
     como una combinación lineal dispersa de estos vectores de características. Como veremos en
@@ -2461,7 +2461,7 @@ donde \(\bm\pi_{k}\) son las columnas de \(\bm\Pi = \bm\Pi(\Z \mid \bm
 U_{[K]})\) definidas en \eqref{eq:pi} y \(\bm D\) se define en
 \eqref{eq2:grad Rcf}.
 
-Partiendo de una arquitectura Transformer estándar y sustituyendo
+Partiendo de una arquitectura transformer estándar y sustituyendo
 el operador de atención por TSSA, obtenemos una arquitectura denominada
 Token Statistics Transformer (ToST), que se muestra en la
 \Cref{fig:vcrate-architecture}. Quisiéramos volver a destacar que
@@ -2547,7 +2547,7 @@ rendimiento y la eficiencia empíricos de la arquitectura ToST.
         tareas de contexto largo.} Demostramos el rendimiento en Long Range Arena, un
         banco de pruebas para tareas de contexto largo (\(n\) grande). En este banco de pruebas,
         ToST presenta un rendimiento y una eficiencia claramente superiores en comparación con
-    todas las variantes de Transformer, incluido el propio Transformer.}
+    todas las variantes de transformer, incluido el propio transformer.}
     \label{tab:tost_lra}
     \resizebox{0.8\textwidth}{!}{%
         \begin{tabular}{@{}lccccccc@{}}

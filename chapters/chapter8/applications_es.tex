@@ -87,10 +87,10 @@ respectivamente.\footnote{El objetivo en los tres casos es aprender una buena re
 de la distribución de los datos. Solo se diferencian en la cantidad de información adicional 
 que se proporciona sobre la distribución y que puede facilitar el aprendizaje.} Esto servirá tanto como
 introducción al procesamiento de datos de imágenes, a las técnicas de aumento de datos y a la popular 
-arquitectura profunda Transformer, como paso previo a la implementación posterior de la arquitectura 
+arquitectura profunda tipo transformer, como paso previo a la implementación posterior de la arquitectura 
 CRATE. Estos ejemplos también ofrecen la primera demostración de las drásticas simplificaciones que 
 ya se pueden llevar a cabo utilizando los principios presentados en el libro. Continuaremos
-con las modificaciones de la \textit{arquitectura de Transformer} en la \Cref{sec:image_classification} 
+con las modificaciones de la \textit{arquitectura de transformer} en la \Cref{sec:image_classification} 
 para imágenes y en la \Cref{sec:clm_text} para textos, respectivamente, que demuestran las capacidades 
 de las arquitecturas transparentes white-box simplificadas, incluyendo CRATE y sus variantes, para 
 la \textit{codificación} en los ámbitos de la imagen y el texto. También demostraremos las capacidades 
@@ -1442,7 +1442,7 @@ utiliza habitualmente en tareas de predicción posteriores.
 % which is the final output of \(f^{I}_{\theta}\) and will later be used in the objective.
 
 \subsection{Arquitectura: Text Tower}
-La torre textual CLIP \(g_{\plainphi}\) suele adoptar una arquitectura basada en Transformer similar 
+La torre textual CLIP \(g_{\plainphi}\) suele adoptar una arquitectura basada en transformer similar 
 al Vision Transformer descrito anteriormente. La principal diferencia radica en la capa de incrustación, 
 que se utiliza para convertir la secuencia de texto en una secuencia de representaciones latentes en el 
 espacio latente \(\vZ \in \mathbb{R}^{d}\).
@@ -1974,7 +1974,7 @@ salida de esta vista.
 \subsection{Configuración experimental y
 resultados}\label{sub:image_classification_experiments}
 
-Dado que CRATE se basa directamente en el modelo Transformer, se comparan los
+Dado que CRATE se basa directamente en el modelo transformer, se comparan los
 parámetros óptimos para ViT, tal y como se indican en
 \cite{dosovitskiy2020image,touvron2020training}, con los mismos
 parámetros aplicados a CRATE, a fin de realizar una comparación imparcial.
@@ -2186,7 +2186,7 @@ parches con información local y global similar deberían estar relacionadas
 
 Se utilizan un codificador y un decodificador CRATE, tal y como se muestra en la
 \Cref{fig:transformer_backbone}, aunque, por supuesto, es posible
-utilizar un codificador y un decodificador Transformer estándar. A continuación se ofrecen más detalles.
+utilizar un codificador y un decodificador transformer estándar. A continuación se ofrecen más detalles.
 
 \paragraph{El codificador.} El codificador es el mismo que el codificador CRATE
 de la \Cref{sub:image_classification_architecture}, con la salvedad de que
@@ -2930,7 +2930,7 @@ tal como se define en la Sección~\ref{sec:VAE-implement}.
 \paragraph{Condicionamiento del paso de tiempo mediante la normalización adaptativa por grupos.}
 La red de eliminación de ruido debe condicionarse al paso de tiempo de difusión $t$ para que 
 pueda adaptar su comportamiento a los distintos niveles de ruido. Siguiendo el esquema de 
-codificación posicional del Transformer~\citep{vaswani2017attention}, el paso de tiempo $t$ 
+codificación posicional del transformer~\citep{vaswani2017attention}, el paso de tiempo $t$ 
 se asigna primero a una incrustación de frecuencia sinusoidal:
 \begin{equation}
     \mathrm{Embed}(t)_{2i} = \sin\!\left(\frac{t}{10000^{2i/d_e}}\right), \quad
@@ -2978,7 +2978,7 @@ muestras. Partiendo del modelo de referencia DDPM U-Net~\citep{ho2020denoising},
 los siguientes cambios en ImageNet $128 \times 128$: (a) ampliar la auto-atención de la 
 resolución $16 \times 16$ a tres resoluciones ($32 \times 32$, $16 \times 16$, $8 \times 8$); 
 (b) aumentar el número de cabezales de atención, utilizando 64 canales por cabezal para 
-ajustarse mejor a la convención de Transformer; (c) la adopción del bloque residual 
+ajustarse mejor a la convención de transformer; (c) la adopción del bloque residual 
 BigGAN~\citep{brock2019large} tanto para el upsampling como para el downsampling, lo que 
 mejora el flujo de gradientes; y (d) la inclusión por defecto de la capa de condicionamiento 
 AdaGN (descrita anteriormente) en cada bloque residual. Todos estos cambios mejoran el FID y 
@@ -3048,7 +3048,7 @@ de estructuras alternativas. En primer lugar, \textbf{escalar} una red U-Net res
 su estructura de codificador-decodificador implica numerosas decisiones de diseño interrelacionadas 
 (multiplicadores de canales, ubicación de la atención, tipos de bloques de muestreo 
 ascendente/descendente), y no está claro cómo asignar de manera óptima la capacidad de cálculo 
-adicional. Por el contrario, el Transformer básico se escala a lo largo de dos ejes simples, la 
+adicional. Por el contrario, el transformer básico se escala a lo largo de dos ejes simples, la 
 profundidad y la anchura, y presenta leyes de escalado bien caracterizadas según estudios 
 empíricos~\citep{kaplan2020scaling}. En segundo lugar, las capas convolucionales de U-Net 
 codifican un fuerte \textbf{sesgo inductivo espacial} (localidad, invariancia a la traslación) 
@@ -3057,12 +3057,12 @@ conjuntos de datos de gran tamaño. La auto-atención resuelve parcialmente este
 los diseños estándar de U-Net solo se aplica en las etapas de baja resolución debido a su coste 
 cuadrático, lo que hace que las características de alta resolución sean totalmente locales. En 
 tercer lugar, U-Net es una arquitectura \textbf{específica para imágenes} que no se generaliza 
-fácilmente a otras modalidades. El modelo Transformer, cuya eficacia ha quedado demostrada en 
+fácilmente a otras modalidades. El modelo transformer, cuya eficacia ha quedado demostrada en 
 entornos lingüísticos, de visión, de audio y multimodales~\citep{vaswani2017attention}, ofrece una 
 estructura central unificada capaz de aprovechar los conocimientos sobre escalabilidad entre dominios.
 
 Estas consideraciones dieron lugar al Diffusion Transformer (DiT)~\citep{peebles2023scalable}, que 
-sustituye por completo a la red U-Net por un Transformer básico que opera sobre parches latentes. 
+sustituye por completo a la red U-Net por un transformer básico que opera sobre parches latentes. 
 Tal como describimos en la Sección~\ref{sec:DiT-implement}, DiT iguala y supera a los mejores modelos 
 basados en U-Net, al tiempo que presenta un comportamiento de escalabilidad más limpio (correlación 
 Gflops-FID de $-0,93$) y una arquitectura más simple.
@@ -4161,13 +4161,13 @@ la topología de la superficie, ofreciendo un equilibrio eficiente entre
 la fidelidad visual y la estructura geométrica.
 
 Sin embargo, la aplicación directa de las modernas arquitecturas de aprendizaje profundo
----en concreto, los Transformers---a estas representaciones sin procesar
+--- en concreto, los transformers --- a estas representaciones sin procesar
 plantea importantes retos. A diferencia de las imágenes 2D, que poseen una
 estructura de cuadrícula regular que se divide fácilmente en parches, los datos 3D suelen ser
 esparsos, no estructurados e irregulares. Para aprovechar el poder del
 modelado de secuencias y los mecanismos de auto-atención en 3D, debemos salvar
 la brecha entre los datos geométricos sin procesar y las secuencias discretas y ordenadas
-que requieren los Transformers. Este proceso se conoce como
+que requieren los transformers. Este proceso se conoce como
 \textit{tokenización 3D}.
 
 \begin{itemize}
@@ -4292,12 +4292,9 @@ q(z_i) = \arg\min_{c_k \in \mathcal{C}} | z_i - c_k |_2^2.
 \end{equation}
 Esto reduce la forma a una secuencia de índices discretos del libro de códigos que conservan
 la estructura espacial al tiempo que reducen drásticamente la dimensionalidad. Estos índices discretos
-sirven como tokens para el procesamiento posterior del Transformer. Sin embargo, este enfoque basado 
+sirven como tokens para el procesamiento posterior del transformer. Sin embargo, este enfoque basado 
 en una cuadrícula regular suele tratar de manera uniforme tanto el espacio ocupado como el vacío, lo 
-que da lugar a redundancia computacional.  This reduces the shape to a sequence of discrete codebook 
-indices that preserve spatial structure while drastically reducing dimensionality. These discrete indices 
-serve as the tokens for subsequent Transformer processing. However, this regular grid-based approach 
-typically treats occupied and empty space uniformly, leading to computational redundancy.
+que da lugar a redundancia computacional.
 
 % {\color{blue} Update: We add more details of latent vector quantization process and wew specify that the 3D shape is converted to a sequence of tokens.}
 % \yima{Then each 3D shape is converted to a single vector, instead of a sequence of tokens?}
@@ -4335,7 +4332,7 @@ asociado a cada punto se comprime en un índice de libro de códigos discreto $z
 \end{equation}
 donde $D$ representa el tamaño del libro de códigos.
 
-\item \textbf{Construcción de secuencias.} Para facilitar la generación auto-regresiva con Transformers, 
+\item \textbf{Construcción de secuencias.} Para facilitar la generación auto-regresiva con transformers, 
 es necesario serializar el conjunto no estructurado de tuplas. 3DILG emplea una ordenación lexicográfica 
 basada en las coordenadas cuantificadas. La forma final se representa como una secuencia estructurada 
 $\mathcal{S}$ que combina explícitamente la información de las coordenadas posicionales y las 
@@ -4467,7 +4464,7 @@ Para procesar esta secuencia de características densa $\vX$ de manera eficiente
 % \yima{Which data, $\vP$ or $\X$?} {\color{blue} Update: We have changed the expression to avoid the ambiguity.} 
 el codificador adopta una
 arquitectura basada en Perceiver~\cite{pmlr-v139-jaegle21a}. A diferencia de
-los Transformers estándar que escalan cuadráticamente con la longitud de la entrada,
+los transformers estándar que escalan cuadráticamente con la longitud de la entrada,
 el Perceiver emplea un mecanismo de cuello de botella latente para desacoplar
 la complejidad del procesamiento del tamaño de la entrada. En lugar de tokenizar los
 puntos de entrada directamente para la auto-atención, el modelo utiliza un conjunto fijo
@@ -6858,7 +6855,7 @@ obteniendo la siguiente iteración:
 
 \subsection{Metodología de evaluación} \label{sub:clm_text_evals}
 
-Hay varias formas de evaluar un modelo de lenguaje Transformer entrenado.
+Hay varias formas de evaluar un modelo de lenguaje transformer entrenado.
 \begin{itemize}
 \item En un conjunto de datos holdout (de prueba) compuesto por texto arbitrario, podemos evaluar
 \(\cL_{\mathrm{CLM}}\) sobre él; las pérdidas más bajas son preferibles, ya que refjan
@@ -7263,7 +7260,7 @@ ToST & \underline{37.25}    & \textbf{66.75}    & \textbf{79.46}
 \bottomrule
 \end{tabular}%
 \caption{\small \textbf{Comparación del rendimiento en Long-Range Arena (LRA)
-    entre ToST(-B) y las principales variantes de Transformer optimizadas para
+    entre ToST(-B) y las principales variantes de transformer optimizadas para
 contextos largos.} Long-Range Arena es una familia de pruebas de rendimiento que evalúa
 la capacidad de modelado de secuencias largas de algoritmos y
 arquitecturas, mediante el uso de un conjunto de datos y un mecanismo de evaluación fijos. ToST
@@ -7303,7 +7300,7 @@ En nuestra implementación, también probamos a utilizar la auto-atención
 multicabezal (MHSA) en lugar de la MSSA. Resulta que esta
 arquitectura \textit{también} es viable, aunque la profundidad de la red
 debe ser considerablemente mayor para lograr un rendimiento equivalente
-al de la arquitectura CRATE o Transformer habitual. %
+al de la arquitectura CRATE o transformer habitual. %
 
 \begin{figure}[!htbp]
 \centering
@@ -7377,18 +7374,18 @@ y GPT-2 preentrenados en OpenWebText.}  \label{fig:loss}
 
 \section{Resumen y Notas}
 
-Todo el trabajo de este capítulo se basa en la arquitectura Transformer,
+Todo el trabajo de este capítulo se basa en la arquitectura transformer,
 introducida por \citet{vaswani2017attention}.
-La arquitectura Transformer se describe formalmente en
+La arquitectura transformer se describe formalmente en
 \Cref{sec:contrastive_learning}. Una de las principales innovaciones empíricas de
 los últimos años, impulsada por la prevalencia y el rendimiento de la
-arquitectura Transformer, consiste en formular un problema de aprendizaje dado como
-un problema de secuencia a secuencia y aplicar la arquitectura Transformer.
-Esto ha permitido que la arquitectura Transformer sea
+arquitectura transformer, consiste en formular un problema de aprendizaje dado como
+un problema de secuencia a secuencia y aplicar la arquitectura transformer.
+Esto ha permitido que la arquitectura transformer sea
 esencialmente omnipresente en (casi) todas las aplicaciones de aprendizaje profundo. Por
-ello, las mejoras directas en el Transformer pueden extenderse hasta convertirse en
+ello, las mejoras directas en el transformer pueden extenderse hasta convertirse en
 soluciones a muchos problemas y tener un impacto considerable; del mismo modo,
-podemos aplicar nuestra comprensión interna (whte-box) de las arquitecturas similares al Transformer
+podemos aplicar nuestra comprensión interna (whte-box) de las arquitecturas similares al transformer
 a muchos problemas actuales. El material tratado en este
 capítulo es solo una parte del trabajo que ya se ha realizado;
 otros trabajos incluyen el completamiento enmascarado para datos de texto (p. ej., BERT)

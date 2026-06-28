@@ -625,7 +625,7 @@ definen en \eqref{eq:coding_rate} y \eqref{eq:def-mcr-Rc}, respectivamente.
 
 Como hemos mostrado en el anterior Capítulo \ref{ch:deep-networks}, el
 codificador $f$ que minimiza el objetivo anterior puede construirse como
-una secuencia de operadores tipo Transformer. Tal y como se muestra en el trabajo de
+una secuencia de operadores tipo transformer. Tal y como se muestra en el trabajo de
 \cite{Pai2024masked}, el decodificador $g$ puede entenderse y, por tanto,
 construirse explícitamente como el proceso inverso del codificador $f$.
 La Figura \ref{fig:crate_mae_layers} ilustra las arquitecturas generales
@@ -1782,7 +1782,7 @@ mapeo de compresión o de eliminación de ruido:
     f: (\x, \vw) \mapsto (\z, \y)
 \end{equation}
 dentro de un espacio común. De hecho, la práctica habitual de introducir un
-«token de clase» auxiliar en el entrenamiento de un Transformer para
+«token de clase» auxiliar en el entrenamiento de un transformer para
 tareas de clasificación, como en ViT, puede considerarse como el aprendizaje de dicha
 representación mediante la compresión (de la tasa de codificación) de muestras dadas (con ruido)
 de $(\x, \vw)$. Si la distribución de los datos $\x$ es
@@ -3137,12 +3137,12 @@ $\bar{\vz}_{\theta}(t, \vz_t, \vY^+)$.\footnote{En el contexto del
     de tratar
 la eliminación de ruido condicional e incondicional con el acondicionamiento de texto.}
 \textcite{rombach2022high} implementan el condicionamiento de texto en el filtro de ruido utilizando
-una capa conocida como «atención cruzada», inspirada en la arquitectura original de Transformer codificador-decodificador
+una capa conocida como «atención cruzada», inspirada en la arquitectura original de transformer codificador-decodificador
 de \textcite{vaswani2017attention}. La atención cruzada se
 implementa de la siguiente manera. Sea $\tau : \bR^{D_{\mathrm{text}} \times N} \to
 \bR^{d_{\mathrm{model}} \times N_{\mathrm{text}}}$
 una red de codificación para las incrustaciones de texto (a menudo un
-Transformer causal --- véase la \Cref{sec:clm_text}), y sea $\psi : \bR^{d_{\mathrm{img}}}
+transformer causal --- véase la \Cref{sec:clm_text}), y sea $\psi : \bR^{d_{\mathrm{img}}}
 \to \bR^{d_{\mathrm{model}} \times N_{\mathrm{img}}}$ la
 correspondencia de una de
 las representaciones intermedias en el filtro de ruido.\footnote{En la práctica,
@@ -3165,7 +3165,7 @@ es fija. La atención cruzada (con $K$ cabezales y sin sesgo) se define como
     [\vU_{\val}^{K}]^{\top}\tau(\vY^+))}, %
 \end{equation}
 donde $\mathrm{SA}$ denota la operación de atención de producto escalar
-en el Transformer (que recordamos en detalle en \Cref{ch:applications}: véase
+en el transformer (que recordamos en detalle en \Cref{ch:applications}: véase
 \Cref{eq:mhsa,eq:self_attention}), y $\vU_{*}^{k} \in
 \bR^{d_{\mathrm{model}}\times
 d_{\mathrm{attn}} }$ para $* \in \set{\mathrm{qry}, \mathrm{key}, \mathrm{val}}$
@@ -3178,7 +3178,7 @@ ponderadas por las correlaciones entre las características de la imagen y las i
 En la arquitectura del filtro de ruido utilizada por \textcite{rombach2022high},
 los bloques residuales de auto-atención de la arquitectura del filtro de ruido, aplicados a la
 representación de la imagen en la capa actual y definidos de manera análoga
-a los de \Cref{eq:vit-res-block}, que se aplican al Transformer de visión, van
+a los de \Cref{eq:vit-res-block}, que se aplican al Transformer de Visión, van
 seguidos de bloques residuales de atención cruzada
 de la forma \eqref{eq:mhca}.
 Una estructura de este tipo requiere que el codificador de texto $\tau$ comparta, en cierto
@@ -3194,7 +3194,7 @@ caso particular de una secuencia de un solo token. Se pueden establecer conexion
 en el contexto de múltiples tokens siguiendo el marco de reducción de tasa
 para derivar arquitecturas de redes profundas que se analiza en el
 \Cref{ch:deep-networks} y que se manifiesta en la derivación de la arquitectura CRATE,
-similar a la del Transformer.
+similar a la del transformer.
 
 Este mismo diseño básico se ha ampliado aún más a modelos y conjuntos de datos de mayor tamaño,
 en particular en las versiones modernas de Stable Diffusion

@@ -33,12 +33,12 @@ datos visuales, datos de movimiento y datos de texto), utilizando los métodos q
 presentado en este libro. Los resultados presentados en este capítulo
 tienen como objetivo cumplir los dos propósitos siguientes:
 \begin{itemize}
-    \item en primer lugar, aportar detalles experimentales adicionales y
+    \item en primer lugar, aportar detalles experimentales adicionales, así como
         evidencia empírica que validen los métodos presentados
         anteriormente en el libro y demostrar su importante
         potencial en contextos del mundo real;
-    \item en segundo lugar, familiarizar al lector con ciertos
-        métodos y tareas empíricos modernos del aprendizaje profundo que no están
+    \item en segundo lugar, familiarizar al lector con ciertas tareas y
+        métodos empíricos modernos del aprendizaje profundo que no están
         bien documentados fuera de los entornos de investigación o de los códigos de producción.
 \end{itemize}
 Sin embargo, en nuestra sincera opinión, las soluciones y los resultados que se presentan
@@ -47,7 +47,8 @@ lo tanto, existe un amplio margen de mejora futura, tanto en lo que respecta a l
 para seguir avanzando en el
 rendimiento de vanguardia. A lo largo de este capítulo, y especialmente en la última Sección \ref{sec:scalable},
 presentaremos algunas mejoras inmediatas y
-evidentes. Dejaremos para futuras investigaciones en el \Cref{ch:future} final el análisis de ideas potencialmente mucho más transformers sobre el aprendizaje de representaciones y los importantes problemas aún sin resolver en materia de inteligencia en general.
+evidentes. Dejaremos para futuras investigaciones en el \Cref{ch:future} final el análisis de ideas potencialmente mucho más 
+transformadoress sobre el aprendizaje de representaciones y los importantes problemas aún sin resolver en materia de inteligencia en general.
 \subsection{Estructura del Capítulo}
 \label{sec:application_outline}
 En lo que respecta a la inteligencia en la naturaleza, podría decirse que los tres tipos de datos más
@@ -56,7 +57,7 @@ nuestro conocimiento son {\em los datos visuales}, {\em los movimientos de nuest
 Por lo tanto, en este capítulo mostraremos cómo aplicar los principios y métodos presentados en este libro para obtener 
 buenas representaciones de estos datos del mundo real y explicaremos cómo dichas representaciones facilitan tareas prácticas importantes relacionadas con ellos.
 
-En primer lugar, desde \Cref{sec:contrastive_learning} hasta
+En primer lugar, desde la \Cref{sec:contrastive_learning} hasta
 la Sección \ref{sec:CUPID}, comenzaremos con los datos visuales y mostraremos cómo
 aprender las distribuciones de imágenes 2D a objetos 3D, ya que la memoria visual
 nos sirve (a nosotros y a los animales) como modelo de bajo nivel pero fundamental que almacena
@@ -72,11 +73,11 @@ Evidentemente, en comparación con los lenguajes naturales, nuestra cobertura de
 los datos físicos, visuales y de movimiento será mucho más amplia.
 Aunque en los últimos años el sector de la inteligencia artificial ha realizado importantes inversiones en el modelado de 
 los lenguajes naturales,\footnote{Incluidos sus derivados, como los lenguajes de programación, las deducciones lógicas y 
-las demostraciones matemáticas.} la gente ha empezado a darse cuenta de la importancia de modelar el conocimiento sobre el 
+las demostraciones matemáticas.} ha empezado a crecer la conciencia acerca de la importancia de modelar el conocimiento sobre el 
 mundo físico y nuestras acciones en él. En los últimos años, ha habido un rápido aumento del interés y un cambio de foco 
 hacia el desarrollo de lo que se conoce como «modelo del mundo», «inteligencia espacial», «inteligencia física» o 
-«inteligencia incorporada», ya que son elementos cruciales para los sistemas o agentes de IA---por ejemplo, un robot 
-inteligente---que necesitan interactuar con un mundo físico abierto. Como hemos aprendido en el Capítulo \ref{ch:intro}, 
+«inteligencia incorporada», ya que son elementos cruciales para los sistemas o agentes de IA ---por ejemplo, un robot 
+inteligente--- que necesitan interactuar con un mundo físico abierto. Como hemos aprendido en el Capítulo \ref{ch:intro}, 
 ese es precisamente el objetivo y el alcance del programa de {\em  Cibernética} iniciado por Norbert Wiener en la década de 1940.
 
 En el plano técnico, desde la \Cref{sec:contrastive_learning} hasta la
@@ -122,7 +123,7 @@ principios introducidos en capítulos anteriores y ampliados en este
 capítulo, así como los hiperparámetros extraídos de diversos artículos cuyos
 resultados se analizan en este capítulo. Con este fin, describiremos
 \textit{con precisión} todos los procedimientos utilizando un lenguaje detallado,
-pseudocódigo o notación matemática que pueda implementarse directamente
+pseudocódigo o notación matemática, que pueda implementarse directamente
 en código. Siempre que sea posible, analizaremos cómo las implementaciones concretas
 se relacionan con los principios presentados anteriormente en el libro.
 
@@ -226,8 +227,8 @@ que en el resto del libro tratamos dos tipos diferentes de arquitecturas de mode
         muestra en la \Cref{fig:overall_autoencoder_pipeline}.
 \end{itemize}
 
-Utilizaremos esta notación en numerosas ocasiones a lo largo de este capítulo, así que
-no dude en volver a consultarla si algo no le queda claro.
+Utilizaremos esta notación en numerosas ocasiones a lo largo de este capítulo, por lo que se alienta
+al lector a volver a consultarla si algo no le queda claro.
 Esta descomposición de nuestras redes también se ajusta en gran medida a la mayoría de las implementaciones de código
 y usted puede comenzar sus proyectos de programación definiendo
 estas redes.
@@ -460,9 +461,9 @@ una vista local o una vista global. Analizaremos la implementación de
 donde la esperanza se calcula sobre los datos \(\vX\), las vistas globales \(v_{g}\)
 y otras vistas \(v_{c}\).
 
-En este caso concreto, sin embargo, si intentas implementar
+En este caso concreto, sin embargo, si se intenta implementar
 \eqref{eq:dino_loss} y optimizarla en una red real, es muy
-probable que te encuentres con un problema: tras ejecutar unas cuantas
+probable que se enfrente un problema: tras ejecutar unas cuantas
 iteraciones del algoritmo de aprendizaje, la correspondencia de características
 \(f_{\theta}^{\ext} \circ f_{\theta}\) ¡se \textit{convertirá en una
 función constante}! Esto sin duda optimiza la pérdida anterior, ya que
@@ -470,7 +471,7 @@ minimiza la distancia entre las características de diferentes vistas de la
 misma imagen. Pero obviamente no queremos aprender esta solución.
 
 De hecho, evitar el colapso es una consideración muy común en
-el aprendizaje contrastivo. Entonces, ¿cómo lo hacemos en este caso? La solución
+el aprendizaje contrastivo. Entonces, ¿cómo se hace en este caso? La solución
 propuesta por DINO, una vez más, está diseñada en forma empírica y ajusta cuidadosamente la
 optimización del parámetro \(\vmu\) (que se actualiza utilizando todas
 las muestras del lote) y un hiperparámetro de «temperatura» \(\tau\)
@@ -489,7 +490,7 @@ ignorando la cabeza específica de la tarea (o, lo que es lo mismo,
 asignándole la aplicación de identidad). Pero ahora necesitamos una forma de comparar
 los vectores directamente. Partiendo de nuestra hipótesis del
 \Cref{ch:deep-networks}, según la cual las buenas representaciones deben tener
-geometría euclidiana (subespacial), una medida mucho más natural de la
+geometría euclidiana (de sus subespacios), una medida mucho más natural de la
 diferencia es la \textit{distancia cuadrada \(\ell^{2}\)}
 \(d_{\ell^{2}} \colon \R^{d} \times \R^{d} \to \R\), definida como
 \begin{equation}\label{eq:cosine_similarity}
@@ -544,7 +545,7 @@ estas cuatro partes.
     \centering
     \includegraphics[width=0.8\textwidth]{\toplevelprefix/chapters/chapter8/figs/patchify.pdf}
     \caption{\small\textbf{Un ejemplo de una imagen dividida en \(5
-        \times 5\) parches cuadrados, que se colocan en orden de trama.}
+        \times 5\) parches cuadrados, que se colocan en el orden de trama.}
         Cada parche tiene el mismo tamaño, y la cuadrícula de parches tiene
         la forma \((N_{H}, N_{W}) = (5, 5)\). La cuadrícula de parches se
     despliega entonces en una secuencia de longitud \(5 \times 5 = 25\) en orden de trama.}
@@ -855,7 +856,7 @@ expectativa mediante muestras finitas. Es decir, en cada paso de tiempo \(k\) ha
             g}^{(k), i}) \doteq h_{\vW_{\teacher},
             \vmu}(\vZ_{\theta_{\teacher}}(\vX_{b, g}^{(k), i})).
         \end{align}
-    \item Se calcula la \textit{pérdida aproximada} (sustituta)
+    \item Se calcula la \textit{pérdida aproximada sustituta}
         \(\hat{\cL}_{\dino-\student\teacher}^{(k)}\), definida así:
         \begin{align}\label{eq:dino_loss_teacherstudent_empirical}
             &\hat{\cL}_{\dino{}-\student\teacher}^{(k)}(\theta_{\student},
@@ -928,8 +929,8 @@ utilizado en la cabeza DINO \(h_{\vW, \vmu}\), también cambia a lo largo de la
 trayectoria de optimización (aunque esta dependencia no se indica explícitamente).
 
 El uso de la pérdida sustituta («empírica») transforma nuestro problema de optimización
-inmanejable---como es el caso de la optimización de la pérdida en
-\eqref{eq:dino_loss_teacherstudent}---en un problema de optimización estocástica
+inmanejable --- como es el caso de la optimización de la pérdida en
+\eqref{eq:dino_loss_teacherstudent} --- en un problema de optimización estocástica
 manejable, que se utiliza para entrenar prácticamente todos los modelos de aprendizaje profundo
 del mundo. Esta conversión resulta extremadamente natural
 una vez que se han visto algunos ejemplos y esperamos ofrecer estos
@@ -1077,9 +1078,9 @@ evaluarla con un tercer conjunto de datos (de «validación») que se extrae de 
 misma distribución que el segundo (como el conjunto de datos de evaluación
 de CIFAR-10).
 
-\paragraph{Vecinos \(k\)-más cercanos.} También podemos evaluar el
+\paragraph{\(k\)-vecinos más próximos.} También podemos evaluar el
 rendimiento de las características en tareas de clasificación \textit{sin
-necesidad de entrenar explícitamente un clasificador} utilizando el algoritmo de los vecinos \(k\)-más cercanos
+necesidad de entrenar explícitamente un clasificador} utilizando el algoritmo de los \(k\)-vecinos más próximos
 para obtener una etiqueta predicha promedio. Es decir, dado un
 conjunto de datos \(\{\vz_{b}\}_{b = 1}^{B} \subseteq \R^{d}\), definimos los
 vecinos \(k\)-más cercanos de otro punto \(\vz \in \R^{d}\) como
@@ -1107,7 +1108,7 @@ o, más comúnmente, su versión empírica correspondiente, en la que \((\vX,
 \vy)\) recorre un conjunto de datos finito (que no son las muestras existentes
 \((\vX_{b}, \vy_{b})\) que se utilizan para los \(k\) vecinos).
 
-\paragraph{Fiabilidad de los mapas de atención.}
+\paragraph{Fidelidad de los mapas de atención.}
 
 Otra forma de evaluar el rendimiento de las representaciones, en el caso de un
 codificador basado en transformers, consiste en examinar la fidelidad de los
@@ -1136,7 +1137,7 @@ la relevancia de cada parche respecto a la información global. En
 particular, con fines de visualización, creamos una nueva imagen en la que cada
 parche se sustituye por su valor correspondiente en el vector de saliencia,
 lo que permite apreciar la contribución de cada parche; a esta imagen la llamamos
-``\textit{mapa de saliencia} en la \(k\)-ésima cabeza de atención de la capa
+``\textit{mapa de saliencia} en el \(k\)-ésimo cabezal de atención de la capa
 \(L\)''. Para visualizar la relevancia total de cada parche respecto a la
 información global en todas las cabezas, podemos calcular el promedio del vector de saliencia,
 es decir, \(\tilde{\va}^{L} \doteq \frac{1}{K}\sum_{k =
@@ -1286,8 +1287,8 @@ por lo que este resultado resulta bastante sorprendente y alentador.}
 \centering
 \begin{tabular}{@{}llcccccccc@{}}
     \toprule
-    &  & \multicolumn{3}{c}{Detection $\uparrow$} &
-    \multicolumn{3}{c}{Segmentation $\uparrow$} \\
+    &  & \multicolumn{3}{c}{Detección $\uparrow$} &
+    \multicolumn{3}{c}{Segmentación $\uparrow$} \\
     Método & Modelo & AP$_{50}$  & AP$_{75}$ & AP & AP$_{50}$ &
     AP$_{75}$ & AP  \\
     \midrule
@@ -1323,7 +1324,7 @@ respecto a las de DINO.
 
 Otro enfoque influyente del aprendizaje contrastivo se aleja de las comparaciones 
 puramente visuales y, en su lugar, aprovecha la correspondencia natural entre las 
-imágenes y el lenguaje. En lugar de definir la similitud únicamente a través de 
+imágenes y lenguaje. En lugar de definir la similitud únicamente a través de 
 múltiples vistas de la misma imagen, esta línea de investigación aprovecha el hecho 
 de que muchas imágenes del mundo real van acompañadas de descripciones textuales 
 que proporcionan una supervisión semántica débil. Un ejemplo destacado de este 
@@ -1495,7 +1496,7 @@ oración o un documento), la representamos como una secuencia de tokens en
 Todos los parámetros \(\vz_{\cls}^{1}, \vW^{\tok}, \vE^{\pos}\) están
 incluidos en el conjunto de parámetros \(\theta\). El vocabulario \(\cV\) y el tokenizador \(t^{\tok}\) son fijos.
 
-Otras componentes de la torre textual, como la columna vertebral y el cabezal específico para cada 
+Otras componentes de la torre textual, como la red troncal y el cabezal específico para cada 
 tarea, siguen opciones de diseño similares a las de la torre visual y se omiten por motivos de 
 brevedad. También cabe señalar que trabajos posteriores han demostrado una flexibilidad considerable 
 en la elección del codificador de texto de CLIP: las representaciones de texto fijas contenidas en 
@@ -1698,7 +1699,7 @@ representaciones transferibles de CLIP en el marco del protocolo «zero-shot», 
 de establecer una superioridad de ViT sobre ResNet basada exclusivamente en la 
 arquitectura o en la correspondencia de datos.
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
 \begin{tabular}{@{}llcccc@{}}
 \toprule
@@ -1723,7 +1724,7 @@ desde cero tanto un codificador de texto como un codificador visual supone un gr
 computacional, ya que a menudo requiere lotes extremadamente grandes y conjuntos de datos masivos 
 para lograr una alineación sólida y una transferencia eficaz en las etapas posteriores. En segundo 
 lugar, los modelos entrenados de esta manera pueden tener dificultades para comprender la 
-composición---es decir, captar el orden de las palabras en el texto, la disposición espacial 
+composición --- es decir, captar el orden de las palabras en el texto, la disposición espacial 
 en las imágenes y las relaciones entre objetos y atributos o entre objetos. Esto se debe, en 
 parte, a que la supervisión contrastiva de tipo «recuperación» puede favorecer soluciones 
 simplistas que restan importancia a las características composicionales más detalladas. LIFT 
@@ -1734,7 +1735,7 @@ revisa una suposición fundamental en la que se basan estos flujos de trabajo: q
 En cambio, LIFT aprovecha el hecho de que los modelos de lenguaje a gran escala (LLM) modernos 
 ya generan incrustaciones de texto muy informativas. Concretamente, LIFT establece un codificador 
 de texto preentrenado de gran calidad (por ejemplo, uno derivado de un LLM o ajustado sobre él), 
-calcula las incrustaciones de texto sin conexión y entrena únicamente el codificador visual 
+calcula las incrustaciones de texto offline y entrena únicamente el codificador visual 
 para que se alinee con estos objetivos fijos.
 
 \paragraph{Arquitectura.}
@@ -1798,7 +1799,7 @@ que se centra principalmente en alinear estadísticas de orden inferior. Para ha
 es necesario explorar medidas más refinadas de la teoría de la información para la alineación entre 
 lenguaje e imagen, lo que constituye una línea de trabajo clave para el futuro.
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lllccccccc@{}}
@@ -1835,7 +1836,7 @@ Comencemos primero con la que podría considerarse la tarea más clásica del ap
 \textit{la clasificación de imágenes}, que a menudo se utiliza como
 tarea estándar para evaluar algoritmos de reconocimiento de patrones o arquitecturas de redes profundas.
 A partir de nuestro análisis de las arquitecturas white-box (transparentes)
-en \Cref{ch:deep-networks}, solo necesitamos una tarea semánticamente significativa
+en el \Cref{ch:deep-networks}, solo necesitamos una tarea semánticamente significativa
 para aprender buenas representaciones con arquitecturas white-box.
 Validaremos esta idea en esta sección.
 
@@ -2000,7 +2001,7 @@ CRATE. Se establece la tasa de aprendizaje base en \(2.4 \times
 en forma lineal hasta la tasa de aprendizaje base durante las primeras \(5\) épocas, y
 disminuye hasta \(0\) siguiendo un programa coseno durante las siguientes \(145\)
 épocas (entrenando todos los modelos durante \(150\) épocas cada uno). Para el
-preentrenamiento, se aplica un régimen habitual de aumentos de datos (volteretas,
+preentrenamiento, se aplica un régimen habitual de aumentos de datos (volteos,
 desenfoques gaussianos, solarización, etc.) a los datos de imagen y también se añade
 un pequeño ruido a las etiquetas (esto se denomina \textit{suavizado de etiquetas}
 \citep{muller2019does}).
@@ -2027,7 +2028,7 @@ eficiente en cuanto a parámetros.}
         \color{gray} ViT-T} &  { \color{gray}ViT-S } \\
         \midrule
         \midrule
-        \# parameters & 6.09M & 13.12M & 22.80M & 77.64M & {
+        \# parámetros & 6.09M & 13.12M & 22.80M & 77.64M & {
         \color{gray} 5.72M} & { \color{gray} 22.05M} \\
         \midrule
         ImageNet-1K & 66.7 & 69.2 & 70.8 & 71.3 & { \color{gray}
@@ -2048,7 +2049,7 @@ eficiente en cuanto a parámetros.}
 \label{tab:crate_classification_linear_probing}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/crate_semantic_heads.pdf}
 \caption{\small\textbf{Mapas de saliencia interpretables en CRATE} con
@@ -2094,8 +2095,8 @@ los modelos CRATE alcanzan un rendimiento equivalente o superior al de la popula
 arquitectura Vision Transformer (ViT) con un número similar de parámetros, al
 menos en lo que respecta a la separabilidad lineal de sus características
 con respecto a las diferentes clases. En cuanto a la fidelidad de los mapas de atención,
-\Cref{fig:crate_semantic_heads} muestra un resultado verdaderamente extraordinario:
-sin necesidad de entrenar con datos de segmentación o detección de objetos,
+la \Cref{fig:crate_semantic_heads} muestra un resultado verdaderamente extraordinario:
+sin necesidad de entrenar con datos de segmentación o detección de objetos;
 \textit{no solo} los mapas de saliencia capturan eficazmente
 todas las partes relevantes de la imagen de entrada, sino que
 \textit{se auto-organizan} para que cada uno corresponda a un conjunto discreto de 
@@ -2131,8 +2132,7 @@ que, dada una entrada, realiza un recorte aleatorio con cambio de tamaño (véas
 \Cref{sub:contrastive_learning_objective}) para convertir la imagen de entrada
 en una imagen cuadrada de tamaño \((C, S_{\mask}, S_{\mask})\), y luego
 \textit{enmascara} (es decir, pone a cero) un porcentaje fijo \(p_{\mask}
-\in [0, 1]\) de los píxeles de la entrada. Por motivos de eficiencia
-\footnote {La implementación original de MAE por
+\in [0, 1]\) de los píxeles de la entrada. Por motivos de eficiencia\footnote {La implementación original de MAE por
 \cite{he2022masked} incrusta la imagen completa, \textit{elimina} los
 tokens que se enmascararían, pasa el conjunto de tokens resultante a través
 del codificador, vuelve a añadir los tokens de marcador de posición aprendidos en los espacios enmascarados
@@ -2155,12 +2155,12 @@ capaces de reconstruir una entrada a partir de su enmascarado; es decir, si se e
 En esencia, esto significa que las características \(\vZ_{\theta}(\vX_{m})\) de
 la vista \(\vX_{m} \doteq v_{m}(\vX)\) deben contener información sobre
 los \textit{parches enmascarados}, así como sobre los parches no enmascarados. Desde la
-perspectiva de los modelos transparentes white-box basados en compresión descritos en
+perspectiva de los modelos transparentes white-box basados en compresión descritos en el
 \Cref{ch:deep-networks}, si un auto-codificador white-box  \((f_{\theta},
 g_{\eta})\) tiene éxito en esta tarea, significa que los
-subespacios y diccionarios aprendidos realizan una codificación \textit{redundante} de con compresión
-los datos, de tal manera que puede reconstruir las partes faltantes de los datos a partir de
-otras partes codificadas de los datos. Esto significa que la información sobre
+subespacios y diccionarios aprendidos realizan una codificación \textit{redundante} de 
+los datos, de tal manera que puede reconstruir las partes faltantes a partir de
+otras partes codificadas de los mismo. Esto significa que la información sobre
 cada parche se almacena en otros parches. Por lo tanto, cada característica de un parche
 debería contener tanto información sobre el parche como información sobre
 las estadísticas de toda la imagen. Así pues, una vez más, se espera que las
@@ -2254,13 +2254,11 @@ es posible establecer directamente \(\tilde{\vE}^{\pos}\) igual a la
 codificación posicional \(\vE^{\pos}\) y utilizar las mismas codificaciones posicionales interpoladas
 para cada entrada tanto en el codificador como en el decodificador.}
 
-Esta arquitectura es un auto-codificador white-box \((f_{\theta},
-g_{\eta})\), donde (recordemos) \(f_{\theta} = f_{\theta}^{\backbone}
-\circ f_{\theta}^{\emb}\) y \(g_{\eta} = g_{\eta}^{\unemb} \circ
-g_{\eta}^{\backbone}\). En particular, podemos usarla para calcular una
-estimación de una vista enmascarada \(\hat{\vX}_{\theta, \eta}(\vX_{m}) =
-(g_{\eta} \circ f_{\eta})(\vX_{m})\), que debería aproximarse al propio
-\(\vX\).
+Esta arquitectura es un auto-codificador white-box \((f_{\theta}, g_{\eta})\), donde (recordemos) 
+\(f_{\theta} = f_{\theta}^{\backbone} \circ f_{\theta}^{\emb}\) y \(g_{\eta} = g_{\eta}^{\unemb} \circ g_{\eta}^{\backbone}\). 
+En particular, podemos usarla para calcular una estimación de una vista enmascarada 
+\(\hat{\vX}_{\theta, \eta}(\vX_{m}) = (g_{\eta} \circ f_{\eta})(\vX_{m})\), 
+que debería aproximarse al propio \(\vX\).
 
 \subsection{Optimización}\label{sub:image_completion_optimization}
 
@@ -2314,7 +2312,7 @@ que devuelva la característica correspondiente al token de clase, es decir,
 f_{\theta}^{\ext}(\vZ) \doteq f_{\theta}^{\ext}([\vz^{1}, \dots,
 \vz^{n}]) = \vz^{1},
 \end{equation}
-como (por ejemplo) en 
+como (por ejemplo) en las
 \Cref{sub:image_classification_objective,sub:image_classification_architecture}.
 Con esto, se tiene una forma de obtener características agregadas
 \(\vz_{\theta}(\vX_{\cc}) \doteq (f_{\theta}^{\ext} \circ
@@ -2388,7 +2386,7 @@ y basado en principios.}
         {\color{gray} ViT-MAE-S} & {\color{gray} ViT-MAE-B} \\
         \midrule
         \midrule
-        \# parameters & 25.4M & 44.6M & 47.6M & {\color{gray}143.8M} \\
+        \# parámetros & 25.4M & 44.6M & 47.6M & {\color{gray}143.8M} \\
         \midrule
         CIFAR10 & 79.4 & 80.9 & {\color{gray} 79.9} & {\color{gray} 87.9} \\
         CIFAR100 & 56.6 & 60.1 & {\color{gray} 62.3} & {\color{gray} 68.0} \\
@@ -2431,7 +2429,7 @@ estructuras o propiedades explícitas, lo cual puede ser muy importante si quere
 características así aprendidas para ciertas tareas posteriores, como el reconocimiento o la 
 generación controlada.Además, la pérdida MMSE simple que se utiliza para completar la imagen no 
 respeta necesariamente las posibles estructuras no lineales de la variedad de la imagen y, por 
-lo general, genera un valor esperado---y, por lo tanto, una versión borrosa---para los parches 
+lo general, genera un valor esperado ---y, por lo tanto, una versión borrosa--- para los parches 
 de imagen que faltan, tal como hemos mostrado en la Figura \ref{fig:mae_autoencoding-small} del 
 anterior Capítulo \ref{ch:conditional-inference}.
 
@@ -2486,7 +2484,7 @@ etapas, un bloque intermedio compuesto por dos bloques ResNet adicionales refina
 Por último, una convolución de salida proyecta las características en $2c$ canales, que se dividen en las 
 dos magnitudes que parametrizan la distribución latente (descrita a continuación).
 
-A diferencia de un auto-codificador estándar---y esto es fundamental---el codificador no genera un único 
+A diferencia de un auto-codificador estándar ---y esto es fundamental--- el codificador no genera un único 
 vector latente determinista. En su lugar, parametriza una distribución gaussiana diagonal posterior 
 $q(\z | \x) = \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\sigma}^2 \boldsymbol{I})$ generando dos magnitudes:
 \begin{itemize}
@@ -2597,8 +2595,8 @@ DINO) y un decodificador entrenable, siguiendo el trabajo:\\
 El codificador $f$ mapea una muestra de entrada
 $\x$ a su representación aprendida $\z = f(\x)$, mientras que el decodificador
 $g$ mapea la representación de vuelta al espacio de datos original
-$\x'=g(\z)$. Tal y como se detalla en \Cref{ch:consistent-representations}, un objetivo sencillo
-consiste en garantizar la consistencia a nivel de muestra entrenando al
+$\x'=g(\z)$. Tal y como se detalla en el \Cref{ch:consistent-representations}, un objetivo sencillo
+consiste en garantizar la consistencia a nivel de muestras entrenando al
 decodificador para minimizar la pérdida de reconstrucción entre los datos originales
 $\x$ y la reconstrucción $\x'$. A continuación, describimos los detalles.
 
@@ -2677,7 +2675,7 @@ alcanzando una precisión de búsqueda lineal mucho mayor con respecto a las VAE
     \small\textbf{Resultados de la reconstrucción y el sondeo lineal de los RAE.} }
     \begin{tabular}{@{}cc@{}}
         \subfloat[
-            \scriptsize \textbf{Opción codificador.} Todos los codificadores superan a SD-VAE.
+            \scriptsize \textbf{Opción codificador.} Todos los codifi- cadores superan a SD-VAE.
             \label{tab:recon_deterministic}
         ]
         {
@@ -2796,7 +2794,7 @@ las reconstrucciones. Las reconstrucciones de RAE conservan las texturas de gran
 los límites de los objetos y los detalles semánticos con la misma fidelidad que el modelo de referencia SD-VAE,
 lo cual coincide con sus mejores resultados en rFID.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{chapters/chapter8/figs/recon_grid.pdf}
     \caption{\small\textbf{Ejemplos de reconstrucción RAE.} De izquierda a derecha: imagen de entrada, RAE (DINOv2-B), RAE (Siglp-B), RAE (MAE-B), SD-VAE. Amplíe la imagen para ver los detalles.}
@@ -2827,7 +2825,7 @@ aprendidas $p(\z)$. Este proceso se ilustra en la mitad inferior de la Figura \r
 del Capítulo \ref{ch:intro}.
 
 Para entender el proceso de eliminación de ruido, tomemos el caso sencillo de la coincidencia de flujos 
-presentado en el Capítulo \ref{ch:denoising}. Podemos definir el filtro de ruidp como un campo vectorial 
+presentado en el Capítulo \ref{ch:denoising}. Podemos definir el filtro de ruido como un campo vectorial 
 dependiente del tiempo $\bar{\z}_{\theta}(t, \z_t)$, parametrizado por $\theta$, que transforma una muestra de la
 distribución inicial a la distribución objetivo a lo largo del tiempo $t \in [0, 1]$. 
 Aquí, $\z_t$ es una interpolación entre $\z_0$ y $\z_1$ en el tiempo $t$:
@@ -2877,7 +2875,7 @@ más detalles sobre cómo se pueden implementar en la práctica.
 
 La arquitectura predominante para implementar la red de eliminación de ruido $\boldsymbol{\epsilon}_\theta$ 
 en los modelos de difusión ha sido la \textit{U-Net}~\citep{ronneberger2015unet}, una red convolucional de 
-codificador-decodificador con conexiones de salto desarrollada originalmente para la segmentación de 
+codificador-decodificador con conexiones de salto (skip connections) desarrollada originalmente para la segmentación de 
 imágenes biomédicas. Ho et al.~\citep{ho2020denoising} fueron los primeros en adoptar la red U-Net como 
 estructura principal de los modelos probabilísticos de difusión con eliminación de ruido (DDPM), 
 consolidándola como la arquitectura predeterminada en este campo. Posteriormente, Dhariwal 
@@ -2905,8 +2903,8 @@ anteriores del codificador, lo cual es esencial para generar predicciones espaci
 
 En la red U-Net DDPM~\citep{ho2020denoising}, la arquitectura comienza con una convolución de entrada 
 que proyecta la entrada con ruido en un espacio de características con un número básico de canales 
-(por ejemplo, 128). A continuación, el codificador pasa por múltiples etapas de resolución---cuatro 
-para entradas de $32 \times 32$, o seis para entradas de $256 \times 256$---donde cada etapa consta 
+(por ejemplo, 128). A continuación, el codificador pasa por múltiples etapas de resolución ---cuatro 
+para entradas de $32 \times 32$, o seis para entradas de $256 \times 256$--- donde cada etapa consta 
 de dos bloques residuales convolucionales. Entre etapas consecutivas se realiza una reducción espacial 
 mediante convoluciones con paso, resultando en tres reducciones y un factor de submuestreo 
 global $f = 2^3 = 8$. Las capas de auto-atención se insertan en el nivel de resolución de 
@@ -2927,7 +2925,7 @@ en $\z_t \in \mathbb{R}^{h \times w \times c}$ y la salida es
 $\hat{\boldsymbol{\epsilon}} \in \mathbb{R}^{h \times w \times c}$, con $h = H/f$, $w = W/f$ 
 tal como se define en la Sección~\ref{sec:VAE-implement}.
 
-\paragraph{Condicionamiento del paso de tiempo mediante la normalización adaptativa por grupos.}
+\paragraph{Condicionamiento por paso de tiempo mediante normalización adaptativa por grupos.}
 La red de eliminación de ruido debe condicionarse al paso de tiempo de difusión $t$ para que 
 pueda adaptar su comportamiento a los distintos niveles de ruido. Siguiendo el esquema de 
 codificación posicional del transformer~\citep{vaswani2017attention}, el paso de tiempo $t$ 
@@ -2975,17 +2973,17 @@ la Sección~\ref{sec:unet-ldm}.
 Dhariwal y Nichol~\citep{dhariwal2021diffusion} llevaron a cabo un estudio sistemático de 
 ablación para determinar qué modificaciones arquitectónicas mejoran más la calidad de las 
 muestras. Partiendo del modelo de referencia DDPM U-Net~\citep{ho2020denoising}, exploraron 
-los siguientes cambios en ImageNet $128 \times 128$: (a) ampliar la auto-atención de la 
+los siguientes cambios en ImageNet $128 \times 128$: (a) ampliación de la auto-atención de la 
 resolución $16 \times 16$ a tres resoluciones ($32 \times 32$, $16 \times 16$, $8 \times 8$); 
-(b) aumentar el número de cabezales de atención, utilizando 64 canales por cabezal para 
-ajustarse mejor a la convención de transformer; (c) la adopción del bloque residual 
+(b) aumento del número de cabezales de atención, utilizando 64 canales por cabezal para 
+ajustarse mejor a la convención de transformer; (c) adopción del bloque residual 
 BigGAN~\citep{brock2019large} tanto para el upsampling como para el downsampling, lo que 
-mejora el flujo de gradientes; y (d) la inclusión por defecto de la capa de condicionamiento 
+mejora el flujo de gradientes; y (d) inclusión por defecto de la capa de condicionamiento 
 AdaGN (descrita anteriormente) en cada bloque residual. Todos estos cambios mejoran el FID y 
 sus efectos se potencian de manera positiva. El modelo resultante, al que denominan ADM, 
 sirve como nuevo diseño predeterminado de U-Net para trabajos posteriores.
 
-Además de las mejoras arquitectónicas, Dhariwal y Nichol introdujeron la \emph{orientación 
+Además de las mejoras arquitectónicas, Dhariwal y Nichol introdujeron la \emph{guía 
 por clasificador} como mecanismo para equilibrar la diversidad de la muestra con la fidelidad. 
 Se entrena un clasificador $p_\phi(c|\z_t, t)$ con imágenes ruidosas, y sus gradientes se utilizan 
 para dirigir la trayectoria de muestreo hacia regiones de alta probabilidad de la clase deseada:
@@ -3034,9 +3032,9 @@ matemática completa de este mecanismo de atención cruzada y del objetivo de en
 
 En Stable Diffusion~\citep{rombach2022high}, el codificador de texto $\tau_\theta$ se implementa como 
 el modelo CLIP ViT-L/14 preentrenado~\citep{radford2021learning}, que mapea las indicaciones de texto 
-a una secuencia de incrustación de tokens. El propio U-Net conserva las mejoras de ADM---bloques 
+a una secuencia de incrustación de tokens. El propio U-Net conserva las mejoras de ADM ---bloques 
 residuales de BigGAN, atención en tres niveles de resolución, AdaGN para la inyección de pasos 
-temporales---y, además, intercala capas de atención cruzada en estos mismos niveles de resolución 
+temporales--- y, además, intercala capas de atención cruzada en estos mismos niveles de resolución 
 para el condicionamiento de texto. El modelo completo contiene aproximadamente 860 millones de 
 parámetros en la red U-Net y 123 millones en el codificador de texto.
 
@@ -3051,7 +3049,7 @@ ascendente/descendente), y no está claro cómo asignar de manera óptima la cap
 adicional. Por el contrario, el transformer básico se escala a lo largo de dos ejes simples, la 
 profundidad y la anchura, y presenta leyes de escalado bien caracterizadas según estudios 
 empíricos~\citep{kaplan2020scaling}. En segundo lugar, las capas convolucionales de U-Net 
-codifican un fuerte \textbf{sesgo inductivo espacial} (localidad, invariancia a la traslación) 
+codifican un fuerte \textbf{sesgo inductivo espacial} (localidad, invarianza a la traslación) 
 que resulta útil en entornos con pocos datos, pero que limita el modelado de largo alcance en 
 conjuntos de datos de gran tamaño. La auto-atención resuelve parcialmente este problema, pero en 
 los diseños estándar de U-Net solo se aplica en las etapas de baja resolución debido a su coste 
@@ -3141,8 +3139,8 @@ transformer. Cada bloque sigue la estructura estándar del transformer~\citep{va
 normalización de capa, auto-atención multicanal (MHSA), una segunda normalización de capa y una red 
 de propagación hacia adelante punto a punto (MLP con activaciones GELU).
 
-La cuestión central del diseño es cómo incorporar la información de condicionamiento---el intervalo 
-de tiempo de difusión $t$ y la etiqueta de clase $c$---en cada bloque. Peebles y Xie~\citep{peebles2023scalable} 
+La cuestión central del diseño es cómo incorporar la información de condicionamiento ---el intervalo 
+de tiempo de difusión $t$ y la etiqueta de clase $c$--- en cada bloque. Peebles y Xie~\citep{peebles2023scalable} 
 comparan cuatro estrategias: (1) \emph{condicionamiento en contexto}, que añade $t$ y $c$ como tokens 
 adicionales en la secuencia de entrada; (2) \emph{atención cruzada}, que introduce una capa adicional 
 de atención cruzada multicanal que presta atención a las incrustaciones de condicionamiento; (3) 
@@ -3179,8 +3177,8 @@ inmediatamente antes de cada conexión residual:
 El «Zero» de adaLN-Zero hace referencia a la inicialización: todos los parámetros 
 $\boldsymbol{\alpha}$ son inicializados al valor cero por la MLP que los regresa, de modo 
 que cada bloque DiT actúa como la \emph{función identidad} al inicio del entrenamiento. 
-Esta estrategia de inicialización a cero, inspirada en prácticas similares en 
-ResNets~\citep{goyal2017accurate} y U-Nets de difusión, es importante para la estabilidad 
+Esta estrategia de inicialización a cero, inspirada en prácticas similares en los 
+ResNet~\citep{goyal2017accurate} y los U-Net de difusión, es importante para la estabilidad 
 del entrenamiento y produce un FID significativamente más bajo que el adaLN básico.
 
 Observamos que adaLN aplica la \emph{misma} función de condicionamiento a todos los tokens 
@@ -3289,7 +3287,7 @@ enmascarada, una máscara semántica, información de clase o una leyenda que de
 \label{subsec:cond_problem}
 
 Formalmente, el objetivo de la generación condicionada es aprender una correspondencia que transforme 
-una distribución de origen simple (normalmente ruido gaussiano) en una distribución condicional de 
+una distribución simple de origen (normalmente un ruido gaussiano) en una distribución condicional de 
 destino. La característica generada $\hat{\z}$ se decodifica posteriormente en una imagen correspondiente 
 $\hat{\x}$. Tal y como se ilustra a continuación, el sistema se define formalmente por sus entradas y salidas:
 \begin{enumerate}
@@ -3313,8 +3311,8 @@ $G_\theta$ y el decodificador $\mathcal{D}$:
     \hat{\x} \approx \x.
 \end{equation}
 
-\paragraph{La diferencia modal.}
-Aunque la tarea es conceptualmente sencilla---establecer una correspondencia entre 
+\paragraph{La brecha de modalidades.}
+Aunque la tarea es conceptualmente sencilla ---establecer una correspondencia entre 
 $(\epsilon, \vc)$ y $\x$---, requiere tender un puente entre espacios topológicos disjuntos, 
 especialmente en la generación de imágenes a partir de texto. Los datos visuales $\x$ se 
 encuentran en un espacio de píxeles continuo y de alta dimensión $\mathbb{R}^{H \times W \times 3}$, 
@@ -3330,7 +3328,7 @@ de los datos, guiada por estas incrustaciones semánticas a través de un mecani
 específico, como la atención cruzada.
 
 \paragraph{El problema inverso uno-a-muchos.}
-El aprendizaje por condiciones es intrínsecamente mal planteado porque la señal de control suele 
+El aprendizaje por condiciones está intrínsecamente mal planteado porque la señal de control suele 
 ser \textit{subdeterminada}. Una indicación textual $\vc=$ «un perro» proporciona información 
 sobre la categoría semántica, pero omite la postura del perro, la iluminación, el fondo y el 
 patrón del pelaje. En consecuencia, la correspondencia inversa $\vc \to \x$ no es un único punto, 
@@ -3365,7 +3363,7 @@ $p(\z|\vc)$, lo que nos permite obtener muestras de instancias diversas y nítid
 % implementation of each component below, using the Latent Diffusion
 % Model (LDM)~\citep{rombach2022high} as the primary case study.
 
-% \begin{figure}[h]
+% \begin{figure}[htbp]
 % \centering
 % \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/sd_pipeline.pdf}
 % \caption{\textbf{The three-stage inference pipeline of Stable Diffusion.}
@@ -3534,7 +3532,7 @@ de texto CLIP) para interpretar las instrucciones de texto (prompts) y (3) una r
 \textbf{generación de latentes} (U-Net) para sintetizar el contenido. A continuación 
 detallamos la implementación de cada componente.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/sd_pipeline.pdf}
 \caption{\textbf{El proceso de inferencia en tres etapas de Stable Diffusion.} 
@@ -3591,8 +3589,8 @@ $\tau_\theta(\vc) \in \mathbb{R}^{d_\tau \times M}$, donde $M$ es la longitud de
 Estas incrustaciones sirven como fuentes semánticas de «Clave» (Key) y «Valor» (Value) para la estructura 
 central de generación.
 
-\paragraph{Componente 3: Generación latente (la U-Net condicional al tiempo).}
-El motor de generación principal se implementa como una red U-Net condicional en el tiempo 
+\paragraph{Componente 3: Generación latente (la U-Net condicionado al tiempo).}
+El motor de generación principal se implementa como una red U-Net condicional al tiempo 
 $\epsilon_\theta$. A diferencia de los modelos en el espacio de píxeles, esta red opera 
 íntegramente dentro del espacio latente comprimido. Su arquitectura se compone de una serie 
 de bloques ResNet para la extracción de características y capas de atención cruzada para el 
@@ -3607,7 +3605,7 @@ condicionamiento.
               componentes de baja y alta frecuencia), seguida de una red neuronal multicapa (MLP) compuesta por 
               capas `Linear` $\to$ `SiLU` $\to$ `Linear`. Esto produce un vector de incrustación temporal global 
               (por ejemplo, de 1280 dimensiones) que se inyecta en cada bloque ResNet de la U-Net.
-        \item \textbf{Flujo contextual:} Las incrustaciones de texto $\tau_\theta(\vc)$ de la componente 2.
+        \item \textbf{Flujo de contexto:} Las incrustaciones de texto $\tau_\theta(\vc)$ de la componente 2.
     \end{enumerate}
     \item \textbf{Mecanismo de condicionamiento (atención cruzada):} La interacción entre el contenido visual y la 
           indicación de texto se gestiona mediante capas de atención cruzada intercaladas a lo largo de la red U-Net. 
@@ -3616,7 +3614,7 @@ condicionamiento.
           la profundidad del canal, p. ej., 320, 640 o 1280) y sea $\tau_\theta(\vc) \in \mathbb{R}^{d_\tau \times M}$ 
           las incrustaciones de texto.
           Dado que la dimensión visual $d_\epsilon^{(i)}$ y la dimensión textual $d_\tau$ son diferentes, proyectamos 
-          ambas en un subespacio común de dimensión $d$ (la dimensión de la cabeza de atención) utilizando pesos 
+          ambas en un subespacio común de dimensión $d$ (la dimensión del cabezal de atención) utilizando pesos 
           aprendibles. En primer lugar, definimos las matrices de consulta ($\boldsymbol{Q}$), 
           clave ($\boldsymbol{K}$) y valor ($\boldsymbol{V}$):
           \begin{equation}
@@ -3641,7 +3639,7 @@ condicionamiento.
           En este contexto, la matriz $\boldsymbol{A} = \frac{\boldsymbol{K}^\top \boldsymbol{Q}}{\sqrt{d}}$ 
           representa las puntuaciones de alineación y la función softmax aplicada columna a columna normaliza los pesos de 
           atención sobre los $M$ tokens de texto para cada una de las $N$ regiones visuales. Este mecanismo 
-          permite al modelo alinear espacialmente regiones visuales específicas (por ejemplo, «ojo de gato») 
+          le permite al modelo alinear espacialmente regiones visuales específicas (por ejemplo, «ojo de gato») 
           con tokens de texto específicos.
 \end{itemize}
 
@@ -3663,7 +3661,7 @@ métricas estadísticas para evaluar el rendimiento. Denotamos la distribución 
 como $p_r$ y la distribución de las imágenes generadas como $p_g$.
 
 \begin{itemize}
-    \item \textbf{FID (Fréchet Inception Distance):} Esta métrica cuantifica el realismo y la 
+    \item \textbf{FID (Distancia de inicio de Fréchet):} Esta métrica cuantifica el realismo y la 
           diversidad de las muestras generadas midiendo la distancia estadística entre las distribuciones $p_r$ y $p_g$ en el 
           espacio de características de una red Inception-v3 preentrenada. Aproximamos estas 
           distribuciones de características como gaussianas multidimensionales 
@@ -3723,7 +3721,7 @@ trayectorias estocásticas curvas de los modelos de difusión tradicionales.
 \subsection{Mecanismos avanzados de condicionamiento}
 \label{subsec:advanced_conditioning}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/cnet_pipeline.pdf}
     \caption{\textbf{Flujo de la arquitectura ControlNet.} Una copia entrenable del codificador y los bloques 
@@ -3778,7 +3776,7 @@ ControlNet. La salida $\boldsymbol{y}_i$ se calcula como:
 \end{equation}
 
 
-Dado que la convolución por ceros se inicializa en ceros, el término de control desaparece al inicio 
+Dado que la convolución cero se inicializa en ceros, el término de control desaparece al inicio 
 del entrenamiento ($\mathcal{Z}(\cdot) = 0$), lo que garantiza que el modelo se comporte 
 exactamente igual que el Stable Diffusion original. Sin embargo, los gradientes de los 
 pesos $W$ son distintos de cero:
@@ -3813,12 +3811,12 @@ la capacidad de sintetizar instancias de sujetos específicos (por ejemplo, el g
 usuario) de manera coherente en diferentes contextos. Para solucionar esto, DreamBooth 
 \citep{ruiz2023dreambooth} introduce un protocolo de ajuste fino de «personalización». El principal 
 desafío consiste en introducir un nuevo objeto en el dominio de salida del modelo sin que se 
-produzca un «olvido catastrófico»---en el que el modelo pierde su comprensión de la clase general 
-(por ejemplo, olvida cómo es un gato en general)---o sufra una «deriva lingüística» (sobrescribiendo 
+produzca un «olvido catastrófico» ---en el que el modelo pierde su comprensión de la clase general 
+(por ejemplo, olvida cómo es un gato en general)--- o sufra una «deriva lingüística» (sobrescribiendo 
 la palabra «gato» con las características específicas de ese gato en concreto).
 
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/db_pipeline.pdf}
     \caption{\textbf{El proceso de entrenamiento e inferencia de DreamBooth.} Durante el 
@@ -3872,7 +3870,7 @@ de atención cruzada, con lo que demuestra que estos pesos específicos son sufi
 nuevos conceptos.
 
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/gen4gen_teaser.pdf}
     \caption{\textbf{El proceso Gen4Gen para la personalización multiconcepto.} Para superar las 
@@ -3998,7 +3996,7 @@ difusión latente (VAE-SD)~\cite{rombach2022high}.}
 Sin embargo, nuestro mundo es tridimensional (3D).\footnote{o
 cuatridimensional (4D) si consideramos el tiempo como una dimensión adicional, ya que
 el mundo es dinámico.} Aunque nuestros ojos solo perciben proyecciones bidimensionales
-del mundo---pares estereoscópicos a través de nuestros dos ojos---, somos
+del mundo ---pares estereoscópicos a través de nuestros dos ojos---, somos
 capaces de desarrollar una memoria visual que representa un modelo tridimensional completo
 de nuestro entorno y de los objetos que lo componen.
 
@@ -4009,8 +4007,7 @@ distribución, basándose en una imagen bidimensional de entrada o en una descri
 textual del objeto. En concreto, el trabajo que aquí se presenta se
 basa en el proyecto Michelangelo~\cite{NEURIPS2023_ea1a7f7b}, que
 generaliza en gran medida las técnicas que hemos introducido para
-a datos de formas 3D
-\footnote{En términos generales, las mallas poligonales y los datos de video pueden
+a datos de formas 3D\footnote{En términos generales, las mallas poligonales y los datos de video pueden
 denominarse «datos 3D»; sin embargo, en esta sección, el término
 «datos 3D» se refiere a mallas poligonales o sus representaciones equivalentes,
 explícitas o implícitas.}.
@@ -4050,7 +4047,7 @@ columnas proceden de \cite{shi2022deep} y la imagen de la última columna
 procede de
 https://medium.com/@sunil7545/implicit-vs-parametric-3d-shape-representation-9d4c01c8c60c}.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/3drep.pdf}
 \caption{\textbf{Ilustraciones de diferentes representaciones 3D 
@@ -4161,10 +4158,10 @@ la topología de la superficie, ofreciendo un equilibrio eficiente entre
 la fidelidad visual y la estructura geométrica.
 
 Sin embargo, la aplicación directa de las modernas arquitecturas de aprendizaje profundo
---- en concreto, los transformers --- a estas representaciones sin procesar
+---en concreto, los transformers--- a estas representaciones sin procesar
 plantea importantes retos. A diferencia de las imágenes 2D, que poseen una
 estructura de cuadrícula regular que se divide fácilmente en parches, los datos 3D suelen ser
-esparsos, no estructurados e irregulares. Para aprovechar el poder del
+dispersos, no estructurados e irregulares. Para aprovechar el poder del
 modelado de secuencias y los mecanismos de auto-atención en 3D, debemos salvar
 la brecha entre los datos geométricos sin procesar y las secuencias discretas y ordenadas
 que requieren los transformers. Este proceso se conoce como
@@ -4179,7 +4176,7 @@ del conjunto original $\mathcal{P}$, de tal manera que cada punto seleccionado m
 la distancia al conjunto de puntos seleccionados previamente:
 $x_{i} = \arg\max_{x \in \mathcal{P}} \min_{j=1}^{i-1} \|x - x_j\|$.
 Tras el FPS, los puntos se agrupan mediante k-Nearest Neighbors (k-NN) para formar clústeres locales.
-Cada clúster sirve como un token para gestionar la invariancia de permutación de los puntos
+Cada clúster sirve como un token para gestionar la invarianza de permutación de los puntos
 dentro de un clúster, por lo que se aplica una red ligera como PointNet~\cite{qi2017pointnet}.
 Matemáticamente, para un clúster de puntos $\{p_1, \dots, p_k\}$,
 PointNet aproxima una función simétrica $f$ aplicando un
@@ -4232,7 +4229,7 @@ cuellos de botella en la memoria para formas de alta resolución.
 
 
 \item \textbf{Tokenización de mallas.} 
-La tokenización de mallas supone un reto debido a su estructura similar a un grafo, 
+La tokenización de mallas supone un desafío debido a su estructura similar a un grafo, 
 que incluye tanto vértices como caras.  A diferencia de las imágenes, las mallas carecen 
 de un orden canónico. Para permitir el modelado secuencial, los enfoques habituales implican
 una serialización explícita, en la que los elementos geométricos y topológicos sin procesar 
@@ -4273,13 +4270,13 @@ Si bien estas estrategias de tokenización explícita discretizan eficazmente
 las variedades continuas, operan directamente en el espacio de observación de alta dimensión,
 lo que a menudo da lugar a secuencias excesivamente largas
 y a redundancia computacional. Para hacer frente a estas limitaciones de escalabilidad
-y lograr mayores índices de compresión, el campo se ha inclinado hacia
+y lograr mayores índices de compresión, los investigadores del área se han inclinado hacia
 las representaciones discretas basadas en el aprendizaje. En lugar de tokenizar directamente las primitivas geométricas sin procesar,
 los siguientes métodos proyectan primero los datos 3D
 en un espacio latente compacto y de baja dimensión donde se agrega la información semántica,
 lo que permite separar de manera efectiva la reconstrucción geométrica del modelado estructural.
 
-\textbf{Cuantificación de vectores latentes estándar.} Este enfoque aprende un
+\textbf{Cuantización de vectores latentes estándar.} Este enfoque aprende un
 libro de códigos discreto para representar la forma mediante la cuantización de vectores (VQ). 
 Un método representativo es  AutoSDF~\cite {mittal2022autosdf}. En este marco, una entrada de alta dimensión
 (por ejemplo, una malla de vóxeles $X$ o un campo de funciones implícito $F_\theta$)
@@ -4314,7 +4311,7 @@ vectores de características continuas asociados, extraídos por un codificador 
 PointNet~\cite{qi2017pointnet}. La conversión de este conjunto no estructurado en una 
 secuencia de tokens implica tres pasos clave:
 \begin{itemize}
-\item \textbf{Cuantificación de coordenadas.} En primer lugar, para un conjunto de $M$ puntos clave
+\item \textbf{Cuantización de coordenadas.} En primer lugar, para un conjunto de $M$ puntos clave
     seleccionados mediante el método de muestreo del punto más lejano (véase «Tokenización de nubes de puntos»),
     las coordenadas espaciales continuas $x_i \in
     \mathbb{R}^3$ se discretizan en enteros de 8 bits:
@@ -4325,7 +4322,7 @@ secuencia de tokens implica tres pasos clave:
     Este paso convierte de manera efectiva las posiciones continuas en
     unidades discretas y tokenizables.
 
-\item \textbf{Cuantificación de características.} Al mismo tiempo, el vector de características locales 
+\item \textbf{Cuantización de características.} Al mismo tiempo, el vector de características locales 
 asociado a cada punto se comprime en un índice de libro de códigos discreto $z_i$ mediante cuantización vectorial (VQ):
 \begin{equation}
     z_i \in \{0, 1, \dots, D-1\},
@@ -4369,13 +4366,13 @@ En general, una buena representación latente debe poseer dos características c
 debe ser altamente compresible y, al mismo tiempo, permitir una reconstrucción fiel
 de las muestras de datos 3D, además de facilitar el entrenamiento del modelo generativo.
 Sin embargo, en comparación con los datos de imágenes 2D, los datos 3D siguen siendo
-escasos~\footnote{Esta situación persiste incluso tras el lanzamiento de
-Objaverse-XL~\cite{10.5555/3666122.3667676}.}.
+escasos.~\footnote{Esta situación persiste incluso tras el lanzamiento de
+Objaverse-XL~\cite{10.5555/3666122.3667676}.}
 En consecuencia, aprender una representación latente efectiva para datos 3D
 supone un gran desafío. La Figura \ref{fig:michelangelo_network} muestra
 el diagrama general del marco propuesto por el proyecto Michelangelo.
 A continuación explicaremos los detalles de implementación de cada componente.
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
 \includegraphics[trim=0cm 0cm 0cm 0cm,
 clip=true,width=.99\linewidth]{\toplevelprefix/chapters/chapter8/figs/michelangelo_network.pdf}
@@ -4403,7 +4400,7 @@ clip=true,width=.99\linewidth]{\toplevelprefix/chapters/chapter8/figs/michelange
 Inspirado en CLIP~\cite{pmlr-v139-radford21a}, el enfoque adoptado por
 el proyecto Michelangelo inyecta información semántica en el espacio latente
 mediante una pérdida contrastiva para mitigar los problemas observados al
-entrenar VAE exclusivamente a partir de datos 3D, resultando en el Autoencoder 
+entrenar VAE exclusivamente a partir de datos 3D, resultando en el Auto-codificador 
 Variacional Alineado de Forma, Imagen y Texto (SITA-VAE).
 
 El SITA-VAE consta de cuatro componentes: un codificador visual preentrenado y fijo CLIP 
@@ -4828,7 +4825,7 @@ muestras superiores se ajustan al texto dado, mientras que las inferiores
 no, lo que indica que entrenar el modelo generativo en el
 espacio alineado da lugar a muestras de alta fidelidad.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=.98\linewidth]{\toplevelprefix/chapters/chapter8/figs/michelangelo_1aligned_space_for_generation.pdf}
 \caption{
@@ -4855,7 +4852,7 @@ modelo creado con CLIP alcanza el mejor rendimiento. A continuación, se
 evalúa el impacto del modelo de visión-lenguaje en la capacidad de
 alinear el espacio multimodal. Se seleccionan tareas de clasificación
 estándar y de aprendizaje sin datos previos para reflejar el impacto
-del modelo de visión-lenguaje. Tenga en cuenta
+del modelo de visión-lenguaje. Téngase en cuenta
 que la clasificación se lleva a cabo mediante una operación de coincidencia de características,
 en la que se proporcionan múltiples formas 3D y frases al SITA-VAE; este
 devuelve la similitud entre las formas 3D y cada frase como
@@ -4972,8 +4969,8 @@ en la generación}\label{sec:CUPID}\label{sec:shape-and-pose}
 La razón fundamental por la que desarrollamos el sentido de la vista es para aprender a percibir 
 nuestro entorno tridimensional (3D). Nuestro cerebro ha dedicado una parte importante de sí mismo, 
 {\em la corteza visual}, a realizar esta tarea. Esto nos permite reconstruir de manera precisa y 
-eficiente las formas de los objetos 3D y sus relaciones espaciales
-\footnote{es decir, las posiciones relativas con respecto a nuestro punto de vista o entre los 
+eficiente las formas de los objetos 3D y sus relaciones espaciales\footnote{es decir, las 
+  posiciones relativas con respecto a nuestro punto de vista o entre los 
 propios objetos} a partir de las imágenes 2D que perciben nuestros ojos. Existe una larga y rica 
 tradición dedicada a comprender matemáticamente cómo, en principio, podemos reconstruir 
 completamente la geometría tridimensional a partir de múltiples imágenes 2D. 
@@ -4995,11 +4992,11 @@ reproduce fielmente la imagen de entrada.}
 \end{figure}
 
 No obstante, tal y como hemos mencionado en la Sección \ref{sec:3D-visual-model} del 
-capítulo anterior \ref{ch:conditional-inference}, idealmentela reconstrucción 
+anterior Capítulo \ref{ch:conditional-inference}, idealmente la reconstrucción 
 3D debería llevarse a cabo de manera bayesiana, al igual que lo hace nuestro 
 cerebro. Nuestra percepción del entorno tridimensional parece ser tan natural, principalmente 
 porque reconstruimos una escena tridimensional y reconocemos objetos tridimensionales 
-basándonos en una rica «memoria visual». Más concretamente, gracias a nuestros años de 
+basándonos en una rica «memoria visual». Más precisamente, gracias a nuestros años de 
 experiencia acumulada, hemos aprendido a comprender la distribución de nuestro entorno 
 3D y de los objetos que contiene. Dicha distribución es bastante simple y estructurada, 
 por lo que podemos reconstruir de forma correcta y eficiente la geometría 3D de una escena 
@@ -5013,10 +5010,8 @@ hemos visto en la Sección \ref{sec:image_completion}.
 Como distribución, nuestra memoria visual tridimensional no solo es de baja dimensión, 
 sino que también está muy estructurada. Por ejemplo, parece que nuestro cerebro almacena 
 la semántica (la identidad de los objetos) de una escena en la corteza temporal inferior 
-(corteza IT) y la información espacial tridimensional de la escena en el hipocampo. Por 
-ejemplo, parece que nuestro cerebro almacena la semántica (la identidad de los objetos) 
-de una escena en la corteza temporal inferior (corteza IT) y la información espacial 
-tridimensional de la escena en el hipocampo. Nuestro cerebro no solo reconstruye la 
+(corteza IT) y la información espacial tridimensional de la escena en el hipocampo. 
+Nuestro cerebro no solo reconstruye la 
 geometría tridimensional de la escena,\footnote{Por ejemplo, la geometría 3D que se 
 representa en formas diferentes, pero en gran medida equivalentes: nubes de puntos, 
 mallas, funciones de distancia con signo, campos de radiancia neuronal o salpicaduras 
@@ -5029,7 +5024,7 @@ en una escena, interactuar con los objetos que contiene y manipularlos.
 
 Por lo tanto, si el objetivo de aprender un modelo de la escena 3D es facilitar la 
 interacción física con un entorno y los objetos que contiene,\footnote{lo cual es el 
-objetivo de la denominada «IA incorporada» para agentes inteligentes o robots}, debemos 
+objetivo de la denominada «IA incorporada» para agentes inteligentes o robots} debemos 
 aprender una representación del entorno 3D que comparta las mismas propiedades y 
 características que nuestra memoria visual mencionada anteriormente.
 
@@ -5123,7 +5118,7 @@ $\latent$ que luego puede decodificarse para obtener el objeto 3D final y la pos
 Uno de los principales retos en la generación de formas 3D es encontrar una tokenización que 
 sea a la vez compacta y expresiva, capaz de permitir una reconstrucción de alta fidelidad. Si 
 bien \textbf{Michelangelo}~\citep{zhao2023michelangelo} utiliza una representación vectorial 
-latente aprendida---que codifica las formas en una secuencia de 1024 tokens---, estos vectores 
+latente aprendida ---que codifica las formas en una secuencia de 1024 tokens---, estos vectores 
 carecen de coordenadas espaciales 3D explícitas. En este proyecto, buscamos una representación 
 latente que conserve la información posicional 3D explícita, lo que nos permite alinear los 
 tokens de forma directamente con los píxeles de la imagen. Al establecer esta correspondencia 
@@ -5144,7 +5139,11 @@ apariencia. El proceso de decodificación se formula como:
 \begin{equation}
 s_i = \mathcal{D}_{geo}(\boldsymbol{f}_i), \quad \mathcal{G}i = \mathcal{D}_{app}(\boldsymbol{f}_i),
 \end{equation}
-donde $s_i \in \mathbb{R}$ representa el valor del campo de distancia con signo (SDF) utilizado para la reconstrucción de la superficie y $\mathcal{G}_i = \{\boldsymbol{c}_i, \alpha_i, \boldsymbol{s}_i, \boldsymbol{q}_i\}$ denota el conjunto de parámetros gaussianos 3D---que comprenden color, opacidad, escala y rotación---requeridos para el renderizado volumétrico. A continuación, utilizaremos las características de vóxeles dispersos como representación latente para la coincidencia de flujos latentes~\citep{rombach2022high}.
+donde $s_i \in \mathbb{R}$ representa el valor del campo de distancia con signo (SDF) utilizado para la reconstrucción de 
+la superficie y $\mathcal{G}_i = \{\boldsymbol{c}_i, \alpha_i, \boldsymbol{s}_i, \boldsymbol{q}_i\}$ denota el conjunto 
+de parámetros gaussianos 3D ---que comprenden color, opacidad, escala y rotación--- requeridos para el renderizado volumétrico. 
+A continuación, utilizaremos las características de vóxeles dispersos como representación latente para 
+la coincidencia de flujos latentes~\citep{rombach2022high}.
 
 \subsection{Arquitectura e implementación}
 \label{sub:3d_reconstruction_architecture}
@@ -5221,20 +5220,20 @@ la tarea que nos ocupa, queremos «reconstruir» un
 objeto cuya forma, apariencia y postura coincidan fielmente con la
 imagen dada. Por lo tanto, es necesario que la representación interna
 modele explícitamente la forma canónica del objeto y
-su pose relativa de manera simultánea. Tenga en cuenta que tal «desacoplamiento» de la
+su pose relativa de manera simultánea. Téngase en cuenta que tal «desacoplamiento» de la
 forma/apariencia (canónica) de un objeto y la pose desde la que se
 observa imita de cerca las funciones antes mencionadas de la corteza IT
 y el hipocampo en nuestro cerebro, respectivamente. Como veremos más adelante,
 una representación desacoplada de este tipo nos permitirá obtener un modelo 3D
 estructurado y coherente de una escena que puede contener múltiples objetos
 desde múltiples perspectivas. Sostenemos que un modelo 3D así estructurado es
-necesario para que podamos llevar a cabo razonamientos centrados en la vista o en el objeto
-,\footnote{Por ejemplo, responder preguntas tales como «¿qué
+necesario para que podamos llevar a cabo razonamientos centrados en la vista o en el 
+objeto,\footnote{Por ejemplo, responder preguntas tales como «¿qué
     objeto está delante, detrás, a la izquierda o a la derecha de, o encima de
 qué objeto?»} generar y interactuar con la escena.
 \end{remark}
 
-\begin{figure*}[t]
+\begin{figure*}[htbp]
 \centering
 \includegraphics[width=\textwidth]{chapters/chapter8/figs/cupid_method.pdf}
 \caption{\textbf{El proceso de reconstrucción generativa en dos etapas de Cupid}. 
@@ -5263,7 +5262,7 @@ predicciones, el modelo de geometría y apariencia alineado con la pose ($\lflow
 las características DINO~\citep{oquab2023dinov2} $\feat_i$ para cada vóxel activo, con el 
 fin de obtener la variable latente final $\latent$.
 
-\paragraph{Ocupación y generación de poses.}
+\paragraph{Generación de ocupación y poses.}
 Dada una imagen de condicionamiento \(\image\), esta etapa genera un cubo de ocupación y un 
 cubo UV, ambos con una resolución de $r$. El cubo de ocupación, 
 \(\boldsymbol{G}_o \in \{0,1\}^{r \times r \times r \times 1}\), contiene valores binarios 
@@ -5275,10 +5274,10 @@ coordenadas de píxel idénticas residen sobre el mismo haz (ray) de la cámara.
     transformers modelan eficazmente el transporte de la luz de forma 
 implícita~\citep{jin2024lvsm, zeng2025renderformer}.}
 
-Para mejorar la eficiencia computacional, entrenamos una VAE 3D para comprimir el cubo UV en 
+Para mejorar la eficiencia computacional, entrenamos un VAE 3D para comprimir el cubo UV en 
 una malla de características de baja resolución 
 \(\boldsymbol{S}_{uv} \in \mathbb{R}^{s\times s\times s \times C}\), logrando una recuperación 
-de la pose con pérdidas mínimas (RRE/RTE medio $< 0,5^\circ$). Para afinar a TRELLIS, 
+de la pose con pérdidas mínimas (RRE/RTE medio $< 0,5^\circ$). Para afinar el TRELLIS, 
 concatenamos la malla de características original 
 \(\boldsymbol{S}_o\) con \(\boldsymbol{S}_{uv}\) e introducimos capas de proyección lineal 
 tanto en la entrada como en la salida de la red de flujo $\sflow$. Una vez generados los cubos 
@@ -5328,7 +5327,7 @@ geométrica en 3D como la fidelidad de la apariencia en comparación con la imag
 \begin{remark}[Procesos generativos desacoplados]
 Obsérvese que el marco de dos etapas anterior desacopla la distribución
 de los objetos 3D en varias componentes interrelacionadas ---forma, pose y
-apariencia--- y aprende cada uno de forma independiente. Aunque esto implica que debemos
+apariencia--- y aprende cada una de manera independiente. Aunque esto implica que debemos
 aprender dos modelos generativos de eliminación de ruido al mismo tiempo, las representaciones aprendidas
 resultantes están mucho mejor estructuradas y permiten un razonamiento espacial y una generación mucho más
 precisos y flexibles.
@@ -5340,7 +5339,7 @@ precisos y flexibles.
 
 Para validar la arquitectura, evaluamos el sistema en tres aspectos fundamentales: predicción 
 de la geometría monocular, coherencia entre la vista de entrada y la vista de salida, así como 
-reconstrucción completa de una sola imagen a 3D. El proceso de evaluación comparativa se centró en 
+reconstrucción completa de una sola imagen en 3D. El proceso de evaluación comparativa se centró en 
 sistemas basados en el aprendizaje, excluyendo los métodos de optimización por escena para garantizar 
 una comparación imparcial de las capacidades de inferencia. Eliminamos el condicionamiento por pose.
 
@@ -5357,8 +5356,8 @@ Hemos realizado una comparación con tres paradigmas distintos que actualmente d
           generación 3D canónica de la estimación de la pose, basándose en una alineación post-hoc.
 \end{enumerate}
 
-\input{chapters/chapter8/figs/cupid/tables/table_mono_geo}
-\input{chapters/chapter8/figs/cupid/tables/table_nvs}
+\input{chapters/chapter8/figs/cupid/tables/table_mono_geo_es}
+\input{chapters/chapter8/figs/cupid/tables/table_nvs_es}
 
 
 \begin{figure}[ht]
@@ -5376,7 +5375,7 @@ método de generación 3D OnePoseGen a menudo no logra registrar la pose de mane
 }
 \label{fig:view_consistency}
 \end{figure}
-\input{chapters/chapter8/figs/cupid/tables/table_mono_render}
+\input{chapters/chapter8/figs/cupid/tables/table_mono_render_es}
 
 \paragraph{Precisión geométrica y simplificación de la secuencia de proceso.}
 En las tareas de geometría monocular, el modelo propuesto demostró una clara superioridad 
@@ -5418,7 +5417,7 @@ CLIP~\citep{radford2021learning} (Tabla~\ref{tab:clip}).
 \textbf{Comparación cualitativa de diversos métodos de condicionamiento con alineación de poses.} Nuestro método (e) ofrece la mejor calidad visual en cuanto a fidelidad del color y nivel de detalle.
 }\label{fig:abl_appearance}
 \end{figure}
-\input{chapters/chapter8/figs/cupid/tables/table_abl_color}
+\input{chapters/chapter8/figs/cupid/tables/table_abl_color_es}
 
 Los estudios de ablación realizados en la segunda fase de refinamiento confirmaron el papel 
 fundamental del condicionamiento alineado con la pose (PAC). Probamos variantes que iban desde 
@@ -5435,7 +5434,7 @@ presentaba perturbaciones estocásticas desde la primera etapa de generación.
 
 \paragraph{Aplicación I: Reconstrucción de escenas compuestas.}
 
-\begin{figure*}[t]
+\begin{figure*}[htbp]
 \centering
 \includegraphics[width=\textwidth]{chapters/chapter8/figs/cupid_scene.pdf}
 \caption{\small\textbf{Reconstrucción de escenas alineada por componentes.} Cada
@@ -5450,7 +5449,7 @@ Para extender Cupid a la reconstrucción a nivel de escena, utilizamos modelos d
 la escena en $K$ objetos con máscaras $\{ \boldsymbol{M}^{(k)} \}_{k=1}^K$ y estimar un mapa de 
 puntos métricos global $\mathcal{P}$~\citep{wang2025moge}.
 
-En la primera etapa, reconstruimos cada objeto de forma independiente para recuperar su geometría 
+En la primera etapa, reconstruimos cada objeto en forma independiente para recuperar su geometría 
 canónica, adaptando el generador para manejar las oclusiones mutuas mediante un ajuste fino con 
 máscaras aleatorias~\citep{wu2025amodal3r}. Para el objeto $k$-ésimo, esto da como resultado un 
 conjunto de puntos 3D canónicos $\boldsymbol{x}_i^{(k)}$ correspondientes a los píxeles 
@@ -5497,8 +5496,8 @@ y escalados entre sí. Consulte la Figura~\ref{fig:cupid_scene} para ver más ej
     \caption{
     \textbf{Condicionamiento multivista.} Nuestro modelo de articulaciones desacopladas admite de 
              forma natural el condicionamiento multivista. Al disponer de múltiples vistas de 
-             entrada, fusionamos el objeto latente compartido---independiente de la 
-             vista---a lo largo de las rutas de flujo (al igual que 
+             entrada, fusionamos el objeto latente compartido ---independiente de la 
+             vista--- a lo largo de las rutas de flujo (al igual que 
              MultiDiffusion~\citep{bar2023multidiffusion}), lo que permite el refinamiento de los 
              objetos y las cámaras en todas las vistas. Arriba: entradas; en el centro: objeto 3D 
              reconstruido y poses de la cámara; abajo: imágenes renderizadas y geometría.}
@@ -5560,7 +5559,7 @@ Aprovechando los priores de postura y el condicionamiento alineado, el modelo re
 inferencia similar a la bayesiana para reconstruir la geometría 3D completa a partir de entradas 
 limitadas de una sola vista. Esto garantiza la coherencia geométrica y la robustez frente a 
 las variaciones del punto de vista. En última instancia, esta representación estructurada 
-mejora las capacidades de la IA incorporada, dotando a los agentes de la comprensión espacial 
+mejora las capacidades de la IA encarnada, dotando a los agentes de la comprensión espacial 
 necesaria para desplazarse e interactuar de manera eficaz en entornos 3D.
 
 \section{Generación condicional de movimientos del esqueleto humano}
@@ -5582,7 +5581,7 @@ necesaria para desplazarse e interactuar de manera eficaz en entornos 3D.
 % Project Aria from Meta. The pose of the whole body and the gesture
 % of the hands need to be inferred so that we can use the information
 % to control virtual objects that the person interacts with.
-% \begin{figure*}[t]
+% \begin{figure*}[htbp]
 %   \centering
 %   \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter7/figs/pose-teaser.pdf}
 %     \caption{
@@ -5606,7 +5605,7 @@ necesaria para desplazarse e interactuar de manera eficaz en entornos 3D.
 % the real-time partial inputs. Figure \ref{fig:pose-method} outlines
 % a system called EgoAllo \cite{yi2024egoallo} to solve this problem
 % based on a learned conditional diffusion-denoising model.
-% \begin{figure*}[t]
+% \begin{figure*}[htbp]
 %   \centering
 %   \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter7/figs/pose-method.pdf}
 % \caption{
@@ -5629,7 +5628,7 @@ necesaria para desplazarse e interactuar de manera eficaz en entornos 3D.
 % different runs can generate different body pose sequences that are
 % consistent with the given head pose, all drawing from the
 % distribution of natural full-body motion sequences.
-% \begin{figure}[t]
+% \begin{figure}[htbp]
 % \centering
 % \begin{subfigure}{0.45\textwidth}
 %   \centering
@@ -5734,13 +5733,13 @@ describe un arco característico. Estas correlaciones, obtenidas a partir de dat
 forman una distribución a priori condicional $p(\text{cuerpo} \mid
 \text{cabeza})$. El método que presentamos en esta sección se basa en
 un proyecto de código abierto llamado \textbf{EgoAllo} (por
-«estimación de egocéntrico a alocéntrico»):\\
+«estimación de egocéntrica a alocéntrica»):\\
 \centerline{\url{https://egoallo.github.io}},\\
 que incorpora mediciones adicionales como la detección de las manos y
 el contacto con el suelo mediante muestreo guiado. La Figura~\ref{fig:egoallo_teaser}
 ilustra la configuración general y la tarea.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/egoallo/teaser_oct9.pdf}
     \caption{\textbf{Estimación egocéntrica del movimiento humano.} A partir de las
@@ -5828,7 +5827,7 @@ Las entradas consisten en dos flujos procedentes de un dispositivo montado en la
         Posición y orientación del dispositivo en el marco de refrencia mundial
         en cada paso de tiempo, a partir de SLAM visual-inercial. Aquí $\mathsf{SE}(3)$
         denota el grupo de transformaciones rígidas en 3D, que comprende
-        rotaciones y traslaciones. \footnote{Los lectores interesados pueden
+        rotaciones y traslaciones.\footnote{Los lectores interesados pueden
             consultar \cite{MaY2003} para obtener una introducción formal al movimiento de
         cuerpos rígidos, así como a su representación y propiedades.} Estas
         posturas tienen escala métrica, lo que significa que conocemos las distancias reales en
@@ -5867,17 +5866,6 @@ la fijación al suelo. Sin ella, el cuerpo flota en una posición vertical
 arbitraria; con ella, los pies tocan el suelo y la cabeza se alinea con la cámara.
 
 \paragraph{Formulación como posterior.}
-Following the Bayesian framework from
-Chapter~\ref{ch:conditional-inference}, estimation is formulated as
-sampling from a posterior. Let $\boldsymbol{y}$ denote all observations
-and $\boldsymbol{c} = g(\boldsymbol{h}_{1:T})$ be a processed representation of
-head poses (to be explained soon in
-Section~\ref{sub:egoallo_representation}). The posterior factorizes
-as:\footnote{For this factorization to be valid, we essentially
-assume that given $\boldsymbol{x}_0$, $\boldsymbol{y}^{\text{hand}},
-\boldsymbol{y}^{\text{phys}}$ is conditionally independent of the head
-pose $\boldsymbol{c}$.}
-
 Siguiendo el marco bayesiano del
 Capítulo~\ref{ch:conditional-inference}, la estimación se formula como
 un muestreo desed una distribución a posteriori. Sea $\boldsymbol{y}$ el conjunto de todas las observaciones
@@ -5904,7 +5892,7 @@ donde:
         deslizamiento de los pies, dado el movimiento del cuerpo.
 \end{itemize}
 
-La probabilidad se expresa mediante una energía de guía $\mathcal{L}_{\text{guide}}$:
+La verosimilidad se expresa mediante una energía de guía $\mathcal{L}_{\text{guide}}$:
 \begin{equation}
     p(\boldsymbol{y}^{\text{hand}}, \boldsymbol{y}^{\text{phys}} \mid
     \boldsymbol{x}_0) \propto \exp\big(-\mathcal{L}_{\text{guide}}(\boldsymbol{x}_0)\big),
@@ -5956,13 +5944,13 @@ movimiento subyacente. Esto descarta las magnitudes acumulativas, como el despla
 desde el inicio de la secuencia, así como los índices de tiempo absolutos.
 
 Se podría intentar canonizar al primer intervalo de tiempo colocando el
-primer cuadro en el origen. Pero esto viola la invariancia temporal:
+primer cuadro en el origen. Pero esto viola la invarianza temporal:
 diferentes segmentos temporales del mismo movimiento, canonizados a sus
 respectivos primeros cuadros, producen trayectorias diferentes. El modelo
 percibe entradas diferentes para el mismo movimiento corporal subyacente.
 
 \paragraph{La solución: canonización por paso de tiempo.}
-Para lograr la invariancia tanto espacial como temporal, EgoAllo define un
+Para lograr la invarianza tanto espacial como temporal, EgoAllo define un
 sistema de coordenadas canónicas en \emph{cada} paso de tiempo, en lugar de solo
 al inicio. La representación $\boldsymbol{c} = \{\boldsymbol{c}^{1}, \dots,
 \boldsymbol{c}^{T}\}$ relaciona:
@@ -5970,7 +5958,7 @@ al inicio. La representación $\boldsymbol{c} = \{\boldsymbol{c}^{1}, \dots,
     \item Movimiento relativo de la cabeza $\Delta\boldsymbol{T}_{\text{head}}^{t}$
         entre cuadros consecutivos, que refleja cómo se movió la cabeza desde
         $t-1$ hasta $t$.
-    \item Pose canónica por paso de tiempo
+    \item Pose canonizada por paso de tiempo
         $\boldsymbol{T}_{\text{canonical}}^{t}$: la orientación de la cabeza
         relativa a la gravedad y su altura sobre el suelo, eliminando así 
         la posición en el plano del suelo y el giro horizontal (yaw).
@@ -5982,14 +5970,14 @@ un movimiento local idéntico producen tokens de condicionamiento idénticos
 $\boldsymbol{c}$, invariantes respecto a la ubicación del movimiento en el 
 mundo y al intervalo temporal seleccionado para su extracción.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=2in]{\toplevelprefix/chapters/chapter8/figs/egoallo/conditioning_oct9.pdf}
-    \caption{\textbf{Acondicionamiento del movimiento de la cabeza invariante.} La
+    \caption{\textbf{Condicionamiento invariante del movimiento de la cabeza.} La
         representación del condicionamiento debe ser invariante tanto respecto a las transformaciones espaciales
         (el mismo movimiento en diferentes ubicaciones del mundo) como a los
         desplazamientos temporales (el mismo movimiento en diferentes momentos absolutos).
-    La canonicización por paso de tiempo cumple ambas propiedades.}
+    La canonización por paso de tiempo cumple ambas propiedades.}
     \label{fig:egoallo_conditioning}
 \end{figure}
 
@@ -6028,8 +6016,8 @@ sistema de coordenadas relativo a la cabeza.
 \paragraph{Datos de entrenamiento.}
 El modelo se entrena con AMASS \citep{mahmood2019amass}, un conjunto de datos de captura de movimiento a gran escala
 agregando múltiples fuentes en un formato unificado
-SMPL-H. AMASS contiene diversos movimientos humanos---caminar,
-correr, bailar, sentarse, estirarse, hacer ejercicio---pero no incluye grabaciones de dispositivos
+SMPL-H. AMASS contiene diversos movimientos humanos ---caminar,
+correr, bailar, sentarse, estirarse, hacer ejercicio--- pero no incluye grabaciones de dispositivos
 montados en la cabeza. Las trayectorias de la cabeza se simulan extrayendo la
 posición y la orientación de la articulación de la cabeza a partir de los datos de captura de movimiento, como si un
 dispositivo estuviera fijado rígidamente a la cabeza.
@@ -6132,7 +6120,7 @@ la energía como guía. El filtro de ruido condicional completo queda así:
 utilizando la relación $\nabla \log p(\boldsymbol{y} \mid \boldsymbol{x}) =
 -\nabla \mathcal{L}_{\text{guide}}(\boldsymbol{x})$.
 
-\paragraph{Optimización alterna.}
+\paragraph{Optimización alternada.}
 En la práctica, en lugar de calcular los gradientes a partir de toda la
 energía de guía en cada paso, EgoAllo alterna entre dos operaciones:
 
@@ -6170,13 +6158,13 @@ aproxima al objetivo real. Esto resulta muy adecuado para la estimación de par�
 donde el objetivo implica una cinemática directa diferenciable. Bastan unas pocas iteraciones 
 en cada paso de eliminación de ruido.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter8/figs/egoallo/egoallo-overview.png}
     \caption{\textbf{Resumen de las componentes del marco EgoAllo}. 
         El modelo de difusión se limita a los parámetros corporales
         locales. Se utiliza una parametrización invariante
-        g(·) de las poses SLAM (de la cabeza) para
+        g(·) de las poses SLAM (cabeza) para
         condicionar un modelo de difusión. Estas pueden situarse en el
         sistema de coordenadas global
         mediante una alineación global con las poses de entrada. Cuando está disponible, se utiliza un video egocéntrico
@@ -6189,7 +6177,7 @@ en cada paso de eliminación de ruido.
 \paragraph{Alineación global.}
 El modelo de difusión opera en un sistema de coordenadas relativo a la cabeza,
 prediciendo la postura del cuerpo en relación con la cabeza, en lugar de hacerlo en coordenadas absolutas
-del mundo. Tras el último paso de eliminación de ruido, EgoAllo ancla el
+de mundo. Tras el último paso de eliminación de ruido, EgoAllo ancla el
 cuerpo en el espacio componiéndolo con las posturas de la cabeza observadas por SLAM:
 \begin{equation}
     \boldsymbol{T}_{\text{world},\text{root}}^t
@@ -6229,21 +6217,21 @@ poses corporales de referencia). Para la estimación de manos, se utiliza tambi�
 \paragraph{La representación es crucial.}
 La Tabla~\ref{tab:egoallo_cond_ablation} muestra el efecto de diferentes
 representaciones de condicionamiento en la precisión de la estimación corporal, comparando
-cinco parametrizaciones con diferentes propiedades de invariancia:
+cinco parametrizaciones con diferentes propiedades de invarianza:
 \begin{itemize}
     \item \textbf{Invariante por paso de tiempo}: Representación
         descrita en la sección~\ref{sub:egoallo_representation}, con
         invarianza tanto espacial como temporal.
     \item \textbf{Absoluto + relativo}: Posturas absolutas enriquecidas con
         el movimiento relativo en el marco local.
-    \item \textbf{Deltas absolutas + globales}: Posturas absolutas con
+    \item \textbf{Absoluto + deltas globales}: Posturas absolutas con
         desplazamientos (deltas) de posición en coordenadas de mundo.
     \item \textbf{Canonización de secuencias}: alineación al primer
-        cuadro, proporcionando invariancia espacial, pero no temporal.
-    \item \textbf{Absoluto}: Poses brutas $\mathsf{SE}(3)$ sin propiedades de invariancia.
+        cuadro, proporcionando invarianza espacial, pero no temporal.
+    \item \textbf{Absoluto}: Poses brutas $\mathsf{SE}(3)$ sin propiedades de invarianza.
 \end{itemize}
 
-\begin{table}[t]
+\begin{table}[htbp]
     \centering
     \caption{\textbf{Efecto de la representación de condicionamiento en AMASS.}
         Las diferentes parametrizaciones del condicionamiento del movimiento de la cabeza dan lugar a
@@ -6255,16 +6243,16 @@ cinco parametrizaciones con diferentes propiedades de invariancia:
     \small
     \begin{tabular}{lcccc}
         \toprule
-        & \multicolumn{2}{c}{\textbf{Seq Length 32}} &
-        \multicolumn{2}{c}{\textbf{Seq Length 128}} \\
+        & \multicolumn{2}{c}{\textbf{Longitud Sec 32}} &
+        \multicolumn{2}{c}{\textbf{Longitud Sec 128}} \\
         \cmidrule(lr){2-3} \cmidrule(lr){4-5}
-        \textbf{Conditioning} & MPJPE & Effect & MPJPE & Effect \\
+        \textbf{Condicionamiento} & MPJPE & Efecto & MPJPE & Efecto \\
         \midrule
-        Per-timestep invariant & \textbf{129.8} & --- & \textbf{119.7} & --- \\
-        Absolute + relative & 133.0 & +2.4\% & 124.5 & +4.0\% \\
-        Absolute + global deltas & 136.2 & +4.9\% & 127.4 & +6.4\% \\
-        Sequence canonicalization & 153.1 & +17.9\% & 134.0 & +11.9\% \\
-        Absolute & 159.9 & +23.2\% & 148.3 & +23.9\% \\
+        Invariante por tiempo & \textbf{129.8} & --- & \textbf{119.7} & --- \\
+        Absoluto + relativo & 133.0 & +2.4\% & 124.5 & +4.0\% \\
+        Absoluto + deltas globales & 136.2 & +4.9\% & 127.4 & +6.4\% \\
+        Canonización de secuencias & 153.1 & +17.9\% & 134.0 & +11.9\% \\
+        Absoluto & 159.9 & +23.2\% & 148.3 & +23.9\% \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -6278,12 +6266,12 @@ la selección de la representación afecta fundamentalmente al aprendizaje y a l
 La Tabla~\ref{tab:egoallo_body_results} compara la estimación completa
 (incluida la altura) con una variante sin estimación de la altura.
 La estimación de la altura mejora el MPJPE en un 6-7\% y es clave para
-el anclaje: sin ella, los cuerpos estimados tienden a «flotan» por encima del
+el anclaje: sin ella, los cuerpos estimados tienden a «flotar» por encima del
 suelo, ya que el sistema no puede determinar la posición vertical
 correcta. La métrica de anclaje al suelo (GND) mide si los pies estimados
 tocan el suelo en algún momento, y la estimación de la altura mejora esto sustancialmente.
 
-\begin{table}[t]
+\begin{table}[htbp]
     \centering
     \caption{\textbf{Resultados de la estimación corporal en distintos conjuntos de datos.} MPJPE
         y PA-MPJPE en milímetros; GND es la proporción de secuencias
@@ -6293,20 +6281,20 @@ tocan el suelo en algún momento, y la estimación de la altura mejora esto sust
     \small
     \begin{tabular}{llccc}
         \toprule
-        \textbf{Dataset} & \textbf{Variant} &
+        \textbf{Conj. datos} & \textbf{Variante} &
         \textbf{MPJPE}$\downarrow$ & \textbf{PA-MPJPE}$\downarrow$ &
         \textbf{GND}$\uparrow$ \\
         \midrule
-        AMASS & Full (with height) & \textbf{119.7} & \textbf{101.1}
+        AMASS & Completo (con altura) & \textbf{119.7} & \textbf{101.1}
         & \textbf{1.00} \\
-        & Without height & 128.1 & 110.3 & 0.98 \\
+        & Sin altura & 128.1 & 110.3 & 0.98 \\
         \midrule
-        RICH  & Full (with height) & \textbf{176.2} & \textbf{160.1}
+        RICH  & Completo (con altura) & \textbf{176.2} & \textbf{160.1}
         & \textbf{0.96} \\
-        & Without height & 185.7 & 169.9 & 0.82 \\
+        & Sin altura & 185.7 & 169.9 & 0.82 \\
         \midrule
-        ADT   & Full (with height) & \textbf{155.1} & \textbf{129.3} & 0.94 \\
-        & Without height & 163.7 & 140.0 & \textbf{0.96} \\
+        ADT   & Completo (con altura) & \textbf{155.1} & \textbf{129.3} & 0.94 \\
+        & Sin altura & 163.7 & 140.0 & \textbf{0.96} \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -6355,7 +6343,7 @@ el MPJPE corporal en AMASS mejora de 119,7 mm a 78,8 mm, lo que supone una reduc
 Las restricciones de medición adicionales refinan la estimación a posteriori
 y producen estimaciones más precisas a lo largo de toda la cadena cinemática.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/egoallo/hands_oct1_v4.png}
     \caption{\textbf{El contexto corporal mejora la estimación de la mano.} Azul:
@@ -6374,7 +6362,7 @@ se coincide con el entorno y las posturas son coherentes con
 el movimiento observado de la cabeza en diversas actividades, como caminar,
 sentarse y manipular objetos.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/egoallo/qual_grounded_outputs_v3.png}
     \caption{\textbf{Resultados cualitativos.} Posturas corporales estimadas a partir de
@@ -6393,10 +6381,10 @@ Esta aplicación demuestra cómo el marco de inferencia condicional
 del Capítulo~\ref{ch:conditional-inference} se extiende más allá de las imágenes para abarcar
 resultados estructurados y articulados, como el movimiento humano.
 
-\paragraph{El diseño de la representación es fundamental.}
+\paragraph{El diseño de la representación es crucial.}
 Un tema recurrente a lo largo de este libro es que las decisiones de representación
-influyen fundamentalmente en el aprendizaje y la generalización. Este principio
-resulta especialmente evidente en este caso. Al analizar qué invariancias debe
+influyen crucialmente en el aprendizaje y la generalización. Este principio
+resulta especialmente evidente en este caso. Al analizar qué invarianzas debe
 cumplir la representación de condicionamiento, derivamos una
 parametrización que supera sustancialmente a las alternativas. La invarianza espacial
 garantiza la independencia respecto a la ubicación en el mundo; la invarianza temporal
@@ -6406,8 +6394,8 @@ debe codificar la representación.
 
 \paragraph{El patrón «Prior más guía» generaliza.}
 El procedimiento de muestreo aplica directamente el marco de
-correlación de mediciones: un prior aprendido---en este caso, el
-modelo de difusión condicionado por la cabeza---se combina con
+correlación de mediciones: un prior aprendido ---en este caso, el
+modelo de difusión condicionado por la cabeza--- se combina con
 restricciones de medición, como observaciones de la mano y 
 restricciones físicas, mediante un muestreo guiado. Este mismo patrón de
 «prior más guía» se repite en diversos ámbitos, desde la
@@ -6450,15 +6438,15 @@ para las distribuciones de datos asociadas con la percepción visual y
 los movimientos corporales. En gran medida, las representaciones estructuradas así aprendidas
 pueden considerarse como recuerdos almacenados en la corteza visual
 y la corteza motora del cerebro. En conjunto, estos recuerdos pueden denominarse de manera general
-un «modelo del mundo», o simplemente un «modelo mundial»
-—que nos permite tanto percibir el mundo como realizar acciones. Obsérvese que
+un «modelo del mundo», o simplemente un «modelo mundial» --- que nos permite 
+tanto percibir el mundo como realizar acciones. Obsérvese que
 tanto los seres humanos como los animales tienen la capacidad de aprender y desarrollar
 recuerdos del mundo y de su propio cuerpo, que registran lo que se puede
 predecir a partir de lo percibido, así como las habilidades motoras cruciales para
 su supervivencia en el entorno.
 
 Además de ese modelo del mundo que abarca el entorno físico y el movimiento corporal,
-el ser humano ha desarrollado los idiomas (hablados y escritos) para poder
+el ser humano ha desarrollado los lenguajes (hablados y escritos) para poder
 comunicar a los demás los conocimientos adquiridos sobre el mundo;
 las áreas de Broca y de Wernicke de nuestro cerebro son conocidas por
 su función en el procesamiento del habla y la comprensión del lenguaje, respectivamente. En
@@ -6649,7 +6637,7 @@ del siguiente token. Entonces, utilizando la notación
     \Ex_{\vX}\rs{\frac{1}{N - 1}\sum_{n = 1}^{N - 1}\CE(\vone(\vx_{n +
 1}), \vp_{\theta}(\vX_{:n}))}}
 \end{equation}
-Fíjate en lo similar que es esto a una pérdida de clasificación (por ejemplo, para imágenes);
+Nótese lo similar que es esto a una pérdida de clasificación (por ejemplo, para imágenes);
 se utiliza la entropía cruzada y se intenta alinear un vector de probabilidades
 predichas con la verdad de referencia (ground truth). La principal diferencia entre estas dos
 pérdidas es que, en este caso, calculamos la pérdida sobre una secuencia completa,
@@ -6696,8 +6684,8 @@ transformer «solo codificador» con un transformer «solo decodificador».
 \textit{también} calculan una codificación de los datos!} Para completar la información,
 especificamos aquí la arquitectura.
 
-\paragraph{Encaje.} Primero incrustamos la secuencia de tokens \(\vX \in
-[V]^{N}\) en el espacio euclídeo. Esto se suele hacer asociando cada
+\paragraph{Incrustación.} Primero incrustamos la secuencia de tokens \(\vX \in
+[V]^{N}\) en el espacio euclidiano. Esto se suele hacer asociando cada
 índice en \([V]\) con un vector en \(\R^{d}\) utilizando una matriz
 \textit{masiva}\footnote{Por «masiva» nos referimos a que dicha
 estructura suele constituir una gran fracción del tamaño total.} 
@@ -6745,7 +6733,7 @@ a medida que \(n\) crece hasta la longitud de la secuencia \(N\). Entonces podem
 ellos para calcular la pérdida.
 
 Ahora que queremos una arquitectura causal para la red troncal, ¿cómo
-podemos conseguirla? Dado que la MLP y las normalizaciones de capa dentro de cada
+podemos conseguirla? Dado que el MLP y las normalizaciones de capa dentro de cada
 capa del transformer afectan a cada token en forma individual, lo único que
 importa para la causalidad es el bloque de atención (o \(\MSSA\) en el
 caso de CRATE). Para que \(\MSSA\) sea causal, definimos el
@@ -6757,9 +6745,9 @@ bloque \(\mathrm{CMSSA}\) como
     \ell}]^{\top}\vZ) \\ \vdots \\ \operatorname{CSA}([\vU^{K,
         \ell}]^{\top}\vZ, [\vU^{K, \ell}]^{\top}\vZ, [\vU^{1,
 \ell}]^{\top}\vZ)} + \vb_{\out}^{\ell}\vone_{N}^{\top} \\
-&\text{where} \quad  \operatorname{CausalSA}(\vQ, \vK, \vV) \doteq
+&\text{donde} \quad  \operatorname{CausalSA}(\vQ, \vK, \vV) \doteq
 \vV\softmax\rp{\frac{\operatorname{CausalMask}(\vK^{\top}\vQ)}{\sqrt{p}}}, \\
-&\text{where} \quad  \operatorname{CausalMask}(\vM)_{ij} =
+&\text{y donde} \quad  \operatorname{CausalMask}(\vM)_{ij} =
 \casework{M_{ij}, & \text{if}\ i \geq j, \\ -\infty, & \text{if}\ i < j}.
 \end{align}
 En este contexto, los especialistas afirman que la máscara causal \textit{permite que los tokens futuros
@@ -6770,7 +6758,7 @@ entender por qué, escribamos la expresión correspondiente a la \(t\)-ésima co
 \operatorname{CSA}(\vQ, \vK, \vV)_{t} = \sum_{i =
 1}^{t}\vV_{i}\softmax\rp{[\vK_{:t}]^{\top}\vQ_{t}}_{i}
 \end{equation}
-(donde el subíndice que no es dos puntos denota la columna). Esta
+(donde el subíndice sin dos puntos denota la columna). Esta
 expresión para el token \(t\)-ésimo no utiliza información sobre ningún token
 más allá del índice \(t\). Por lo tanto, \(\operatorname{CSA}\), y por lo tanto
 \(\operatorname{CMSSA}\), y por lo tanto toda la estructura causal de CRATE
@@ -6790,7 +6778,7 @@ tarea de predicción. De todos modos, la ecuación para \(f_{\theta}^{\ext}\) es
 \begin{equation}
 f_{\theta}^{\ext}(\vZ_{\theta}(\vX_{:n})) \doteq (\vZ_{\theta}(\vX))_{n}
 \end{equation}
-donde (una vez más) el subíndice que no es dos puntos corresponde a la columna. En este caso, tal y como
+donde (una vez más) el subíndice sin dos puntos corresponde a la columna. En este caso, tal y como
 prometimos, simplemente extraemos directamente el vector de características del último
 token de la secuencia.
 
@@ -6901,7 +6889,7 @@ de $0.1$. Para el programa de tasa de aprendizaje, aplicamos un calentamiento li
 y una disminución cosinusoidal, con un valor máximo de $\eta=6\times 10^{-4}$ en la
 iteración 2000, y un valor mínimo de $6\times 10^{-5}$. Las
 pérdidas de entrenamiento y validación a lo largo de las iteraciones se muestran en
-\Cref{fig:crate-text-evals}. La pérdida de entrenamiento/validación converge
+\Cref{fig:crate-text-evals}. La pérdida de entrenamiento/validación converge a
 alrededor de 3,37 tras el entrenamiento con un tamaño de lote de 384 y 600 000
 iteraciones. En comparación, la implementación abierta de GPT-2 está
 preentrenada en OpenWebText con un tamaño de lote de 512 y 600 000
@@ -6934,8 +6922,8 @@ los conjuntos de datos ($\downarrow$: cuanto más bajo, mejor).
 {
 \begin{tabular}{ccccccc}
     \hline
-    & \#parameters & \textbf{OWT} & \textbf{LAMBADA} &
-    \textbf{WikiText} & \textbf{PTB} & \textbf{Avg} \\
+    & \#parámetrps & \textbf{OWT} & \textbf{LAMBADA} &
+    \textbf{WikiText} & \textbf{PTB} & \textbf{Media} \\
     \hline
     GPT2-Base  & {124M} & 2.85$\downarrow$ & 4.12$\downarrow$ &
     3.89$\downarrow$ & 4.63$\downarrow$ & 3.87$\downarrow$ \\
@@ -6963,7 +6951,7 @@ mismo de retropropagación, y lo único que cambia es la arquitectura.
 \subsection{Aumento del ancho de la red:
 CRATE-\texorpdfstring{\(\alpha\)}{alpha}}\label{sub:crate_alpha_experiments}
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/crate_alpha_backbone.pdf}
 \caption{\small\textbf{Una capa de la estructura CRATE-\(\alpha\).}
@@ -6974,7 +6962,7 @@ que realiza varios pasos \(\ISTA\) con un diccionario sobrecompleto.}
 \end{figure}
 
 Una decisión de diseño impuesta por el marco CRATE es el
-\textit{ancho} de la función de activación ( ono linealidad) en la red. En un transformer
+\textit{ancho} de la no-linealidad en la red. En un transformer
 convencional, el ancho suele fijarse en \(4\), \(8\) o
 \(\frac{11}{3}\) veces la dimensión de las características. Sin embargo, CRATE exige
 que el ancho sea exactamente igual a la dimensión de las características; esto implica que los
@@ -7035,8 +7023,8 @@ así como una mayor escalabilidad.}
 \centering
 \begin{tabular}{@{}lcccccccc@{}}
 \toprule
-&  & \multicolumn{3}{c}{Detection} &  \multicolumn{3}{c}{Segmentation} \\
-Model & AP$_{50} \uparrow $ & AP$_{75} \uparrow $ & AP $\uparrow$ &
+&  & \multicolumn{3}{c}{Detección} &  \multicolumn{3}{c}{Segmentación} \\
+Modelo & AP$_{50} \uparrow $ & AP$_{75} \uparrow $ & AP $\uparrow$ &
 AP$_{50} \uparrow$ & AP$_{75} \uparrow $ & AP $\uparrow$ \\
 \midrule
 \midrule
@@ -7089,7 +7077,7 @@ bloque de aprendizaje de diccionarios sobrecompletos (ODL - Overcomplete Diction
 \operatorname{ODL}_{\theta}^{\ell}(\vZ_{\theta}^{\ell + 1/2}(\vX)).
 \end{equation}
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/crate_alpha_semantic_heads.pdf}
 \caption{\small\textbf{Mapas de saliencia de CRATE-\(\alpha\) con un tamaño de
@@ -7177,12 +7165,12 @@ salida de la capa.}
 \label{fig:tost_backbone}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
 \resizebox{\textwidth}{!}{
 \begin{tabular}{@{}lccc|cc|cc@{}}
     \toprule
-    C.Datos & ToST-T(iny) & ToST-S(mall) & ToST-M(edium) &  {
+    Conj.Datos & ToST-T(iny) & ToST-S(mall) & ToST-M(edium) &  {
     \color{gray} XCiT-S} &  { \color{gray}XCiT-M} &
     {\color{gray}ViT-S} & {\color{gray}ViT-B(ase)}\\
     \toprule
@@ -7285,7 +7273,7 @@ todas las demás arquitecturas similares a los transformers.
 
 Otro cuello de botella que hay que eliminar de los modelos de aprendizaje profundo, concretamente
 de las arquitecturas tipo transformer, es el cuello de botella de memoria que se deriva
-de las multiplicaciones matriciales masivas en las MLP, donde la dimensión interna
+de las multiplicaciones matriciales masivas en los MLP, donde la dimensión interna
 es signifcativamente mayor que la dimensión de las características \(d\). Por lo tanto, resulta
 interesante y relevante plantearse la siguiente pregunta: ¿necesitamos \textit{realmente}
 la MLP dentro de un transformer, y qué nivel de rendimiento
@@ -7358,7 +7346,7 @@ y comparación con el modelo GPT-2.}\vskip 0.1in
 \end{table*}
 \vspace{-0.05in}
 
-\begin{figure*}[t]
+\begin{figure*}[htbp]
 \begin{center}
 \includegraphics[width=0.4\linewidth]{\toplevelprefix/chapters/chapter8/figs/training_loss.png}
 \hspace{0.4in}
@@ -7385,7 +7373,7 @@ Esto ha permitido que la arquitectura transformer sea
 esencialmente omnipresente en (casi) todas las aplicaciones de aprendizaje profundo. Por
 ello, las mejoras directas en el transformer pueden extenderse hasta convertirse en
 soluciones a muchos problemas y tener un impacto considerable; del mismo modo,
-podemos aplicar nuestra comprensión interna (whte-box) de las arquitecturas similares al transformer
+podemos aplicar nuestra comprensión interna (white-box) de las arquitecturas similares al transformer
 a muchos problemas actuales. El material tratado en este
 capítulo es solo una parte del trabajo que ya se ha realizado;
 otros trabajos incluyen el completamiento enmascarado para datos de texto (p. ej., BERT)

@@ -26,7 +26,7 @@ la fuente de datos, denotada por \(\vx\).
     radio no mayor que \(R\), es decir, \(R \doteq \sup_{\vxi \in \cS}\norm{\vxi}_{2}\).
 \end{assumption}
 
-En particular, dado que los conjuntos compactos en el espacio euclídeo son acotados,
+En particular, dado que los conjuntos compactos en el espacio euclidiano son acotados,
 se cumple que \(R < \infty\). Utilizaremos de manera sistemática la notación
 \(B_{r}(\vxi) \doteq \{\vu \in \R^{D} \colon \norm{\vxi - \vu}_{2}
 \leq r\}\) para denotar la bola euclidiana de radio \(r\) centrada en
@@ -274,13 +274,13 @@ de la siguiente manera.
 
     Es decir, al utilizar la representación integral de \(p_{t}\) y
     derivarla con respecto a la integral, podemos calcular las
-    derivadas de \(p_{t}\) (lo cual hacemos en
+    derivadas de \(p_{t}\) (lo cual hacemos en la
     \Cref{prop:p_t_derivatives}) y observamos que \(p_{t}\) satisface
     la ecuación diferencial parcial de tipo calorífico
     \begin{equation}
         \pdv{p_{t}}{t}(\vxi) = t\Delta p_{t}(\vxi).
     \end{equation}
-    A continuación, para hallar la dinámica de \(h(\vx_{t})\), podemos volver a utilizar
+    A continuación, para hallar la dinámica de \(h(\vx_{t})\), podemos volver a utilizar la
     \Cref{prop:dutis}, así como la ecuación diferencial parcial de tipo calorífico, para obtener
     \begin{align}
         \odv*{h(\vx_{t})}{t}
@@ -366,7 +366,7 @@ que utilizará solo herramientas elementales y, por lo tanto, aclarará
 algunas de las cantidades clave detrás del proceso de reducción de la entropía
 mediante la eliminación de ruido. Por otro lado, tendremos que realizar algunos
 cálculos ligeramente técnicos debido a que el proceso de eliminación de ruido
-en \Cref{thm:conditioning_reduces_entropy} \textit{no}
+en el \Cref{thm:conditioning_reduces_entropy} \textit{no}
 se corresponde exactamente con el proceso \textit{inverso} asociado al
 proceso de adición de ruido que genera la observación
 \(\vx_{t}\).\footnote{Para quienes estén familiarizados con los modelos de difusión, nos
@@ -412,10 +412,10 @@ es decir, formalmente:
             \vx_{t}]\) utilizando una fórmula de cambio de variables.
         \item En segundo lugar, limita esta densidad para controlar la entropía.
     \end{enumerate}
-    El cambio de variables se justifica mediante \Cref{cor:gribonval_A2},
+    El cambio de variables se justifica mediante el \Cref{cor:gribonval_A2},
     que se derivó originalmente en \cite{Gribonval2011-pf}.
 
-    A continuación, aplicamos estas ideas. A partir de \Cref{cor:gribonval_A2},
+    A continuación, aplicamos estas ideas. A partir del \Cref{cor:gribonval_A2},
     obtenemos que la función \(\bar{\vx}\), definida como
     \(\bar{\vx}(\vxi) \doteq \Ex[\vx_{s} \given \vx_{t} = \vxi]\) es
     diferenciable, inyectiva y, por lo tanto, invertible en su imagen,
@@ -579,7 +579,7 @@ escalado crítico es, por lo tanto,
 la condición se reduce a \(\alpha < 2J(p_{t})\). En otras
 palabras, cada paso de eliminación de ruido de tamaño
 \(t - s = \eps\, t \sim t^{7}/R^{4}\) reduce la entropía.
-Los pasos deben volverse progresivmente más finos a medida que \(t \to 0\), una
+Los pasos deben volverse progresivamente más finos a medida que \(t \to 0\), una
 consecuencia del resto de segundo orden en la expansión de Taylor
 utilizada en la demostración.
 
@@ -594,7 +594,7 @@ log-cóncava), entonces \(\Delta \log p_{t} \leq 0\) en todo el espacio, y se pu
 más sencillo con conclusiones más sólidas.
 
 \subsection{Lemas técnicos y resultados
-auxiliares}\label{sub:app_diffusion_intermediate_results}
+intermedios}\label{sub:app_diffusion_intermediate_results}
 
 En esta subsección presentamos los resultados técnicos que fundamentan nuestros dos
 teoremas conceptuales principales. Nuestra presentación seguirá más o menos
@@ -1272,7 +1272,7 @@ proceder bajo supuestos mínimos sería aplicar los resultados de
 a conjuntos $\cS$ con muy baja regularidad (por ejemplo, conjuntos tipo Cantor con estructura
 fractal). Sin embargo, hemos encontrado que el cálculo preciso de estas constantes 
 ---una tarea necesaria para demostrar una conclusión como el
-\Cref{thm:covering-number-rate-distortion}---resulta bastante tedioso en nuestro
+\Cref{thm:covering-number-rate-distortion}--- resulta bastante tedioso en nuestro
 contexto.
 Por lo tanto, nuestro enfoque consiste en añadir un supuesto de regularidad geométrica sobre
 el conjunto $\cS$ que cede en términos de generalidad, pero nos permite desarrollar
@@ -1321,7 +1321,7 @@ alcance esta distorsión objetivo, y cualquier cobertura $\epsilon$ de $\Supp(\x
 lo logra, con una tasa igual al logaritmo en base 2 de la cardinalidad de
 la cobertura.
 El límite inferior es más sutil. Utilizamos el límite inferior de Shannon,
-discutido en \Cref{rem:slb}: al calcular las constantes en \cite[\S III,
+discutido en la \Cref{rem:slb}: al calcular las constantes en \cite[\S III,
 (22)]{Linder1994-ej} se obtiene una versión más precisa del resultado citado en la
 \Cref{eq:slb} (en bits, por supuesto): para cualquier variable aleatoria $\vx$ con soporte compacto
 y una densidad, se cumple que
@@ -1400,7 +1400,7 @@ Se obtiene
     -\frac{1}{6D}
     - \frac{1}{2}\log D\pi,\label{eq:slb-constant-est}
 \end{align}
-que podemos tomar como el valor explícito de la constante $C_D$ en \Cref{eq:slb}.
+que podemos tomar como el valor explícito de la constante $C_D$ en la \Cref{eq:slb}.
 En resumen, el límite inferior de Shannon totalmente cuantificado (en bits):
 \begin{equation}\label{eq:slb-appendix}
     \cR_{\epsilon}(\x)
@@ -1429,7 +1429,7 @@ bolas de tamaño $\epsilon$.
 
 Para ampliar el programa anterior a distribuciones degeneradas que satisfagan el
 \Cref{assumption:union-of-spheres},
-nuestra demostración del límite inferior en \Cref{thm:covering-number-rate-distortion}
+nuestra demostración del límite inferior en el \Cref{thm:covering-number-rate-distortion}
 aprovechará un argumento de aproximación de la distribución real de baja dimensión
 $\vx$ mediante distribuciones «cercanas» que tienen
 densidades, de manera similar pero no exactamente igual a la esbozada en la demostración

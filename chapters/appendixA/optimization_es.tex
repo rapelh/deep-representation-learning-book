@@ -7,9 +7,9 @@
 \label{app:optimization}
 
 \begin{quote}
-    ``{\em Dado que la estructura de todo el universo es perfecta y ha sido
-        creada por el Creador sabio, no hay nada en el universo en
-    lo que no se pueda percibir el sentido de un máximo o un mínimo.}''
+    ``{\em Puesto que la estructura del universo es sumamente perfecta y es obra 
+        de un Creador sumamente sabio, no ocurre absolutamente nada en el universo 
+        en lo que no se manifieste alguna regla de máximo o mínimo.}''
 
     $~$\hfill -- L. Euler
 \end{quote}
@@ -243,7 +243,7 @@ para garantizar que cada paso del gradiente no empeore el valor de
 \(u_{\theta, \beta}(\theta) = \cL(\theta)\). Por lo tanto, por el
 \Cref{lem:majorization_minimization}
 \begin{equation}
-    \text{if \(\theta^{+}\) minimizes \(u_{\theta, \beta}\) then}
+    \text{si \(\theta^{+}\) minimiza \(u_{\theta, \beta}\) entonces}
     \quad \cL(\theta^{+}) \leq u_{\theta, \beta}(\theta^{+}) \leq
     u_{\theta, \beta}(\theta) = \cL(\theta).
 \end{equation}
@@ -259,7 +259,7 @@ ejercicio) obtenemos
 Esto implica que un tamaño de paso \(h = 1/\beta\) es una tasa de aprendizaje
 válida, pero no proporciona una tasa de convergencia ni garantiza que
 \(\cL(\theta_{k})\) converja realmente a \(\min_{\theta}\cL(\theta)\).
-Esto requiere un poco más de rigor, lo cual abordaremos a continuación.
+Esto requiere un poco más de rigor, lo que abordaremos a continuación.
 
 Ahora, supongamos que \(\cL\) es \(\alpha\)-fuertemente convexa, tiene
 un gradiente \(\beta\)-Lipschitz y posee un óptimo global
@@ -409,8 +409,8 @@ Por lo tanto, podemos utilizar la iteración del gradiente máximo
     h[\nabla^{2}\cL(\theta_{k})]^{-1}[\nabla \cL(\theta_{k})],
 \end{equation}
 (conocido como \textit{método de Newton subamortiguado}). Dado que
-el término cuadrático de segundo orden \(\cL_{\lambda}\) es igual a su
-, si aplicamos el método de Newton durante \textit{un paso},
+el término cuadrático de segundo orden \(\cL_{\lambda}\) es igual a su, 
+si aplicamos el método de Newton durante \textit{un paso},
 alcanzaremos el mínimo global en \textit{un paso} sin importar cuán
 grande sea \(\lambda\). La \Cref{fig:hessian_geometry} ofrece una
 idea intuitiva sobre las funciones mal condicionadas y los pasos del gradiente
@@ -466,8 +466,8 @@ Finalizamos esta subsección con una consideración importante: en el aprendizaj
 \(\cL\) no es una función convexa, por lo que el método de Newton (y
 sus aproximaciones) no tienen sentido. En este caso, nos fijamos en la
 intuición geométrica del método de Newton en funciones convexas, por ejemplo, a partir de
-\Cref{fig:hessian_geometry}: la Hessiana inversa \textit{blanquea} los
-gradientes. Así, en lugar de un precondicionador que aproxime la Hessiana,
+\Cref{fig:hessian_geometry}: la hessiana inversa \textit{blanquea} los
+gradientes. Así, en lugar de un precondicionador que aproxime la hessiana,
 podemos ajustar los procedimientos anteriores para aprender una transformación de blanqueo
 más general aplicada al gradiente. Esta es la idea en la que se basa la propuesta original
 de PSGD \cite{li2017preconditioned}, que contiene más
@@ -480,9 +480,8 @@ Sin embargo, incluso en problemas muy sencillos, como el LASSO o el
 aprendizaje de diccionarios, el problema no es fuertemente convexo, sino simplemente convexo,
 y el objetivo ya no es solo suave, sino más bien la suma de una
 función suave y un regularizador no suave (como la
-norma \(\ell^{1}\)). Estos problemas se resuelven mediante \textit{algoritmos de optimización proximal
-}, que generalizan el método del gradiente máximo a
-objetivos no suaves.
+norma \(\ell^{1}\)). Estos problemas se resuelven mediante \textit{algoritmos de optimización proximal}, 
+que generalizan el método del gradiente máximo a objetivos no suaves.
 
 En términos formales, digamos que
 \begin{equation}
@@ -491,7 +490,7 @@ En términos formales, digamos que
 donde \(\cS\) es suave, por ejemplo, con un gradiente \(\beta\)-Lipschitz, y
 \(\cR\) es no suave (es decir, irregular). El algoritmo del gradiente proximal
 generaliza el algoritmo del gradiente máximo, utilizando el
-enfoque de mayorizacón-minimización (es decir,
+enfoque de mayorización-minimización (es decir,
 \Cref{lem:majorization_minimization}) con una cota superior global diferente.
 Concretamente, construimos dicho límite superior preguntándonos: ¿qué pasaría si
 tomáramos la cota superior del gradiente de Lipschitz de \(S\) pero \textit{dejáramos
@@ -534,7 +533,7 @@ Las demostraciones de convergencia son posibles cuando \(h \leq 1/\beta\), pero
 en esta sección no presentamos demostraciones.
 
 Una pregunta que queda por resolver es: ¿cómo podemos calcular el operador proximal? A primera
-vista, parece que hemos cambiado un problema de minimización intratable por
+vista, parece que hemos cambiado un problema de minimización inmanejable por
 otro. Dado que hasta ahora no hemos hecho ninguna suposición sobre \(\cR\), el marco
 funciona incluso cuando \(\cR\) es una función muy compleja (como una pérdida de red neuronal
 ), lo que nos obligaría a resolver un problema de entrenamiento de redes neuronales
@@ -699,7 +698,7 @@ tasa de aprendizaje \(h_{k} = (D/[G\sqrt{K}])(1 - k/K)\) decaiga
 \textit{linealmente} con el tiempo. Esto concuerda con los esquemas de tasa de aprendizaje
 utilizados en la práctica. De hecho, sorprendentemente, dicha teoría de la optimización convexa
 puede predecir muchos fenómenos empíricos en las redes profundas
-\cite{schaipp2025surprising}, a pesar de que la optimización del aprendizaje profundo
+\cite{schaipp2025surprising}, a pesar de que la optimización para aprendizaje profundo
 sea altamente no convexa y no suave en el peor de los casos. Hasta el momento
 no está claro por qué ocurre esto.
 
@@ -737,7 +736,7 @@ posible demostrar que
     1}}\ip{\nabla \cL(\theta_{k})}{\vv},
 \end{equation}
 donde \(\sign(\vx)_{i} = \sign(x_{i}) \in \{-1, 0, 1\}\). Por lo tanto, si
-quisieramos, podríamos utilizar el llamado \textit{descenso por gradiente por signos}:
+quisieramos, podríamos utilizar el llamado \textit{descenso por gradiente con signo}:
 \begin{equation}\label{eq:sign_gradient_descent}
     \theta_{k + 1} = \theta_{k} - h\sign(\nabla \cL(\theta_{k})).
 \end{equation}
@@ -770,8 +769,8 @@ seguir tanto el gradiente como el cuadrado del gradiente utilizando el momentum,
     &= \theta_{k} - h\vg_{k}\haddiv\vs_{k}^{\hada \frac{1}{2}},
 \end{align}
 donde \(\beta^{i} \in [0, 1]\) son los parámetros de impulso. El algoritmo
-descrito por estas iteraciones es el famoso optimizador \textit{Adam}
-,\footnote{Para evitar errores de división por cero, dividimos por
+descrito por estas iteraciones es el famoso optimizador 
+\textit{Adam},\footnote{Para evitar errores de división por cero, dividimos por
     \(\vs_{k}^{\hada (1/2)} + \eps \vone_{n}\), donde \(\eps\) es pequeño,
 digamos del orden de \(10^{-8}\).} que es el optimizador más utilizado en
 el aprendizaje profundo. Aunque las demostraciones de convergencia de Adam son más complejas,
@@ -804,8 +803,7 @@ tedioso y dificulta la experimentación rápida. Por lo tanto, necesitamos un
 algoritmo general que nos permita calcular de manera eficiente los
 gradientes de arquitecturas de redes diferenciables (parcialmente) o "subdiferenciables" arbitrarias.
 
-En esta sección, presentamos los fundamentos de la \textit{diferenciación automática
-} (AD o \textit{autodiff}), que es una
+En esta sección, presentamos los fundamentos de la \textit{diferenciación automática} (AD o \textit{autodiff}), que es un
 método computacionalmente eficiente para calcular gradientes y jacobianos de
 funciones generales \(f: \R^{m} \to \R^{n}\). Mostraremos cómo esto
 conduce al algoritmo de retropropagación para calcular gradientes de
@@ -817,7 +815,7 @@ de esta sección:
         entre espacios de parámetros de alta dimensión (que pueden
             ser a su vez productos de otros espacios que involucran matrices,
         tensores, etc.).
-    \item Describimos los fundamentos de la diferenciación automática en \textbf{modo hacia adelante} y
+    \item Describimos los fundamentos de la diferenciación automática en \textbf{modo directo} y
         \textbf{modo inverso}, lo cual
         implica consideraciones importantes para el cálculo eficiente
         de gradientes y jacobianos para diferentes tipos de
@@ -882,8 +880,8 @@ respecto a \(\theta\). Obsérvese aquí que hemos fijado todas las potencias sup
 los productos de coordenadas de \(\odif{\theta}\)  en \(0\). En resumen,
 \begin{quote}
     \centering
-    \textit{All products and powers \(\geq 2\) of differentials are
-    equal to \(0\).}
+    \textit{Todos los productos y potencias \(\geq 2\) de diferenciales son
+    iguales a \(0\).}
 \end{quote}
 
 Consideremos ahora una función tensorial de orden superior \(\cL \colon \R^{m \times
@@ -903,7 +901,7 @@ devuelve el pequeño cambio correspondiente en \(\cL\). Es decir, podemos escrib
 \begin{equation}
     \odif{\cL} = \cL^{\prime}(\theta)[\odif{\theta}].
 \end{equation}
-En los casos anteriores, \(\cL^{\prime}(\theta)\) era primero un
+En los casos anteriores, \(\cL^{\prime}(\theta)\) era primero un operador lineal \(\R \to \R\)
 cuya acción consistía en multiplicar su entrada por la
 derivada escalar de \(\cL\) con respecto a \(\theta\), y luego un
 operador lineal \(\R^{n} \to \R\) cuya acción consistía en multiplicar su
@@ -913,7 +911,7 @@ de \(\cL\) con respecto a \(\theta\).
 Piensa en \(\cL^{\prime}\) como una versión generalizada de la jacobiana de \(\cL\).
 Como tal, sigue algunas reglas de derivación sencillas, entre las que destaca la regla de la cadena.
 
-\begin{theorem}[Regla de la cadena diferencial]
+\begin{theorem}[Regla diferencial de la cadena]
     Supongamos que \(\cL = f \circ g\), donde \(f\) y \(g\) son diferenciables. Entonces
     \begin{equation}
         \odif{\cL} = f^{\prime}(g(\theta))g^{\prime}(\theta)[\odif{\theta}],
@@ -1078,7 +1076,7 @@ matrices y objetos de orden superior: \(\Theta = \R^{m \times n} \times \R^{n}
 teoría esto equivale a un gran espacio de parámetros \(\R^{n^{\prime}}\) para
 algún \(n^{\prime}\) (muy grande), los algoritmos computacionalmente eficientes
 para la diferenciación deben tratar estos dos espacios de manera diferente.
-La diferenciación automática en modo hacia adelante y en modo inverso son dos esquemas distintos para
+La diferenciación automática en modo directo y en modo inverso son dos esquemas distintos para
 realizar este cálculo.
 
 Empecemos con un ejemplo sencillo. Sea \(\cL\) definida por \(\cL
@@ -1091,7 +1089,7 @@ Empecemos con un ejemplo sencillo. Sea \(\cL\) definida por \(\cL
 Para calcular \(\cL(\theta)\), primero calculamos \(c(\theta)\), luego
 \(b(c(\theta))\) y después \(a(b(c(\theta)))\), y los guardamos todos. Hay
 dos formas de calcular \(\cL^{\prime}(\theta)\). El
-\textit{modo hacia adelante de AD} calculará
+\textit{modo directo de AD} calculará
 \begin{equation}
     c^{\prime}(\theta) \implies
     b^{\prime}(c(\theta))c^{\prime}(\theta) \implies
@@ -1115,40 +1113,40 @@ regla de la cadena es:
 donde (recordemos) \(f^{\prime}\) es la derivada, en este caso la
 matriz jacobiana (ya que tanto la entrada como la salida de cada función son
 vectores). Suponiendo que calcular cada jacobiano es trivial y que el
-único costo es multiplicar los jacobianos entre sí, el AD en modo hacia adelante tiene
+único costo es multiplicar los jacobianos entre sí, el AD en modo directo tiene
 los siguientes costos computacionales (suponiendo que multiplicar \(A \in
 \R^{m \times n}, B \in \R^{n \times k}\) toma un tiempo de \(\cO(mnk)\)):
 \begin{align}
-    &\text{computing}\ c^{\prime}(\vx) \in \R^{q \times
-    p}\ \text{takes negligible time} \\
-    &\text{computing}\ b^{\prime}(c(\vx))c^{\prime}(x) \in \R^{r
-    \times p}\ \text{takes \(\cO(pqr)\) time} \\
-    &\text{computing}\ a^{\prime}(b(c(\vx)))b^{\prime}(c(\vx))c^{\prime}(\vx)
-    \in \R^{s \times p}\ \text{takes \(\cO(pqr + prs)\) time.}
+    &\text{calcular}\ c^{\prime}(\vx) \in \R^{q \times
+    p}\ \text{toma un tiempo despreciable} \\
+    &\text{calcular}\ b^{\prime}(c(\vx))c^{\prime}(x) \in \R^{r
+    \times p}\ \text{toma un tiempo del orden de \(\cO(pqr)\)} \\
+    &\text{calcular}\ a^{\prime}(b(c(\vx)))b^{\prime}(c(\vx))c^{\prime}(\vx)
+    \in \R^{s \times p}\ \text{toma un tiempo del orden de \(\cO(pqr + prs)\).}
 \end{align}
 Por otra parte, la diferenciación automática en modo inverso conlleva los siguientes costos computacionales:
 \begin{align}
-    &\text{computing}\ a^{\prime}(b(c(\vx))) \in \R^{s \times
-    r}\ \text{takes negligible time} \\
-    &\text{computing}\ a^{\prime}(b(c(\vx)))b^{\prime}(c(\vx)) \in
-    \R^{s \times q}\ \text{takes \(\cO(qrs)\) time} \\
-    &\text{computing}\ a^{\prime}(b(c(\vx)))b^{\prime}(c(\vx))c^{\prime}(\vx)
-    \in \R^{s \times p}\ \text{takes \(\cO(qrs + pqs)\) time.}
+    &\text{calcular}\ a^{\prime}(b(c(\vx))) \in \R^{s \times
+    r}\ \text{tima un tiempo despreciable} \\
+    &\text{calcular}\ a^{\prime}(b(c(\vx)))b^{\prime}(c(\vx)) \in
+    \R^{s \times q}\ \text{toma un tiempo del orden de \(\cO(qrs)\)} \\
+    &\text{calcular}\ a^{\prime}(b(c(\vx)))b^{\prime}(c(\vx))c^{\prime}(\vx)
+    \in \R^{s \times p}\ \text{toma un tiempo del orden de \(\cO(qrs + pqs)\).}
 \end{align}
-En otras palabras, el algoritmo de sumas en modo hacia adelante tarda un tiempo de orden \(\cO(p(qr + rs))\),
+En otras palabras, el algoritmo de sumas en modo directo tarda un tiempo de orden \(\cO(p(qr + rs))\),
 y el algoritmo de sumas en modo inverso tarda un tiempo de orden \(\cO(s(pq + qr))\). \textit{¡Estos
 tardan un tiempo diferente!}
 
 En términos más generales, supongamos que \(f = f^{L} \circ \cdots \circ f^{1}\)
 donde cada \(f^{\ell} \colon \R^{d^{\ell - 1}} \to \R^{d^{\ell}}\),
-de modo que \(f \colon \R^{d^{0}} \to \R^{d^{L}}\). Entonces, el modo hacia adelante
+de modo que \(f \colon \R^{d^{0}} \to \R^{d^{L}}\). Entonces, el modo directo
 tarda \(\cO(d^{0}(\sum_{\ell = 2}^{L}d^{\ell - 1}d^{\ell}))\) tiempo
 mientras que el algoritmo de diferenciación automática (AD) en modo reverso tarda \(\cO(d^{L}(\sum_{\ell = 1}^{L -
 1}d^{\ell - 1}d^{\ell}))\) tiempo. A partir de las tasas anteriores, vemos que,
 en igualdad de condiciones:
 \begin{itemize}
     \item Si la función que se va a optimizar tiene \textit{más salidas que
-        entradas} (es decir, \(d^{L} > d^{0}\)), utilice \textit{el AD en modo hacia adelante}.
+        entradas} (es decir, \(d^{L} > d^{0}\)), utilice \textit{el AD en modo directo}.
     \item Si la función que se va a optimizar tiene \textit{más entradas que
         salidas} (es decir, \(d^{0} > d^{L}\)), utilice \textit{el modo inverso de AD}.
 \end{itemize}
@@ -1161,7 +1159,7 @@ el contexto del entrenamiento de redes neuronales, se denomina \textit{retroprop
 
 \subsection{Retropropagación}
 \label{app:BP-section}
-En esta sección, analizaremos la retropropagación algorítmica utilizando un
+En esta sección analizaremos la retropropagación algorítmica utilizando un
 ejemplo sencillo pero totalmente práctico. Supongamos que fijamos un
 par de entrada y etiqueta \((\vX, \vy)\), y fijamos una arquitectura de red
 \(f_{\theta} = f_{\theta}^{L} \circ \cdots \circ f_{\theta}^{1} \circ
@@ -1180,7 +1178,7 @@ Entonces, podemos definir la función de pérdida para este ejemplo mediante
     \cL(\theta) \doteq \sfL(\vy, \hat{\vy}_{\theta}(\vX)),
 \end{equation}
 donde \(\sfL\) es una función diferenciable de su segundo argumento.
-Entonces, el AD en modo reverso nos indica que calculemos las derivadas en
+Entonces, el AD en modo inverso nos indica que calculemos las derivadas en
 el orden \(\theta^{\head}, \theta^{L}, \dots, \theta^{1}, \theta^{\emb}\).
 
 Para realizar este cálculo, vamos a introducir algunos cambios en la notación.
@@ -1699,8 +1697,8 @@ en forma análoga al descenso por gradiente para funciones fuertemente convexas 
 gradiente de Lipschitz.\footnote{No proporcionamos el tamaño del paso ni
     la base exponencial, ya que se trata de funciones complejas de la
     constante de convexidad/concavidad/Lipschitz del gradiente. Por supuesto,
-    el artículo \cite{zamani2024convergence} ofrece los valores exactos de los parámetros.
-} Según nuestro conocimiento, este tipo de resultados constituye la única
+    el artículo \cite{zamani2024convergence} ofrece los valores exactos de los parámetros.} 
+Según nuestro conocimiento, este tipo de resultados constituye la única
 justificación rigurosa conocida para el GDA de escala temporal única.
 
 \subsubsection{Convergencia local del GDA de doble escala de tiempo hacia el
@@ -1715,8 +1713,8 @@ entonces el GDA puede converger hacia él, dado un tamaño de paso \(h\)
 y una escala de tiempo \(T\) adecuados.
 
 De hecho, nuestros resultados también se mantienen para una versión del \textit{equilibrio local}
-denominado \textit{punto de equilibrio diferencial de Stackelberg
-}, que fue introducido en \cite{fiez2019convergence}
+denominado \textit{punto de equilibrio diferencial de Stackelberg}, 
+que fue introducido en \cite{fiez2019convergence}
 (aunque utilizamos la definición precisa de \cite{li2022convergence}),
 y que definimos de la siguiente manera. Un punto \((\theta^{\star},
 \eta^{\star})\) es un equilibrio diferencial de Stackelberg si:
@@ -1729,7 +1727,7 @@ y que definimos de la siguiente manera. Un punto \((\theta^{\star},
             [\odv*{\nabla_{\eta}\cL}{\theta}][\nabla_{\eta}^{2}\cL]^{-1}[\odv*{\nabla_{\theta}\cL}{\eta}])(\theta^{\star},
         \eta^{\star})\) es simétrica negativa definida.
 \end{itemize}
-Nótese que la última condición requiere la matriz Hessiana (total)
+Nótese que la última condición requiere la matriz hessiana (total)
 \begin{equation}
     \nabla^{2} \cL(\theta, \eta) =
     \mat{\nabla_{\theta}^{2}\cL(\theta, \eta) &
@@ -1788,7 +1786,7 @@ El artículo \cite{li2022convergence} afirma que si tomamos un tamaño de paso \
     \eta_{k + 1}
     &= \eta_{k} - \frac{1}{4\beta}\nabla_{\eta} \cL(\theta_{k}, \eta_{k}),
 \end{align}
-la Hessiana total \(\nabla^{2}\cL(\theta^{\star}, \eta^{\star})\) es
+la hessiana total \(\nabla^{2}\cL(\theta^{\star}, \eta^{\star})\) es
 diagonalizable, e inicializamos \((\theta_{0}, \eta_{0})\) lo suficientemente cerca
 de \((\theta^{\star}, \eta^{\star})\), entonces existen constantes positivas
 \(c_{0}, c_{1} > 0\) tales que
@@ -1814,8 +1812,8 @@ el equilibrio. En la práctica, existen algunos enfoques habituales:
     \item Tomemos \(T = 1\) (pasos de igual tamaño) y utilicemos actualizaciones para
         \(\theta\) y \(\eta\) derivadas de un
         optimizador con tasa de aprendizaje adaptativa como Adam (en contraposición al
-        GD básico). Aquí, \textit{esperas} (pero no
-        \textit{sabes}) que el optimizador pueda ajustar las tasas de aprendizaje
+        GD básico). Aquí, \textit{se espera} (pero no
+        \textit{se sabe}) que el optimizador pueda ajustar las tasas de aprendizaje
         para alcanzar un buen equilibrio.
     \item Supongamos que \(T\) es una constante, por ejemplo, \(T = 10^{6}\), lo que
         implica que \(\eta\) alcanza el equilibrio \(10^{6}\) veces más rápido
@@ -1825,7 +1823,7 @@ el equilibrio. En la práctica, existen algunos enfoques habituales:
         \to \infty\) cuando \(k \to \infty\). Este esquema fue estudiado
         (también en el caso del ruido) por Borkar en \cite{borkar1997stochastic}.
 \end{itemize}
-Por ejemplo, puedes utilizar esto al entrenar modelos de tipo CTRL (véase el
+Por ejemplo, se puede utilizar esto al entrenar modelos de tipo CTRL (véase el
 \Cref{ch:consistent-representations}), donde el codificador es el Jugador \(1\) y el
 decodificador es el Jugador \(2\). En el
 \Cref{thm:ctrl_theory} se ofrece cierta teoría sobre CTRL.

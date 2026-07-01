@@ -27,15 +27,15 @@ Creemos que los principios y mecanismos expuestos en este libro son unificadores
 aplicables tanto a los animales como a las máquinas.
 
 Esperamos que este libro ayude a los lectores a clarificar por completo el misterio que rodea 
-las prácticas modernas de las redes neuronales profundas artificiales, mediante el desarrollo 
+las prácticas modernas de las redes neuronales artificiales profundas, mediante el desarrollo 
 de una comprensión rigurosa de sus funciones y roles en el aprendizaje de representaciones de 
 distribuciones de baja dimensión a partir de datos de alta dimensión.
 A partir de esta comprensión, se hacen evidentes las capacidades y limitaciones de los modelos 
 y sistemas de IA existentes:
 \begin{enumerate}
     \item Los modelos y sistemas de bucle abierto existentes no alcanzan la categoría de sistemas 
-      de memoria completos, capaces de aprenderse y automejorarse.
-    \item Las implementaciones actuales del aprendizaje de representaciones permanecen primitivas 
+      de memoria completos, capaces de aprender y automejorarse en forma autónoma.
+    \item Las implementaciones actuales del aprendizaje de representaciones siguen siendo primitivas 
       y basadas en fuerza bruta, muy alejadas de la optimalidad en términos de arquitectura de red 
       o estrategias de optimización.
     \item Los modelos de IA actuales únicamente aprenden distribuciones de datos y realizan 
@@ -74,7 +74,7 @@ real \(\vx\), deseamos corregir las distribuciones aprendidas:
     p_{t}(\vx\mid \vy) \rightarrow p_{t+1}(\vx\mid \vy),
 \end{equation}
 basado en el error \(\ve_{t} = \vx_{t} - \hat{\vx}_{t}\). 
-Este proceso se denomina corrección de errores basada en retroalimentación de errores, un 
+Este proceso se denomina corrección de errores basada en retroalimentación, un 
 mecanismo ubicuo en la naturaleza para el aprendizaje continuo. Sin embargo, cualquier 
 modelo abierto carece inherentemente de un mecanismo para revisar o 
 perfeccionar la distribución aprendida cuando esta resulta errónea o incompleta.
@@ -88,7 +88,7 @@ Tal como se estudió anteriormente en este libro (especialmente en el
 representación interna con las observaciones sensoriales del mundo externo. Pueden 
 mejorar continuamente la distribución interna aprendida y su representación para 
 lograr progresivamente la consistencia o la auto-coherencia. El siguiente paso 
-inmediato consiste en desarrollar sistemas de memoria verdaderamente cerrados, 
+inmediato consiste en desarrollar sistemas de memoria que verdaderamente operen en circuito cerrado, 
 ilustrados en la \Cref{fig:open-to-closed}, que aprendan de manera autónoma y continua 
 distribuciones generales de datos y se perfeccionen basándose en la 
 retroalimentación de errores. 
@@ -96,10 +96,10 @@ retroalimentación de errores.
 Por consiguiente, la transición desde los modelos de bucle abierto entrenados end-to-end, 
 tan populares actualmente, hacia sistemas de bucle cerrado con aprendizaje continuo 
 \begin{equation}
-    \text{\textbf{open-ended} models} \; \Longrightarrow \;
-    \text{\textbf{closed-loop} systems}
+    \text{modelos \textbf{en circuito abierto}} \; \Longrightarrow \;
+    \text{sistemas \textbf{de circuito cerrado}}
 \end{equation}
-es clave para que las máquinas emulen realmente el proceso mediante el cual el cerebro 
+es la clave para que las máquinas emulen realmente el proceso mediante el cual el cerebro 
 animal aprende y aplica conocimientos en un mundo abierto.
 Creemos que 
 \begin{quote}
@@ -116,7 +116,7 @@ teorías y conocimientos científicos son falsables!} No obstante, es precisamen
 de perfeccionar la memoria o el conocimiento previo y adaptarse a cualquier nuevo entorno lo 
 que resulta verdaderamente generalizable. En consecuencia, una inteligencia verdaderamente 
 auténtica resulta intrínsecamente generalizable siempre que se materialice completamente y 
-correctamente.\footnote{En nuestra opinión, la IGA debería representar la «inteligencia artificial genuina».}
+correctamente.\footnote{En nuestra opinión, la IAG debería representar la «inteligencia artificial genuina».}
 Esto constituye exactamente la esencia del programa de cibernética propuesto por Norbert Wiener 
 durante la década de 1940, sobre el cual habíamos discutido al inicio de este libro.
 
@@ -143,9 +143,9 @@ debido a limitaciones físicas.
 De modo más general, no podemos comprender realmente la inteligencia sin entender también cómo se 
 puede implementar en forma eficiente. Es decir, se requiere abordar la complejidad computacional 
 inherente a la realización de los mecanismos necesarios para alcanzar los objetivos de la inteligencia.
-Históricamente, nuestra comprensión de la inteligencia (máquina) ha evolucionado mediante varias fases: 
-desde la complejidad de Kolmogorov---incomputable---hacia la entropía de Shannon; desde la computabilidad 
-de Turing hacia la posterior noción de manejabilidad,\footnote{Decimos que un problema es tractable
+Históricamente, nuestra comprensión de la inteligencia (artificial) ha evolucionado mediante varias fases: 
+desde la complejidad de Kolmogorov ---incomputable--- hacia la entropía de Shannon; desde la computabilidad 
+de Turing hacia la posterior noción de manejabilidad,\footnote{Decimos que un problema es manejable
     si permite un algoritmo cuya complejidad es polinómica en el tamaño
 del problema.} y hasta el fuerte énfasis en la escalabilidad de los algoritmos
 en la práctica moderna del análisis de datos de alta dimensión
@@ -232,23 +232,23 @@ al siguiente nivel de evolución:
 \begin{equation}
     \text{\textbf{incomputable}}
     \Longrightarrow \text{\textbf{computable}}
-    \Longrightarrow \text{\textbf{tractable}} \Longrightarrow
-    \text{\textbf{scalable}}
+    \Longrightarrow \text{\textbf{manejable}} \Longrightarrow
+    \text{\textbf{escalable}}
     \Longrightarrow
     \text{\textbf{natural}}.
 \end{equation}
 
-\section{¿Hacia la inteligencia científica: más allá del test de Turing?}
+\section{Hacia la inteligencia científica: ¿más allá del test de Turing?}
 
 \subsection{La evolución de la inteligencia en la naturaleza}
 Como hemos comentado al principio de este libro, en el \Cref{ch:intro},
 la inteligencia en la naturaleza ha evolucionado a lo largo de múltiples fases y
 se ha manifestado en cuatro formas distintas:
 \begin{equation}
-    \text{\textbf{phylogenetic}} \;
-    \Longrightarrow \; \text{\textbf{ontogenetic}} \;
-    \Longrightarrow \; \text{\textbf{societal}} \;
-    \Longrightarrow \; \text{\textbf{scientific intelligence}}.
+    \text{\textbf{inteligencia filogenética}} \;
+    \Longrightarrow \; \text{\textbf{ontogenética}} \;
+    \Longrightarrow \; \text{\textbf{social}} \;
+    \Longrightarrow \; \text{\textbf{científica}}.
 \end{equation}
 Todas las formas de inteligencia comparten el objetivo (y la
 característica) común de adquirir conocimientos útiles en forma de distribuciones de baja dimensión
@@ -308,8 +308,8 @@ matemática o la experimentación. A través de la formulación de hipótesis, l
 lógica y la verificación o falsificación experimental, ahora podemos
 descubrir y desarrollar de manera proactiva nuevos conocimientos que van mucho más allá
 de lo que se puede aprender a partir de las distribuciones de los datos
-observados.\footnote{Por ejemplo, las relaciones causales no pueden deducirse
-únicamente a partir de las distribuciones \citep{Pearl-2009}.}
+observados. Por ejemplo, las relaciones causales no pueden deducirse
+únicamente a partir de las distribuciones \citep{Pearl-2009}.
 
 A pesar de las aparentes diferencias entre estas distintas etapas de
 la inteligencia, la evolución de la inteligencia comparte una característica
@@ -326,12 +326,12 @@ dotar a las máquinas de inteligencia científica, es decir, de funciones de alt
 como la abstracción matemática, la inferencia lógica y
 la resolución de problemas, que se cree que diferencian a los seres humanos de los animales:
 \begin{equation}
-    \text{\textbf{low-level} (animal) intelligence} \; \Longrightarrow \;
-    \text{\textbf{high-level} (human) intelligence.}
+    \text{inteligencia (animal) de \textbf{bajo nivel}} \; \Longrightarrow \;
+    \text{inteligencia (humana) de \textbf{alto nivel}.}
 \end{equation}
 Como hemos aclarado en repetidas ocasiones en este libro, la mayoría de los avances tecnológicos
 en inteligencia artificial durante la última década, aunque
-se hayan llevado a cabo bajo el nombre de «IA», están en realidad más estrechamente relacionados
+se hayan llevado a cabo bajo el nombre de «AI», están en realidad más estrechamente relacionados
 con el hecho de que las máquinas imiten formas de inteligencia de bajo nivel que comparten en gran medida
 tanto los animales como los seres humanos, incluyendo la inteligencia filogenética,
 ontogenética y social. En estos niveles, la inteligencia
@@ -350,10 +350,10 @@ que indiquen que estos mecanismos por sí solos bastarían para alcanzar
 el alto nivel de inteligencia humana que el programa original de IA realmente
 pretendía comprender y quería que las máquinas imitaran o incluso superaran.
 
-De hecho, a día de hoy, sabemos muy poco sobre cómo verificar
+De hecho, al día de hoy, sabemos muy poco sobre cómo verificar
 o certificar de manera rigurosa si un sistema es realmente capaz de alcanzar un nivel tan alto
-de inteligencia, a pesar de que la prueba de Turing, también conocido como el
-juego de la imitación,\footnote{En la propuesta de Turing, el evaluador, o
+de inteligencia, a pesar de que la Prueba de Turing, también conocido como el
+Juego de la Imitación,\footnote{En la propuesta de Turing, el evaluador, o
     interrogador, es un ser humano. Sin embargo, la mayoría de los evaluadores humanos tienen una
     formación y unos conocimientos científicos limitados, y sus conclusiones pueden ser
 subjetivas.} se propuso en 1950 \citep{Turing-1950}, como un primer
@@ -380,8 +380,12 @@ un concepto abstracto como:
 \begin{enumerate}
     \item el concepto de igualdad entre dos cantidades,
     \item el concepto de los números (naturales, racionales o reales),
-    \item el concepto de infinito,
-    \item y el concepto de inducción matemática,
+    \item el concepto de infinito y la inducción matemática,
+    \item el concepto de consistencia lógica\footnote{En matemáticas, si un conjunto de axiomas y sus resultados deducidos son consistentes y
+        no se contradicen entre sí, entonces existen. Esto se conoce como el Principio de Hilbert. Esto difiere de la
+        noción de «consistencia» del capítulo \ref{ch:consistent-representations}, que requiere que las representaciones aprendidas
+        sean consistentes con las distribuciones de datos empíricos. Una noción de consistencia es de naturaleza inductiva
+    y la otra es deductiva.} y la demostración por contradicción,
 \end{enumerate}
 por mencionar solo algunos? ¿O simplemente ha memorizado una enorme cantidad de
 ejemplos de tales conceptos? Cabe señalar que los modelos de lenguaje de última generación
@@ -431,8 +435,8 @@ inteligente de un sistema:
     \item ser capaz de aprender en forma autónoma y continua
         nuevos conocimientos o de corregir los conocimientos existentes a partir de nuevas
         observaciones y experiencias;
-    \item ser capaz de comprender y crear verdaderamente
-        conceptos, reglas y leyes abstractas, y saber cómo aplicarlos
+    \item ser verdaderamente capaz de comprender y crear 
+        conceptos, reglas y leyes abstractas, así como saber cómo aplicarlos
         correctamente de manera deductiva;
     \item ser capaz de formular nuevas hipótesis científicas o conjeturas matemáticas y verificarlas o refutarlas mediante la experimentación o la deducción lógica.
 \end{enumerate}
@@ -441,9 +445,9 @@ inteligente de un sistema:
     \centering
     \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter9/figs/tests.png}
     \caption{Tres pruebas para diferentes niveles o tipos de
-        capacidades cognitivas: la prueba de Wiener para la inteligencia básica,
-        la prueba de Turing para la inteligencia de nivel humano y
-    la prueba de Popper para la inteligencia de nivel científico.}
+        capacidades cognitivas: la Prueba de Wiener para la inteligencia básica,
+        la Prueba de Turing para la inteligencia de nivel humano y
+    la Prueba de Popper para la inteligencia de nivel científico.}
     \label{fig:three-tests}
 \end{figure}
 
@@ -451,15 +455,15 @@ Para evaluar y distinguir estos diferentes niveles de inteligencia,
 sugerimos que probablemente deberían existir al menos tres pruebas diferentes,
 tal y como se ilustra en la \Cref{fig:three-tests}:
 \begin{enumerate}
-    \item \textit{La prueba de Norbert Wiener:} para determinar si un
+    \item \textit{La Prueba de Norbert Wiener:} para determinar si un
         sistema es capaz de autocorregirse y generar nuevo conocimiento (empírico)
         por sí mismo o si simplemente recibe y actualiza información
         de manera pasiva a través de refuerzos o supervisión externos;
-    \item \textit{El test de Alan Turing:} para determinar si un
+    \item \textit{La prueba de Alan Turing:} para determinar si un
         sistema es capaz de crear y comprender conceptos abstractos y
         conocimiento, o si simplemente aprende y memoriza estadísticas de las
         muestras y las utiliza para la inferencia bayesiana;
-    \item \textit{La prueba de Karl Popper:} para determinar si un
+    \item \textit{La Prueba de Karl Popper:} para determinar si un
         sistema es capaz de explorar y crear en forma proactiva nuevo conocimiento abstracto
         mediante la formulación y verificación de hipótesis o teorías
         basadas en la consistencia experimental o la consistencia lógica.
@@ -492,8 +496,8 @@ tengamos otra pregunta sin respuesta:
 Solo conociendo la diferencia podremos intentar dar una respuesta significativa a la pregunta: 
 «¿Pueden las máquinas crear conocimiento en forma proactiva mediante la deducción?»
 
-En gran medida, la ciencia---y su libro de códigos asociado,
-las matemáticas---puede considerarse como la forma más avanzada de
+En gran medida, la ciencia ---y su libro de códigos asociado,
+las matemáticas--- puede considerarse como la forma más avanzada de
 inteligencia, exclusiva de los seres humanos cultos e ilustrados. 
 El filósofo Sir Karl Popper sugirió en una ocasión:
 \begin{quote}
@@ -502,7 +506,7 @@ El filósofo Sir Karl Popper sugirió en una ocasión:
     simplificación excesiva.»}
 \end{quote}
 Creemos que descubrir y comprender los principios matemáticos y los mecanismos computacionales subyacentes
-de esa inteligencia de alto nivel, y reproducirlos con éxito mediante máquinas,
+a esa inteligencia de alto nivel, así como reproducirlos con éxito mediante máquinas,
 será la última frontera para la ciencia, las matemáticas y la computación en su conjunto.
 
 \end{document}

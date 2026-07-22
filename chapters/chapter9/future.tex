@@ -226,12 +226,14 @@ lower levels.
 The distributed, hierarchical, and closed-loop system architecture
 illustrated in \Cref{fig:loops} shares many characteristics of the
 brain's cortex. Such a system architecture may open up many more
-possibilities than the current single large-model architecture. It
-enables exploration of much more efficient learning and optimization
-mechanisms and results in a more structured modular organization of
-the learned data distribution and knowledge, more closely emulating the memory
-in our brain. This would allow us to bring the implementation of machine 
-intelligence to the next level of evolution:
+possibilities than the current single large-model architecture. In particular, it 
+would lead to new optimization mechanisms that support continuouss
+self-supervised online learning and result in an ever more structured and rich 
+representation of the sensed data of an open world. Such a system would truly
+emulate how the memory in our brain works. It would also allow us to 
+transform the cuurently scalable implementation of machine intelligence into a new 
+continous learning paradigm that achieves or even surpasses the effectiveness 
+andefficiency of intelligence in nature:
 \begin{equation}
     \text{\textbf{incomputable}}
     \Longrightarrow \text{\textbf{computable}}
@@ -241,12 +243,13 @@ intelligence to the next level of evolution:
     \text{\textbf{natural}}.
 \end{equation}
 
+
 \section{Towards Scientific Intelligence: Beyond the Turing Test?}
 
 \subsection{The Evolution of Intelligence in Nature}
 As we have discussed at the beginning of this book, \Cref{ch:intro},
 intelligence in nature has evolved through multiple phases and
-manifested in four distinct forms:
+manifested in at least four distinct forms:
 \begin{equation}
     \text{\textbf{phylogenetic}} \;
     \Longrightarrow \; \text{\textbf{ontogenetic}} \;
@@ -254,22 +257,24 @@ manifested in four distinct forms:
     \Longrightarrow \; \text{\textbf{scientific intelligence}}.
 \end{equation}
 All forms of intelligence share the common objective (and
-characteristic) of learning useful knowledge as low-dimensional
-distributions of sensed high-dim data about the world.
-Nevertheless, they differ in the specific code books or coding schemes adopted, the
-information encoded, the computational mechanisms for learning and
-improving, and the physical implementations of such mechanisms. Using
-the concepts and terminology developed in this book, the four stages
-of intelligence differ in the following three aspects:
+characteristic) of learning useful memory or knowledge as low-dimensional
+distributions of high-dim data sensed from the open world.
+Nevertheless, they differ in the specific code books or coding schemes 
+adopted for encoding the useful information or knowledge, the specific 
+information or knowledge encoded by the individual or a group, 
+the computational mechanisms for acquiring and improving the encoded 
+information or knowledge, and the physical substrate and implementation of 
+such mechanisms. Using the concepts and terminology developed in this book, 
+the four stages of intelligence differ in the following three aspects:
 \begin{enumerate}
-    \item The \textit{code book} or scheme used to encode the
+    \item The \textit{code book} or coding scheme used to encode the
         intended information or knowledge.
     \item The \textit{information} or knowledge learned and encoded
         using the code book.
     \item The \textit{optimization mechanisms} used to create and
         correct the encoded information or knowledge.
 \end{enumerate}
-\Cref{tab:four-stage-intelligence} summarizes their main characteristics.
+\Cref{tab:four-stage-intelligence} summarizes their main characteristics:
 \begin{table}[h]
     \centering
     \resizebox{1\columnwidth}{!}
@@ -295,7 +300,7 @@ of intelligence differ in the following three aspects:
     \label{tab:four-stage-intelligence}
 \end{table}
 
-As we now know, humans have achieved two quantum leaps in intelligence.
+As we now know, humans have achieved two quantum leaps in intelligence:
 \begin{enumerate}
     \item The first was the development of spoken and written
         language, which enabled humans to share and transmit learned
@@ -310,7 +315,7 @@ knowledge as theories verifiable or falsifiable through mathematical
 deduction or experimentation. Through hypothesis formulation, logical
 deduction, and experimental verification or falsification, we can now
 proactively discover and develop new knowledge that is far beyond
-what can be learned from the distributions of observed
+what can be learned from the distributions of sensed
 data. For example, causal relationships cannot be learned
 from distributions alone \citep{Pearl-2009}. 
 
@@ -339,11 +344,12 @@ carried out under the name ``AI'', are actually more closely related
 to having machines imitate low-level forms of intelligence largely
 shared by both animals and humans, including phylogenetic,
 ontogenetic, and societal intelligence. At these levels, intelligence
-creates memory or \textit{empirical} knowledge (from empirical data distributions) and conducts inference
-that is mostly \textit{inductive} (of Bayesian-like) in nature. Principles and methods introduced in this book aim to reveal scientific objectives and
-computational mechanisms behind intelligence at these levels. They
-provide strong theoretical justification and computational evidence
-for the claim:
+creates memory or \textit{empirical} knowledge (from empirical data distributions) 
+and conducts inference (or prediction) that is mostly \textit{inductive} 
+(or Bayesian-like) in nature. Principles and methods introduced in this book 
+aim to reveal scientific objectives and computational mechanisms behind 
+intelligence at these levels. They provide strong theoretical justification 
+and computational evidence for the following claim:
 \begin{quote}
     \centering
     \textit{Machines can learn empirical knowledge and conduct
@@ -351,41 +357,42 @@ for the claim:
 \end{quote}
 So far, however, no rigorous theoretical or scientific evidence
 suggests that these mechanisms alone would suffice to achieve the
-high-level human intelligence that the original AI program truly
-aimed to understand and wanted for machines to imitate or even surpass.
+high-level human intelligence that the original ``artificial intelligence'' program 
+truly aimed to understand and wanted for machines to imitate or even surpass.
 
 In fact, as of today, we know little about how to rigorously verify
 or certify whether a system is truly capable of such high-level
 intelligence, even though the Turing Test, also known as the
-Imitation Game,\footnote{In Turing's proposal, the evaluator, or
-    interrogator, is a human. However, most human evaluators have limited
-    scientific training and knowledge, and their conclusions can be
-subjective.} was proposed in 1950 \citep{Turing-1950}, as an initial
+Imitation Game, was proposed in 1950 \citep{Turing-1950}, as an initial
 attempt to address the fundamental question:
 \begin{quote}
     \centering
     \textit{Can machines think?}
 \end{quote}
+However, in Turing's proposal, the evaluator, or interrogator, 
+is some human. However, most human evaluators have limited scientific 
+training and knowledge, and their conclusions can be rather subjective. 
+
 For a long time, a precise definition of such a test was not deemed
 necessary since machine capabilities were far below those of humans
 (or even animals). However, given recent technological advances, many
-models and systems now claim to reach or even surpass human
+models and systems now claim to have reached or even surpassed human
 intelligence. Therefore, it is high time to develop a scientific and
-executable definition of the Turing test, i.e., a systematic and
+executable definition of the Turing Test, i.e., a systematic and
 rigorous protocol to evaluate and certify the intelligence level of a
 model or a system that claims to be ``intelligent.''
 
 As Turing argued in his original paper, it is rather difficult
-to define what ``thinking'' is. We may instead start with something more
-tangible and try to determine whether a system can truly
-``understand'' certain concepts or knowledge. For example, how can we
-rigorously verify whether an intelligent model or system has truly
+to define what ``thinking'' really means. We may instead start with 
+something arguable more tangible and try to determine first whether the system 
+in question can truly ``understand'' certain abstract concepts or knowledge. 
+For example, we may try to verify whether an intelligent model or system has truly
 understood an abstract concept such as:
 \begin{enumerate}
     \item the notion of equality between two quantities,
     \item the notion of numbers (natural, rational, real, or imaginary),
     \item the notion of infinity and mathematical induction,
-    \item the notion of logic consistency\footnote{In mathematics, if a set of axioms and their deduced results are consistent and 
+    \item  and the notion of logic consistency\footnote{In mathematics, if a set of axioms and their deduced results are consistent and 
     do not contradict one another, then they exist. This is known as Hilber's Principle. This is different from the 
     notion of ``consistency'' in Chapter \ref{ch:consistent-representations}, which requires the learned
     representations to be consistent with the empirical data distributions. One notion of consistency is inductive in nature 
@@ -409,21 +416,24 @@ machines also truly grasp mathematical induction or general logical
 deduction and understand its difference from Bayesian induction?
 How do we verify whether a system truly understands the rules of
 logical and mathematical deduction and can apply them rigorously? Or,
-again, has it merely memorized a large number of instances of such
-deductions, such as chain-of-thought data, and learned and
-exploited their distributional patterns? Hence we have an open question:
+again, has it merely memorized statistical patterns of such deductions 
+from a large number of instances, such as chain-of-thought data, and
+simply exploited such patterns inductively during inference? Hence the
+following question remains an open one:
 \begin{quote}
     \centering
     \textit{Is there any difference between \textbf{memorizing} and
     \textbf{understanding}?}
 \end{quote}
-Only by knowing the difference can we possibly attempt to provide a
-meaningful answer to the question: ``\textit{Can machines understand?}''
+Only by clarifying the difference between these two can we possibly provide 
+a meaningful answer to the question: ``\textit{Can machines understand?}''
 
 Probably much more importantly, how do we verify whether a self-claimed
-intelligent system is capable of \textit{creating abstract concepts or improving its own knowledge} proactively via deductive means? For example, can it create new mathematical
-concepts and discover new physical laws or causal relationships?
-The connection between understanding and creating can be rather fundamental, as the physicist Richard Feynman famously put it:
+intelligent system is capable of \textit{creating abstract concepts or improving 
+its own knowledge} proactively via deductive means? For example, can it create new 
+mathematical concepts and discover new physical laws or causal relationships?
+The connection between understanding and creating can be rather profound, 
+as the physicist Richard Feynman had famously put it:
 \begin{quote}
     \centering
     \textit{``What I cannot create, I do not understand.''}
@@ -433,7 +443,7 @@ The connection between understanding and creating can be rather fundamental, as 
 \subsection{Scientific Tests of Intelligence}
 Hence, it is high time we develop scientifically sound evaluation
 methods to determine which of the following categories a system's
-intelligent capability belongs to:
+intelligence capability belongs to:
 \begin{enumerate}[label={Level-\arabic*.}, leftmargin=*]
     \item having merely learned the distribution of some
         knowledge-carrying data and being able to regenerate them;
@@ -441,9 +451,10 @@ intelligent capability belongs to:
         learning new knowledge or correcting existing knowledge from new
         observations and experiences;
     \item being able to truly understand and create abstract
-        concepts, rules and laws and knowing how to apply them
+        concepts, rules and laws, and know how to apply them
         correctly in a deductive manner;
-    \item being able to generate new scientific hypotheses or math conjectures and verify or falsify them based on experimentation or logical deduction.
+    \item being able to generate new scientific hypotheses or math conjectures, 
+    and verify or falsify them based on experimentation or logical deduction.
 \end{enumerate}
 
 \begin{figure}[t]
@@ -479,30 +490,40 @@ scientifically certified entity following a scientifically sound
 protocol and process so that the conclusions would be rigorous and trustworthy.
 
 As we have seen throughout this book, \textit{compression} has played
-a fundamental role in developing a memory or creating empirical knowledge. It is the governing principle and a universal mechanism for identifying an
-empirical data distribution and organizing the information encoded therein with a structured representation. To a large extent, it explains the practice of ``artificial intelligence'' with deep networks, which is largely inductive in nature.\footnote{Systems that have built-in deductive mechanisms for conducting formal verification are not in this category.} An outstanding question for future
+a fundamental role in developing a memory or creating empirical knowledge. 
+It is the governing principle and a universal mechanism for identifying an
+empirical data distribution and organizing the information encoded therein 
+with a structured representation. To a large extent, it explains the practice 
+of ``artificial intelligence'' with deep networks, which is largely inductive and Bayesian 
+in nature.\footnote{Systems that have built-in deductive mechanisms for conducting formal 
+verification or logical deduction are not in this category.} An outstanding question for future
 study is whether \textit{compression alone} is sufficient to achieve
 all the higher-level deductive intelligence mentioned above.
 In particular, are mathematical abstraction, causal inference, hypothesis
 generation, and logical reasoning and deduction some kind of extended or
-transcended forms of compression? Is there some fundamental difference between learning data distributions through compression and forming high-level concepts and theories through abstraction? Hence we have another open question:
+transcended forms of compression? Is there some fundamental difference between 
+learning data distributions through compression and forming high-level concepts and 
+theories through (mathematical) abstraction? Hence we have another open question:
 \begin{quote}
     \centering
     \textit{Is there any difference between \textbf{compression} and
     \textbf{abstraction}?}
 \end{quote}
-Only by knowing the difference can we possibly attempt to provide a meaningful answer to the question: ``\textit{Can machines create knowledge proactively via deduction?}''
+Only by knowing the difference can we possibly attempt to provide a meaningful 
+answer to the question: ``\textit{Can machines create knowledge proactively via deduction?}''
 
 To a large extent, Science---and its associated code book,
 Mathematics---can be viewed as the most advanced form of
-intelligence, unique to educated and enlightened humans. Philosopher Sir Karl Popper once suggested:
+intelligence. It is largely deductive in nature and unique to educated and enlightened humans. 
+Philosopher Sir Karl Popper once suggested:
 \begin{quote}
     \centering
     \textit{``Science may be described as the art of systematic
     oversimplification.''}
 \end{quote}
 We believe that uncovering and understanding the underlying
-mathematical principles and computational mechanisms of such higher-level intelligence, and successfully reproduce them through machines,
+mathematical principles and computational mechanisms of such higher-level intelligence, 
+and successfully reproducing them through machines,
  will be the final frontier for Science, Mathematics, and Computation altogether!
 
 \end{document}

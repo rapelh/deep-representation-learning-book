@@ -29,13 +29,13 @@ principios matemáticos y computacionales del aprendizaje de representaciones
 memoria, para {\em estudiantes de último año de licenciatura y de posgrado principiantes}.
 Los principales prerequisitos para este libro son el álgebra lineal a nivel universitario,
 probabilidad y estadística, así como optimización. Cierta familiaridad con 
-los conceptos básicos del procesamiento de señales (representaciones dispersas y detección
-comprimida en particular), de teoría de la información, así como de control por
+los conceptos básicos del procesamiento de señales (representaciones dispersas y sensores
+comprimidos en particular), de teoría de la información, así como de control por
 retroalimentación mejoraría la comprensión del lector.
 
 \paragraph{Motivación.}
 La principal motivación para escribir este libro es que ha habido
-tremendos avances en estos últimos años, tanto por los autores como por
+avances extraordinarios en estos últimos años, tanto por los autores como por
 numerosos colegas, que buscan establecer un enfoque riguroso y basado en
 principios para entender las redes neuronales profundas y, más en general, la
 inteligencia como tal. La metodología deductiva defendida por este nuevo 
@@ -47,7 +47,7 @@ entusiasmo y temor en el seno de la sociedad. Creemos que es necesario, más
 que nunca, hacer un esfuerzo serio por establecer un enfoque basado en principios 
 para comprender lo que es la inteligencia. Un objetivo general de este libro es 
 proporcionar pruebas teóricas y experimentales sólidas que demuestren que es ahora
-posible estudiar la inteligencia como disciplina científica y matemática. Argumentaremos
+posible estudiar la inteligencia como una disciplina científica y matemática. Argumentaremos
 que la inteligencia es la capacidad fundamental de desarrollar nuevas memorias (o
 conocimientos) o de corregir las existentes. Por lo tanto, podemos considerar este
 libro como un primer intento de desarrollar {\em una teoría matemática de la 
@@ -121,23 +121,23 @@ principal del libro se organizará en forma de seis temas (capítulos)
         Como veremos, la compresión de datos proporciona una visión 
         unificadora de todos los enfoques clásicos y modernos aparentemente
         diferentes para el aprendizaje de distribuciones o representaciones,
-        incluyendo la minimización de entropía, la reducción de ruido por
-        basado en score-matching, compresión con pérdidas y distorsión de 
+        incluyendo la minimización de entropía, la reducción de ruido mediante
+        score-matching, compresión con pérdidas y distorsión de 
         tasa, así como el aprendizaje discriminativo de representaciones
-        mediante maximizción de la ganancia de información.
+        mediante maximización de la ganancia de información.
 
-    \item En este marco unificador, las redes neuronales profundas (DNNs),
-        tales como ResNet, CNN y Transformer, pueden ser todas 
-        interpretadas matemáticamente como algoritmos de optimización
-        (desenrollados) que iterativamente logran mejor compresión
-        y mejor representación al reducir el largo o la tasa de la 
+    \item En este marco unificador, las redes neuronales profundas (DNNs) modernas,
+        como ResNet, CNN y Transformer, pueden todas 
+        interpretarse matemáticamente (desenrollarse) como algoritmos de optimización
+        que iterativamente logran mejor compresión
+        y mejor representación al reducir la longitud o la tasa de 
         codificación o al ganar información. Este marco no solo ayuda
-        a explicar las arquitecturas de redes profundas empíricamente
-        diseñadas hasta ahora, sino que también conduce a nuevos
+        a explicar las arquitecturas de redes profundas diseñadas empíricamente
+        hasta ahora, sino que también conduce a nuevos
         diseños arquitectónicos que pueden ser significativamente 
-        más simples y más eficientes.
+        más simples y eficientes.
 
-    \item Más allá de lo anterior, a fin de asegurar que la representación
+    \item Más allá de lo anterior, para que la representación
         aprendida para una distribución de datos sea correcta y consistente,
         se hacen necesarias las arquitecturas de {\em auto-codificadores}
         que incluyen tanto codificación como decodificación. Para que
@@ -147,7 +147,7 @@ principal del libro se organizará en forma de seis temas (capítulos)
         autocorrija y, por tanto, se autoperfeccione, por medio
         de un juego minimax entre codificador y decodificador.
 
-    \item Para conectar la teoría con la práctica, luego estudiaremos cómo
+    \item Para conectar la teoría con la práctica, entonces estudiaremos cómo
         la distribución de datos y su representación aprendidas pueden
         utilizarse como un potente a priori para llevar a cabo inferencias
         bayesianas u optimizaciones con restricciones que se manifiestan
@@ -160,7 +160,7 @@ principal del libro se organizará en forma de seis temas (capítulos)
         aprender de manera efectiva y eficiente las representaciones profundas
         de distribuciones de baja dimensión a partir de conjuntos
         de datos del mundo real a gran escala, incluyendo datos visuales, movimientos 
-        corporales y datos textuales, usándolos en numerosas aplicaciones
+        corporales y datos textuales. Estos se usarán en numerosas aplicaciones
         prácticas, tales como clasificación, completado, segmentación, 
         generación de imágenes, estimación de movimiento y tareas similares
         para datos de texto.
@@ -172,7 +172,7 @@ establece fuertes conexiones conceptuales y técnicas entre
 el enfoque analítico clásico y el enfoque moderno impulsado por
 datos, entre modelos paramétricos simples y los modelos
 no paramétricos profundos, entre las diversas prácticas inductivas
-y un enfoque deductivo unificado basado en principios básicos.
+y un marco deductivo unificado basado en principios fundamentales.
 Revelaremos que numerosos enfoques aparentemente no relacionados
 o incluso contradictorios entre sí, aunque se hayan desarrollado en 
 campos distintos, con terminologías diversas y en momentos históricos diferentes,
@@ -183,7 +183,7 @@ sin embargo todos aspiran a lograr un objetivo común:
     en espacios de alta dimensión.}
 \end{quote}
 A tal fin, el libro nos guiará a través de un recorrido completo desde
-la formulación teórica a la deducción matemática y luego a la 
+la formulación teórica a la deducción matemática, seguida de la 
 implementación computacional y las aplicaciones prácticas.
 
 \end{document}

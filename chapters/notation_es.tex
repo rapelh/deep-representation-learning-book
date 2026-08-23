@@ -1,41 +1,38 @@
 \providecommand{\toplevelprefix}{..}  %
 \documentclass[../book-main_es.tex]{subfiles}
-
 \begin{document}
-
 \chapter*{Notación}\label{ch:notation}
 
 En este libro utilizamos la notación de una variedad de disciplinas matemáticas,
-que se resumen a continuación. Se recomienda al lector que consulte esta lista como referencia a medida de que vaya leyendo los diversos capítulos del libro.
-Hemos tratado de mantener un uso consistente de su uso a lo largo
-de los capítulos.
+resumida a continuación. Se recomienda al lector que consulte esta lista como referencia a medida de que vaya leyendo los diversos capítulos del libro.
+Hemos intentado mantener su uso lo más coherente posible entre capítulos.
 
 Como un primer ejemplo, para un número natural \(n\) el conjunto 
 \(\{1, 2, \dots, n\}\) se denota por \([n]\).
 
 \section*{Notación de álgebra lineal}
 \begin{itemize}
-    \item Los escalares (ya sean deterministas o aleatorios) no están en negrita,
+    \item Los escalares (ya sean deterministas o aleatorios) no están en negrilla,
         por ejemplo, \(x\), \(X\).
-    \item Los vectores (ya sea deterministas o aleatorios) están en negrita minúscula, 
+    \item Los vectores (ya sean deterministas o aleatorios) están en negrilla minúscula, 
         por ejemplo, \(\vx\), \(\vpi\). Los componentes de vectores se 
         denotan \(x_{i}\) o \(\pi_{i}\), alternativamente \((\vx)_{i}\).
         Los términos genéricos (que pueden ser escalares, vectores, matrices o
-        tensores de orden superior) también están en negrita.
-    \item Las matrices (ya sean deterministas o aleatorias) están en negrita mayúscula, 
+        tensores de orden superior) también están en negrilla.
+    \item Las matrices (ya sean deterministas o aleatorias) están en negrilla mayúscula, 
         por ejemplo, \(\vX, \vPi\). Los elementos de matrices se denotan
         \(X_{ij}\) o \(\Pi_{ij}\), alternativamente \((\vX)_{ij}\).
-        Las columnas de matrices son vectores en negrita minúscula, por ejemplo,
+        Las columnas de matrices son vectores en negrilla minúscula, por ejemplo,
         \(\vx_{i}\) es la \(i\)-ésima columna de \(\vX\), a no ser que se defina 
         de otra manera.
-    \item La transpuesta de una matriz es \(\top\), por ejemplo,
-        \(\vA^{\top}\). La adjunta es \(\adj\), p.ej., \(\vA\adj\).
-        La pseudo-inversa es \(\dagger\), p.ej., \(\vA^{\dagger}\).
+    \item La transpuesta de una matriz se denota con \(\top\), por ejemplo,
+        \(\vA^{\top}\). La adjunta con \(\adj\), p.ej., \(\vA\adj\).
+        La pseudo-inversa con \(\dagger\), p.ej., \(\vA^{\dagger}\).
     \item El rango de una matriz es \(\rank(\vA)\), la traza es
         \(\tr(\vA)\), el determinante es \(\det(\vA)\) y el
         determinante logarítmico es \(\logdet(\vA)\).
-    \item La multiplicación elenento por elenento de matrices es \(\vA \hada
-        \vB\). La cuadratura elenento por elenento es 
+    \item La multiplicación elemento por elemento de matrices es \(\vA \hada
+        \vB\). La cuadratura elemento por elemento es 
         \(\vA^{\hada 2}\), etc. De manera similar, el producto Kronecker de
         matrices es \(\vA \kron \vB\). El producto Kronecker iterado
         es \(\vA^{\kron 2}\), etc.
@@ -43,15 +40,15 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
         elemento a una matriz \(\vX\) es \(f[\vX]\), esto es, con
         corchetes. Para una función \(f \colon \R^{d} \to
         \R^{k}\) y una matriz \(\vX \in \R^{d \times n}\), podemos
-        difundir \(f\) a fin de aplicarla a cada columna sin una
+        difundir \(f\) para aplicarla a cada columna sin utilizar una
         notación especial, esto es, \(f(\vX) = [f(\vx_{1}), \dots, f(\vx_{n})]
         \in \R^{k \times n}\).
     \item La esfera unidad (euclidiana) es \(\Sphere^{n - 1} \subseteq
         \R^{n}\). la bola unidad (euclidiana) es \(\Ball^{n} \subseteq \R^{n}\).
     \item El conjunto de matrices ortogonales es \(\O(m, n) \subseteq
         \R^{m \times n}\) o \(\O(n) = \O(n, n)\).
-    \item Las matrices simétricas son \(\Sym(n)\), las matrices PSD simétricas
-        son \(\PSD(n)\), las matrices PD simétricas son \(\PD(n)\).
+    \item El conjunto de las matrices simétricas es \(\Sym(n)\), el de las matrices PSD simétricas
+        es \(\PSD(n)\), el de las PD simétricas es \(\PD(n)\).
     \item Los valores propios de una matriz simétrica \(\vS \in \Sym(n)\) son
         todos reales por el teorema espectral; se denotan
         \(\lambda_{i}(\vS)\) y se ordenan de modo que \(\lambda_{1}(\vS)
@@ -64,7 +61,7 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
     \item La proyección sobre un conjunto \(\cK\) se denota \(\proj_{\cK}\).
     \item Las normas \(\ell^{p}\) de vectores se denotan como
         \(\norm{\vx}_{p}\), \(p \in [0, \infty]\).
-    \item La norma euclidiana de operadores sobre matrices es \(\norm{\vA} =
+    \item La norma operador euclidiana en matrices es \(\norm{\vA} =
         \sigma_{1}(\vA)\).
     \item La norma Frobenius de matrices es \(\norm{\vA}_{F} =
         \tr(\vA^{\top}\vA)\).
@@ -88,7 +85,7 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
         las probabilidades asociadas con una variable aleatoria $\vx$ con
         distribución (medida) $\mu$. Si dos variables aleatorias $\vx$ y $\vx'$
         tienen la misma distribución, escribimos $\vx \equid \vx'$.
-    \item El operador esperanza es \(\Ex\), con la misma salvedad sobre el 
+    \item El operador esperanza es \(\Ex\), con la misma advertencia sobre el 
         uso de subíndices. 
     \item El operador covarianza es \(\Cov\), con la misma advertencia sobre 
         el uso de subíndices.
@@ -101,8 +98,8 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
         Esto se extiende a las densidades condicionales, p.ej. 
         $p_{\vx \mid \vy}$ para la densidad de $\vx$ condicionada por $\vy$.
     \item En general se usan letras griegas para denotar las realizaciones
-        de variables aleatorias (en contraste con las propias variables 
-        aleatorias). Por ejemplo, $p_{\vx}(\vxi)$, $p_{\vx \mid
+        de variables aleatorias (en contraste con las variables 
+        aleatorias propiamente tales). Por ejemplo, $p_{\vx}(\vxi)$, $p_{\vx \mid
         \vy}(\vxi \mid \vnu)$, $\Ex[\vx \mid \vy=\vnu]$, etc.
     \item El conjunto de distribuciones de probabilidades sobre un conjunto finito        %
         %\footnote{Esto
@@ -127,8 +124,8 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
         \(f\) y suelen tener parámetros \(\theta \in \Theta\). Normalmente
         escribiremos las características como \(\vz = f_{\theta}(\vx)\).
     \item Los decodificadores normalmente se denotan por \(g\) y suelen 
-        tener parámetros \(\eta\). Normalmente escribiremos la autocodificación
-        como \(\hat{\vx} = g_{\eta}(\vz)\) correspondiente a \(\vx\).
+        tener parámetros \(\eta\). Normalmente escribiremos 
+        \(\hat{\vx} = g_{\eta}(\vz)\) para denotar la autocodificación correspondiente a \(\vx\).
     \item Cuando \(f\) y \(g\) se implementan como redes neurales,
         tendrán el mismo número de capas sin pérdida de generalidad;
         escribiremos \(f = f^{L} \circ f^{L - 1}
@@ -139,7 +136,7 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
         \(\vz^{\ell}\) de modo que \(\vz^{\ell + 1} =
         f^{\ell}(\vz^{\ell})\) con \(\vz^{1} = f^{\pre}(\vx)\) y
         \(\vz = \vz^{L + 1}\). Del mismo modo, las características de autocodificación 
-        son \(\hat{\vx}^{\ell}\) con \(\hat{\vx}^{\ell + 1} =
+        serán \(\hat{\vx}^{\ell}\) con \(\hat{\vx}^{\ell + 1} =
         g^{\ell}(\hat{\vx}^{\ell})\) con \(\hat{\vx}^{1} = \vz\) y
         \(\hat{\vx} = g^{\post}(\hat{\vx}^{L + 1})\).
     \item Para la reducción de ruido, la optimización y para procesos con un
@@ -156,29 +153,29 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
         variables «ordinarias», sin marca diacrítica, p.ej. $\vx$.
     \item En los casos en que suponemos que los datos $\vx$ son generados por un modelo de 
         una clase restringida de \textit{modelos paramétricos}, digamos, con
-        un parámetro $\vmu$, también denotamos el \textit{parámetro verdadero} con
-        acentuación simple, sin marca diacrítica.\footnote{Esto podría surgir ya sea por haber hecho una 
+        un parámetro $\vmu$, también denotamos el \textit{parámetro verdadero} 
+        sin marca diacrítica.\footnote{Esto podría surgir ya sea por haber hecho una 
         suposición sobre de los datos, o bien debido a que los datos hayan sido generados
         sintéticamente. Esta convención nos permite adoptar una notación concisa tanto en
-        contextos `probabilísticos' como `analíticos' de modelación. Aquellos lectores más
+        contextos 'probabilísticos' como 'analíticos' de modelación. Aquellos lectores más
         familiares con estos últimos tipos de esquemas puede que estén acostumbrados a usar
         notaciones tales como $\vmu_{\sharp}$ o $\vmu_o$ para este caso; en contraste
         con nuestra notación con variables de decisión acentuadas.}
     \item Las \textit{variables de decisión} (o parámetros aprendibles) del ajuste de un modelo 
-        a datos observados se denotan con acentuación de «tilde», p.ej.\
+        a datos observados se denotan con una marca diacrítica de «tilde», p.ej.\
         $\tilde{\vx}$, en casos donde existe un modelo subyacente $\vx$, o
         con tipografía simple en casos donde no haya confusión (p.ej., si
         un modelo empíricamente ajustado para datos \textit{no paramétricos} $\vx$ involucra
         parámetros «medios» $\vmu$).
     \item Las \textit{soluciones óptimas} de problemas de optimización se denotan con
-        acentuación de «estrella», ya sea como superíndice o subíndice (p.ej.
+        una marca diacrítica de «estrella», ya sea como superíndice o subíndice (p.ej.
         $\vx_\star$ o $\vx^\star$).
     \item Los \textit{estimadores} para datos que corresponden a un modelo estadístico
         específico, especialmente para la media de ese modelo estadístico, se denotan
-        con acentuación de «barra», p.ej. $\bar{\vx}$ (especialmente para la reducción de ruido
+        con una marca diacrítica de «barra», p.ej. $\bar{\vx}$ (especialmente para la reducción de ruido
         por error cuadrático medio en \Cref{ch:denoising}).
     \item Las \textit{aproximaciones} asociadas a procedimientos computacionales del
-        modelado de datos se denotan con acentuación de «sombrero», p.ej. $\hat{\vx}$ para
+        modelado de datos se denotan con una marca diacrítica de «sombrero», p.ej. $\hat{\vx}$ para
         la salida de un autocodificador o un modelo generativo que aproxime
         datos $\vx$.\footnote{En general distinguimos estos casos de las soluciones
         óptimas $\vx_{\star}$, aunque en algunos casos especiales sean lo mismo
@@ -187,6 +184,5 @@ Como un primer ejemplo, para un número natural \(n\) el conjunto
         ajustado con optimización, y los resultados del muestreo con ese parámetro
         aprendido.}
 \end{itemize}
-
 \end{document}
 

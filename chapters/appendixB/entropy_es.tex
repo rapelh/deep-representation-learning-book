@@ -249,7 +249,7 @@ de la siguiente manera.
     que describe la difusión del calor en el espacio. Esto
     debería tener sentido de manera intuitiva y nos permite formarnos una imagen mental: a medida que
     el tiempo \(t\) aumenta, la probabilidad del vector original
-    (quizás muy concentrado) \(\vx\) se dispersa por todo
+    (quizás muy concentrado) \(\vx\) se esparce por todo
     \(\R^{D}\), como el calor que se irradia desde una fuente en el vacío.
 
     Estas ecuaciones diferenciales parciales para \(p_{t}\), conocidas como \textit{ecuaciones de Fokker-Planck}
@@ -354,7 +354,7 @@ y la fórmula de Tweedie \eqref{eq:tweedie}, obtenemos
 Así pues, este paso iterativo de eliminación de ruido es, una vez más, un paso de gradiente sobre la
 densidad logarítmica perturbada \(\log p_{t}\) con un tamaño de paso reducido. En
 particular, este paso puede verse como una perturbación de la
-distribución de la variable aleatoria \(\vx_{t}\) por el \textit{campo vectorial de la función de puntuación}, 
+distribución de la variable aleatoria \(\vx_{t}\) por el \textit{campo vectorial de la función de \textit{score}}, 
 lo que sugiere una conexión con las ecuaciones diferenciales estocásticas
 (SDE) y la teoría de los modelos de difusión
 \cite{song2020score}. De hecho, se puede desarrollar una demostración del siguiente resultado
@@ -843,7 +843,7 @@ integración por partes desaparece.
     Para \(r > R > 0\) (como corresponde, ya que vamos a tomar
     el límite \(r \to \infty\) mientras \(R\) es fijo), ambos lados son
     negativos. Esto tiene sentido: la mayor parte de la masa de probabilidad está
-    contenida dentro de la bola de radio \(R\) y, por lo tanto, la puntuación
+    contenida dentro de la bola de radio \(R\) y, por lo tanto, el \textit{score}
     apunta hacia adentro, teniendo un producto interno negativo con el
     vector que apunta hacia afuera \(\vxi\). Por lo tanto, utilizando las cotas apropiadas
     para \(p_{t}(\vxi)\),
@@ -882,7 +882,7 @@ integración por partes desaparece.
     tal como se afirma.
 \end{proof}
 
-\subsubsection{Invertibilidad local del eliminador de ruido \(\bar{\vx}\)}
+\subsubsection{Invertibilidad local del \textit(denoiser} \(\bar{\vx}\)}
 
 A continuación presentamos algunos resultados utilizados en la demostración del
 \Cref{thm:conditioning_reduces_entropy}, que constituyen

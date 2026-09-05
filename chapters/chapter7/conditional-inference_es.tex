@@ -20,7 +20,7 @@ aprender de manera eficaz y eficiente una representación de una variable
 $\x$ concreta con una distribución $p(\x)$ que tiene un
 soporte de baja dimensión en un espacio de alta dimensión. Hasta ahora, hemos
 desarrollado principalmente la metodología para el aprendizaje de representaciones y
-la auto-codificación de una manera general, independiente de la distribución o la tarea.
+la autocodificación de una manera general, independiente de la distribución o la tarea.
 Si se dispone de una representación aprendida de este tipo, ya es posible utilizarla para realizar
 algunas tareas genéricas y básicas, como la clasificación (si la codificación
 se supervisa con la clase) y la generación de muestras aleatorias que
@@ -44,7 +44,7 @@ muchas tareas populares en la práctica moderna de la inteligencia artificial.
 
 \subsection{Inferencia bayesiana con distribuciones de baja dimensión}
 \paragraph{Aprovechar la baja dimensionalidad para obtener una inferencia estable y robusta.}
-En términos generales, una buena representación o auto-codificación debería
+En términos generales, una buena representación o autocodificación debería
 permitirnos emplear la distribución de baja dimensión aprendida de los
 datos $\x$ y su representación $\z$ para diversas tareas posteriores
 de clasificación, estimación y generación en diferentes
@@ -98,7 +98,7 @@ la relación general entre $\x$ y $\y$.
     \ref{fig:image-text-completion} muestra algunos ejemplos de este tipo de
     tareas. De hecho, son precisamente estas tareas las que han inspirado
     los métodos de entrenamiento de los modelos modernos de gran tamaño para la generación de texto (como
-    GPT) y el completamiento de imágenes (como el auto-codificador enmascarado), que
+    GPT) y el completamiento de imágenes (como el autocodificador enmascarado), que
     estudiaremos con mayor detalle más adelante.
     \begin{figure}
         \centering
@@ -290,7 +290,7 @@ hacia el soporte de baja dimensión de la distribución. Por lo tanto, el
 proceso de descenso puede considerarse como un proceso de «eliminación de ruido», estudiado en el
 \Cref{ch:denoising}, que gradualmente obliga a los datos a acercarse
 al soporte correcto. Nótese que la derivación anterior
-sugiere que el «tamaño del paso» de la puntuación $\nabla_{\x}
+sugiere que el «tamaño del paso» de el \textit{score} $\nabla_{\x}
 \log p(\x)$ del proceso de eliminación de ruido es 
 $$\mu \big| F(\x) - \lambda/\mu\big|$$, 
 lo cual, para cualquier $\mu$ fijo, es casi proporcional
@@ -344,7 +344,7 @@ desde el punto de vista conceptual, presentan un grado de dificultad cada vez ma
         el modelo de observación $\y = h(\x)$ (posiblemente con ruido añadido $\vw$),
         incluso de forma analítica. Este suele ser el
         caso de muchos problemas clásicos de procesamiento de señales, como
-        la eliminación de ruido en señales, el problema de recuperación de vectores dispersos que vimos
+        la eliminación de ruido en señales, el problema de recuperación de vectores esparsos que vimos
         en el \Cref{ch:classic-models} y el problema de recuperación de matrices de rango bajo
         que se presentará a continuación.
     \item {\em Caso 2:} No disponemos de un modelo de distribución,
@@ -381,7 +381,7 @@ en cuenta la \Cref{fig:inference_roadmap}.
 
 \section{Inferencia condicional con una distribución de datos conocida}
 Obsérvese que, en el contexto que hemos analizado en capítulos anteriores, la
-red de auto-codificación se entrena para reconstruir un conjunto de muestras del
+red de autocodificación se entrena para reconstruir un conjunto de muestras del
 vector aleatorio $\x$. Esto nos permitiría regenerar muestras
 a partir de la distribución aprendida (de baja dimensión). En la práctica, la
 baja dimensión de la distribución, una vez dada o aprendida, puede
@@ -394,9 +394,9 @@ del tipo:
 \end{equation}
 donde $\y$ suele ser una observación de $\x$ que tiene una dimensión mucho menor
 que $\x$, y $\vw$ puede ser ruido aleatorio o incluso
-corrupciones graves y dispersas. Se trata de una clase de problemas que se ha
+corrupciones graves y esparsas. Se trata de una clase de problemas que se ha
 estudiado ampliamente en la literatura clásica sobre procesamiento de señales,
-para estructuras de baja dimensión tales como vectores dispersos, matrices de bajo rango
+para estructuras de baja dimensión tales como vectores esparsos, matrices de bajo rango
 y otras. Los lectores interesados pueden consultar
 \cite{Wright-Ma-2022} para obtener una exposición completa de este tema.
 
@@ -417,7 +417,7 @@ dos escenarios diferentes: uno es aquel en el que la distribución de los datos
 $\x$ de interés ya se conoce {\em a priori}, incluso en una determinada
 forma analítica. Este es el caso que prevalece en el procesamiento clásico de señales,
 donde se supone que las estructuras de las señales son
-conocidas; por ejemplo, de banda limitada, dispersas o de bajo rango. El otro caso es
+conocidas; por ejemplo, de banda limitada, esparsas o de bajo rango. El otro caso es
 cuando solo se dispone de muestras sin procesar de $\x$ y necesitamos aprender la
 distribución de baja dimensión a partir de las muestras para resolver
 adecuadamente la tarea de completamiento. Este es el caso de las tareas de
@@ -544,7 +544,7 @@ corrupción y distorsión adicionales
 \end{equation}
 donde $\tau$ es una distorsión no lineal desconocida de la imagen y
 $\boldsymbol{E}$ es una matriz desconocida que modela cierta oclusión
-(dispersa) y corrupción. Una vez más, los lectores interesados pueden consultar
+(esparsa) y corrupción. Una vez más, los lectores interesados pueden consultar
 \cite{Wright-Ma-2022} para obtener una explicación más detallada.
 
 \section{Inferencia condicional con una representación de datos aprendida}
@@ -560,7 +560,7 @@ tareas de inferencia basadas en una observación $\y = h(\x) + \vw$. En esta
 sección, suponemos que el modelo de observación $h(\cdot)$ está dado y
 es conocido. En la siguiente sección estudiaremos el caso en el que $h(\cdot)$ no se da explícitamente.
 
-\subsection{Completamiento de imágenes mediante auto-codificación enmascarada}
+\subsection{Completamiento de imágenes mediante autocodificación enmascarada}
 En el caso de una imagen general $\vX$ como la que se muestra a la izquierda de la Figura
 \ref{fig:crate_mae_pipeline}, ya no podemos considerarla como una matriz de bajo rango.
 Sin embargo, los seres humanos siguen demostrando una notable capacidad para
@@ -578,9 +578,9 @@ la reconstrucción de imágenes.
         \includegraphics[width=0.99\textwidth]{\toplevelprefix/chapters/chapter7/figs/crate_mae_pipeline.png}
     \end{center}
     \caption{\small \textbf{Diagrama del proceso general  (enmascarado)
-        de auto-codificación.} Las representaciones de los tokens (de imagen) se
+        de autocodificación.} Las representaciones de los tokens (de imagen) se
         transforman de forma iterativa hacia una representación parsimoniosa (p. ej., comprimida
-        y dispersa) mediante cada capa del codificador \(f^{\ell}\).
+        y esparsa) mediante cada capa del codificador \(f^{\ell}\).
         Además, dichas representaciones se transforman de nuevo a la
         imagen original mediante las capas decodificadoras \(g^{\ell}\). Cada capa codificadora
         \(f^{\ell}\) está pensada para ser (parcialmente) invertida por una
@@ -590,7 +590,7 @@ la reconstrucción de imágenes.
 
 Un enfoque empírico para la tarea de completar imágenes consiste en encontrar un
 esquema de codificación y decodificación mediante la
-resolución del siguiente programa de {\em auto-codificación enmascarada} (MAE) que
+resolución del siguiente programa de {\em autocodificación enmascarada} (MAE) que
 minimice la pérdida de reconstrucción:
 \begin{equation}\label{eq:mae_loss}
     \min_{f, g} L_{\mathrm{MAE}}(f, g) \doteq \mathbb{E}\big[\norm{(g \circ
@@ -613,7 +613,7 @@ codificador} $f$ es transformar $\X$ en una representación $\Z$:
 \end{equation}
 de tal manera que la distribución de $\Z$ pueda modelarse adecuadamente como una mezcla
 de subespacios, por ejemplo $\{\vU_{[K]}\}$,
-tal que se maximice la reducción de la tasa y se minimice la dispersión:
+tal que se maximice la reducción de la tasa y se minimice la esparcidad:
 \begin{equation}\label{eq:sparse_rr}
     \mathbb{E}_{\vZ = f(\vX)}[\Delta R_{\epsilon}(\vZ \mid \vU_{[K]}) - \lambda
     \norm{\vZ}_{0}] = \mathbb{E}_{\vZ = f(\vX)}[R_\epsilon(\vZ) -
@@ -649,13 +649,13 @@ el método de descenso de gradiente.
 \end{figure}
 
 La Figura \ref{fig:mae_autoencoding-small} muestra algunos resultados representativos
-del auto-codificador enmascarado así diseñado. Para obtener más detalles sobre la implementación 
-y los resultados del auto-codificador enmascarado para el completamiento de imágenes naturales
+del autocodificador enmascarado así diseñado. Para obtener más detalles sobre la implementación 
+y los resultados del autocodificador enmascarado para el completamiento de imágenes naturales
 se recomienda consultar el Capítulo \ref{ch:applications}, \Cref{sec:image_completion}.
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.99\textwidth]{\toplevelprefix/chapters/chapter7/figs/crate_mae_autoencoding_small.pdf}
-    \caption{\small \textbf{Visualizaciones de auto-codificación de CRATE-Base
+    \caption{\small \textbf{Visualizaciones de autocodificación de CRATE-Base
         y ViT-MAE-Base \cite{he2022masked} con el 75\% de los fragmentos enmascarados.}
         Observamos que las reconstrucciones de CRATE-Base están a la par
         con las de ViT-MAE-Base, a pesar de utilizar \(<1/3\) 
@@ -666,7 +666,7 @@ se recomienda consultar el Capítulo \ref{ch:applications}, \Cref{sec:image_comp
 
 \subsection{Muestreo condicional con ajuste de medidas}
 \label{sec:conditioned-decoding}
-El problema de auto-codificación (enmascarada) mencionado anteriormente 
+El problema de autocodificación (enmascarada) mencionado anteriormente 
 tiene como objetivo generar una imagen de muestra
 que sea coherente con ciertas observaciones o condiciones. Pero
 analicemos este enfoque más detenidamente: dada la
@@ -773,7 +773,7 @@ relacionadas, su distribución multivariada $p(\x, \y)$ es, naturalmente, casi
 degenerada si el ruido $\vw$ es pequeño. En gran medida, podemos
 considerar $p(\x, \y)$ como una versión ruidosa de una hipersuperficie definida por la
 función $\y = h(\x)$ en el espacio conjunto $(\x, \y)$. En la práctica,
-consideraremos un escenario más parecido a la auto-codificación enmascarada
+consideraremos un escenario más parecido a la autocodificación enmascarada
 que al completamiento de matrices puro, en el que siempre tenemos acceso a una
 muestra limpia correspondiente $\vx$ para cada observación $\vy$ que
 recibimos.\footnote{En algunas aplicaciones más especializadas, en
@@ -822,21 +822,21 @@ postura desconocida (de baja dimensión) $\vx$.
         esquema de eliminación de ruido por difusión
         que hemos desarrollado en el \Cref{ch:denoising} al muestreo condicional, utilizamos
         muestras de la distribución a posteriori $p_{\vx \mid \vy}$ para entrenar
-        los eliminadores de ruido directamente sobre
+        los eliminación de ruido directamente sobre
         la distribución a posteriori a diferentes niveles de ruido, y luego los utilizamos para generar nuevas
         muestras. Sin embargo, en la práctica no solemos disponer de muestras directas
         de la
         distribución a posteriori, sino más bien de muestras emparejadas $(\vx, \vy)$ de la distribución multivariada.
         \textbf{Derecha:} Resulta que basta con tener solo
         observaciones ruidosas
-        de $\vx$ para realizar los filtros de ruido correspondientes a
+        de $\vx$ para realizar los \textit{denoiser} correspondientes a
         $p_{\posteriorsample_t \mid
         \posteriorsample}$: esto se deduce de la independencia condicional
         de $\vx_t$ y
         $\vy$ dado $\vx$. Implica que $p_{\posteriorsample_t \mid \vy} =
         p_{\vx_t \mid
-        \vy}$, lo que da lugar a una función de puntuación para la eliminación de ruido que consiste en la
-        función de puntuación incondicional, más un término de corrección que
+        \vy}$, lo que da lugar a una función de \textit{score} para la eliminación de ruido que consiste en la
+        función de \textit{score} incondicional, más un término de corrección que
     garantiza la consistencia de la medición.}
     \label{fig:posterior-sampling-cds}
 \end{figure}
@@ -852,7 +852,7 @@ Queremos generar muestras $\hat{\x}$ tales que:
 
 Recordemos que en \Cref{sub:compression_denoising} hemos desarrollado una forma natural y
 eficaz de generar muestras \textit{incondicionales} de la distribución de datos
-$p$. Las componentes son los filtros de ruido $\bar{\x}^\ast(t, \vxi) = \bE[ \x \mid
+$p$. Las componentes son los textit{denoiser} $\bar{\x}^\ast(t, \vxi) = \bE[ \x \mid
 \vx_t=\vxi ]$, o sus aproximaciones aprendidas $\bar{\x}_{\theta}(t, \vxi)$,
 para diferentes niveles de observaciones ruidosas $\x_t = \x + t \vg$ (y $\vxi$ para
 sus realizaciones) bajo
@@ -870,7 +870,7 @@ Podríamos aplicar directamente este esquema para generar muestras a partir de l
 $p_{\vx \mid \vy}$ \textit{si} tuviéramos acceso a un conjunto de datos de muestras
 $\posteriorsample \sim p_{\vx \mid \y}(\spcdot \mid \vnu)$ para cada realización
 $\vnu$ de $\vy$, generando observaciones con ruido
-$\posteriorsample_t$ y entrenando filtros de ruido para aproximar $\bE[
+$\posteriorsample_t$ y entrenando \textit{denoisers} para aproximar $\bE[
 \posteriorsample \mid \posteriorsample_t=\spcdot, \vy=\vnu ]$, la
 media de la distribución a posteriori bajo
 la observación ruidosa (véase \Cref{fig:posterior-sampling-cds}(a)).
@@ -915,12 +915,12 @@ que aparecen en \Cref{fig:posterior-sampling-cds} (a,b); en la segunda línea se
 junto con la independencia condicional de $\vx_t$ y $\vy$ dado $\vx$; en la
 tercera línea se utiliza la definición de probabilidad condicional; y en la última línea
 se marginaliza respecto a $\vx$.
-Por lo tanto, los filtros de ruido del proceso de muestreo posterior conceptual son iguales a
+Por lo tanto, los \textit{denoisers} del proceso de muestreo posterior conceptual son iguales a
 $\bE[\vx \mid \vx_t=\spcdot, \vy=\vnu]$, lo cual podemos aprender únicamente
 a partir de muestras emparejadas $(\vx,
 \vy)$,
-y mediante la fórmula de Tweedie (\Cref{thm:tweedie}), podemos expresar estos filtros de ruido en
-términos de la función de puntuación de $p_{\vx_t \mid \vy}$, la cual, según la regla de Bayes,
+y mediante la fórmula de Tweedie (\Cref{thm:tweedie}), podemos expresar estos \textit{denoisers} en
+términos de la función de \textit{score} de $p_{\vx_t \mid \vy}$, la cual, según la regla de Bayes,
 satisface
 \begin{equation}
     p_{\vx_t \mid \vy}(\vxi \mid \vnu)
@@ -929,10 +929,10 @@ satisface
 Recordemos que la densidad de $\vx_t$ viene
 dada por $p_t = \varphi_{t} \ast p$, donde $\varphi_{t}$ denota la densidad gaussiana
 estándar con media cero y covarianza $t^2 \vI$ y $\ast$ denota
-la convolución. ¡Esto no es más que la \textit{función de puntuación incondicional}
+la convolución. ¡Esto no es más que la \textit{función de score incondicional}
 obtenida del entrenamiento de difusión estándar que desarrollamos en la
 \Cref{sub:compression_denoising}!
-La función de puntuación condicional satisface entonces, para cualquier realización $(\vxi,
+La función de \textit{score} condicional satisface entonces, para cualquier realización $(\vxi,
 \vnu)$ de $(\vx_t, \vy)$,
 \begin{equation}
     \nabla_{\vxi} \log p_{\vx_t \mid \vy}(\vxi\mid \vnu)
@@ -943,7 +943,7 @@ La función de puntuación condicional satisface entonces, para cualquier realiz
     \vxi)}_{\text{measurement matching}},
     \label{eqn:conditional-denoising-score}
 \end{equation}
-lo que da (según la fórmula de Tweedie) nuestros filtros de ruido propuestos como
+lo que da (según la fórmula de Tweedie) nuestros \textit{denoisers} propuestos como
 \begin{align*}
     \bE[ \vx \mid \vx_t=\vxi, \vy=\vnu]
     &=
@@ -956,11 +956,11 @@ lo que da (según la fórmula de Tweedie) nuestros filtros de ruido propuestos c
     \labelthis \label{eq:posterior-sampling-denoiser-decomposition}
 \end{align*}
 Los operadores resultantes pueden interpretarse como una versión \textit{corregida} del
-filtro de ruido incondicional para la observación ruidosa, donde el término de corrección (el
+\textit{denoiser} incondicional para la observación ruidosa, donde el término de corrección (el
 denominado término de «ajuste de la medición») garantiza la coherencia con las
 observaciones $\vy$. Esta descomposición constituye la base de la \textit{guía del clasificador},
 que desarrollaremos en detalle en la \Cref{sub:cfg}. El lector debe prestar atención a qué argumento se aplican los
-operadores de gradiente en las funciones de puntuación anteriores para poder
+operadores de gradiente en las funciones de \textit{score} anteriores para poder
 comprender plenamente el significado de este operador.
 
 La cuestión clave pendiente para convertir este procedimiento en computacional es determinar
@@ -990,9 +990,9 @@ de todo el proceso, a partir de los que hemos desarrollado en la
             $p_{\vx \mid \vy}$ de la que pretendemos obtener muestras.
         \item Determinaremos la forma del término de coincidencia de la medición de la Ecuación
             \eqref{eqn:conditional-denoising-score}, lo que nos proporciona la corrección aditiva
-            al filtro de ruido incondicional para $p_{\vx \mid
+            al \textit{denoiser} incondicional para $p_{\vx \mid
             \vx_t}$ que
-            produce el filtro de ruido para $p_{\vx \mid \vx_t, \vy}$ (recuerde
+            produce el \textit{denoiser} para $p_{\vx \mid \vx_t, \vy}$ (recuerde
             \eqref{eq:posterior-sampling-denoiser-decomposition}).
         \item Evaluaremos la forma específica del término de
             correspondencia de medidas que
@@ -1085,7 +1085,7 @@ de todo el proceso, a partir de los que hemos desarrollado en la
             \vxi - \vmu_{\vx\mid \vy}(\vnu)
         \right).
     \end{equation}
-    La forma funcional de este filtro de ruido es bastante sencilla, pero presenta una
+    La forma funcional de este \textit{denoiser} es bastante sencilla, pero presenta una
     dependencia poco manejable de los datos del problema $\vmu$, $\vSigma$, $\vA$ y
     $\sigma^2$.
     Podemos comprender mejor su comportamiento comparándolo con la
@@ -1178,10 +1178,10 @@ de todo el proceso, a partir de los que hemos desarrollado en la
         \label{eq:conditional-posterior-measurementmatching-gaussian-case}
     \end{eqnarray}
     Esto nos proporciona una descomposición más interpretable del
-    filtro de ruido posterior condicional
+    \textit{denoiser} posterior condicional
     \eqref{eq:conditional-posterior-denoiser-gaussian-case}: según la
     \Cref{eq:posterior-sampling-denoiser-decomposition}, es la suma del
-    filtro de ruido posterior incondicional \eqref{eq:posterior-denoiser-gaussian-case}
+    \textit{denoiser} posterior incondicional \eqref{eq:posterior-denoiser-gaussian-case}
     y el término de coincidencia de la medición
     \eqref{eq:conditional-posterior-measurementmatching-gaussian-case}.
 
@@ -1320,7 +1320,7 @@ a $\vxi$ (lo cual implica realizar una retropropagación a través de la esperan
         posterior condicional
         exacto marcados con círculos azules.
         \textbf{Arriba:} Para un ruido de observación elevado $\sigma = 0.5$, tanto el
-        filtro de ruido posterior condicional exacto como el aproximado
+        \textit{denoiser} posterior condicional exacto como el aproximado
         convergen satisfactoriamente hacia la distribución posterior $p_{\vx \mid \vy}$. El tiempo de muestreo
         (que corresponde
         al tiempo en el «proceso directo», por lo que tiempos más largos implican un ruido mayor)
@@ -1332,7 +1332,7 @@ a $\vxi$ (lo cual implica realizar una retropropagación a través de la esperan
         en el muestreador
         (triángulos rojos): las muestras convergen rápidamente hacia un subespacio afín
         de puntos que son consistentes, módulo cierta contracción del
-        filtro de ruido de media a posteriori,
+        \textit{denoiser} de media a posteriori,
         con los datos de referencia medidos, y las iteraciones de muestreo posteriores
         son
         incapaces de recuperar la varianza a posteriori perdida a lo largo de esta dimensión. Note
@@ -1349,10 +1349,10 @@ implementamos y simulamos un sencillo experimento numérico en el contexto gauss
 que se muestra en la \Cref{fig:conditional_sampling_computational_gaussian}.
 El muestreador que implementamos es una implementación directa del esquema simple
 \eqref{eq:denoising-iteration-basic} que hemos desarrollado en el \Cref{ch:denoising}
-y que hemos recordado anteriormente, utilizando el verdadero filtro de ruido posterior condicional, es decir,
+y que hemos recordado anteriormente, utilizando el verdadero \textit{denoiser} posterior condicional, es decir,
 la \Cref{eq:conditional-posterior-denoiser-gaussian-case} (las muestras están marcadas con
 círculos azules) y la
-aproximación conveniente para este filtro de ruido realizada mediante la aproximación de
+aproximación conveniente para este \textit{denoiser} realizada mediante la aproximación de
 coincidencia de medidas
 \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}
 (las muestras están marcadas con triángulos rojos).
@@ -1415,7 +1415,7 @@ exactas en el contexto gaussiano de \Cref{example:denoising-conditional-gaussian
 que analizamos con más detalle en el resumen al final del capítulo.
 
 Así, con la aproximación DPS, obtenemos la siguiente aproximación para
-los filtros de ruido posteriores condicionales $\bE[\vx \mid \vy, \vx_t]$, mediante
+los \textit{denoisers} posteriores condicionales $\bE[\vx \mid \vy, \vx_t]$, mediante
 \Cref{eq:posterior-sampling-denoiser-decomposition}:
 \begin{equation}
     \bE[ \vx \mid \vx_t=\vxi, \vy=\vnu]
@@ -1426,8 +1426,8 @@ los filtros de ruido posteriores condicionales $\bE[\vx \mid \vy, \vx_t]$, media
     \label{eq:posterior-sampling-denoiser-decomposition-dps}
 \end{equation}
 Y, para una red neuronal u otro modelo $\bar{\vx}_{\theta}(t, \vxi)$
-entrenado como en la \Cref{sub:compression_denoising} para aproximar los filtros de ruido
-$\bE[\vx \mid \vx_t = \vxi]$ para cada $t \in [0, T]$, obtenemos los filtros de ruido
+entrenado como en la \Cref{sub:compression_denoising} para aproximar los \textit{denoiser} 
+$\bE[\vx \mid \vx_t = \vxi]$ para cada $t \in [0, T]$, obtenemos los \textit{denoisers} 
 posteriores condicionales aprendidos
 \begin{equation}
     \bar{\vx}_{\theta}(t, \vxi, \vnu)
@@ -1454,7 +1454,7 @@ Por lo tanto, para evaluar el lado derecho de
 \eqref{eq:posterior-sampling-denoiser-learned-dps}
 solo se necesita
 \begin{enumerate}
-    \item Un filtro de ruido preentrenado $\bar{\vx}_{\theta}(t, \vxi)$ para la
+    \item Un \textit{denoiser} preentrenado $\bar{\vx}_{\theta}(t, \vxi)$ para la
         distribución de datos $p$
         (de $\vx$), aprendido como se indica en la \Cref{sub:compression_denoising} mediante el
         \Cref{alg:learning_denoiser};
@@ -1468,12 +1468,12 @@ solo se necesita
 \begin{algorithm}
     \caption{Muestreo condicional bajo mediciones
         \eqref{eq:measurement-matching-observation}, con un
-    filtro de ruido incondicional y DPS.}
+    \textit{denoiser} incondicional y DPS.}
     \label{alg:iterative_denoising_conditional_DPS}
     \begin{algorithmic}[1]
         \Require{Una lista ordenada de intervalos de tiempo \(0 \leq t_{0} < \cdots
         < t_{L} \leq T\) que se utilizarán para el muestreo.}
-        \Require{Un filtro de ruido incondicional \(\bar{\vx}_{\theta} \colon
+        \Require{Un \textit{denoiser} incondicional \(\bar{\vx}_{\theta} \colon
         \{t_{\ell}\}_{\ell = 1}^{L} \times \R^{D} \to \R^{D}\) para $p_{\vx}$.}
         \Require{Realización de la medición $\vnu$ de $\vy$
         (\Cref{eq:measurement-matching-observation}) para condicionar.}
@@ -1640,7 +1640,7 @@ desarrollado numerosos
 algoritmos de consistencia de mediciones de este tipo para la reconstrucción de imágenes médicas,
 incluidos los enfoques mejorados de \textcite{song2024solving} y
 \textcite{rout2023solving} (que utilizan modelos de difusión latente, tal como los hemos
-    desarrollado para los auto-codificadores de representación en el
+    desarrollado para los autocodificadores de representación en el
 \Cref{ch:consistent-representations}).
 La \Cref{fig:mri-reconstruction-visual} muestra comparaciones visuales de imágenes de
 resonancia magnética reconstruidas en tres muestras diferentes, comparando FISTA-TV (una versión clásica
@@ -1843,7 +1843,7 @@ las cuestiones de implementación en diversas aplicaciones, véanse el \Cref{ch:
 % forward model $h$ in making the DPS approximation
 % \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}.
 Recordemos de la \Cref{sec:conditioned-decoding}
-que se cumple la siguiente descomposición del filtro de ruido posterior condicional óptimo:
+que se cumple la siguiente descomposición del \textit{denoiser} posterior condicional óptimo:
 % In particular, the conditional posterior denoiser decomposition
 % \eqref{eq:posterior-sampling-denoiser-decomposition} \textit{still
 % holds in the
@@ -1860,9 +1860,9 @@ y de la independencia condicional de $\vy$ y $\vx_t$ dado $\vx$ (véase la
 \end{equation}
 En otras palabras, la representación
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data}
-del filtro de ruido condicional óptimo es válida independientemente de si es válido el modelo de observación explícito
+del \textit{denoiser} condicional óptimo es válida independientemente de si es válido el modelo de observación explícito
 $\vy = h(\vx) + \vw$.
-Esto significa que, si logramos aprender un filtro de ruido de este tipo
+Esto significa que, si logramos aprender un \textit{denoiser} de este tipo
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data} en el contexto de datos emparejados,
 podremos seguir la metodología de difusión con eliminación de ruido que hemos desarrollado en el
 \Cref{ch:denoising} para realizar un muestreo condicional por clase.
@@ -1903,15 +1903,15 @@ permite una aproximación al segundo término de
 \end{equation}
 donde, como es habitual, aproximamos el primer término de
 \Cref{eq:conditional-denoising-mmse-denoiser-paired-data} mediante un
-filtro de ruido incondicional aprendido para $\vx_t$ con parámetros $\theta_{\mathrm{d}}$ y
+\textit{denoiser} incondicional aprendido para $\vx_t$ con parámetros $\theta_{\mathrm{d}}$ y
 donde escribimos $\ve_k$ para $k \in [K]$ para denotar el $k$-ésimo vector de base canónica
 para $\R^K$ (es decir, el vector con
 un uno en la posición $k$-ésima, y ceros en el resto).
-El lector debe tener en cuenta que el filtro de ruido condicional $\bar{\vx}_{\theta}$
+El lector debe tener en cuenta que el \textit{denoiser} condicional $\bar{\vx}_{\theta}$
 requiere dos procesos de entrenamiento independientes, con pérdidas distintas: uno para los
 parámetros del clasificador $\theta_{\mathrm{c}}$, sobre una pérdida de clasificación
 \footnote{En \Cref{ch:applications}, revisamos el proceso de entrenamiento de dicho
-clasificador con todo detalle.} y otro para los parámetros del filtro de ruido
+clasificador con todo detalle.} y otro para los parámetros del \textit{denoiser} 
 $\theta_{\mathrm{d}}$, sobre una pérdida de eliminación de ruido. Este enfoque del muestreo condicional
 ya se había reconocido y aprovechado para llevar a cabo el muestreo condicional en
 los primeros trabajos pioneros sobre modelos de difusión, en particular los de
@@ -1932,10 +1932,10 @@ una señal de guía sólida--- y que, tras su inspección, las generaciones no e
 consistentes con la clase de condicionamiento $y$. \citet{Dhariwal2021-hg} propuso
 abordar esto de manera heurística incorporando un hiperparámetro de «temperatura inversa»
 $\gamma > 0$
-en la definición del filtro de ruido condicional ingenuo
+en la definición del \textit{denoiser} condicional ingenuo
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data-approx},
 refiriéndose al
-filtro de ruido condicional resultante como si hubiera incorporado 
+\textit{denoiser} condicional resultante como si hubiera incorporado 
 \textbf{«guía del clasificador»} (CG):
 \begin{equation}\label{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cg}
     \bar{\vx}_{\theta}^{\mathrm{CG}}(t, \vx_t, y)
@@ -1989,7 +1989,7 @@ $f$ le asigna la probabilidad más alta entre las $K$ clases.
 No obstante, la guía mediante clasificador no resuelve el segundo inconveniente clave de
 la metodología ingenua: resulta ineficiente y costoso
 entrenar un clasificador auxiliar $f_{\theta_{\mathrm{c}}}$ además
-del filtro de ruido incondicional
+del \textit{denoiser} incondicional
 $\bar{\vx}_{\theta_{\mathrm{d}}}$, dado
 que no es posible adaptar directamente un clasificador preentrenado
 debido a la necesidad de que funcione bien con entradas ruidosas $\vx_t$ e incorpore
@@ -1998,49 +1998,49 @@ En concreto, \citet{Dhariwal2021-hg} descubrió que era necesario
 \textit{diseñar explícitamente
     la arquitectura de la red profunda que implementa el
     clasificador para que coincida
-con la del filtro de ruido}.
+con la del \textit{denoiser}}.
 
 Además, desde una perspectiva puramente práctica---es decir, al intentar obtener el mejor
 rendimiento posible del muestreador resultante, la configuración más eficaz
 del muestreo basado en la guía del clasificador se aleja aún más del
 marco idealizado y conceptualmente sólido que hemos presentado anteriormente.
 Para obtener el mejor rendimiento, \citet{Dhariwal2021-hg} consideró
-necesario proporcionar la etiqueta de clase $y$ como una entrada adicional al filtro de ruido
+necesario proporcionar la etiqueta de clase $y$ como una entrada adicional al \textit{denoiser} 
 $\bar{\vx}_{\theta_{\mathrm{d}}}$. Como resultado, el eliminador de ruido idealizado guiado por un clasificador
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cg},
 derivado por \citet{Dhariwal2021-hg} tal y como hemos hecho anteriormente a partir de la descomposición
 condicional del eliminador de ruido posterior
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data}, no refleja exactamente
-el filtro de ruido de mejor rendimiento en la práctica; ¡dicho filtro de ruido
-combina en realidad un filtro de ruido \textit{condicional} para $\vx_t$ dado $y$ con una
+el \textit{denoiser} de mejor rendimiento en la práctica; ¡dicho \textit{denoiser} 
+combina en realidad un \textit{denoiser condicional} para $\vx_t$ dado $y$ con una
 señal de guía adicional procedente de un clasificador auxiliar!
 
 Esta situación, de carácter empírico, llevó a \citet{Ho2022-ry} en
 trabajos posteriores a proponer una metodología más pragmática desde el punto de vista empírico, conocida como
 \textbf{guía sin clasificador (CFG)}. En lugar de representar el
-filtro de ruido condicional
+\textit{denoiser} condicional
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data} como una suma ponderada
-de un filtro de ruido incondicional para $\vx_t$ con un término de corrección de la verosimilitud logarítmica
+de un \textit{denoiser} incondicional para $\vx_t$ con un término de corrección de la verosimilitud logarítmica
 (con pesos posiblemente modificados, como en la guía del clasificador), aceptan la
-aparente necesidad de entrenar un filtro de ruido condicional para $\vx_t$ dado $y$, tal como
+aparente necesidad de entrenar un \textit{denoiser} condicional para $\vx_t$ dado $y$, tal como
 lo demuestran los resultados experimentales de \citet{Dhariwal2021-hg}, y sustituir
 el término del gradiente de la verosimilitud logarítmica por una suma correctamente ponderada de este
-filtro de ruido condicional con un filtro de ruido \textit{incondicional} para $\vx$ dado
+\textit{denoiser} condicional con un \denoiser incondicional} para $\vx$ dado
 $\vx_t$.\footnote{Dicho esto, \textcite{Ho2022-ry} propusieron en realidad utilizar
     una ponderación diferente a la que presentamos aquí, basándose en el hecho de que
     \textcite{Dhariwal2021-hg} sustituyeron de manera heurística el
-    filtro de ruido incondicional de 
+    \textit{denoiser} incondicional de 
     \eqref{eq:conditional-denoising-mmse-denoiser-paired-data} por
-    un filtro de ruido condicional. De hecho, la ponderación que derivamos y presentamos aquí
+    un \textit{denoiser} condicional. De hecho, la ponderación que derivamos y presentamos aquí
     refleja la práctica moderna y, en particular, se utiliza en modelos de difusión de vanguardia
     como Stable Diffusion 3.5 
 \cite{DBLP:conf/icml/EsserKBEMSLLSBP24}.}
 
 \paragraph{Derivación de la guía sin clasificador.} Para ver cómo surge esta
-estructura, comenzamos con una versión «idealizada» del filtro de ruido con guía de clasificador
+estructura, comenzamos con una versión «idealizada» del \textit{denoiser} con guía de clasificador
 $\bar{\vx}_{\theta}^{\mathrm{CG}}$ definido en la
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cg},
-para el cual el filtro de ruido $\bar{\vx}_{\theta_{\mathrm{d}}}$ y el clasificador
+para el cual el \textit{denoiser} $\bar{\vx}_{\theta_{\mathrm{d}}}$ y el clasificador
 $f_{\theta_{\mathrm{c}}}$ se aproximan perfectamente a sus objetivos, mediante
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data}:
 \begin{equation}\label{eq:conditional-denoising-mmse-denoiser-paired-data-exact-cg}
@@ -2057,7 +2057,7 @@ A continuación, utilizamos la regla de Bayes, en la forma
     \log p_{\vx_t \mid y} + \log p_{y} - \log p_{\vx_t},
 \end{equation}
 junto con la fórmula de Tweedie (\Cref{thm:tweedie}, modificada como en
-\Cref{eq:gen_tweedie}) para convertir entre funciones de puntuación y filtros de ruido,
+\Cref{eq:gen_tweedie}) para convertir entre funciones de \textit{score} y \textit{denoisers},
 a fin de obtener
 \begin{align*}
     \bar{\vx}_{\theta}^{\mathrm{CG,\,ideal}}(t, \vxi, \nu)
@@ -2077,15 +2077,15 @@ a fin de obtener
 donde, en la última línea, aplicamos la
 \Cref{eq:conditional-denoising-conditioning-order-irrelevant}.
 Ahora, la \Cref{eq:ideal-cfg-denoiser} sugiere una estrategia de aproximación natural:
-combinamos un filtro de ruido incondicional aprendido para $\vx$ dado $\vx_t$, como antes,
-con un filtro de ruido \textit{condicional} aprendido para $\vx$ dado $\vx_t$ y $y$.
+combinamos un \textit{denoiser} incondicional aprendido para $\vx$ dado $\vx_t$, como antes,
+con un \textit{denoiser condicional} aprendido para $\vx$ dado $\vx_t$ y $y$.
 
 Sin embargo, siguiendo a \textcite{Ho2022-ry} y la práctica habitual en el
-entrenamiento de filtro de ruido de redes profundas,
+entrenamiento de \textit{denoiser} de redes profundas,
 lo habitual es utilizar la \textit{misma} red profunda para representar
-tanto el filtro de ruido condicional como el incondicional mediante la introducción de una
+tanto el \textit{denoiser} condicional como el incondicional mediante la introducción de una
 etiqueta adicional, que denotaremos como $\varnothing$, para indicar el caso «incondicional».
-Esto da lugar a la forma del filtro de ruido CFG:
+Esto da lugar a la forma del \textit{denoiser} CFG:
 \begin{equation}\label{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cfg}
     \bar{\vx}_{\theta}^{\mathrm{CFG}}(t, \vx_t, y)
     =
@@ -2093,7 +2093,7 @@ Esto da lugar a la forma del filtro de ruido CFG:
     +
     \gamma \bar{\vx}_{\theta}(t, \vx_t, y).
 \end{equation}
-Para entrenar un filtro de ruido $\bar{\vx}_{\theta}(t, \vx_t, y^+)$ destinado a
+Para entrenar un \textit{denoiser} $\bar{\vx}_{\theta}(t, \vx_t, y^+)$ destinado a
 el muestreo de guía sin clasificador, donde $y^+ \in
 \set{1, \dots, K, \varnothing}$, procedemos de manera casi idéntica al
 procedimiento de entrenamiento incondicional descrito en el \Cref{alg:learning_denoiser}, pero con dos
@@ -2113,7 +2113,7 @@ modificaciones:
         Aquí, $p_{\mathrm{incond}} \in [0, 1]$ es un nuevo hiperparámetro.
         Esto puede considerarse una forma de dropout \cite{srivastava2014dropout}.
 \end{enumerate}
-De esta manera, entrenamos un filtro de ruido condicional adecuado para su uso en el muestreo guiado sin clasificador.
+De esta manera, entrenamos un \textit{denoiser} condicional adecuado para su uso en el muestreo guiado sin clasificador.
 Resumimos el proceso general de muestreo para
 el muestreo condicionado por clase con guía sin clasificador en
 \Cref{alg:iterative_denoising_conditional_CFG}.
@@ -2126,7 +2126,7 @@ el muestreo condicionado por clase con guía sin clasificador en
         \Require{Una lista ordenada de intervalos de tiempo \(0 \leq t_{0} < \cdots
         < t_{L} \leq T\) que se utilizarán para el muestreo.}
         \Require{Etiqueta de clase $\nu \in \{1, \dots, K\}$ sobre la que se va a realizar la condición.}
-        \Require{Un filtro de ruido \(\bar{\vx}_{\theta} \colon
+        \Require{Un \textit{denoiser} \(\bar{\vx}_{\theta} \colon
                 \{t_{\ell}\}_{\ell = 1}^{L} \times \R^{D} \times
                 \set{1, \dots, K,
             \varnothing} \to \R^{D}\) para $p_{\vx \mid y}$ y
@@ -2170,19 +2170,19 @@ con guía sin clasificador, y se han convertido en un pilar fundamental de
 los modelos de difusión prácticos a mayor escala, como Stable Diffusion
 \cite{rombach2022high} y sus derivados.
 
-\paragraph{¿Qué filtros de ruido promueve aprender la guía sin clasificador?}
+\paragraph{¿Qué \textit{denoisers} promueve aprender la guía sin clasificador?}
 Como hemos visto, la derivación de la guía sin clasificador es bastante opaca y
 se basa en la experiencia,
 lo que ofrece poca información sobre los mecanismos que subyacen a su excelente rendimiento.
 Varios trabajos teóricos han intentado abordar esta cuestión
 \cite{Bradley2024-jg,Li2025-li,Wu2024-js}.
 Ofrecen explicaciones sobre algunos aspectos de la metodología general de CFG,
-que abarca la parametrización y el entrenamiento del filtro de ruido,
+que abarca la parametrización y el entrenamiento del \textit{denoiser},
 así como la configuración de la intensidad de la guía
 y el rendimiento en el momento del muestreo.
 A continuación, siguiendo el hilo conductor del libro, daremos una interpretación
 en el contexto simplificado de una distribución de datos de modelo de mezcla gaussiana y
-filtro de ruido.
+\textit{denoiser}.
 En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso grande $\gamma
 \gg 1$?
 
@@ -2226,7 +2226,7 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
             1}^{K}\exp\rp{\frac{1}{2t^{2}(1 +
         t^{2})}\norm{\vU_{i}^{\top}\vxi}_{2}^{2}}}\vU_{k}\vU_{k}^{\top}\vxi.
     \end{equation}
-    Por lo tanto, podemos expresar el filtro de ruido CFG con una fuerza de guía $\gamma
+    Por lo tanto, podemos expresar el \textit{denoiser} CFG con una fuerza de guía $\gamma
     > 1$ como
     \begin{equation}\label{eq:cfg-denoiser-mog-low-rank}
         \begin{split}
@@ -2251,12 +2251,12 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
 
     Este filtro de eliminación de ruido tiene una forma sencilla e interpretable:
     \begin{enumerate}
-        \item El primer término, correspondiente al \textit{filtro de ruido incondicional},
+        \item El primer término, correspondiente al \textit{denoiser incondicional},
             realiza el proceso de eliminación de ruido de la señal $\vx_t$ comparándola con un promedio de los
-            filtros de ruido asociados a cada subespacio, ponderado por el grado de correlación
+            \textit{denoisers} asociados a cada subespacio, ponderado por el grado de correlación
             que existe entre $\vx_t$ y cada subespacio.
-        \item El segundo término, correspondiente al \textit{filtro de ruido condicional}, 
-            simplemente realiza el proceso de eliminación de ruido utilizando el filtro de ruido 
+        \item El segundo término, correspondiente al \textit{denoiser condicional}, 
+            simplemente realiza el proceso de eliminación de ruido utilizando el \textit{denoiser}
             de la clase de condicionamiento.
     \end{enumerate}
 
@@ -2287,7 +2287,7 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
             \vx_t,
         \end{split}
     \end{equation}
-    donde combinamos el filtro de ruido condicional con el término correspondiente $k=y$
+    donde combinamos el \textit{denoiser} condicional con el término correspondiente $k=y$
     en la suma sobre $k \in [K]$.
     Tenemos
     \begin{equation}
@@ -2306,7 +2306,7 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
             $\vx_t$ se correlaciona bien con uno de los subespacios $\vU_y$.
             Si $\vx_t$ se correlaciona bien con
             $\vU_y$, entonces el peso normalizado correspondiente al
-            sumando $k=y$ en el filtro de ruido incondicional es cercano a $1$.
+            sumando $k=y$ en el \textit{denoiser} incondicional es cercano a $1$.
             Entonces
             \begin{equation}
                 \gamma + (1 - \gamma)
@@ -2316,20 +2316,20 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
                 + t^{2})}\norm{\vU_{i}^{\top}\vx_t}_{2}^{2}}}
                 \approx 1,
             \end{equation}
-            todos los demás pesos son necesariamente cercanos a cero, y el filtro de ruido del CFG
-            es aproximadamente igual al filtro de ruido asociado a la
+            todos los demás pesos son necesariamente cercanos a cero, y el \textit{denoiser} del CFG
+            es aproximadamente igual al \textit{denoiser} asociado a la
             clase de condicionamiento
             $y$.
 
-            Esto implica que: ¡\textit{si la entrada del filtro de ruido CFG está altamente
-                correlacionada con uno de los subespacios de clase, el filtro de ruido es
-                aproximadamente igual al filtro de ruido condicional de la clase
+            Esto implica que: ¡\textit{si la entrada del \textit{denoiser} CFG está altamente
+                correlacionada con uno de los subespacios de clase, el \textit{denoiser} es
+                aproximadamente igual al \textit{denoiser} condicional de la clase
             correspondiente}! Por lo tanto, esperamos que el muestreador de eliminación de ruido CFG converja.
         \item \textbf{Régimen con baja correlación:} Por el contrario, si $\vx_t$
             \textit{no} se correlaciona bien con $\vU_y$ (por ejemplo,
             porque $t$ es grande),
             entonces el peso normalizado correspondiente al sumando $k=y$ en el
-            filtro de ruido incondicional es cercano a $0$. Como resultado,
+            \textit{denoiser} incondicional es cercano a $0$. Como resultado,
             \begin{equation}
                 \gamma + (1 - \gamma)
                 \frac{\exp\rp{\frac{1}{2t^{2}(1
@@ -2340,7 +2340,7 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
             \end{equation}
             y, por lo tanto, la fuerza de guía $\gamma \gg 1$ otorga un
             gran peso positivo
-            al filtro de ruido asociado a $y$.
+            al \textit{denoiser} asociado a $y$.
 
             Por otra parte, en el segundo término de la
             \Cref{eq:cfg-denoiser-mog-low-rank-2},
@@ -2362,14 +2362,14 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
 \end{example}
 
 El \Cref{example:denoising-gaussian-mixture-cfg} muestra que, en la configuración de mezcla de
-gaussianas, el filtro de ruido CFG presenta un fuerte sesgo hacia la
+gaussianas, el \textit{denoiser} CFG presenta un fuerte sesgo hacia la
 clase condicionante, al tiempo que conserva la corrección local (y, por lo tanto, la convergencia del
 muestreo) cuando el nivel de ruido $t$ es pequeño.
 Esto sugiere por qué se ha considerado esencial en la práctica
 utilizar un peso grande $\gamma \gg 1$.
 
 A continuación, el siguiente ejemplo ilustrará la
-\textit{parametrización} del filtro de ruido en presencia de
+\textit{parametrización} del \textit{denoiser} en presencia de
 una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
 
 \begin{example}\label{example:denoising-gaussian-mixture-cfg-parameterization}
@@ -2391,7 +2391,7 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     $\vx_t = \vx + t \vg$ para todo $t \in [0, T]$, con $\vg \sim \cN(\Zero,
     \vI)$,  
     vimos en el \Cref{example:denoising-gaussian-mixture-cfg}
-    que el filtro de ruido CFG ideal toma la forma
+    que el \textit{denoiser} CFG ideal toma la forma
     \begin{equation}\label{eq:cfg-denoiser-mog-low-rank-3}
         \begin{split}
             \bar{\vx}^{\mathrm{CFG,\,ideal}}(t, \vx_t, y)
@@ -2459,8 +2459,8 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     % Thus, the empirical benefits of CFG should be due to its behavior in cases
     % where $\vx_t$ is not unambiguously from a single class.
 
-    Ahora consideramos el problema de parametrizar un filtro de ruido aprendible
-    $\vx_{\theta}^{\mathrm{CFG}}$ para representar el filtro de ruido óptimo
+    Ahora consideramos el problema de parametrizar un \textit{denoiser} aprendible
+    $\vx_{\theta}^{\mathrm{CFG}}$ para representar el \textit{denoiser} óptimo
     \eqref{eq:cfg-denoiser-mog-low-rank-3}.
     % Here, it may initially seem that the setting of classification
     % of a mixture
@@ -2506,7 +2506,7 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     Estos vectores $\vv_k$ pueden considerarse entonces como \textit{incrustaciones} de la
     etiqueta de clase $y \in [K]$ y podemos utilizarlos para definir un operador más
     general
-    capaz de representar tanto los filtros de ruido incondicionales como los condicionales a la clase.
+    capaz de representar tanto los \textit{denoisers} incondicionales como los condicionales a la clase.
     Más concretamente, consideremos el mapeo
     \begin{equation}\label{eq:mog-conditional-denoising-unified-operator}
         (\vx_t, \vv) \mapsto
@@ -2525,7 +2525,7 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     \eqref{eq:mog-conditional-denoising-unified-operator}, obtenemos un resultado
     proporcional al primer término de
     \eqref{eq:gmm_lowrank_denoiser-ch6-uncond}, que corresponde al
-    filtro de ruido incondicional óptimo para $\vx_t$.
+    \textit{denoiser} incondicional óptimo para $\vx_t$.
     Por otro lado,
     si sustituimos $\vv = \vv_y$ por algún $y \in [K]$, obtenemos
     por la construcción de los vectores de incrustación $\vv_k$
@@ -2682,7 +2682,7 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     En otras palabras, \textbf{al evaluar el operador
         \eqref{eq:mog-conditional-denoising-unified-operator} en la
         incrustación para
-    una clase $\vv_{t, y}$ ¡se obtiene el filtro de ruido condicionado a la clase para $y$!}
+    una clase $\vv_{t, y}$ ¡se obtiene el \textit{denoiser} condicionado a la clase para $y$!}
     % This argument shows that the operator
     % \eqref{eq:mog-conditional-denoising-unified-operator} is, with
     % overwhelming
@@ -2701,7 +2701,7 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     Por lo tanto, la familia de operadores
     \eqref{eq:mog-conditional-denoising-unified-operator}
     ofrece una manera unificada de parametrizar los operadores
-    que componen el filtro de ruido óptimo para $\vx$ \textit{dentro de una sola
+    que componen el \textit{denoiser} óptimo para $\vx$ \textit{dentro de una sola
     «red»}.
     Más concretamente, basta con sumar la salida de una instanciación de
     \eqref{eq:mog-conditional-denoising-unified-operator} con entrada $(\vx_t,
@@ -2731,14 +2731,14 @@ los operadores de la forma
     \vU_{k}\vU_{k}^{\top}\vx_t
 \end{equation}
 proporcionar una clase de operadores lo suficientemente amplia como para parametrizar el
-filtro de ruido ideal para observaciones ruidosas $\vx_t$ de $\vx$ cuando se utiliza
+\textit{denoiser} ideal para observaciones ruidosas $\vx_t$ de $\vx$ cuando se utiliza
 una guía sin clasificador.
 % where one network is to be used to represent both the
 % unconditional and class-conditional denoisers for $\vx_t$.
 Para tales operadores,
 la entrada auxiliar $\vv$ puede tomarse como $\vx_t$ o como una incrustación adecuada
-de la etiqueta de clase $y \mapsto \vv_y$ con el fin de implementar dicho filtro de ruido; tal y como
-muestra el ejemplo, el filtro de ruido ideal es una suma ponderada de dichos operadores, con
+de la etiqueta de clase $y \mapsto \vv_y$ con el fin de implementar dicho \textit{denoiser}; tal y como
+muestra el ejemplo, el \textit{denoiser} ideal es una suma ponderada de dichos operadores, con
 pesos derivados de la intensidad de la guía $\gamma>1$.
 
 Partiendo del marco descrito en el \Cref{ch:deep-networks}, que desarrolla arquitecturas de redes profundas
@@ -2746,13 +2746,13 @@ adecuadas para transformar distribuciones de datos más generales en
 representaciones estructuradas utilizando el modelo de mezcla de gaussianas de bajo rango como
 primitiva, resulta natural imaginar que los operadores del tipo
 \eqref{eq:operator-for-parameterizing-cfg-denoiser-mog} puedan aprovecharse en
-filtros de ruido para
+\textit{denoisers} para
 distribuciones de datos generales $\vx$ con componentes de baja dimensión y estructura geométrica
 que sean suficientemente distinguibles (digamos, incoherentes) entre sí.
 En la siguiente sección se demuestra que así es.
 
 \subsection{Generación de imágenes condicionada por pies de imagen}\label{sub:text-cond}
-En la \Cref{sub:cfg} hemos visto, a nivel conceptual, cómo configurar los filtros de ruido
+En la \Cref{sub:cfg} hemos visto, a nivel conceptual, cómo configurar los \textit{denoisers} 
 para utilizarlos con
 \textit{la guía sin clasificador}, la metodología práctica predominante para
 realizar muestreos condicionales mediante el paradigma de la difusión con eliminación de ruido.
@@ -2785,7 +2785,7 @@ que debemos resolver:
         % Using a common architecture is preferable because it allows the
         % possibility to use \textit{transfer learning}, where
     \item \textit{Entrenamiento}: Esto implica la forma adecuada de utilizar nuestras muestras emparejadas
-        $(\vx, \vy)$ para entrenar e implementar los filtros de ruido condicionales. El
+        $(\vx, \vy)$ para entrenar e implementar los \textit{denoisers} condicionales. El
         espacio de diseño es amplio: se podría imaginar la aplicación de diversas
         arquitecturas de codificador-decodificador específicas para cada modalidad, tal como las hemos desarrollado en
         los \Cref{ch:lossy-compression,ch:consistent-representations}, junto con
@@ -2928,7 +2928,7 @@ no tiene ninguna restricción, existen soluciones triviales simples para
 \eqref{eq:infomax-x} que no corresponden a representaciones útiles: por
 ejemplo, ¡basta con tomar $f(\vx) = \vx$ como la identidad!
 Analizamos técnicas basadas en principios para estructurar el espacio de representaciones en el
-\Cref{ch:consistent-representations} cuando tratamos el tema de la auto-codificación y la transcripción en
+\Cref{ch:consistent-representations} cuando tratamos el tema de la autocodificación y la transcripción en
 bucle cerrado; muchas de estas técnicas pueden aplicarse a nuestro
 actual contexto de incrustación conjunta y lo detallaremos más adelante en esta
 sección, cuando pasemos a la implementación práctica.
@@ -2950,7 +2950,7 @@ a través de nuestro trabajo en el
 \Cref{example:denoising-gaussian-mixture-cfg-parameterization}. Allí vimos
 que, en el caso de un modelo de mezcla de gaussianas para $\vx$, con la
 señal de condicionamiento $y$ identificando qué componente específica de la mezcla genera
-la observación, se podría construir una arquitectura flexible de filtro de ruido mediante
+la observación, se podría construir una arquitectura flexible de \textit{denoiser} mediante
 una incrustación adecuada de la etiqueta de clase $y$ en el \textit{mismo espacio} que los
 datos $\vx$.
 Más concretamente, una incrustación de este tipo $\vu_y \in \R^D$ permite, cuando se correlaciona
@@ -3080,10 +3080,10 @@ describen el entrenamiento del modelo de difusión (latente).
         asignar los pies de foto a
         secuencias de vectores, que se utilizan como señales de condicionamiento
         para un
-        filtro de ruido condicional, entrenado según se describe algorítmicamente en la \Cref{sub:cfg} (véase la
+        \textit{denoiser} condicional, entrenado según se describe algorítmicamente en la \Cref{sub:cfg} (véase la
         \Cref{sec:auto-encode-img-gen} para detalles de implementación). El codificador
         de texto puede estar
-        preentrenado y congelado, o entrenarse conjuntamente con el filtro de ruido.
+        preentrenado y congelado, o entrenarse conjuntamente con el \textit{denoiser}.
         \textbf{Derecha:}
         Al aplicar un modelo entrenado, se utiliza una indicación de texto deseada
         como condición
@@ -3100,7 +3100,7 @@ prompt de texto tokenizado $\vY \in
 \bR^{D_{\mathrm{text}} \times N}$, en lugar de una etiqueta de clase; (ii)
 La eliminación del ruido de la imagen se
 realiza en el espacio «latente» en lugar de sobre los píxeles sin procesar, utilizando un par 
-de auto-codificadores variacionales especializados y preentrenados $f : \bR^{D_{\mathrm{img}}} \to
+de autocodificadores variacionales especializados y preentrenados $f : \bR^{D_{\mathrm{img}}} \to
 \bR^{d_{\mathrm{img}}}$, $g : \bR^{d_{\mathrm{img}}} \to
 \bR^{D_{\mathrm{img}}}$ (véase \Cref{sec:vae,sec:auto-encode-img-gen}), donde $f$
 es el codificador y $g$ es el decodificador.
@@ -3136,7 +3136,7 @@ $\bar{\vz}_{\theta}(t, \vz_t, \vY^+)$.\footnote{En el contexto del
     con el tokenizador como de costumbre. Esto proporciona una forma sencilla y unificada
     de tratar
 la eliminación de ruido condicional e incondicional con el acondicionamiento de texto.}
-\textcite{rombach2022high} implementan el condicionamiento de texto en el filtro de ruido utilizando
+\textcite{rombach2022high} implementan el condicionamiento de texto en el \textit{denoiser} utilizando
 una capa conocida como «atención cruzada», inspirada en la arquitectura original de transformer codificador-decodificador
 de \textcite{vaswani2017attention}. La atención cruzada se
 implementa de la siguiente manera. Sea $\tau : \bR^{D_{\mathrm{text}} \times N} \to
@@ -3145,9 +3145,9 @@ una red de codificación para las incrustaciones de texto (a menudo un
 transformer causal --- véase la \Cref{sec:clm_text}), y sea $\psi : \bR^{d_{\mathrm{img}}}
 \to \bR^{d_{\mathrm{model}} \times N_{\mathrm{img}}}$ la
 correspondencia de una de
-las representaciones intermedias en el filtro de ruido.\footnote{En la práctica,
-    los filtros de ruido condicionados por texto añaden capas de atención cruzada a intervalos regulares
-    dentro de la pasada hacia adelante del filtro de ruido, por lo que $\psi$ debe considerarse
+las representaciones intermedias en el \textit{denoiser}.\footnote{En la práctica,
+    los \textit{denoisers} condicionados por texto añaden capas de atención cruzada a intervalos regulares
+    dentro de la pasada hacia adelante del \textit{denoiser}, por lo que $\psi$ debe considerarse
 dependiente de la capa, a diferencia de $\tau$.}
 %See
 % \textcite{rombach2022high} for details.}
@@ -3172,11 +3172,11 @@ d_{\mathrm{attn}} }$ para $* \in \set{\mathrm{qry}, \mathrm{key}, \mathrm{val}}$
 (así como la proyección de salida $\vU_{\mathrm{out}}$) son los parámetros
 aprendibles de la capa.
 
-Obsérvese que, según la definición de la operación de auto-atención, la operación de atención cruzada
+Obsérvese que, según la definición de la operación de autoatención, la operación de atención cruzada
 \textit{genera combinaciones lineales de las incrustaciones de texto proyectadas en valores,
 ponderadas por las correlaciones entre las características de la imagen y las incrustaciones de texto.}
-En la arquitectura del filtro de ruido utilizada por \textcite{rombach2022high},
-los bloques residuales de auto-atención de la arquitectura del filtro de ruido, aplicados a la
+En la arquitectura del \textit{denoiser} utilizada por \textcite{rombach2022high},
+los bloques residuales de autoatención de la arquitectura del \textit{denoiser}, aplicados a la
 representación de la imagen en la capa actual y definidos de manera análoga
 a los de \Cref{eq:vit-res-block}, que se aplican al Transformer de Visión, van
 seguidos de bloques residuales de atención cruzada
@@ -3188,7 +3188,7 @@ lograr mediante una incrustación conjunta,
 aprendida mediante un procedimiento como CLIP, tal y como se ha descrito anteriormente.
 Desde el punto de vista conceptual, este espacio de incrustación conjunto de texto e imagen y la propia capa de atención cruzada
 presentan un gran parecido con el
-filtro de ruido de mezcla condicional de gaussianas que derivamos en la sección anterior
+\textit{denoiser} de mezcla condicional de gaussianas que derivamos en la sección anterior
 (véase \eqref{eq:mog-conditional-denoising-unified-operator}), en el
 caso particular de una secuencia de un solo token. Se pueden establecer conexiones más profundas
 en el contexto de múltiples tokens siguiendo el marco de reducción de tasa
@@ -3207,7 +3207,7 @@ generación condicionada de poses y en Michelangelo
 (\Cref{sec:Michelangelo}) para la generación condicional de formas 3D basada
 en imágenes o textos.
 
-\section{Inferencia condicional con auto-consistencia de la medición}
+\section{Inferencia condicional con autoconsistencia de la medición}
 \label{sec:measurement-self-consistency}
 En esta última sección, analizamos el caso más extremo, aunque en realidad
 muy común, del aprendizaje de distribuciones, en el que solo contamos con un
@@ -3248,7 +3248,7 @@ Aquí, la matriz $\vA \in \mathbb{R}^{m\times n}$ tiene rango de filas completo
 y $m$ suele ser menor que $n$. Suponemos que $\vA$ es conocida por
 ahora. Nos interesa cómo aprender la distribución de $\x$ a partir de
 dichas mediciones. Dado que ya no contamos con muestras directas de $\x$, nos
-preguntamos si aún podemos desarrollar un filtro de ruido para $\x$ con
+preguntamos si aún podemos desarrollar un \textit{denoiser} para $\x$ con
 las observaciones $\y$. Consideremos el siguiente proceso de difusión:
 \begin{equation}
     \y_t = \y_0 + t \vg, \quad \y_0 = \vA(\x_0),
@@ -3352,7 +3352,7 @@ donde se puede suponer que los parámetros $\theta^0$ y $\theta^1$ de las poses 
 son conocidos. $\y^0$ y $\y^1$ son dos proyecciones en 2D de la
 escena 3D $\x$. También podemos suponer que tienen la misma distribución marginal
 $p(\y)$ y que hemos aprendido un modelo de difusión y eliminación de ruido
-para ella. Es decir, conocemos el filtro de ruido:
+para ella. Es decir, conocemos el \textit{denoiser}:
 \begin{equation}
     \bE[\vy \mid \vy_t=\vnu] =
     \vnu + t^2 \nabla_{\vnu}\log p_t(\vnu).
@@ -3363,7 +3363,7 @@ muestras de pares estéreo $(\y^0, \y^1)$ y que también hemos aprendido la
 distribución multivariada de los pares. Haciendo un pequeño abuso de notación,
 también utilizamos $\y = h(\x)$ para indicar el par $\y = (\y^0, \y^1)$ y
 $p(\y)$ como la distribución de probabilidad aprendida del par (por ejemplo, mediante
-un filtro de ruido como el anterior).
+un \textit{denoiser} como el anterior).
 
 La pregunta principal ahora es: ¿Cómo aprender (una representación de) la
 distribución de la escena 3D $\x$ a partir de sus dos proyecciones con relaciones
@@ -3528,9 +3528,9 @@ En muchos problemas inversos de relevancia práctica, esto no es así: uno de lo
 ejemplos más fundamentales se da en el contexto del muestreo con compresión, que
 recordamos en el \Cref{ch:classic-models}, donde necesitamos reconstruir
 $\vx$ a partir de $\vy$
-utilizando el conocimiento previo sobre $\vx$ (es decir, la dispersión).
+utilizando el conocimiento previo sobre $\vx$ (es decir, la esparcidad).
 En el contexto de la difusión con eliminación de ruido, tenemos acceso a una distribución a priori implícita para
-$\vx$ a través de los filtros de ruido aprendidos $\bar{\vx}_{\theta}(t, \vxi)$. ¿Podemos
+$\vx$ a través de los \textit{denoisers} aprendidos $\bar{\vx}_{\theta}(t, \vxi)$. ¿Podemos
 aún realizar
 un muestreo condicional sin tener acceso a las muestras de referencia $\vx$?
 
@@ -3558,7 +3558,7 @@ La parte dependiente de $\vx$ del lado derecho de la \Cref{eq:sure-risk} se deno
 estimador de riesgo no sesgado de Stein
 (SURE). Si tomamos las expectativas sobre $\vx$ en la \Cref{eq:sure-risk},
 observe que el lado derecho se puede escribir como una expectativa con respecto a $\vx_t$ --- en
-particular, ¡el error cuadrático medio de \textit{cualquier filtro de ruido $f$} se puede estimar
+particular, ¡el error cuadrático medio de \textit{cualquier denoiser $f$} se puede estimar
 \textit{únicamente a partir de muestras ruidosas}!
 Este hecho notable, en sus formas más refinadas, constituye la base de muchas técnicas prácticas
 para llevar a cabo la restauración de imágenes, la difusión para la eliminación de ruido, etc., utilizando
@@ -3601,7 +3601,7 @@ la distribución a posteriori ruidosa $p_{\vx \mid \vx_t}$ a
 remitimos al artículo para más detalles.
 Las estimaciones naturales de la varianza a posteriori son ligeramente menos escalables que el propio DPS
 debido a la necesidad de invertir una transformación afín de la jacobiana del
-filtro de ruido a posteriori $\bE[\vx \mid \vx_t=\vxi]$ (una matriz de gran tamaño). Esto se lleva a cabo
+\textit{denoiser} a posteriori $\bE[\vx \mid \vx_t=\vxi]$ (una matriz de gran tamaño). Esto se lleva a cabo
 de manera relativamente eficiente por Rozet et al. \ \cite{rozet2024learning}
 mediante la diferenciación automática y una
 aproximación de la inversa basada en gradientes conjugados. Parece que
@@ -3661,10 +3661,10 @@ la optimización de objetivos del tipo Infomax a partir de muestras finitas.
     \begin{enumerate}
         \item Entrene un clasificador sencillo para el conjunto de datos MNIST, utilizando
             una arquitectura
-            de su elección. Además, entrene un filtro de ruido adecuado para su uso en
+            de su elección. Además, entrene un \textit{denoiser} adecuado para su uso en
             muestreo condicional
             (\Cref{alg:iterative_denoising_conditional_CFG},
-                ya que este filtro de ruido también se puede utilizar para la
+                ya que este \textit{denoiser} también se puede utilizar para la
             eliminación de ruido incondicional).
         \item Integre el clasificador en un muestreador condicional basado en
             guía por clasificador, tal como se describe en la primera parte de la

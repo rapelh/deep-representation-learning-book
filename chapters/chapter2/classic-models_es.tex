@@ -8,15 +8,15 @@
 
 \begin{quote}
     \hfill  «{\em El arte de hacer matemáticas consiste en encontrar 
-    ese caso particular que contenga todos los gérmenes de la generalidad}.»
+    ese caso particular que contiene todos los gérmenes de la generalidad}.»
 
     $~$\hfill -- David Hilbert
 \end{quote}
 \vspace{5mm}
 
 \textit{Los datos reales tienen una estructura de baja dimensión.} 
-Para entender por qué esto es así, consideremos el sencillo caso de 
-la interferencia en un televisor cuando el satélite no funciona.
+Para entender por qué esto es así, consideremos el humilde caso del 
+ruido estático en un televisor cuando el satélite no funciona.
 En cada fotograma (aproximadamente cada \(\frac{1}{30}\) segundos), 
 el ruido estático RGB en una pantalla de tamaño \(H \times W\) se 
 muestrea, a grandes rasgos, en forma independiente a partir de una 
@@ -33,28 +33,28 @@ Por lo tanto, cuando diseñamos sistemas y métodos para procesar datos
 naturales y aprender su estructura o distribución, esta es una propiedad 
 fundamental de los datos naturales que debemos tener en cuenta. %
 
-Por lo tanto, nuestra tarea principal consiste en aprender una distribución que tenga una baja
+Por lo tanto, nuestra tarea principal consiste en aprender una distribución que tenga baja
 dimensión intrínseca en un espacio de alta dimensión. En el resto de
 este capítulo, analizaremos varios métodos \textit{clásicos} para
 llevar a cabo esta tarea en varios modelos algo {\em idealizados} de
-la distribución, es decir, modelos que son geométricamente lineales o
+la distribución a saber, modelos geométricamente lineales o
 estadísticamente independientes. Aunque estos modelos y métodos son
 importantes y útiles por sí mismos, los analizamos aquí porque
-motivan, inspiran y sirven como precursores o equivalentes de métodos más
-modernos para distribuciones más generales que involucran el aprendizaje profundo
+motivan, inspiran y sirven como precursores o análogos de métodos más
+modernos para distribuciones más generales que recurren al aprendizaje profundo
 (de representaciones).
 
 Nuestro enfoque principal (y la formulación general del problema) se puede resumir así:
 \begin{tcolorbox}\centering
     \textbf{Problema:} \textit{Dadas una o varias observaciones (con ruido o
-        incompletas) de una muestra de referencia de la distribución de los datos reales,
+        incompletas) de una verdad de referencia (la muestra verdadera) de la distribución de los datos reales,
     obtenga una estimación de dicha muestra.}
 \end{tcolorbox}
 Este enfoque sustenta varios métodos clásicos de procesamiento de datos,
-que analizamos en este capítulo.
+que abordamos en este capítulo.
 \begin{itemize}
     \item \Cref{sec:lowrank} --- Análisis de componentes principales (PCA):
-        Dadas unas muestras ruidosas procedentes de una distribución definida en {\em un
+        Dadas unas muestras ruidosas procedentes de una distribución con soporte en {\em un
         subespacio de baja dimensión}, obtener una estimación de la muestra verdadera
         que se sitúa en este subespacio.
     \item  \Cref{sec:ica} ---  Aprendizaje de diccionario completo y 
@@ -62,14 +62,14 @@ que analizamos en este capítulo.
         procedentes de una distribución definida en {\em una unión (que no
         es el espacio generado) de unos cuantos subespacios de baja dimensión}, obtener una
         estimación de las muestras verdaderas.
-    \item \Cref{sec:dictionary_learning} --- Codificación dispersa y
+    \item \Cref{sec:dictionary_learning} --- Codificación esparsa y
         aprendizaje de diccionarios: Dadas unas muestras ruidosas procedentes de {\em una
             distribución definida sobre combinaciones de unos pocos vectores incoherentes}, 
         como por ejemplo los ejes de coordenadas, obtener una estimación de
         la muestra verdadera, que también tenga esa propiedad.
 \end{itemize}
 
-En este capítulo, tal y como se ha descrito anteriormente, formulamos supuestos simplificadores de modelación
+En este capítulo, tal y como se ha descrito anteriormente, formulamos supuestos simplificadores de modelado
 que, en esencia, suponen que (el soporte de) la distribución de los datos
 presenta estructuras geométricamente (casi, por tramos) lineales
 y componentes estadísticamente independientes, tal y como se ilustra
@@ -87,7 +87,7 @@ en la \Cref{fig:subspaces}.
 \end{figure}
 En el \Cref{ch:intro} nos hemos referido a este tipo de modelos de datos como
 «modelos analíticos». Estas hipótesis de modelado nos permiten derivar
-algoritmos eficientes con garantías de eficiencia demostrables,
+algoritmos eficientes con garantías demostrables de eficiencia,
 tanto en términos de datos como de complejidad computacional,
 para el procesamiento de datos a gran escala. Sin embargo, se trata de
 modelos imperfectos para las distribuciones de datos del mundo real, que suelen ser complejas, por lo que
@@ -96,23 +96,23 @@ que las garantías que ofrece el análisis detallado de estos algoritmos
 también solo se cumplen de manera aproximada en el caso de datos reales.
 
 No obstante, las técnicas que se analizan en este capítulo son útiles
-por sí mismas y, además, sirven como «caso especial con gérmenes de generalidad», 
+por sí mismas y, además de eso, sirven como «caso especial con gérmenes de generalidad», 
 por así decirlo, en el sentido de que ofrecen una motivación e intuición orientativas 
-para los paradigmas más generales en materias de aprendizaje (profundo)
+para los paradigmas más generales en el ámbito del aprendizaje (profundo)
 de distribuciones más generales que abordaremos más adelante. Como
 veremos en capítulos posteriores, en la era del aprendizaje profundo, 
 los enfoques modernos «basados en datos» o «no paramétricos» para aprender
 las distribuciones de datos (de baja dimensión) adoptan, en esencia, los mismos
 conceptos e ideas para el aprendizaje.
 
-\paragraph{Una nota acerca de la notación.} Recomendamos al lector que consulte
+\paragraph{Una nota sobre la notación.} Recomendamos al lector que consulte
 el capítulo \nameref{ch:notation}, en particular la sección «Notación de modelado y
 optimización», al comenzar a leer este capítulo. A lo largo del libro empleamos 
-las mismas convenciones de notación para la modelación de datos y la optimización de los parámetros 
+las mismas convenciones de notación para el modelado de datos y la optimización de los parámetros 
 de estos modelos. Los modelos sencillos y explícitos que estudiamos en este capítulo
 ayudan a aclarar el contenido «semántico» de estas convenciones.
 
-\section{Un subespacio de baja dimensión} \label{sec:lowrank}
+\section{Subespacio de baja dimensión} \label{sec:lowrank}
 
 \subsection{Análisis de componentes principales (PCA)}\label{sub:pca}
 
@@ -122,11 +122,11 @@ nuestro espacio de datos; supongamos que nuestros datos pertenecen a un subespac
 de baja dimensión \(d \ll D\), posiblemente con algunas pequeñas 
 perturbaciones.\footnote{Además, posiblemente, un desplazamiento no trivial con respecto a
     \(\vzero\); en la práctica, tenemos en cuenta este desplazamiento restando la
-    media empírica de las muestras de datos de cada muestra, y en el
-siguiente capítulo ya no le prestamos más atención.} Esta suposición resulta ser bastante válida para algunos
+    media empírica de las muestras de datos (calculada sobre las muestras de datos) a cada muestra y en el
+siguiente capítulo ya no le prestamos más atención.} Esta suposición resulta ser prácticamente válida para algunos
 datos sorprendentemente complejos, como las imágenes de dígitos escritos a mano y
 los datos faciales \cite{BasriR2003-PAMI}, tal como se muestra en la \Cref{fig:faces-digits},
-pero, como veremos, se prestará muy bien a un análisis exhaustivo.
+pero, como veremos, se prestará exepcionalmente bien a un análisis exhaustivo.
 
 \begin{figure}
     \centering
@@ -134,10 +134,10 @@ pero, como veremos, se prestará muy bien a un análisis exhaustivo.
     \hspace{5mm}
     \includegraphics[width=0.395\linewidth]{\toplevelprefix/chapters/chapter2/figs/handwritten-digits.png}
     \caption{Imágenes de rostros humanos alineados y números escritos a mano. A pesar de
-        la aparente gran variedad de sus formas, cada conjunto de estos datos abarca 
+        la aparente gran variedad de sus formas, cada conjunto de estos datos genera 
         (aproximadamente) un subespacio (casi) lineal de muy baja dimensión. Esto se 
         puede expresar con precisión técnica en la notación de \eqref{eq:pca_dgp}: 
-        para una dimensión de subespacio relativamente pequeña $d$ (por ejemplo, 
+        para una dimensión de subespacio relativamente pequeña $d$ (digamos, 
         $\approx 20$, en comparación con la dimensión $D=784$ de los dígitos de MNIST, 
         los vectores de error $\veps_i$ son pequeños para cada $i \in [N]$ (donde
         $N=6 \cdot 10^4$ para MNIST es el tamaño del conjunto de datos). Podemos
@@ -160,12 +160,12 @@ vectores \(\{\veps_{i}\}_{i = 1}^{N} \subseteq \R^{D}\) tales que
 Aquí, \(\veps_{i}\) son perturbaciones que impiden que los datos sean perfectamente
 de bajo rango; su presencia en nuestro modelo nos permite cuantificar hasta qué punto
 nuestro análisis sigue siendo relevante cuando se producen desviaciones respecto a 
-nuestro modelo. El verdadero subespacio de base es \(\cS \doteq
+nuestro modelo. El verdadero subespacio de soporte es \(\cS \doteq
 \mathop{\mathrm{col}}(\vU)\), el espacio generado por las columnas de $\vU$. Para 
 procesar toda la información posible a partir de estos datos, necesitamos recuperar 
 \(\cS\); para ello basta con recuperar \(\vU\), también denominadas 
 \textit{componentes principales}. Afortunadamente, se trata de una tarea 
-computacionalmente manejable denominada {\bf Análisis de Componentes Principales} 
+computacionalmente viable denominada {\bf Análisis de Componentes Principales} 
 (PCA por su sigla en inglés) y ahora veremos cómo resolverla.
 
 Dados los datos \(\{\vx_{i}\}_{i = 1}^{N}\) distribuidos como en \eqref{eq:pca_dgp}, nuestro
@@ -182,7 +182,7 @@ donde $\tilde{\vU}$ está restringida a ser una matriz ortonormal, tal como
 se ha indicado anteriormente. Omitiremos
 esta restricción en las exposiciones similares que siguen, en aras de la brevedad.
 
-\paragraph{Codificación y decodificación en subespacios mediante reducción de ruido.}
+\paragraph{Codificación y decodificación en subespacios mediante eliminación de ruido.}
 Para simplificar este problema, para un valor fijo de \(\tilde{\vU}\), tenemos (la demostración
 como ejercicio):
 \begin{align}
@@ -208,16 +208,16 @@ los siguientes dos problemas equivalentes:
     \min_{\tilde{\vU}}\frac{1}{N}\sum_{i = 1}^{N}\norm{\vx_{i} -
     \tilde{\vU}\tilde{\vU}^{\top}\vx_{i}}_{2}^{2}.
 \end{equation}
-Téngase en cuenta que el problema que aparece en el lado derecho de \eqref{eq:pca_equals_denoising}
-es un problema de \textit{reducción de ruido}: dadas observaciones ruidosas \(\vx_{i}\) de
+Téngase en cuenta que el problema que aparece en el miembro derecho de \eqref{eq:pca_equals_denoising}
+es un problema de \textit{eliminación de ruido}: dadas observaciones ruidosas \(\vx_{i}\) de
 datos de bajo rango, nuestro objetivo es encontrar la copia \textit{sin ruido} de \(\vx_{i}\), que
 bajo el modelo \eqref{eq:pca_dgp} es $\vU\vz_{i}$. Es decir, la entrada sin ruido
 $\hat{\vx}_i = \vU\vU^\top \vx_i$. Nótese que este es el punto del subespacio
 que se encuentra más cerca de $\vx_i$, tal como se muestra en la \Cref{fig:pca-geometry}.
 Aquí, al resolver el problema equivalente de encontrar el mejor subespacio, parametrizado por
-la base aprendida \(\vU^{\star}\), aprendemos una aproximación al \textit{filtro de ruido}, es decir, 
+la base aprendida \(\vU^{\star}\), aprendemos una aproximación al \textit{denoiser}, es decir, 
 la matriz de proyección \(\vU^{\star}(\vU^{\star})^{\top} \approx \vU\vU^{\top}\) que
-proyecta el punto de datos ruidoso $\vx_i$ en el subespacio \(\cS\). %
+proyecta el punto de datos ruidoso $\vx_i$ sobre el subespacio \(\cS\). %
 
 \begin{figure}
     \centering
@@ -241,7 +241,7 @@ proyecta el punto de datos ruidoso $\vx_i$ en el subespacio \(\cS\). %
         proyección $\vU\vU^\top\vx = \vu_{1}\vu_{1}^{\top}\vx$ (en verde) es
         la versión sin ruido de $\vx$ utilizando la estructura de baja dimensión
         dada por $\vu_{1}$ y $\boldsymbol{\varepsilon}$ (flecha marrón)
-    representa el residuo de la proyección o del ruido.} 
+    representa el residuo de la proyección, es decir, el ruido.} 
     \label{fig:pca-geometry}
 \end{figure}
 
@@ -258,7 +258,7 @@ En este contexto, $\vz \in \R^d$ se puede considerar como el código compacto de
 una representación latente) de un punto de datos  $\vx \in \R^D$, mientras que la base del subespacio
 aprendido $\vU^\star$ se puede entender como el libro de códigos asociado, cuyas columnas son las 
 palabras de código óptimas (aprendidas). El proceso logra eliminar el ruido de $\vx$ mediante
-su proyección en el subespacio generado por $\vU^\star$.
+su proyección sobre el subespacio generado por $\vU^\star$.
 
 \paragraph{Cálculo de la base del subespacio.}
 Por ahora, continuamos con nuestro cálculo. Sea \(\vX = \mat{\vx_{1},
@@ -324,7 +324,7 @@ lo expuesto anteriormente, obtenemos el siguiente teorema informal.
     las \textit{componentes principales} \(\vU^{\star} \in \O(D, d)\) de nuestro
     conjunto de datos vienen dadas por los \(d\) primeros vectores propios de \(\vX\vX^{\top}/N\),
     donde \(\vX = [\vx_{1}, \dots, \vx_{N}] \in \R^{D \times N}\) y
-    corresponden aproximadamente al filtro de ruido lineal óptimo:
+    corresponden aproximadamente al \textit{denoiser} lineal óptimo:
     \(\vU^{\star}(\vU^{\star})^{\top} \approx \vU\vU^{\top}\).
 \end{theorem}
 Aquí no indicamos tasas explícitas de aproximación, ya que pueden resultar bastante
@@ -335,13 +335,13 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
 \(\vU^{\star}(\vU^{\star})^{\top} = \vU\vU^{\top}\).
 
 \begin{remark}
-    En algunas tareas de análisis de datos, la matriz de datos \(\vX\) se presenta
+    En algunas tareas de análisis de datos, la matriz de datos \(\vX\) se organiza
     de tal manera que cada punto de datos es una \textit{fila} en lugar de una
     \textit{columna}, como se muestra aquí. En este caso, las componentes principales
     son los \(d\) primeros vectores propios de \(\vX^{\top}\vX/N\).
 \end{remark}
 
-\begin{remark}[Selección de base mediante valores propios de la reducción de ruido]
+\begin{remark}[Selección de base mediante valores propios de la eliminación de ruido]
     En muchos casos, nuestros datos no estarán distribuidos realmente
     según un modelo de subespacio más ruido, o bien no conoceremos la
     verdadera dimensión subyacente \(d\) del subespacio. En este caso,
@@ -352,36 +352,36 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
     un indicador de que el índice del valor propio más grande es la
     «dimensión verdadera \(d\)» el resto de los valores propios de
     \(\vX\vX^{\top}/N\) se deben al ruido o a las perturbaciones
-    \(\veps_{i}\). La selección de modelos es un problema complejo y,
+    \(\veps_{i}\). La selección de modelos es un problema difícil y,
     hoy en día, en la era del aprendizaje profundo, donde se conoce como
     «optimización de hiperparámetros», suele realizarse mediante el método de fuerza bruta
     o la optimización bayesiana, a menudo utilizando la pérdida en un conjunto de datos de
     «validación» como objetivo. %
 \end{remark}
 
-\begin{remark}[Reducción de ruido en muestras]
-    La expresión del lado derecho de 
+\begin{remark}[Eliminación de ruido en muestras]
+    La expresión del miembro derecho de 
     \eqref{eq:pca_equals_denoising}, es decir,
     \begin{equation}\label{eq:orthogonal_denoising}
         \min_{\tilde{\vU}}\frac{1}{N}\sum_{i = 1}^{N}\norm{\vx_{i} -
         \tilde{\vU}\tilde{\vU}^{\top}\vx_{i}}_{2}^{2},
     \end{equation}
-    es lo que se conoce como un \textit{problema de reducción de ruido}, llamado así
+    es lo que se conoce como un \textit{problema de eliminación de ruido}, llamado así
     porque se trata de un problema de optimización cuya solución
     \textit{elimina el ruido de las muestras para que estas se ajusten al
-    subespacio}. La reducción de ruido ---el aprendizaje de un mapa que elimina el ruido de
+    subespacio}. La eliminación de ruido ---el aprendizaje de un mapa que elimina el ruido de
     muestras ruidosas para que se ajuste a la estructura de datos (como en
     \eqref{eq:pca_dgp}, aunque quizá en forma más compleja)--- es un método habitual
-    para el aprendizaje de distribuciones que se analizará en la
-    siguiente sección y a lo largo de todo el manuscrito. Nótese que ya hemos
+    para el aprendizaje de distribuciones que se analizará en lo que sigue
+    y a lo largo de todo el manuscrito. Nótese que ya hemos
     tratado este concepto, pero vale la pena repetirlo debido a su gran
     importancia en los capítulos siguientes.
 \end{remark}
 
 \begin{remark}[Interpretación como red neuronal]
     Si realizamos un análisis de componentes principales (PCA), recuperamos aproximadamente el soporte de la distribución
-    codificada por el parámetro \(\vU^{\star}\). El mapa de reducción de ruido aprendido adopta entonces
-    la forma \(\vU^{\star}(\vU^{\star})^{\top}\). Además de ser un filtro de reducción de ruido, esto 
+    codificada por el parámetro \(\vU^{\star}\). El mapa de eliminación de ruido aprendido adopta entonces
+    la forma \(\vU^{\star}(\vU^{\star})^{\top}\). Además de ser un \textit{denoiser}, esto 
     puede considerarse como una \textit{red neuronal lineal simple de dos capas con pesos vinculados} RN: la 
     primera capa multiplica por \((\vU^{\star})^{\top}\) y la segunda multiplica por \(\vU^{\star}\), es decir
     \begin{equation}
@@ -399,11 +399,12 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
                 \underbrace{(\vU^{\star})^{\top}\vx}_{\text{primera
         capa}}}_{\text{post-activación de la primera capa}}}_{\text{salida de la RN}}
     \end{equation}
-    En concreto, el PCA puede interpretarse como \textit{el aprendizaje de un auto-codificador de 
-    dos capas},\footnote{De hecho, como hemos mencionado en el
+    En concreto, el PCA puede interpretarse como \textit{el aprendizaje de un autocodificador simple de 
+    dos capas de eliminación de ruido},\footnote{De hecho, como hemos mencionado en el
         capítulo anterior, el PCA fue uno de los primeros problemas en el que se
     utilizaron redes neuronales para resolverlo \cite{Oja1982SimplifiedNM,Baldi89}.} 
-    uno de los ejemplos más simples de una red neuronal no trivial. De este modo, el PCA sirve
+    uno de los ejemplos más simples de una red neuronal no trivial. En este marco, 
+    las **representaciones aprendidas** serían simplemente \((\vU^{\star})^{\top}\vx \approx \vz\). De este modo, el PCA sirve
     como problema modelo para el aprendizaje de representaciones (profundas), al que
     recurriremos más adelante en la monografía. Obsérvese que, en esta
     analogía, las representaciones reflejan ---o son proyecciones de--- los
@@ -411,10 +412,10 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
     propiedad será especialmente relevante en el futuro.
 \end{remark}
 
-\subsection{Búsqueda de estructuras de bajo rango por el método de las potencias}
+\subsection{Búsqueda de estructuras de rango bajo por el método de las potencias}
 \label{subsec:power iterations}
 
-Existe una forma computacionalmente eficiente de estimar los vectores propios superiores
+Existe una forma computacionalmente eficiente de estimar los vectores propios principales (asociados a los autovalores más grandes)
 de \(\vX\vX^{\top}/N\) o de cualquier matriz simétrica semidefinida positiva
 \(\vM\), denominada \textit{método de las potencias}. Este
 método constituye la base de varios enfoques algorítmicos para el
@@ -441,8 +442,8 @@ la siguiente ecuación:
         \vv_{0} \sim \dNorm(\vzero, \vone), \qquad \vv_{t + 1} \gets
         \frac{\vM\vv_{t}}{\norm{\vM\vv_{t}}_{2}},
     \end{equation}
-    entonces, en el límite, \(\vv_{t}\) convergerá hacia un vector propio de \(\vM\)
-    de norma unitaria con el mayor de los valores propios.
+    entonces, en el límite, \(\vv_{t}\) convergerá al vector propio unitario de \(\vM\)
+    asociado al mayor de los valores propios.
 \end{theorem}
 
 \begin{proof} En primer lugar, nótese que, para todo \(t\), tenemos
@@ -484,24 +485,24 @@ la siguiente ecuación:
     \end{equation}
     Dado que \(\lambda_{1} > \lambda_{i}\) para todo \(i > 1\), los
     términos dentro de la suma tienden exponencialmente a \(0\) y
-    el residuo es el límite
+    el resultado es el límite
     \begin{equation}
         \lim_{t \to \infty}\vv_{t} =
         \frac{\alpha_{1}}{\abs{\alpha_{1}}}\vw_{1} = \sign(\alpha_{1})\vw_{1},
     \end{equation}
-    que es un vector propio principal unitario de \(\vM\). El valor propio principal
+    que es el vector propio unitario asociado al valor propio principal de \(\vM\). El valor propio principal
     \(\lambda_{1}\) de \(\vM\) puede estimarse mediante
-    \(\vv_{t}^{\top}\vM\vv_{t}\), que converge con una rapidez similar
-    a \(\lambda_{1}\).
+    \(\vv_{t}^{\top}\vM\vv_{t}\), que converge 
+    a \(\lambda_{1}\) a una velocidad comparable.
 \end{proof}
 
-\begin{remark}[El método de las potencias como proceso de reducción de ruido] Nótese que
+\begin{remark}[El método de las potencias como proceso de eliminación de ruido] Nótese que
     el cálculo de la componente principal mediante el método de las potencias puede
-    interpretarse como un proceso de «reducción de ruido»: partiendo de un ruido aleatorio,
+    interpretarse como un proceso de «eliminación de ruido»: partiendo de un ruido aleatorio,
     converge iterativamente hacia un subespacio unidimensional.
     De hecho, como mostraremos más adelante en el \Cref{ch:denoising}, si
     suponemos que {\em el soporte de la distribución de los datos es un único
-    subespacio}, el operador de eliminación de ruido asociado (o la función de puntuación)
+    subespacio}, el operador de eliminación de ruido asociado (o la función de \textit{score})
     es exactamente el mismo que la iteración de potencias anterior. En
     el \Cref{ch:denoising}, mostraremos cómo generalizar ese
     proceso de eliminación de ruido a distribuciones de estructuras
@@ -523,8 +524,8 @@ enfoques algorítmicos, como el descenso por gradiente sobre todos los vectores 
 
 %\begin{remark}[PCA en línea] Para simplificar, todos los algoritmos que
 % presentamos en este capítulo suponen que se dispone de antemano 
-% de un conjunto suficiente de muestras $\X$. Esto no siempre es el
-% caso. En el caso de un aprendizaje continuo, es posible que necesitemos
+% de un conjunto suficiente de muestras $\X$. Esto no siempre es 
+% así. En el caso de un aprendizaje continuo, es posible que necesitemos
 % aprender la distribución (el subespacio) a partir de muestras que 
 % se nos proporcionan de una en una. A este problema se le suele denominar 
 % PCA {\em en línea}. Dejaremos el análisis para 
@@ -581,21 +582,21 @@ una aproximación de primer orden a un esquema de descenso por gradiente proyect
 tamaño de lote $1$, y con el número de columnas de $\vU$ igual a $1$) siempre que
 $\norm{\vu}_2 = 1$, lo cual se mantiene mediante la operación de proyección en
 \eqref{eqn:Hebbian}. Un \textit{algoritmo en línea} de este tipo es un elemento 
-básico útil para algoritmos más complejos que secuencialmente procesan datos con 
-estructura causal, tal como veremos con más detalle en la \Cref{sec:causal-crate} y
-la \Cref{sec:clm_text}. Curiosamente, y en términos más generales, el sencillo
+básico útil para algoritmos más complejos que que procesan datos con estructura 
+secuencial y causal, como veremos con más detalle en la \Cref{sec:causal-crate} y
+la \Cref{sec:clm_text}. Curiosamente y en términos más generales, el sencillo
 algoritmo de PCA en línea sugiere que \textit{algoritmos más sencillos que la 
-retropropagación (de extremo a extremo) pueden lograr aprender pares 
-codificador-decodificador}, lo cual revisaremos brevemente en el \Cref{ch:future} 
+retropropagación (de extremo a extremo) pueden lograr aprender pares de 
+codificador y decodificador}, lo cual revisaremos brevemente en el \Cref{ch:future} 
 como un objetivo importante para el estudio futuro de la inteligencia.
 
-\subsection{La perspectiva estadística: PCA probabilística}
+\subsection{La perspectiva estadística: PCA probabilístico}
 \label{subsec:probabilistic PCA}
 
 Nótese que la formulación anterior no establece ningún supuesto estadístico sobre el
 proceso generador de datos. Sin embargo, es habitual incluir elementos estadísticos
-en un modelo de datos dado, ya que pueden aportar interpretaciones más esclarecedoras
-sobre el resultado del análisis. Por lo tanto, nos surge la pregunta lógica:
+en un modelo de datos dado, ya que pueden aportar interpretaciones adicionales más esclarecedoras
+sobre el resultado del análisis. Por lo tanto, nos surge la pregunta natural:
 \textit{¿Cuál es el análogo estadístico de una estructura de baja dimensión?}
 Nuestra respuesta es que una \textit{distribución} de baja dimensión es aquella 
 cuyo soporte se concentra en torno a una estructura geométrica de baja dimensión.
@@ -632,7 +633,7 @@ calcular su valor concreto \(\vz(\vx)\) por separado para cada valor de
     \min_{\tilde{\vU}}\Ex\norm{\vx - \tilde{\vU}\tilde{\vU}^{\top}\vx}_{2}^{2},
 \end{equation}
 reafirmando una vez más el hecho de que el subespacio estimado con
-componentes principales \(\vU^{\star}\) corresponde a un filtro de reducción de ruido
+componentes principales \(\vU^{\star}\) corresponde a un \textit{denoiser}
 \(\vU^{\star}(\vU^{\star})^{\top}\) que se proyecta sobre ese
 subespacio. Como antes, obtenemos
 \begin{align}\label{eq:PPCA}
@@ -690,7 +691,7 @@ de \(\Cov[\vx]\).
     \begin{equation}
         \vU^{\star}(\vU^{\star})^{\top} = \vU\vU^{\top}
     \end{equation}
-    y así, el verdadero subespacio generador, sea \(\cS \doteq
+    y así, el verdadero subespacio de soporte, sea \(\cS \doteq
     \mathop{\mathrm{col}}(\vU)\), se
     obtiene como el espacio generado por las columnas de \(\vU^{\star}\), ya que
     \begin{equation}
@@ -698,7 +699,7 @@ de \(\Cov[\vx]\).
         = \mathop{\mathrm{col}}(\vU^{\star}(\vU^{\star})^{\top})
         = \mathop{\mathrm{col}}(\vU^{\star}).
     \end{equation}
-    En concreto, el denominado \textit{mapa de eliminación de ruido}
+    En concreto, el \textit{mapa de eliminación de ruido} estimado
     \(\vU^{\star}(\vU^{\star})^{\top}\) es una proyección ortogonal
     sobre \(\cS\), que empuja los puntos con ruido hacia el subespacio de soporte
     de la verdad de referencia (ground truth). Podemos obtener un resultado técnico similar
@@ -712,29 +713,29 @@ de \(\Cov[\vx]\).
     \begin{equation}
         \vx = \vU\vz + \veps
     \end{equation}
-    donde \(\vU \in \O(D, d)\) representa la \textit{estructura de bajo rango}, \(\vz\)
+    donde \(\vU \in \O(D, d)\) captura la \textit{estructura de bajo rango}, \(\vz\)
     es un vector aleatorio que toma valores en \(\R^{d}\) y \(\veps\) es un vector aleatorio
     que toma valores en \(\R^{D}\), de tal manera que \(\vz\) y \(\veps\) son
     independientes y \(\veps\) es pequeño. Entonces, las \textit{componentes principales}
-    \(\vU^{\star} \in \O(D, d)\) de nuestro conjunto de datos vienen dados por los \(d\) primeros
+    \(\vU^{\star} \in \O(D, d)\) de nuestro conjunto de datos vienen dadas por los \(d\) primeros
     vectores propios de \(\Ex[\vx\vx^{\top}]\) y corresponden aproximadamente al
-    filtro de reducción de ruido lineal óptimo: \(\vU^{\star}(\vU^{\star})^{\top}
+    \textit{denoiser} lineal óptimo: \(\vU^{\star}(\vU^{\star})^{\top}
     \approx \vU\vU^{\top}\).
 \end{theorem}
 
-\subsection{Completamiento de matrices de bajo rango con máscara}
+\subsection{Completamiento enmascarado de matrices de bajo rango}
 
-En las subsecciones anteriores, analizamos el problema de \textit{aprender 
+En las subsecciones anteriores, examinamos el problema de \textit{aprender 
 una distribución geométrica o estadística de bajo rango}, en la que los 
 datos se obtuvieron mediante muestreo de un subespacio con ruido aditivo. Pero
 este no es el único tipo de perturbación derivada de una distribución de baja dimensión
-que vale la pena estudiar. En este apartado, presentamos otra clase de errores 
+que vale la pena estudiar. En esta sección, presentamos otra clase de errores 
 no aditivos que están cobrando cada vez más importancia en el aprendizaje profundo.
 Consideremos el caso en el que tenemos unos datos \(\{\vx_{i}\}_{i = 1}^{N}\) generados
 según \eqref{eq:pca_dgp}. Ahora los organizamos en una matriz
 \(\vX = \mat{\vx_{1}, \dots, \vx_{N}} \in \R^{D \times N}\). A diferencia del
 caso anterior, no observamos \(\vX\) directamente; en su lugar, imaginamos que
-nuestra observación se vio alterada en el camino y que obtuvimos
+nuestra observación se vio corrupta en el camino y que obtuvimos
 \begin{equation}
     \vY = \vM \hada \vX,
 \end{equation}
@@ -742,10 +743,10 @@ donde \(\vM \in \{0, 1\}^{D \times N}\) es una \textit{máscara} que conocemos
 y \(\hada\) es la multiplicación elemento por elemento. En este caso, nuestro objetivo
 es recuperar \(\vX\) (a partir de ahí podemos utilizar el PCA para recuperar
 \(\vU\), etc.), partiendo únicamente de la observación corrupta \(\vY\), la máscara
-\(\vM\) y el hecho de que \(\vX\) es (aproximadamente) de bajo rango.
+\(\vM\) y el conocimiento de que \(\vX\) es (aproximadamente) de bajo rango.
 Esto se denomina \textit{completamiento de matrices de bajo rango}. 
 
-Este y otros problemas similares de recuperación de estructuras de bajo rango
+Este y otros problemas similares generalizados de recuperación de estructuras de bajo rango
 se denominan problemas de «PCA robusta». Existen
 muchas fuentes excelentes que analizan algoritmos y enfoques para
 resolver estos problemas \cite{Wright-Ma-2022}. Por lo tanto, no entraremos
@@ -755,7 +756,7 @@ en el caso más absurdo, supongamos que cada entrada de la matriz
 \(\vX\) se eligiera independientemente de todas las demás. Entonces
 no habría ninguna posibilidad de recuperar \(\vX\) con exactitud, incluso si solo faltara una entrada
 y tuviéramos \(DN - 1\) entradas. Por otro lado,
-supongamos que sabemos que \(\vX\) tiene exactamente rango 1, lo cual es una
+supongamos que \(\vX\) tuviera exactamente rango 1, lo cual es una
 condición extremadamente fuerte sobre la estructura de baja dimensión de los
 datos y que estuviéramos trabajando con la máscara
 \begin{equation}
@@ -763,16 +764,16 @@ datos y que estuviéramos trabajando con la máscara
     1)} \\ 1 & \vone_{1 \times (N - 1)} }.
 \end{equation}
 Entonces sabemos que los datos se distribuyen en una recta y conocemos un vector en
-esa recta: es precisamente la primera columna de la matriz \(\vY = \vM
+esa recta: no es más que la primera columna de la matriz \(\vY = \vM
 \hada \vX\). A partir de la última coordenada de cada columna, que también nos revela
 la máscara, podemos resolver cada columna, ya que para cada coordenada final
 solo hay un vector en la recta que pasa por esa coordenada. De este modo, podemos 
 reconstruir \(\vX\) con total precisión, para lo que solo necesitamos un número 
 lineal de observaciones \(D + N - 1\).
 
-En el mundo real, los problemas reales se sitúan en algún punto intermedio entre los dos
-casos extremos mencionados anteriormente. Sin embargo, las diferencias entre estos dos
-extremos, así como el análisis anterior sobre el PCA, revelan un
+En el mundo real, los problemas concretor se sitúan en algún punto intermedio entre los dos
+casos límite mencionados anteriormente. Sin embargo, las diferencias entre estos dos
+extremos, así como la discusión anterior sobre el PCA, revelan un
 núcleo general de verdad:
 \begin{quote}
     \centering
@@ -781,10 +782,10 @@ núcleo general de verdad:
         observaciones se necesitan, siempre y cuando el algoritmo aproveche eficazmente
     esta estructura de baja dimensión.}
 \end{quote}
-Como era de esperar, nos encontraremos con este motivo una y otra vez en
-el resto del manuscrito, empezando por la siguiente sección.\footnote{En capítulos 
+Como cabía esperar, nos encontraremos con este motivo una y otra vez en
+el resto del manuscrito, empezando ya en la siguiente sección.\footnote{En capítulos 
     posteriores, veremos que es posible completar datos del mundo real, como imágenes, 
-    con solo una fracción de observaciones sin enmascarar; por ejemplo, la auto-codificación 
+    con solo una fracción de observaciones sin enmascarar; por ejemplo, la autocodificación 
     enmascarada de imágenes en la \Cref{sec:image_completion}. Esto se debe también a que la 
     distribución de las imágenes naturales presenta estructuras de dimensiones bastante bajas 
     (aunque no lineales) en el espacio de todas las imágenes.}
@@ -793,7 +794,7 @@ el resto del manuscrito, empezando por la siguiente sección.\footnote{En capít
 \label{sec:ica}
 Como hemos visto, los modelos de señales de bajo rango son lo suficientemente 
 ricos en estructura como para ofrecer una visión global de la interacción entre 
-la baja dimensión de los datos y los algoritmos computacionales eficientes 
+la dimensionalidad baja de los datos y los algoritmos computacionales eficientes 
 y escalables para la representación y recuperación en presencia de errores.
 Estos modelos implican un proceso de aprendizaje de representaciones \textit{lineal} y simétrico
 \eqref{eqn:autoencoding-PCA}:
@@ -807,8 +808,8 @@ Se trata de una hipótesis restrictiva, pues, tal y como objetó Harold Hotellin
 distinguido estadístico del siglo XX,\footnote{Por casualidad,
     también famoso por sus contribuciones al desarrollo y la denominación del
 Análisis de Componentes Principales \cite{Hotelling1933}.} 
-tras la presentación por parte de George Dantzig de su teoría de la
-programación lineal por primera vez \cite{Dantzig2002-eh},
+cuando George Dantzig presentó por primera vez su teoría de la
+programación lineal\cite{Dantzig2002-eh},
 \begin{quote}
     \centering
     \textit{``...todos sabemos que el mundo es no lineal.''}
@@ -819,7 +820,7 @@ programación lineal por primera vez \cite{Dantzig2002-eh},
     \includegraphics[height=0.35\linewidth]{\toplevelprefix/chapters/chapter2/figs/motion.png}
     \hspace{5mm}
     \includegraphics[height=0.349\linewidth]{\toplevelprefix/chapters/chapter2/figs/segment.png}
-    \caption{\textbf{Izquierda:} características detectadas en objetos que se mueven en forma independiente
+    \caption{\textbf{Izquierda:} características rastreadas en objetos que se mueven en forma independiente
         dentro de una escena. \textbf{Derecha:} fragmentos de imagen asociados a
     diferentes regiones de una imagen.}
     \label{fig:multiple-subspaces}
@@ -832,7 +833,7 @@ responsable de generar las observaciones estructuradas. En muchas aplicaciones
 prácticas, la estructura generada por una \textit{mezcla} de
 subespacios distintos de baja dimensión ofrece un modelo más realista.
 Por ejemplo, consideremos una secuencia de vídeo que captura el movimiento de
-varios objetos distintos, cada uno de los cuales está sujeto a su propio 
+varios objetos distintos, cada uno de los cuales con su propio 
 desplazamiento independiente (\Cref{fig:multiple-subspaces} a la izquierda).
 Bajo supuestos adecuados sobre los movimientos individuales, cada objeto
 se convierte en responsable de un subespacio independiente de baja dimensión en
@@ -840,14 +841,14 @@ la secuencia concatenada de fotogramas de vídeo \cite{VidalR2004-ECCV}.
 Como otro ejemplo, pensemos en la modelación de imágenes naturales mediante el aprendizaje de un modelo para
 la distribución de \textit{parches}, conjuntos de píxeles espacialmente contiguos 
 dentro de una imagen (\Cref{fig:multiple-subspaces} a la derecha). A diferencia del
-entorno simplificado de la \Cref{fig:faces-digits}, donde las imágenes de
-rostros con poses similares pueden aproximarse bien mediante un único
+entorno simplificado de la \Cref{fig:faces-digits}, donde las imágenes con poses
+correspondientes pueden aproximarse bien mediante un único
 subespacio de baja dimensión, el fragmento situado en una ubicación específica de una
 imagen natural puede corresponder a objetos con propiedades muy diferentes,
-por ejemplo, colores o formas distintos debido a los límites de oclusión.
+por ejemplo, colores o formas distintos debido a los bordes de la oclusión.
 Por lo tanto, modelar la distribución de los parches con un único subespacio 
-resulta inútil, pero una \textit{mezcla} de subespacios, uno para cada región, 
-ofrece unos resultados sorprendentemente buenos en la práctica, por ejemplo, para
+resulta estéril, pero una \textit{mezcla} de subespacios, uno para cada región, 
+ofrece unos resultados que funcionan sorprendentemente bien en la práctica, por ejemplo, para
 fines de segmentación o compresión \cite{Mobahi-IJCV2011}.\footnote{Volveremos 
     sobre esta observación en el \Cref{ch:deep-networks}, donde demostraremos que 
     puede generalizarse de manera significativa para aprender representaciones de 
@@ -857,13 +858,13 @@ conjuntos de datos modernos a gran escala.} Veremos un ejemplo concreto en un ca
 % \begin{figure}
 %     \centering
 %     \includegraphics[height=0.35\linewidth]{\toplevelprefix/chapters/chapter2/figs/subspaces.png}
-%     \caption{Datoa en una mezcla de subespacios de baja dimensión, por ejemplo,
+%     \caption{Datos sobre una mezcla de subespacios de baja dimensión, por ejemplo,
 % $\mathcal{S}_j
 %     = \mathop{\mathrm{col}}(\vU_j)$.}
 %     \label{fig:subspaces}
 % \end{figure}
 
-En esta sección, comenzaremos analizando los fundamentos conceptuales y algorítmicos
+En esta sección, comenzaremos examinando los fundamentos conceptuales y algorítmicos
 del aprendizaje de representaciones estructuradas cuando la distribución de los datos
 puede modelarse mediante {\em una mezcla de subespacios de baja dimensión}, tal y como
 se ilustra en la \Cref{fig:subspaces}. En este contexto, el mapeo del decodificador
@@ -872,23 +873,23 @@ simplemente lo representamos mediante
 \begin{equation}\label{eq:mixture-subspaces-decoder-first-cut}
     \hat{\x} = \cD(\vz) = \left( \sum_{k=1}^K \pi_k(\vz)\vU_k \right) \vz,
 \end{equation}
-donde $\pi_k : \R^d \to \{0,1\}$ es un conjunto de variables aleatorias de ponderación \textit{dispersas},
+donde $\pi_k : \R^d \to \{0,1\}$ es un conjunto de variables aleatorias de ponderación \textit{esparsas},
 de tal manera que en la suma solo se selecciona un único subespacio $\mathcal{S}_k
 = \mathop{\mathrm{col}}(\vU_k)$. Sin embargo, la tarea de codificar dichos datos $\vx$ en representaciones adecuadas
 $\vz$ y de aprender dicho par codificador-decodificador a partir de los datos, resultará más compleja.
 
-Veremos cómo las ideas extraídas de la amplia bibliografía sobre \textit{representación dispersa}
+Veremos cómo las ideas que provienen de la amplia bibliografía sobre \textit{representación esparsa}
 y \textit{análisis de componentes independientes} conducen a una reformulación natural de
-la arquitectura del decodificador anterior desde la perspectiva de la dispersión, la arquitectura
+la arquitectura del decodificador anterior desde la perspectiva de la esparcidad, la arquitectura
 correspondiente del codificador (obtenida mediante un algoritmo similar al método de potencias, análogo
 al del análisis de componentes principales) y garantías sólidas de corrección
 y eficiencia para el aprendizaje de dichos pares codificador-decodificador a partir de los datos.
-En este sentido, el caso de las estructuras lineales mixtas de baja dimensión ya nos lleva a muchas de las
+En este sentido, el caso de la estructura lineal mixta de baja dimensión ya nos lleva a muchas de las
 componentes conceptuales clave del aprendizaje de representaciones estructuradas que
 desarrollaremos con una generalidad mucho mayor en este libro.
 
 \subsection{Mezclas de subespacios y diccionarios
-con codificación dispersa}
+con codificación esparsa}
 \label{sec:mixture-and-dict}
 
 Sea $\vU_1, \dots, \vU_K$, cada uno de tamaño $D \times d$, una 
@@ -919,7 +920,7 @@ $\mathop{\mathrm{col}}(\vU_k)$ con probabilidad $\pi_k$.
         \vx = \sum_{i=1}^n w_i \vx_i, \quad \vx_i \sim
         \cN(\mathbf{0}, \vU_i\vU_i^\top),
     \end{equation}
-    donde $\vx_i$ son vectores gaussianos aleatorios independientes y $w_i$
+    donde $\vx_i$ son vectores aleatorios gaussianos independientes y $w_i$
     son un conjunto de pesos fijos. Como sabemos por las propiedades de
     los vectores gaussianos, dicha superposición $\vx$ seguirá siendo una
     distribución gaussiana.
@@ -927,12 +928,12 @@ $\mathop{\mathrm{col}}(\vU_k)$ con probabilidad $\pi_k$.
 
 Por ahora, nos centramos en la perspectiva geométrica que ofrece
 \eqref{eq:mixture-of-subspaces-geometric}.
-Existe una alternativa algebraicamente más conveniente a esta
+Existe una alternativa algebraicamente conveniente a esta
 representación condicional. Consideremos un vector de representación \textit{elevado} $\vz
 = [\vz_1^\top, \dots, \vz_K^\top]^\top \in \R^{dK}$, tal que $\vz$
-es \textit{$d$-disperso} y tiene su soporte en uno de los $K$ bloques consecutivos
+es \textit{$d$-esparso} y tiene su soporte en uno de los $K$ bloques consecutivos
 no superpuestos de $d$ coordenadas de entre las $dK$. Entonces, 
-\eqref{eq:mixture-of-subspaces-geometric} puede escribirse en forma equivalente como
+\eqref{eq:mixture-of-subspaces-geometric} puede escribirse de forma equivalente como
 \begin{equation}\label{eq:mixture-of-subspaces-dictionary-pre}
     \vx =
     \underbrace{
@@ -952,27 +953,27 @@ no superpuestos de $d$ coordenadas de entre las $dK$. Entonces,
         \end{bmatrix}
     }_0 = 1.
 \end{equation}
-Aquí, la «norma» $\ell^0$ $\norm{\,\cdot\,}_0$ mide la dispersión
+Aquí, la «norma» $\ell^0$ $\norm{\,\cdot\,}_0$ mide la esparcidad
 contando el número de entradas distintas de cero:
 \begin{equation}\label{eq:ell-zero-norm}
     \norm{\vz}_0 = \abs*{\set{i \given z_i \neq 0}},
 \end{equation}
 y la matriz $\vU \in \R^{D \times Kd}$ se denomina \textit{diccionario}, 
-siendo todos los elementos $\{\vU_i\}_{i=1}^K$ palabras de código.
+cuyos bloques de columnas $\{\vU_i\}_{i=1}^K$ se llaman palabras de código.
 En general, si el número de subespacios en la mezcla $K$ es lo suficientemente
 grande, no hay ningún límite en cuanto al número de columnas que contiene el
 diccionario $\vU$. En el caso de que $Kd < D$, $\vU$ se denomina
-\textit{subcompleta}, cuando $Kd = D$, se denomina \textit{completa} y cuando $Kd > D$,
+\textit{subcompleta}, cuando $Kd = D$, se denomina \textit{completa}; y cuando $Kd > D$,
 se denomina \textit{sobrecompleta}.
 
 Ahora bien, \eqref{eq:mixture-of-subspaces-dictionary-pre} sugiere una
-relajación conveniente para facilitar el análisis: en lugar de
+relajación conveniente para la manejabilidad del análisis: en lugar de
 modelar $\vx$ como procedente de una mezcla de $K$ subespacios {específicos}
-$\vU_1, \dots, \vU_K$, podemos, en su lugar, comenzar con un
+$\vU_1, \dots, \vU_K$, podríamos, en su lugar, comenzar con un
 diccionario $\vU \in \R^{D \times m}$, donde $m$ puede ser menor o
 mayor que $D$, y simplemente buscar representar $\vx = \vU \vz$ con
-la dispersión $\norm{\vz}_0$ suficientemente pequeña.
-Esto nos lleva al \textit{modelo de diccionario disperso} para $\vx$:
+la esparcidad $\norm{\vz}_0$ suficientemente pequeña.
+Esto nos lleva al \textit{modelo de diccionario esparso} para $\vx$:
 \begin{equation}\label{eq:mixture-of-subspaces-dictionary}
     \vx =  \vU \vz + \veps,
     \quad
@@ -980,24 +981,24 @@ Esto nos lleva al \textit{modelo de diccionario disperso} para $\vx$:
 \end{equation}
 donde $\veps$ representa un vector de ruido desconocido. Desde el punto de 
 vista geométrico, esto implica que $\vx$ se encuentra cerca del espacio 
-generado por un subconjunto de columnas de $\vU$ con norma $\norm{\vz}_0$,
+generado por un subconjunto de $\norm{\vz}_0$ columnas de $\vU$,
 lo que convierte esto en una instancia del modelo de mezcla de subespacios
-\eqref{eq:mixture-of-subspaces-geometric} con un valor muy grande de
+\eqref{eq:mixture-of-subspaces-geometric} con un valor muy elevado de
 $K$ y correlaciones específicas entre los subespacios $\vU_k$.
 
-\paragraph{Diccionario ortogonal para una codificación dispersa.}
+\paragraph{Diccionario ortogonal para una codificación esparsa.}
 Ahora podemos formular el problema del aprendizaje de representaciones estructuradas
 para mezclas de subespacios de baja dimensión que estudiaremos en esta sección.
 Suponemos que disponemos de muestras $\vX = [\vx_1, \dots, \vx_N]$ procedentes de un
-modelo de diccionario disperso desconocido
+modelo de diccionario esparso desconocido
 \eqref{eq:mixture-of-subspaces-dictionary}, posiblemente con
-ruidos añadidos $\veps_i$.
+ruido añadido $\veps_i$.
 Partamos de la suposición de que el diccionario $\vU$ en el modelo de diccionario
-disperso \eqref{eq:mixture-of-subspaces-dictionary} es completo y
+esparso \eqref{eq:mixture-of-subspaces-dictionary} es completo y
 ortogonal,\footnote{Se puede demostrar que, para el caso completo,
     no perdemos generalidad al hacer la suposición de ortogonalidad
 (\Cref{exercise:whitening}).} y que cada vector de coeficientes $\vz$
-es $d$-disperso, con $d \ll D$.
+es $d$-esparso, con $d \ll D$.
 En este contexto, el aprendizaje de representaciones equivale a
 aprender correctamente el diccionario ortogonal $\vU$ mediante optimización:
 entonces podemos tomar $\cE(\vx) = \vU^\top \vx$ como codificador y $\cD(\vz) = \vU \vz$
@@ -1008,11 +1009,11 @@ como decodificador y $\cD = \cE^{-1}$. En forma de diagrama:
     \hspace{2mm}}   \hat{\vx}.
     \label{eqn:autoencoding-DL}
 \end{equation}
-Observamos que el par de auto-codificadores $(\cE, \cD)$ para el aprendizaje
+Observamos que el par $(\cE, \cD)$ de autocodificadores para el aprendizaje
 completo de un diccionario es simétrico, al igual que en el caso de un único
 subespacio lineal, lo que hace que la tarea computacional de codificación y decodificación no
 sea más difícil que en el caso lineal. Por otro lado, la tarea
-de aprender el diccionario $\vU$ es claramente más difícil que
+de aprender el diccionario $\vU$ es estrictamente más difícil que
 aprender un único subespacio lineal mediante el PCA.
 Para comprender por qué no podemos limitarnos a utilizar el PCA para aprender correctamente el
 diccionario ortogonal $\vU$, observemos que la
@@ -1020,47 +1021,47 @@ función de pérdida que dio origen al PCA, es decir, \eqref{eq:pca_equals_denoi
 completamente invariante ante las rotaciones de las filas de la matriz $\vU$: es decir, si
 $\vQ$ es cualquier matriz ortogonal $d \times d$, entonces tanto $\vU$ como $\vU \vQ$ son
 viables y tienen una pérdida idéntica para \eqref{eq:pca_equals_denoising}. El
-modelo de diccionario disperso no es, en absoluto, invariante ante tales transformaciones: si
+modelo de diccionario esparso no es, en absoluto, invariante ante tales transformaciones: si
 reemplazáramos $\vU$ por $\vU \vQ$ y realizáramos la rotación correspondiente $\vQ^\top \vz$
 de los coeficientes de representación $\vz$, en general destruiríamos
-la estructura de dispersión de $\vz$, lo que violaría la suposición del modelo.
+la estructura de esparcidad de $\vz$, lo que violaría la suposición del modelo.
 Por lo tanto, necesitamos nuevos algoritmos para aprender diccionarios ortogonales.
 
 \subsection{Aprendizaje de diccionarios completos}
 \label{sec:complete-dictionary}
 
 En esta sección, derivaremos algoritmos para resolver el problema del
-aprendizaje ortogonal de diccionarios. Para ser más precisos, suponemos que el
+aprendizaje de diccionarios ortogonales. Para ser más precisos, suponemos que el
 vector observado $\vx \in \R^D$ sigue un modelo estadístico
 \begin{equation}
     \vx = \vU \vz + \veps,
     \label{eq:ica-model-ch2}
 \end{equation}
 donde $\vU \in \R^{D \times D}$ es un diccionario ortogonal desconocido,
-$\vz$ es un vector aleatorio con componentes
-$z_i$ estadísticamente independientes, cada una con media cero, y $\veps \in \R^D$ es un vector aleatorio independiente
+$\vz$ es un vector de ruido aleatorio, cuyas componentes $z_i$ son independientes entre sí, 
+gaussianas y de pequeña magnitud, mientras $\veps \in \R^D$ es un vector aleatorio independiente
 de pequeños ruidos (gaussianos). El objetivo es recuperar
 $\vU$ (y, por lo tanto, $\vz$) a partir de muestras de $\vx$.
 
 Aquí suponemos que cada componente independiente $z_i$ sigue una distribución
 de la forma $$z_i \sim \dBern(\theta) \cdot \cN(0, 1/\theta).$$ Es decir,
-es el producto de una variable aleatoria de Bernoulli con una probabilidad
-de $\theta$ de ser $1$ y de $1-\theta$ de ser $0$ y una variable aleatoria gaussiana independiente
+es el producto de una variable aleatoria de Bernoulli con probabilidad
+ $\theta$ de tomar el valor $1$ y probabilidad $1-\theta$ de tomar el valor $0$ y una variable aleatoria gaussiana independiente
 con varianza $1/\theta$. Esta distribución se conoce formalmente como distribución {\em de Bernoulli-Gauss}.
 La normalización se elige de tal manera que $\Var(z_i) = 1$ y, por lo tanto,
-$\bE[\norm{\vz}_2^2]=d$. Este supuesto del modelado implica que el vector de componentes independientes
-$\vz$ suele ser muy disperso:
+$\bE[\norm{\vz}_2^2]=d$. Este supuesto de modelado implica que el vector de componentes independientes
+$\vz$ suele ser muy esparso:
 calculamos $\bE\left[\norm{\vz}_0\right] = d\theta$, que es pequeño
 cuando $\theta$ es inversamente proporcional a $d$.
 
-\begin{remark}[La suposición de ortononalidad]
+\begin{remark}[La suposición de ortogonalidad]
     A primera vista, la suposición de que el diccionario $\vU$ es
     ortogonal podría parecer algo restrictiva. Pero, en realidad,
     no hay ninguna pérdida de generalidad. Se puede considerar como un diccionario completo
     a cualquier matriz cuadrada invertible $\vU$. Con muestras
     generadas a partir de este diccionario: $\vX = \vU \vZ \in
     \mathbb{R}^{D\times N}$, es fácil demostrar que, con cierto
-    preprocesamiento de la matriz de datos $\vX$:
+    precondicionamiento de la matriz de datos $\vX$:
     \begin{equation}
         \bar{\vX} = \Big(\frac{1}{N\theta} \vX\vX^\top\Big)^{-\frac{1}{2}}\vX,
     \end{equation}
@@ -1075,30 +1076,30 @@ cuando $\theta$ es inversamente proporcional a $d$.
     \centering
     \includegraphics[width=0.6\linewidth]{\toplevelprefix/chapters/chapter2/figs/2DL4Sphere.png}\vspace{-0.1in}
     \caption{Maximizar la norma $\ell^4$ o minimizar la norma $\ell^1$ 
-    promueve la dispersión (para vectores sobre la esfera).}
+    promueve la esparcidad (para vectores sobre la esfera).}
     \label{fig:L4-sphere}
 \end{figure}
 
-\paragraph{Aprendizaje de diccionarios mediante el algoritmo MSP.}
+\paragraph{Aprendizaje de diccionarios mediante el algoritmo MSP}
 
 Supongamos ahora que se nos da un conjunto de observaciones:
 \begin{equation}
     \vx_i = \vU \vz_i + \veps_i,\ \forall i \in [N].
 \end{equation}
 Sea $\vX = [\vx_1, \dots, \vx_N]$ y $\vZ = [\vz_1, \dots, \vz_N]$.
-El objetivo es recuperar $\vU$ a partir de los datos $\vX$. Por lo tanto, dada
-cualquier matriz ortogonal $\vA \in \O(D)$,
+El objetivo es recuperar $\vU$ a partir de los datos $\vX$. Por lo tanto, para
+toda matriz ortogonal $\vA \in \O(D)$,
 \begin{equation}
     \vA\vx_i = \vA\vU \vz_i + \vA\veps_i
 \end{equation}
-sería casi dispersa si $\vA = \vU^\top$ (puesto que, según la hipótesis, el ruido
-$\veps_i$ es de pequeña magnitud).
+sería casi esparsa si $\vA = \vU^\top$ (puesto que, según la hipótesis, el ruido
+$\veps_i$ es de magnitud pequeña).
 
 Además, dado que $\vU$ es ortogonal y que $\veps$ es pequeño, el
 vector $\vx$ tiene una norma esperada predecible, es decir,
 $\bE[\norm{\vx}_2^2] \approx \bE[\norm{\vz}_2^2]=d$. Es un hecho
 conocido que, para vectores en una esfera, maximizar la norma $\ell^4$ es
-equivalente a minimizar la norma $\ell^0$ (para favorecer la dispersión),
+equivalente a minimizar la norma $\ell^0$ (para favorecer la esparcidad),
 \begin{equation}
     \argmax_{\vz \in
     \mathbb{S}^n}\|\vz\|_{4}\quad\Leftrightarrow\quad \argmin_{\vz
@@ -1118,13 +1119,13 @@ siguiente programa de optimización:
         \tilde{\vA} \vx_i
     }_4^4
 \end{equation}
-Esto se conoce como el problema de maximización de $\ell^4$ \cite{Zhai-2020}. Una vez que
+Esto se conoce como el problema de maximización de la norma $\ell^4$ \cite{Zhai-2020}. Una vez que
 encontramos la solución \(\vA^{\star}\), podemos calcular la transpuesta \(\vU^{\star}
 = (\vA^{\star})^{\top}\).
 \begin{remark}
     También se sabe que, para vectores en una esfera, minimizar la
     norma $\ell^1$ equivale a minimizar la norma $\ell^0$ (para
-    favorecer la dispersión),
+    favorecer la esparcidad),
     \begin{equation*}
         \argmin_{\vz \in
         \mathbb{S}^n}\|\vz\|_{1}\quad\Leftrightarrow\quad
@@ -1132,12 +1133,12 @@ encontramos la solución \(\vA^{\star}\), podemos calcular la transpuesta \(\vU^
     \end{equation*}
     lo cual también se ilustra en la \Cref{fig:L4-sphere}. Este hecho también puede
     aprovecharse para aprender el diccionario $\vA$ de manera eficaz y
-    eficiente. En realidad, esto ya se había estudiado antes de que se utilizara la norma $\ell^4$
-    que se emplea aquí. Los lectores interesados pueden consultar el trabajo de
+    eficiente. En realidad, este enfoque ya se había explorado con anterioridad a la norma $\ell^4$
+    empleada en este trabajo. Los lectores interesados pueden consultar el trabajo de
     \cite{qu2020findingsparsestvectorssubspace}.
 \end{remark}
 
-Tenga en cuenta que el problema anterior equivale al siguiente
+Obsérvese que el problema anterior equivale al siguiente
 problema de optimización con restricciones:
 \begin{equation}\label{eq:orthogonal-dictionary-learning-l4}
     \min\,
@@ -1152,13 +1153,13 @@ debe satisfacer la siguiente condición de «punto fijo»:
     \vA^{\star} = \mathcal{P}_{\mathrm O(D)}[( {\vA^{\star}
     \vX})^{\hada 3}\vX^\top],
 \end{equation}
-donde $\mathcal{P}_{\mathrm O(D)}[\,\cdot\,]$ es una proyección sobre el espacio de
+donde $\mathcal{P}_{\mathrm O(D)}[\,\cdot\,]$ es la proyección sobre el espacio de
 matrices ortogonales $\mathrm O(D)$.\footnote{Para cualquier matriz $\vM$
-    con SVD $\vM = \vU\bm \Sigma \vV^\top$, $\mathcal{P}_{\mathrm
-O(D)}[\vM] = \vU \vV^\top$. Dejamos esto como ejercicio para el lector.}
+    con SVD $\vM = \vU\bm \Sigma \vV^\top$, se tiene $\mathcal{P}_{\mathrm
+O(D)}[\vM] = \vU \vV^\top$. Se deja esto como ejercicio para el lector.}
 
-Para calcular el punto fijo de la ecuación anterior, en forma similar a como calculamos
-los vectores propios para el PCA \eqref{eqn:PCA-fixed-point}, podemos utilizar la siguiente
+Para calcular el punto fijo de la ecuación anterior, en forma similar a a la utilizada para calcular
+los vectores propios en el PCA \eqref{eqn:PCA-fixed-point}, podemos utilizar la siguiente
 iteración de potencias:
 \begin{equation}\label{eq:msp_iteration}
     \tilde{\vA}_{t+1} = \mathcal{P}_{\mathrm O(D)}[( {\tilde{\vA}_t
@@ -1169,7 +1170,7 @@ propuesto por \cite{Zhai-2020}. Se demostró que, en condiciones generales,
 un algoritmo voraz de este tipo converge efectivamente hacia la solución correcta
 a un ritmo superlineal.
 
-\begin{remark}[Optimicidad global de la maximización de $\ell^4$]\label{rem:L4-global}
+\begin{remark}[Optimalidad global de la maximización de $\ell^4$]\label{rem:L4-global}
     El problema de maximización con restricciones de $\ell^4$ es un programa
     no convexo. En general, \textit{no} se debe esperar que algún
     algoritmo voraz (por ejemplo, del tipo de descenso por gradiente) converja hacia
@@ -1186,8 +1187,8 @@ a un ritmo superlineal.
     y todos los puntos críticos son puntos de silla con una dirección de
     curvatura negativa. Por lo tanto, cualquier método de descenso capaz de
     evitar los puntos de silla estrictos encuentra, de manera demostrable,
-    soluciones óptimas globales. Para obtener información más detallada, los 
-    lectores interesados pueden consultar \cite{Qu2020Geometric}.
+    soluciones óptimas globales. Para una formulación más rigurosa, se remite al 
+    lector interesado a \cite{Qu2020Geometric}.
 \end{remark}
 
 \begin{remark}[Red profunda lineal estable]
@@ -1197,14 +1198,14 @@ a un ritmo superlineal.
     = \tilde{\vA}_t \vX$, entonces es fácil demostrar que
     $$\delta \vA_{t+1} = \mathcal{P}_{\mathrm O(D)}[(\vZ_t)^{\hada 3}
     \vZ_t^\top].$$
-    Si $\tilde{\vA}_t$ converge hacia el diccionario correcto $\vU$, entonces el
-    proceso de codificación iterativo anterior es esencialmente equivalente a una
+    Si $\tilde{\vA}_t$ converge al diccionario correcto $\vU$, entonces dicho
+    proceso iterativo de codificación es esencialmente equivalente a una
     «red lineal profunda»:
     $$\vZ \; \longleftarrow \; \vZ_{t+1} =  \underbrace{\delta
     \vA_{t+1} \delta \vA_{t} \ldots \delta \vA_{1}}_{\color{red}
-    \text{capas construidas hacia adelante}} \vX.$$
+    \text{capas construidas en el paso directo}} \vX.$$
     Téngase en cuenta que el cálculo de las transformaciones de incremento $\delta
-    \vA_{t+1}$ en cada capa depende únicamente de la salida de características de
+    \vA_{t+1}$ en cada capa depende únicamente de la salida (de características) de
     la capa anterior $\vZ_t$. La red es estable por naturaleza, ya que
     cada capa es una transformación ortogonal que conserva la norma. A pesar de su
     semejanza con una red profunda lineal, la retropropagación no es
@@ -1222,7 +1223,7 @@ pueden utilizarse para resolver el otro.\footnote{Analizamos este tema con
     establece una relación entre la naturaleza no gaussiana de las componentes independientes y
     el concepto puramente geométrico de simetría. Este problema está
     relacionado con nuestra observación anterior de que el PCA no sirve para
-    recuperar diccionarios ortogonales de uso disperso: en el contexto
+    recuperar diccionarios ortogonales de uso esparso: en el contexto
     estadístico, puede relacionarse con la invariancia rotacional de la distribución gaussiana
 (\Cref{exercise:gaussian-rot-invar}).}
 
@@ -1282,8 +1283,8 @@ Este objetivo es tan sencillo que podemos hacer afirmaciones contundentes
 sobre su corrección como formulación para recuperar el diccionario $\vU$.
 Por ejemplo, en el contexto poblacional donde $N \to \infty$,
 podemos utilizar las propiedades de aditividad de la curtosis
-(\Cref{exercise:kurtosis-linearity-properties}) y nuestra suposición
-de normalización de las componentes independientes para expresar el problema anterior
+(\Cref{exercise:kurtosis-linearity-properties}) y nuestra 
+normalización supuesta de las componentes independientes para expresar el problema anterior
 en forma equivalente como
 \begin{equation}\label{eq:kurtosis-maximization-sphere-population-simple}
     \max_{\norm{\tilde{\vw}}_2^2 = 1}\,
@@ -1292,7 +1293,7 @@ en forma equivalente como
 Se puede mostrar que, bajo el supuesto Bernoulli-gaussiano, el
 paisaje de optimización de este problema es «benigno»
 (\Cref{exercise:kurtosis-sphere-landscape}) --- lo que significa que todos los máximos locales
-de la función objetivo corresponden a la recuperación de uno de
+de la función objetivo corresponden a la recuperación de una de
 las componentes independientes.
 
 En la práctica, no podemos calcular directamente el cambio de variables que lleva de
@@ -1394,8 +1395,8 @@ del objetivo del PCA.
 
 \section{Una mezcla de subespacios sobrecompletos de baja dimensión}
 \label{sec:dictionary_learning}
-Como hemos visto, el aprendizaje de diccionarios completos se basa en una elegante
-teoría computacional en la que se mantiene una estructura de auto-codificación simétrica
+Como hemos visto, el aprendizaje de diccionarios completos cuenta con una elegante
+teoría computacional en la que se mantiene una estructura de autocodificación simétrica
 $\cE(\vx) = \vU^\top \vx$, $\cD(\vz) = \vU \vz$, junto con un
 algoritmo escalable similar al método de potencias (el algoritmo MSP) para aprender
 un diccionario/libro de códigos ortogonal $\vU$ a partir de los datos. No obstante, para
@@ -1415,13 +1416,13 @@ $\vA$.} y el modelo de señal
 Existen motivos tanto geométricos como físicos y de modelización para
 pasar al caso sobrecompleto.
 Desde el punto de vista geométrico, recordemos que en nuestra reducción original del modelo de datos de mezcla
-de subespacios al modelo de diccionario disperso, una mezcla de
+de subespacios al modelo de diccionario esparso, una mezcla de
 $K$ subespacios en $\R^D$, cada uno de dimensión $d$, dio lugar a un diccionario
-en forma $\vA \in \R^{D \times Kd}$. 
+de forma $\vA \in \R^{D \times Kd}$. 
 En otras palabras, los diccionarios sobrecompletos corresponden a
 mezclas \textit{más ricas} de subespacios, con más modos distintos de
-variabilidad para modelar la distribución de datos en espacios de alta dimensión.
-En lo que respecta al modelado, podríamos realizar un experimento computacional con
+variabilidad para modelar la distribución de datos de alta dimensión.
+En lo que respecta al modelado, podemos realizar un experimento computacional con
 datos del mundo real que ponga de manifiesto la capacidad de modelado adicional que aporta
 una representación sobrecompleta.
 
@@ -1440,23 +1441,23 @@ una representación sobrecompleta.
     \caption{Comparación de los átomos de diccionario aprendidos para diccionarios completos (ortogonales)
         y sobrecompletos, entrenados para reconstruir fragmentos de 8 × 8 tomados de los dígitos del MNIST.
         Ambos diccionarios se entrenan durante 6000 épocas en 10 000 fragmentos aleatorios con
-        contenido no trivial y los códigos dispersos se calculan con el objetivo LASSO
+        contenido no trivial y los códigos esparsos se calculan con el objetivo LASSO
         y $\lambda=0.1$ (véase \eqref{eq:sparse_dl_lasso}). Las escalas de colores
         utilizan el negro para los valores negativos y el blanco para
         los valores positivos. \textbf{En la parte superior:} Un diccionario ortogonal aprendido con el
         algoritmo MSP \eqref{eq:msp_iteration} está limitado a
         tener un máximo de $64$ átomos; Los átomos aprendidos se corresponden aproximadamente con
         un diccionario de tipo «pico y placa», y alcanzan niveles relativamente bajos
-        de dispersión en la reconstrucción
-        en los datos de prueba no utilizados (los códigos tienen una dispersión de aproximadamente 17
+        de esparcidad en la reconstrucción
+        en los datos de prueba no utilizados (los códigos son aproximadamente 17-esparsos
         en promedio, con respecto a un umbral de 10⁻¹). \textbf{En la parte inferior:} Por el contrario, un diccionario sobrecompleto
         (en este caso, con $8^3$
         átomos; visualizamos un subconjunto aleatorio de 64) aprende
         átomos de diccionario semánticamente significativos correspondientes a
         aristas orientadas con signo,
         que pueden ensamblarse para crear fragmentos de dígitos y lograr
-        niveles superiores de reconstrucción y dispersión. Los códigos tienen una dispersión de aproximadamente
-        $20$ en promedio, aunque son $8$ veces más grandes que los del
+        niveles superiores de reconstrucción y esparcidad. Los códigos son aproximadamente 20-esparsos
+        en promedio, aunque son $8$ veces más grandes que los del
         diccionario ortogonal. Para calcular el
         diccionario, utilizamos un optimizador basado en la minimización linealizada
         alternante proximal sobre una versión adecuadamente regularizada de
@@ -1471,24 +1472,24 @@ una representación sobrecompleta.
     Por el contrario, la \Cref{fig:ReconMNIST}(b) muestra el resultado de aplicar un 
     algoritmo de optimización para el aprendizaje de diccionarios sobrecompletos (que
     presentaremos en detalle más adelante en este capítulo) a estas muestras.
-    Nótese que las representaciones se vuelven mucho más dispersas y los
+    Nótese que las representaciones se vuelven mucho más esparsas y los
     libros de códigos mucho más interpretables: consisten en primitivas fundamentales
     para los trazos que componen los dígitos, es decir, aristas orientadas.
 \end{example}
 
-De hecho, el aprendizaje de diccionarios sobrecompleto se propuso originalmente como
+De hecho, el aprendizaje de diccionarios sobrecompletos se propuso originalmente como
 un algoritmo biológicamente plausible para la representación de imágenes, basado en
 evidencia empírica sobre cómo las primeras capas de la corteza visual representan
 los estímulos visuales \cite{Olshausen1996-ap,Olshausen1997-yv}.
 
-En el resto de esta sección, repasaremos los fundamentos conceptuales y
+En el resto de esta sección, expondremos los fundamentos conceptuales y
 computacionales del aprendizaje de diccionarios sobrecompletos.
 Suponiendo que el modelo \eqref{eq:model-DL-overcomplete} se cumple con
-códigos dispersos \(\vz\), un diccionario sobrecompleto \(\vA\) y un nivel de dispersión \(d\),
+códigos esparsos \(\vz\), un diccionario sobrecompleto \(\vA\) y un nivel de esparcidad \(d\),
 y dadas las muestras \(\vX = [\vx_1, \dots, \vx_N]\) de \(\vx\), queremos aprender
-un codificador \(\cE : \R^D \to \R^m\) que asigne a cada \(\vx\) su {código disperso}
+un codificador \(\cE : \R^D \to \R^m\) que asigne a cada \(\vx\) su {código esparso}
 \(\vz\), y un decodificador \(\cD(\vz) = \vA \vz\) que reconstruya cada \(\vx\) a partir de
-su código disperso. %
+su código esparso. %
 En forma de diagrama:
 \begin{equation}
     \x \xrightarrow{\hspace{4mm} \mathcal{E} \hspace{4mm}}  \z
@@ -1497,51 +1498,51 @@ En forma de diagrama:
 \end{equation}
 
 Comenzaremos por la construcción del codificador $\cE$.
-Trabajaremos por etapas: en primer lugar, \textit{partiendo del diccionario verdadero
-$\vA$}, mostraremos cómo el problema de la \textit{codificación dispersa} ofrece
-un algoritmo elegante, escalable y de corrección demostrable para recuperar
-el código disperso $\vz$ de $\vx$.
+Trabajaremos por etapas: en primer lugar, \textit{dado el diccionario verdadero
+$\vA$}, mostraremos cómo el problema de la \textit{codificación esparsa} ofrece
+un algoritmo elegante, escalable y cuya corrección es demostrable para recuperar
+el código esparso $\vz$ de $\vx$.
 Aunque este problema es NP-difícil en el peor de los casos, puede resolverse
 de manera eficiente y escalable para diccionarios $\vA$ que sean
 \textit{incoherentes}, es decir, que tengan columnas que no estén demasiado correlacionadas.
-La arquitectura del codificador que abarca esta solución ya no
+La arquitectura del codificador que resulta de esta solución ya no
 será simétrica: veremos que tiene la forma de una red profunda
 primitiva, que depende del diccionario $\vA$.
 
 A continuación, pasaremos a la tarea de aprender el decodificador $\cD$, o
 lo que es lo mismo, el diccionario sobrecompleto $\vA$.
 Derivaremos un algoritmo para el aprendizaje de diccionarios sobrecompletos que nos permita
-aprender simultáneamente el libro de códigos $\vA$ y los códigos dispersos
-$\vz$, utilizando ideas de la codificación dispersa.
+aprender simultáneamente el libro de códigos $\vA$ y los códigos esparsos
+$\vz$, utilizando ideas de la codificación esparsa.
 Por último, analizaremos una perspectiva más moderna sobre la codificación
-dispersa aprendible que nos lleva a una estructura de codificador-decodificador
+esparsa aprendible que nos lleva a una estructura de codificador-decodificador
 totalmente asimétrica, como alternativa a \eqref{eqn:autoencoding-DL-overcomplete}.
 En este caso, el decodificador corresponderá a una solución incremental al
-problema del aprendizaje de diccionarios dispersos y dará como resultado un par de
-codificador y decodificador similar a una red profunda para el aprendizaje de 
-diccionarios dispersos. Esta estructura anticipará muchos de los avances que se 
+problema del aprendizaje de diccionarios esparsos y dará como resultado un par 
+codificador-decodificador similar a una red profunda para el aprendizaje de 
+diccionarios esparsos. Esta estructura anticipará muchos de los avances que se 
 tratarán en el resto de la monografía, a medida que pasemos de los modelos 
 analíticos a las redes neuronales modernas.
 
-\subsection{Codificación dispersa con diccionario sobrecompleto}
+\subsection{Codificación esparsa con diccionario sobrecompleto}
 
 En esta sección, analizaremos el modelo de datos
-\eqref{eq:model-DL-overcomplete}, que da cabida a combinaciones lineales dispersas
+\eqref{eq:model-DL-overcomplete}, que da cabida a combinaciones lineales esparsas
 de numerosos motivos, o \textit{átomos}. Dados los datos \(\{\vx_{i}\}_{i =
     1}^{N} \subseteq
 \R^{D}\) que satisfacen este modelo, es decir, que pueden expresarse como
 \begin{equation}\label{eq:vectorized_sparse_dl_dgp}
     \vx_{i} = \vA\vz_{i} + \veps_{i}, \qquad \forall i \in [N]
 \end{equation}
-para algún diccionario $\vA \in \bR^{D \times m}$ con $m$ átomos, códigos dispersos
+para algún diccionario $\vA \in \bR^{D \times m}$ con $m$ átomos, códigos esparsos
 $\vz_i$ tales que $\norm{\vz_i}_0 \leq d$ y pequeños errores $\veps_i$,
-el problema de la codificación dispersa consiste en recuperar los códigos $\vz_i$ con la mayor precisión
+el problema de la codificación esparsa consiste en recuperar los códigos $\vz_i$ con la mayor precisión
 posible a partir de los datos $\vx_i$, dado el diccionario $\vA$.
 Los algoritmos eficientes para resolver este problema tienen éxito cuando
 el diccionario \(\vA\) es \textit{incoherente} en el sentido de que los
 productos internos \(\va_{i}^{\top}\va_{j}\) son uniformemente pequeños, por lo que los átomos son
 casi ortogonales.\footnote{Resulta que, en un espacio de alta dimensión, es
-    bastante fácil agrupar un número de vectores casi ortogonales que es
+    bastante fácil empaquetar un número de vectores casi ortogonales que es
     mucho mayor
 que la dimensión del espacio \cite{Wright-Ma-2022}.}
 
@@ -1554,7 +1555,7 @@ agrupar los \(\veps_{i}\) en \(\vE = \mat{\veps_{1}, \dots,
 \begin{equation}\label{eq:sparse_dl_dgp}
     \vX = \vA\vZ + \vE.
 \end{equation}
-Un enfoque natural para resolver el problema de la codificación dispersa consiste en buscar las señales más dispersas
+Un enfoque natural para resolver el problema de la codificación esparsa consiste en buscar las señales más esparsas
 que sean consistentes con nuestras observaciones, lo que nos lleva naturalmente al
 siguiente problema de optimización:
 \begin{equation}\label{eq:sparse_dl_lasso}
@@ -1563,7 +1564,7 @@ siguiente problema de optimización:
     \lambda \norm{\tilde{\vZ}}_{1}},
 \end{equation}
 donde se sabe que la norma \(\ell^1\) \(\norm{\tilde{\vZ}}_{1}\), tomada elemento por elemento,
-fomenta la dispersión de la solución \cite{Wright-Ma-2022}.
+fomenta la esparcidad de la solución \cite{Wright-Ma-2022}.
 Este problema de optimización se conoce como el problema LASSO.
 
 Sin embargo, a diferencia del PCA o del problema del aprendizaje de diccionarios completos, 
@@ -1572,7 +1573,7 @@ para calcular el \(\vZ^{\star}\) óptimo. Una alternativa natural es plantearse
 resolver el problema de optimización anterior con algoritmos del tipo de descenso por gradiente.
 Sea \(\cL(\tilde{\vZ}) = \norm{\vX - \vA\tilde{\vZ}}_{2}^{2} + \lambda
 \norm{\tilde{\vZ}}_{1}\).
-En teoría, podríamos intentar calcular \(\vZ^{\star}\) mediante las siguientes
+En principio, podríamos intentar calcular \(\vZ^{\star}\) mediante las siguientes
 iteraciones:
 \begin{equation}
     \tilde{\vZ}_{t+1} \leftarrow \tilde{\vZ}_t + \eta \nabla \cL(\tilde{\vZ}_t).
@@ -1590,7 +1591,7 @@ generalice el concepto de gradiente, conocido como subgradiente \(\partial
 \end{equation}
 Sin embargo, se sabe que la convergencia del descenso por subgradiente suele ser muy
 lenta. Por lo tanto, para este tipo de problemas de optimización, lo habitual es utilizar
-un algoritmo denominado «descenso de gradiente proximal». Ofrecemos una descripción técnica
+un algoritmo denominado «descenso de gradiente proximal». Ofrecemos un resumen técnico
 de este método en la \Cref{subsec:pgd}.
 
 La aplicación del gradiente proximal a la función objetivo de LASSO
@@ -1602,7 +1603,7 @@ de contracción y umbralización} (ISTA), que implementa la iteración
     \vA^{\top}(\vA\tilde{\vZ}_{t} - \vX)}, \quad \forall t \geq
     1,\label{eq:ista_update}
 \end{eqnarray}
-con un paso \(\eta \geq 0\) y el operador de umbral suave
+con un paso \(\eta \geq 0\) y el operador de umbralización suave
 \(S_{\alpha}\) definido para escalares mediante
 \begin{align}
     S_{\alpha}(x) &
@@ -1640,17 +1641,17 @@ directamente una tasa de convergencia precisa \cite{Wright-Ma-2022}.
             \node at (axis cs:1,-0.35) {$\lambda$};
             \node at (axis cs:-1,-0.35) {$-\lambda$};
 
-            % ReLU for comparison
+            % ReLU para comparación
             \addplot[dashed, black, opacity=0.8, domain=-3:0] {0};
             \addplot[dashed, black, opacity=0.8, domain=0:3]  {x};
 
         \end{axis}
     \end{tikzpicture}
-    \caption{Gráfico de la función de umbral suave
+    \caption{Gráfico de la función de umbralización suave
         \(S_{\lambda}\) (línea continua) comparada con la función de activación ReLU
-        \(x \mapsto \max\set{x, 0}\) (línea discontinua).
+        \(x \mapsto \max\set{x, 0}\) (línea de trazos).
         Entre \(-\lambda\) y \(+\lambda\), el valor
-        de \(S_{\lambda}\) se limita a \(0\), mientras que el valor
+        de \(S_{\lambda}\) se recorta a \(0\), mientras que el valor
         (absoluto) de las entradas grandes simplemente se reduce en \(\lambda\).
         A diferencia de ReLU, \(S_{\lambda}\) es simétrica y actúa tanto sobre
     las entradas positivas como sobre las negativas.}
@@ -1674,7 +1675,7 @@ simplemente desacoplando las transformaciones lineales (es decir, las multiplica
 añadiendo un sesgo y desplazando la no linealidad.
 La no linealidad en \eqref{eq:ista_update} es notablemente similar a la
 función de activación ReLU de uso común $x \mapsto \max\set{x, 0}$ en el aprendizaje profundo
----como se muestra en la \Cref{fig:soft-thresholding}, el operador de umbral suave es como una 
+---como se ilustra en la \Cref{fig:soft-thresholding}, el operador de umbral suave es como una 
 activación ReLU «con signo», que además se desplaza mediante un sesgo.
 Por lo tanto, la ISTA puede considerarse como una pasada hacia adelante de una red neuronal primitiva 
 (recurrente de una sola capa). En el \Cref{ch:deep-networks} defendemos que este tipo de operaciones 
@@ -1686,8 +1687,8 @@ Recordemos que tenemos el modelo de datos
 \begin{equation}\label{eq:overcomplete-dl-section-data-model}
     \vX = \vA\vZ + \vE,
 \end{equation}
-donde \(\vZ\) es un vector disperso y nuestro objetivo anterior era estimar
-\(\vZ\) a partir de la información de los datos \(\vX\) y los átomos del 
+donde \(\vZ\) es un vector esparso y nuestro objetivo anterior era estimar
+\(\vZ\) a partir de los datos \(\vX\) y los átomos del 
 diccionario \(\vA\).
 Ahora pasamos al caso más práctico y más difícil, en el que no conocemos
 ni \(\vA\) ni \(\vZ\) y tratamos de determinarlos a partir de un gran conjunto de datos.
@@ -1708,17 +1709,17 @@ $(c^{-1}\tilde{\vA}, c\tilde{\vZ})$ da lugar a un valor de pérdida
     \norm{\vX - \tilde{\vA}\tilde{\vZ}}_{F}^{2} + c\lambda
     \norm{\tilde{\vZ}}_{1}.
 \end{equation}
-Es evidente que esta pérdida se minimiza sobre $c$ al hacer que $c \to 0$,
-lo que equivale a hacer que el diccionario reescalado $c^{-1} \tilde{\vA}$ 
-tienda «al infinito». En particular, las iteraciones de cualquier algoritmo 
+Es evidente que esta pérdida se minimiza respecto de $c$ al tomar $c \to 0$,
+lo que equivale a hacer tender el diccionario reescalado $c^{-1} \tilde{\vA}$ 
+«al infinito». En particular, los iterados de cualquier algoritmo 
 de optimización que resuelva \eqref{eqn:DL-overcomplete-try} no convergerán.
 
-Este problema con \eqref{eqn:DL-overcomplete-try} se resuelve añadiendo
+Este problema con \eqref{eqn:DL-overcomplete-try} se trata añadiendo
 una restricción a la escala de las columnas del diccionario $\tilde{\vA}$.
 Por ejemplo, es habitual suponer que cada columna $\vA_j$ del
 diccionario $\vA$ en \eqref{eq:overcomplete-dl-section-data-model} tiene una norma $\ell^2$
-acotada---digamos, sin pérdida de generalidad, en $1$.
-A continuación, lo aplicamos como una restricción, estableciendo el objetivo
+acotada --- digamos, sin pérdida de generalidad, por $1$.
+A continuación, lo imponemos como una restricción, estableciendo el objetivo
 \begin{equation}
     \min_{\tilde{\vZ}, \tilde{\vA} \,:\, \norm{\tilde{\vA}_j}_2 \leq 1}
     \bc{\norm{\vX - \tilde{\vA}\tilde{\vZ}}_{F}^{2} + \lambda
@@ -1729,22 +1730,22 @@ Los problemas de optimización con restricciones, como el de la ecuación \eqref
 pueden resolverse mediante una gran variedad de algoritmos sofisticados
 \cite{nocedal2006numerical}. Sin embargo, una solución simple y escalable es, de hecho,
 la que ofrece el mismo algoritmo de descenso por gradiente proximal que
-utilizamos para resolver el problema de la codificación dispersa en la sección anterior.
+utilizamos para resolver el problema de la codificación esparsa en la sección anterior.
 Podemos codificar cada restricción como un término de regularización adicional, mediante la
-función característica del conjunto de restricciones---los detalles se ofrecen en el
+función característica del conjunto de restricciones---los detalles se exponen en el
 \Cref{example:prox-of-characteristic-function}.
 La aplicación del descenso por gradiente proximal al problema regularizado resultante es
 equivalente al \textit{descenso por gradiente proyectado}, en el que, en
-cada iteración, las iteraciones, tras dar un paso de descenso por gradiente, se proyectan sobre el
+cada iteración, los iterados, tras dar un paso de descenso por gradiente, se proyectan sobre el
 conjunto de restricciones.
 
 \begin{remark}[Maximización de $\ell^4$ vs minimización de $\ell^1$]
     Cabe señalar que la formulación del problema anterior se deriva naturalmente de la formulación LASSO
-    \eqref{eq:sparse_dl_lasso} para la codificación dispersa. Promovemos la
-    dispersión de la solución mediante la norma \(\ell^1\).
+    \eqref{eq:sparse_dl_lasso} para la codificación esparsa. Promovemos la
+    esparcidad de la solución mediante la norma \(\ell^1\).
     No obstante, si solo nos interesa recuperar el
     diccionario sobrecompleto \(\vA\), el esquema de maximización de \(\ell^4\)
-    presentado en la \Cref{sec:complete-dictionary} también
+    introducido en la \Cref{sec:complete-dictionary} también
     se generaliza al caso sobrecompleto, sin ninguna
     modificación significativa. Los lectores interesados pueden consultar el
     trabajo de \cite{Qu2020Geometric}.
@@ -1756,7 +1757,7 @@ tanto \(\vA\) como \(\vZ\) son desconocidos. No se puede resolver fácilmente co
 herramientas estándar de optimización convexa. No obstante, dado que es interesante,
 fácil de formular y de gran relevancia práctica, se han dedicado numerosos trabajos importantes a
 los distintos algoritmos y análisis teóricos relacionados con este problema.
-En este trabajo, presentamos un enfoque idiomático para resolver este problema
+En el marco de este trabajo, presentamos un enfoque idiomático para resolver este problema
 que se ajusta más al espíritu del aprendizaje profundo.
 
 A partir de nuestra experiencia con el problema LASSO anterior, es fácil
@@ -1784,26 +1785,26 @@ esquema iterativo:
     &\vA_+ = \tilde{\vA}_T,
 \end{align}
 donde la operación de proyección en la actualización de $\vA$ garantiza
-que cada columna tenga una norma $\ell^2$ máxima de la unidad, 
+que cada columna tenga una norma $\ell^2$ máxima no mayor que la unidad, 
 mediante $\vA_j \mapsto \vA_j / \max \set{\norm{\vA_j}_2,1}$ y 
 donde $\vA_+$ se inicializa con cada columna independiente e 
 idénticamente distribuida $\cN(\Zero, \tfrac{1}{D} \vI)$.
-Lo anterior consiste en un «bloque» de minimización alternada,
-repitiéndose dichos bloques, cada uno con inicializaciones 
-independientes, hasta alcanzar la convergencia.
+Lo anterior consiste en un «bloque» de minimización alternada
+y se repiten dichos bloques ---cada uno con inicializaciones 
+independientes--- hasta alcanzar la convergencia.
 Arriba, hemos utilizado dos índices distintos, $\{t\}$ y $\{\ell\}$
 para indicar las iteraciones. Como veremos más adelante, esto nos 
 permite interpretar las dos actualizaciones por separado en el 
 contexto del aprendizaje profundo.
 
 A pesar de que el problema del aprendizaje de diccionarios es un problema no convexo,
-se ha demostrado que los algoritmos de tipo de minimización alternada convergen efectivamente hacia
+se ha demostrado que los algoritmos de minimización alternada convergen efectivamente hacia
 la solución correcta, al menos localmente. Véase, por ejemplo, \cite{alekh-2016}.
 A modo de demostración práctica, se utilizó el algoritmo anterior (con $L = T =
 1$) para generar los resultados del aprendizaje de diccionarios sobrecompletos que se muestran en
 la \Cref{fig:ReconMNIST}.
 
-\subsection{Codificación dispersa profunda aprendida}
+\subsection{Codificación esparsa profunda aprendida}
 \label{sec:LISTA}
 La idea principal del algoritmo de minimización alternada para
 el aprendizaje de diccionarios sobrecompletos en la sección anterior
@@ -1814,9 +1815,9 @@ el aprendizaje de diccionarios sobrecompletos en la sección anterior
     por \(\vA\) (y
 \(\vA^{\top}\))}. Pero, en general, no conocemos el verdadero $\vA$,
 y la estimación actual $\vA_+$ podría ser errónea. Por lo tanto, es 
-necesario actualizarla utilizando \eqref{eqn:DL-update} a partir del 
+necesario actualizarla aún más utilizando \eqref{eqn:DL-update} a partir del 
 residuo obtenido al utilizar la estimación actual de los
-códigos dispersos $\vZ^+$ para reconstruir $\vX$. El algoritmo de minimización alternada
+códigos esparsos $\vZ^+$ para reconstruir $\vX$. El algoritmo de minimización alternada
 repite estos dos procedimientos hasta alcanzar la convergencia. Pero, en su lugar,
 podemos extrapolar y diseñar otros procedimientos de aprendizaje combinando
 estas ideas con técnicas del aprendizaje profundo. Esto da lugar a arquitecturas 
@@ -1830,7 +1831,7 @@ a partir de \(\vX\). El problema puede simplificarse considerablemente y las ite
 anteriores pueden hacerse mucho más eficientes en el contexto \textit{supervisado}, donde
 disponemos de un conjunto de datos de pares de entrada y salida \((\vX, \vZ)\) distribuidos 
 según \eqref{eq:overcomplete-dl-section-data-model} y solo buscamos aprender
-\(\vA^\ell\) para las iteraciones de codificación dispersa aprendible por capas
+\(\vA^\ell\) para las iteraciones de codificación esparsa aprendible por capas
 \eqref{eq:ISTA-update-layerwise}:\footnote{Omitimos los acentos de «tilde»
     aquí por motivos de concisión, ya que la indexación deja
 clara la dependencia de la optimización.}
@@ -1863,18 +1864,18 @@ la verdad de referencia (ground truth) $\vZ$:
 Esta es la base del algoritmo Learned ISTA (LISTA)
 \cite{gregor2010learning}, que puede considerarse como el algoritmo de aprendizaje
 de una red neuronal profunda, que intenta emular el
-proceso de codificación dispersa de $\vX$ a $\vZ$. En concreto,
+proceso de codificación esparsa de $\vX$ a $\vZ$. En concreto,
 se puede considerar como un \textit{algoritmo simple de aprendizaje de representaciones}.
 De hecho, esta misma metodología puede servir de base para comprender las
 representaciones calculadas en arquitecturas de red más potentes, como
 los transformers. Desarrollamos estas implicaciones en detalle en
 el \Cref{ch:deep-networks}.
 
-\paragraph{Auto-codificadores dispersos.}
+\paragraph{Autocodificadores esparsos.}
 La motivación original del aprendizaje de diccionarios sobrecompletos era proporcionar
 un modelo generativo sencillo para datos de alta dimensión. Hemos visto
 con LISTA que, además, los algoritmos iterativos para el aprendizaje de diccionarios sobrecompletos
-utilizados de manera dispersa ofrecen una interpretación de las redes profundas de tipo ReLU, que
+utilizados de manera esparsa ofrecen una interpretación de las redes profundas de tipo ReLU, que
 generalizaremos en capítulos posteriores a distribuciones de datos más complejas que
 \eqref{eq:overcomplete-dl-section-data-model}.
 Pero también cabe señalar que, incluso en la era moderna de los grandes
@@ -1885,7 +1886,7 @@ para
 \textit{interpretar características en redes profundas preentrenadas a gran escala}, 
 tales como los transformers, siguiendo la hipótesis de que las
 características (no interpretables, \textit{a priori}) en estas redes consisten 
-en «superposiciones» dispersas de características subyacentes, las cuales son 
+en «superposiciones» esparsas de características subyacentes, las cuales son 
 a su vez interpretables \cite{elhage2022superposition}. Estos paradigmas de 
 aprendizaje \textit{sin supervisión} suelen ser también más eficientes en 
 cuanto al uso de datos que LISTA, que requiere grandes cantidades
@@ -1908,28 +1909,28 @@ las cuales se seleccionan en función de la tarea de interpretación deseada.\fo
 con mayor detalle en el \Cref{ch:applications}.} Para simplificar, utilizaremos $h$ para denotar el mapa de 
 características preseleccionado en cuestión, con características de dimensión $D$; dadas $N$ entradas de 
 muestra, sea $\vH \in \bR^{D \times N}$ la matriz completa de características de $h$.
-A continuación, se entrena un auto-codificador disperso $f : \bR^D \to \bR^d$, con
+A continuación, se entrena un autocodificador esparso $f : \bR^D \to \bR^d$, con
 un decodificador $g : \bR^d \to \bR^D$, mediante la función de pérdida 
 LASSO \eqref{eq:sparse_dl_lasso}:
 \begin{equation}\label{eq:sae-loss}
     \min_{f, g} \| \vH - g(f(\vH))) \|_F^2 + \lambda \|f(\vH)\|_1 ,
 \end{equation}
-donde el auto-codificador disperso $f$ adopta la forma de una red neuronal de una sola capa,
+donde el autocodificador esparso $f$ adopta la forma de una red neuronal de una sola capa,
 es decir, $f(\vh_i) = \sigma(\vW_{\mathrm{enc}}(\vh_i - \vb)
 + \vb_{\mathrm{enc}})$, donde $\sigma(x) = \max \{x, 0\}$ es la función de activación ReLU
 y el decodificador $g$ es lineal, de modo que $g(\vz_i)
 = \vW_{\mathrm{dec}}\vz + \vb$.\footnote{Dado que \(f\) es un operador de
-    dispersión, lo denotamos de manera análoga al \(f\) utilizado anteriormente, por ejemplo,
+    esparcidad, lo denotamos de manera análoga al \(f\) utilizado anteriormente, por ejemplo,
     en LISTA, donde \(f\) denota un algoritmo de optimización para codificar en forma
-    dispersa la entrada. A lo largo del libro, se utilizará \(f\) para referirse a
-    esas transformaciones dispersas y estructuradas de otro modo, incluidas las
+    esparsa la entrada. A lo largo del libro, se utilizará \(f\) para referirse a
+    esas transformaciones esparsas y estructuradas de otro modo, incluidas las
     de los \textit{codificadores de redes profundas}
 (\Cref{ch:lossy-compression,ch:deep-networks}).}
 
 El procedimiento de parametrización y entrenamiento \eqref{eq:sae-loss} puede parecer inicialmente
 una aplicación arbitraria del aprendizaje profundo al problema de la codificación
-dispersa, pero en realidad está muy en consonancia con los algoritmos que hemos estudiado
-anteriormente para la codificación dispersa por capas con un diccionario aprendido.
+esparsa, pero en realidad está muy en consonancia con los algoritmos que hemos estudiado
+anteriormente para la codificación esparsa por capas con un diccionario aprendido.
 En particular, recordemos la arquitectura LISTA %
 $\vZ^{L} = f(\vA^L, f(\vA^{L-1}, \cdots, f(\vA^1, \vX) \cdots )$.
 En el caso especial de $L=2$, tenemos
@@ -1937,14 +1938,14 @@ En el caso especial de $L=2$, tenemos
     \vZ^2 = f(\vA^1, \vX)
     =S_{\eta\lambda}\rp{\vZ^{1} - 2\eta(\vA^{1})^{\top}(\vA^1\vZ^{1} - \vX)}.
 \end{equation}
-Supongamos que los códigos dispersos $\vZ$ en cuestión son no negativos, es decir,
+Supongamos que los códigos esparsos $\vZ$ en cuestión son no negativos, es decir,
 que $\vZ \geq \Zero$.\footnote{En el modelo de generación de datos
     \eqref{eq:overcomplete-dl-section-data-model}, un par arbitrario
-    de diccionario y código dispersos $(\vA, \vZ)$ puede sustituirse por uno en el que
+    de un diccionario y un código esparsos $(\vA, \vZ)$ puede sustituirse por uno en el que
     $\vZ \geq \Zero$ simplemente duplicando el número de columnas en $\vA$, por lo que,
 desde el punto de vista del modelado, se trata de una suposición muy moderada.}
 Entonces (véase el \Cref{example:prox-of-nonnegative-l1}), podemos considerar una arquitectura LISTA equivalente
-obtenida a partir del objetivo de codificación dispersa con una restricción adicional
+obtenida a partir del objetivo de codificación esparsa con una restricción adicional
 de no negatividad sobre $\vZ$ como
 \begin{equation}
     \vZ^2 = f(\vA^1, \vX)
@@ -1962,47 +1963,47 @@ y, tras algunas operaciones algebraicas, expresarlo como
         \right), 0
     }.
 \end{equation}
-Dada la posibilidad de modificar la inicialización del código disperso $\vZ^1$ como
+Dada la posibilidad de modificar la inicialización del código esparso $\vZ^1$ como
 un parámetro aprendible (que, en el marco actual, debe tener todas las columnas
 iguales al mismo vector aprendible), esto adopta la forma de una red neuronal ReLU
-con sesgo aprendible, ¡idéntica al auto-codificador disperso $f$!
-Además, para \textit{decodificar} los códigos dispersos aprendidos $\vZ^2$, lo más natural es
+con sesgo aprendible, ¡idéntica al autocodificador esparso $f$!
+Además, para \textit{decodificar} los códigos esparsos aprendidos $\vZ^2$, lo más natural es
 aplicar el diccionario aprendido $\vZ^2 \mapsto \vA^1 \vZ^2$. Entonces, la única
 diferencia entre esto y el decodificador SAE $g$ es el sesgo adicional $\vb$,
 que técnicamente puede absorberse en $\vH$ y $f$ en el objetivo de entrenamiento
 \eqref{eq:sae-loss}.
 
-Por lo tanto, el procedimiento de parametrización y entrenamiento de SAE coincide con
+Por lo tanto, el procedimiento para parametrizar y entrenar SAE coincide con
 el entrenamiento de LISTA con $L=1$ y un objetivo de entrenamiento modificado --- utilizando el
 objetivo LASSO \eqref{eq:sparse_dl_lasso}, que sigue siendo {\em no supervisado}, en lugar 
 de la pérdida de reconstrucción supervisada \eqref{eq:lista-training} utilizada en el método
 LISTA estándar. En concreto, podemos entender la arquitectura SAE a partir de nuestra
-interpretación de la arquitectura LISTA en términos de codificación dispersa por capas, tal 
+interpretación de la arquitectura LISTA en términos de codificación esparsa por capa, tal 
 y como se describe en \eqref{eq:ISTA-update-layerwise}. Esta conexión sugiere una gran variedad de nuevas
 estrategias de diseño para mejorar la metodología de la interpretabilidad práctica, muchas de
 las cuales siguen sin haberse explorado, lo cual resulta tentador. Comenzamos a establecer 
-algunas conexiones con la metodología más amplia de la auto-codificación en 
+algunas conexiones con la metodología más amplia de la autocodificación en 
 el \Cref{ch:consistent-representations}.
 
-\paragraph{¿Codificación dispersa aprendida por capas?}
+\paragraph{¿Codificación esparsa aprendida por capa?}
 
 En el contexto supervisado, LISTA ofrece un análogo de red neuronal profunda de
-la iteración de codificación dispersa, con diccionarios aprendidos por capas, inspirado en
+la iteración de codificación esparsa, con diccionarios aprendidos por capas, inspirado en
 la minimización alternada; incluso en el contexto no supervisado, se puede aplicar la misma metodología
-al aprendizaje, al igual que con los auto-codificadores dispersos.
+al aprendizaje, al igual que con los autocodificadores esparsos.
 Pero la relación entre los algoritmos de optimización
 que buscan estructuras de baja dimensión y las arquitecturas de redes profundas es mucho más 
-profunda que eso y sugiere una variedad de arquitecturas de aprendizaje neuronal escalables 
+profunda que eso y sugiere un abanico de arquitecturas de aprendizaje neuronal escalables 
 y naturales que podrían incluso utilizarse sin retropropagación.
 
-A modo de ejemplo sencillo, volvemos a las iteraciones de minimización alternadas
+A modo de ejemplo sencillo, retomamos las iteraciones de minimización alternadas
 \eqref{eqn:ISTA-update} y \eqref{eqn:DL-update}.
 Este esquema reinicializa aleatoriamente el diccionario $\vA_1$ en cada una de esas actualizaciones.
 Una mejora utiliza en su lugar el «inicio en caliente», en el que el residuo
 se genera utilizando la estimación anterior $\vA_+$ para el diccionario.
 Si consideramos entonces cada actualización ISTA \eqref{eqn:ISTA-update} como una capa y permitimos
-que el diccionario asociado, ahora acoplado a las actualizaciones del código disperso como
-$\vA_\ell$, se actualice con el tiempo, esto da lugar a un esquema de codificación dispersa
+que el diccionario asociado, ahora acoplado a las actualizaciones del código esparso como
+$\vA_\ell$, se actualice con el tiempo, esto da lugar a un esquema de codificación esparsa
 «aprendible por capas»:
 \begin{align}
     & \vZ^{1}
@@ -2026,7 +2027,7 @@ la optimización hacia adelante y el aprendizaje hacia atrás. Esta
 distinción entre las actualizaciones hacia adelante de las «características» efímeras
 $\vZ$ de los datos $\vX$ y las actualizaciones hacia atrás de los parámetros
 persistentes $\vA$  sigue observándose en las redes neuronales y los
-auto-codificadores actuales; hablaremos mucho más sobre ello en
+autocodificadores actuales; hablaremos mucho más sobre ello en
 el \Cref{ch:deep-networks} y el \Cref{ch:consistent-representations}.
 
 Obsérvese que el esquema por capas anterior también sugiere una alternativa plausible
@@ -2041,33 +2042,33 @@ analizaremos con más detalle al final del libro en el \Cref{ch:future}.
 \paragraph{Mensajes clave.} Los modelos idealizados que hemos presentado en
 este capítulo ---el PCA, el ICA y el aprendizaje de diccionarios--- se 
 desarrollaron a lo largo del Siglo XX.  Muchos libros se han dedicado 
-a estos métodos, por lo que aquí solo ofrecemos una visión general de los conceptos y resultados clave. Como
+a estos métodos, por lo que aquí solo hemos intentado ofrecer una visión general de los conceptos y resultados clave. Como
 veremos en los próximos capítulos, aunque podría decirse que se trata de
 modelos bastante idealizados y sencillos para distribuciones de datos de baja dimensión, las
 ideas básicas e incluso los algoritmos resultantes para identificar tales
 distribuciones pueden generalizarse o ampliarse de manera natural a cualquier
 distribución de baja dimensión: esa es la tesis de este libro. Además,
 como veremos en los próximos capítulos, estos modelos básicos (lineales)
-pueden servir, en gran medida, como prototipos locales para
+también pueden servir, en gran medida, como prototipos locales para
 aproximar de manera eficaz distribuciones generales con estructuras no lineales
 de baja dimensión.
 
-\paragraph{Más información histórica y referencias.}
+\paragraph{Más antecedentes y referencias.}
 Jolliffe \cite{Jolliffe1986} atribuye el análisis de componentes principales a Pearson
 \cite{Pearson1901} y, en forma independiente, a Hotelling \cite{Hotelling1933}. En
 matemáticas, el resultado principal sobre el problema relacionado de la aproximación de bajo rango en
 normas unitariamente invariantes se atribuye a Eckart y Young
 \cite{Eckart1936-ep}, así como a Mirsky en su forma más general \cite{Mirsky1960-ek}.
-El PCA sigue desempeñando un papel importante en la investigación, ya que es quizás el
-modelo más simple para el problema de aprendizaje de representaciones no supervisado: ya en la década de 1980,
+El PCA sigue desempeñando un papel importante en la investigación, siendo quizás el problema 
+modelo más simple para el aprendizaje no supervisado de representaciones: ya en la década de 1980,
 trabajos como \textcite{Oja1982SimplifiedNM} y \textcite{Baldi89} utilizaron el
 problema para comprender el aprendizaje en redes neuronales primitivas y, más recientemente,
 ha servido como herramienta para comprender marcos de aprendizaje de representaciones más complejos,
 como los modelos de difusión \cite{wang2024diffusion}.
 
 El análisis de componentes independientes fue propuesto por \textcite{Ans-1985}
-y desarrollado por primera vez por Aapo Hyv\"{a}rinen en la década de 1990 y principios 
-de la de 2000 en una serie de influyentes trabajos: véase \textcite{Hyvrinen-2000} para un resumen.
+y impulsado de manera pionera por Aapo Hyv\"{a}rinen en la década de 1990 y principios 
+de la década del 2000 en una serie de trabajos de gran influencia: véase \textcite{Hyvrinen-2000} para un resumen.
 Como modelo sencillo para la estructura que surge en los datos reales, inicialmente se utilizó ampliamente en
 aplicaciones como la separación ciega de fuentes, donde cada componente independiente
 $z_i$ representa una fuente independiente (como el sonido asociado a un instrumento distinto
@@ -2082,8 +2083,8 @@ solo podía realizarse en una base distinta de la de Fourier (por ejemplo, las o
 \cite{Donoho1998-zf}. Sin embargo, la importancia del caso de las bases redundantes, o
 los diccionarios sobrecompletos, solo se puso de relieve tras el trabajo pionero de
 Olshausen y Field \cite{Olshausen1996-ap,Olshausen1997-yv}. Los primeros
-trabajos posteriores establecieron las bases conceptuales y algorítmicas para el aprendizaje
-de diccionarios sobrecompletos dispersos, a menudo destinados a representar
+trabajos en este campo establecieron las bases conceptuales y algorítmicas para el aprendizaje
+de diccionarios sobrecompletos de uso esparso, a menudo destinados a representar
 imágenes naturales
 \cite{Donoho2001-tl,DonohoD2003-PNAS,Elad2006-yi,Murray2007-cw,aharon2006k,Mairal2014-nq,Gribonval2015-fy}.
 Más tarde, el gran interés teórico que suscitó el problema, como
@@ -2096,7 +2097,7 @@ Una lista no exhaustiva de trabajos destacados en esta línea incluye los de
 \textcite{pmlr-v40-Arora15}; \textcite{Barak2015-uu}; y
 \textcite{Qu2020Geometric}. Muchas cuestiones teóricas profundas sobre este
 problema, que es fácil de formular, siguen sin resolverse, quizá en parte debido a una tensión con la
-dificultad NP del problema en el peor de los casos (véase, por ejemplo, \textcite{Tillmann2015-up}).
+dificultad NP del problema en el peor caso (véase, por ejemplo, \textcite{Tillmann2015-up}).
 
 \begin{table}[tb]
     \centering
@@ -2107,7 +2108,7 @@ dificultad NP del problema en el peor de los casos (véase, por ejemplo, \textci
             \toprule
             Problema & Algoritmo & Iteración & Tipo de estructura impuesta \\
             \midrule
-            PCA & Método de las potencias & $\vu_{t} = \frac{\vX\vX^\top
+            PCA & Método de la potencia & $\vu_{t} = \frac{\vX\vX^\top
             \vu_{t}}{\norm{\vX\vX^\top \vu_{t}}_2}$ &
             $1$-dim.\ subespacio (vector unitario) \\
             \addlinespace
@@ -2136,7 +2137,7 @@ el cálculo del vector propio principal de una matriz semidefinida $\vA \in \bR^
 \begin{equation}
     \vu_{t+1} = \frac{\vA \vu_{t}}{\norm{\vA \vu_{t}}_2},
 \end{equation}
-esta clase de algoritmos consiste en una operación de «elevación a una potencia» que involucra una matriz
+esta clase de algoritmos consiste en una operación de «potenciación» que involucra una matriz
 $\vA$ asociada a los datos, junto con una operación de «proyección» que
 impone el tipo de estructura deseado. La \Cref{tab:power-method-summary} presenta
 un resumen de los algoritmos que hemos estudiado en este capítulo y que siguen esta
@@ -2152,7 +2153,7 @@ plantean en este capítulo.
 
 La relación que establecemos en la \Cref{sec:mixture-and-dict} entre la
 hipótesis de distribución de la mezcla geométrica de subespacios y la hipótesis del
-diccionario disperso, más conveniente desde el punto de vista analítico, ya se ha mencionado en trabajos anteriores,
+diccionario esparso, más conveniente desde el punto de vista analítico, ya ha sido mencionada en trabajos anteriores,
 especialmente en aquellos centrados en el análisis de componentes principales generalizado
 y en aplicaciones como la agrupación de subespacios; véase, por ejemplo, el trabajo de \textcite{GPCA}.
 La hipótesis de la mezcla de subespacios seguirá desempeñando un papel importante
@@ -2166,7 +2167,7 @@ más complejas.
 \begin{exercise}\label{exercise:principal-components-derivation}
     Demuestre que, para cualquier matriz simétrica \(\vA\), la solución al problema
     \(\max_{\vU \in \O(D, d)}\tr\left(\vU^{\top}\vA\vU\right)\) es la matriz
-    \(\vU^{\star}\), cuyas columnas son los primeros \(d\) vectores propios unitarios
+    \(\vU^{\star}\), cuyas columnas son los \(d\) primeros vectores propios unitarios
     de \(\vA\).
 \end{exercise}
 
@@ -2181,7 +2182,7 @@ más complejas.
 \end{exercise}
 
 \begin{exercise}\label{exercise:symmetry-identifiability}
-    El concepto de identificabilidad estadística analizado anteriormente puede
+    El concepto ---o noción--- de identificabilidad estadística analizado anteriormente puede
     relacionarse con las \textit{simetrías} de la clase de modelos, lo que permite
     entender la estimación de una manera puramente determinista
     sin ningún supuesto estadístico.
@@ -2191,7 +2192,7 @@ más complejas.
     \begin{enumerate}
         \item Muestre que si $\vA$ es cualquier matriz cuadrada invertible de
             tamaño compatible, entonces el par
-            $(\vU \vA, \vA^{-1} \vZ)$ es igualmente representado por $\vX$ según el mismo
+            $(\vU \vA, \vA^{-1} \vZ)$ también produce $\vX$ según el mismo
             modelo. A esto lo llamamos una \textit{simetría de $\GL(d)$}. 
         \item Supongamos que cada columna de $\vZ$ es una observación independiente e
             identicamente distribuida procedente de un modelo estadístico común
@@ -2211,7 +2212,7 @@ más complejas.
 \begin{exercise}\label{exercise:whitening}
     Consideremos el modelo $\vx = \vU \vz$, donde $\vU \in \R^{D \times
     d}$ con $D \geq d$ es fijo y tiene rango $d$, mientras que $\vz$ es una
-    variable aleatoria de media cero. Sea $\vx_1, \dots, \vx_N$ el conjunto de
+    variable aleatoria de media cero. Sean $\vx_1, \dots, \vx_N$ observaciones i.i.d.\ de este modelo.
     \begin{enumerate}
         \item Muestre que la matriz $\vX = [\vx_1, \dots, \vx_N]$ tiene
             un rango no mayor que $d$ y que por lo tanto existe una
@@ -2219,7 +2220,7 @@ más complejas.
             = \vV \vY$, donde $\vY \in \R^{d \times N}$.
             (\textit{Pista: usar el PCA.})
         \item Demuestre que la \textit{matriz blanqueada} $(\vY
-            \vY^\top)^{-1/2}\vY$ existe en cuanto a la esperanza siempre que
+            \vY^\top)^{-1/2}\vY$ existe en media siempre que
             $\Cov(\vz)$ sea no singular y que tiene una covarianza
             empírica igual a la matriz identidad.\footnote{En particular, se puede
                 demostrar matemáticamente que esto basta para garantizar
@@ -2243,8 +2244,8 @@ más complejas.
 \end{exercise}
 
 \begin{exercise}\label{exercise:sphere-calculus}
-    Sea $f : \R^d \to \R$ una función objetivo dada
-    que sea dos veces continuamente diferenciable. Consideremos
+    Sea $f : \R^d \to \R$ una función objetivo dada,
+    dos veces continuamente diferenciable. Consideremos
     el problema de optimización con restricciones esféricas
     \begin{equation}\label{eq:exercise-sphere-constrained-max}
         \max_{\norm{\vu}_2^2 = 1}\, f(\vu).
@@ -2294,7 +2295,7 @@ más complejas.
             Las \textit{condiciones de optimalidad de primer orden} para el
             problema de optimización
             \eqref{eq:exercise-sphere-constrained-max} pueden
-            expresarse en términos del gradiente de Riemann:
+            expresarse en términos del gradiente riemanniano:
             \begin{equation*}
                 \mathrm{grad}\, f(\vu) = \mathbf{0}.
             \end{equation*}
@@ -2313,12 +2314,12 @@ más complejas.
             condiciones de optimalidad de segundo orden (para determinar si
                 un punto crítico es un punto máximo, un punto mínimo o un punto de silla
             ) utilizando la \textit{matriz hessiana} $\nabla^2 f(\vu)$.
-            Muestre, derivando el gradiente de Riemann
+            Muestre, derivando el gradiente riemanniano
             $\mathrm{grad}\, f(\vu)$ para la esfera con respecto a
             $\vu$, tal como se hizo en la primera parte de este ejercicio, que el
             objeto correspondiente para determinar las condiciones de
             optimalidad de segundo orden en la optimización con restricciones esféricas
-            es el \textit{Hessiano riemanniano}, definido como
+            es el \textit{hessiano riemanniano}, definido como
             \begin{equation}\label{eq:exercise-riemann-hess-sphere}
                 \mathrm{Hess}\, f(\vu) = \vP_{\vu}^\perp \left(
                     \nabla^2 f(\vu) - \ip{\nabla f(\vu)}{\vu} \vI
@@ -2435,11 +2436,11 @@ más complejas.
             Las \textit{condiciones de optimalidad de primer orden} para el
             problema de optimización
             \eqref{eq:exercise-orthogonal-group-constrained-max} pueden
-            expresarse en términos del gradiente de Riemann:
+            expresarse en términos del gradiente riemanniano:
             \begin{equation*}
                 \mathrm{grad}\, f(\vQ) = \mathbf{0}.
             \end{equation*}
-        \item Demuestre, derivando el gradiente de Riemann
+        \item Demuestre, derivando el gradiente riemanniano
             $\mathrm{grad}\, f(\vQ)$ para el grupo ortogonal con
             respecto a $\vQ$, tal como se hizo en la primera parte de este ejercicio,
             que la \textit{Hessiana riemanniana} viene dada por 
@@ -2459,7 +2460,7 @@ más complejas.
             Las \textit{condiciones de optimalidad de segundo orden} para el
             problema de optimización
             \eqref{eq:exercise-orthogonal-group-constrained-max} pueden
-            expresarse en términos de la hessiana de Riemann:
+            expresarse en términos de la hessiana riemanniana:
             \begin{equation*}
                 \mathrm{Hess}\, f(\vQ) \preceq \mathbf{0}.
             \end{equation*}
@@ -2468,14 +2469,14 @@ más complejas.
             (\textit{Pista: La clave está en manipular los
                     cálculos para obtener la forma
                     \eqref{eq:exercise-riemann-hess-orthogonal-group},
-                    que es lo más compacta posible. Para ello,
+                    que es la más compacta posible. Para ello,
                     utiliza el siguiente isomorfismo del
                     producto de Kronecker: si $\vA$, $\vX$ y $\vB$ son
                     matrices de tamaños compatibles, entonces se tiene que
                     \begin{equation*}
                         (\vB^\top \kron \vA) \Vec(\vX) = \Vec(\vA \vX \vB),
                     \end{equation*}
-                    donde $\Vec(\vX)$ denota la «apilamiento de izquierda a derecha»
+                    donde $\Vec(\vX)$ denota el «apilamiento de izquierda a derecha»
                     de las columnas del argumento matricial en un vector. Utilizamos
                     este isomorfismo en
                     \eqref{eq:exercise-riemann-hess-orthogonal-group} con el
@@ -2490,7 +2491,7 @@ más complejas.
                 \min_{\vQ \in \O(d)
                 }\, \norm{\vQ - \vX}_F^2.
             \end{equation}
-            Demostraremos que la solución a este problema viene dada por
+            Demostraremos que la solución a este problema está dada por
             \begin{equation*}
                 \mathrm{proj}_{\O(d)}(\vX)
                 =
@@ -2501,25 +2502,25 @@ más complejas.
 
             \begin{enumerate}
                 \item Utilizando las condiciones de optimalidad de primer y segundo orden,
-                    demuestre que todo mínimo local $\vQ$
+                    demuestre que todo minimizador local $\vQ$
                     de \eqref{eq:projection-onto-ogrp-defn} satisface 
                     \begin{align*}
                         \left( \vQ^\top \vX \right)^\top &= \vQ^\top \vX, \\
                         \vQ^\top \vX &\succeq \mathbf{0}.
                     \end{align*}
-                    (\textit{Sugerencia: utilizar la linealidad del producto de Kronecker
+                    (\textit{Pista: utilizar la linealidad del producto de Kronecker
                             en cualquiera de sus dos argumentos cuando el
                     otro es fijo.})
                 \item A partir de estas condiciones, muestre que para todo
                     mínimo local $\vQ$ de
                     \eqref{eq:projection-onto-ogrp-defn}, se cumple que
                     $\vQ^\top \vX = (\vX^\top \vX)^{1/2}$. 
-                    (\textit{Pista: Utiliza %
-                            el resultado de álgebra lineal según el cual, si $\vS \succeq
+                    (\textit{Pista: Utilice %
+                            el siguiente resultado clásico de álgebra lineal: si $\vS \succeq
                             \mathbf{0}$ es una matriz simétrica semidefinida positiva,
                     entonces $(\vS^\top\vS)^{1/2} = \vS$.})
                 \item Utilizando la descomposición en valores singulares $\vX =
-                    \vU \vS \vV^\top$, deduzca que 
+                    \vU \vS \vV^\top$, concluya que 
                     \begin{equation*}
                         \vU \vV^\top
                         =

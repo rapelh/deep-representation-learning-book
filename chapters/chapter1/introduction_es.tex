@@ -486,9 +486,9 @@ el siguiente valor puede depender de los \(d\) valores precedentes:
 \end{equation}
 El número entero \(d\) se denomina el \textit{grado} de la recursión. La
 expresión anterior \eqref{eqn:recursive-d} se denomina 
-\textit{auto-regresión} y la secuencia resultante es
-\textit{auto-regresiva}. Cuando \(f\) es lineal, decimos que es una
-\textit{auto-regresión lineal}.
+\textit{autoregresión} y la secuencia resultante es
+\textit{autoregresiva}. Cuando \(f\) es lineal, decimos que es una
+\textit{autoregresión lineal}.
 
 \paragraph{El caso vectorial.}
 Para simplificar la notación, definimos un vector  \(\vx \in \R^{d}\) que
@@ -792,7 +792,7 @@ varias tareas útiles más allá de la predicción:
         muestra típica $\vx$, las entradas restantes suelen 
         determinarse en forma unívoca;\footnote{La predicción se 
         convierte en un caso especial de esta propiedad.}
-    \item \textbf{reducción de ruido}: si los valores de una muestra 
+    \item \textbf{eliminación de ruido}: si los valores de una muestra 
         $\vx$ son perturbados por un ruido leve, este ruido puede 
         eliminarse eficazmente proyectando $\vx$ de vuelta sobre la superficie;
     \item \textbf{corrección de errores}: si un pequeño número de 
@@ -809,7 +809,7 @@ en un plano bidimensional.
     \includegraphics[height=0.28\linewidth]{\toplevelprefix/chapters/chapter1/figs/Denoising-low-dim.png}
     \includegraphics[height=0.32\linewidth]{\toplevelprefix/chapters/chapter1/figs/Correction-low-dim.png}
     \caption{Ilustración de las propiedades de una estructura (lineal) de baja dimensión:
-        permite el autocompletado (a la izquierda), la reducción de ruido (al centro) y la
+        permite el autocompletado (a la izquierda), la eliminación de ruido (al centro) y la
     corrección de errores (a la derecha).}
     \label{fig:low-dim-properties}
 \end{figure}
@@ -817,7 +817,7 @@ en un plano bidimensional.
 En condiciones suaves, estas propiedades se generalizan a muchas otras
 estructuras de baja dimensión en espacios de alta dimensión
 \cite{Wright-Ma-2022}. Veremos que estas propiedades útiles--- por ejemplo, 
-el autocompletado y la reducción de ruido--- inspiran el
+el autocompletado y la eliminación de ruido--- inspiran el
 desarrollo de métodos eficaces en el aprendizaje de tales estructuras.
 
 Para simplificar, hasta ahora hemos utilizado el caso determinista para
@@ -896,7 +896,7 @@ mezcla de componentes de baja dimensión (subespacios o gaussianas de baja dimen
 como en el análisis de componentes independientes (ICA)
 \cite{Ans-1985}, el aprendizaje de diccionarios (DL), el análisis de componentes principales
 generalizado (GPCA) \cite{Vidal-GPCA} o la clase más general
-de modelos dispersos de baja dimensión que se han estudiado
+de modelos esparsos de baja dimensión que se han estudiado
 extensivamente en los últimos años en campos como la detección compresiva
 \cite{Wright-Ma-2022}.
 
@@ -938,7 +938,7 @@ mediante el error cuadrático medio (MSE):
     \min_{h} \Ex[\epsilon[n]^{2}] = \Ex[\|x[n] - h[n]*z[n]\|_{2}^{2}].
     \label{eqn:wiener-mse}
 \end{equation}
-La solución óptima \(h[n]\) se denomina filtro (de reducción de ruido). 
+La solución óptima \(h[n]\) se denomina filtro (de eliminación de ruido). 
 Norbert Wiener ---quien también fue quien inició el movimiento de Cibernética--- estudió 
 este problema en la década de 1940 y derivó una elegante solución en forma cerrada
 conocida como el \textit{filtro de Wiener} \cite{Wiener-1942,Wiener-1949}.
@@ -1008,7 +1008,7 @@ donde \(\vepsilon\) suele ser un ruido (o proceso) aleatorio gaussiano.
 Por lo tanto, sus soluciones se basan en identificar un subespacio lineal de baja 
 dimensión que se ajuste mejor a los datos ruidosos observados.
 Al proyectar los datos sobre este subespacio, se obtienen las
-operaciones óptimas de reducción de ruido, todas en forma cerrada.
+operaciones óptimas de eliminación de ruido, todas en forma cerrada.
 
 \subsubsection{Modelos lineales y lineales mixtos}
 \label{sec:PCA-ICA}
@@ -1037,7 +1037,7 @@ sobre el subespacio:
 \begin{equation}
     \min_{\vU}\Ex[\|\vx - \vU\vU^{\top} \vz\|_{2}^{2}].
 \end{equation}
-En esencia, se trata de una tarea de reducción de ruido: una vez que se ha
+En esencia, se trata de una tarea de eliminación de ruido: una vez que se ha
 encontrado correctamente la base \(\vU\), podemos eliminar el ruido de la muestra ruidosa \(\vx\)
 proyectándola sobre el subespacio de baja dimensión generado por \(\vU\):
 \begin{equation}
@@ -1077,7 +1077,7 @@ En este libro reexaminamos el PCA en el \Cref{ch:classic-models} desde la
 perspectiva del aprendizaje de una distribución de baja dimensión. Nuestro objetivo es
 utilizar este modelo sencillo e idealizado para transmitir algunas de las ideas más
 fundamentales para el aprendizaje de una representación compacta de una distribución de baja 
-dimensión, incluyendo conceptos importantes como la compresión mediante la reducción de ruido 
+dimensión, incluyendo conceptos importantes como la compresión mediante la eliminación de ruido 
 y la autocodificación para obtener una representación coherente.
 \paragraph{Análisis de componentes independientes.}
 El análisis de componentes independientes (ICA) fue propuesto originalmente por
@@ -1139,15 +1139,15 @@ Hyv\"{a}rinen propuso el método general de \textit{score matching} en 2005
 gaussianas, como en el ICA. Abordaremos este tema con mayor detalle más adelante y
 de nuevo en el \ref{ch:denoising}.
 
-\paragraph{Estructuras dispersas y detección compresiva.}
+\paragraph{Estructuras esparsas y detección compresiva.}
 Si \(p\) en \eqref{eqn:ICA-modes} es muy pequeño, la probabilidad de que
 cualquier componente sea distinto de cero es baja. En este caso, decimos que \(\vx\) es
-un vector generado de manera dispersa y que se concentra en una unión de subespacios lineales
+un vector generado de manera esparsa y que se concentra en una unión de subespacios lineales
 cuya dimensión es \(k = p \cdot d\). Por lo tanto, podemos ampliar el modelo ICA
 a una familia más general de estructuras de baja dimensión conocidas como
-modelos dispersos.
+modelos esparsos.
 
-Un modelo \(k\)-disperso es el conjunto de todos los \textit{vectores \(k\)-dispersos}:
+Un modelo \(k\)-esparso es el conjunto de todos los \textit{vectores \(k\)-esparsos}:
 \begin{equation}
     \cZ = \{\vz \in \R^{n} \mid \|\vz\|_{0} \leq k\},
 \end{equation}
@@ -1155,7 +1155,7 @@ donde \(\|\cdot\|_{0}\) cuenta el número de entradas distintas de cero. Por lo 
 \(\cZ\) es la unión de todos los subespacios de dimensión \(k\) alineados con
 los ejes de coordenadas, tal como se ilustra en la \Cref{fig:mixture-models}
 (a la izquierda). Un problema fundamental en el procesamiento de señales y la estadística consiste en
-recuperar un vector disperso \(\vz\) a partir de sus observaciones lineales
+recuperar un vector esparso \(\vz\) a partir de sus observaciones lineales
 \begin{equation}
     \vx = \vA \vz + \vepsilon, \quad \vA \in \R^{m\times n},
     \label{eqn:sparse-model}
@@ -1173,15 +1173,15 @@ principios de la década de 2000, cuando matemáticos como David Donoho, Emmanue
 Candés y Terence Tao
 \cite{donoho2005neighborly,Candes2005,CandesE2005-IT} establecieron un
 marco teórico riguroso que caracteriza las condiciones precisas
-bajo las cuales el problema de la recuperación dispersa puede resolverse de manera efectiva y
+bajo las cuales el problema de la recuperación esparsa puede resolverse de manera efectiva y
 eficiente mediante la minimización convexa de \(\ell^{1}\):
 \begin{equation}
     \min \|\vz\|_{1} \quad \text{subject to} \quad \|\vx -
     \vA\vz\|_{2} \leq \epsilon,
 \end{equation}
-donde \(\|\cdot\|_{1}\) es la norma \(\ell^{1}\) de promoción de dispersión
+donde \(\|\cdot\|_{1}\) es la norma \(\ell^{1}\) de promoción de esparcidad
 de un vector y \(\epsilon\) es una constante pequeña. Cualquier solución da como resultado
-una (auto) codificación dispersa
+una (auto) codificación esparsa
 \begin{equation}
     \vx \xrightarrow{\hspace{2mm} \cE \hspace{2mm}} \vz
     \xrightarrow{\hspace{2mm} \vA \hspace{2mm}} \hat{\vx}.
@@ -1189,8 +1189,8 @@ una (auto) codificación dispersa
 \end{equation}
 Describiremos dicho algoritmo (y, por lo tanto, dicha correspondencia) en el
 \Cref{ch:classic-models}, revelando conexiones fundamentales entre la codificación
-dispersa y el aprendizaje profundo.\footnote{Ya en 2010 se señalaron similitudes 
-    entre los algoritmos de codificación dispersa
+esparsa y el aprendizaje profundo.\footnote{Ya en 2010 se señalaron similitudes 
+    entre los algoritmos de codificación esparsa
     y las redes profundas
 \cite{gregor2010learning}.}
 
@@ -1223,7 +1223,7 @@ sabemos que ambos enfoques comparten un objetivo común: la búsqueda
 de estructuras de baja dimensión en espacios de alta dimensión.
 
 \paragraph{Aprendizaje de diccionarios.}
-Desde el punto de vista conceptual, surge un problema aún más complejo que el de la codificación dispersa
+Desde el punto de vista conceptual, surge un problema aún más complejo que el de la codificación esparsa
 \eqref{eqn:sparse-model} cuando la matriz de observación \(\vA\)
 es desconocida y debe aprenderse a partir de un conjunto de observaciones (posiblemente ruidosas)
 \(\vX = [\vx_{1}, \vx_{2}, \ldots, \vx_{n}]\):
@@ -1234,11 +1234,11 @@ es desconocida y debe aprenderse a partir de un conjunto de observaciones (posib
 Aquí solo se nos da \(\vX\), no el correspondiente \(\vZ =
 [\vz_{1}, \vz_{2}, \ldots, \vz_{n}]\) ni el término de ruido \(\vE =
 [\vepsilon_{1}, \vepsilon_{2}, \ldots, \vepsilon_{n}]\), salvo que
-se sabe que los \(\vz_{i}\) son dispersos. Este es el
+se sabe que los \(\vz_{i}\) son esparsos. Este es el
 \textit{problema del aprendizaje de diccionarios}, que generaliza el problema del ICA
 \eqref{eqn:ICA-model} comentado anteriormente. En otras palabras,
 dado que la distribución de los datos \(\vX\) es la imagen de una
-distribución dispersa estándar \(\vZ\) bajo una transformación lineal
+distribución esparsa estándar \(\vZ\) bajo una transformación lineal
 \(\vA\), queremos aprender tanto \(\vA\) como su mapeo «inverso»
 \(\cE\) para obtener un autocodificador:
 \begin{equation}
@@ -1285,7 +1285,7 @@ En la práctica, en el caso de una distribución general de datos del mundo real
 por lo general solo disponemos de muchas muestras de dicha distribución: la
 llamada \textit{distribución empírica}. En tales casos, normalmente
 no podemos esperar contar con una forma analítica clara para sus
-estructuras de baja dimensión, ni para los operadores de reducción de ruido
+estructuras de baja dimensión, ni para los operadores de eliminación de ruido
 resultantes.\footnote{Esto difiere de los casos del PCA, el filtro de Wiener
 y el filtro de Kalman.} Por lo tanto, necesitamos desarrollar una solución más general
 para estas distribuciones empíricas, no necesariamente en forma cerrada,
@@ -1293,7 +1293,7 @@ pero al menos que se pueda calcular de manera eficiente. Si lo hacemos correctam
 las soluciones de los modelos lineales antes mencionados deberían convertirse en sus 
 casos particulares.
 
-\paragraph{Reducción de ruido.} En la década de 1950, los estadísticos comenzaron 
+\paragraph{Eliminación de ruido.} En la década de 1950, los estadísticos comenzaron 
 a interesarse por el problema de reducir el ruido en los datos muestreados de una 
 distribución arbitraria. Sea \(\vx_{o}\) una variable aleatoria con función de densidad de probabilidad
 \(p_{o}(\cdot)\). Supongamos que observamos una versión ruidosa de \(vx_{o}\):
@@ -1322,30 +1322,30 @@ El ruido \(\vg\) se puede estimar explícitamente como
 para lo cual solo necesitamos conocer la distribución \(p(\cdot)\) de
 \(\vx\), y no la distribución real \(p_{o}(\cdot)\) para \(\vx_{o}\). Una
 consecuencia importante de este resultado es que, si añadimos ruido gaussiano
-a cualquier distribución, el proceso de reducción de ruido puede llevarse a cabo fácilmente si
+a cualquier distribución, el proceso de eliminación de ruido puede llevarse a cabo fácilmente si
 logramos obtener de alguna manera la función \(\nabla \log p(\vx)\).
 
 Dado que se trata de un resultado tan importante y útil, ha sido
 redescubierto y utilizado en muchos contextos y ámbitos diferentes. Por
 ejemplo, tras la fórmula de Tweedie \cite{Robbins1956AnEB}, fue
 redescubierta unos años más tarde por \cite{Miyasawa61}, donde se
-denominó «reducción de ruido bayesiana empírica». A principios de la 
+denominó «eliminación de ruido bayesiana empírica». A principios de la 
 década de 2000, la función \(\nabla \log p(\vx)\) fue redescubierta en el contexto
 del aprendizaje de una distribución general y Aapo Hyv\"{a}rinen \cite{hyvarinen05a} 
-la denominó «función de puntuación». Su relación con la reducción de ruido 
+la denominó «función de \textit{score}». Su relación con la eliminación de ruido 
 (bayesiana empírica) fue reconocida poco después por \cite{Vincent2011}.
 El grupo de Eero Simoncelli ha realizado generalizaciones a otras distribuciones 
 de medición (más allá del ruido gaussiano) \cite{Raphan10}. Hoy en día, la aplicación 
-más directa de la fórmula de Tweedie y la reducción de ruido
-es la generación de imágenes mediante la reducción iterativa de ruido
+más directa de la fórmula de Tweedie y la eliminación de ruido
+es la generación de imágenes mediante la eliminación iterativa de ruido
 \cite{Kadkhodaie21a,ho2020denoising}.
 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{\toplevelprefix/chapters/chapter1/figs/Density-compress.png}
-    \caption{Interpretación geométrica de una función de puntuación \(\nabla
+    \caption{Interpretación geométrica de una función de \textit{score} \(\nabla
         \log p(\vx)\) para una distribución con densidad \(p(\vx)\) a la
-        izquierda. La operación generada por la función de puntuación empuja la
+        izquierda. La operación generada por la función de \textit{score} empuja la
         distribución hacia las zonas de mayor densidad. El objetivo es que,
         según una determinada medida de compacidad (por ejemplo, la entropía 
         o la longitud de codificación), la distribución resultante esté más «comprimida».
@@ -1370,7 +1370,7 @@ regiones de alta densidad. Formalmente, se puede demostrar que la entropía (dif
 disminuye bajo esta operación (véanse el \Cref{ch:denoising} y el
 \Cref{app:entropy}). Con un libro de códigos óptimo, la
 distribución resultante alcanza una tasa de codificación más baja y, por lo tanto, está más
-comprimida. Si se repite este proceso de reducción de ruido indefinidamente, se obtiene una
+comprimida. Si se repite este proceso de eliminación de ruido indefinidamente, se obtiene una
 distribución cuya masa de probabilidad se concentra en un soporte de
 menor dimensión. Por ejemplo, la distribución \(p(\vx)\) en la
 \Cref{fig:score-function} (a la izquierda) converge a \(p^{*}(\vx)\)
@@ -1398,7 +1398,7 @@ de \textit{tasa-distorsión}.
 
 Más adelante en este capítulo y en los
 \Cref{ch:denoising,ch:lossy-compression}, exploramos cómo este sencillo
-marco de reducción de ruido y compresión unifica 
+marco de eliminación de ruido y compresión unifica 
 potentes métodos para el aprendizaje de distribuciones de baja dimensión en
 espacios de alta dimensión, incluidas las distribuciones de imágenes naturales.
 
@@ -1779,7 +1779,7 @@ datos \(\vX\) y codificarla en una representación específica para cada tarea
 \(\vZ\) (supongamos que \(\vZ\) denota las etiquetas de clase en tareas de clasificación
     \footnote{Esta es una notación muy atípica para las etiquetas --- la
         notación habitual es \(\vy\) --- pero resulta útil para nuestros propósitos
-        considerar las etiquetas como representaciones muy comprimidas y dispersas de
+        considerar las etiquetas como representaciones muy comprimidas y esparsas de
         los datos. Véase el \Cref{example:image_classification_feature_learning}
 para más detalles.}):
 \begin{equation}
@@ -1890,9 +1890,9 @@ colapso de modos.\footnote{No obstante, tal formulación minimax
     la implementación y evita ciertas dificultades que surgen al 
 calcular directamente la distancia.}
 
-\paragraph{Generación por vía de la reducción de ruido y la difusión.}
+\paragraph{Generación por vía de la eliminación de ruido y la difusión.}
 En 2015, poco después de que se introdujeran las redes GAN y ganaran popularidad,
-Surya Ganguli y sus estudiantes propusieron que un proceso iterativo de reducción de ruido
+Surya Ganguli y sus estudiantes propusieron que un proceso iterativo de eliminación de ruido
 modelado por una red profunda podría utilizarse para aprender una distribución general,
 como la de las imágenes naturales \cite{Sohl-Dickstein2015}. Su método se inspiró en las 
 propiedades de unos procesos gaussianos y binomiales especiales estudiados por William 
@@ -1901,33 +1901,33 @@ Feller en 1949 \cite{Feller1949OnTT}.\footnote{¡De nuevo, en la mágica época 
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter1/figs/diffusion_pipeline.png}
-    \caption{Ilustración de un proceso iterativo de reducción de ruido y compresión 
+    \caption{Ilustración de un proceso iterativo de eliminación de ruido y compresión 
         que, a partir de una distribución gaussiana \(q^{0} = \mathcal{N}(\vzero, \vI)\), 
         converge a una distribución arbitraria de datos de baja dimensión
     \(q^{L} = p\).}
     \label{fig:diffusion}
 \end{figure}
 
-Poco después, se demostró que los operadores de reducción de ruido basados en la función de puntuación
+Poco después, se demostró que los operadores de eliminación de ruido basados en la función de \textit{score}
 \cite{hyvarinen05a}, presentados brevemente en
 \Cref{sec:denoising-intro}, eran más generales y unificaban
-los procesos y algoritmos de reducción de ruido y difusión
+los procesos y algoritmos de eliminación de ruido y difusión
 \cite{song2019,song2020score,ho2020denoising}. La \Cref{fig:diffusion}
 ilustra el proceso que transforma una distribución gaussiana genérica
 \(q^{0} = \mathcal{N}(\vzero, \vI)\) en una distribución empírica
 (arbitraria) \(p(\vx)\) ejecutando una secuencia de operaciones 
-iterativas de reducción de ruido (o compresión):
+iterativas de eliminación de ruido (o compresión):
 \begin{equation}
     \vz^{0} \sim  \mathcal{N}(\vzero, \vI) \xrightarrow{\hspace{2mm}
     g^{0} \hspace{2mm}} \vz^{1} \xrightarrow{\hspace{2mm} g^{1}
     \hspace{2mm}} \cdots \xrightarrow{\hspace{2mm} g^{L-1}
     \hspace{2mm}} \vz^{L} \sim p(\vx).
 \end{equation}
-A estas alturas, la reducción de ruido (y la difusión) ha sustituido a las GAN y se ha convertido en el
+A estas alturas, la eliminación de ruido (y la difusión) ha sustituido a las GAN y se ha convertido en el
 método predominante para el aprendizaje de distribuciones de imágenes y vídeos,
 lo que ha dado lugar a populares motores comerciales de generación de imágenes como
 Midjourney y Stability.ai. En el \Cref{ch:denoising} presentaremos y estudiaremos de manera sistemática
-el método de reducción de ruido y difusión para aprender una distribución general
+el método de eliminación de ruido y difusión para aprender una distribución general
 de baja dimensión.
 
 \section{Un enfoque unificador}\label{sec:unifying-approach}
@@ -2129,7 +2129,7 @@ La medida de la tasa de codificación cambiará si utilizamos un esquema de codi
 estructura de baja dimensión en torno a la cual se distribuyen los segmentos,
 más eficiente será el libro de códigos que podamos diseñar, tal como se ilustra en la
 \Cref{fig:coding-schemes}. Los lectores más perspicaces se darán cuenta de que,
-desde el punto de vista conceptual, el proceso de reducción de ruido ilustrado en la
+desde el punto de vista conceptual, el proceso de eliminación de ruido ilustrado en la
 \Cref{fig:diffusion} se asemeja mucho al paso del esquema de codificación
 con las bolas azules al de las bolas verdes.
 
@@ -2340,11 +2340,11 @@ mapea la representación codificada \(\vZ\) de vuelta al espacio de datos:
     \label{eqn:auto-encoding}
 \end{equation}
 A este par de codificación-decodificación \((\cE, \cD)\) lo denominamos
-\textit{auto-codificación}. La \Cref{fig:autoencoder} ilustra este proceso.
+\textit{autocodificación}. La \Cref{fig:autoencoder} ilustra este proceso.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth]{\toplevelprefix/chapters/chapter1/figs/Autoencoder.jpg}
-    \caption{Ilustración de la arquitectura de un auto-codificador.}
+    \caption{Ilustración de la arquitectura de un autocodificador.}
     \label{fig:autoencoder}
 \end{figure}
 
@@ -2354,7 +2354,7 @@ codificación, de modo que los datos (la distribución) \(\hat{\vX}\) decodifica
 cierta medida.\footnote{Más adelante aclararemos qué entendemos por
 «similar».} Si esto se cumple, podemos recuperar o predecir a partir de
 \(\vZ\) lo que ocurre en el espacio de datos original. En este caso, decimos que
-el par \((\cE, \cD)\) proporciona una auto-codificación \textit{consistente}.
+el par \((\cE, \cD)\) proporciona una autocodificación \textit{consistente}.
 Para la mayoría de los efectos prácticos, no solo necesitamos que exista tal decodificación,
 sino que también sea posible llevarla a cabo de manera eficiente y
 implementarla físicamente. Por ejemplo, si \(\vx\) es una variable de valor real, se requiere la cuantización
@@ -2379,14 +2379,14 @@ la similitud entre \(\vX\) y \(\hat{\vX}\)\footnote{Ya sea
 \(\ell\).} y \(\rho(\vZ)\) es una medida que favorece la parsimonia y
 la riqueza de información de \(\vZ\). El análisis de componentes principales
 clásico (PCA) \cite{JolliffeI2002} es un ejemplo típico de
-auto-codificación consistente, que estudiaremos con gran detalle en el
+autocodificación consistente, que estudiaremos con gran detalle en el
 \Cref{ch:classic-models}, como precursor de estructuras de baja dimensión
 más generales. En \Cref{ch:consistent-representations}, estudiaremos cómo aprender
-una auto-codificación consistente para distribuciones generales (por ejemplo, no 
+una autocodificación consistente para distribuciones generales (por ejemplo, no 
 lineales) de baja dimensión.
 
-\subsection{Aprendizaje de representaciones auto-consistentes}
-En el objetivo de auto-codificación anterior, hay que evaluar cuán cerca están los
+\subsection{Aprendizaje de representaciones autoconsistentes}
+En el objetivo de autocodificación anterior, hay que evaluar cuán cerca están los
 datos decodificados \(\hat{\vX}\) de los originales \(\vX\). Esto suele
 requerir una supervisión externa o el conocimiento de una medida de
 similitud adecuada. El cálculo de la similitud entre \(\hat{\vX}\) y
@@ -2485,7 +2485,7 @@ en los que se incluyen dos conjuntos de mapeos:
 \begin{enumerate}
     \item una autocodificación entre los datos $\X$ y la representación $\Z$ de sus 
         características informativas,
-    \item un proceso de difusión y reducción de ruido entre la representación
+    \item un proceso de difusión y eliminación de ruido entre la representación
         aprendida $\Z$ y una distribución simple 
         $\boldsymbol{G}$, por ejemplo, gaussiana.
 \end{enumerate}
@@ -2493,7 +2493,7 @@ Este último proceso nos permite acceder de las características estructuradas d
 como la regeneración de los datos originales $\hat\X$.\footnote{Nótese que, incluso
     si las características aprendidas se encuentran en un único subespacio lineal de baja dimensión,
     la forma más eficaz de identificar dicho subespacio es,
-    en esencia, mediante un proceso de reducción de ruido: el método de potencias que
+    en esencia, mediante un proceso de eliminación de ruido: el método de potencias que
 desarrollaremos en el \ref{ch:classic-models}.} El panorama geométrico general
 asociado a estos dos procesos (de transformación)
 se ilustra en la Figura \ref{fig:mental-picture}.
@@ -2511,7 +2511,7 @@ se interpretarán matemáticamente, se justificarán y se mejorarán mediante es
     \includegraphics[width=0.6\linewidth]{\toplevelprefix/chapters/chapter1/figs/book-cover-2.jpg}
     \caption{Ilustración de una representación aprendida, informativa y estructurada
         de características $\Z$ para los datos $\X$ a la que se puede acceder
-        de manera eficiente por medio de un proceso de reducción de ruido a partir de
+        de manera eficiente por medio de un proceso de eliminación de ruido a partir de
     $\boldsymbol{G}$.}
     \label{fig:mental-picture}
 \end{figure}

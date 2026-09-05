@@ -29,7 +29,7 @@ principios matemáticos y computacionales del aprendizaje de representaciones
 memoria, para {\em estudiantes de último año de licenciatura y de posgrado principiantes}.
 Los principales prerequisitos para este libro son el álgebra lineal a nivel universitario,
 probabilidad y estadística, así como optimización. Cierta familiaridad con 
-los conceptos básicos del procesamiento de señales (representaciones dispersas y sensores
+los conceptos básicos del procesamiento de señales (representaciones esparsas y sensores
 comprimidos en particular), de teoría de la información, así como de control por
 retroalimentación mejoraría la comprensión del lector.
 
@@ -78,9 +78,9 @@ técnicas, entre otras, incluyen:
         desarrollada en la teoría de la información clásica y la
         teoría de la codificación frente al aprendizaje de 
         representaciones moderno;
-    \item La reducción de ruido y la reducción de dimensionalidad
+    \item La eliminación de ruido y la reducción de dimensionalidad
         en el procesamiento clásico de señales frente a los modelos
-        de difusión y reducción de ruido de los métodos generativos
+        de difusión y eliminación de ruido de los métodos generativos
         modernos;
     \item La inferencia bayesiana por vía del máximo a posteriori o
         del muestreo condicionado frente a la optimización con 
@@ -109,7 +109,7 @@ principal del libro se organizará en forma de seis temas (capítulos)
         idealizados que han sido ampliamente estudiados y comprendidos
         en procesamiento de señales y detección por compresión, 
         introduciremos las ideas más fundamentales\footnote{tales 
-        como a reducción de ruidos y la reducción de dimensionalidad} sobre
+        como a eliminación de ruidos y la reducción de dimensionalidad} sobre
         cómo aprender y cómo representar distribuciones de baja
         dimensión.
 
@@ -121,7 +121,7 @@ principal del libro se organizará en forma de seis temas (capítulos)
         Como veremos, la compresión de datos proporciona una visión 
         unificadora de todos los enfoques clásicos y modernos aparentemente
         diferentes para el aprendizaje de distribuciones o representaciones,
-        incluyendo la minimización de entropía, la reducción de ruido mediante
+        incluyendo la minimización de entropía, la eliminación de ruido mediante
         score-matching, compresión con pérdidas y distorsión de 
         tasa, así como el aprendizaje discriminativo de representaciones
         mediante maximización de la ganancia de información.
@@ -139,11 +139,11 @@ principal del libro se organizará en forma de seis temas (capítulos)
 
     \item Más allá de lo anterior, para que la representación
         aprendida para una distribución de datos sea correcta y consistente,
-        se hacen necesarias las arquitecturas de {\em auto-codificadores}
+        se hacen necesarias las arquitecturas de {\em autocodificadores}
         que incluyen tanto codificación como decodificación. Para que
         un sistema de aprendizaje sea plenamente automático y de operación
         contínua, introduciremos un poderoso {\em esquema de transcripción
-        en circuito cerrado} que permite que un sistema auto-codificador se
+        en circuito cerrado} que permite que un sistema autocodificador se
         autocorrija y, por tanto, se autoperfeccione, por medio
         de un juego minimax entre codificador y decodificador.
 

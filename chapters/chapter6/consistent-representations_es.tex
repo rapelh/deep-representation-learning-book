@@ -3,7 +3,7 @@
 
 \begin{document}
 
-\chapter{Representaciones consistentes y auto-consistentes}
+\chapter{Representaciones consistentes y autoconsistentes}
 \label{ch:consistent-representations}
 
 \begin{quote}
@@ -96,20 +96,20 @@ en este contexto, el concepto de consistencia es de naturaleza empírica o induc
 diferente del concepto de consistencia lógica y deductiva en matemáticas, también conocido como 
 el Principio de Hilbert, del cual hablaremos con más detalle en el capítulo \ref{ch:future}. } Como
 ya mencionamos brevemente en el
-\Cref{ch:intro} (véase la \Cref{fig:autoencoder}), la {\em auto-codificación} ---que integra los
+\Cref{ch:intro} (véase la \Cref{fig:autoencoder}), la {\em autocodificación} ---que integra los
 procesos de codificación y decodificación--- constituye un marco natural para el aprendizaje
 de dicha representación. Hemos estudiado algunos casos especiales importantes
 en el \Cref{ch:classic-models} donde los soportes de la distribución son
 lineales por tramos. En
 la \Cref{sec:consistent-representation}, estudiaremos cómo
-extender el auto-codificador a clases más generales de distribuciones cuyos
+extender el autocodificador a clases más generales de distribuciones cuyos
 soportes son no lineales, tal como se ilustra en la figura
 \ref{fig:manifold-autoencoding}, al tiempo que se garantiza la consistencia
 entre $\X$ y $\hat \X$.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{chapters/chapter6/figs/manifolds-autoencoding.png}
-    \caption{Aprender una buena representación de auto-codificación para una distribución general
+    \caption{Aprender una buena representación de autocodificación para una distribución general
         cuyos soportes se encuentran en una mezcla de subvariedades de baja dimensión.
         Obsérvese que, además de aprender una buena
         representación mediante una aplicación $f(\x, \theta)$ en un enfoque de extremo a extremo
@@ -120,7 +120,7 @@ entre $\X$ y $\hat \X$.
     \label{fig:manifold-autoencoding}
 \end{figure}
 
-Dado este formalismo clásico de auto-codificación, surge una pregunta natural:
+Dado este formalismo clásico de autocodificación, surge una pregunta natural:
 \textit{¿Dónde termina el aprendizaje de distribuciones y dónde comienza el aprendizaje de representaciones?}
 %The advantages of having a structured representation are clear---it reveals
 %intrinsic low-dimensional structures of the data distribution and facilitates
@@ -145,7 +145,7 @@ Demostraremos los vínculos entre los fundamentos que hemos desarrollado en el
 y los últimos avances en la \Cref{sec:RAE},
 % \Cref{sec:SimDINO}, where we describe ``open-loop'' representation learning
 % in SimDINO, and in \Cref{sec:RAE-implement},
-donde el marco del «auto-codificador de representaciones» muestra cómo las representaciones aprendidas en bucle abierto
+donde el marco del «autocodificador de representaciones» muestra cómo las representaciones aprendidas en bucle abierto
 (que analizamos en la \Cref{sec:SimDINO} y que
 revisaremos)
 %learned from DINO/SimDINO 
@@ -164,9 +164,9 @@ codificador $f$:
     \xrightarrow{\hspace{1mm} \mathcal{E} = f \hspace{1mm}} \hat \Z
 \end{equation}
 
-Esto nos lleva al concepto de una {\em representación auto-consistente}.
+Esto nos lleva al concepto de una {\em representación autoconsistente}.
 En la \Cref{sec:self-consistency}, estudiaremos cuándo y cómo podemos
-aprender una representación consistente imponiendo la auto-consistencia
+aprender una representación consistente imponiendo la autoconsistencia
 entre $\Z$ y $\hat \Z$ únicamente a través de un marco de transcripción de bucle cerrado.
 
 Además, en muchos escenarios de aprendizaje prácticos y naturales,
@@ -175,7 +175,7 @@ Por ejemplo, los animales y los seres humanos desarrollan su
 memoria visual mediante la incorporación continua de pequeñas dosis de observaciones
 a lo largo de sus vidas. En la \Cref{sec:continuous}, estudiaremos cómo
 ampliar el marco de transcripción de bucle cerrado para aprender una
-representación auto-consistente en un entorno de {\em aprendizaje continuo}.
+representación autoconsistente en un entorno de {\em aprendizaje continuo}.
 
 Por supuesto, una de las razones fundamentales por las que queremos identificar las
 estructuras de baja dimensión en una distribución de datos y encontrar una buena
@@ -191,12 +191,12 @@ las tareas de finalización o generación condicionadas.
 consistentes}\label{sec:consistent-representation}
 
 A continuación ofrecemos una definición formal de representaciones consistentes, que
-están estrechamente relacionadas con el concepto de auto-codificación. %
+están estrechamente relacionadas con el concepto de autocodificación. %
 \begin{definition}[Representaciones consistentes]\label{def:bidirectional_rep}
     Dados los datos \(\vX\), una \textit{representación consistente} es un par
     de funciones \((f \colon \cX \to \cZ, g \colon \cZ \to \cX)\), tal
     que las \textit{características} \(\vZ = f(\vX)\) son compactas y
-    estructuradas y la \textit{auto-codificación}
+    estructuradas y la \textit{autocodificación}
     \begin{equation}
         \hat{\vX} \doteq g(\vZ) = g(f(\vX))
     \end{equation}
@@ -214,7 +214,7 @@ Los lectores más perspicaces habrán notado que, si no imponemos ciertos
 requisitos a la representación $\Z$ que buscamos, el problema anterior tiene
 una solución trivial: ¡basta con elegir las funciones $f$ y $g$
 para que sean la aplicación identidad! Por lo tanto, el verdadero propósito de buscar una
-auto-codificación es garantizar que el $\Z$ así obtenido sea a la vez más
+autocodificación es garantizar que el $\Z$ así obtenido sea a la vez más
 compacto y más estructurado que $\X$.
 %First, for compactness, $\Z$
 %should better reveal the intrinsic low-dimensionality of $\X$.
@@ -252,7 +252,7 @@ que se pueda calcular de manera eficiente.}:
 \end{equation}
 
 Por lo tanto, dejando de lado los aspectos computacionales, cuando 
-buscamos una buena auto-codificación para una distribución de datos
+buscamos una buena autocodificación para una distribución de datos
 $\X$, conceptualmente intentamos encontrar un codificador $f$ y
 un decodificador $g$ tales que
 \begin{equation}
@@ -263,7 +263,7 @@ Observe que el error de cuantización $\epsilon$ actúa como parámetro de compr
 en esta relajación lagrangiana.
 
 En el resto de esta sección, estudiaremos cómo resolver este tipo de
-problemas de auto-codificación bajo diferentes condiciones, desde casos simples e
+problemas de autocodificación bajo diferentes condiciones, desde casos simples e
 ideales hasta condiciones cada vez más complejas y realistas.
 Concluiremos con una instanciación eficiente de
 \eqref{eqn:autoencode-objective-ch5} (en la \Cref{sec:RAE}) que
@@ -275,11 +275,11 @@ permite una reconstrucción precisa y un muestreo eficiente.
 Según \cite{Baldi2011}, el término «autoencoder» fue
 introducido por primera vez por Hinton y Rumelhart \cite{Rumelhart1986} con el fin de que se pudiera
 aprender una representación profunda mediante retropropagación (BP) de
-manera auto-supervisada; la reconstrucción de los datos originales constituye la
-tarea de auto-supervisión. Sin embargo, el concepto mismo de buscar una
+manera autosupervisada; la reconstrucción de los datos originales constituye la
+tarea de autosupervisión. Sin embargo, el concepto mismo de buscar una
 representación compacta y coherente tiene sus raíces en muchos estudios clásicos.
 Como ya hemos visto en el \Cref{ch:classic-models}, el PCA clásico,
-el ICA y el aprendizaje de diccionarios dispersos comparten un objetivo similar.
+el ICA y el aprendizaje de diccionarios esparsos comparten un objetivo similar.
 La única diferencia radica en que, cuando la distribución subyacente es
 simple (lineal e independiente), las correspondencias de codificación o 
 decodificación resultan fáciles de representar y aprender: no es necesario 
@@ -301,7 +301,7 @@ la \Cref{fig:AE}.
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter6/figs/autoencoder.png}
-    \caption{Ilustración de un auto-codificador típico, como el PCA, que busca
+    \caption{Ilustración de un autocodificador típico, como el PCA, que busca
     una representación de baja dimensión $\z$ para datos de alta dimensión $\vx$.}
     \label{fig:AE}
 \end{figure}
@@ -327,7 +327,7 @@ sobre la representación $\Z$ buscada es explícita: abarca todo el
 subespacio de menor dimensión\footnote{En este caso, se puede considerar que $\Delta R = 0$}.
 
 \subsection{PCA no lineal y 
-auto-codificación}\label{sub:nonlinear-pca}\label{sec:NLPCA}
+autocodificación}\label{sub:nonlinear-pca}\label{sec:NLPCA}
 Por supuesto, cabe esperar que la situación deje de ser tan sencilla
 cuando nos enfrentemos a distribuciones más complejas cuyas estructuras subyacentes
 de baja dimensión sean no lineales.
@@ -355,7 +355,7 @@ un soporte de muy baja dimensión).
 % formalizations of the desirable
 %notions of compact and structured features in the low-dimensional manifold
 %model for the data distribution.
-En general, el problema de aprender un mapeo de auto-codificación de este tipo para esta clase
+En general, el problema de aprender un mapeo de autocodificación de este tipo para esta clase
 de distribuciones de datos se conoce como {\em análisis no lineal de componentes principales}
 (NLPCA).
 
@@ -442,7 +442,7 @@ redes originales propuestas por Kramer se ilustra en la \Cref{fig:NLPCA}.
 \begin{figure}[tb]
     \centering
     \includegraphics[width=0.6\linewidth]{\toplevelprefix/chapters/chapter6/figs/kramer1991nonlinearPCA.png}
-    \caption{PCA no lineal mediante redes neuronales auto-asociativas de dos capas
+    \caption{PCA no lineal mediante redes neuronales autoasociativas de dos capas
         tanto para las transformaciones de codificación como de decodificación, según lo propuesto por
     Kramer \cite{Kramer1991NonlinearPC}.}
     \label{fig:NLPCA}
@@ -460,9 +460,9 @@ En comparación con el caso sencillo del PCA, utilizamos el mismo objetivo de re
 para el aprendizaje, pero una clase de modelos no lineales mucho más compleja para
 parametrizar y entrenar el codificador y el decodificador. Aunque las propiedades de aproximación universal,
 como las de Cybenko, sugieren que, \textit{en principio},
-es posible aprender auto-codificadores consistentes mediante este marco ---puesto que, para
+es posible aprender autocodificadores consistentes mediante este marco ---puesto que, para
 cualquier muestra aleatoria de datos, siempre que se disponga de suficientes parámetros, existen tales pares de 
-auto-codificadores--- encontrarlos mediante descenso por gradiente muchas veces resulta extremadamte no trivial.
+autocodificadores--- encontrarlos mediante descenso por gradiente muchas veces resulta extremadamte no trivial.
 Además, para obtener un objetivo de reconstrucción y un modelo suficientemente informativos
 para la
 distribución de datos del mundo real de alta dimensión, como las imágenes, el número necesario
@@ -548,7 +548,7 @@ más profunda
 
 A la luz de teoremas de aproximación universal como el de Cybenko, uno
 podría preguntarse inicialmente por qué, desde un punto de vista conceptual, se deberían preferir
-los auto-codificadores más profundos a los menos profundos.
+los autocodificadores más profundos a los menos profundos.
 Desde una perspectiva puramente expresiva, podemos entender este fenómeno
 desde un ángulo geométrico relacionado con la tarea de aplanar la variedad no lineal
 sobre la que se sustenta nuestra distribución hipotética de datos. Un enfoque puramente
@@ -568,50 +568,50 @@ este esbozo como un procedimiento computacional que aplana de manera verificable
 mediante un enfoque de white-box \cite{Psenka-JMLR24}. Sin embargo, este enfoque tiene
 una aplicabilidad limitada a distribuciones de datos de alta dimensión, como
 las imágenes, debido a una escalabilidad desfavorable, lo que ha motivado el desarrollo de métodos más
-flexibles para la auto-codificación incremental.
+flexibles para la autocodificación incremental.
 
-\subsection{Auto-codificación dispersa}
-En los esquemas de auto-codificación mencionados anteriormente, la dimensión del espacio de características
+\subsection{Auto-codificación esparsa}
+En los esquemas de autocodificación mencionados anteriormente, la dimensión del espacio de características
 $d$ suele elegirse de modo que sea significativamente menor que la del espacio de datos
 original $D$, con el fin de imponer o promover explícitamente que la representación aprendida
 sea de baja dimensión. Sin embargo, en la práctica,
 normalmente desconocemos la dimensión intrínseca de la distribución de los datos.
 Por lo tanto, la elección de la dimensión del espacio de características para
-la auto-codificación suele realizarse en forma empírica. En situaciones más generales,
+la autocodificación suele realizarse en forma empírica. En situaciones más generales,
 la distribución de los datos puede ser una mezcla de unos pocos subespacios
 o subvariedades de baja dimensión. En estos casos, ya no es viable
 imponer un único espacio de baja dimensión para todas las características en conjunto.
 
-El auto-codificador disperso está diseñado para resolver algunas de estas limitaciones. En
+El autocodificador esparso está diseñado para resolver algunas de estas limitaciones. En
 particular, la dimensión del espacio de características puede ser igual o
 incluso mayor que la del espacio de datos, tal como se ilustra en la
 \Cref{fig:SAE}. Sin embargo, se requiere que las características sean muy
-dispersas en el espacio de características. Por lo tanto, si incorporamos la dispersión como medida
+esparsas en el espacio de características. Por lo tanto, si incorporamos la esparcidad como medida
 de parsimonia, además de la reducción de la tasa en el objetivo
 \eqref{eqn:autoencode-objective-ch5}, obtenemos un nuevo objetivo para
-la auto-codificación dispersa:
+la autocodificación esparsa:
 \begin{equation}
     \min_{f, g}
     [\|\Z\|_0 - \Delta R_{\epsilon}(\Z) + d(\X, \hat \X)],
     \label{eqn:autoencode-sparse}
 \end{equation}
-donde se sabe que la «norma» $\ell^0$ $\|\spcdot\|_0$ favorece la dispersión.
-Esto es muy similar al objetivo de reducción de la tasa de dispersión
+donde se sabe que la «norma» $\ell^0$ $\|\spcdot\|_0$ favorece la esparcidad.
+Esto es muy similar al objetivo de reducción de la tasa de esparcidad
 \eqref{eq:sparse-rr} que utilizamos en el anterior
 \Cref{ch:deep-networks} para derivar la arquitectura CRATE transparente white-box.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter6/figs/SAE_diagram.png}
-    \caption{Ilustración de un auto-codificador disperso (SAE), en comparación con
-    la de un auto-codificador típico (AE) en la \Cref{fig:AE}. }
+    \caption{Ilustración de un autocodificador esparso (SAE), en comparación con
+    la de un autocodificador típico (AE) en la \Cref{fig:AE}. }
     \label{fig:SAE}
 \end{figure}
 
-Como método para aprender pares de auto-codificación en forma integral, la auto-codificación
-dispersa se ha utilizado en el pasado
+Como método para aprender pares de autocodificación en forma integral, la autocodificación
+esparsa se ha utilizado en el pasado
 \cite{Ranzato2006-oq,10.5555/3042573.3042641}, pero casi todos los marcos modernos
-de auto-codificación se basan, en cambio, en un marco de auto-codificación probabilístico
+de autocodificación se basan, en cambio, en un marco de autocodificación probabilístico
 diferente, que estudiaremos a continuación.
 
 \subsection{Auto-codificación variacional}\label{sec:vae}
@@ -625,8 +625,8 @@ diferente, que estudiaremos a continuación.
 %bottleneck for the representation $\vz$, the learned encoders $f$ and $g$ will
 %naturally end up corresponding to a compact and structured feature
 %representation for the data. This is rarely the case in practice.
-Una metodología mejorada y más moderna para la auto-codificación que sigue teniendo
-una aplicación significativa en la actualidad es la \textit{auto-codificación variacional}
+Una metodología mejorada y más moderna para la autocodificación que sigue teniendo
+una aplicación significativa en la actualidad es la \textit{autocodificación variacional}
 \cite{Kingma2013-sb,Kingma2019-zh}.
 %We will see how this framework, which trains a variational autoencoder (VAE)
 %derived through probabilistic modeling considerations, both generalizes the
@@ -726,7 +726,7 @@ distribuciones gaussianas:
     \vx \mid \vz &\sim \cN(g_1(\vz), \diag(e^{g_2(\vz)}) \vI),
 \end{align*}
 donde $g = (g_1, g_2)$ son redes profundas con parámetros $\vtheta$, que
-corresponden al \textit{decodificador} del auto-codificador.
+corresponden al \textit{decodificador} del autocodificador.
 De manera similar, para la distribución a posteriori aproximada, utilizamos
 una distribución gaussiana cuyos parámetros vienen dados por un
 codificador MLP $f = (f_1, f_2)$ con parámetros $\veta$:
@@ -796,7 +796,7 @@ Tras las manipulaciones mencionadas, el objetivo final de la VAE queda así:
         \right]
     \right\}. \labelthis \label{eq:elbo-for-gaussians}
 \end{align*}
-Podemos interpretar esto como un objetivo de auto-codificación regularizado, en el que existe
+Podemos interpretar esto como un objetivo de autocodificación regularizado, en el que existe
 una interesante restricción de consistencia adicional en el primer término del ELBO.
 
 Al mismo tiempo, el lector debe tener en cuenta las numerosas decisiones arbitrarias
@@ -822,7 +822,7 @@ nuevas muestras a partir de ella, como se ilustra en la \Cref{fig:VAE-SD}.
 \begin{figure}[t]
     \centering\includegraphics[width=0.8\linewidth]{\toplevelprefix/chapters/chapter6/figs/VAE-SD.png}
     \caption{Diagrama del modelo de difusión latente tomado del trabajo de
-        \cite{rombach2022high}, que utiliza un auto-codificador variacional
+        \cite{rombach2022high}, que utiliza un autocodificador variacional
         (recuadro rojo a la izquierda) para aprender una representación latente de los
         datos $\x$. A continuación, se aprende un modelo de difusión/eliminación de ruido (recuadro verde en el
         centro) para acceder a la representación $\z$. El bloque
@@ -843,7 +843,7 @@ las distribuciones a posteriori gaussianas en las VAE se aplican punto por punto
 se aprende ninguna estructura conjunta entre las muestras, lo que puede limitar considerablemente
 la calidad de las representaciones aprendidas.
 Estos desafíos han impulsado el desarrollo de enfoques alternativos,
-como los auto-codificadores de representación (RAE), que se
+como los autocodificadores de representación (RAE), que se
 presentarán a continuación y cuyo objetivo es superar algunas de las limitaciones de los VAE,
 sin dejar de proporcionar representaciones latentes eficaces para las tareas de modelado generativo.
 
@@ -970,10 +970,10 @@ sin dejar de proporcionar representaciones latentes eficaces para las tareas de 
 \subsection{Aprendizaje conjunto de representación y distribución}
 \label{sec:RAE}
 
-Los enfoques anteriores para entrenar pares de auto-codificadores con el fin de aprender representaciones
+Los enfoques anteriores para entrenar pares de autocodificadores con el fin de aprender representaciones
 comparten una limitación común: no \textit{organizan explícitamente} el
 espacio de representaciones $\vZ$, sino que solo lo fomentan de manera indirecta (por ejemplo, imponiendo
-la dispersión en el auto-codificador disperso o la gaussianidad en el VAE).
+la esparcidad en el autocodificador esparso o la gaussianidad en el VAE).
 Como insinuamos al principio del capítulo, ya hemos visto anteriormente (en el \Cref{ch:lossy-compression}) 
 cómo obtener resultados mucho mejores, aprendiendo una representación $\vZ$ mediante la maximización de 
 la reducción de la tasa de codificación $\Delta
@@ -987,7 +987,7 @@ representación $\Z$ de los datos $\X$:
 \begin{equation}
     f: \X \rightarrow \Z,
 \end{equation}
-basadas en algunos métodos supervisados o auto-supervisados de extremo a extremo, incluidos los
+basadas en algunos métodos supervisados o autosupervisados de extremo a extremo, incluidos los
 métodos MCR$^2$ y SimDINO presentados en la \Cref{sec:MCR2-classification}
 y la \Cref{sec:SimDINO}, respectivamente. Como también hemos señalado, las
 representaciones así aprendidas
@@ -1000,7 +1000,7 @@ un decodificador inverso:
     g: \Z \rightarrow \hat{\X}
 \end{equation}
 de manera que $\hat \X$ y $\X$ sean cercanos? A la luz de los ejemplos anteriores de
-configuraciones clásicas de auto-codificación, cabría esperar que un objetivo de la forma
+configuraciones clásicas de autocodificación, cabría esperar que un objetivo de la forma
 \eqref{eqn:autoencode-objective-ch5} funcionara, pero ¿qué medida de pérdida de consistencia
 por muestra se debería utilizar?
 
@@ -1024,13 +1024,13 @@ presentado en el \Cref{ch:deep-networks}.
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.6\linewidth]{chapters/chapter6/figs/mental-picture.pdf}
-    \caption{Ilustración del aprendizaje de una representación auto-codificada
+    \caption{Ilustración del aprendizaje de una representación autocodificada
         $\Z$ para los datos $\X$ (arriba) y un modelo de difusión/eliminación de ruido
     (abajo) para acceder a la representación $\Z$.}
     \label{fig:RAE}
 \end{figure}
 
-Por lo tanto, en definitiva, queremos entrenar un auto-codificador para los datos $\X$
+Por lo tanto, en definitiva, queremos entrenar un autocodificador para los datos $\X$
 cuya representación $\Z$ sea fácilmente accesible.
 Concretamente, deseamos aprender un codificador $f$ y un decodificador $g$ tales que:
 \begin{enumerate}
@@ -1039,7 +1039,7 @@ Concretamente, deseamos aprender un codificador $f$ y un decodificador $g$ tales
         \Cref{def:bidirectional_rep}.
     \item La representación estructurada $\Z$ puede modelarse
         aproximadamente como una mezcla de distribuciones gaussianas de baja dimensión, de modo
-        que podamos entrenar un filtro de ruido para acceder de manera eficiente a la
+        que podamos entrenar un \textit{denoiser} para acceder de manera eficiente a la
         distribución de $\Z$ a partir del ruido gaussiano aleatorio $\bm{G}$.
 \end{enumerate}
 La \Cref{fig:RAE} ilustra los procesos generales mencionados anteriormente.
@@ -1068,17 +1068,17 @@ es efectivo, como veremos en la sección
 % \yima{Below kind of suggests that the denoiser network and the
 % above decoder network are learned separately. Is that the case for RAE?}
 Una vez que hayamos aprendido una representación consistente $\Z$ de ese tipo, podremos entrenar
-un filtro de ruido para acceder a su distribución, tal y como hemos estudiado en el
+un \textit{denoiser} para acceder a su distribución, tal y como hemos estudiado en el
 \Cref{ch:denoising}. Concretamente, supongamos que tenemos un modelo probabilístico $p(\z)$
 que captura la distribución (marginal) de las representaciones aprendidas $\vZ$ y una
 distribución gaussiana estándar inicial $\cN(\Zero, \vI)$. Nuestro objetivo es aprender
-un filtro de ruido $\bar{\z}$ que elimine el ruido en forma iterativa en una muestra, pasando de la
+un \textit{denoiser} $\bar{\z}$ que elimine el ruido en forma iterativa en una muestra, pasando de la
 distribución inicial a la distribución objetivo de las representaciones aprendidas.
-Este filtro de ruido puede entrenarse utilizando los objetivos presentados en el \Cref{ch:denoising}
-(véase también el \Cref{ch:conditional-inference} para los filtros de ruido condicionales). Por
+Este \textit{denoiser} puede entrenarse utilizando los objetivos presentados en el \Cref{ch:denoising}
+(véase también el \Cref{ch:conditional-inference} para los \textit{denoisers} condicionales). Por
 ejemplo, consideremos el caso sencillo de flow matching (véanse el
     \Cref{exercise:implement_denoising_processes} y la
-\Cref{sub:sampling_denoising}). Podemos definir el filtro de ruido como un
+\Cref{sub:sampling_denoising}). Podemos definir el \textit{denoiser} como un
 campo vectorial dependiente del tiempo $\bar{\z}_{\theta}(t, \z_t)$
 parametrizado por $\theta$ que transforma una muestra de la distribución inicial
 a la distribución objetivo a lo largo del tiempo $t \in [0, 1]$.
@@ -1088,7 +1088,7 @@ Aquí, $\z_t$ es una interpolación entre $\z_0$ y $\z_1$ en el tiempo $t$:
 \end{equation}
 donde $\z_0 \sim p(\z)$ es una muestra de la distribución de la representación aprendida
 y $\z_1 \sim \cN(\Zero, \vI)$.
-El objetivo de entrenamiento para el filtro de ruido puede expresarse entonces como:
+El objetivo de entrenamiento para el \textit{denoiser} puede expresarse entonces como:
 \begin{equation}
     \min_{\theta} \cL_{\mathrm{FM}}(\theta) = \Ex_{\z_0 \sim p(\z), \z_1 \sim
     \cN(\Zero, \vI), t \sim \mathrm{Unif}(0, 1)} \left[
@@ -1102,13 +1102,13 @@ El objetivo de entrenamiento para el filtro de ruido puede expresarse entonces c
 % (Gaussian), but the DINO features are apparently more structured
 % and linear. Refer back to Chapter 4.}
 
-Cabe destacar la diferencia entre el entrenamiento de un filtro de ruido para las
+Cabe destacar la diferencia entre el entrenamiento de un \textit{denoiser} para las
 representaciones aprendidas mediante VAE y aquellas aprendidas mediante métodos como MCR$^2$ o
 SimDINO. Como se discutió en la \Cref{sec:vae}, las representaciones VAE están
 obligadas a aproximar una distribución a posteriori gaussiana \textit{por muestra} y
 no se modela ninguna distribución multivariada del espacio latente, lo que hace que el
 espacio de representación sea menos estructurado y que el proceso de
-reducción de ruido sea potencialmente más desafiante. Por el contrario, las representaciones aprendidas
+eliminación de ruido sea potencialmente más desafiante. Por el contrario, las representaciones aprendidas
 mediante MCR$^2$ o SimDINO tienden a presentar estructuras lineales y
 de baja dimensión más pronunciadas, como mezclas de subespacios o
 (como se demuestra en la \Cref{sec:SimDINO}), lo que puede
@@ -1116,14 +1116,14 @@ facilitar el proceso de eliminación de ruido. Esta propiedad estructural puede 
 a modelos de eliminación de ruido más eficientes y efectivos, ya que pueden aprovechar mejor
 la geometría subyacente del espacio de representación.
 
-Una vez que hayamos entrenado el filtro de ruido, podemos utilizarlo para generar nuevas muestras a partir de
+Una vez que hayamos entrenado el \textit{denoiser}, podemos utilizarlo para generar nuevas muestras a partir de
 la distribución de representaciones aprendida mediante un proceso de difusión, tal y como hemos
 mostrado en el \Cref{ch:denoising}. Con esto queda completado el aprendizaje de
-un \textit{auto-codificador de representaciones} (RAE) con una distribución de representaciones accesible.
+un \textit{autocodificador de representaciones} (RAE) con una distribución de representaciones accesible.
 En el \Cref{ch:applications} (específicamente en la \Cref{sec:RAE-implement}), veremos una implementación específica de
 RAE y sus aplicaciones en la generación de imágenes.
 
-\section{Aprendizaje de representaciones auto-consistentes}
+\section{Aprendizaje de representaciones autoconsistentes}
 \label{sec:self-consistency}
 
 En capítulos anteriores, hemos estudiado métodos que nos permitirían
@@ -1166,7 +1166,7 @@ a Norbert Wiener a desarrollar la teoría del control por retroalimentación y e
 programa de cibernética allá por la década de 1940.
 
 En segundo lugar, en las secciones anteriores vimos que, para aprender una
-representación consistente, es necesario aprender una auto-codificación bidireccional:
+representación consistente, es necesario aprender una autocodificación bidireccional:
 \begin{equation}
     \X
     \xrightarrow{\hspace{1mm} \mathcal{E} = f \hspace{1mm}} \Z
@@ -1268,19 +1268,19 @@ con su imagen $\hat \Z$ bajo el codificador $f$:
     \xrightarrow{\hspace{1mm} \mathcal{E} = f \hspace{1mm}} \hat \Z
     \label{eqn:closed-autoencoding}
 \end{equation}
-Esto nos lleva al concepto de {\em representación auto-consistente}.
-\begin{definition}[Representación auto-consistente]\label{def:closed_loop}
-    Dados los datos \(\vX\), llamamos \textit{representación auto-consistente} 
+Esto nos lleva al concepto de {\em representación autoconsistente}.
+\begin{definition}[Representación autoconsistente]\label{def:closed_loop}
+    Dados los datos \(\vX\), llamamos \textit{representación autoconsistente} 
     a un par de funciones \((f \colon \cX \to \cZ, g \colon \cZ \to \cX)\), 
     de tal manera que las \textit{características} \(\vZ = f(\vX)\) sean 
-    compactas y estructuradas y las \textit{características de auto-codificación}
+    compactas y estructuradas y las \textit{características de autocodificación}
     \(\hat{\vZ} \doteq f \circ g(\vZ)\) sean \textit{cercanas} a \(\vZ\).
     \begin{enumerate}
-        \item Decimos que es auto-consistente \textit{por muestra}
+        \item Decimos que es autoconsistente \textit{por muestra}
             si \(\vZ \approx \hat{\vZ}\) en una determinada norma con alta
             probabilidad.
         \item Decimos que la representación es
-            \textit{auto-consistente desde el punto de vista de la distribución} si \(\Law(\vZ)
+            \textit{autoconsistente desde el punto de vista de la distribución} si \(\Law(\vZ)
             \approx \Law(\hat{\vZ})\).
     \end{enumerate}
 \end{definition}
@@ -1288,7 +1288,7 @@ Esto nos lleva al concepto de {\em representación auto-consistente}.
 \subsection{Transcripción en bucle cerrado mediante juegos de 
 Stackelberg}\label{sec:closed-loop-transcription}
 
-¿Cómo intentamos garantizar que una representación aprendida sea auto-consistente?
+¿Cómo intentamos garantizar que una representación aprendida sea autoconsistente?
 Como de costumbre, supongamos que $\X = \cup_{k=1}^K \X_k$, donde cada subconjunto de
 muestras $\X_k$ pertenece a una subvariedad de baja dimensión: $\X_k
 \subset \mathcal{M}_k, k = 1,\ldots, K$. Siguiendo la notación del
@@ -1341,7 +1341,7 @@ f(\X,\bm\theta)$ y volver al espacio de datos $\x$: $\hat \X = g(\Z, \bm\eta)$:
     \label{eqn:autoencoding-ch6}
 \end{equation}
 y comprueba cuán cerca están $\X$ y $\hat \X$. Esto forma un
-auto-codificador, que es lo que hemos estudiado en profundidad anteriormente en este capítulo.
+autocodificador, que es lo que hemos estudiado en profundidad anteriormente en este capítulo.
 
 \paragraph{Medición de distancias en el espacio de características.}
 Sin embargo, como hemos comentado anteriormente, si no tenemos la opción de
@@ -1425,7 +1425,7 @@ donde el modelo general tiene los parámetros: $\bm \Theta = \{\bm \theta,
 \end{figure}
 
 \paragraph{El codificador y el decodificador como un juego para dos jugadores.}
-Obviamente, para garantizar que la auto-codificación aprendida sea auto-consistente, el
+Obviamente, para garantizar que la autocodificación aprendida sea autoconsistente, el
 objetivo principal del decodificador $g(\cdot, \bm \eta)$ es {\em minimizar}
 la distancia entre $\Z$ y $\hat \Z$. Es decir, para aprender $g$, queremos
 minimizar la distancia $d(\Z, \hat \Z)$:
@@ -1445,7 +1445,7 @@ donde $\Z_k = f(\X_k,\bm \theta)$ y $\hat \Z_k = f(\hat{\X}_k,\bm\theta)$.
     ilustración sencilla: podría haber muchos decodificadores $g$ tales que
     $f\circ g$ sea una aplicación de identidad (Id). $f\circ g(\z) = \z $ para
     todos los $\z$ en el subespacio $S_{\z}$ del espacio de características. Sin embargo,
-    $g\circ f$ no es necesariamente un mapeo de auto-codificación para $\x$ en la
+    $g\circ f$ no es necesariamente un mapeo de autocodificación para $\x$ en la
     distribución original $S_{\x}$ (representada aquí como un subespacio por
     razones de simplicidad). Es decir, $g\circ f(S_{\x}) \not\subset S_{\x}$ y mucho
     menos $g\circ f(S_{\x}) = S_{\x}$ o $g\circ f(\x) = \x$. Cabe
@@ -1590,7 +1590,7 @@ programas minimax \eqref{eq:MCR2-GAN-objective} y
 entre un sensor de retroalimentación de error y un controlador de reducción de error.
 
 La pregunta que queda por resolver es si el marco anterior es realmente capaz
-de aprender una buena representación (de auto-codificación) de un conjunto de datos dado. Antes
+de aprender una buena representación (de autocodificación) de un conjunto de datos dado. Antes
 de ofrecer una justificación teórica formal (en la siguiente
 subsección), presentamos algunos resultados empíricos.
 
@@ -1629,15 +1629,15 @@ de CIFAR-10 e ImageNet presentan una mayor diversidad de aspectos visuales.
     \label{fig:justifyz=z}
 \end{figure}
 
-\paragraph{Visualización de la auto-codificación de los datos $\X$ y de los datos decodificados
+\paragraph{Visualización de la autocodificación de los datos $\X$ y de los datos decodificados
 $\hat \X$.} Comparamos algunos valores representativos de $\X$ y $\hat{\X}$ en
 MNIST, CIFAR-10 e ImageNet (10 clases) para verificar cuán cerca está $\hat
 \x = g\circ f(\x)$ de $\x$. Los resultados se muestran en la
 \Cref{fig:justify_xhat_equals_x} y las visualizaciones se crean a partir de
-muestras de entrenamiento. Visualmente, el $\hat \x$ auto-codificado captura fielmente
+muestras de entrenamiento. Visualmente, el $\hat \x$ autocodificado captura fielmente
 las principales características visuales de su respectiva muestra de entrenamiento
 $\x$, especialmente la pose, la forma y la disposición. En el caso de conjuntos de datos más sencillos,
-como el MNIST, las imágenes generadas mediante auto-codificación son casi idénticas a las originales.
+como el MNIST, las imágenes generadas mediante autocodificación son casi idénticas a las originales.
 
 \begin{figure}[t]
     \begin{subfigure}[t]{0.3\textwidth}
@@ -1675,7 +1675,7 @@ como el MNIST, las imágenes generadas mediante auto-codificación son casi idé
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter6/figs/Imagenet_reconstruct.png}
         \caption{{\small ImageNet $\hat{\X}$}}
     \end{subfigure}
-    \caption{Visualización de la propiedad de auto-codificación de la transcripción
+    \caption{Visualización de la propiedad de autocodificación de la transcripción
         en bucle cerrado aprendida \mbox{($\x \approx \hat{\x} = g\circ
         f(\x)$)} en MNIST, CIFAR-10 e ImageNet (amplía la imagen para una mejor
     visualización).}
@@ -1685,7 +1685,7 @@ como el MNIST, las imágenes generadas mediante auto-codificación son casi idé
 \subsection{Una mezcla de distribuciones gaussianas de baja dimensión}
 
 En lo anterior, hemos argumentado que es posible formular el
-problema de aprender una distribución de datos como un problema de auto-codificación
+problema de aprender una distribución de datos como un problema de autocodificación
 en bucle cerrado. También hemos comprobado empíricamente que dicho esquema parece funcionar.
 La pregunta que queda por responder es cuándo y por qué debería funcionar dicho esquema. Es
 difícil responder a esta pregunta para los casos más generales con
@@ -1712,7 +1712,7 @@ R_{\epsilon}(\vZ_{k}) \), lo que garantiza que la representación
 a los subespacios de soporte de las demás clases. La forma de medir la
 consistencia de la decodificación viene dada, como antes, por \(\sum_{k =
 1}^{K}\Delta R_\epsilon(\vZ_{k}, \hat{\vZ}_{k})\), lo que garantiza
-que la representación \(\vZ_{k}\) y su auto-codificación
+que la representación \(\vZ_{k}\) y su autocodificación
 \(\hat{\vZ}_{k}\) para cada clase \(k\) abarquen el mismo subespacio. Por lo tanto,
 podemos establecer un juego de Stackelberg simplificado:
 \begin{equation}\label{eq:ctrl_msp_game}
@@ -1763,12 +1763,12 @@ en la \Cref{sec:minimax}. En este contexto, tenemos el siguiente resultado:
     \begin{itemize}
         \item Los vectores \(\vZ_{k}\) se encuentran en subespacios ortogonales y son
             isotrópicos en dichos subespacios, es decir, maximizan la ganancia de información.
-        \item La auto-codificación es auto-consistente, es decir, los
+        \item La autocodificación es autoconsistente, es decir, los
             subespacios generados por \(\vZ_{k}\) y \(\hat{\vZ}_{k}\)
             son los mismos para todo \(k\).
     \end{itemize}
 \end{theorem}
-Este concepto de auto-consistencia es lo máximo que cabe esperar si
+Este concepto de autoconsistencia es lo máximo que cabe esperar si
 solo se parte de supuestos geométricos sobre los datos, es decir, si no hay
 supuestos estadísticos. Si suponemos que las columnas de \(\vX\) se
 extraen de un modelo de mezcla gaussiana de rango bajo, entonces versiones análogas
@@ -1776,9 +1776,9 @@ de este teorema certifican que \(\vZ_{k}\) son también gaussianas de rango bajo
 cuya covarianza es isotrópica, por ejemplo. %
 En esencia, este resultado confirma, a través del caso sencillo de las mezclas gaussianas
 en subespacios, que los juegos minimax destinados a optimizar la ganancia de información
-y la auto-consistencia pueden alcanzar soluciones óptimas.
+y la autoconsistencia pueden alcanzar soluciones óptimas.
 
-\section{Aprendizaje continuo de representaciones auto-consistentes}
+\section{Aprendizaje continuo de representaciones autoconsistentes}
 \label{sec:continuous}
 
 \subsection{Aprendizaje incremental clase por clase}
@@ -1827,7 +1827,7 @@ similar al de la naturaleza. Este se contrapone a las prácticas existentes con 
         antiguas, como representaciones generativas aprendidas de manera incremental
         de las clases antiguas, así como los correspondientes mapeos de 
         codificación y decodificación \cite{fearnet}.
-    \item Que sea \emph{auto-contenido}.
+    \item Que sea \emph{autocontenido}.
         El aprendizaje incremental tiene lugar en un único sistema neuronal
         con una capacidad fija y en un espacio de representación común.
         La capacidad de minimizar el olvido se deriva de la optimización
@@ -1884,7 +1884,7 @@ cálculo de la media y la covarianza, véase el trabajo de
 \end{figure*}
 
 \paragraph{Aprendizaje incremental de LDR con una restricción de memoria antigua.}
-Obsérvese que, con el auto-codificador aprendido
+Obsérvese que, con el autocodificador aprendido
 \eqref{eqn:autoencoding-ch6}, se pueden reproducir y utilizar las imágenes, por ejemplo
 $\hat\X_{old} = g(\Z_{old}, \bm \eta)$, asociadas con las características de la memoria
 para evitar el olvido mientras se aprenden nuevas clases. Así es
@@ -1926,7 +1926,7 @@ Por lo tanto, para minimizar la distorsión de las representaciones de las clase
 podemos intentar imponer $\mbox{Cov}(\Z_{j,old}) =
 \mbox{Cov}(\hat{\Z}_{j,old})$. En otras palabras, mientras aprendemos nuevas
 clases, imponemos que la memoria de las clases antiguas permanezca
-«auto-consistente» a través del bucle de transcripción:
+«autoconsistente» a través del bucle de transcripción:
 \begin{equation}
     \Z_{old} \xrightarrow{\hspace{2mm} g(\z,\bm \eta) \hspace{2mm}}
     \hat \X_{old} \xrightarrow{\hspace{2mm} f(\x, \bm
@@ -2009,7 +2009,7 @@ red convolucional de {\em cuatro capas}. Aquí solo mostramos algunos
 resultados visuales cualitativos; se pueden encontrar más experimentos y un análisis detallado
 en el trabajo \cite{tong2023incremental}.
 
-\paragraph{Visualización de las propiedades de la auto-codificación.}
+\paragraph{Visualización de las propiedades de la autocodificación.}
 Comenzamos visualizando cualitativamente algunas imágenes representativas $\X$
 y su réplica correspondiente $\hat{\X}$ en MNIST y CIFAR-10. El
 modelo se entrena en forma incremental con los conjuntos de datos divididos en 5 tareas. 
@@ -2019,7 +2019,7 @@ características visuales de $\X$, incluyendo formas y texturas. En el caso de u
 conjunto de datos más sencillo como MNIST, ¡los $\hat{\X}$ reproducidos son casi
 idénticos a la entrada $\X$! Esto es bastante notable dado que: (1) nuestro
 método no impone explícitamente que $\hat{\x} \approx \x$ para
-muestras individuales, como lo hacen la mayoría de los métodos de auto-codificación, y (2) después de
+muestras individuales, como lo hacen la mayoría de los métodos de autocodificación, y (2) después de
 haber aprendido de manera incremental todas las clases, el generador no ha
 olvidado cómo generar los dígitos aprendidos anteriormente, tales como 0, 1, 2.
 En el caso de un conjunto de datos más complejo, como CIFAR-10, también demostramos una buena
@@ -2049,13 +2049,13 @@ calidad visual, ya que capturamos fielmente la esencia de cada imagen.
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter6/figs/cifar10_x_recon.png}
         \caption{CIFAR-10 $\hat{\X}$}
     \end{subfigure}
-    \caption{\small Visualización de la propiedad de auto-codificación de la
+    \caption{\small Visualización de la propiedad de autocodificación de la
     representación aprendida ($\hat{\X} = g\circ f(\X)$). }
     \label{fig:justify_xhat_equals_x_incremental}
 \end{figure}
 
 \paragraph{Subespacios principales de las características aprendidas.}
-La mayoría de los métodos generativos basados en memoria utilizan auto-codificadores, VAE o
+La mayoría de los métodos generativos basados en memoria utilizan autocodificadores, VAE o
 GAN para la reproducción. La estructura o distribución de las
 características aprendidas $\Z_j$ para cada clase no está clara en el espacio de características.
 Las características $\Z_j$ de la memoria LDR, por otro lado, tienen
@@ -2152,7 +2152,7 @@ dentro de la misma clase.
 \label{sec:sample-wise-incremental}
 
 Como sabemos, la formulación CTRL de bucle cerrado ya es capaz de aprender una
-auto-codificación aceptable, incluso sin información de clase, mediante el
+autocodificación aceptable, incluso sin información de clase, mediante el
 programa CTRL-Binary:
 \begin{align}
     \max_{\bm \theta} \min_{\bm \eta} \quad \Delta R_\epsilon(\Z, \hat{\Z})
@@ -2175,11 +2175,11 @@ pero en la práctica pueden imponerse en forma suave durante el proceso de optim
 
 \paragraph{Auto-consistencia muestra por muestra mediante transcripción en bucle cerrado.}
 En primer lugar, para abordar el problema de que CTRL-Binary no aprende una
-auto-codificación consistente a nivel de muestra, necesitamos promover la proximidad entre $\hat \x$
+autocodificación consistente a nivel de muestra, necesitamos promover la proximidad entre $\hat \x$
 y $\x$ para cada muestra individual. En el marco de CTRL, esto se puede
 lograr asegurando que sus características correspondientes $\z=f(\x)$ y
 $\hat \z = f(\hat \x)$ sean similares.
-Para promover la auto-consistencia por muestra, donde $\hat{\x} = g(f(\x))$
+Para promover la autoconsistencia por muestra, donde $\hat{\x} = g(f(\x))$
 es cercano a $\x$, queremos que la distancia entre $\z$ y $\hat{\z}$
 sea cero o pequeña, para todos los $N$ elementos de la muestra.
 Esta distancia puede medirse mediante la reducción de la tasa:
@@ -2194,7 +2194,7 @@ Dado que en el contexto no supervisado no conocemos la información sobre las et
 lo mejor que podemos hacer es tratar cada muestra
 junto con sus aumentaciones (por ejemplo, mediante traslación, rotación, oclusión,
 etc.) como un único grupo o «clase» base: una idea básica que subyace a casi todos los métodos de aprendizaje 
-auto-supervisado. En el marco de la reducción de la tasa, resulta intuitivo
+autosupervisado. En el marco de la reducción de la tasa, resulta intuitivo
 comprimir las características de cada muestra y sus aumentaciones. En este
 trabajo, adoptamos las transformaciones estándar de SimCLR
 \cite{chen2020simple} y denotamos dicha transformación como $\tau$. Denotamos
@@ -2214,7 +2214,7 @@ sea cero (o pequeña) para todas las $N$ muestras:
 \paragraph{Aprendizaje de representaciones sin supervisión mediante transcripción en bucle cerrado.}
 Hasta ahora, sabemos que el objetivo CTRL-Binary $\Delta R_\epsilon(\Z,
 \hat{\Z})$ de \eqref{eqn:CTRL-Binary} ayuda a alinear las distribuciones,
-mientras que la auto-consistencia por muestra
+mientras que la autoconsistencia por muestra
 \eqref{eqn:sample-self-consistency} y la aumentación por muestra
 \eqref{eqn:sample-compression} ayudan a alinear y comprimir las características
 asociadas con cada muestra. Además de la consistencia, también queremos que
@@ -2240,7 +2240,7 @@ sistema de bucle cerrado asociado a este programa.
     \includegraphics[width=0.98\textwidth]{\toplevelprefix/chapters/chapter6/figs/uCTRLv3.png}
     \caption{\textbf{Marco general} de la transcripción en bucle cerrado para
         el aprendizaje no supervisado. Se imponen dos restricciones adicionales al
-    método CTRL-Binary: 1) auto-consistencia para las características de cada muestra
+    método CTRL-Binary: 1) autoconsistencia para las características de cada muestra
 $\z^i$ y $\hat{\z}^i$, es decir, $\z^i \approx \hat{\z}^i$; y 2)
 invarianza/similitud entre las características de las muestras aumentadas $\z^i$ y
 $\z_{a}^i$, es decir, $\z^i \approx \z_{a}^i=f(\tau(\x^i), \bm \theta)$,
@@ -2285,7 +2285,7 @@ otros métodos de aprendizaje incremental o no supervisado
 \cite{pmlr-v234-tong24a}. Aquí solo mostramos algunos resultados cualitativos
 del experimento realizado con el conjunto de datos CIFAR-10
 \cite{krizhevsky2014cifar}, utilizando transformaciones de aumento estándar propias
-del aprendizaje auto-supervisado \cite{chen2020simple}. Se puede consultar
+del aprendizaje autosupervisado \cite{chen2020simple}. Se puede consultar
 \cite{pmlr-v234-tong24a} para ver experimentos con conjuntos de datos más numerosos y de mayor tamaño
 y sus evaluaciones cuantitativas.
 
@@ -2373,7 +2373,7 @@ la generación a partir de las diferentes componentes principales de cada grupo.
 \end{figure}
 
 \section{Resumen y Notas}
-Históricamente, la auto-codificación ha sido uno de los principales motores de la innovación
+Históricamente, la autocodificación ha sido uno de los principales motores de la innovación
 en la investigación sobre redes neuronales para el aprendizaje, aunque las demostraciones más impactantes
 desde el punto de vista práctico del aprendizaje profundo probablemente se hayan dado en otros dominios
 (como la clasificación discriminativa, con AlexNet
@@ -2383,12 +2383,12 @@ Los trabajos que hemos destacado a lo largo del capítulo, especialmente el de
 \cite{Hinton504}, sirvieron como catalizadores del interés por la investigación en redes neuronales
 en una época en la que, de otro modo, estas no eran tan destacadas en el panorama de la investigación
 en aprendizaje automático.
-En la práctica actual, los auto-codificadores siguen siendo componentes fundamentales de muchos sistemas a gran escala
+En la práctica actual, los autocodificadores siguen siendo componentes fundamentales de muchos sistemas a gran escala
 destinados a generar datos altamente estructurados, como datos visuales, datos de voz
 y datos moleculares, especialmente el enfoque VQ-VAE
-\cite{van-den-Oord2017-jr}, que se fundamenta en la metodología de los auto-codificadores variacionales
+\cite{van-den-Oord2017-jr}, que se fundamenta en la metodología de los autocodificadores variacionales
 que analizamos en la \Cref{sec:vae}.
-El problema central de la auto-codificación sigue revistiendo una importancia intelectual fundamental
+El problema central de la autocodificación sigue revistiendo una importancia intelectual fundamental
 debido a su estrecha vinculación con el aprendizaje de representaciones y anticipamos que
 volverá a ser una prioridad para los investigadores prácticos en el futuro, a medida que
 la eficiencia en el entrenamiento y la implementación de modelos a gran escala siga cobrando
@@ -2410,7 +2410,7 @@ facilita en forma natural el aprendizaje incremental y continuo, ya sea en un
 entorno por clases o por muestras. El lector puede consultar estos
 artículos para obtener más detalles técnicos y experimentales.
 
-\paragraph{Redes neuronales superficiales vs. profundas, para la auto-codificación y otras aplicaciones.}
+\paragraph{Redes neuronales superficiales vs. profundas, para la autocodificación y otras aplicaciones.}
 En la \Cref{sub:nonlinear-pca}, analizamos el teorema de aproximación universal de Cybenko
 y cómo este establece que, en principio, una red neuronal con una sola
 capa oculta (y no linealidades adecuadas punto a punto) es suficiente para

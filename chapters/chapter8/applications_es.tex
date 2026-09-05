@@ -95,7 +95,7 @@ con las modificaciones de la \textit{arquitectura de transformer} en la \Cref{se
 para imágenes y en la \Cref{sec:clm_text} para textos, respectivamente, que demuestran las capacidades 
 de las arquitecturas transparentes white-box simplificadas, incluyendo CRATE y sus variantes, para 
 la \textit{codificación} en los ámbitos de la imagen y el texto. También demostraremos las capacidades 
-de las arquitecturas simplificadas para la \textit{auto-codificación} en la \Cref{sec:image_completion}. %
+de las arquitecturas simplificadas para la \textit{autocodificación} en la \Cref{sec:image_completion}. %
 
 En la práctica, la razón principal por la que queremos aprender una buena
 representación de una distribución de datos es para poder tomar muestras de la
@@ -143,7 +143,7 @@ se relacionan con los principios presentados anteriormente en el libro.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/autoencoder_pipeline.pdf}
-    \caption{\small\textbf{Un diagrama del proceso del auto-codificador.}
+    \caption{\small\textbf{Un diagrama del proceso del autocodificador.}
         Los datos \(\vX \in \cD\) se introducen en la función de incrustación
         \(f_{\theta}^{\emb}\) para obtener una secuencia en \((\R^{d})^{*}\). La
         incrustación pasa por una red troncal del codificador
@@ -199,7 +199,7 @@ que en el resto del libro tratamos dos tipos diferentes de arquitecturas de mode
         f_{\theta}(\vX)\) y \(\vz_{\theta}(\vX) \doteq
         f_{\theta}^{\ext}(\vZ_{\theta}(\vX))\). El proceso general
         se muestra en la \Cref{fig:overall_encoder_pipeline}.
-    \item Una arquitectura de \textit{auto-codificador}, que se compone de
+    \item Una arquitectura de \textit{autocodificador}, que se compone de
         varias componentes:
         \begin{itemize}
             \item Una \textit{incrustación} \(f_{\theta}^{\emb} \colon
@@ -263,7 +263,7 @@ datos ImageNet-1K contiene 1,28 millones de imágenes de entrenamiento y 50 000 
 validación, divididas en 1 000 clases. El conjunto de datos ImageNet-21K contiene 14,2 millones 
 de imágenes de entrenamiento y 21 800 clases, pero las clases no son disjuntas (es decir, 
 algunas clases son subconjuntos de otras). Dado que estamos realizando un aprendizaje 
-auto-supervisado, las etiquetas no se utilizarán durante el entrenamiento, sino solo durante 
+autosupervisado, las etiquetas no se utilizarán durante el entrenamiento, sino solo durante 
 la evaluación. Con el fin de aumentar la solidez de nuestro modelo, a menudo aplicamos 
 \textit{pequeñas transformaciones mediante aumento de los datos} a cada imagen durante el procesamiento, 
 tales como volteos, la adición de un pequeño ruido aleatorio o recortes aleatorios de 
@@ -639,7 +639,7 @@ incluidos en el conjunto de parámetros \(\theta\).
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/transformer_backbone.pdf}
     \caption{\small\textbf{Una capa \(f_{\theta}^{\ell}\) de la
         red troncal del transformer.} Las características de entrada pasan por
-        bloques de normalización de capa, auto-atención multicanal y perceptrón multicapa
+        bloques de normalización de capa, autoatención multicanal y perceptrón multicapa
     en secuencia para formar las características de salida de la capa.}
     \label{fig:transformer_backbone}
 \end{figure}
@@ -670,7 +670,7 @@ como \(\MHSA_{\theta}^{\ell}, \MLP_{\theta}^{\ell}\) y
 \(\LN_{\theta}^{i, \ell}\), que se definen de la siguiente manera:
 \begin{itemize}
     \item El operador \(\MHSA_{\theta}^{\ell}\) es
-        una auto-atención multicabezal, predecesora de la auto-atención
+        una autoatención multicabezal, predecesora de la autoatención
         multicabezal en subespacios (véase \Cref{ch:deep-networks}). La
         formulación es la siguiente:
         \begin{align}\label{eq:mhsa}
@@ -1486,7 +1486,7 @@ oración o un documento), la representamos como una secuencia de tokens en
                 para tareas de predicción posteriores.
             \item \(\vE^{\pos} \in \R^{d \times n}\) es una
                 \textit{codificación posicional} que distingue
-                los tokens en diferentes posiciones. Dado que la auto-atención
+                los tokens en diferentes posiciones. Dado que la autoatención
                 es invariante ante permutaciones en la dimensión de los tokens,
                 \(\vE^{\pos}\) inyecta información de orden de modo que la
                 función global no sea invariante ante permutaciones de los
@@ -1898,7 +1898,7 @@ arquitectura de la red troncal es diferente. Cada capa toma la forma
 donde los bloques \(\MSSA_{\theta}^{\ell}\) e \(\ISTA_{\theta}^{\ell}\)
 son los descritos en el \Cref{ch:deep-networks}, a saber:
 \begin{itemize}
-\item El operador \(\MSSA\) es una auto-atención de subespacio de múltiples cabezas,
+\item El operador \(\MSSA\) es una autoatención de subespacio de múltiples cabezas,
     definida de la siguiente manera:
     \begin{equation}
         \MSSA_{\theta}^{\ell}(\vZ) \doteq
@@ -1910,7 +1910,7 @@ son los descritos en el \Cref{ch:deep-networks}, a saber:
     donde \(\vU^{k, \ell} \in \R^{d \times p}\), \(\vU_{\out}^{\ell}
     \in \R^{d \times Kp}\), y \(\vb_{\out}^{\ell} \in \R^{d}\) son
     parámetros entrenables que pertenecen al conjunto de parámetros \(\theta\),
-    y (recordemos) el operador de auto-atención \(\SA\) se define en
+    y (recordemos) el operador de autoatención \(\SA\) se define en
     \eqref{eq:self_attention}.
 \item El operador \(\ISTA\) es el
     operador del algoritmo de umbralización por contracción iterativa, definido de la siguiente manera:
@@ -1922,7 +1922,7 @@ son los descritos en el \Cref{ch:deep-networks}, a saber:
     llamado así porque la función \(\vX \mapsto \ReLU(\vX - \beta
             \vD^{\top}(\vD\vX - \vZ) + \beta  \lambda
     \vone_{d}\vone_{n}^{\top})\) constituye un paso del algoritmo
-    para encontrar una representación dispersa no negativa elemento por elemento
+    para encontrar una representación esparsa no negativa elemento por elemento
     para \(\vZ\) con respecto al diccionario completo
     \(\vD\) (véase \Cref{sec:dictionary_learning}).
 \end{itemize}
@@ -2099,7 +2099,7 @@ la \Cref{fig:crate_semantic_heads} muestra un resultado verdaderamente extraordi
 sin necesidad de entrenar con datos de segmentación o detección de objetos;
 \textit{no solo} los mapas de saliencia capturan eficazmente
 todas las partes relevantes de la imagen de entrada, sino que
-\textit{se auto-organizan} para que cada uno corresponda a un conjunto discreto de 
+\textit{se autoorganizan} para que cada uno corresponda a un conjunto discreto de 
 conceptos, ¡incluso entre muestras y clases! Este es el primer sistema
 que logra esto, según el conocimiento de los autores, y puede hacerlo sin
 utilizar ningún dato adicional, salvo los datos de clasificación de imágenes.
@@ -2107,15 +2107,15 @@ La \Cref{tab:crate_detection_segmentation} confirma estas observaciones cualitat
 de manera cuantitativa, mostrando una mejora significativa con respecto a los ViT
 entrenados en la misma configuración de clasificación supervisada.
 
-\section{Representación de imágenes mediante auto-codificación enmascarada}\label{sec:image_completion}
+\section{Representación de imágenes mediante autocodificación enmascarada}\label{sec:image_completion}
 
 En esta sección, se muestra cómo aplicar la arquitectura CRATE al
-problema del \textit{completamiento de imágenes}, también conocido como \textit{auto-codificación enmascarada} 
+problema del \textit{completamiento de imágenes}, también conocido como \textit{autocodificación enmascarada} 
 (MAE), que puede considerarse una generalización del
 problema del completamiento de matrices de rango bajo tratado en el \Cref{ch:classic-models}.
-El auto-codificador enmascarado, desde su introducción en el contexto del aprendizaje profundo
+El autocodificador enmascarado, desde su introducción en el contexto del aprendizaje profundo
 por \cite{he2022masked}, ha sido un método básico y sencillo
-de aprendizaje de representaciones auto-supervisado, cuyo objetivo es dotar
+de aprendizaje de representaciones autosupervisado, cuyo objetivo es dotar
 a cada característica de parche dentro de \(\vZ_{\theta}\) de información agregada
 así como de información sobre sus vecinos, de modo que tanto la característica
 del parche como las características agregadas sean fuentes ricas de información para
@@ -2127,7 +2127,7 @@ aplicando aumentos de datos a cada muestra de cada nuevo lote.
 
 \subsection{La tarea MAE y su objetivo}\label{sub:image_completion_objective}
 
-Como su nombre indica, la auto-codificación enmascarada implica una vista \(v_{m}\)
+Como su nombre indica, la autocodificación enmascarada implica una vista \(v_{m}\)
 que, dada una entrada, realiza un recorte aleatorio con cambio de tamaño (véase
 \Cref{sub:contrastive_learning_objective}) para convertir la imagen de entrada
 en una imagen cuadrada de tamaño \((C, S_{\mask}, S_{\mask})\), y luego
@@ -2137,10 +2137,10 @@ en una imagen cuadrada de tamaño \((C, S_{\mask}, S_{\mask})\), y luego
 tokens que se enmascararían, pasa el conjunto de tokens resultante a través
 del codificador, vuelve a añadir los tokens de marcador de posición aprendidos en los espacios enmascarados
 y vuelve a añadir la codificación posicional adecuada, y pasa el
-conjunto de tokens resultante a través del decodificador para obtener la predicción de auto-codificación.
+conjunto de tokens resultante a través del decodificador para obtener la predicción de autocodificación.
 Esto resulta más eficiente, ya que el codificador tiene que procesar menos tokens,
 pero, en esencia, es igual que el método descrito
-en el texto, y el rendimiento de los modelos resultantes en la tarea de auto-codificación enmascarada
+en el texto, y el rendimiento de los modelos resultantes en la tarea de autocodificación enmascarada
 y en las evaluaciones posteriores es muy similar.}, el
 enmascaramiento se realiza por parches; es decir, tras incrustar la imagen completa,
 el porcentaje \(p_{\mask}\) de los parches se establece en cero.  El
@@ -2156,7 +2156,7 @@ En esencia, esto significa que las características \(\vZ_{\theta}(\vX_{m})\) de
 la vista \(\vX_{m} \doteq v_{m}(\vX)\) deben contener información sobre
 los \textit{parches enmascarados}, así como sobre los parches no enmascarados. Desde la
 perspectiva de los modelos transparentes white-box basados en compresión descritos en el
-\Cref{ch:deep-networks}, si un auto-codificador white-box  \((f_{\theta},
+\Cref{ch:deep-networks}, si un autocodificador white-box  \((f_{\theta},
 g_{\eta})\) tiene éxito en esta tarea, significa que los
 subespacios y diccionarios aprendidos realizan una codificación \textit{redundante} de 
 los datos, de tal manera que puede reconstruir las partes faltantes a partir de
@@ -2175,8 +2175,8 @@ parches con información local y global similar deberían estar relacionadas
 \centering
 \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/crate_ae_backbone.pdf}
 \caption{\small\textbf{Una capa del codificador y del decodificador en una
-    estructura central de auto-codificador CRATE.} Tanto las capas del codificador como las del decodificador pasan
-    sus entradas a través de una auto-atención de subespacio de múltiples cabezas y un
+    estructura central de autocodificador CRATE.} Tanto las capas del codificador como las del decodificador pasan
+    sus entradas a través de una autoatención de subespacio de múltiples cabezas y un
     paso de aprendizaje de diccionario o codificación de diccionario. Tenga en cuenta que las
     capas del codificador y del decodificador están diseñadas simétricamente; el objetivo conceptual
     de cada capa del decodificador es invertir una capa del codificador, por lo que esta
@@ -2254,7 +2254,7 @@ es posible establecer directamente \(\tilde{\vE}^{\pos}\) igual a la
 codificación posicional \(\vE^{\pos}\) y utilizar las mismas codificaciones posicionales interpoladas
 para cada entrada tanto en el codificador como en el decodificador.}
 
-Esta arquitectura es un auto-codificador white-box \((f_{\theta}, g_{\eta})\), donde (recordemos) 
+Esta arquitectura es un autocodificador white-box \((f_{\theta}, g_{\eta})\), donde (recordemos) 
 \(f_{\theta} = f_{\theta}^{\backbone} \circ f_{\theta}^{\emb}\) y \(g_{\eta} = g_{\eta}^{\unemb} \circ g_{\eta}^{\backbone}\). 
 En particular, podemos usarla para calcular una estimación de una vista enmascarada 
 \(\hat{\vX}_{\theta, \eta}(\vX_{m}) = (g_{\eta} \circ f_{\eta})(\vX_{m})\), 
@@ -2274,7 +2274,7 @@ gradientes mencionados anteriormente. Para cada paso temporal \(k\), se hace lo 
     de tamaño diferente \(v_{b, m}^{(k)}\) y aplicarlos
     a \(\vX_{b}^{(k)}\) para obtener \(\vX_{b, m}^{(k)} \doteq v_{b,
     m}^{t}(\X_{b}^{(k)})\).
-\item Calcular la auto-codificación estimada \(\hat{\vX}_{\theta,
+\item Calcular la autocodificación estimada \(\hat{\vX}_{\theta,
         \eta}(\vX_{b, r}^{(k)}) \doteq (g_{\eta} \circ
     f_{\theta})(\vX_{b, r}^{(k)})\).
 \item Formular la pérdida estocástica sustitutiva
@@ -2294,13 +2294,13 @@ gradientes mencionados anteriormente. Para cada paso temporal \(k\), se hace lo 
 
 \subsection{Evaluación} \label{sub:image_completion_optimization_1}
 
-Esta es la primera red de auto-codificador que se analiza en este capítulo. Se utiliza
+Esta es la primera red de autocodificador que se analiza en este capítulo. Se utiliza
 la misma vista recortada central \(v_{\cc}\) que en
 \Cref{sub:contrastive_learning_evals,sub:image_classification_evals},
 redimensionando la imagen final a un cuadrado con una longitud de lado de \(S_{\cc} =
 S_{\mask}\) píxeles para que coincida con las formas de las imágenes de entrada observadas durante el entrenamiento.
 
-Además de evaluar la pérdida de auto-codificación enmascarada en sí misma, también es
+Además de evaluar la pérdida de autocodificación enmascarada en sí misma, también es
 posible evaluar directamente las características \(\vZ_{\theta}(\vX_{\cc})\) de
 la vista \(\vX_{\cc} \doteq v_{\cc}(\vX)\) de los datos \(\vX\)
 . Para la evaluación de la fidelidad del mapa de atención, basta con obtener
@@ -2373,7 +2373,7 @@ la imagen de entrada.
 \begin{table}
 \caption{\small\textbf{Precisión en la clasificación mediante sondeo lineal de
     CRATE-MAE y ViT-MAE} en diversos conjuntos de datos con diferentes tamaños de modelo
-    cuando la red base se ha entrenado previamente para la auto-codificación enmascarada en
+    cuando la red base se ha entrenado previamente para la autocodificación enmascarada en
     ImageNet-1K. Con el mismo número de parámetros, CRATE-MAE alcanza
     un rendimiento más o menos similar, al tiempo que cuenta con un diseño arquitectónico más sencillo
 y basado en principios.}
@@ -2412,16 +2412,16 @@ transformer, los mapas de saliencia se corresponden con los objetos de la imagen
 \label{fig:crate_mae_semantic_heads}
 \end{figure}
 
-\section{Generación de imágenes mediante auto-codificación y muestreo}
+\section{Generación de imágenes mediante autocodificación y muestreo}
 \label{sec:auto-encode-img-gen}
 
-En la sección anterior, hemos presentado la auto-codificación enmascarada (MAE) como un enfoque 
-para aprender una auto-codificación de imágenes naturales $\x \sim p(\x)$:
+En la sección anterior, hemos presentado la autocodificación enmascarada (MAE) como un enfoque 
+para aprender una autocodificación de imágenes naturales $\x \sim p(\x)$:
 \begin{equation}
 \x\xrightarrow{\hspace{1mm} \mathcal{E} = f \hspace{1mm}} \z
 \xrightarrow{\hspace{1mm} \mathcal{D} = g \hspace{1mm}} \hat{\x}.
 \end{equation}
-donde $\z = f(\x)$ es un determinado espacio de características. Este auto-codificador está diseñado 
+donde $\z = f(\x)$ es un determinado espacio de características. Este autocodificador está diseñado 
 para aprender la correlación, o coocurrencia, entre los parches que componen una imagen natural.
 
 Sin embargo, el MAE no impone que la distribución de las características aprendidas $\z$ tenga 
@@ -2434,7 +2434,7 @@ de imagen que faltan, tal como hemos mostrado en la Figura \ref{fig:mae_autoenco
 anterior Capítulo \ref{ch:conditional-inference}.
 
 Por lo tanto, en esta sección presentaremos otros métodos para aprender representaciones de (la 
-distribución de) imágenes naturales mediante auto-codificación, cuyo objetivo es, en gran medida, 
+distribución de) imágenes naturales mediante autocodificación, cuyo objetivo es, en gran medida, 
 subsanar los dos problemas mencionados anteriormente. Más concretamente, queremos que la 
 distribución de las características codificadas presente ciertas estructuras deseadas y que las 
 imágenes decodificadas a partir de dichas características sean mucho más fieles a la distribución 
@@ -2455,7 +2455,7 @@ de las imágenes naturales; es decir, que tengan una calidad visual mucho mejor.
 
 %refer back to Chapter 6 VAE here.
 Como hemos presentado en la Sección~\ref{sec:vae} del Capítulo~\ref{ch:consistent-representations}, 
-la auto-codificación variacional es un método que tiene como objetivo hacer que la distribución de 
+la autocodificación variacional es un método que tiene como objetivo hacer que la distribución de 
 las características aprendidas $\z$ y las distribuciones condicionales entre $\x$ y $\z$ se asemejen 
 más a una distribución gaussiana.\footnote{Se puede considerar que dicha distribución a priori 
 tiene como objetivo promover la diversidad de las características aprendidas, en un espíritu similar 
@@ -2463,7 +2463,7 @@ al de maximizar la tasa de codificación de todas las características.}
 
 Aquí presentamos una implementación muy utilizada de una VAE para datos de imágenes, siguiendo el 
 modelo de compresión perceptual empleado en Stable Diffusion~\citep{rombach2022high}. La idea clave 
-es entrenar un auto-codificador que mapee imágenes de alta resolución en un espacio latente de baja 
+es entrenar un autocodificador que mapee imágenes de alta resolución en un espacio latente de baja 
 dimensión, al tiempo que se impone una regularización KL sobre la distribución latente para fomentar 
 que se acerque a una gaussiana estándar $\mathcal{N}(\boldsymbol{0}, \boldsymbol{I})$. Este espacio 
 latente puede funcionar posteriormente como un espacio de trabajo eficaz para modelos generativos posteriores, como 
@@ -2484,7 +2484,7 @@ etapas, un bloque intermedio compuesto por dos bloques ResNet adicionales refina
 Por último, una convolución de salida proyecta las características en $2c$ canales, que se dividen en las 
 dos magnitudes que parametrizan la distribución latente (descrita a continuación).
 
-A diferencia de un auto-codificador estándar ---y esto es fundamental--- el codificador no genera un único 
+A diferencia de un autocodificador estándar ---y esto es fundamental--- el codificador no genera un único 
 vector latente determinista. En su lugar, parametriza una distribución gaussiana diagonal posterior 
 $q(\z | \x) = \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\sigma}^2 \boldsymbol{I})$ generando dos magnitudes:
 \begin{itemize}
@@ -2512,13 +2512,13 @@ introducido en ~\citep{esser2021taming}.
 \subsubsection{Datos}
 Suponemos que se dispone de un conjunto de datos $\mathcal{D} = \{\x_i\}_{i=1}^N$ de muestras procedentes 
 de la distribución original de los datos. Cada muestra es una imagen de la forma $\x \in \mathbb{R}^{H \times W \times 3}$, 
-donde $H$ y $W$ son la altura y el ancho, respectivamente. En~\citep{rombach2022high}, el auto-codificador se 
+donde $H$ y $W$ son la altura y el ancho, respectivamente. En~\citep{rombach2022high}, el autocodificador se 
 entrena en el conjunto de datos OpenImages con imágenes recortadas a una resolución de $256 \times 256$.
 
 Dado el factor de submuestreo $f = 8$ y el número de canales latentes $c = 4$, el codificador mapea cada imagen 
 de entrada a un tensor latente $\z \in \mathbb{R}^{H/f \times W/f \times c}$. Para la resolución de entrenamiento 
 predeterminada, esto da como resultado un tensor latente de tamaño $32 \times 32 \times 4$. En el momento de la 
-inferencia, el auto-codificador se generaliza a otras resoluciones; por ejemplo, una entrada 
+inferencia, el autocodificador se generaliza a otras resoluciones; por ejemplo, una entrada 
 de $512 \times 512 \times 3$ se codifica en un latente de $64 \times 64 \times 4$.
 
 \subsubsection{Objetivo y métricas de evaluación}
@@ -2577,18 +2577,18 @@ lo que denominamos rFID. Un valor rFID más bajo indica una mejor calidad de rec
 Como se discute en el \Cref{ch:lossy-compression}, el aprendizaje de
 representaciones estructuradas de los datos es fundamental para muchas tareas posteriores. En
 el aprendizaje de representaciones visuales, esto se suele lograr mediante
-métodos de aprendizaje auto-supervisado como DINO
+métodos de aprendizaje autosupervisado como DINO
 \cite{caron2021emerging} y SimDINO (analizados en la Sección
 \ref{sec:contrastive_learning}). En el
 \Cref{ch:consistent-representations}, postulamos
 que una buena representación de los datos debe poder decodificarse de manera efectiva
-hacia el espacio de datos original. Esto requiere un marco de auto-codificación
+hacia el espacio de datos original. Esto requiere un marco de autocodificación
 consistente que pueda reconstruir con precisión los datos originales
 a partir de su representación aprendida. Por lo tanto, es lógico preguntarse: ¿es
 consistente la representación aprendida por métodos como DINO y puede
-decodificarse de manera efectiva en un marco de auto-codificación?
+decodificarse de manera efectiva en un marco de autocodificación?
 
-Para averiguarlo, podemos entrenar un \textit{auto-codificador de representación}
+Para averiguarlo, podemos entrenar un \textit{autocodificador de representación}
 (RAE) que consta de un codificador de representación preentrenado (por ejemplo,
 DINO) y un decodificador entrenable, siguiendo el trabajo:\\
 \centerline{\url{https://rae-dit.github.io}.}\\
@@ -2653,7 +2653,7 @@ indica una mejor calidad de reconstrucción.
 \subsubsection{Resultados experimentales}
 Podemos comparar RAE entrenados con diferentes codificadores preentrenados,
 entre ellos DINOv2, MAE y SigLIP2. Como referencia, también consideramos un
-auto-codificador variacional (VAE) básico entrenado directamente sobre los píxeles de la imagen
+autocodificador variacional (VAE) básico entrenado directamente sobre los píxeles de la imagen
 sin ningún codificador preentrenado. Una opción común es el SD-VAE.
 Los decodificadores RAE se entrenan en el conjunto de entrenamiento ImageNet-1K y
 se evalúan en el conjunto de validación ImageNet-1K. Los resultados se
@@ -2810,7 +2810,7 @@ Una vez que hemos aprendido una representación consistente y estructurada de la
 imágenes naturales, por ejemplo, mediante VAE o RAE, normalmente nos interesa generar de manera 
 eficiente muestras $\z \in \cZ$ a partir de la distribución de la representación aprendida, de modo 
 que podamos regenerar las imágenes naturales asociadas a estas muestras mediante el decodificador 
-aprendido $\hat{\x} = g(\z) \in \cX$. Este proceso de auto-codificación se ilustra en la mitad 
+aprendido $\hat{\x} = g(\z) \in \cX$. Este proceso de autocodificación se ilustra en la mitad 
 superior de la Figura \ref{fig:mental-picture} del Capítulo \ref{ch:intro}.
 
 Para conocer y por lo tanto muestrear la distribución de las características $\z$ en el espacio 
@@ -2819,13 +2819,13 @@ Capítulo \ref{ch:denoising}. Concretamente, supongamos que $p(\z)$ es la distri
 características aprendidas $\z$ en el espacio de características. Podemos aprender un proceso 
 de eliminación de ruido que, partiendo de una distribución gaussiana estándar inicial $\vg \sim \cN(0, \vI)$, 
 converja hacia esta distribución $p(\z)$. Siguiendo el método presentado en el Capítulo \ref{ch:denoising}, 
-queremos aprender un filtro de ruido $\bar{\z}$ tal que, de manera iterativa, elimine el ruido de una 
+queremos aprender un \textit{denoiser} $\bar{\z}$ tal que, de manera iterativa, elimine el ruido de una 
 muestra de la distribución inicial $\cN(0, \vI)$ hasta la distribución objetivo de las representaciones 
 aprendidas $p(\z)$. Este proceso se ilustra en la mitad inferior de la Figura \ref{fig:mental-picture} 
 del Capítulo \ref{ch:intro}.
 
 Para entender el proceso de eliminación de ruido, tomemos el caso sencillo de la coincidencia de flujos 
-presentado en el Capítulo \ref{ch:denoising}. Podemos definir el filtro de ruido como un campo vectorial 
+presentado en el Capítulo \ref{ch:denoising}. Podemos definir el \textit{denoiser} como un campo vectorial 
 dependiente del tiempo $\bar{\z}_{\theta}(t, \z_t)$, parametrizado por $\theta$, que transforma una muestra de la
 distribución inicial a la distribución objetivo a lo largo del tiempo $t \in [0, 1]$. 
 Aquí, $\z_t$ es una interpolación entre $\z_0$ y $\z_1$ en el tiempo $t$:
@@ -2834,7 +2834,7 @@ Aquí, $\z_t$ es una interpolación entre $\z_0$ y $\z_1$ en el tiempo $t$:
 \end{equation}
 donde $\z_0 \sim p(\z)$ es una muestra de la distribución de la representación aprendida
 y $\z_1 \sim \cN(0, \vI)$.
-El objetivo de entrenamiento para el filtro de ruido puede expresarse entonces como:
+El objetivo de entrenamiento para el \textit{denoiser} puede expresarse entonces como:
 \begin{equation}
 \min_{\theta} \cL_{\mathrm{FM}}(\theta) = \Ex_{\z_0 \sim p(\z), \z_1
 \sim \cN(0, I), t \sim \mathrm{Unif}(0, 1)} \left[
@@ -2907,10 +2907,10 @@ que proyecta la entrada con ruido en un espacio de características con un núme
 para entradas de $32 \times 32$, o seis para entradas de $256 \times 256$--- donde cada etapa consta 
 de dos bloques residuales convolucionales. Entre etapas consecutivas se realiza una reducción espacial 
 mediante convoluciones con paso, resultando en tres reducciones y un factor de submuestreo 
-global $f = 2^3 = 8$. Las capas de auto-atención se insertan en el nivel de resolución de 
+global $f = 2^3 = 8$. Las capas de autoatención se insertan en el nivel de resolución de 
 $16 \times 16$ entre los bloques convolucionales, lo que 
 proporciona un modelado de largo alcance limitado a baja resolución. En el cuello de botella (la 
-resolución más baja), un bloque intermedio con bloques residuales adicionales y auto-atención refina 
+resolución más baja), un bloque intermedio con bloques residuales adicionales y autoatención refina 
 aún más las características. El decodificador es un reflejo del codificador: bloques residuales en 
 cada nivel de resolución seguidos de un remuestreo mediante convoluciones transpuestas, con 
 conexiones de salto que concatenan las activaciones correspondientes del codificador. La 
@@ -2973,7 +2973,7 @@ la Sección~\ref{sec:unet-ldm}.
 Dhariwal y Nichol~\citep{dhariwal2021diffusion} llevaron a cabo un estudio sistemático de 
 ablación para determinar qué modificaciones arquitectónicas mejoran más la calidad de las 
 muestras. Partiendo del modelo de referencia DDPM U-Net~\citep{ho2020denoising}, exploraron 
-los siguientes cambios en ImageNet $128 \times 128$: (a) ampliación de la auto-atención de la 
+los siguientes cambios en ImageNet $128 \times 128$: (a) ampliación de la autoatención de la 
 resolución $16 \times 16$ a tres resoluciones ($32 \times 32$, $16 \times 16$, $8 \times 8$); 
 (b) aumento del número de cabezales de atención, utilizando 64 canales por cabezal para 
 ajustarse mejor a la convención de transformer; (c) adopción del bloque residual 
@@ -3009,7 +3009,7 @@ la Sección~\ref{sec:DiT-implement}.
 Mientras que ADM opera directamente en el espacio de píxeles, Rombach et al.~\citep{rombach2022high} 
 observaron que gran parte de la carga computacional se dedica a modelar detalles de alta frecuencia 
 que son irrelevantes desde el punto de vista perceptivo. Su idea clave es separar 
-la \emph{compresión perceptual} del \emph{modelado generativo}: un auto-codificador preentrenado 
+la \emph{compresión perceptual} del \emph{modelado generativo}: un autocodificador preentrenado 
 (Sección~\ref{sec:VAE-implement}) primero comprime la imagen en un espacio latente de baja dimensión 
 y luego el modelo de difusión opera completamente dentro de este espacio latente. Para una imagen de 
 $256 \times 256$ con un factor de submuestreo $f = 8$, U-Net procesa un tensor latente de 
@@ -3051,7 +3051,7 @@ profundidad y la anchura, y presenta leyes de escalado bien caracterizadas segú
 empíricos~\citep{kaplan2020scaling}. En segundo lugar, las capas convolucionales de U-Net 
 codifican un fuerte \textbf{sesgo inductivo espacial} (localidad, invarianza a la traslación) 
 que resulta útil en entornos con pocos datos, pero que limita el modelado de largo alcance en 
-conjuntos de datos de gran tamaño. La auto-atención resuelve parcialmente este problema, pero en 
+conjuntos de datos de gran tamaño. La autoatención resuelve parcialmente este problema, pero en 
 los diseños estándar de U-Net solo se aplica en las etapas de baja resolución debido a su coste 
 cuadrático, lo que hace que las características de alta resolución sean totalmente locales. En 
 tercer lugar, U-Net es una arquitectura \textbf{específica para imágenes} que no se generaliza 
@@ -3136,7 +3136,7 @@ $p \in \{2, 4, 8\}$; la configuración más fina $p = 2$ produce la mejor calida
 \paragraph{Bloque DiT con adaLN-Zero.}
 Tras la «patchificación», la secuencia de tokens se procesa mediante una pila de $N$ bloques de 
 transformer. Cada bloque sigue la estructura estándar del transformer~\citep{vaswani2017attention}: 
-normalización de capa, auto-atención multicanal (MHSA), una segunda normalización de capa y una red 
+normalización de capa, autoatención multicanal (MHSA), una segunda normalización de capa y una red 
 de propagación hacia adelante punto a punto (MLP con activaciones GELU).
 
 La cuestión central del diseño es cómo incorporar la información de condicionamiento ---el intervalo 
@@ -3159,7 +3159,7 @@ de $t$ a través de una red neuronal multicapas (MLP) de dos capas con activacio
 y $\mathrm{Embed}(c)$ es una incrustación de clase aprendida. A partir de $\boldsymbol{e}$, 
 una capa lineal realiza una regresión de seis conjuntos de parámetros dimensionales: 
 $\boldsymbol{\gamma}_1, \boldsymbol{\beta}_1, \boldsymbol{\alpha}_1$ para el subbloque de 
-auto-atención y $\boldsymbol{\gamma}_2, \boldsymbol{\beta}_2, \boldsymbol{\alpha}_2$ para 
+autoatención y $\boldsymbol{\gamma}_2, \boldsymbol{\beta}_2, \boldsymbol{\alpha}_2$ para 
 el subbloque de alimentación directa. La normalización de la capa adaptativa se aplica de 
 la siguiente manera:
 \begin{equation}
@@ -3186,7 +3186,7 @@ de manera uniforme. Para la generación de texto a imagen, donde la señal de co
 es una secuencia de tokens de texto de longitud variable, son comunes dos enfoques alternativos: 
 (1) la atención cruzada, donde los tokens de imagen prestan atención a las incrustaciones de 
 tokens de texto de un codificador congelado; o (2) anteponer los tokens de texto directamente a 
-la secuencia de tokens de imagen, lo que permite que la auto-atención del transformer procese 
+la secuencia de tokens de imagen, lo que permite que la autoatención del transformer procese 
 conjuntamente ambas modalidades.
 
 \paragraph{Proyección de la salida.}
@@ -3551,7 +3551,7 @@ detallamos la implementación de cada componente.
 
 
 \paragraph{Componente 1: Compresión perceptual (el VAE).}
-El primer pilar de la arquitectura es un auto-codificador variacional (VAE) entrenado para 
+El primer pilar de la arquitectura es un autocodificador variacional (VAE) entrenado para 
 aprender a abstraer los detalles de alta frecuencia que, aunque son insignificantes perceptualmente,
 resultan computacionalmente costosos de modelar. Tal 
 y como se presentó en la Sección~\ref{sec:VAE-implement}, esta componente define el 
@@ -3931,7 +3931,7 @@ $\boldsymbol{z}$ para alternar entre el procesamiento espacial y el temporal:
           el tensor con el fin de aislar el eje temporal para cada ubicación espacial. 
           Consideramos los puntos de la grilla espacial ($B \cdot h \cdot w$) como la dimensión 
           del lote y el tiempo ($T$) como la longitud de la secuencia. A continuación, se aplica 
-          una capa de \textbf{auto-atención temporal} para intercambiar información entre cuadros.
+          una capa de \textbf{autoatención temporal} para intercambiar información entre cuadros.
 \end{itemize}
 
 Matemáticamente, sea $\boldsymbol{u} \in \mathbb{R}^{c \times T}$ el vector de características en 
@@ -3943,7 +3943,7 @@ utilizando pesos de proyección aprendibles $\boldsymbol{U}^{(temp)}$:
     \boldsymbol{Q} = \boldsymbol{U}^{(temp)}_Q \boldsymbol{u}, \quad \boldsymbol{K} = \boldsymbol{U}^{(temp)}_K \boldsymbol{u}, \quad \boldsymbol{V} = \boldsymbol{U}^{(temp)}_V \boldsymbol{u},
 \end{equation}
 donde $\boldsymbol{U}^{(temp)}_{Q}, \boldsymbol{U}^{(temp)}_{K}, \boldsymbol{U}^{(temp)}_{V} \in \mathbb{R}^{c \times c}$. 
-Siguiendo la formulación por columnas establecida en la Sección~\ref{subsec:basic_realization}, la auto-atención temporal se calcula como:
+Siguiendo la formulación por columnas establecida en la Sección~\ref{subsec:basic_realization}, la autoatención temporal se calcula como:
 \begin{equation}
     \text{TempAttn}(\boldsymbol{Q}, \boldsymbol{K}, \boldsymbol{V}) \doteq \boldsymbol{V} \cdot \operatorname{softmax}\left( \frac{\boldsymbol{K}^\top \boldsymbol{Q}}{\sqrt{c}} \right) + \boldsymbol{u}.
 \end{equation}
@@ -3971,7 +3971,7 @@ utilizarse como un par clave/valor en capas de atención cruzada. Esto permite q
 generativo funcione como un motor de física guiado por datos, prediciendo las consecuencias 
 visuales de las acciones (por ejemplo, el salto de un personaje) mediante la minimización de 
 los objetivos de reconstrucción o de coincidencia de flujos. Implementaciones a gran escala 
-como Sora~\citep{openai2024sora} sugieren además que el escalado de esta predicción auto-regresiva 
+como Sora~\citep{openai2024sora} sugieren además que el escalado de esta predicción autoregresiva 
 o basada en la difusión da lugar a una consistencia 3D emergente y a la permanencia de los objetos.
 
 
@@ -4161,8 +4161,8 @@ Sin embargo, la aplicación directa de las modernas arquitecturas de aprendizaje
 ---en concreto, los transformers--- a estas representaciones sin procesar
 plantea importantes retos. A diferencia de las imágenes 2D, que poseen una
 estructura de cuadrícula regular que se divide fácilmente en parches, los datos 3D suelen ser
-dispersos, no estructurados e irregulares. Para aprovechar el poder del
-modelado de secuencias y los mecanismos de auto-atención en 3D, debemos salvar
+esparsos, no estructurados e irregulares. Para aprovechar el poder del
+modelado de secuencias y los mecanismos de autoatención en 3D, debemos salvar
 la brecha entre los datos geométricos sin procesar y las secuencias discretas y ordenadas
 que requieren los transformers. Este proceso se conoce como
 \textit{tokenización 3D}.
@@ -4329,7 +4329,7 @@ asociado a cada punto se comprime en un índice de libro de códigos discreto $z
 \end{equation}
 donde $D$ representa el tamaño del libro de códigos.
 
-\item \textbf{Construcción de secuencias.} Para facilitar la generación auto-regresiva con transformers, 
+\item \textbf{Construcción de secuencias.} Para facilitar la generación autoregresiva con transformers, 
 es necesario serializar el conjunto no estructurado de tuplas. 3DILG emplea una ordenación lexicográfica 
 basada en las coordenadas cuantificadas. La forma final se representa como una secuencia estructurada 
 $\mathcal{S}$ que combina explícitamente la información de las coordenadas posicionales y las 
@@ -4464,7 +4464,7 @@ arquitectura basada en Perceiver~\cite{pmlr-v139-jaegle21a}. A diferencia de
 los transformers estándar que escalan cuadráticamente con la longitud de la entrada,
 el Perceiver emplea un mecanismo de cuello de botella latente para desacoplar
 la complejidad del procesamiento del tamaño de la entrada. En lugar de tokenizar los
-puntos de entrada directamente para la auto-atención, el modelo utiliza un conjunto fijo
+puntos de entrada directamente para la autoatención, el modelo utiliza un conjunto fijo
 de consultas latentes pequeñas y aprendibles $\vQ \in \R^{(1+L_{\mathrm{s}}) \times
 d}$, donde $1 + L_{\mathrm{s}}$ es el número de tokens de consulta.
 Desde el punto de vista mecánico, una capa de atención cruzada proyecta el espacio de entrada de alta dimensión
@@ -4483,7 +4483,7 @@ En el contexto de Michelangelo, estas consultas están estructuradas para
 capturar la semántica jerárquica: consisten en un token global $\vQ_g \in \R^{1 \times d}$ con semántica de alto nivel y
 $L_{\mathrm{s}}$ tokens locales $\vQ_l \in \R^{L_{\mathrm{s}} \times d}$
 que contienen información de estructura geométrica de bajo nivel. A continuación, se utilizan varios
-bloques de auto-atención para mejorar iterativamente la representación de características
+bloques de autoatención para mejorar iterativamente la representación de características
 y obtener las incrustaciones de forma finales, $\vE_{\mathrm{s}}
 \in \R^{(1+L_{\mathrm{s}}) \times d}$.
 
@@ -4595,7 +4595,7 @@ formas 3D de alta calidad que se ajustan mejor a las entradas condicionales visu
 
 El modelo de difusión latente de formas alineadas (ASLDM) se basa en un
 transformer similar a UNet~\cite{10203178}, con el objetivo de ajustar una distribución
-de las incrustaciones latentes de formas, acompañado de un auto-codificador para
+de las incrustaciones latentes de formas, acompañado de un autocodificador para
 codificar muestras de datos en el espacio latente y reconstruir las
 muestras de datos a partir del latente muestreado. Al aprender en el espacio latente,
 el modelo de difusión latente es computacionalmente eficiente, y
@@ -4766,7 +4766,7 @@ la Figura~\ref{fig:michelangelo_img_cond_gen} y
 la Figura~\ref{fig:michelangelo_text_cond_gen}.
 La Figura~\ref{fig:michelangelo_img_cond_gen} muestra que
 3DILG~\cite{NEURIPS2022_894ca1c4} presta más atención a la forma global
-en el proceso de generación auto-regresiva, donde sus resultados
+en el proceso de generación autoregresiva, donde sus resultados
 carecen de representaciones de los detalles de las formas 3D. Si bien
 3DS2V~\cite{10.1145/3592442} genera formas 3D con mayor detalle, los
 resultados presentan superficies discontinuas o con ruido. Además, ambos métodos
@@ -5125,13 +5125,13 @@ tokens de forma directamente con los píxeles de la imagen. Al establecer esta c
 espacial, podemos aprovechar la información local de los píxeles para mejorar los detalles de 
 la generación. En consecuencia, \textbf{Cupid} adopta un enfoque de representación latente y 
 tokenización basado en vóxeles 3D, tal como se describe en la Sección \ref{sec:3d_tokenization}. 
-Aquí representamos una forma mediante vóxeles dispersos acompañados de características, que 
+Aquí representamos una forma mediante vóxeles esparsos acompañados de características, que 
 suelen definirse mediante el color RGB o características DINO más avanzadas~\citep{DINOv2} 
 procedentes de modelos base 2D. A continuación, entrenamos un decodificador para que mapee 
 dicha representación de vuelta a la forma, parametrizada por la SDF y a la apariencia, 
 parametrizada por los splats gaussianos~\citep{kerbl20233d}.
 
-En concreto, dado un conjunto de características de vóxeles dispersas 
+En concreto, dado un conjunto de características de vóxeles esparsas 
 $\boldsymbol{F} = \{\boldsymbol{f}_i\}_{i=1}^N$ ubicadas en las coordenadas 
 $\boldsymbol{x}_i$, empleamos dos decodificadores distintos, 
 $\mathcal{D}_{geo}$ y $\mathcal{D}_{app}$, para separar la geometría de la 
@@ -5142,7 +5142,7 @@ s_i = \mathcal{D}_{geo}(\boldsymbol{f}_i), \quad \mathcal{G}i = \mathcal{D}_{app
 donde $s_i \in \mathbb{R}$ representa el valor del campo de distancia con signo (SDF) utilizado para la reconstrucción de 
 la superficie y $\mathcal{G}_i = \{\boldsymbol{c}_i, \alpha_i, \boldsymbol{s}_i, \boldsymbol{q}_i\}$ denota el conjunto 
 de parámetros gaussianos 3D ---que comprenden color, opacidad, escala y rotación--- requeridos para el renderizado volumétrico. 
-A continuación, utilizaremos las características de vóxeles dispersos como representación latente para 
+A continuación, utilizaremos las características de vóxeles esparsos como representación latente para 
 la coincidencia de flujos latentes~\citep{rombach2022high}.
 
 \subsection{Arquitectura e implementación}
@@ -5161,7 +5161,7 @@ generativo. El flujo de trabajo general se muestra en la \Cref{fig:cupid_archite
 \paragraph{Representación desacoplada de objetos y poses.}
 
 Como se explica en la Sección~\ref{sec:3D representation}, el objeto 3D $\object$ se 
-tensoriza en una representación basada en vóxeles dispersos:
+tensoriza en una representación basada en vóxeles esparsos:
 \begin{equation}
     \object \triangleq \{\point_i, \feat_i\}_{i=1}^{\numpts},
 \end{equation}
@@ -6002,7 +6002,7 @@ El modelo toma tres entradas:
 \end{itemize}
 
 Los tokens de cabeza se procesan primero mediante un codificador compuesto por seis
-bloques de transformer con auto-atención para generar representaciones
+bloques de transformer con autoatención para generar representaciones
 contextualizadas. Estas alimentan un decodificador, compuesto por otros seis
 bloques de transformer, que elimina el ruido de la secuencia de movimiento. El condicionamiento se introduce
 mediante atención cruzada: en cada capa del decodificador, los tokens de movimiento forman
@@ -6092,8 +6092,8 @@ una señal útil sobre la localización de la mano.
 
 El marco de coincidencia de mediciones del
 Capítulo~\ref{ch:conditional-inference} nos indica cómo realizar un muestreo a partir
-de la distribución a posteriori: hay que modificar el filtro de ruido para incluir una corrección de gradiente
-hacia la coherencia de las medidas. Recordemos que el filtro de ruido condicional
+de la distribución a posteriori: hay que modificar el \textit{denoiser} para incluir una corrección de gradiente
+hacia la coherencia de las medidas. Recordemos que el \textit{denoiser} condicional
 se descompone de la siguiente manera:
 \begin{equation}
     \mathbb{E}[\boldsymbol{x}_0 \mid \boldsymbol{x}_n, \boldsymbol{y}]
@@ -6102,12 +6102,12 @@ se descompone de la siguiente manera:
     +
     \sigma_n^2 \nabla_{\boldsymbol{x}_n} \log p(\boldsymbol{y} \mid \boldsymbol{x}_n),
 \end{equation}
-donde el primer término corresponde al filtro de ruido anterior y el segundo, a la
+donde el primer término corresponde al \textit{denoiser} anterior y el segundo, a la
 corrección de ajuste de medidas.
 
-En nuestro contexto, el filtro de ruido previo está condicionado por el movimiento de la cabeza:
+En nuestro contexto, el \textit{denoiser} previo está condicionado por el movimiento de la cabeza:
 $D_n^{\text{head}}(\cdot; \boldsymbol{c})$. La corrección de medidas utiliza 
-la energía como guía. El filtro de ruido condicional completo queda así:
+la energía como guía. El \textit{denoiser} condicional completo queda así:
 \begin{equation}
     D_n^{\text{guided}}(\boldsymbol{z})
     =
@@ -6977,16 +6977,16 @@ optimizar eficazmente la función objetivo. Entonces, ¿cómo es posible que fun
 \item Los algoritmos de optimización suelen converger muy rápidamente si y
 solo si cuentan con una buena inicialización, o un \textit{warm start}. El
 bloque ISTA posee un \textit{warm start}: trata las características de entrada como una
-inicialización para los códigos dispersos resultantes.
-\item Esto garantiza que las características de entrada y los códigos dispersos tengan la
-misma dimensión. Es decir, ISTA aprende un diccionario de dispersión completo
+inicialización para los códigos esparsos resultantes.
+\item Esto garantiza que las características de entrada y los códigos esparsos tengan la
+misma dimensión. Es decir, ISTA aprende un diccionario de esparcidad completo
 (véase el \Cref{ch:classic-models}).
 \end{itemize}
 Por consiguiente, si deseamos emplear un diccionario ancho, necesitamos que ISTA realice
 el aprendizaje de diccionarios \textit{sobrecompletos}. Esto implica que no podemos mantener
-el mismo «warm start», ya que los códigos dispersos resultantes tienen una dimensión mayor que
-las características de entrada; por tanto, requiriremos más iteraciones para converger a un código disperso.
-En consecuencia, el paso de las características \(\vZ_{\theta}^{\ell + 1/2}\) hacia los códigos dispersos
+el mismo «warm start», ya que los códigos esparsos resultantes tienen una dimensión mayor que
+las características de entrada; por tanto, requiriremos más iteraciones para converger a un código esparso.
+En consecuencia, el paso de las características \(\vZ_{\theta}^{\ell + 1/2}\) hacia los códigos esparsos
 \(\vZ_{\theta}^{\ell + 1}\) ya no se define como
 \begin{equation}
 \vZ_{\theta}^{\ell + 1} = \ISTA_{\theta}^{\ell}(\vZ_{\theta}^{\ell +
@@ -7051,7 +7051,7 @@ en el diseño de la red; \textit{no es posible} satisfacer simultáneamente
 \begin{enumerate}
 \item La dimensión de las características es constante en todas las capas.
 \item El diccionario es ancho, es decir, sobrecompleto.
-\item La salida de la no linealidad corresponde a los códigos dispersos de 
+\item La salida de la no linealidad corresponde a los códigos esparsos de 
       la entrada respecto al diccionario.
 \end{enumerate}
 En la práctica, renunciar a (1) resulta menos manejable por razones de eficiencia.
@@ -7064,11 +7064,11 @@ siguiente no linealidad para pasar de \(\vZ^{\ell + 1/2}\) a \(\vZ^{\ell + 1}\):
 \ISTA_{\theta}^{\ell}(\vA_{\theta}^{\ell, t} \mid \vZ_{\theta}^{\ell
 + 1/2}); \qquad \vA_{\theta}^{\ell, 0} = \vzero,
 \end{equation}
-es decir, se toman los códigos dispersos resultantes del descenso de gradiente proximal 
+es decir, se toman los códigos esparsos resultantes del descenso de gradiente proximal 
 y se multiplican por el diccionario para obtener una versión de la entrada sin ruido.
 Por consiguiente, la no linealidad de CRATE-\(\alpha\) calcula una
-versión sin ruido de la entrada que es apta para la codificación dispersa, en lugar
-de los códigos dispersos reales en si mismos. El mapeo desde \(\vZ_{\theta}^{\ell
+versión sin ruido de la entrada que es apta para la codificación esparsa, en lugar
+de los códigos esparsos reales en si mismos. El mapeo desde \(\vZ_{\theta}^{\ell
 + 1/2}\) a \(\vZ_{\theta}^{\ell + 1}\) se denomina aquí
 bloque de aprendizaje de diccionarios sobrecompletos (ODL - Overcomplete Dictionary Learning) y se denota
 \(\operatorname{ODL}_{\theta}^{\ell}\), es decir,
@@ -7115,7 +7115,7 @@ preentrenamos modelos CRATE-\(\alpha\) en ImageNet-21K, las tareas no supervisad
 como la segmentación (véase \Cref{fig:crate_alpha_saliency_maps} y la
 \Cref{tab:crate_alpha_detection_segmentation}) suelen tener
 un rendimiento significativamente mejorado en comparación con CRATE. Tendencia similar se observa 
-en el entrenamiento de modelos de lenguaje utilizando la auto-atención causal
+en el entrenamiento de modelos de lenguaje utilizando la autoatención causal
 (véase \Cref{tab:crate_alpha_lm}). En general, se trata de un camino prometedor para
 escalar el rendimiento e igualar a los modelos de caja negra como
 los transformers.\footnote{Cabe señalar que los resultados experimentales de esta
@@ -7133,7 +7133,7 @@ relevante cuando se trata de datos en los que cada muestra es en sí misma
 de alta dimensión y rica en información (como largas secuencias de texto o vídeos),
 es la \textit{complejidad temporal} del procesamiento de secuencias largas de datos.
 Con el fin de reducir la complejidad temporal del procesamiento de datos mediante
-transformers, en \Cref{sub:tost} propusimos un operador de \textit{auto-atención basada en estadísticas de tokens}
+transformers, en \Cref{sub:tost} propusimos un operador de \textit{autoatención basada en estadísticas de tokens}
 \(\TSSA_{\theta}^{\ell}\). Ahora
 construimos un \textit{transformer basado en estadísticas de tokens}, denominado ToST:\\
 \centerline{\url{https://robinwu218.github.io/ToST/},} en torno a él, que podemos utilizar para tareas de contexto largo. En particular, podemos
@@ -7150,7 +7150,7 @@ sustituto directo de una capa de backbone en CRATE.
 donde el bloque \(\TSSA\) se define tal como se indica en \Cref{sub:tost}. Obsérvese
 que esto es exactamente igual que la arquitectura del transformer visual
 discutida en \Cref{sub:contrastive_learning_architecture}, excepto
-que \(\TSSA\) reemplaza al bloque convencional de auto-atención multicanal
+que \(\TSSA\) reemplaza al bloque convencional de autoatención multicanal
 \(\MHSA\). En cualquier caso, la complejidad computacional de la
 propagación hacia adelante de esta capa es lineal en todas las variables del problema ---
 longitud de la secuencia, dimensión de las características, número de cabezales y dimensión de los cabezales.
@@ -7159,7 +7159,7 @@ longitud de la secuencia, dimensión de las características, número de cabezal
 \centering
 \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/tost_backbone.pdf}
 \caption{\small\textbf{Una capa de la estructura ToST}. Las representaciones de los tokens
-pasan por normas de capa, el operador de auto-atención de estadísticas de tokens
+pasan por normas de capa, el operador de autoatención de estadísticas de tokens
 (TSSA) y una red neuronal multicapas (MLP), con el fin de formar la
 salida de la capa.}
 \label{fig:tost_backbone}
@@ -7284,7 +7284,7 @@ representada en \Cref{fig:aot_backbone}. Concretamente, cada capa tiene simpleme
 \vZ_{\theta}^{\ell + 1}(\vX) = \vZ_{\theta}^{\ell}(\vX) +
 \MSSA_{\theta}^{\ell}(\LN_{\theta}^{\ell}(\vZ_{\theta}^{\ell}(\vX))).
 \end{equation}
-En nuestra implementación, también probamos a utilizar la auto-atención
+En nuestra implementación, también probamos a utilizar la autoatención
 multicabezal (MHSA) en lugar de la MSSA. Resulta que esta
 arquitectura \textit{también} es viable, aunque la profundidad de la red
 debe ser considerablemente mayor para lograr un rendimiento equivalente
@@ -7294,7 +7294,7 @@ al de la arquitectura CRATE o transformer habitual. %
 \centering
 \includegraphics[width=0.7\textwidth]{\toplevelprefix/chapters/chapter8/figs/aot_backbone.pdf}
 \caption{\small\textbf{Una capa de la red troncal AoT.} Las representaciones de los tokens
-simplemente pasan por una normalización de capa y por el operador de auto-atención
+simplemente pasan por una normalización de capa y por el operador de autoatención
 multicabezal (subespacial) para formar la salida de la capa. Obsérvese
 que no hay no linealidad a nivel de token, como en las redes MLP, ISTA u ODL.}
 \label{fig:aot_backbone}
@@ -7450,7 +7450,7 @@ Demuestre que \eqref{eq:linear_probing} y
 \item Compare su interpretabilidad de dos maneras:
 Compare their interpretability in two ways:
     \begin{itemize}
-        \item La dispersión \(\norm{\vZ}_{0}\) de la representación \(\vZ\)
+        \item La esparcidad \(\norm{\vZ}_{0}\) de la representación \(\vZ\)
         \item Los mapas de atención \(\va_{\theta}^{k, \ell}\)
     \end{itemize}
 \end{enumerate}

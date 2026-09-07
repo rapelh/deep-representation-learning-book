@@ -41,7 +41,7 @@ la ganancia de información, cuya maximización conduce a representaciones compa
 estructuradas.
 Y en el \Cref{ch:deep-networks}, hemos visto que las capas de las arquitecturas populares de redes profundas
 pueden interpretarse como pasos de optimización incrementales
-hacia la maximización de la ganancia de información. Esto nos permite presentar
+hacia la maximización de la ganancia de información. Esto nos sitúa en una posición ideal para presentar
 una solución con fundamentos matemáticos al problema del aprendizaje de representaciones.
 
 %Let us then preview the representation learning methodology we will
@@ -66,7 +66,7 @@ una solución con fundamentos matemáticos al problema del aprendizaje de repres
 %characteristics of almost all popular deep networks (ResNet, CNN, and
 %Transformer) can be derived and interpreted from this perspective.
 
-Sin embargo, cuando intentamos alcanzar un objetivo determinado mediante
+Sin embargo, cuando intentamos alcanzar un objetivo específico mediante
 la optimización, no hay garantía de que la solución $\Z$ encontrada
 al final mediante la optimización voraz sea la solución correcta. De hecho, incluso si
 el proceso de optimización logra encontrar la solución óptima global
@@ -91,20 +91,20 @@ en términos de alguna medida de similitud:
 \begin{equation}
     d(\X, \hat \X).
 \end{equation}
-Esto nos lleva al concepto de {\em representación consistente}.\footnote{Téngase en cuenta que, 
+Esto nos lleva a la noción de {\em representación consistente}.\footnote{Téngase en cuenta que, 
 en este contexto, el concepto de consistencia es de naturaleza empírica o inductiva. Es 
 diferente del concepto de consistencia lógica y deductiva en matemáticas, también conocido como 
 el Principio de Hilbert, del cual hablaremos con más detalle en el capítulo \ref{ch:future}. } Como
-ya mencionamos brevemente en el
+ya hemos aludido brevemente en el
 \Cref{ch:intro} (véase la \Cref{fig:autoencoder}), la {\em autocodificación} ---que integra los
 procesos de codificación y decodificación--- constituye un marco natural para el aprendizaje
 de dicha representación. Hemos estudiado algunos casos especiales importantes
 en el \Cref{ch:classic-models} donde los soportes de la distribución son
 lineales por tramos. En
 la \Cref{sec:consistent-representation}, estudiaremos cómo
-extender el autocodificador a clases más generales de distribuciones cuyos
+extender la autocodificación a clases más generales de distribuciones cuyos
 soportes son no lineales, tal como se ilustra en la figura
-\ref{fig:manifold-autoencoding}, al tiempo que se garantiza la consistencia
+\ref{fig:manifold-autoencoding}, garantizando la consistencia
 entre $\X$ y $\hat \X$.
 \begin{figure}
     \centering
@@ -112,9 +112,9 @@ entre $\X$ y $\hat \X$.
     \caption{Aprender una buena representación de autocodificación para una distribución general
         cuyos soportes se encuentran en una mezcla de subvariedades de baja dimensión.
         Obsérvese que, además de aprender una buena
-        representación mediante una aplicación $f(\x, \theta)$ en un enfoque de extremo a extremo
+        representación mediante una aplicación $f(\x, \theta)$ de extremo a extremo
         tal como lo hicimos en el \Cref{ch:deep-networks}, queremos asegurarnos
-        de que la representación así aprendida pueda ser decodificada, mediante una
+        de que la representación así aprendida pueda ser decodificada, mediante un
         mapeo «inverso» $g(\z, \eta)$, para volver a aproximar la
     distribución de datos original.}
     \label{fig:manifold-autoencoding}
@@ -139,7 +139,7 @@ Como veremos, la respuesta se reduce a la \textit{eficiencia}. Por lo general, r
 eficaz, tal y como demuestra la práctica moderna, aprender una representación compacta
 de la distribución de datos a modo de «preparación» de la distribución,
 y solo entonces llevar a cabo el aprendizaje de la distribución sobre la representación así obtenida.
-Esta es la metodología predominante en los problemas prácticos.
+Esta es la metodología predominante en problemas prácticos.
 Demostraremos los vínculos entre los fundamentos que hemos desarrollado en el
 \Cref{ch:lossy-compression,ch:deep-networks}
 y los últimos avances en la \Cref{sec:RAE},
@@ -155,7 +155,7 @@ permitir el aprendizaje y el muestreo de representaciones de manera eficiente y 
 Más fundamentalmente, en muchos escenarios de aprendizaje prácticos y naturales,
 puede resultar difícil o incluso imposible comparar las distribuciones de
 los datos $\X$ y $\hat \X$. La única opción que nos queda es
-comparar la característica aprendida $\Z$ con su imagen $\hat \Z$ bajo el
+comparar la representación aprendida $\Z$ con su imagen $\hat \Z$ bajo el
 codificador $f$:
 \begin{equation}
     \X
@@ -163,7 +163,6 @@ codificador $f$:
     \xrightarrow{\hspace{1mm} \mathcal{D} = g \hspace{1mm}} \hat{\X}
     \xrightarrow{\hspace{1mm} \mathcal{E} = f \hspace{1mm}} \hat \Z
 \end{equation}
-
 Esto nos lleva al concepto de una {\em representación autoconsistente}.
 En la \Cref{sec:self-consistency}, estudiaremos cuándo y cómo podemos
 aprender una representación consistente imponiendo la autoconsistencia
@@ -185,15 +184,15 @@ Por lo tanto, la representación conjunta resultante $(\x, \z)$ debe
 estructurarse de la manera más adecuada para estas tareas. En el
 siguiente capítulo, veremos
 cómo se puede estructurar la representación aprendida para facilitar
-las tareas de finalización o generación condicionadas.
+las tareas de completamiento o generación condicionadas.
 
-\section{El aprendizaje de representaciones
+\section{Aprendizaje de representaciones
 consistentes}\label{sec:consistent-representation}
 
 A continuación ofrecemos una definición formal de representaciones consistentes, que
 están estrechamente relacionadas con el concepto de autocodificación. %
 \begin{definition}[Representaciones consistentes]\label{def:bidirectional_rep}
-    Dados los datos \(\vX\), una \textit{representación consistente} es un par
+    A partir de los datos \(\vX\), una \textit{representación consistente} es un par
     de funciones \((f \colon \cX \to \cZ, g \colon \cZ \to \cX)\), tal
     que las \textit{características} \(\vZ = f(\vX)\) son compactas y
     estructuradas y la \textit{autocodificación}
@@ -203,7 +202,7 @@ están estrechamente relacionadas con el concepto de autocodificación. %
     es \textit{cercano} a \(\vX\) según una de las
     dos medidas siguientes:
     \begin{enumerate}
-        \item Decimos que es consistente \textit{por muestra} si \(\vX
+        \item Decimos que es consistente \textit{a nivel de muestra} si \(\vX
             \approx \hat{\vX}\) en una determinada norma con alta probabilidad.
         \item Decimos que la representación es \textit{distribucionalmente
             consistente} si \(\Law(\vX) \approx \Law(\hat{\vX})\).
@@ -234,12 +233,12 @@ basta con diseñar la representación de manera que se maximice la reducción de
 %corresponding data $\x$.
 Según la definición de representación consistente, se requiere que
 la representación $\Z$ sea suficiente para reconstruir la distribución de datos original
-$\X$ con cierto grado de precisión. Para la consistencia por muestra,
+$\X$ con cierto grado de precisión. Para la consistencia a nivel de muestra,
 una opción habitual es minimizar el error de reconstrucción esperado:
 \begin{equation}
     d(\X, \hat \X) = \mathbb{E}[\|\X - \hat\X\|_2^2].
 \end{equation}
-Para garantizar la coherencia distribucional, una opción habitual consiste en minimizar una
+Para garantizar la consistencia distribucional, una opción habitual consiste en minimizar una
 determinada distancia entre distribuciones, como la divergencia KL
 \footnote{Cabe señalar que, en el caso de distribuciones sin
     soporte común ---algo habitual en las distribuciones degeneradas--- la divergencia KL
@@ -264,28 +263,29 @@ en esta relajación lagrangiana.
 
 En el resto de esta sección, estudiaremos cómo resolver este tipo de
 problemas de autocodificación bajo diferentes condiciones, desde casos simples e
-ideales hasta condiciones cada vez más complejas y realistas.
+ideales hasta condiciones cada vez más exigentes y realistas.
 Concluiremos con una instanciación eficiente de
 \eqref{eqn:autoencode-objective-ch5} (en la \Cref{sec:RAE}) que
 garantiza que el espacio de representación $\vZ$ sea compacto y estructurado, al tiempo que
 permite una reconstrucción precisa y un muestreo eficiente.
 
-\subsection{Auto-codificación lineal mediante PCA}% or Online PCA}
+\subsection{Autocodificación lineal mediante PCA}% or Online PCA}
 
-Según \cite{Baldi2011}, el término «autoencoder» fue
-introducido por primera vez por Hinton y Rumelhart \cite{Rumelhart1986} con el fin de que se pudiera
+Según \cite{Baldi2011}, la expresión «autoencoder» fue
+introducida por primera vez por Hinton y Rumelhart \cite{Rumelhart1986} con el fin de que se pudiera
 aprender una representación profunda mediante retropropagación (BP) de
 manera autosupervisada; la reconstrucción de los datos originales constituye la
-tarea de autosupervisión. Sin embargo, el concepto mismo de buscar una
+tarea de autosupervisión. Sin embargo, precisamente ese concepto mismo de buscar una
 representación compacta y coherente tiene sus raíces en muchos estudios clásicos.
 Como ya hemos visto en el \Cref{ch:classic-models}, el PCA clásico,
 el ICA y el aprendizaje de diccionarios esparsos comparten un objetivo similar.
-La única diferencia radica en que, cuando la distribución subyacente es
+La única diferencia radica en que, cuando la distribución subyacente de los datos es
 simple (lineal e independiente), las correspondencias de codificación o 
 decodificación resultan fáciles de representar y aprender: no es necesario 
 que sean profundas y, a menudo, pueden calcularse en forma cerrada o
 mediante un algoritmo explícito.
-Resulta instructivo observar cómo se aplica el concepto de consistencia que hemos
+
+Resulta instructivo observar cómo se manifiesta el concepto de consistencia que hemos
 definido en el caso sencillo del PCA:
 aquí, las correspondencias de codificación y decodificación consistentes vienen dadas por una transformación lineal
 de una sola capa:
@@ -310,7 +310,7 @@ Como vimos en el \Cref{ch:classic-models}, cuando la distribución de $\vx$ se
 apoya efectivamente en un subespacio de baja dimensión $\vU_o$, la compacidad de
 la representación
 $\vz$ generada por $\mathcal{E}$ es una consecuencia directa de estimar
-correctamente (y garantizar) la dimensión de este subespacio.
+correctamente (e imponer) la dimensión de este subespacio.
 Recordemos que el descenso por gradiente sobre el criterio de reconstrucción produce exactamente
 estas correspondencias consistentes por muestra: de hecho, la solución óptima
 al problema
@@ -320,35 +320,35 @@ al problema
 \end{equation}
 coincide exactamente con $\vU_o$ cuando la dimensión de la representación es
 suficientemente grande. En este caso, obtenemos consistencia por muestra
-de manera automática, ya que esto garantiza que $\vU_o\vU_o^\top \vx = \vx$.
+a costo cero, ya que esto garantiza que $\vU_o\vU_o^\top \vx = \vx$.
 Nótese que, en el caso del PCA, el término de reducción de la tasa en
-\eqref{eqn:autoencode-objective-ch5} se vuelve irrelevante, ya que la regularización
+\eqref{eqn:autoencode-objective-ch5} se vuelve nulo, ya que la regularización
 sobre la representación $\Z$ buscada es explícita: abarca todo el
 subespacio de menor dimensión\footnote{En este caso, se puede considerar que $\Delta R = 0$}.
 
 \subsection{PCA no lineal y 
 autocodificación}\label{sub:nonlinear-pca}\label{sec:NLPCA}
 Por supuesto, cabe esperar que la situación deje de ser tan sencilla
-cuando nos enfrentemos a distribuciones más complejas cuyas estructuras subyacentes
+cuando tratemos con distribuciones más complejas cuyas estructuras subyacentes
 de baja dimensión sean no lineales.
 
 \paragraph{Datos sobre una subvariedad no lineal.} Por lo tanto, para ir más allá de la
 estructura lineal que aborda el PCA, podemos suponer que la distribución de los datos
 se encuentra en una subvariedad (suave) $\mathcal{M}$. La
-dimensión intrínseca de la subvariedad, digamos $d$, suele ser mucho
+dimensión intrínseca de la subvariedad, llamémosla $d$, suele ser mucho
 menor que la
-dimensión del espacio circundante $\mathbb{R}^D$. Desde esta perspectiva geométrica,
-nuestro objetivo habitual es encontrar un mapeo no lineal $f$ tal que
+dimensión del espacio ambiente $\mathbb{R}^D$. Desde esta perspectiva geométrica,
+habitualmente buscamos un mapeo no lineal $f$ tal que
 la variedad resultante
 $f(\mathcal{M})$ se aplane, como ilustra el ejemplo mostrado en la
 \Cref{fig:idealized_interpolation}. El espacio de características $\vz$ resultante
 suele ser
 más compacto (de menor dimensión) que el espacio $\vx$ y la
-variedad es plana.
+variedad queda aplanada.
 Desde la perspectiva estadística, que es complementaria a la perspectiva geométrica
 pero distinta de ella en general, tal vez también queramos asegurarnos de que la distribución de los datos
 en $\mathcal{M}$ se mapee a una distribución suficientemente regular
-en el espacio $\vz$, como por ejemplo una gaussiana o uniforme (con
+en el espacio $\vz$, como por ejemplo una distribución gaussiana o uniforme (con
 un soporte de muy baja dimensión).
 %These two properties ensure that sampling and interpolation in the
 % $\vz$-space are as easy as possible, and they are mathematical
@@ -412,7 +412,7 @@ de distribuciones de datos se conoce como {\em análisis no lineal de componente
     \end{tikzpicture}
     \caption{Representación de la interpolación mediante aplanamiento de variedad
         en una variedad en \(\R^{3}\) de dimensión \(d = 2\). Para interpolar
-        dos puntos en la variedad de datos, se mapean estos a través de la aplicación de aplanamiento
+        dos puntos en la variedad de datos, se mapean a través de la aplicación de aplanamiento
         \(\fl\) al espacio aplanado, se toman sus interpolantes convexas
         y luego se mapean estos de vuelta a la variedad de datos a través de la
     aplicación de reconstrucción \(\re\).}
@@ -422,7 +422,7 @@ de distribuciones de datos se conoce como {\em análisis no lineal de componente
 \paragraph{Un intento clásico mediante una red neuronal de dos capas.} Como hemos
 visto anteriormente, en el caso del PCA, basta con una red neuronal lineal
 de una sola capa. Sin embargo, esto ya no se cumple en el caso del NLPCA. En 1991, Kramer
-\cite{Kramer1991NonlinearPC}  propuso resolver el NLPCA utilizando una red neuronal de dos capas
+\cite{Kramer1991NonlinearPC}  propuso calcular el NLPCA utilizando una red neuronal de dos capas
 para representar la función de codificación $f$ (o su inversa $g$) basándose
 en la propiedad de representación universal de las redes de dos capas con activación sigmoide:
 \begin{equation}
@@ -462,10 +462,10 @@ parametrizar y entrenar el codificador y el decodificador. Aunque las propiedade
 como las de Cybenko, sugieren que, \textit{en principio},
 es posible aprender autocodificadores consistentes mediante este marco ---puesto que, para
 cualquier muestra aleatoria de datos, siempre que se disponga de suficientes parámetros, existen tales pares de 
-autocodificadores--- encontrarlos mediante descenso por gradiente muchas veces resulta extremadamte no trivial.
+autocodificadores--- encontrarlos mediante descenso por gradiente muchas veces resulta sumamente no trivial.
 Además, para obtener un objetivo de reconstrucción y un modelo suficientemente informativos
 para la
-distribución de datos del mundo real de alta dimensión, como las imágenes, el número necesario
+distribución de datos reales de alta dimensión, como las imágenes, el número necesario
 de muestras y de nodos ocultos puede ser enorme.
 Además, como medida de la compacidad de la representación aprendida, la
 dimensión (menor) de $\z$ para la capa de cuello de botella suele elegirse
@@ -481,7 +481,7 @@ Según la práctica actual de las redes profundas, se sabe que estas arquitectur
 y anchas son bastante difíciles de
 entrenar de manera eficaz y eficiente mediante la retropropagación (BP), en parte
 debido a que el gradiente de la función sigmoide se desvanece. Por lo tanto, la
-práctica actual suele recomendar descomponer
+práctica actual suele recomendar descomponer aún más
 la transformada no lineal $f$ (o $g$) en una composición de
 muchas más capas de transformadas más simples, lo que da como resultado una arquitectura de red
 más profunda
@@ -540,9 +540,9 @@ más profunda
     \caption{Una representación del proceso de construcción del par de
         aplanamiento y reconstrucción \((\fl, \re)\), donde el codificador \(\fl =
         \fl_{L} \circ \fl_{L - 1} \circ \cdots \circ \fl_{1}\) se
-        construido a partir de la composición de capas de aplanamiento y el decodificador \(\re
+        construye a partir de la composición de capas de aplanamiento y el decodificador \(\re
         = \re_{1} \circ \re_{2} \circ \cdots \circ \re_{L}\) está compuesto por
-    inversiones de cada \(\fl_{\ell}\).}
+    las inversas de cada \(\fl_{\ell}\).}
     \label{fig:ccnet_layers}
 \end{figure}
 
@@ -550,7 +550,7 @@ A la luz de teoremas de aproximación universal como el de Cybenko, uno
 podría preguntarse inicialmente por qué, desde un punto de vista conceptual, se deberían preferir
 los autocodificadores más profundos a los menos profundos.
 Desde una perspectiva puramente expresiva, podemos entender este fenómeno
-desde un ángulo geométrico relacionado con la tarea de aplanar la variedad no lineal
+bajo un ángulo geométrico relacionado con la tarea de aplanar la variedad no lineal
 sobre la que se sustenta nuestra distribución hipotética de datos. Un enfoque puramente
 constructivo para aplanar la variedad procede de manera incremental, en
 paralelo a lo que hemos visto en los
@@ -570,7 +570,7 @@ una aplicabilidad limitada a distribuciones de datos de alta dimensión, como
 las imágenes, debido a una escalabilidad desfavorable, lo que ha motivado el desarrollo de métodos más
 flexibles para la autocodificación incremental.
 
-\subsection{Auto-codificación esparsa}
+\subsection{Autocodificación esparsa}
 En los esquemas de autocodificación mencionados anteriormente, la dimensión del espacio de características
 $d$ suele elegirse de modo que sea significativamente menor que la del espacio de datos
 original $D$, con el fin de imponer o promover explícitamente que la representación aprendida
@@ -586,7 +586,7 @@ El autocodificador esparso está diseñado para resolver algunas de estas limita
 particular, la dimensión del espacio de características puede ser igual o
 incluso mayor que la del espacio de datos, tal como se ilustra en la
 \Cref{fig:SAE}. Sin embargo, se requiere que las características sean muy
-esparsas en el espacio de características. Por lo tanto, si incorporamos la esparcidad como medida
+esparsas en el espacio de características. Por lo tanto, si imponemos la esparcidad como medida
 de parsimonia, además de la reducción de la tasa en el objetivo
 \eqref{eqn:autoencode-objective-ch5}, obtenemos un nuevo objetivo para
 la autocodificación esparsa:
@@ -596,9 +596,9 @@ la autocodificación esparsa:
     \label{eqn:autoencode-sparse}
 \end{equation}
 donde se sabe que la «norma» $\ell^0$ $\|\spcdot\|_0$ favorece la esparcidad.
-Esto es muy similar al objetivo de reducción de la tasa de esparcidad
+Esto es muy similar al objetivo de reducción esparsa de la tasa de compresión
 \eqref{eq:sparse-rr} que utilizamos en el anterior
-\Cref{ch:deep-networks} para derivar la arquitectura CRATE transparente white-box.
+\Cref{ch:deep-networks} para derivar la arquitectura CRATE transparente \textit{white-box}.
 
 \begin{figure}
     \centering
@@ -608,13 +608,13 @@ Esto es muy similar al objetivo de reducción de la tasa de esparcidad
     \label{fig:SAE}
 \end{figure}
 
-Como método para aprender pares de autocodificación en forma integral, la autocodificación
+Como método para aprender pares de autocodificación de extrtemo a extremo, la autocodificación
 esparsa se ha utilizado en el pasado
 \cite{Ranzato2006-oq,10.5555/3042573.3042641}, pero casi todos los marcos modernos
 de autocodificación se basan, en cambio, en un marco de autocodificación probabilístico
 diferente, que estudiaremos a continuación.
 
-\subsection{Auto-codificación variacional}\label{sec:vae}
+\subsection{Autocodificación variacional}\label{sec:vae}
 
 %In the classical conception of autoencoding, following Hinton and Rumelhart
 %\cite{Rumelhart1986}, the data distribution plays a very minor role in the
@@ -625,8 +625,8 @@ diferente, que estudiaremos a continuación.
 %bottleneck for the representation $\vz$, the learned encoders $f$ and $g$ will
 %naturally end up corresponding to a compact and structured feature
 %representation for the data. This is rarely the case in practice.
-Una metodología mejorada y más moderna para la autocodificación que sigue teniendo
-una aplicación significativa en la actualidad es la \textit{autocodificación variacional}
+Una metodología mejorada y más moderna para la autocodificación que aún goza de
+una aplicación significativa es la \textit{autocodificación variacional}
 \cite{Kingma2013-sb,Kingma2019-zh}.
 %We will see how this framework, which trains a variational autoencoder (VAE)
 %derived through probabilistic modeling considerations, both generalizes the
@@ -664,7 +664,7 @@ distribución poblacional de datos):
 %knowledge that $\vx$ has low-dimensional structure by seeking to factor the
 %distribution $p(\vx ;\, \vtheta)$ according to a low-dimensional ``latent''
 %variable model $\vz$. Indeed,
-Mediante un condicionamiento, podemos escribir $p(\vx, \vz ;\, \vtheta)
+Mediante condicionamiento, podemos escribir $p(\vx, \vz ;\, \vtheta)
 = p(\vz;\, \vtheta) p(\vx \mid \vz;\, \vtheta)$ y
 \begin{align*}
     p(\vx; \vtheta) &= \int p(\vz;\, \vtheta) p(\vx \mid \vz;\,
@@ -693,12 +693,15 @@ Mediante un condicionamiento, podemos escribir $p(\vx, \vz ;\, \vtheta)
 %
 Esto implica que se puede aprender un modelo probabilístico para $\vx$ con
 una distribución \textit{a priori} $p(\vz)$ y una distribución condicional $p(\vx \mid \vz)$,
-lo que, en términos más generales, corresponde a un decodificador. Por lo tanto,
+lo que, en términos más generales, corresponde a un decodificador. En particular, 
+la regla de Bayes implica que la posterior $p(\vz \mid \vx)$, necesaria para la codificación, 
+puede expresarse en términos de la a priori y el decodificador (y muestras de $\vx$), 
+pero su cálculo es computacionalmente intratable. Por lo tanto,
 en el marco de VAE, introducimos una «posterior aproximada»
 $q(\vz \mid \vx;\, \veta)$, correspondiente
 a una red codificadora separada y aprendemos conjuntamente el codificador y el decodificador mediante
 la maximización de una cota inferior de la verosimilitud verdadera, conocida como
-cota inferior de evidencia (ELBO), que es estricta cuando la aproximación posterior
+cota inferior de evidencia (ELBO), que es ajustada cuando la aproximación posterior
 también lo es.
 %In the variational autoencoding framework, we
 %%navigate this trade-off through three key insights:
@@ -719,6 +722,9 @@ también lo es.
 %in practice, namely
 %where the prior $p(\vz ;\, \vtheta)$ and the conditional $p(\vx \mid \vz;\,
 %\vtheta)$ are both Gaussian. Namely,
+Nos centraremos en la instanciación más útil de la arquitectura VAE en la práctica, 
+a saber, aquella en la que la a priori $p(\vz;\,\vtheta)$ y la 
+condicional $p(\vx \mid \vz;\,\vtheta)$ son gaussianas.
 La siguiente instanciación es habitual en la práctica. Utilizamos las siguientes
 distribuciones gaussianas:
 \begin{align*}
@@ -728,7 +734,7 @@ distribuciones gaussianas:
 donde $g = (g_1, g_2)$ son redes profundas con parámetros $\vtheta$, que
 corresponden al \textit{decodificador} del autocodificador.
 De manera similar, para la distribución a posteriori aproximada, utilizamos
-una distribución gaussiana cuyos parámetros vienen dados por un
+una distribución normal cuyos parámetros vienen dados por un
 codificador MLP $f = (f_1, f_2)$ con parámetros $\veta$:
 \begin{equation*}
     \vz \mid \vx \sim \cN(f_1(\vx), \diag(e^{f_2(\vx)}) \vI).
@@ -799,7 +805,7 @@ Tras las manipulaciones mencionadas, el objetivo final de la VAE queda así:
 Podemos interpretar esto como un objetivo de autocodificación regularizado, en el que existe
 una interesante restricción de consistencia adicional en el primer término del ELBO.
 
-Al mismo tiempo, el lector debe tener en cuenta las numerosas decisiones arbitrarias
+Al mismo tiempo, el lector debí tener en cuenta las numerosas decisiones arbitrarias
 que toma el formalismo VAE (por ejemplo, la elección y parametrización de las distribuciones gaussianas).
 Esto da lugar a un objetivo de entrenamiento complejo cuya optimización eficiente sigue siendo
 un reto, a pesar de más de diez años de investigación.
@@ -815,7 +821,7 @@ hemos desarrollado en el \Cref{ch:deep-networks}, como veremos en breve.
 \paragraph{Difusión latente basada en VAE.}
 Una aplicación importante de las VAE se da en el contexto de los modelos de difusión latente
 \cite{rombach2022high}, donde primero se entrena una VAE para que aprenda una representación latente más
-compacta y regularizada de datos de alta dimensión,
+compacta y lo suficientemente regular de datos de alta dimensión
 como las imágenes. A continuación, se puede entrenar un modelo de difusión en el espacio latente
 para acceder a la distribución de la representación y, por lo tanto, generar
 nuevas muestras a partir de ella, como se ilustra en la \Cref{fig:VAE-SD}.
@@ -837,7 +843,7 @@ aprendido.\footnote{Muchos de los primeros modelos generativos de imágenes o vi
     se basan en este marco de difusión latente, tal como lo describimos
     con más detalle en la \Cref{sub:text-cond} y en términos de implementación en el
     \Cref{ch:applications}.} Sin embargo, el entrenamiento de las VAE puede resultar
-complicado debido a problemas como el colapso de la distribución a posteriori y el equilibrio
+complejo debido a problemas como el colapso de la distribución a posteriori y el equilibrio
 entre los términos de reconstrucción y regularización en el ELBO. Además,
 las distribuciones a posteriori gaussianas en las VAE se aplican punto por punto y no
 se aprende ninguna estructura conjunta entre las muestras, lo que puede limitar considerablemente
@@ -970,7 +976,7 @@ sin dejar de proporcionar representaciones latentes eficaces para las tareas de 
 \subsection{Aprendizaje conjunto de representación y distribución}
 \label{sec:RAE}
 
-Los enfoques anteriores para entrenar pares de autocodificadores con el fin de aprender representaciones
+Los enfoques anteriores para entrenar pares autocodificadores con el fin de aprender representaciones
 comparten una limitación común: no \textit{organizan explícitamente} el
 espacio de representaciones $\vZ$, sino que solo lo fomentan de manera indirecta (por ejemplo, imponiendo
 la esparcidad en el autocodificador esparso o la gaussianidad en el VAE).
@@ -982,7 +988,7 @@ En esta sección describimos este
 procedimiento con más detalle y, en particular, mostramos cómo
 realizar un \textit{muestreo eficiente} en el espacio de representación aprendido $\vZ$.
 
-Como hemos visto al final del \Cref{ch:lossy-compression} (\Cref{sec:representations-image}), a menudo podemos obtener una buena
+Como hemos visto al final del \Cref{ch:lossy-compression} (\Cref{sec:representations-image}), a menudo podemos aprender una buena
 representación $\Z$ de los datos $\X$:
 \begin{equation}
     f: \X \rightarrow \Z,
@@ -990,7 +996,7 @@ representación $\Z$ de los datos $\X$:
 basadas en algunos métodos supervisados o autosupervisados de extremo a extremo, incluidos los
 métodos MCR$^2$ y SimDINO presentados en la \Cref{sec:MCR2-classification}
 y la \Cref{sec:SimDINO}, respectivamente. Como también hemos señalado, las
-representaciones así aprendidas
+representaciones aprendidas de este modo
 presentan mejores estructuras que la distribución de los datos originales. Las representaciones
 suelen ser una mezcla de subespacios lineales de baja dimensión (o gaussianas de bajo rango).
 Sin embargo, aún no hemos respondido a la pregunta de cómo evaluar la
@@ -1008,13 +1014,13 @@ Además, esas estructuras de baja dimensión (lineales) siguen estando incrustad
 un espacio de representación de alta dimensión. Por lo tanto, para poder utilizar las representaciones así aprendidas,
 necesitamos poder acceder también a sus distribuciones. En el
 \Cref{ch:denoising}, hemos aprendido que la eliminación de ruido es un enfoque general
-para identificar y, por lo tanto, acceder a dichas representaciones de baja dimensión. Por lo tanto,
+para identificar y, por lo tanto, acceder a dichas representaciones de baja dimensión. De este modo,
 podemos acceder a la distribución de las características aprendidas a través de un
-proceso (aprendido) de eliminación de ruido aplicado a un ruido aleatorio:
+proceso (aprendido) de eliminación de ruido a partir de un ruido aleatorio:
 \begin{equation}
     h: \bm{G} \rightarrow \Z.
 \end{equation}
-Además, también hemos
+Además, hemos
 aprendido que, si la distribución objetivo de $\Z$ puede modelarse
 (aproximadamente) como
 una mezcla de subespacios o gaussianas de bajo rango, sus operadores óptimos de eliminación de ruido
@@ -1024,15 +1030,15 @@ presentado en el \Cref{ch:deep-networks}.
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.6\linewidth]{chapters/chapter6/figs/mental-picture.pdf}
-    \caption{Ilustración del aprendizaje de una representación autocodificada
-        $\Z$ para los datos $\X$ (arriba) y un modelo de difusión/eliminación de ruido
+    \caption{Ilustración del aprendizaje de una representación de autocodificador
+        $\Z$ de los datos $\X$ (arriba) y un modelo de difusión/reducción de ruido
     (abajo) para acceder a la representación $\Z$.}
     \label{fig:RAE}
 \end{figure}
 
 Por lo tanto, en definitiva, queremos entrenar un autocodificador para los datos $\X$
 cuya representación $\Z$ sea fácilmente accesible.
-Concretamente, deseamos aprender un codificador $f$ y un decodificador $g$ tales que:
+Concretamente, quisiéramos aprender un codificador $f$ y un decodificador $g$ tales que:
 \begin{enumerate}
     \item La representación $\Z = f(\X)$ es una representación consistente
         de los datos originales $\X$, tal como se define en la
@@ -1045,9 +1051,9 @@ Concretamente, deseamos aprender un codificador $f$ y un decodificador $g$ tales
 La \Cref{fig:RAE} ilustra los procesos generales mencionados anteriormente.
 
 A partir del \Cref{ch:lossy-compression}, sabemos que la representación
-aprendida $\Z$ mediante la optimización del MCR$^2$ (sin supervisión)
+$\Z$ aprendida mediante la optimización del MCR$^2$ (sin supervisión)
 cumple el segundo requisito y puede considerarse
-que tiene estructuras cercanas a
+que presenta estructuras cercanas a
 una mezcla de subespacios o gaussianas de bajo rango. Al incorporar
 un objetivo de consistencia de la muestra, podemos extender el objetivo de reducción de la tasa
 en la \Cref{sec:SimDINO} para aprender una representación consistente:
@@ -1072,7 +1078,7 @@ un \textit{denoiser} para acceder a su distribución, tal y como hemos estudiado
 \Cref{ch:denoising}. Concretamente, supongamos que tenemos un modelo probabilístico $p(\z)$
 que captura la distribución (marginal) de las representaciones aprendidas $\vZ$ y una
 distribución gaussiana estándar inicial $\cN(\Zero, \vI)$. Nuestro objetivo es aprender
-un \textit{denoiser} $\bar{\z}$ que elimine el ruido en forma iterativa en una muestra, pasando de la
+un \textit{denoiser} $\bar{\z}$ que elimine el ruido iterativamente de una muestra, pasando de la
 distribución inicial a la distribución objetivo de las representaciones aprendidas.
 Este \textit{denoiser} puede entrenarse utilizando los objetivos presentados en el \Cref{ch:denoising}
 (véase también el \Cref{ch:conditional-inference} para los \textit{denoisers} condicionales). Por
@@ -1081,14 +1087,14 @@ ejemplo, consideremos el caso sencillo de flow matching (véanse el
 \Cref{sub:sampling_denoising}). Podemos definir el \textit{denoiser} como un
 campo vectorial dependiente del tiempo $\bar{\z}_{\theta}(t, \z_t)$
 parametrizado por $\theta$ que transforma una muestra de la distribución inicial
-a la distribución objetivo a lo largo del tiempo $t \in [0, 1]$.
+a la distribución objetivo a medida que el tiempo $t \in [0, 1]$ varía.
 Aquí, $\z_t$ es una interpolación entre $\z_0$ y $\z_1$ en el tiempo $t$:
 \begin{equation}
     \z_t = (1 - t)\z_0 + t\z_1,
 \end{equation}
 donde $\z_0 \sim p(\z)$ es una muestra de la distribución de la representación aprendida
 y $\z_1 \sim \cN(\Zero, \vI)$.
-El objetivo de entrenamiento para el \textit{denoiser} puede expresarse entonces como:
+El objetivo de entrenamiento del \textit{denoiser} puede expresarse entonces como:
 \begin{equation}
     \min_{\theta} \cL_{\mathrm{FM}}(\theta) = \Ex_{\z_0 \sim p(\z), \z_1 \sim
     \cN(\Zero, \vI), t \sim \mathrm{Unif}(0, 1)} \left[
@@ -1102,15 +1108,15 @@ El objetivo de entrenamiento para el \textit{denoiser} puede expresarse entonces
 % (Gaussian), but the DINO features are apparently more structured
 % and linear. Refer back to Chapter 4.}
 
-Cabe destacar la diferencia entre el entrenamiento de un \textit{denoiser} para las
-representaciones aprendidas mediante VAE y aquellas aprendidas mediante métodos como MCR$^2$ o
+Cabe destacar la diferencia entre entrenar un \textit{denoiser} para las
+representaciones aprendidas mediante VAE frente a las aprendidas mediante métodos como MCR$^2$ o
 SimDINO. Como se discutió en la \Cref{sec:vae}, las representaciones VAE están
 obligadas a aproximar una distribución a posteriori gaussiana \textit{por muestra} y
-no se modela ninguna distribución multivariada del espacio latente, lo que hace que el
+no se modela ninguna distribución conjunta del espacio latente, haciendo que el
 espacio de representación sea menos estructurado y que el proceso de
 eliminación de ruido sea potencialmente más desafiante. Por el contrario, las representaciones aprendidas
 mediante MCR$^2$ o SimDINO tienden a presentar estructuras lineales y
-de baja dimensión más pronunciadas, como mezclas de subespacios o
+de baja dimensión más pronunciadas, como mezclas de subespacios o gausianas de rango bajo
 (como se demuestra en la \Cref{sec:SimDINO}), lo que puede
 facilitar el proceso de eliminación de ruido. Esta propiedad estructural puede conducir
 a modelos de eliminación de ruido más eficientes y efectivos, ya que pueden aprovechar mejor
@@ -1120,7 +1126,7 @@ Una vez que hayamos entrenado el \textit{denoiser}, podemos utilizarlo para gene
 la distribución de representaciones aprendida mediante un proceso de difusión, tal y como hemos
 mostrado en el \Cref{ch:denoising}. Con esto queda completado el aprendizaje de
 un \textit{autocodificador de representaciones} (RAE) con una distribución de representaciones accesible.
-En el \Cref{ch:applications} (específicamente en la \Cref{sec:RAE-implement}), veremos una implementación específica de
+En el \Cref{ch:applications} (en concreto, en la \Cref{sec:RAE-implement}), veremos una implementación específica de
 RAE y sus aplicaciones en la generación de imágenes.
 
 \section{Aprendizaje de representaciones autoconsistentes}
@@ -1159,14 +1165,14 @@ restricciones físicas estrictas.
 
 En primer lugar, existen sólidas pruebas científicas de que nuestro cerebro no
 lleva a cabo una retropropagación global de extremo a extremo para mejorar o corregir sus
-predicciones. Por el contrario, en neurociencia se sabe desde hace tiempo que nuestro
+predicciones. En cambio, en neurociencia se sabe desde hace tiempo que nuestro
 cerebro corrige los errores mediante retroalimentación local de bucle cerrado, como
 la codificación predictiva. Esta fue la base científica que inspiró
 a Norbert Wiener a desarrollar la teoría del control por retroalimentación y el
 programa de cibernética allá por la década de 1940.
 
-En segundo lugar, en las secciones anteriores vimos que, para aprender una
-representación consistente, es necesario aprender una autocodificación bidireccional:
+En segundo lugar, en las secciones anteriores vimos que para aprender una
+representación consistente es necesario aprender una autocodificación bidireccional:
 \begin{equation}
     \X
     \xrightarrow{\hspace{1mm} \mathcal{E} = f \hspace{1mm}} \Z
@@ -1180,27 +1186,27 @@ en gran medida poco informativas: dos imágenes que difieren por una pequeña tr
 pueden estar muy separadas en distancia de píxeles y, sin embargo, ser perceptualmente
 idénticas. Por lo tanto, una pregunta pendiente es: ¿cómo podemos garantizar
 la similitud entre $\X$ y $\hat \X$ sin una distancia significativa
-en el espacio de datos circundante? Como veremos en este capítulo, la respuesta
+en el espacio de datos envolvente? Como veremos en este capítulo, la respuesta
 radica en la retroalimentación de bucle cerrado en un espacio de características aprendido, junto con
 la baja dimensionalidad de la distribución de los datos.
 
-Como sabemos por el capítulo anterior, para garantizar que una
+Como vimos en el capítulo anterior, para garantizar que una
 representación sea consistente, debemos comparar el $\hat
-\X \sim p(\hat\x)$ generado y el $\X \sim p(\x)$ original, al menos en
-términos de distribución. Incluso cuando tenemos acceso a $\X$ y $\hat \X$,
+\X \sim p(\hat\x)$ generado y el $\X \sim p(\x)$ original, al menos a
+nivel de distribución. Incluso cuando tenemos acceso a $\X$ y $\hat \X$,
 técnicamente, calcular y minimizar la distancia entre dos
 distribuciones puede ser problemático, especialmente cuando el soporte de las
 distribuciones es de baja dimensión. La divergencia KL introducida en el
 \Cref{ch:denoising} ni siquiera está bien definida entre dos
 distribuciones cuyos soportes no se superponen.
 
-Como primer intento de paliar la dificultad mencionada anteriormente a la hora de calcular
+Como primer intento de paliar la dificultad antes mencionada a la hora de calcular
 y minimizar la distancia entre dos distribuciones (de baja dimensión),
 se había propuesto entrenar el generador/decodificador
 $g$ mediante enfoques discriminativos \cite{Tu-2007}.  Esta línea de
 razonamiento ha dado lugar al concepto de las {\em redes generativas adversarias
 (GAN)} \cite{goodfellow2014generative}. Este modelo introduce un discriminador
-$d$, que suele representarse mediante una red profunda, para distinguir las diferencias
+$d$, que suele modelarse mediante una red profunda, para distinguir las diferencias
 entre las muestras generadas $\hat \X$ y las reales $\X$:
 \begin{equation}
     \Z \xrightarrow{\hspace{2mm} g(\z,\eta) \hspace{2mm}} \hat \X, \,
@@ -1208,7 +1214,7 @@ entre las muestras generadas $\hat \X$ y las reales $\X$:
     0, \mathbf 1\}.
     \label{eqn:GAN}
 \end{equation}
-Se sugiere que podríamos intentar alinear las distribuciones
+Se sugiere intentar alinear las distribuciones
 entre $\hat \x$ y $\x$ mediante un {\em juego de Stackelberg} —un
 juego secuencial en el que un jugador (el líder) se compromete primero con una
 estrategia y el otro (el seguidor) responde de manera óptima (véase la
@@ -1223,7 +1229,7 @@ Es decir, el discriminador $d$ intenta minimizar la entropía cruzada
 entre las muestras reales $\X$ y las generadas $\hat
 \X$, mientras que el generador $g$ intenta hacer lo contrario.
 
-Se puede demostrar que encontrar un equilibrio para el juego de Stackelberg anterior
+Se puede demostrar que encontrar un equilibrio para el juego de Stackelberg descrito anteriormente
 equivale a minimizar la {\em divergencia de Jensen-Shannon}:
 \begin{equation}
     \mathcal{D}_{JS}(p(\x), p_g(\hat \x)) = \mathcal{D}_{KL}\big(p \|
@@ -1234,11 +1240,11 @@ bien definida incluso si los soportes de las dos distribuciones
 no se superponen. Sin embargo, la divergencia JS no tiene una expresión en forma cerrada
 ni siquiera entre dos distribuciones gaussianas, mientras que la divergencia KL sí la tiene. Además,
 dado que las distribuciones de datos son de baja dimensión, la
-divergencia JS puede presentar una mala condición para su optimización.\footnote{Como
+divergencia JS puede estar muy mal condicionada para su optimización.\footnote{Como
 se muestra en \cite{arjovsky2017wasserstein}.} Esto podría explicar por qué
 en muchas variantes posteriores de las GAN se suelen emplear numerosas heurísticas adicionales.
 
-Por lo tanto, se ha sugerido también sustituir la divergencia de JS por
+En su lugar, se ha sugerido también sustituir la divergencia de JS por
 la distancia de Earth Mover (EM) o la distancia de Wasserstein.
 \footnote{En términos generales, para distribuciones con
     soportes de baja dimensión que pueden no solaparse, la
@@ -1280,7 +1286,7 @@ Esto nos lleva al concepto de {\em representación autoconsistente}.
             si \(\vZ \approx \hat{\vZ}\) en una determinada norma con alta
             probabilidad.
         \item Decimos que la representación es
-            \textit{autoconsistente desde el punto de vista de la distribución} si \(\Law(\vZ)
+            \textit{autoconsistente en distribución} si \(\Law(\vZ)
             \approx \Law(\hat{\vZ})\).
     \end{enumerate}
 \end{definition}
@@ -1316,7 +1322,7 @@ donde $\alpha = {d}/({N\epsilon^2})$, $\alpha_k =
 d/({\mathrm{tr}(\bm{\Pi}_k)\epsilon^2})$, $\gamma_k =
 {\mathrm{tr}(\bm{\Pi}_{k})}/{N}$ para cada $k = 1,\dots, K$.
 
-Un problema que plantea el aprendizaje de una correspondencia tan unilateral \eqref{eqn:LDR} mediante
+Un problema que plantea el aprendizaje de un mapeo tan unilateral \eqref{eqn:LDR} mediante
 la maximización del objetivo anterior \eqref{eq:mcr2-formulation} es que
 tiende a ampliar la dimensión del subespacio aprendido para las características de
 cada clase\footnote{Si la dimensión del espacio de características $d$ es demasiado
@@ -1340,15 +1346,15 @@ f(\X,\bm\theta)$ y volver al espacio de datos $\x$: $\hat \X = g(\Z, \bm\eta)$:
     \xrightarrow{\hspace{2mm} g(\z, \bm \eta) \hspace{2mm}} \hat \X,
     \label{eqn:autoencoding-ch6}
 \end{equation}
-y comprueba cuán cerca están $\X$ y $\hat \X$. Esto forma un
-autocodificador, que es lo que hemos estudiado en profundidad anteriormente en este capítulo.
+y comprueba cuán cerca están $\X$ y $\hat \X$. Esto constituye una
+autocodificación, que es lo que hemos estudiado en profundidad anteriormente en este capítulo.
 
 \paragraph{Medición de distancias en el espacio de características.}
 Sin embargo, como hemos comentado anteriormente, si no tenemos la opción de
 calcular la distancia entre $\X$ y $\hat \X$, nos queda la
 opción de comparar sus características correspondientes $\Z$ y $\hat \Z =
 f(\hat \X, \bm \theta)$. Obsérvese que, bajo el objetivo MCR$^2$, las
-distribuciones de los resultados $\Z$ o $\hat \Z$ tienden a ser lineales por tramos,
+distribuciones de los valores resultantes $\Z$ o $\hat \Z$ tienden a ser lineales por tramos,
 por lo que su distancia puede calcularse más fácilmente. Más concretamente,
 dado que las características de cada clase, $\Z_k$ y $\hat{\Z}_k$, se acercan
 a ser un subespacio de baja dimensión/gaussiano, su «distancia» puede
@@ -1380,17 +1386,17 @@ de $\X_k$ y $\hat \X_k$, simplemente maximizando la distancia $d(\Z, \hat \Z)$:
     \label{eqn:max-distance}
 \end{equation}
 Es decir, la «distancia» entre $\X$ y $\hat \X$ puede medirse como
-la reducción de tasa máxima alcanzable entre todos los pares de clases
-en estos dos conjuntos. En cierto modo, esto mide en qué medida
+la reducción máxima de la tasa alcanzable entre todos los pares de clases
+en estos dos conjuntos. De cierto modo, esto mide en qué medida
 el $\hat \X$ decodificado se alinea con los datos originales $\X$; por lo tanto,
 mide la calidad de la «injectividad» del codificador $f$. Obsérvese
 que dicha medida discriminativa es consistente con el concepto de GAN
 \eqref{eqn:GAN}, que intenta separar $\X$ y $\hat \X$ en dos
-clases, según la entropía cruzada.
+clases, cuya separación se cuantifica mediante la entropía cruzada.
 
 No obstante, en este caso el codificador discriminativo $f$ se generaliza en forma natural
-a casos en los que las distribuciones de datos son multiclase o
-multimodales y la capacidad discriminativa se mide con un indicador más
+a casos en los que las distribuciones de datos son multiclase y
+multimodales, donde la capacidad discriminativa se mide con un indicador más
 refinado ---la reducción de la tasa--- en lugar de la típica
 pérdida de dos clases (por ejemplo, la entropía cruzada) utilizada en las GAN. Es decir, podemos
 considerar el codificador $f$ como un discriminador generalizado que reemplaza al
@@ -1424,7 +1430,7 @@ donde el modelo general tiene los parámetros: $\bm \Theta = \{\bm \theta,
     representación aprendida.} \label{fig:auto-encoding-closed}
 \end{figure}
 
-\paragraph{El codificador y el decodificador como un juego para dos jugadores.}
+\paragraph{El codificador y el decodificador como un juego de dos jugadores.}
 Obviamente, para garantizar que la autocodificación aprendida sea autoconsistente, el
 objetivo principal del decodificador $g(\cdot, \bm \eta)$ es {\em minimizar}
 la distancia entre $\Z$ y $\hat \Z$. Es decir, para aprender $g$, queremos
@@ -1449,7 +1455,7 @@ donde $\Z_k = f(\X_k,\bm \theta)$ y $\hat \Z_k = f(\hat{\X}_k,\bm\theta)$.
     distribución original $S_{\x}$ (representada aquí como un subespacio por
     razones de simplicidad). Es decir, $g\circ f(S_{\x}) \not\subset S_{\x}$ y mucho
     menos $g\circ f(S_{\x}) = S_{\x}$ o $g\circ f(\x) = \x$. Cabe
-    suponer que, sin un control minucioso de la imagen de $g$,
+    suponer que, sin un control cuidadoso de la imagen de $g$,
     esto ocurriría con gran probabilidad, especialmente cuando el
     soporte de la distribución de $\x$ es de dimensión extremadamente baja 
     en el espacio de datos original de alta dimensión.
@@ -1459,15 +1465,15 @@ donde $\Z_k = f(\X_k,\bm \theta)$ y $\hat \Z_k = f(\hat{\X}_k,\bm\theta)$.
     \caption{\textbf{{Incrustaciones} %
         de subvariedades de baja dimensión en un espacio de alta dimensión.} $S_{\x}$ (azul) es
         la subvariedad correspondiente a los datos originales $\x$; $S_{\z}$ (rojo) es la
-        imagen de $S_{\x}$ bajo la aplicación $f$, que representa la característica
+        imagen de $S_{\x}$ bajo el mapeo $f$, que representa la característica
         aprendida $\z$; y la curva verde es la imagen de la característica
     $\z$ bajo la \mbox{mapeo de decodificación $g$.} } \label{fig:decoder}
 \end{figure}
 
 Al comparar la naturaleza contractiva y contrastiva de
 \eqref{eqn:min-distance} y \eqref{eqn:max-distance} en la misma
-medida de distancia, vemos los roles del codificador $f(\cdot, \bm
-\theta)$ y el decodificador $g(\cdot, \bm \eta)$ en forma natural como 
+medida de distancia, vemos en forma natural los roles del codificador $f(\cdot, \bm
+\theta)$ y del decodificador $g(\cdot, \bm \eta)$ como 
 «{\bf un juego de dos jugadores}»: {\em mientras que el codificador $f$ 
     intenta magnificar la diferencia entre los datos originales y sus datos transcritos, el
 decodificador $g$ busca minimizar la diferencia.} Ahora, por conveniencia,
@@ -1515,7 +1521,7 @@ transcripción en bucle cerrado, denominado CTRL-Multi, es
         R_\epsilon\big(h(\X,\bm \theta, \bm
     \eta)\big)}_{\text{decodificación compresiva}} + \sum_{k=1}^K
     \underbrace{\Delta R_\epsilon\big(f(\X_k,\bm \theta), h(\X_k,\bm
-    \theta,\bm \eta)\big)}_{\text{codificación contrastiva \& decodificación
+    \theta,\bm \eta)\big)}_{\text{codificación contrastiva y decodificación
     contractiva}}   \\
     &=& \Delta R_\epsilon\big(\Z(\bm \theta) \big) + \Delta
     R_\epsilon\big(\hat \Z(\bm \theta, \bm \eta)\big) + \sum_{k=1}^K
@@ -1527,7 +1533,7 @@ sujeto a ciertas restricciones (cotas superiores o inferiores) en el primer
 término y el segundo término.
 
 Nótese que, sin los términos asociados a la parte generativa
-$h$ o si todos esos términos se fijan como constantes, el objetivo anterior es
+$h$ o al fijar todos esos términos se fijan como constantes, el objetivo anterior es
 precisamente el objetivo MCR$^2$ original introducido en el
 \Cref{ch:lossy-compression}. En un contexto no supervisado, si consideramos cada
 muestra (y sus aumentaciones) como una clase propia, la formulación anterior
@@ -1539,7 +1545,7 @@ sin necesidad de muestrear ni ajustar ninguna distribución adicional
 (como suele ser necesario en las GAN o las VAE).
 
 Como caso especial, si $\X$ solo tiene una clase, el juego de Stackelberg
-se reduce a una forma especial de «dos clases» o «binaria»,\footnote{ya que
+se reduce a una forma especial «binaria» o de «dos clases»,\footnote{ya que
 los dos primeros términos de reducción de la tasa se convierten automáticamente en cero.} denominada CTRL-Binary,
 \begin{equation}
     \max_{\bm \theta} \min_{\bm \eta} \mathcal{T}^b_{\X}(\bm \theta,
@@ -1552,11 +1558,11 @@ entre $\X$ y el $\hat\X$ decodificado, al considerar $\X$ y $\hat\X$
 como dos clases $\{\bm 0, \bm 1\}$. Obsérvese que este caso binario
 se asemeja a la formulación de la GAN original \eqref{eqn:GAN}.
 En lugar de utilizar la entropía cruzada, nuestra formulación adopta una medida de
-reducción de la tasa más refinada, que ha demostrado promover la diversidad en
+reducción de tasa más refinada, que ha demostrado que promueve la diversidad en
 la representación aprendida en el \Cref{ch:denoising}. %
 
 A veces, incluso cuando $\X$ contiene varias clases o modos, se podría
-considerar a todas las clases en conjunto como una sola clase. En ese caso, el objetivo binario
+considerar a todas las clases en conjunto como una sola clase. Entonces, el objetivo binario
 mencionado anteriormente consiste en alinear la distribución de la unión de todas las clases con
 su $\hat \X$ decodificado. Por lo general, esta es una tarea más sencilla de llevar a cabo
 que la de múltiples clases \eqref{eq:MCR2-GAN-objective}, ya que no
@@ -1565,19 +1571,19 @@ como veremos más adelante en los experimentos. Obsérvese que una buena
 característica de la formulación anterior es que {\em todas las cantidades
     en los objetivos se miden en términos de reducción de la tasa para las
 características aprendidas} (suponiendo que las características se conviertan 
-eventualmente en gaussianas del subespacio).
+eventualmente en gaussianas en el subespacio).
 
 Se puede observar que el marco de aprendizaje anterior se inspira
 en la corrección de errores en bucle cerrado, ampliamente utilizada en los
 sistemas de control con retroalimentación. El mecanismo de bucle cerrado se utiliza para formar un
-sistema de retroalimentación global entre las dos redes de codificación y decodificación con el fin de
+sistema de retroalimentación general entre las dos redes de codificación y decodificación con el fin de
 corregir cualquier «error» en las distribuciones entre los datos $\x$
 y los datos decodificados $\hat \x$. Utilizando la terminología de la teoría de control, se
 puede considerar la red de codificación $f$ como un «sensor» para la retroalimentación de error,
 mientras que la red de decodificación $g$ se considera un «controlador» para la
 corrección de errores. Sin embargo, hay que tener en cuenta que aquí el «objetivo» del control
 no es un escalar ni un vector de dimensión finita, sino una distribución
-continua, con el fin de que la distribución de $\hat \x$ coincida
+continua, para que la distribución de $\hat \x$ coincida
 con la de los datos $\x$. En general, se trata de un problema de control en un
 espacio de dimensión infinita. El espacio de los difeomorfismos posibles de
 las subvariedades que $f$ intenta modelar es de dimensión infinita
@@ -1589,9 +1595,9 @@ programas minimax \eqref{eq:MCR2-GAN-objective} y
 \eqref{eq:MCR2-GAN-objective-binary} también pueden interpretarse como juegos
 entre un sensor de retroalimentación de error y un controlador de reducción de error.
 
-La pregunta que queda por resolver es si el marco anterior es realmente capaz
+La pregunta que queda por resolver es si el marco descrito anteriormente es realmente capaz
 de aprender una buena representación (de autocodificación) de un conjunto de datos dado. Antes
-de ofrecer una justificación teórica formal (en la siguiente
+de presentar una justificación teórica formal (en la siguiente
 subsección), presentamos algunos resultados empíricos.
 
 \paragraph{Visualización de la correlación entre las características $\Z$ y las características
@@ -1600,7 +1606,7 @@ y $\hat{\Z}$, aprendida a partir del objetivo multiclase
 \eqref{eq:MCR2-GAN-objective} en MNIST, CIFAR-10 e ImageNet (10
 clases), lo que indica cuán cerca está $\hat{\z} = f\circ g(\z)$ de
 $\z$. Los resultados de la \Cref{fig:justifyz=z} muestran que $\Z$ y $\hat{\Z}$
-están muy bien alineados dentro de cada clase. Los patrones en bloques diagonales
+están muy bien alineados dentro de cada clase. Los patrones diagonales por bloques 
 para MNIST son más nítidos que los de CIFAR-10 e ImageNet, ya que las imágenes
 de CIFAR-10 e ImageNet presentan una mayor diversidad de aspectos visuales.
 
@@ -1637,7 +1643,7 @@ MNIST, CIFAR-10 e ImageNet (10 clases) para verificar cuán cerca está $\hat
 muestras de entrenamiento. Visualmente, el $\hat \x$ autocodificado captura fielmente
 las principales características visuales de su respectiva muestra de entrenamiento
 $\x$, especialmente la pose, la forma y la disposición. En el caso de conjuntos de datos más sencillos,
-como el MNIST, las imágenes generadas mediante autocodificación son casi idénticas a las originales.
+como el MNIST, las imágenes autocodificadas son casi idénticas a las originales.
 
 \begin{figure}[t]
     \begin{subfigure}[t]{0.3\textwidth}
@@ -1676,13 +1682,13 @@ como el MNIST, las imágenes generadas mediante autocodificación son casi idén
         \caption{{\small ImageNet $\hat{\X}$}}
     \end{subfigure}
     \caption{Visualización de la propiedad de autocodificación de la transcripción
-        en bucle cerrado aprendida \mbox{($\x \approx \hat{\x} = g\circ
+        aprendida en bucle cerrado \mbox{($\x \approx \hat{\x} = g\circ
         f(\x)$)} en MNIST, CIFAR-10 e ImageNet (amplía la imagen para una mejor
     visualización).}
     \label{fig:justify_xhat_equals_x}
 \end{figure}
 
-\subsection{Una mezcla de distribuciones gaussianas de baja dimensión}
+\subsection{Una mezcla de gaussianas de baja dimensión}
 
 En lo anterior, hemos argumentado que es posible formular el
 problema de aprender una distribución de datos como un problema de autocodificación
@@ -1714,29 +1720,29 @@ consistencia de la decodificación viene dada, como antes, por \(\sum_{k =
 1}^{K}\Delta R_\epsilon(\vZ_{k}, \hat{\vZ}_{k})\), lo que garantiza
 que la representación \(\vZ_{k}\) y su autocodificación
 \(\hat{\vZ}_{k}\) para cada clase \(k\) abarquen el mismo subespacio. Por lo tanto,
-podemos establecer un juego de Stackelberg simplificado:
+podemos plantear un juego de Stackelberg simplificado:
 \begin{equation}\label{eq:ctrl_msp_game}
     \max_{\bm \theta}\min_{\bm \eta}\bc{\Delta R_\epsilon(\vZ(\bm
         \theta)) + \sum_{k = 1}^{K}\Delta R_\epsilon(\vZ_{k}(\bm \theta),
     \hat{\vZ}_{k}(\bm \theta, \bm \eta))}
 \end{equation}
-Nótese que se trata de una configuración más simple que la que se utiliza en
+Nótese que se trata de un planteamiento más simple que la que se utiliza en
 la práctica: no hay ningún término \(\Delta R_\epsilon(\hat{\vZ})\), por
 ejemplo, y trabajamos en el marco supervisado con etiquetas de clase
 (aunque las técnicas utilizadas para demostrar el siguiente resultado son fáciles
 de extender a formulaciones no supervisadas). Además, la consistencia de las
-representaciones solo se mide en términos de distribución mediante
+representaciones solo se mide a nivel distribucional mediante
 \(\Delta R_\epsilon\) (aunque esto puede sustituirse por una
-    métrica de distancia por muestra, como la norma \(\ell_{2}\), si se desea,
+    métrica de distancia a nivel de muestra, como la norma \(\ell_{2}\), si se desea,
 y pueden extraerse conclusiones equivalentes, \textit{mutatis mutandis}).
 
-Bajo condiciones moderadas, para obtener el codificador y el
+Bajo condiciones suaves, para obtener el codificador y el
 decodificador deseados que reconstruyan \(\vZ\) a partir de una fuente de datos \(\vX\) que
 ya se distribuye según una mezcla de gaussianas correlacionadas
 de baja dimensión, solo necesitamos un codificador y un
 decodificador lineales para desenredar y blanquear las gaussianas. A continuación, estudiamos este
 escenario en el caso en que \(\bm \theta\) y \(\bm \eta\)
-parametrizan matrices cuya norma de operador está restringida.
+parametrizan matrices cuya norma de operador está acotada.
 
 Queremos comprender qué tipos de óptimos se aprenden en este
 contexto. Un concepto de solución adecuado para este tipo de juego, en el que
@@ -1751,15 +1757,15 @@ que, independientemente de lo que elija, el decodificador elegirá una respuesta
 como si el decodificador fuera el \textit{segundo}: elige sus pesos
 después del codificador, y tanto el codificador como el decodificador intentan
 optimizar su objetivo a la luz de esto. Es computacionalmente
-factible aprender equilibrios secuenciales mediante métodos de gradiente a través de
+viable aprender equilibrios secuenciales mediante métodos de gradiente a través de
 \textit{optimización alterna}, en la que cada lado utiliza diferentes
 tasas de aprendizaje. La exposición detallada de los equilibrios secuenciales
 queda fuera del alcance de este libro; ofrecemos más detalles técnicos
 en la \Cref{sec:minimax}. En este contexto, tenemos el siguiente resultado:
 \begin{theorem}[\cite{pai2022pursuit}, Abridged]\label{thm:ctrl_theory}
-    Supongamos que \(\vX\) se distribuye en una mezcla de subespacios.
+    Supongamos que \(\vX\) se distribuye sobre una mezcla de subespacios.
     Bajo ciertas condiciones realistas, aunque técnicas, se cumple que
-    todos los equilibrios secuenciales de \eqref{eq:ctrl_msp_game} obedecen a:
+    todos los equilibrios secuenciales de \eqref{eq:ctrl_msp_game} satisfacen que:
     \begin{itemize}
         \item Los vectores \(\vZ_{k}\) se encuentran en subespacios ortogonales y son
             isotrópicos en dichos subespacios, es decir, maximizan la ganancia de información.
@@ -1781,7 +1787,7 @@ y la autoconsistencia pueden alcanzar soluciones óptimas.
 \section{Aprendizaje continuo de representaciones autoconsistentes}
 \label{sec:continuous}
 
-\subsection{Aprendizaje incremental clase por clase}
+\subsection{Aprendizaje incremental por clase}
 \label{sec:class-wise-incremental}
 
 Como hemos visto, las redes neuronales profundas han demostrado una gran
@@ -1799,13 +1805,13 @@ el conocimiento esencial de los anteriores \cite{Grossberg1987CompetitiveLF}.
 
 Por el contrario, los sistemas neuronales naturales (por ejemplo, los cerebros de los animales) no parecen
 sufrir en absoluto ese olvido catastrófico. Son capaces
-de desarrollar nuevos recuerdos de objetos nuevos al tiempo que conservan el recuerdo de
+de desarrollar nuevas memorias de objetos nuevos al tiempo que conservan el recuerdo de
 los objetos aprendidos anteriormente. Esta capacidad, tanto en los sistemas neuronales naturales como en los
 artificiales, se conoce a menudo como {\em aprendizaje incremental, aprendizaje continuo, 
-aprendizaje secuencial} o {\em aprendizaje permanente} \cite{controlled-forgetting}.
+aprendizaje secuencial} o {\em aprendizaje de por vida} \cite{controlled-forgetting}.
 
 Aunque muchos trabajos recientes han destacado cómo los sistemas neuronales artificiales
-pueden entrenarse de maneras más flexibles, los esfuerzos más destacados
+pueden entrenarse de maneras más flexibles, los esfuerzos más sólidos
 actuales para resolver el dilema entre estabilidad y plasticidad de
 las redes neuronales artificiales suelen requerir, o bien almacenar ejemplos sin procesar
 \cite{icarl,chaudhry2019tiny}, o bien proporcionar mecanismos externos
@@ -1817,17 +1823,17 @@ de recursos de red, la duplicación de redes o el aislamiento explícito
 de las partes utilizadas y no utilizadas de la red--- recurren a
 heurísticas e incurren en costos ocultos.
 
-En este caso, nos interesa un entorno de aprendizaje incremental que sea
-similar al de la naturaleza. Este se contrapone a las prácticas existentes con dos características clave.
+En este trabajo, nos interesa un entorno de aprendizaje incremental que sea
+similar a la naturaleza. Este se opone a estas prácticas existentes a través de dos características clave.
 \begin{enumerate}
-    \item Que sea \emph{basado en memoria}. Al
+    \item La primera es que sea \emph{basado en memoria}. Al
         aprender nuevas clases, no se dispone de ejemplos sin procesar de clases antiguas
         para entrenar la red junto con los nuevos datos. Esto implica que hay que basarse 
-        en una «memoria» compacta y, por lo tanto, estructurada aprendida para las clases 
-        antiguas, como representaciones generativas aprendidas de manera incremental
-        de las clases antiguas, así como los correspondientes mapeos de 
+        en una «memoria» compacta y, por lo tanto, estructurada, aprendida a partir de las clases 
+        antiguas: por ejemplo, representaciones generativas aprendidas de manera incremental
+        de dichas clases, así como los correspondientes mapeos de 
         codificación y decodificación \cite{fearnet}.
-    \item Que sea \emph{autocontenido}.
+    \item El segundo es que sea \emph{autocontenido}.
         El aprendizaje incremental tiene lugar en un único sistema neuronal
         con una capacidad fija y en un espacio de representación común.
         La capacidad de minimizar el olvido se deriva de la optimización
@@ -1840,26 +1846,26 @@ se asemejan mucho a la forma en que se codifican los objetos en diferentes área
 corteza inferotemporal de los cerebros de los animales
 \cite{Chang-Cell-2017,Bao2020AMO}. La transcripción de bucle cerrado $\X
 \rightarrow \Z \rightarrow \hat{\X} \rightarrow \hat{\Z}$ también
-se asemeja a los mecanismos popularmente hipotetizados para la formación de la memoria
+se asemeja a los mecanismos generalmente hipotetizados para la formación de la memoria
 \cite{2020Vandeven,Josselyn2020MemoryER}. Esto nos lleva a una pregunta:
 dado que la memoria en el cerebro se forma incrementalmente, ¿podría dicho
 marco de transcripción en bucle cerrado soportar igualmente un aprendizaje incremental?
 
 \paragraph{Muestreo y reproducción de la memoria con representación 
 discriminativa lineal (LDR).} Las estructuras lineales simples de 
-LDR lo hacen especialmente adecuado para el aprendizaje incremental:
+LDR lo hacen particularmente idóneo para el aprendizaje incremental:
 la distribución de características $\Z_j$ de cada clase aprendida previamente
 puede representarse en forma explícita y concisa mediante un subespacio principal
 $\mathcal{S}_j$ en el espacio de características. Para conservar la memoria de una
-clase anterior $j$, solo necesitamos conservar el subespacio mientras aprendemos
-nuevas clases. Para ello, simplemente tomamos una muestra de $m$ características prototípicas
+clase previa $j$, solo necesitamos conservar el subespacio mientras aprendemos
+nuevas clases. Para ello, simplemente muestreamos una de $m$ características prototípicas
 representativas en el subespacio a lo largo de sus $r$ componentes principales
 superiores y denotamos estas características como $\Z_{j,old}$. Debido a las
 estructuras lineales simples de LDR, podemos tomar una muestra de $\Z_{j,old}$
 calculando la media y la covarianza de $\Z_{j,old}$ después de aprender
 la clase $j$. El espacio de almacenamiento necesario es extremadamente reducido, ya que solo
-necesitamos almacenar medias y covarianzas, que se extraen según
-sea necesario. Supongamos que hasta ahora se han aprendido un total de $t$ clases antiguas.
+necesitamos almacenar medias y covarianzas, de las cuales se toman muestras según 
+sea necesario. Supongamos que hasta ahora se han aprendido un total de $t$ clases previas.
 Si las características de los prototipos, denotadas como $\Z_{old} \doteq [\Z_{1,old},\ldots,
 \Z_{t,old}]$, para todas estas clases pueden conservarse al aprender
 nuevas clases, los subespacios $\{\mathcal{S}_j\}_{j=1}^t$ que representan
@@ -1883,24 +1889,24 @@ cálculo de la media y la covarianza, véase el trabajo de
     \label{fig:framework}
 \end{figure*}
 
-\paragraph{Aprendizaje incremental de LDR con una restricción de memoria antigua.}
-Obsérvese que, con el autocodificador aprendido
+\paragraph{Aprendizaje incremental de LDR con una restricción de memoria de clases anteriores}
+Obsérvese que, con la autocodificación aprendida
 \eqref{eqn:autoencoding-ch6}, se pueden reproducir y utilizar las imágenes, por ejemplo
 $\hat\X_{old} = g(\Z_{old}, \bm \eta)$, asociadas con las características de la memoria
 para evitar el olvido mientras se aprenden nuevas clases. Así es
 como se han utilizado típicamente los modelos generativos en métodos de aprendizaje incremental
 anteriores. Sin embargo, con el marco de bucle cerrado, no es necesario
-reproducir explícitamente las imágenes a partir de las características. La memoria de pasado se puede
+reproducir explícitamente las imágenes a partir de las características. La memoria del pasado se puede
 conservar de manera eficaz mediante una optimización centrada exclusivamente en las
-propiedades de las propias características.
+propias características.
 
-Consideremos la tarea de aprender en forma incremental una nueva clase de
+Consideremos la tarea de aprender incrementalmente una nueva clase de
 objetos.\footnote{Por supuesto, también se puede considerar el caso más general
     en el que la tarea incluye un pequeño conjunto de nuevas clases, sin
 modificaciones significativas.} Denotamos el nuevo conjunto de muestras correspondiente como
 $\X_{new}$. Las características de $\X_{new}$ se denotan como $\Z_{new}(\bm
 \theta) = f(\X_{new}, \bm \theta)$. Las concatenamos con
-las características prototipo de las clases antiguas $\Z_{old}$ y formamos $\Z =
+las características de prototipo de las clases previas $\Z_{old}$ y formamos $\Z =
 [\Z_{new}(\bm \theta), \Z_{old}]$. Denotamos las imágenes reproducidas a partir de
 todas las características como $\hat{\X} = [{\hat{\X}_{new}(\bm \theta,\bm \eta)},
 {\hat{\X}_{old}(\bm \eta)}]$, aunque en realidad no necesitamos
@@ -1921,11 +1927,11 @@ caso en el que $K=1$:
 \end{equation}
 Sin embargo, cuando actualizamos los parámetros de la red $(\bm \theta,\bm
 \eta)$ para optimizar las características de la nueva clase, las
-correspondencias actualizadas $f$ y $g$ también modificarán las características de las clases anteriores.
-Por lo tanto, para minimizar la distorsión de las representaciones de las clases antiguas,
+correspondencias actualizadas $f$ y $g$ también modificarán las características de las clases previas.
+Por lo tanto, para minimizar la distorsión de las representaciones de las clases previas,
 podemos intentar imponer $\mbox{Cov}(\Z_{j,old}) =
 \mbox{Cov}(\hat{\Z}_{j,old})$. En otras palabras, mientras aprendemos nuevas
-clases, imponemos que la memoria de las clases antiguas permanezca
+clases, imponemos que la memoria de las clases previas permanezca
 «autoconsistente» a través del bucle de transcripción:
 \begin{equation}
     \Z_{old} \xrightarrow{\hspace{2mm} g(\z,\bm \eta) \hspace{2mm}}
@@ -1936,10 +1942,10 @@ Matemáticamente, esto equivale a establecer
 $$\Delta R_\epsilon(\Z_{old},\hat{\Z}_{old}) \doteq  \sum_{j=1}^t
 \Delta R_\epsilon(\Z_{j,old},\hat{\Z}_{j,old}) = 0.$$
 Por lo tanto, el programa minimax anterior \eqref{eqn:unconstrained-minimax} se
-revisa como un juego minimax {\em restringido}, al que nos referimos como
+reformula como un juego minimax {\em restringido}, al que nos referimos como
 {\em transcripción incremental de bucle cerrado} (i-CTRL).
-El objetivo de este juego es idéntico al objetivo estándar de clases múltiples
-CTRL \eqref{eq:MCR2-GAN-objective}, pero incluye solo una
+El objetivo de este juego es idéntico al objetivo estándar de 
+CTRL multiclase \eqref{eq:MCR2-GAN-objective}, pero incluye solo una
 restricción adicional:
 \begin{eqnarray}
     \min_{\bm \eta} \max_{\bm \theta}
@@ -1963,35 +1969,35 @@ $f(\cdot, \bm \theta)$ y el decodificador $g(\cdot, \bm \eta)$ de la siguiente m
     \Delta{R_\epsilon(\Z_{old},\hat{\Z}_{old})}; \label{eqn:relaxed-min}
 \end{eqnarray}
 donde la restricción $\Delta R_\epsilon(\Z_{old},\hat{\Z}_{old}) = 0$
-en \eqref{eqn:constrained-minimax} se ha convertido (y relajado)
-en un término lagrangiano con el coeficiente correspondiente $\gamma$ y
-su signo. Además, introducimos otro coeficiente $\lambda$ para
+de \eqref{eqn:constrained-minimax} se ha transformado 
+en un término lagrangiano relajado con el coeficiente correspondiente $\gamma$ y
+su signo. Además, se introduce otro coeficiente $\lambda$ para
 ponderar el término de reducción de la tasa asociado a los nuevos datos.
 
 \paragraph{Memoria óptima conjunta mediante repaso incremental.}
 Como veremos, el programa minimax con restricciones anterior ya puede
 alcanzar un rendimiento de vanguardia en el aprendizaje incremental.
 Sin embargo, el desarrollo de una memoria óptima para {\em todas las clases}
-no puede basarse únicamente en el olvido gradual. Incluso en el caso de los seres humanos, si una
+no puede basarse únicamente en el olvido gradual. Incluso en el ser humano, si una
 clase de objetos se aprende solo una vez, es de esperar que el recuerdo
 se desvanezca a medida que seguimos aprendiendo otras nuevas, a menos que el recuerdo
 pueda consolidarse mediante el repaso de clases de objetos anteriores. %
 
-Para emular esta fase en formación de la memoria, tras aprender en forma incremental
+Para emular esta fase de formación de la memoria, tras aprender en forma incremental
 todo un conjunto de datos, podemos volver atrás para revisar todas las clases de nuevo, una
 por una. Nos referimos a recorrer todas las clases una vez como un
 «ciclo» de repaso.\footnote{Para distinguirlo del término «época»
 utilizado en el contexto convencional del aprendizaje conjunto.} Si es necesario, se pueden llevar a cabo
 varios ciclos de repaso. Es de esperar que
-el repaso mejore la memoria aprendida (LDR). Pero, de manera algo
-sorprendente, el marco de bucle cerrado nos permite revisar incluso de una
-manera «{sin supervisión de clases}»: al revisar datos de una clase antigua,
-digamos $\X_j$, el sistema no necesita la etiqueta de clase y puede simplemente
-tratar $\X_j$ como una nueva clase $\X_{new}$. Es decir, el sistema optimiza
+el repaso mejore la memoria aprendida (LDR). Lo realmente sorprendente, sin embargo, 
+es que el marco de bucle cerrado nos permite revisar incluso «sin supervisión de clases»: 
+al revisar los datos de una clase antigua, digamos $\X_j$, el sistema no necesita 
+la etiqueta de clase y puede tratar $\X_j$ simplemente como una clase nueva, $\X_{new}$.
+Es decir, el sistema optimiza
 el mismo programa minimax con restricciones \eqref{eqn:constrained-minimax}
 sin ninguna modificación; una vez optimizado el sistema, se puede
 identificar el subespacio recién aprendido generado por $\Z_{new}$ y utilizarlo
-para reemplazar o fusionarlo con el subespacio anterior $\mathcal{S}_j$. Como muestran nuestros
+para reemplazar o fusionar con el subespacio anterior $\mathcal{S}_j$. Como muestran nuestros
 experimentos, este proceso de revisión incremental sin supervisión de clases
 puede mejorar gradualmente tanto el rendimiento discriminativo como el generativo
 de la memoria LDR, hasta converger finalmente en el de una
@@ -2021,9 +2027,9 @@ idénticos a la entrada $\X$! Esto es bastante notable dado que: (1) nuestro
 método no impone explícitamente que $\hat{\x} \approx \x$ para
 muestras individuales, como lo hacen la mayoría de los métodos de autocodificación, y (2) después de
 haber aprendido de manera incremental todas las clases, el generador no ha
-olvidado cómo generar los dígitos aprendidos anteriormente, tales como 0, 1, 2.
+olvidado cómo generar los dígitos aprendidos anteriormente, como 0, 1, 2.
 En el caso de un conjunto de datos más complejo, como CIFAR-10, también demostramos una buena
-calidad visual, ya que capturamos fielmente la esencia de cada imagen.
+calidad visual, capturando fielmente la esencia de cada imagen.
 
 \begin{figure}[t]
     \begin{subfigure}[t]{0.20\textwidth}
@@ -2061,20 +2067,20 @@ características aprendidas $\Z_j$ para cada clase no está clara en el espacio 
 Las características $\Z_j$ de la memoria LDR, por otro lado, tienen
 una estructura lineal clara. La \Cref{fig:cifar_10_pca_sampling_main}
 visualiza las correlaciones entre todas las características aprendidas $|\Z^\top\Z|$, en
-las que claramente observamos patrones diagonales en bloques para ambos
+las que claramente observamos patrones diagonales por bloques para ambos
 conjuntos de datos.\footnote{Obsérvese que estos patrones se asemejan mucho a la
     matriz de similitud de los perfiles de respuesta de las categorías de objetos procedentes de
     diferentes áreas de la corteza inferotemporal, tal y como se muestra en la
-Fig. 3 de \cite{Bao2020AMO}.} Esto indica que las características de
-las diferentes clases $\Z_j$ se encuentran, de hecho, en subespacios que son incoherentes
-entre sí. Por lo tanto, las características de cada clase pueden modelarse adecuadamente
+Fig. 3 de los datos extendidos de \cite{Bao2020AMO}.} Esto indica que las características de
+las diferentes clases $\Z_j$ se encuentran, de hecho, en subespacios que son mutuamente incoherentes.
+Por lo tanto, las características de cada clase pueden modelarse adecuadamente
 como un subespacio principal en el espacio de características. %
 
 \begin{figure}[tb]
     \centering
     \includegraphics[height=4.1cm]{\toplevelprefix/chapters/chapter6/figs/Heatmap_MNIST.jpg}
     \includegraphics[height=4cm]{\toplevelprefix/chapters/chapter6/figs/Heatmap_CIFAR10.png}
-    \caption{\small Estructura diagonal en bloques de $|\Z^\top \Z|$ en el
+    \caption{\small Estructura diagonal por bloques de $|\Z^\top \Z|$ en el
     espacio de características para MNIST (izquierda) y CIFAR-10 (derecha).}
     \label{fig:cifar_10_pca_sampling_main}
 \end{figure}
@@ -2083,9 +2089,9 @@ como un subespacio principal en el espacio de características. %
 Dado que las características de cada clase pueden modelarse como un subespacio principal,
 visualizamos además las componentes principales individuales dentro de cada
 uno de esos subespacios. La \Cref{fig:pca_sampling_main} muestra las imágenes
-reconstruidas a partir de características muestreadas a lo largo de las cuatro componentes principales
+reconstruidas a partir de características muestreadas a lo largo de las primeras cuatro componentes principales
 para diferentes clases, en MNIST y CIFAR-10, respectivamente. Cada fila
-representa muestras a lo largo de una componente principal y estas muestran claramente
+representa muestras a lo largo de una componente principal y mostrando
 características visuales similares, pero son claramente diferentes
 de las de otras filas. Vemos que el modelo recuerda diferentes
 posturas del «4» después de haber aprendido todas las demás clases. En el caso
@@ -2129,9 +2135,9 @@ mediante una fase de repaso incremental no supervisada
 descrita anteriormente. Los experimentos se llevan a cabo en CIFAR-10, con 10
 pasos. La \Cref{fig:memory_review} a la izquierda muestra imágenes reproducidas de la
 primera clase «avión» al final del aprendizaje incremental de las diez
-clases, muestreadas a lo largo de las tres componentes principales principales: cada dos
+clases, seleccionadas a lo largo de las tres primeras componentes principales: cada dos
 filas (16 imágenes) se encuentran a lo largo de una dirección principal. Su calidad visual
-sigue siendo muy aceptable: apenas observamos pérdida de información. La
+sigue siendo muy satisfactoria: apenas observamos olvido. La
 figura de la derecha muestra las imágenes reproducidas tras repasar la primera clase
 una vez. Se aprecia una mejora significativa en la calidad visual tras
 el repaso y las componentes principales de las características en el subespacio
@@ -2152,7 +2158,7 @@ dentro de la misma clase.
 \label{sec:sample-wise-incremental}
 
 Como sabemos, la formulación CTRL de bucle cerrado ya es capaz de aprender una
-autocodificación aceptable, incluso sin información de clase, mediante el
+autocodificación razonablemente buena, incluso sin información de clase, mediante el
 programa CTRL-Binary:
 \begin{align}
     \max_{\bm \theta} \min_{\bm \eta} \quad \Delta R_\epsilon(\Z, \hat{\Z})
@@ -2167,21 +2173,21 @@ $\hat \x = g(f(\x))$ decodificado.
 \paragraph{Restricciones muestra por muestra para la transcripción no supervisada.}
 \label{sec:constraints}
 Para mejorar las propiedades discriminativas y generativas de
-las representaciones aprendidas en el entorno no supervisado, proponemos dos
+las representaciones aprendidas en el escenario no supervisado, proponemos dos
 mecanismos adicionales para el juego de maximin CTRL-Binary mencionado anteriormente
 \eqref{eqn:CTRL-Binary}. En aras de la simplicidad y la uniformidad, aquí
-se formularán como restricciones de igualdad sobre las medidas de reducción de la tasa,
+se formulan como restricciones de igualdad sobre las medidas de reducción de la tasa,
 pero en la práctica pueden imponerse en forma suave durante el proceso de optimización.
 
-\paragraph{Auto-consistencia muestra por muestra mediante transcripción en bucle cerrado.}
+\paragraph{Autoconsistencia muestra por muestra mediante transcripción en bucle cerrado.}
 En primer lugar, para abordar el problema de que CTRL-Binary no aprende una
 autocodificación consistente a nivel de muestra, necesitamos promover la proximidad entre $\hat \x$
-y $\x$ para cada muestra individual. En el marco de CTRL, esto se puede
+y $\x$ para cada muestra. En el marco de CTRL, esto se puede
 lograr asegurando que sus características correspondientes $\z=f(\x)$ y
 $\hat \z = f(\hat \x)$ sean similares.
 Para promover la autoconsistencia por muestra, donde $\hat{\x} = g(f(\x))$
 es cercano a $\x$, queremos que la distancia entre $\z$ y $\hat{\z}$
-sea cero o pequeña, para todos los $N$ elementos de la muestra.
+sea cero o pequeña, para todas las $N$ muestras.
 Esta distancia puede medirse mediante la reducción de la tasa:
 \begin{align}
     \sum_{i\in N} \Delta R_\epsilon(\z^i,\hat{\z}^i) = 0.
@@ -2189,20 +2195,20 @@ Esta distancia puede medirse mediante la reducción de la tasa:
 \end{align}
 Tenga en cuenta que esto evita, una vez más, medir diferencias en el espacio de imágenes.
 
-\paragraph{Auto-supervisión mediante la compresión de muestras aumentadas.}
+\paragraph{Autosupervisión mediante la compresión de muestras aumentadas.}
 Dado que en el contexto no supervisado no conocemos la información sobre las etiquetas de clase entre las muestras,
-lo mejor que podemos hacer es tratar cada muestra
-junto con sus aumentaciones (por ejemplo, mediante traslación, rotación, oclusión,
+lo mejor que podemos hacer es considerar cada muestra
+junto con sus augmentaciones (por ejemplo, mediante traslación, rotación, oclusión,
 etc.) como un único grupo o «clase» base: una idea básica que subyace a casi todos los métodos de aprendizaje 
 autosupervisado. En el marco de la reducción de la tasa, resulta intuitivo
-comprimir las características de cada muestra y sus aumentaciones. En este
+comprimir las características de cada muestra y sus augmentaciones. En este
 trabajo, adoptamos las transformaciones estándar de SimCLR
 \cite{chen2020simple} y denotamos dicha transformación como $\tau$. Denotamos
-cada muestra aumentada como $\x_a = \tau(\x)$ y su característica
+cada muestra augmentada como $\x_a = \tau(\x)$ y su característica
 correspondiente como $\z_a = f(\x_a, \bm \theta)$. Con fines discriminativos,
 esperamos que el clasificador sea {\em invariante} a tales
 transformaciones. Por lo tanto, es lógico exigir que las características
-$\z_a$ de todas las aumentaciones sean las mismas que las $\z$ de la
+$\z_a$ de todas las augmentaciones sean las mismas que las $\z$ de la
 muestra original $\x$. Esto equivale a exigir que la distancia
 entre $\z$ y $\z_a$, medida nuevamente en términos de reducción de la tasa,
 sea cero (o pequeña) para todas las $N$ muestras:
@@ -2215,7 +2221,7 @@ sea cero (o pequeña) para todas las $N$ muestras:
 Hasta ahora, sabemos que el objetivo CTRL-Binary $\Delta R_\epsilon(\Z,
 \hat{\Z})$ de \eqref{eqn:CTRL-Binary} ayuda a alinear las distribuciones,
 mientras que la autoconsistencia por muestra
-\eqref{eqn:sample-self-consistency} y la aumentación por muestra
+\eqref{eqn:sample-self-consistency} y la augmentación por muestra
 \eqref{eqn:sample-compression} ayudan a alinear y comprimir las características
 asociadas con cada muestra. Además de la consistencia, también queremos que
 las representaciones aprendidas sean lo más discriminativas posible para diferentes
@@ -2242,7 +2248,7 @@ sistema de bucle cerrado asociado a este programa.
         el aprendizaje no supervisado. Se imponen dos restricciones adicionales al
     método CTRL-Binary: 1) autoconsistencia para las características de cada muestra
 $\z^i$ y $\hat{\z}^i$, es decir, $\z^i \approx \hat{\z}^i$; y 2)
-invarianza/similitud entre las características de las muestras aumentadas $\z^i$ y
+invarianza/similitud entre las características de las muestras augmentadas $\z^i$ y
 $\z_{a}^i$, es decir, $\z^i \approx \z_{a}^i=f(\tau(\x^i), \bm \theta)$,
 donde $\x^i_a=\tau(\x^i)$ es un aumento de la muestra $\x^i$ mediante
 alguna transformación $\tau(\cdot)$.}
@@ -2252,7 +2258,7 @@ alguna transformación $\tau(\cdot)$.}
 En la práctica, el programa anterior se puede optimizar alternando
 la maximización y la minimización entre el codificador $f(\cdot,\bm
 \theta)$ y el decodificador $g(\cdot,\bm \eta)$. Adoptamos la siguiente
-estrategia de optimización, que funciona bien en la práctica y que se utiliza para
+estrategia de optimización, que rinde bien en los experimentos y que se utiliza para
 todos los experimentos posteriores con conjuntos de datos de imágenes reales:
 \vspace{-1mm}
 \begin{align}
@@ -2278,18 +2284,18 @@ entre dos vectores. Esta aproximación se desarrolla más a fondo
 en la \Cref{sec:SimDINO}, donde motiva el objetivo de SimDINO.}
 
 La representación anterior se aprende sin información de clase. Para
-facilitar tareas discriminativas o generativas, debe poseer una alta estructura interna.
-Se ha comprobado experimentalmente que así es
+facilitar tareas discriminativas o generativas, debe ser altamente estructurada en lo interno.
+Se ha comprobado experimentalmente que es efectivamente así 
 y u-CTRL demuestra tener ventajas significativas con respecto a
 otros métodos de aprendizaje incremental o no supervisado
 \cite{pmlr-v234-tong24a}. Aquí solo mostramos algunos resultados cualitativos
 del experimento realizado con el conjunto de datos CIFAR-10
-\cite{krizhevsky2014cifar}, utilizando transformaciones de aumento estándar propias
+\cite{krizhevsky2014cifar}, utilizando transformaciones de augmentación estándar propias
 del aprendizaje autosupervisado \cite{chen2020simple}. Se puede consultar
 \cite{pmlr-v234-tong24a} para ver experimentos con conjuntos de datos más numerosos y de mayor tamaño
 y sus evaluaciones cuantitativas.
 
-Como se puede observar en los experimentos, de hecho surge en forma natural una estructura específica y única
+Como se puede observar en los experimentos, de hecho, surge en forma natural una estructura específica y única
 en las representaciones aprendidas mediante u-CTRL:
 a nivel global, las características de las imágenes de una misma clase tienden a agruparse
 bien juntas y a separarse de las de otras clases, como se muestra en la
@@ -2322,7 +2328,7 @@ con diferentes modelos.}
 \label{fig:tsne}
 \end{figure}
 
-\paragraph{Generación condicional de imágenes sin supervisión mediante reducción de tasa.}
+\paragraph{Generación condicional no supervisada de imágenes mediante reducción de tasa.}
 La distribución altamente estructurada de las características también sugiere que la
 representación aprendida puede resultar muy útil con fines generativos.
 Por ejemplo, podemos organizar las características de las muestras en
@@ -2352,12 +2358,12 @@ resolvemos el siguiente problema de optimización sobre $\bm \Pi$:
 En la \Cref{fig:vis_clustering}, visualizamos imágenes generadas a partir de los
 diez clústeres no supervisados de \eqref{eqn:cluster_mcr}. Cada bloque
 representa un grupo y cada fila representa una componente principal
-para cada clúster. A pesar de haberse aprendido y entrenado sin
+para cada clúster. A pesar de habersido aprendido y entrenado sin
 etiquetas, el modelo no solo organiza las muestras en los grupos correctos,
 sino que también es capaz de preservar la diversidad estadística dentro de cada
 clúster o clase. Podemos recuperar fácilmente la diversidad dentro de cada
 grupo calculando diferentes componentes principales y, a continuación,
-realizando el muestreo correspondiente y generando muestras según corresponda.
+muestrear y generar las imágenes adecuadamente.
 Aunque los experimentos que aquí se presentan tienen
 una escala algo limitada, en el próximo capítulo exploraremos métodos más directos y potentes
 que utilizan las distribuciones y representaciones de datos aprendidas
@@ -2373,7 +2379,7 @@ la generación a partir de las diferentes componentes principales de cada grupo.
 \end{figure}
 
 \section{Resumen y Notas}
-Históricamente, la autocodificación ha sido uno de los principales motores de la innovación
+Históricamente, la autocodificación ha sido uno de los motores más importantes de la innovación
 en la investigación sobre redes neuronales para el aprendizaje, aunque las demostraciones más impactantes
 desde el punto de vista práctico del aprendizaje profundo probablemente se hayan dado en otros dominios
 (como la clasificación discriminativa, con AlexNet
@@ -2386,11 +2392,11 @@ en aprendizaje automático.
 En la práctica actual, los autocodificadores siguen siendo componentes fundamentales de muchos sistemas a gran escala
 destinados a generar datos altamente estructurados, como datos visuales, datos de voz
 y datos moleculares, especialmente el enfoque VQ-VAE
-\cite{van-den-Oord2017-jr}, que se fundamenta en la metodología de los autocodificadores variacionales
+\cite{van-den-Oord2017-jr}, que se basa en la metodología de los autocodificadores variacionales
 que analizamos en la \Cref{sec:vae}.
-El problema central de la autocodificación sigue revistiendo una importancia intelectual fundamental
+El problema central de la autocodificación sigue revistiendo una importancia intelectual suprema
 debido a su estrecha vinculación con el aprendizaje de representaciones y anticipamos que
-volverá a ser una prioridad para los investigadores prácticos en el futuro, a medida que
+volverá a ser una prioridad para los investigadores orientados a la práctica en el futuro, a medida que
 la eficiencia en el entrenamiento y la implementación de modelos a gran escala siga cobrando
 mayor importancia.
 
@@ -2413,13 +2419,13 @@ artículos para obtener más detalles técnicos y experimentales.
 \paragraph{Redes neuronales superficiales vs. profundas, para la autocodificación y otras aplicaciones.}
 En la \Cref{sub:nonlinear-pca}, analizamos el teorema de aproximación universal de Cybenko
 y cómo este establece que, en principio, una red neuronal con una sola
-capa oculta (y no linealidades adecuadas punto a punto) es suficiente para
+capa oculta (y no linealidades adecuadas componente a componente) es suficiente para
 aproximar cualquier función objetivo regularizada de manera adecuada. Por supuesto, la
 principal razón arquitectónica del predominio de las redes neuronales en la práctica ha
 sido el refinamiento de técnicas para el entrenamiento de redes neuronales \textit{más profundas}.
 ¿Por qué es necesaria la profundidad?
 Desde un punto de vista fundamental, la cuestión de las separaciones por profundidad, que
-permite establecer escenarios en los que una red neuronal más profunda puede aproximarse a una clase determinada
+permite establecer escenarios en los que una red neuronal más profunda puede aproximar una clase determinada
 de funciones objetivo con una eficiencia exponencialmente superior respecto a una red
 superficial,
 ha sido ampliamente estudiada en la literatura teórica:
@@ -2430,7 +2436,7 @@ la perspectiva teórica.
 Las ResNets \cite{he2016deep} representan el trabajo empírico pionero
 para facilitar el entrenamiento de redes más profundas y se utilizan de alguna forma
 en casi todas las arquitecturas modernas. Los estudios teóricos se han centrado en gran medida en
-la capacidad de entrenamiento de las redes muy profundas, cuantificadas a través del Núcleo Tangencial Neuronal Inicial (NTK)
+la capacidad de entrenamiento de las redes muy profundas, cuantificada a través del Núcleo Tangencial Neuronal Inicial (NTK)
 \cite{Buchanan2021-sj,Martens2021-cx}, pero estos estudios no han aportado
 información significativa sobre las ventajas de entrenabilidad de las redes más profundas en las etapas
 intermedias y finales del entrenamiento (véase, sin embargo, \cite{Yang2021-gw} para conocer el origen de una línea
@@ -2440,11 +2446,11 @@ de investigación que intenta abordar este tema).
 
 \begin{exercise}[Comprensión conceptual del aplanamiento de variedades]
 Consideremos datos situados en una variedad curva $\cM$ incrustada en $\R^D$ (como
-una superficie curva en el espacio tridimensional), tal y como se expone en la subsección sobre
+una superficie curva en el espacio tridimensional), como se presenta en la subsección sobre
 el aplanamiento de variedades en la \Cref{sub:nonlinear-pca}.
-En este ejercicio, describiremos las componentes básicos del algoritmo de
+En este ejercicio, describiremos las componentes básicas del algoritmo de
 aplanamiento de variedades de \cite{Psenka-JMLR24}.
-Una variedad se denomina plana si constituye un conjunto abierto en el espacio euclídeo (o,
+Una variedad se denomina plana si es un conjunto abierto en el espacio euclídeo (o,
 más en general, un conjunto abierto en un subespacio).
 
 \begin{enumerate}

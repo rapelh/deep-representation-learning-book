@@ -17,7 +17,7 @@
 
 En los capítulos anteriores de este libro, hemos estudiado cómo
 aprender de manera eficaz y eficiente una representación de una variable
-$\x$ concreta con una distribución $p(\x)$ que tiene un
+$\x$ del nundo real con una distribución $p(\x)$ que tiene un
 soporte de baja dimensión en un espacio de alta dimensión. Hasta ahora, hemos
 desarrollado principalmente la metodología para el aprendizaje de representaciones y
 la autocodificación de una manera general, independiente de la distribución o la tarea.
@@ -29,7 +29,7 @@ lenguajes naturales).
 
 Sin embargo, en términos más generales, la universalidad y la escalabilidad del
 marco teórico y computacional presentado en este libro nos han
-permitido conocer la distribución de una gran variedad de datos importantes
+permitido aprender la distribución de una variedad de datos importantes
 del mundo real y que son de alta dimensión, tales como los idiomas naturales, las
 posturas humanas, las imágenes naturales, los videos e incluso las escenas 3D. Una vez que
 las estructuras intrínsecamente ricas y de baja dimensión de estos datos reales
@@ -48,8 +48,8 @@ En términos generales, una buena representación o autocodificación debería
 permitirnos emplear la distribución de baja dimensión aprendida de los
 datos $\x$ y su representación $\z$ para diversas tareas posteriores
 de clasificación, estimación y generación en diferentes
-condiciones. Como ya hemos mencionado anteriormente en el Capítulo \ref{ch:intro}
-, la importancia de la
+condiciones. Como ya insinuamos en el Capítulo \ref{ch:intro}, 
+Sección \ref{sec:intro-low-dimensionality}, la importancia de la
 {\em baja dimensionalidad} de la distribución es clave para que podamos
 realizar inferencias estables y robustas relacionadas con los datos $\x$, tal como
 lo ilustran los pocos ejemplos sencillos de la Figura
@@ -58,7 +58,7 @@ corrompidas. Resulta que ese mismo concepto
 se aplica a los datos del mundo real de alta dimensión cuyas distribuciones
 tienen un soporte de baja dimensión, como las imágenes naturales y los idiomas.
 
-A pesar de la deslumbrante variedad de aplicaciones en la práctica del aprendizaje automático
+A pesar de una deslumbrante variedad de aplicaciones en la práctica del aprendizaje automático
 con datos como idiomas, imágenes, videos y muchas otras
 modalidades, casi todas las aplicaciones prácticas pueden considerarse un
 caso especial del siguiente problema de inferencia: dada una observación
@@ -69,7 +69,7 @@ $\y$ que depende de $\x$, digamos
 donde $h(\cdot)$ representa mediciones de una parte de $\x$ o ciertos
 atributos observados y $\vw$ representa cierto ruido de medición e
 incluso alteraciones (escasas), resolver el «problema inverso» consistente en obtener
-una estimación más probable $\hat \x(\y)$ de $\x$ o generar una muestra
+la estimación más probable $\hat \x(\y)$ de $\x$ o generar una muestra
 $\hat{\x}$ que sea al menos consistente con la observación $\y
 \approx h(\hat{\x})$. La Figura \ref{fig:inference_roadmap} ilustra
 la relación general entre $\x$ y $\y$.
@@ -77,35 +77,34 @@ la relación general entre $\x$ y $\y$.
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{\toplevelprefix/chapters/chapter7/figs/inference_roadmap.pdf}
-    \caption{\small \textbf{Inferencia con distribuciones de baja dimensión
-        .} Esta es la imagen genérica de este capítulo: tenemos
+    \caption{\small \textbf{Inferencia con distribuciones de baja dimensión.} Esta es la imagen genérica de este capítulo: tenemos
         una distribución de baja dimensión para \(\vx \in \R^{D}\) (aquí
             representada como una unión de dos variedades de \(2\) dimensiones en
         \(\R^{3}\)) y un modelo de medición \(\y = h(\vx) + \vw \in
         \R^{d}\). Queremos inferir varias cosas sobre este modelo,
         incluida la distribución condicional de \(\vx\) dado \(\vy\),
-        o la esperanza condicional \(\mathbb{E}[\vx \mid \y]\), dados
+        o la esperanza condicional \(\mathbb{E}[\vx \mid \y]\), a partir de
         diversos elementos de información sobre el modelo y (un número potencialmente finito de) muestras 
     de \(\vx\) o de \(\vy\).}
     \label{fig:inference_roadmap}
 \end{figure}
 
-\begin{example}[Completamiento de imágenes y predicción de texto]
+\begin{example}[Completado de imágenes y predicción de texto]
     La popular tarea de completar imágenes y la predicción de lenguaje natural
-    son dos tareas típicas que nos obligan a reconstruir un
-    conjunto de datos completo $\x$ a partir de observaciones parciales $\y$, en las que algunas partes de
+    son dos tareas típicas que nos exigen reconstruir un
+    conjunto de datos completo $\x$ a partir de sus observaciones parciales $\y$, en las que algunas partes de
     $\x$ están ocultas y deben completarse basándose en el resto. La Figura
     \ref{fig:image-text-completion} muestra algunos ejemplos de este tipo de
     tareas. De hecho, son precisamente estas tareas las que han inspirado
     los métodos de entrenamiento de los modelos modernos de gran tamaño para la generación de texto (como
-    GPT) y el completamiento de imágenes (como el autocodificador enmascarado), que
+    GPT) y el completado de imágenes naturales (como el autocodificador enmascarado), que
     estudiaremos con mayor detalle más adelante.
     \begin{figure}
         \centering
         \includegraphics[height=0.4\linewidth]{\toplevelprefix/chapters/chapter7/figs/image-completion.jpg}
         \hspace{10mm}
         \includegraphics[height=0.45\linewidth]{\toplevelprefix/chapters/chapter7/figs/text-prediction.jpg}
-        \caption{Izquierda: completamiento de imágenes. Derecha: predicción de texto. En
+        \caption{Izquierda: completado de imágenes. Derecha: predicción de texto. En
             particular, la predicción de texto es la fuente de inspiración del
         popular Generative Pre-trained Transformer (GPT).}
         \label{fig:image-text-completion}
@@ -123,17 +122,17 @@ o calcular la estimación de la esperanza condicional:
 \begin{equation}
     \hat{\x} = \mathbb{E}[\x \mid \y] = \int \x p(\x\mid \y)\odif{\vx};
 \end{equation}
-o realizar un muestreo de la distribución condicional:
+o muestrear de la distribución condicional:
 \begin{equation}
     \hat{\x} \sim p(\x \mid \y).
 \end{equation}
 
 Nótese que si la distribución condicional $p(\x\mid \y)$ tiene un
-soporte de baja dimensión que es no lineal, estas tres estimaciones diferentes
+soporte que es de baja dimensión y no lineal, estas tres estimaciones diferentes
 pueden ser bastante distintas, tal como se ilustra en la Figura
 \ref{fig:MAP}. Conceptualmente, la estimación máxima a posteriori (MAP)
 es la más deseable: es la muestra con mayor probabilidad de haber
-generado la observación $\y$, pero suele ser computacionalmente costoso calcularla.
+generado la observación $\y$, pero generalmente es computacionalmente difícil calcularla.
 
 \begin{figure}
     \centering
@@ -173,10 +172,10 @@ h(\x) + \vw$ que determina la distribución condicional $p(\y \mid \x)$.
     en el que se necesitan tanto la distribución de $\x \sim p(\x)$ como
     la correspondencia (de observación). La ventaja del enfoque bayesiano
     es que la distribución aprendida $p(\x)$ puede facilitar
-    muchas tareas diferentes con diversos modelos y condiciones de observación.
+    muchas tareas diferentes con diversos modelos de observación y condiciones.
 \end{remark}
 
-\subsection{Optimización con restricciones y subvariedades}
+\subsection{Optimización con restricciones en subvariedades}
 \label{sec:manifold-distance}
 \paragraph{Interpretación geométrica como optimización con restricciones.}
 
@@ -198,7 +197,7 @@ de la distribución. Siguiendo el mismo espíritu de continuación, a través de
 la difusión o codificación con pérdida estudiadas en los
 \Cref{ch:denoising,ch:lossy-compression}, podemos aproximar la función de distancia
 como $F(\x) \approx \min_{\x_p \in \cC_{\vx}^{\epsilon}} \|\x
-- \x_p\|_2$, donde $\mathcal{S}_{\x}$ se sustituye por una cubierta
+- \x_p\|_2$, donde $\mathcal{S}_{\x}$ se sustituye por una cubrimiento
 \(\cC_{\vx}^{\epsilon}\) de las muestras con bolas de radio $\epsilon$. Pero si
 se conoce la forma analítica de una distribución simple, a veces
 $F(\x)$ se puede calcular de manera explícita.
@@ -221,7 +220,7 @@ siguiente problema de optimización con restricciones:
     \max_{\x} - \frac{1}{2}\|h(\x) - \y\|_2^2 \quad \mbox{s.t.} \quad
     F(\x) = {0}.
 \end{equation}
-Mediante el método de los multiplicadores de Lagrange aumentados, podemos resolver el
+Mediante el método del lagrangiano aumentado, podemos resolver el
 siguiente programa sin restricciones:
 \begin{equation}
     \max_{\x} \left[-\frac{1}{2}\|h(\x) - \y\|_2^2  + \lambda F(\x) -
@@ -243,7 +242,7 @@ restricción mediante la continuación\footnote{Siguiendo la misma línea de
     \(F\) a tomar valores cada vez más pequeños en el óptimo, lo que significa que
     el óptimo se encuentra dentro de un vecindario cada vez más pequeño del
     soporte \(\cS_{\vx}\). Curiosamente, la teoría de los multiplicadores de Lagrange
-    sugiere que, bajo ciertas condiciones favorables sobre \(F\) y
+    alude a que, bajo ciertas condiciones favorables sobre \(F\) y
     otros términos del objetivo, solo necesitamos hacer que \(\mu\) sea lo suficientemente grande
     como para garantizar que \(F(\vx) = 0\) en el punto óptimo, lo que significa que
     con una penalización \textit{finita} obtenemos una aproximación \textit{perfecta} del
@@ -252,7 +251,7 @@ desempeña el mismo papel que \(\eps^{-1}\).}, $c$ se vuelve cada vez
 más pequeño. El programa anterior puede interpretarse de dos maneras diferentes.
 
 En primer lugar, se puede considerar el primer término como la probabilidad condicional
-de $\y$ dado $\x$ y el segundo término como una densidad de probabilidad para $\x$:
+de $\y$ dado $\x$ y el segundo término como una densidad de probabilidad de $\x$:
 \begin{equation}
     p(\y\mid \x) \propto \exp\Big(- \frac{1}{2}\|h(\x) - \y\|_2^2\Big), \quad
     p(\x) \propto \exp\Big( - \frac{\mu}{2}(F(\x) - c)^2\Big).
@@ -284,20 +283,21 @@ $h(\x)$ y $F(\x)$, respectivamente.
     en un punto del soporte, por ejemplo $(0, 0, x_3)$, pueden abarcar
     todo un subespacio complementario al soporte.
 \end{example}
+
 Obsérvese que el siguiente (gradiente)
 $$-  \mu (F(\x) - c) \pdv{F}{\vx}(\vx)$$ que siempre apunta
 hacia el soporte de baja dimensión de la distribución. Por lo tanto, el
 proceso de descenso puede considerarse como un proceso de «eliminación de ruido», estudiado en el
 \Cref{ch:denoising}, que gradualmente obliga a los datos a acercarse
 al soporte correcto. Nótese que la derivación anterior
-sugiere que el «tamaño del paso» de el \textit{score} $\nabla_{\x}
+sugiere que el «tamaño del paso» del \textit{score} $\nabla_{\x}
 \log p(\x)$ del proceso de eliminación de ruido es 
 $$\mu \big| F(\x) - \lambda/\mu\big|$$, 
 lo cual, para cualquier $\mu$ fijo, es casi proporcional
 a la distancia del punto $\x$ al soporte.
 
-En segundo lugar, téngase en cuenta que resolver el programa anterior
-\eqref{eq:lagrange_multiplier_continuation} con $\mu$ en aumento es
+En segundo lugar, obsérvese que resolver el programa anterior
+\eqref{eq:lagrange_multiplier_continuation} con $\mu$ creciente es
 equivalente a:
 \begin{equation}
     \x_\star = \arg\min_{\x} \frac{1}{2}\|h(\x) - \y\|_2^2 +
@@ -305,9 +305,9 @@ equivalente a:
     \quad \mu \uparrow \infty.
     \label{eqn:energy-minimization}
 \end{equation}
-Debido a la evidente forma cuadrática de los dos términos de la ecuación anterior,
+Debido a la notoria forma cuadrática de los dos términos de la ecuación anterior,
 también pueden interpretarse como ciertas funciones de «energía».
-A esta formulación se la suele denominar «minimización de la energía», defendida por
+A esta formulación se la suele denominar «minimización de la energía» en la literatura de aprendizaje automático, defendida por
 investigadores como Yann LeCun \cite{LeCun-2006}. Aquí, la energía de un punto
 $\x$ es una función cuadrática de su distancia al soporte de la
 distribución deseada. Obsérvese que en el \Cref{ch:denoising} y el
@@ -322,7 +322,7 @@ estimación MAP óptima, como se ilustra en la Figura \ref{fig:EngMin}.
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{\toplevelprefix/chapters/chapter7/figs/EngMin.pdf}
-    \caption{Ilustración del proceso de continuación al aplicar
+    \caption{Ilustración del proceso de continuación al imponer
     las restricciones $F(\x) = 0$ y $\y = h(\x)$.}
     \label{fig:EngMin}
 \end{figure}
@@ -354,8 +354,8 @@ desde el punto de vista conceptual, presentan un grado de dificultad cada vez ma
         {\em inferencia bayesiana empírica}.} Es necesario
         aprender un modelo para la distribución $p(\x)$ de $\x$ y,
         posteriormente, la distribución condicional
-        $p(\x\mid \y)$. El completamiento natural de imágenes o 
-        del lenguaje natural (por ejemplo, BERT y GPT) son ejemplos típicos de esta
+        $p(\x\mid \y)$. El completado de imágenes naturales o 
+        de lenguaje natural (por ejemplo, BERT y GPT) son ejemplos típicos de esta
         clase de problemas.
     \item {\em Caso 3:} Solo disponemos de algunas muestras emparejadas: $(\X, \Y) =
         \{ (\x_1, \y_1), \ldots, (\x_N, \y_N) \}$ de las dos
@@ -373,7 +373,7 @@ desde el punto de vista conceptual, presentan un grado de dificultad cada vez ma
         generar una nueva vista a partir de una secuencia de vistas calibradas o
         sin calibrar es uno de esos problemas.
 \end{itemize}
-En este capítulo, analizaremos enfoques generales para aprender las
+En este capítulo, abordaremos enfoques generales para aprender las
 distribuciones deseadas y resolver la estimación condicional
 o la generación asociadas a estos casos, normalmente con un problema práctico
 representativo. A lo largo del capítulo, el lector debe tener
@@ -385,9 +385,9 @@ red de autocodificación se entrena para reconstruir un conjunto de muestras del
 vector aleatorio $\x$. Esto nos permitiría regenerar muestras
 a partir de la distribución aprendida (de baja dimensión). En la práctica, la
 baja dimensión de la distribución, una vez dada o aprendida, puede
-explotarse para tareas de recuperación, completamiento o predicción
+explotarse para tareas de recuperación, completado o predicción
 estables y robustas. Es decir, bajo condiciones bastante suaves, es posible recuperar $\x$
-a partir de medidas de $\x$ altamente comprimidas, parciales, ruidosas o incluso corrompidas,
+a partir de mediciones de $\x$ altamente comprimidas, parciales, ruidosas o incluso corrompidas,
 del tipo:
 \begin{equation}
     \y = h(\x) + \vw,
@@ -410,26 +410,26 @@ a partir de la observación de solo una fracción de la misma:
     f: \mathcal{P}_{\Omega}(\x) \mapsto \hat{\x},
 \end{equation}
 donde $\mathcal{P}_{\Omega}(\spcdot)$ representa una operación de enmascaramiento
-(véase la \Cref{fig:matrix-completion} por un ejemplo).
+(véase la \Cref{fig:matrix-completion} como ejemplo).
 
-En esta sección y en la siguiente, estudiaremos la tarea de completamiento en
+En esta sección y en la siguiente, estudiaremos la tarea de completado en
 dos escenarios diferentes: uno es aquel en el que la distribución de los datos
-$\x$ de interés ya se conoce {\em a priori}, incluso en una determinada
+$\x$ de interés ya se conoce {\em a priori}, incluso en 
 forma analítica. Este es el caso que prevalece en el procesamiento clásico de señales,
 donde se supone que las estructuras de las señales son
 conocidas; por ejemplo, de banda limitada, esparsas o de bajo rango. El otro caso es
 cuando solo se dispone de muestras sin procesar de $\x$ y necesitamos aprender la
 distribución de baja dimensión a partir de las muestras para resolver
-adecuadamente la tarea de completamiento. Este es el caso de las tareas de
-completamiento de imágenes naturales o predicción de fotogramas de video. Como introducción al resto
-del capítulo, comenzaremos con el caso más sencillo de completamiento de imágenes:
-cuando la imagen que hay que completar se puede representar adecuadamente como una matriz de rango bajo.
+adecuadamente la tarea de completado. Este es el caso de las tareas de
+completado de imágenes naturales o predicción de fotogramas de video. Como preludio al resto
+del capítulo, comenzaremos con el caso más sencillo de completado de imágenes:
+cuando la imagen que hay que completar se puede modelar adecuadamente como una matriz de rango bajo.
 Más adelante pasaremos a casos cada vez más generales y a entornos más
-complejos.
+exigentes.
 
-\paragraph{Completamiento de matrices de rango bajo.}
-El problema del {\em completamiento de matrices
-de rango bajo} es un problema clásico en el ámbito del completamiento de datos cuando
+\paragraph{Completado de matrices de rango bajo.}
+El problema del {\em completado de matrices
+de rango bajo} es un problema clásico en el ámbito del completado de datos cuando
 su distribución es de baja dimensión y conocida. Consideremos una muestra aleatoria
 de una matriz $\X_o =
 [\x_1, \ldots, \x_n] \in \mathbb{R}^{m\times n}$ del espacio de
@@ -446,7 +446,7 @@ la matriz $\X_o$. Sean las entradas observadas:
 \begin{equation}
     \Y = \mathcal{P}_{\Omega}(\X_o).
 \end{equation}
-Las entradas restantes que se encuentran en $\Omega^c$ son no observadas o
+Las entradas restantes con soporte en $\Omega^c$ son no observadas o
 faltantes. El problema consiste en determinar si podemos recuperar de $\Y$ las entradas
 faltantes de $\X$ de manera correcta y eficiente. La Figura
 \ref{fig:matrix-completion} muestra un
@@ -457,7 +457,7 @@ ejemplo de cómo completar una matriz de este tipo.
     \includegraphics[width=0.3\linewidth]{\toplevelprefix/chapters/chapter7/figs/masked-checkerboard.png}\;\;
     \includegraphics[width=0.3\linewidth]{\toplevelprefix/chapters/chapter7/figs/mask.png}\;\;
     \includegraphics[width=0.3\linewidth]{\toplevelprefix/chapters/chapter7/figs/checkerboard.png}
-    \caption{Ilustración del completamiento de una imagen como matriz de rango bajo
+    \caption{Ilustración del completado de una imagen como matriz de rango bajo
         con algunas entradas enmascaradas o dañadas. Izquierda: la imagen enmascarada/dañada
         $\Y$; centro: la máscara $\Omega$; derecha: la imagen reconstruida
     $\hat \X$.}
@@ -468,8 +468,8 @@ Obsérvese que la razón fundamental por la que una matriz de este tipo puede co
 es que las columnas y filas de la matriz están altamente correlacionadas y
 todas ellas se encuentran en un subespacio de baja dimensión. Para el ejemplo mostrado en
 la Figura \ref{fig:matrix-completion}, la dimensión o el rango de la
-matriz completada es de solo dos. Por lo tanto, la idea fundamental para recuperar
-dicha matriz es buscar una matriz que tenga el rango más bajo entre todas las
+matriz completada es de solo dos. De ahí que la idea fundamental para recuperar
+una matriz de este tipo es buscar una matriz que tenga el rango más bajo entre todas las
 matrices que tengan entradas que coincidan con las observadas:
 \begin{equation}
     \min_{\X} \mbox{rank}(\X) \quad \mbox{sujeto a}
@@ -477,14 +477,14 @@ matrices que tengan entradas que coincidan con las observadas:
     \Y = \mathcal{P}_{\Omega}(\X).
     \label{eqn:rank-min}
 \end{equation}
-Esto se conoce como el problema del {\em completamiento de matrices de rango bajo}. Véase
+Esto se conoce como el problema del {\em completado de matrices de rango bajo}. Véase
 \cite{Wright-Ma-2022} para una caracterización completa del espacio de todas las
 matrices de rango bajo. Dado que la función de rango es discontinua y la minimización del rango
-es, en general, un problema NP-difícil, nos gustaría relajarlo mediante
+es, en general, un problema NP-difícil, nos gustaría encontrar una relajación 
 algo más fácil de optimizar.
 
-Basándonos en nuestros conocimientos sobre compresión extraídos del
-\Cref{ch:denoising}, podríamos potenciar el bajo rango de la
+Basándonos en nuestros conocimientos sobre compresión recogidos en el
+\Cref{ch:denoising}, podríamos promover el bajo rango de la
 matriz recuperada $\X$ imponiendo que la tasa de codificación con pérdida (o el
 volumen generado por $\X$) de los datos en $\X$ sea pequeña:
 \begin{equation}
@@ -495,23 +495,23 @@ volumen generado por $\X$) de los datos en $\X$ sea pequeña:
     \label{eqn:rate-min}
 \end{equation}
 El problema puede considerarse como una relajación continua del
-problema de completamiento de matrices de rango bajo mencionado anteriormente \eqref{eqn:rank-min} y puede
+problema de completado de matrices de rango bajo mencionado anteriormente \eqref{eqn:rank-min} y puede
 resolverse mediante el método del descenso por gradiente. Se puede demostrar que el operador de descenso por gradiente
 para el objetivo $\log\det$ minimiza precisamente un
-sustituto cercano del rango de la matriz $\X\X^\top$.
+sustituto cercano al rango de la matriz $\X\X^\top$.
 
 La función de tasa-distorsión es una función no convexa, y su
 descenso por gradiente no siempre garantiza encontrar la solución
 óptima global. No obstante, dado que la estructura subyacente que se busca
 para $\X$ es lineal por tramos, la función de rango admite una
 relajación convexa bastante eficaz: la
-norma nuclear, es decir, la suma de todos los valores singulares de la matriz $\X$. Como
-se muestra en la bibliografía sobre detección compresiva, bajo condiciones bastante
-amplias,\footnote{Por lo general, dichas condiciones especifican la
-    cantidad necesaria y suficiente de entradas requeridas para que el
-    completamiento sea computacionalmente viable. Estas condiciones han sido
+norma nuclear - la suma de todos los valores singulares de la matriz $\X$. Como
+se muestra en la bibliografía sobre \textit{compressive sensing}, bajo condiciones bastante
+amplias,\footnote{Por lo general, dichas condiciones especifican el número
+    necesario y suficiente de entradas requeridas para que el
+    completado sea viable desde el punto de vista computacional. Estas condiciones han sido
 caracterizadas sistemáticamente en \cite{Wright-Ma-2022}.} el problema del
-completamiento de matrices \eqref{eqn:rank-min}
+completado de matrices \eqref{eqn:rank-min}
 puede resolverse eficazmente mediante el siguiente programa convexo:
 \begin{equation}
     \min \|\X\|_* \quad \mbox{sujeto a}
@@ -520,7 +520,7 @@ puede resolverse eficazmente mediante el siguiente programa convexo:
     \label{eqn:nuclear-min}
 \end{equation}
 donde la norma nuclear $\|\X\|_*$ es la suma de los valores singulares de
-$\X$. En la práctica, a menudo convertimos el programa de optimización convexa con restricciones anterior
+$\X$. En la práctica, a menudo convertimos el anterior programa de optimización convexa con restricciones 
 en uno sin restricciones:
 \begin{equation}
     \min \|\X\|_*  + \lambda \|
@@ -536,7 +536,7 @@ matriz $\hat \X$ se recupera efectivamente resolviendo el programa anterior.
 \paragraph{Otras ampliaciones.}
 Se ha demostrado que las imágenes (o, más exactamente, las texturas) y las escenas 3D
 con estructuras de rango bajo pueden completarse de manera muy eficaz mediante
-la resolución de programas de optimización del tipo mencionado anteriormente, incluso si hay
+la resolución de programas de optimización del tipo mencionado anteriormente, incluso si hubiera
 corrupción y distorsión adicionales
 \cite{Zhang2010TILTTI,Liang-ECCV2012,Yi_2023_ICCV}:
 \begin{equation}
@@ -560,30 +560,30 @@ tareas de inferencia basadas en una observación $\y = h(\x) + \vw$. En esta
 sección, suponemos que el modelo de observación $h(\cdot)$ está dado y
 es conocido. En la siguiente sección estudiaremos el caso en el que $h(\cdot)$ no se da explícitamente.
 
-\subsection{Completamiento de imágenes mediante autocodificación enmascarada}
+\subsection{Completado de imágenes mediante autocodificación enmascarada}
 En el caso de una imagen general $\vX$ como la que se muestra a la izquierda de la Figura
 \ref{fig:crate_mae_pipeline}, ya no podemos considerarla como una matriz de bajo rango.
 Sin embargo, los seres humanos siguen demostrando una notable capacidad para
 completar escenas y reconocer objetos familiares a pesar de 
 oclusiones severas. Esto sugiere que nuestro cerebro ha aprendido la
 distribución de baja dimensión de las imágenes naturales y puede utilizarla para
-el completamiento y, por lo tanto, para el reconocimiento. Sin embargo, la distribución de todas las
+el completado y, por lo tanto, para el reconocimiento. Sin embargo, la distribución de todas las
 imágenes naturales no es tan simple como un subespacio lineal de baja dimensión.
 Por lo tanto, surge la pregunta de si podemos aprender la distribución más
 sofisticada de las imágenes naturales y utilizarla para realizar
-la reconstrucción de imágenes.
+el completado de imágenes.
 
 \begin{figure}[t!]
     \begin{center}
         \includegraphics[width=0.99\textwidth]{\toplevelprefix/chapters/chapter7/figs/crate_mae_pipeline.png}
     \end{center}
-    \caption{\small \textbf{Diagrama del proceso general  (enmascarado)
-        de autocodificación.} Las representaciones de los tokens (de imagen) se
+    \caption{\small \textbf{Diagrama del proceso general (enmascarado)
+        de autocodificación.} Las representaciones de los \textit{tokens} (de imagen) se
         transforman de forma iterativa hacia una representación parsimoniosa (p. ej., comprimida
         y esparsa) mediante cada capa del codificador \(f^{\ell}\).
-        Además, dichas representaciones se transforman de nuevo a la
+        Además, dichas representaciones se transforman de nuevo en la
         imagen original mediante las capas decodificadoras \(g^{\ell}\). Cada capa codificadora
-        \(f^{\ell}\) está pensada para ser (parcialmente) invertida por una
+        \(f^{\ell}\) está diseñada para que sea (parcialmente) invertida por una
     capa decodificadora correspondiente \(g^{L - \ell}\).}
     \label{fig:crate_mae_pipeline}
 \end{figure}
@@ -596,16 +596,16 @@ minimice la pérdida de reconstrucción:
     \min_{f, g} L_{\mathrm{MAE}}(f, g) \doteq \mathbb{E}\big[\norm{(g \circ
     f)(\mathcal{P}_\Omega(\vX)) - \vX}_{2}^{2}].
 \end{equation}
-A diferencia del problema de completamiento de matrices, que tiene una estructura subyacente simple,
-ya no debemos esperar que las correspondencias de codificación y decodificación
-admitan formas cerradas simples ni que el problema pueda resolverse mediante
+A diferencia del problema de completado de matrices, que tiene una estructura subyacente simple,
+ya no debemos esperar que las aplicaciones de codificación y decodificación
+admitan formas cerradas simples ni que el programa pueda implementarse mediante
 algoritmos explícitos.
 
 En el caso de una imagen natural general, ya no podemos suponer que sus columnas o
 filas se muestreen a partir de un subespacio de baja dimensión o de una distribución gaussiana
 de bajo rango. Sin embargo, es razonable suponer que la imagen se compone
 de múltiples regiones. Los parches de imagen en cada región son similares y pueden
-modelarse como una gaussiana o un subespacio (de bajo rango). Por lo tanto, para aprovechar
+modelarse como una gaussiana o un subespacio (ambos de bajo rango). Por lo tanto, para aprovechar
 la baja dimensionalidad de la distribución, el objetivo \textit{del
 codificador} $f$ es transformar $\X$ en una representación $\Z$:
 \begin{equation}
@@ -623,15 +623,15 @@ tal que se maximice la reducción de la tasa y se minimice la esparcidad:
 donde las funciones $R_\epsilon(\cdot)$ y $R^c_\epsilon(\cdot)$ se
 definen en \eqref{eq:coding_rate} y \eqref{eq:def-mcr-Rc}, respectivamente.
 
-Como hemos mostrado en el anterior Capítulo \ref{ch:deep-networks}, el
+Como hemos mostrado en el Capítulo \ref{ch:deep-networks} anterior, el
 codificador $f$ que minimiza el objetivo anterior puede construirse como
-una secuencia de operadores tipo transformer. Tal y como se muestra en el trabajo de
+una secuencia de operadores tipo Transformer. Tal y como se muestra en el trabajo de
 \cite{Pai2024masked}, el decodificador $g$ puede entenderse y, por tanto,
 construirse explícitamente como el proceso inverso del codificador $f$.
 La Figura \ref{fig:crate_mae_layers} ilustra las arquitecturas generales
 tanto del codificador como del decodificador correspondiente en
-cada capa. Los parámetros del codificador $f$ y del decodificador $g$ pueden
-aprenderse optimizando la pérdida de reconstrucción \eqref{eq:mae_loss} mediante
+cada capa. Se pueden aprender los parámetros del codificador $f$ y del decodificador $g$ 
+optimizando la pérdida de reconstrucción \eqref{eq:mae_loss} mediante
 el método de descenso de gradiente.
 
 \begin{figure}[t!]
@@ -642,21 +642,21 @@ el método de descenso de gradiente.
         las dos capas son altamente antiparalelas: cada una está diseñada para
         realizar las operaciones de la otra en orden inverso. Es decir, en la
         capa decodificadora \(g^{\ell}\), el bloque \(\ISTA\) de \(f^{L - \ell}\)
-        se invierte parcialmente primero mediante una capa lineal y luego se invierte el
+        se invierte parcialmente primero mediante una capa lineal y luego se deshace el
         bloque \(\MSSA\) de \(f^{L - \ell}\); este orden
     desentraña la transformación realizada en \(f^{L - \ell}\).}
     \label{fig:crate_mae_layers}
 \end{figure}
 
 La Figura \ref{fig:mae_autoencoding-small} muestra algunos resultados representativos
-del autocodificador enmascarado así diseñado. Para obtener más detalles sobre la implementación 
-y los resultados del autocodificador enmascarado para el completamiento de imágenes naturales
+del autocodificador enmascarado diseñado de este modo. Para obtener más detalles sobre la implementación 
+y los resultados del autocodificador enmascarado para el completado de imágenes naturales
 se recomienda consultar el Capítulo \ref{ch:applications}, \Cref{sec:image_completion}.
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.99\textwidth]{\toplevelprefix/chapters/chapter7/figs/crate_mae_autoencoding_small.pdf}
     \caption{\small \textbf{Visualizaciones de autocodificación de CRATE-Base
-        y ViT-MAE-Base \cite{he2022masked} con el 75\% de los fragmentos enmascarados.}
+        y ViT-MAE-Base \cite{he2022masked} con el 75\% de los parches enmascarados.}
         Observamos que las reconstrucciones de CRATE-Base están a la par
         con las de ViT-MAE-Base, a pesar de utilizar \(<1/3\) 
         de los parámetros.
@@ -664,7 +664,7 @@ se recomienda consultar el Capítulo \ref{ch:applications}, \Cref{sec:image_comp
     \label{fig:mae_autoencoding-small}
 \end{figure}
 
-\subsection{Muestreo condicional con ajuste de medidas}
+\subsection{Muestreo condicional con ajuste de mediciones}
 \label{sec:conditioned-decoding}
 El problema de autocodificación (enmascarada) mencionado anteriormente 
 tiene como objetivo generar una imagen de muestra
@@ -681,7 +681,7 @@ $\X_v$. Es fácil demostrar que la solución óptima a la formulación MAE
     \argmin_{h = g \circ f}\, L_{\mathrm{MAE}}(h)
     = \vXi_v \mapsto \vXi_v + \mathbb{E}[\X_m \mid \X_v=\vXi_v].
 \end{equation}
-Sin embargo, en general, es posible que esta expectativa ni siquiera se base en la
+Sin embargo, en general, es posible que esta expectativa ni siquiera esté situada en la
 distribución de baja dimensión de las imágenes naturales. Esto explica en parte
 por qué algunos de los fragmentos recuperados en la \Cref{fig:mae_autoencoding-small}
 se ven un poco borrosos.
@@ -689,13 +689,13 @@ se ven un poco borrosos.
 A efectos prácticos, nos gustaría estimar (una representación
 de) la distribución condicional $p_{\X_m \mid \X_v}$, o lo que es lo mismo,
 $p_{\X \mid \X_v}$,
-y luego obtener directamente una muestra clara (la más probable) de esta distribución. Obsérvese que, cuando la distribución de $\X$ es
+y luego obtener directamente una muestra nítida (la más probable) de esta distribución. Obsérvese que, cuando la distribución de $\X$ es
 de baja dimensión, es posible que si se observa una
 parte suficiente de $\X$, $\X_v$, esta determine completamente
 $\X$ y, por lo tanto, la parte faltante $\X_m$. En otras palabras, la distribución
 $p_{\X \mid \X_v}$ es una función generalizada (análoga a la función delta).
 
-Por lo tanto, en lugar de abordar la tarea de completamiento como un problema de estimación condicional,
+Por lo tanto, en lugar de abordar la tarea de completado como un problema de estimación condicional,
 deberíamos tratarla como un problema de muestreo condicional.
 Para ello, primero deberíamos aprender la distribución (de baja dimensión)
 de todas las imágenes naturales $\X$. Si contamos con suficientes
@@ -716,7 +716,7 @@ obtener muestras de la distribución condicionadas a la observación.
         recuperada por el método basado en MAE. El primer método toma muestras de
         la distribución de las imágenes naturales, mientras que el segundo aproxima
         la esperanza condicional (es decir, la media) de esta distribución
-    dada la observación; este promedio es lo que provoca el efecto borroso.}
+    dada la observación; esta operación de promediar es lo que provoca el efecto borroso.}
     \label{fig:ambient_diffusion}
 \end{figure}
 
@@ -730,9 +730,8 @@ donde $\vA$ es un operador lineal en el espacio matricial\footnote{es decir, si
     imaginamos que desenrollamos \(\vX\) en un vector largo, entonces \(\vA\) desempeña el
 papel de una matriz en el espacio de \(\vX\)} y $\vG \sim
 \mathcal{N}(\boldsymbol{0}, \vI)$. El operador de enmascaramiento
-$\mathcal{P}_{\Omega}(\cdot)$ en la tarea de completamiento de imágenes es un
-ejemplo de dicho modelo lineal. Entonces, se ha demostrado por
-\cite{daras2023ambient} que
+$\mathcal{P}_{\Omega}(\cdot)$ en la tarea de completado de imágenes es un
+ejemplo de dicho modelo lineal. Entonces, \cite{daras2023ambient} han demostrado que
 \begin{equation}
     \hat{\X}_* = \argmin_{\hat{\X}}
     \mathbb{E}[\|\vA(\hat{\X}(\vA\X_t, \vA) - \X_0)\|^2]
@@ -742,25 +741,25 @@ cumple la condición de que:
     \vA \hat{\X}_*(\vA(\X_t), \vA) = \vA \mathbb{E}[\X_0 \mid \vA \X_t, \vA].
 \end{equation} 
 Obsérvese que, en el caso especial en el que $\vA$ tiene rango de columna completo,
-tenemos que $ \mathbb{E}[\X_0 \mid \vA\X_t, \vA] =
+se tiene $ \mathbb{E}[\X_0 \mid \vA\X_t, \vA] =
 \mathbb{E}[\X_0 \mid \X_t]$. Por lo tanto, en el caso más general, se ha
 sugerido en \cite{daras2023ambient} que aún se podría utilizar
-el $\mathbb{E}[\X_0 \mid \vA(\X_t), \vA$ así obtenido para sustituir el
-$\mathbb{E}[\X_0 \mid \X_t]$ en el proceso normal de eliminación de ruido para $\X_t$:
+el $\mathbb{E}[\X_0 \mid \vA(\X_t), \vA]$ así obtenido para sustituir el
+$\mathbb{E}[\X_0 \mid \X_t]$ en el proceso estándar de eliminación de ruido para $\X_t$:
 \begin{equation}
     \X_{t-s} = \gamma_t \X_t + (1-\gamma_t) \mathbb{E}[\X_0 \mid \vA\X_t, \vA].
 \end{equation}
 Esto suele funcionar muy bien en la práctica, por ejemplo, en muchas tareas de
 restauración de imágenes, tal y como se muestra en \cite{daras2023ambient}. En comparación con
 las imágenes borrosas recuperadas mediante MAE, las imágenes recuperadas por el
-método anterior son mucho más nítidas, ya que aprovecha una distribución aprendida
+método anterior son mucho más nítidas, ya que hace uso de una distribución aprendida
 de imágenes naturales y toma una muestra de una imagen (nítida) de dicha distribución
 que es coherente con la medición, tal y como se muestra en la
 \Cref{fig:ambient_diffusion} (véase la \Cref{fig:mae_autoencoding-small}).
 
 \paragraph{Mediciones no lineales generales.}
-Para generalizar los problemas de completamiento (de imágenes) mencionados anteriormente y hacer el análisis
-más riguroso, podemos considerar que un vector aleatorio $\vx \sim p$ se
+Para generalizar los problemas de completado (de imágenes) mencionados anteriormente y hacer el análisis
+más riguroso, podríamos considerar que un vector aleatorio $\vx \sim p$ se
 observa parcialmente a través de una función de observación más
 general:
 \begin{equation}\label{eq:measurement-matching-observation}
@@ -769,12 +768,12 @@ general:
 donde $\vw$ suele representar algún ruido de medición aleatorio, por ejemplo, de
 una distribución gaussiana $\vw \sim \mathcal{N}(\mathbf{0}, \sigma^2
 \boldsymbol{I})$. Es fácil ver que, para $\x$ e $\y$ así
-relacionadas, su distribución multivariada $p(\x, \y)$ es, naturalmente, casi
+relacionadas, su distribución conjunta $p(\x, \y)$ es, naturalmente, casi
 degenerada si el ruido $\vw$ es pequeño. En gran medida, podemos
 considerar $p(\x, \y)$ como una versión ruidosa de una hipersuperficie definida por la
-función $\y = h(\x)$ en el espacio conjunto $(\x, \y)$. En la práctica,
+función $\y = h(\x)$ en el espacio combinado $(\x, \y)$. En la práctica,
 consideraremos un escenario más parecido a la autocodificación enmascarada
-que al completamiento de matrices puro, en el que siempre tenemos acceso a una
+que al completado puro de matrices, en el que siempre tenemos acceso a una
 muestra limpia correspondiente $\vx$ para cada observación $\vy$ que
 recibimos.\footnote{En algunas aplicaciones más especializadas, en
     particular en el procesamiento de imágenes científicas, resulta interesante poder
@@ -782,14 +781,17 @@ recibimos.\footnote{En algunas aplicaciones más especializadas, en
     tener acceso a ninguna muestra limpia o de referencia de $\x$. Ofrecemos una breve
 descripción general de los métodos para este contexto en las notas al final del capítulo.}
 
-Al igual que en la reconstrucción de imágenes o matrices,
-a menudo nos enfrentamos a un escenario en el que $\vy$ representa una observación degradada o, en cualquier caso,
-«con pérdida»
-de la entrada $\vx$. Esto puede manifestarse de formas muy diferentes. Por ejemplo, en diversos problemas de imágenes científicas o
-médicas, los datos medidos $\vy$ pueden ser una observación comprimida y 
+Al igual que en el completado de imágenes o matrices,
+a menudo nos enfrentamos a un escenario en el que $\vy$ representa una observación degradada o, 
+en cualquier caso, «con pérdida» de la entrada $\vx$. Esto puede manifestarse de formas muy 
+diferentes. Por ejemplo, en diversos problemas de imaginería científica o
+médica, los datos medidos $\vy$ pueden ser una observación comprimida y 
 corrompida de los datos subyacentes $\vx$; mientras que en tareas de visión 3D,
 $\vy$ puede representar una imagen capturada por una cámara de un objeto físico con una
-postura desconocida (de baja dimensión) $\vx$.
+postura desconocida (de baja dimensión) $\vx$. En general, gracias al modelado matemático 
+(y, en algunos casos, al co-diseño del sistema de medición), conocemos $h$ y podemos 
+evaluarla sobre cualquier entrada, y podemos aprovechar este conocimiento para ayudar 
+a reconstruir y muestrear $\vx$.
 
 \begin{figure}[t]
     \centering
@@ -822,8 +824,8 @@ postura desconocida (de baja dimensión) $\vx$.
         esquema de eliminación de ruido por difusión
         que hemos desarrollado en el \Cref{ch:denoising} al muestreo condicional, utilizamos
         muestras de la distribución a posteriori $p_{\vx \mid \vy}$ para entrenar
-        los eliminación de ruido directamente sobre
-        la distribución a posteriori a diferentes niveles de ruido, y luego los utilizamos para generar nuevas
+        los eliminadores de ruido directamente sobre
+        la distribución a posteriori a diferentes niveles de ruido y luego las usamos para generar nuevas
         muestras. Sin embargo, en la práctica no solemos disponer de muestras directas
         de la
         distribución a posteriori, sino más bien de muestras emparejadas $(\vx, \vy)$ de la distribución multivariada.
@@ -852,7 +854,7 @@ Queremos generar muestras $\hat{\x}$ tales que:
 
 Recordemos que en \Cref{sub:compression_denoising} hemos desarrollado una forma natural y
 eficaz de generar muestras \textit{incondicionales} de la distribución de datos
-$p$. Las componentes son los textit{denoiser} $\bar{\x}^\ast(t, \vxi) = \bE[ \x \mid
+$p$. Las componentes son los textit{denoisers} $\bar{\x}^\ast(t, \vxi) = \bE[ \x \mid
 \vx_t=\vxi ]$, o sus aproximaciones aprendidas $\bar{\x}_{\theta}(t, \vxi)$,
 para diferentes niveles de observaciones ruidosas $\x_t = \x + t \vg$ (y $\vxi$ para
 sus realizaciones) bajo
@@ -860,12 +862,12 @@ ruido gaussiano $\vg \sim \cN(\mathbf{0}, \vI)$, y $t \in
 [0, T]$ con una elección de tiempos $0 = t_1 < \dots < t_{L} = T$ en los que
 realizar la eliminación de ruido iterativa, comenzando desde $\hat{\vx}_{t_L} \sim
 \cN(\mathbf{0}, T^2 \vI)$ (recordemos
-\Cref{eq:denoising-iteration-basic}).\footnote{Recordemos de nuestro
-    análisis en \Cref{sub:sampling_denoising}
-    que unas pocas mejoras menores en este esquema básico de eliminación de ruido iterativo son
+\Cref{eq:denoising-iteration-basic}).\footnote{Recordemos que, como 
+    vimos en nuestra discusión en \Cref{sub:sampling_denoising}, unas pocas mejoras menores
+    en este esquema básico de eliminación de ruido iterativo son
     suficientes para lograr un rendimiento práctico competitivo. Para
     mayor claridad a medida que desarrollamos
-el muestreo condicional, nos centraremos aquí en la instancia más simple.}
+el muestreo condicional, nos centraremos aquí en la implementación más simple.}
 Podríamos aplicar directamente este esquema para generar muestras a partir de la distribución a posteriori
 $p_{\vx \mid \vy}$ \textit{si} tuviéramos acceso a un conjunto de datos de muestras
 $\posteriorsample \sim p_{\vx \mid \y}(\spcdot \mid \vnu)$ para cada realización
@@ -875,7 +877,7 @@ $\posteriorsample_t$ y entrenando \textit{denoisers} para aproximar $\bE[
 media de la distribución a posteriori bajo
 la observación ruidosa (véase \Cref{fig:posterior-sampling-cds}(a)).
 Sin embargo, realizar este remuestreo cuando solo se dispone de muestras emparejadas $(\vx, \vy)$ 
-de la distribución multivariada (por ejemplo, agrupando las muestras en intervalos de valores de $\vy$) requiere
+de la distribución conjunta (por ejemplo, agrupando las muestras en intervalos de valores de $\vy$) requiere
 un número prohibitivo de muestras para datos de alta dimensión y los enfoques alternativos
 se basan, explícita o implícitamente, en la estimación de densidad, que a su vez
 sufre de la maldición de la dimensionalidad.
@@ -910,7 +912,7 @@ cualquier realización $\vnu$ de $\vy$
         &= p_{\vx_t \mid \vy}(\spcdot\mid \vnu).
     \end{split}
 \end{equation}
-En la línea anterior, se reconoce una equivalencia entre las distribuciones
+En la ecuación anterior, se reconoce una equivalencia entre las distribuciones
 que aparecen en \Cref{fig:posterior-sampling-cds} (a,b); en la segunda línea se aplica esto
 junto con la independencia condicional de $\vx_t$ y $\vy$ dado $\vx$; en la
 tercera línea se utiliza la definición de probabilidad condicional; y en la última línea
@@ -943,7 +945,7 @@ La función de \textit{score} condicional satisface entonces, para cualquier rea
     \vxi)}_{\text{measurement matching}},
     \label{eqn:conditional-denoising-score}
 \end{equation}
-lo que da (según la fórmula de Tweedie) nuestros \textit{denoisers} propuestos como
+lo cual, según la fórmula de Tweedie, nos proporciona los \textit{denoisers} propuestos como
 \begin{align*}
     \bE[ \vx \mid \vx_t=\vxi, \vy=\vnu]
     &=
@@ -957,48 +959,48 @@ lo que da (según la fórmula de Tweedie) nuestros \textit{denoisers} propuestos
 \end{align*}
 Los operadores resultantes pueden interpretarse como una versión \textit{corregida} del
 \textit{denoiser} incondicional para la observación ruidosa, donde el término de corrección (el
-denominado término de «ajuste de la medición») garantiza la coherencia con las
+denominado término de «ajuste de la medición») impone la coherencia con las
 observaciones $\vy$. Esta descomposición constituye la base de la \textit{guía del clasificador},
 que desarrollaremos en detalle en la \Cref{sub:cfg}. El lector debe prestar atención a qué argumento se aplican los
 operadores de gradiente en las funciones de \textit{score} anteriores para poder
 comprender plenamente el significado de este operador.
 
-La cuestión clave pendiente para convertir este procedimiento en computacional es determinar
-cómo calcular la corrección de coincidencia de mediciones, ya que, en general, no
+La cuestión clave pendiente para hacer este procedimiento implementable computacionalmente es determinar
+cómo calcular la corrección de correspondencia de mediciones, ya que, en general, no
 disponemos de una expresión de forma cerrada
 para la verosimilitud $p_{\vy \mid \vx_t}$, salvo cuando $t
 = 0$. Antes de abordar este problema, analizaremos un ejemplo concreto ilustrativo
-de todo el proceso, a partir de los que hemos desarrollado en la
+de todo el proceso, siguiendo los ejemplos que hemos desarrollado en la
 \Cref{sub:compression_denoising}.
 
 \begin{example}\label{example:denoising-conditional-gaussian}
     Consideremos el caso en el que la distribución de los datos es gaussiana con
-    media $\mu \in
-    \mathbb{R}^D$ y
-    covarianza $\Sigma \in \mathbb{R}^{D \times D}$, es decir, $\x =
-    \mathcal{N}(\mu, \Sigma)$.
-    Supongamos que $\Sigma \neq 0$.
+    media $\vmu \in
+    \bR^D$ y
+    covarianza $\vSigma \in \bR^{D \times D}$, es decir, $\vx \sim
+    \cN(\vmu, \vSigma)$.
+    Supongamos que $\vSigma \succeq \Zero$ es distinto de cero.
     Además, en el modelo de medición
     \eqref{eq:measurement-matching-observation},
     supongamos que obtenemos mediciones lineales de $\vx$ con ruido gaussiano independiente, 
     donde $\vA \in \bR^{d \times D}$ y $\vy = \vA \vx + \sigma \vw$
     con $\vw \sim \cN(\Zero, \vI)$ independiente de $\vx$.
-    A continuación, vamos a deducir las siguientes consecuencias de este modelo para
+    A continuación, procederemos a deducir las siguientes consecuencias de este modelo para
     el marco general que hemos derivado anteriormente. Específicamente:
     \begin{enumerate}
         \item Determinaremos las formas exactas de la distribución a posteriori
             $p_{\vx \mid \vy}$ de la que pretendemos obtener muestras.
-        \item Determinaremos la forma del término de coincidencia de la medición de la Ecuación
+        \item Determinaremos la forma del término de correspondencia de la medición de la Ecuación
             \eqref{eqn:conditional-denoising-score}, lo que nos proporciona la corrección aditiva
             al \textit{denoiser} incondicional para $p_{\vx \mid
             \vx_t}$ que
-            produce el \textit{denoiser} para $p_{\vx \mid \vx_t, \vy}$ (recuerde
+            produce el \textit{denoiser} para $p_{\vx \mid \vx_t, \vy}$ (véase
             \eqref{eq:posterior-sampling-denoiser-decomposition}).
         \item Evaluaremos la forma específica del término de
-            correspondencia de medidas que
-            derivamos en el paso anterior y propondremos una aproximación natural que
+            correspondencia de mediciones que
+            derivamos en el paso anterior y postularemos una aproximación natural que
             haga que el aprendizaje
-            del término de correspondencia de medidas a partir de los datos requiera
+            del término de correspondencia de mediciones a partir de los datos requiera
             mucho menos volumen de datos y recursos computacionales. Esta aproximación se
             aplicará de manera más
             general, una vez concluido este ejemplo.
@@ -1007,7 +1009,7 @@ de todo el proceso, a partir de los que hemos desarrollado en la
     En primer lugar, observamos que $\vx \equid \vSigma^{1/2} \vg + \vmu$, donde $\vg \sim
     \cN(\Zero, \vI)$ es independiente de $\vw$ y $\vSigma^{1/2}$ es la única
     raíz cuadrada positiva de la matriz de covarianza $\vSigma$ y,
-    tras algunas operaciones algebraicas, podemos escribir entonces
+    tras algunas manipulaciones algebraicas, podemos entonces escribir 
     \begin{equation*}
         \begin{bmatrix}
             \vx \\
@@ -1028,9 +1030,9 @@ de todo el proceso, a partir de los que hemos desarrollado en la
             \vA\vmu
         \end{bmatrix}.
     \end{equation*}
-    Por independencia, se deduce que $(\vg, \vw)$ es gaussiana multivariada,
+    Por independencia, se deduce que $(\vg, \vw)$ es gaussiana conjunta,
     lo que significa que
-    $(\vx, \vy)$ también es gaussiano conjunto, ya que es la imagen afín de un
+    $(\vx, \vy)$ también es gaussiana conjunta, como imagen afín de un
     vector gaussiano conjunto.
     Su matriz de covarianza viene dada por
     \begin{equation*}
@@ -1048,7 +1050,7 @@ de todo el proceso, a partir de los que hemos desarrollado en la
             \vA \vSigma & \vA \vSigma \vA^\top + \sigma^2 \vI
         \end{bmatrix}.
     \end{equation*}
-    Ahora, aplicamos el hecho de que condicionar un vector aleatorio con distribución gaussiana multivariada
+    Ahora, aplicamos el hecho de que condicionar un vector aleatorio con distribución gaussiana conjunta
     sobre un subconjunto de coordenadas da lugar, de nuevo, a una distribución gaussiana
     (\Cref{exercise:conditional_gaussian}).
     De este modo, obtenemos que
@@ -1070,7 +1072,7 @@ de todo el proceso, a partir de los que hemos desarrollado en la
     A continuación, dado que $\vx_t = \vx + t \vg'$, donde $\vg' \sim \cN(\Zero, \vI)$ es
     independiente de todos los demás vectores aleatorios y dado que $\vx \mid \vy$
     es gaussiano,
-    según el cálculo anterior, se deduce mediante otra
+    según el cálculo que precede, se deduce mediante otra
     aplicación del \Cref{exercise:conditional_gaussian} que $\vx
     \mid \vx_t, \vy$
     es gaussiano. Su función de esperanza condicional viene dada por
@@ -1086,7 +1088,7 @@ de todo el proceso, a partir de los que hemos desarrollado en la
         \right).
     \end{equation}
     La forma funcional de este \textit{denoiser} es bastante sencilla, pero presenta una
-    dependencia poco manejable de los datos del problema $\vmu$, $\vSigma$, $\vA$ y
+    dependencia engorroda de los datos del problema $\vmu$, $\vSigma$, $\vA$ y
     $\sigma^2$.
     Podemos comprender mejor su comportamiento comparándolo con la
     \Cref{eq:posterior-sampling-denoiser-decomposition}.
@@ -1095,9 +1097,9 @@ de todo el proceso, a partir de los que hemos desarrollado en la
         \bE[\vx \mid \vx_t=\vxi]
         = \vmu + \vSigma\left(\vSigma + t^2 \vI\right)^{-1} (\vxi - \vmu),
     \end{equation}
-    lo cual es bastante sencillo, lo que sugiere que el término de coincidencia de medidas es
+    lo cual es bastante sencillo, lo que sugiere que el término de correspondencia de mediciones es
     bastante complicado. Para confirmarlo, podemos calcular la verosimilitud $p_{\vy
-    \mid \vx_t}$ directamente utilizando la siguiente expresión para la distribución multivariada
+    \mid \vx_t}$ directamente utilizando la siguiente expresión para la distribución conjunta
     de $(\vx, \vx_t, \vy)$:
     \begin{equation}
         \begin{bmatrix}
@@ -1123,8 +1125,8 @@ de todo el proceso, a partir de los que hemos desarrollado en la
             \vA\vmu
         \end{bmatrix},
     \end{equation}
-    donde $\vg' \sim \cN(\Zero, \vI)$, independientemente de las demás gaussianas.
-    Se trata, una vez más, de una distribución gaussiana multivariada; si nos limitamos únicamente a las dos últimas
+    donde $\vg' \sim \cN(\Zero, \vI)$, independiente de las demás gaussianas.
+    Se trata, una vez más, de una distribución gaussiana conjunta; si nos limitamos únicamente a las dos últimas
     filas, obtenemos la covarianza
     \begin{equation*}
         \begin{bmatrix}
@@ -1141,7 +1143,7 @@ de todo el proceso, a partir de los que hemos desarrollado en la
             \vA\vSigma & \vA\vSigma\vA^\top + \sigma^2 \vI
         \end{bmatrix}.
     \end{equation*}
-    Si aplicamos de nuevo el \Cref{exercise:conditional_gaussian}, obtenemos
+    Aplicando de nuevo el \Cref{exercise:conditional_gaussian}, obtenemos
     \begin{equation}
         \begin{split}
             p_{\y \mid \vx_t}(\spcdot \mid \vxi) = \cN\Biggl(
@@ -1182,10 +1184,10 @@ de todo el proceso, a partir de los que hemos desarrollado en la
     \eqref{eq:conditional-posterior-denoiser-gaussian-case}: según la
     \Cref{eq:posterior-sampling-denoiser-decomposition}, es la suma del
     \textit{denoiser} posterior incondicional \eqref{eq:posterior-denoiser-gaussian-case}
-    y el término de coincidencia de la medición
+    y el término de concordancia de mediciones
     \eqref{eq:conditional-posterior-measurementmatching-gaussian-case}.
 
-    Podemos analizar más a fondo el término de coincidencia de medidas para
+    Podemos analizar más a fondo el término de concordancia de mediciones para
     comprender en qué casos
     se puede aproximar. Obsérvese que
     \begin{equation}
@@ -1221,7 +1223,7 @@ de todo el proceso, a partir de los que hemos desarrollado en la
         \vv_i \vv_i\adj.
     \end{align}
     Entonces, para cualquier valor propio de $\vSigma$ igual a cero, el
-    término correspondiente
+    sumando correspondiente
     es cero; y
     si denotamos por $\lambda_{\min}(\vSigma)$ al valor propio positivo más pequeño de
     $\vSigma$, tenemos
@@ -1234,9 +1236,9 @@ de todo el proceso, a partir de los que hemos desarrollado en la
     \begin{equation}
         \vSigma_{\vy \mid \vx_t} \approx \sigma^2 \vI.
     \end{equation}
-    El lado derecho de esta aproximación es igual a
+    El miembro derecho de esta aproximación es igual a
     $\vSigma_{\vy \mid \vx}$.
-    Por lo tanto, tenemos a su vez
+    REn consecuencia, a su vez, tenemos 
     \begin{equation}
         \nabla_{\vxi} \log p_{\vy \mid \vx_t}(\vnu \mid \vxi)
         \approx
@@ -1252,13 +1254,13 @@ Dediquemos un momento a interpretar los resultados del
 La aproximación
 \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}
 es, por supuesto, una consecuencia directa de los supuestos de modelado específicos que hemos
-establecido en el \Cref{example:denoising-conditional-gaussian}. Sin embargo, fíjate
+establecido en el \Cref{example:denoising-conditional-gaussian}. Sin embargo, observen
 en que, si interpretamos directamente esta aproximación, resulta \textit{ab initio}
 manejable: la verosimilitud $p_{\vy \mid \vx} = \cN(\vA\vx, \sigma^2 \vI)$ es
 una simple distribución gaussiana centrada en la observación, y la
-aproximación al término de coincidencia de la medición a la que llegamos puede
-interpretarse simplemente como la evaluación de la log-verosimilitud en la
-esperanza condicional $\bE[\vx \mid \vx_t = \vxi]$, y luego tomar los gradientes con respecto
+aproximación al término de correspondencia de la medición a la que llegamos puede
+interpretarse simplemente como evaluar la log-verosimilitud en la
+esperanza condicional $\bE[\vx \mid \vx_t = \vxi]$ y luego tomar los gradientes con respecto
 a $\vxi$ (lo cual implica realizar una retropropagación a través de la esperanza condicional).
 %Nevertheless, note that the approximation in
 %\Cref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}
@@ -1307,18 +1309,16 @@ a $\vxi$ (lo cual implica realizar una retropropagación a través de la esperan
         $\sigma^2$.
         En cada gráfico, la matriz de covarianza de $\vx$ se representa en gris, la
         matriz de covarianza a posteriori y la media a posteriori de $p_{\vx \mid \vy}$ se
-        representadas en azul (con la media a posteriori marcada con una «x» azul), y
+        representan en azul (con la media a posteriori marcada con una «x» azul), y
         los contornos de $p_{\vx_{t_{\ell}} \mid \vy}$ se dibujan en
         verde. Los hiperparámetros
         del muestreador son $T=1$ y $L=100$, y extraemos $100$
         muestras independientes para inicializar los muestreadores. Los muestreadores se implementan
         con los eliminadores de ruido de forma cerrada derivados en el
-        \Cref{example:denoising-conditional-gaussian}, estando los que utilizan la
-        aproximación
+        \Cref{example:denoising-conditional-gaussian}, donde los que utilizan la aproximación 
         \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}
-        marcados con triángulos rojos y los que utilizan el eliminador de ruido
-        posterior condicional
-        exacto marcados con círculos azules.
+        están marcados con triángulos rojos y los que utilizan el eliminador de ruido
+        posterior condicional exacto marcados con círculos azules.
         \textbf{Arriba:} Para un ruido de observación elevado $\sigma = 0.5$, tanto el
         \textit{denoiser} posterior condicional exacto como el aproximado
         convergen satisfactoriamente hacia la distribución posterior $p_{\vx \mid \vy}$. El tiempo de muestreo
@@ -1328,14 +1328,14 @@ a $\vxi$ (lo cual implica realizar una retropropagación a través de la esperan
         el término de ajuste de la medición exacta y
         el de la aproximada es similar. \textbf{Parte inferior:} Para
         un ruido de observación menor $\sigma = 0.1$, el
-        término de coincidencia de mediciones aproximadas da lugar a un sesgo extremo
+        término de correspondencia de mediciones aproximadas da lugar a un sesgo extremo
         en el muestreador
         (triángulos rojos): las muestras convergen rápidamente hacia un subespacio afín
         de puntos que son consistentes, módulo cierta contracción del
         \textit{denoiser} de media a posteriori,
         con los datos de referencia medidos, y las iteraciones de muestreo posteriores
         son
-        incapaces de recuperar la varianza a posteriori perdida a lo largo de esta dimensión. Note
+        incapaces de recuperar la varianza a posteriori perdida a lo largo de esta dimensión. Nótese
         que en la fila inferior se representan diferentes instantes $t_{\ell}$,
         en comparación con
         la fila superior, para mostrar el rápido colapso de la aproximación a la
@@ -1353,13 +1353,13 @@ y que hemos recordado anteriormente, utilizando el verdadero \textit{denoiser} p
 la \Cref{eq:conditional-posterior-denoiser-gaussian-case} (las muestras están marcadas con
 círculos azules) y la
 aproximación conveniente para este \textit{denoiser} realizada mediante la aproximación de
-coincidencia de medidas
+correspondencia de mediciones
 \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx}
 (las muestras están marcadas con triángulos rojos).
 La fila superior de la \Cref{fig:conditional_sampling_computational_gaussian} muestra
 una configuración con un ruido de medición elevado $\sigma^2$, y la inferior, con un
 ruido de medición reducido.
-La aproximación de coincidencia de mediciones funciona muy bien en la configuración de ruido elevado,
+La aproximación de correspondencia de mediciones funciona muy bien en la configuración de ruido elevado,
 con la salvedad de que, en la configuración de ruido bajo, adolece de
 %We see that even in the simple Gaussian setting, the approximation to the
 %measurement matching term we have made is not without its
@@ -1383,7 +1383,7 @@ matriz de covarianza de los datos $\vSigma$.
 
 \paragraph{Generalización de la aproximación: muestreo posterior por difusión.}
 El \Cref{example:denoising-conditional-gaussian} propone una aproximación conveniente
-para el término de coincidencia de la medición, es decir,
+para el término de correspondencia de la medición, es decir,
 \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx},
 que puede extenderse más allá del marco gaussiano del ejemplo. Para
 justificar esta aproximación de manera más general, observe que
@@ -1397,7 +1397,7 @@ por la independencia condicional de $\vy$ y $\vx_t$ dado $\vx$, podemos escribir
 Formalmente, cuando la distribución a posteriori $p_{\vx\mid \vx_t}$ es una función delta centrada en
 su media $\bE[\vx \mid \vx_t=\vxi]$, la aproximación
 \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx} es
-exacta. De manera más general, cuando la distribución a posteriori $p_{\vx \mid \vx_t}$ está muy
+exacta. Más en general, cuando la distribución a posteriori $p_{\vx \mid \vx_t}$ está muy
 concentrada alrededor de su media, la aproximación
 \eqref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx} es
 precisa. Esto se cumple, por ejemplo, para valores de $t$ suficientemente pequeños, como vimos
@@ -1406,16 +1406,16 @@ explícitamente en el contexto gaussiano de
 Aunque la simulación numérica en
 \Cref{fig:conditional_sampling_computational_gaussian} sugiere que esta
 aproximación no está exenta de salvedades en ciertos regímenes, ha demostrado ser
-una referencia confiable en la práctica, tras haber sido propuesta por Chung et al. como
+una línea de base confiable en la práctica, tras haber sido propuesta por Chung et al. como
 «Muestreo posterior por difusión» (DPS) \cite{chung2023diffusion}.
-Además, existen enfoques racionales y generalizables
+Además, existen enfoques fundamentados y generalizables
 para mejorarlo mediante
 la incorporación de mejores estimaciones de la varianza posterior (que resultan ser
 exactas en el contexto gaussiano de \Cref{example:denoising-conditional-gaussian}),
 que analizamos con más detalle en el resumen al final del capítulo.
 
 Así, con la aproximación DPS, obtenemos la siguiente aproximación para
-los \textit{denoisers} posteriores condicionales $\bE[\vx \mid \vy, \vx_t]$, mediante
+los \textit{denoisers} del posterior condicional $\bE[\vx \mid \vy, \vx_t]$, mediante
 \Cref{eq:posterior-sampling-denoiser-decomposition}:
 \begin{equation}
     \bE[ \vx \mid \vx_t=\vxi, \vy=\vnu]
@@ -1425,10 +1425,10 @@ los \textit{denoisers} posteriores condicionales $\bE[\vx \mid \vy, \vx_t]$, med
     \vx_t = \vxi]).
     \label{eq:posterior-sampling-denoiser-decomposition-dps}
 \end{equation}
-Y, para una red neuronal u otro modelo $\bar{\vx}_{\theta}(t, \vxi)$
-entrenado como en la \Cref{sub:compression_denoising} para aproximar los \textit{denoiser} 
-$\bE[\vx \mid \vx_t = \vxi]$ para cada $t \in [0, T]$, obtenemos los \textit{denoisers} 
-posteriores condicionales aprendidos
+De esta forma, para una red neuronal u otro modelo $\bar{\vx}_{\theta}(t, \vxi)$
+entrenado como en la \Cref{sub:compression_denoising} para aproximar los \textit{denoisers} 
+$\bE[\vx \mid \vx_t = \vxi]$ para cada $t \in [0, T]$, obtenemos los \textit{denoisers} aprendidos
+posteriores condicionales 
 \begin{equation}
     \bar{\vx}_{\theta}(t, \vxi, \vnu)
     = \bar{\vx}_{\theta}(t, \vxi)
@@ -1436,12 +1436,12 @@ posteriores condicionales aprendidos
     \vxi)).
     \label{eq:posterior-sampling-denoiser-learned-dps}
 \end{equation}
-Tenga en cuenta que la aproximación
+Obsérvese que la aproximación
 \eqref{eq:posterior-sampling-denoiser-decomposition-dps} es válida para modelos directos arbitrarios
 $h$ en el
-modelo de observación \eqref{eq:measurement-matching-observation}, incluidos
-los $h$ no lineales e incluso para
-modelos de ruido arbitrarios para los que se conoce una expresión clara de la verosimilitud $p_{\vy
+modelo de observación \eqref{eq:measurement-matching-observation}, incluyendo el caso no lineal
+$h$ e incluso para
+modelos de ruido arbitrarios para los que se conoce una expresión explícita de la verosimilitud $p_{\vy
 \mid \vx}$. De hecho, en el caso del ruido gaussiano, tenemos
 \begin{equation}
     p_{\vy \mid \vx}(\vnu \mid \vxi)
@@ -1458,7 +1458,7 @@ solo se necesita
         distribución de datos $p$
         (de $\vx$), aprendido como se indica en la \Cref{sub:compression_denoising} mediante el
         \Cref{alg:learning_denoiser};
-    \item Acceso mediante pases hacia adelante y hacia atrás al modelo predictivo $h$ para las
+    \item Acceso mediante pases hacia adelante y hacia atrás al modelo directo $h$ para las
         mediciones \eqref{eq:measurement-matching-observation};
     \item Un paso hacia adelante y hacia atrás a través de $\bar{\vx}_{\theta}(t,
         \vxi)$, que puede evaluarse
@@ -1466,12 +1466,12 @@ solo se necesita
 \end{enumerate}
 
 \begin{algorithm}
-    \caption{Muestreo condicional bajo mediciones
+    \caption{Muestreo condicional bajo las mediciones
         \eqref{eq:measurement-matching-observation}, con un
     \textit{denoiser} incondicional y DPS.}
     \label{alg:iterative_denoising_conditional_DPS}
     \begin{algorithmic}[1]
-        \Require{Una lista ordenada de intervalos de tiempo \(0 \leq t_{0} < \cdots
+        \Require{Una lista ordenada de pasos de tiempo \(0 \leq t_{0} < \cdots
         < t_{L} \leq T\) que se utilizarán para el muestreo.}
         \Require{Un \textit{denoiser} incondicional \(\bar{\vx}_{\theta} \colon
         \{t_{\ell}\}_{\ell = 1}^{L} \times \R^{D} \to \R^{D}\) para $p_{\vx}$.}
@@ -1527,10 +1527,10 @@ El \Cref{alg:iterative_denoising_conditional_DPS} describe este esquema
 para el caso de
 ruido de observación gaussiano con desviación estándar conocida $\sigma$, con ligeras
 modificaciones para extenderlo a un proceso de ruido general, como en la
-\Cref{eq:gen_additive_gaussian_noise_model} y la discusión que lo rodea en el
-\Cref{ch:denoising} (nuestra discusión anterior tomó las decisiones simplificadoras
+\Cref{eq:gen_additive_gaussian_noise_model} y la discusión en torno a este tema en el
+\Cref{ch:denoising} (nuestra discusión anterior hizo las simplificaciones
     $\alpha_t = 1$, $\sigma_t = t$ y
-    $t_{\ell} = T\ell / L$, como para \Cref{eq:denoising-iteration-basic} en
+    $t_{\ell} = T\ell / L$, tal como en \Cref{eq:denoising-iteration-basic} en
 \Cref{sub:compression_denoising}).
 
 \paragraph{Aplicación a la reconstrucción de imágenes médicas.}
@@ -1563,11 +1563,11 @@ modificaciones para extenderlo a un proceso de ruido general, como en la
         captando (por ejemplo, un cerebro humano) se mide en el dominio de Fourier
         mediante el equipo de RM. La imagen espacial puede reconstruirse mediante la
         inversión directa de las
-        mediciones en el dominio de Fourier. \textbf{(b)} En la práctica, el equipo de resonancia magnética
+        mediciones en el dominio de Fourier. \textbf{(b)} En la práctica, el equipo de RM
         \textit{submuestrea} el dominio de Fourier mediante un patrón de muestreo
         estructurado
         en aras de la eficiencia. Esto da lugar a un problema inverso lineal,
-        en el que se deben aprovechar los datos previos
+        en el que se deben aprovechar los información a priori
         sobre la estructura de la imagen subyacente
         para permitir una reconstrucción
         única. \textbf{(c)} El aparato de medición real utiliza
@@ -1589,17 +1589,17 @@ modificaciones para extenderlo a un proceso de ruido general, como en la
 El marco que hemos desarrollado anteriormente ya es lo suficientemente potente como para
 aplicarse a la resolución de diversos \textit{problemas científicos inversos}, en los que
 las mediciones
-$\vy = h(\vx_o) + \vw$ son resultados de un proceso de medición conocido $h$ sobre
+$\vy = h(\vx_o) + \vw$ son salidas de un proceso de medición conocido $h$ sobre
 una señal específica de interés $\vx_o$ y donde hay infinitas
 señales posibles $\vx$ que satisfacen $\vy = h(\vx) + \vw$. Esto significa que, para
 encontrar el $\vx_o$ \textit{verdadero} que generó $\vy$, necesitamos aprovechar la información previa
 sobre la estructura de $\vx_o$.
-Consideraremos el marco probabilístico en el que $\vx_o \sim p_{\vx}$, y en el que
-tenemos acceso a una distribución a priori de $p_{\vx}$, por ejemplo, de forma de un modelo de difusión.
+Consideraremos el contexto probabilístico en el que $\vx_o \sim p_{\vx}$, y en el que
+tenemos acceso a una distribución a priori de $p_{\vx}$, por ejemplo, en forma de un modelo de difusión.
 
 Un ejemplo ilustrativo de un problema científico inverso es la resonancia magnética
 (RM) (\Cref{fig:mri-reconstruction}), en la que la distribución de datos
-$p_{\vx}$ se aplica a imágenes correspondientes a un objeto de interés subyacente (como
+$p_{\vx}$ está definida sobre imágenes correspondientes a un objeto de interés subyacente (como
 un corte bidimensional del cerebro de un sujeto humano). En aplicaciones de RM, el operador de medición
 $h$ corresponde a la máquina que genera y modula el campo magnético
 y registra la respuesta del paciente al mismo
@@ -1618,7 +1618,7 @@ de la máquina, la señal medida viene dada por
     \vy = \cS \circ \cF(\vx_o) + \vw.
 \end{equation}
 El operador de medición $\cS \circ \cF$ es \textit{lineal}, lo que implica que
-puede representarse mediante una matriz $m \times n$ tras la transformación adecuada, pero
+puede representarse mediante una matriz $m \times n$ tras el redimensionamiento adecuada, pero
 también es \textit{compresivo}, lo que significa que $m \ll n$ y que necesitamos
 aprovechar el conocimiento previo sobre $p_{\vx}$ para reconstruir $\vx_o$ (o, de manera más
 general, para tomar muestras de la distribución a posteriori $p_{\vx \mid \vy}$).
@@ -1629,12 +1629,12 @@ pero sigue siendo lo suficientemente compleja como para que resulte ventajoso ut
 para $p_{\vx}$ en lugar de uno analítico (véase \cite{Wright-Ma-2022}).
 Un enfoque directo consiste en aplicar la aproximación de muestreo posterior por difusión
 que desarrollamos en la sección anterior, lo que dio lugar al
-\Cref{alg:iterative_denoising_conditional_DPS}, con el operador de medición específico de la RM
+\Cref{alg:iterative_denoising_conditional_DPS}, con el operador de medida específico de la RM
 $\vA = \cS \circ \cF$ y un modelo de difusión preentrenado con
 datos de RM.
 Esta combinación concreta de enfoques no ha aparecido en la literatura.
 En su lugar, destacamos los resultados de un enfoque diferente, aunque relacionado, que
-garantiza la consistencia de las mediciones en cada paso de difusión.
+impone la consistencia de las mediciones en cada paso de difusión.
 A raíz del trabajo pionero de \textcite{song2022solving}, se han
 desarrollado numerosos
 algoritmos de consistencia de mediciones de este tipo para la reconstrucción de imágenes médicas,
@@ -1643,19 +1643,19 @@ incluidos los enfoques mejorados de \textcite{song2024solving} y
     desarrollado para los autocodificadores de representación en el
 \Cref{ch:consistent-representations}).
 La \Cref{fig:mri-reconstruction-visual} muestra comparaciones visuales de imágenes de
-resonancia magnética reconstruidas en tres muestras diferentes, comparando FISTA-TV (una versión clásica
-    y acelerada del algoritmo ISTA que estudiamos en
+resonancia magnética reconstruidas en tres muestras diferentes, comparando FISTA-TV (una versión 
+    acelerada del algoritmo clásico ISTA que estudiamos en
 \Cref{ch:classic-models}),
-el enfoque de modelado de difusión basado en la consistencia entre las mediciones de
+el enfoque de modelado de difusión por consistencia de mediciones de
 \textcite{song2022solving} y la verdad de referencia (ground truth). Se puede observar que el método basado en difusión
 permite obtener una calidad de reconstrucción superior, así como
 una mayor fidelidad a los detalles finos de la imagen de referencia.
 La \Cref{tab:mri-reconstruction} muestra los resultados de precisión de la reconstrucción de resonancia magnética
 (medidos en términos de PSNR)
-para el enfoque desarrollado por \textcite{song2022solving}. Obtiene buenos resultados
-en comparación con los modelos de referencia supervisados (entrenados con numerosas muestras emparejadas independientes $(\vy,
+para el enfoque desarrollado por \textcite{song2022solving}. Supera
+a los modelos de referencia supervisados (entrenados con numerosas muestras emparejadas independientes $(\vy,
 \vx_o)$, lo cual es un requisito adicional) y con los modelos de referencia no supervisados (que
-    corresponden a aproximaciones de coincidencia de mediciones anteriores al muestreo
+    corresponden a aproximaciones de correspondencia de mediciones anteriores al muestreo
 posterior por difusión).
 
 \begin{figure}[t]
@@ -1688,7 +1688,7 @@ posterior por difusión).
     \caption{\textbf{Comparación visual de métodos de reconstrucción de resonancia magnética.}
         Tres ejemplos de reconstrucciones de resonancia magnética cerebral que muestran FISTA-TV, el
         enfoque de difusión basado en la consistencia de las mediciones
-        de \textcite{song2022solving} e imágenes de referencia
+        de \textcite{song2022solving} y las imágenes de referencia
         del conjunto de datos de reconstrucción de resonancia magnética BraTS con un submuestreo de 8x.
         El enfoque basado en la difusión produce reconstrucciones que se
         ajustan mejor a la estructura de la imagen de referencia en comparación con
@@ -1697,7 +1697,7 @@ posterior por difusión).
         imagen de referencia. Al
         mismo tiempo, el grado de fidelidad a la imagen de referencia
         en la
-        reconstrucción basada en la difusión (que surge de la aplicación adecuada de la
+        reconstrucción basada en la difusión (que surge de la imposición estricta de la
     consistencia de las mediciones) es notable.}
     \label{fig:mri-reconstruction-visual}
 \end{figure}
@@ -1720,8 +1720,8 @@ posterior por difusión).
         $37.63_{\pm 2.70}$ & $\bf 39.91_{\pm 2.67}$ \\
         \bottomrule
     \end{tabular}
-    \caption{\textbf{Resultados de la reconstrucción de resonancia magnética} en los que se comparan
-        enfoques de ajuste de medidas con diferentes factores de aceleración
+    \caption{\textbf{Resultados de la reconstrucción de resonancia magnética} donde se comparan
+        enfoques de conciliación de mediciones con diferentes factores de aceleración
         (el grado de submuestreo del espacio de Fourier en $\cS$) en el conjunto de datos
         de reconstrucción de resonancia magnética BraTS. Se presentan las métricas PSNR
         (cuanto más alto, mejor) junto con sus desviaciones estándar. Cascade DenseNet
@@ -1763,14 +1763,14 @@ La representación $\z$ también puede considerarse como un código aprendido (c
 estructurado) para $\x$. Es bastante razonable suponer que si
 la asignación de clase $\y$ depende realmente de las estructuras de baja dimensión
 de $\x$ y el código aprendido $\z$ refleja realmente dichas
-estructuras, $\y$ y $\z$ pueden hacerse altamente correlacionadas y, por lo tanto,
-su distribución multivariada $p(\z, \y)$ debería ser de dimensión extremadamente
+estructuras, $\y$ y $\z$ pueden hacerse altamente correlacionados y, por lo tanto,
+su distribución conjunta $p(\z, \y)$ debería ser de dimensión extremadamente
 baja. Por lo tanto, podemos combinar los dos códigos deseados, $\y$
 y $\z$ e intentar entrenar un codificador combinado: 
 \begin{equation}
     f: \x \mapsto (\z, \y)
 \end{equation}
-donde la distribución multivariada de $(\z, \y)$ es de muy baja dimensión.
+donde la distribución conjunta de $(\z, \y)$ es de muy baja dimensión.
 
 Según lo visto en los capítulos anteriores, el mapeo $f$ suele
 aprenderse como una secuencia de operadores de compresión o de eliminación de ruido en el
@@ -1791,7 +1791,7 @@ ya una mezcla de gaussianas (de baja dimensión), el trabajo
 realizarse de manera eficaz minimizando directamente {\em la longitud de codificación 
 (con pérdida)} asociada a las muestras dadas.
 
-\subsection{Generación de imágenes condicionada por clases}\label{sub:cfg}
+\subsection{Generación de imágenes condicionada por clase}\label{sub:cfg}
 Si bien un clasificador aprendido nos permite clasificar una imagen dada $\x$ en su
 clase correspondiente, a menudo nos interesa generar una imagen de una
 clase determinada, mediante
@@ -1805,22 +1805,22 @@ y}(\,\cdot\, \mid \nu)$ para generar una imagen de una manzana:
 \begin{equation}
     \hat{\x} \sim p_{\x\mid \y}(\,\cdot\, \mid \vnu).
 \end{equation}
-A esto lo llamamos «generación de imágenes condicionada por la clase».
+A esto se le llama «generación de imágenes condicionada a la clase».
 
 En la \Cref{sec:conditioned-decoding}, hemos visto cómo utilizar el
 paradigma de difusión con eliminación de ruido para el
-muestreo condicional a partir de la distribución a posteriori $p_{\vx \mid \vy}$ dada
-una medición \textit{basada en el modelo} $\vy = h(\vx) + \vw$
+muestreo condicional a partir de la distribución a posteriori $p_{\vx \mid \vy}$ dadas
+mediciiones \textit{basada en el modelo} $\vy = h(\vx) + \vw$
 (\Cref{eq:measurement-matching-observation}), lo que culmina en el
 algoritmo DPS (\Cref{alg:iterative_denoising_conditional_DPS}). Si bien este marco
-es potente, su aplicabilidad se ve limitada por el problema de la generación de imágenes condicionadas por clase (o texto)
+es potente, no resulta aplicable al problema de la generación de imágenes condicionadas por clase (o texto)
 que nos ocupa, en el que no se dispone de un modelo generativo explícito $h$ para las
-observaciones/atributos $y$ debido a lo
-inmanejable de la modelación analítica. En esta sección,
+observaciones/atributos $y$ debido a la inmanejabilidad
+de la modelación analítica. En esta sección,
 presentaremos técnicas para extender
 el muestreo condicional a este contexto.
 
-Por lo tanto, ahora suponemos únicamente que tenemos acceso a muestras de la distribución multivariada
+Por lo tanto, ahora suponemos únicamente que tenemos acceso a muestras de la distribución conjunta
 de $(\vx, y)$:
 \begin{equation}
     (\vx, y) \sim p_{\vx, y}.
@@ -1834,9 +1834,9 @@ y $\vx_t$.
 Esta sección se centra en los fundamentos conceptuales y algorítmicos del
 muestreo condicional en los modelos generativos modernos. Para un análisis centrado en
 las cuestiones de implementación en diversas aplicaciones, véanse el \Cref{ch:applications},
-\Cref{sec:cond_gen} y las secciones siguientes.
+la \Cref{sec:cond_gen} y las secciones siguientes.
 
-\subsubsection{Guía de clasificadores: consistencia mediante un clasificador preentrenado}
+\subsubsection{Orientación del clasificador: consistencia mediante un clasificador preentrenado}
 
 % To proceed, we note that our development of conditional sampling under
 % measurements $\vy = h(\vx) + \vw$ only explicitly used the
@@ -1860,14 +1860,14 @@ y de la independencia condicional de $\vy$ y $\vx_t$ dado $\vx$ (véase la
 \end{equation}
 En otras palabras, la representación
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data}
-del \textit{denoiser} condicional óptimo es válida independientemente de si es válido el modelo de observación explícito
+del \textit{denoiser} condicional óptimo es válida independientemente de si lo es el modelo de observación explícito
 $\vy = h(\vx) + \vw$.
-Esto significa que, si logramos aprender un \textit{denoiser} de este tipo
+Esto significa que si logramos aprender un \textit{denoiser} de este tipo
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data} en el contexto de datos emparejados,
 podremos seguir la metodología de difusión con eliminación de ruido que hemos desarrollado en el
 \Cref{ch:denoising} para realizar un muestreo condicional por clase.
 
-Una idea lógica es, entonces, implementar directamente el término de corrección de verosimilitud en
+Una idea natural es, entonces, implementar directamente el término de corrección de verosimilitud en
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data} utilizando una red profunda
 $f_{\theta_{\mathrm{c}}}$ con parámetros $\theta_{\mathrm{c}}$, tal como se muestra en
 \Cref{eq:classifier-with-class-token}:
@@ -1885,9 +1885,9 @@ Como es habitual en la práctica, también toma el tiempo $t$ en el proceso de r
 entrada.
 Por lo tanto, con un entrenamiento adecuado, proporciona una aproximación a la
 verosimilitud logarítmica
-$\log p_{y \mid \vx_t}$, y la derivación de $\log f_{\theta_{\mathrm{c}}}$
+$\log p_{y \mid \vx_t}$, y derivar $\log f_{\theta_{\mathrm{c}}}$
 respecto a su entrada $\vx_t$
-permite una aproximación al segundo término de
+permite aproximar el segundo término de
 \Cref{eq:conditional-denoising-mmse-denoiser-paired-data}:
 \begin{equation}\label{eq:conditional-denoising-mmse-denoiser-paired-data-approx}
     \bar{\vx}_{\theta}^{\mathrm{naive}}(t, \vx_t, y)
@@ -1906,7 +1906,7 @@ donde, como es habitual, aproximamos el primer término de
 \textit{denoiser} incondicional aprendido para $\vx_t$ con parámetros $\theta_{\mathrm{d}}$ y
 donde escribimos $\ve_k$ para $k \in [K]$ para denotar el $k$-ésimo vector de base canónica
 para $\R^K$ (es decir, el vector con
-un uno en la posición $k$-ésima, y ceros en el resto).
+un uno en la posición $k$-ésima, y ceros en las demás posiciones).
 El lector debe tener en cuenta que el \textit{denoiser} condicional $\bar{\vx}_{\theta}$
 requiere dos procesos de entrenamiento independientes, con pérdidas distintas: uno para los
 parámetros del clasificador $\theta_{\mathrm{c}}$, sobre una pérdida de clasificación
@@ -1928,7 +1928,7 @@ generación de ImageNet condicionada por clase, las probabilidades
 de salida del clasificador de red profunda entrenado para la clase $y$ sobre la que se
 aplicaba la condición solían rondar
 $0,5$ ---lo suficientemente grande como para ser la clase dominante, pero no lo suficiente como para proporcionar
-una señal de guía sólida--- y que, tras su inspección, las generaciones no eran
+una señal de guía sólida--- y que, tras inspeccionarlas, las generaciones no eran
 consistentes con la clase de condicionamiento $y$. \citet{Dhariwal2021-hg} propuso
 abordar esto de manera heurística incorporando un hiperparámetro de «temperatura inversa»
 $\gamma > 0$
@@ -1949,7 +1949,7 @@ refiriéndose al
         \ve_{y}
     }
 \end{equation}
-que en el caso en que $\gamma = 1$ coincide con
+que para $\gamma = 1$ coincide con
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data-approx}.
 
 \citet{Dhariwal2021-hg} descubrieron que un valor de $\gamma > 1$ ofrecía
@@ -1969,7 +1969,7 @@ da como resultado, de manera equivalente,
 \end{align}
 lo que sugiere la interpretación natural de que el parámetro $\gamma$ realiza
 un \textit{escalado de temperatura} (inverso) sobre la verosimilitud
-$p_{\vy \mid \vx_t}$, lo cual es exacto si consideramos la distribución
+$p_{\vy \mid \vx_t}$, lo cual es preciso si consideramos la distribución
 renormalizada
 $ { p_{\vy \mid \vx_t}(\vnu\mid \vxi)^\gamma } / { \int p_{\vy \mid
     \vx_t}(\vnu'\mid
@@ -1984,38 +1984,37 @@ $f_{\theta_{\mathrm{c}}}(t, \vx_t)$ \textit{en relación con} los más bajos,
 lo que amplifica efectivamente la señal de guía proporcionada en los casos en que la red profunda
 $f$ le asigna la probabilidad más alta entre las $K$ clases.
 
-\subsubsection{Simplificaciones y mejoras mediante la guía sin clasificadores}
+\subsubsection{Simplificaciones y mejoras mediante la guía sin clasificador}
 
 No obstante, la guía mediante clasificador no resuelve el segundo inconveniente clave de
-la metodología ingenua: resulta ineficiente y costoso
+la metodología ingenua: resulta engorroso y costoso
 entrenar un clasificador auxiliar $f_{\theta_{\mathrm{c}}}$ además
 del \textit{denoiser} incondicional
 $\bar{\vx}_{\theta_{\mathrm{d}}}$, dado
 que no es posible adaptar directamente un clasificador preentrenado
 debido a la necesidad de que funcione bien con entradas ruidosas $\vx_t$ e incorpore
 otras modificaciones de arquitectura motivadas empíricamente.
-En concreto, \citet{Dhariwal2021-hg} descubrió que era necesario
+En concreto, \citet{Dhariwal2021-hg} constató que era necesario
 \textit{diseñar explícitamente
     la arquitectura de la red profunda que implementa el
     clasificador para que coincida
 con la del \textit{denoiser}}.
 
-Además, desde una perspectiva puramente práctica---es decir, al intentar obtener el mejor
-rendimiento posible del muestreador resultante, la configuración más eficaz
-del muestreo basado en la guía del clasificador se aleja aún más del
+Además, desde una perspectiva puramente práctica ---es decir, al intentar obtener el mejor
+rendimiento posible del muestreador resultante--- la configuración más eficaz
+del muestreo basado en la orientación del clasificador se aleja aún más del
 marco idealizado y conceptualmente sólido que hemos presentado anteriormente.
 Para obtener el mejor rendimiento, \citet{Dhariwal2021-hg} consideró
 necesario proporcionar la etiqueta de clase $y$ como una entrada adicional al \textit{denoiser} 
 $\bar{\vx}_{\theta_{\mathrm{d}}}$. Como resultado, el eliminador de ruido idealizado guiado por un clasificador
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cg},
-derivado por \citet{Dhariwal2021-hg} tal y como hemos hecho anteriormente a partir de la descomposición
-condicional del eliminador de ruido posterior
-\eqref{eq:conditional-denoising-mmse-denoiser-paired-data}, no refleja exactamente
+derivado por \citet{Dhariwal2021-hg} igual que hicimos nosotros más arriba a partir de la descomposición del \textit{denoiser}
+posterior condicional \eqref{eq:conditional-denoising-mmse-denoiser-paired-data}, no refleja exactamente
 el \textit{denoiser} de mejor rendimiento en la práctica; ¡dicho \textit{denoiser} 
 combina en realidad un \textit{denoiser condicional} para $\vx_t$ dado $y$ con una
 señal de guía adicional procedente de un clasificador auxiliar!
 
-Esta situación, de carácter empírico, llevó a \citet{Ho2022-ry} en
+Este estado de cosas, si bien de naturaleza empírica, llevó a \citet{Ho2022-ry} en
 trabajos posteriores a proponer una metodología más pragmática desde el punto de vista empírico, conocida como
 \textbf{guía sin clasificador (CFG)}. En lugar de representar el
 \textit{denoiser} condicional
@@ -2024,8 +2023,8 @@ de un \textit{denoiser} incondicional para $\vx_t$ con un término de correcció
 (con pesos posiblemente modificados, como en la guía del clasificador), aceptan la
 aparente necesidad de entrenar un \textit{denoiser} condicional para $\vx_t$ dado $y$, tal como
 lo demuestran los resultados experimentales de \citet{Dhariwal2021-hg}, y sustituir
-el término del gradiente de la verosimilitud logarítmica por una suma correctamente ponderada de este
-\textit{denoiser} condicional con un \denoiser incondicional} para $\vx$ dado
+el término del gradiente de la log-verosimilitud por una suma correctamente ponderada de este
+\textit{denoiser} condicional con un \textit{denoiser} incondicional para $\vx$ dado
 $\vx_t$.\footnote{Dicho esto, \textcite{Ho2022-ry} propusieron en realidad utilizar
     una ponderación diferente a la que presentamos aquí, basándose en el hecho de que
     \textcite{Dhariwal2021-hg} sustituyeron de manera heurística el
@@ -2038,7 +2037,7 @@ $\vx_t$.\footnote{Dicho esto, \textcite{Ho2022-ry} propusieron en realidad utili
 
 \paragraph{Derivación de la guía sin clasificador.} Para ver cómo surge esta
 estructura, comenzamos con una versión «idealizada» del \textit{denoiser} con guía de clasificador
-$\bar{\vx}_{\theta}^{\mathrm{CG}}$ definido en la
+$\bar{\vx}_{\theta}^{\mathrm{CG}}$ definido en 
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data-approx-cg},
 para el cual el \textit{denoiser} $\bar{\vx}_{\theta_{\mathrm{d}}}$ y el clasificador
 $f_{\theta_{\mathrm{c}}}$ se aproximan perfectamente a sus objetivos, mediante
@@ -2081,8 +2080,8 @@ combinamos un \textit{denoiser} incondicional aprendido para $\vx$ dado $\vx_t$,
 con un \textit{denoiser condicional} aprendido para $\vx$ dado $\vx_t$ y $y$.
 
 Sin embargo, siguiendo a \textcite{Ho2022-ry} y la práctica habitual en el
-entrenamiento de \textit{denoiser} de redes profundas,
-lo habitual es utilizar la \textit{misma} red profunda para representar
+entrenamiento de de redes profundas como \textit{denoisers},
+se suele utilizar la \textit{misma} red profunda para representar
 tanto el \textit{denoiser} condicional como el incondicional mediante la introducción de una
 etiqueta adicional, que denotaremos como $\varnothing$, para indicar el caso «incondicional».
 Esto da lugar a la forma del \textit{denoiser} CFG:
@@ -2093,7 +2092,7 @@ Esto da lugar a la forma del \textit{denoiser} CFG:
     +
     \gamma \bar{\vx}_{\theta}(t, \vx_t, y).
 \end{equation}
-Para entrenar un \textit{denoiser} $\bar{\vx}_{\theta}(t, \vx_t, y^+)$ destinado a
+Para entrenar un \textit{denoiser} $\bar{\vx}_{\theta}(t, \vx_t, y^+)$ para
 el muestreo de guía sin clasificador, donde $y^+ \in
 \set{1, \dots, K, \varnothing}$, procedemos de manera casi idéntica al
 procedimiento de entrenamiento incondicional descrito en el \Cref{alg:learning_denoiser}, pero con dos
@@ -2120,12 +2119,12 @@ el muestreo condicionado por clase con guía sin clasificador en
 
 \begin{algorithm}
     \caption{Muestreo condicional con datos de clasificación, utilizando
-    un filtro de eliminación de ruido condicionado por clase.}
+    un \textit{denoiser} condicionado por clase.}
     \label{alg:iterative_denoising_conditional_CFG}
     \begin{algorithmic}[1]
-        \Require{Una lista ordenada de intervalos de tiempo \(0 \leq t_{0} < \cdots
+        \Require{Una lista ordenada de pasos de tiempo \(0 \leq t_{0} < \cdots
         < t_{L} \leq T\) que se utilizarán para el muestreo.}
-        \Require{Etiqueta de clase $\nu \in \{1, \dots, K\}$ sobre la que se va a realizar la condición.}
+        \Require{Etiqueta de clase $\nu \in \{1, \dots, K\}$ sobre la que se condicionará.}
         \Require{Un \textit{denoiser} \(\bar{\vx}_{\theta} \colon
                 \{t_{\ell}\}_{\ell = 1}^{L} \times \R^{D} \times
                 \set{1, \dots, K,
@@ -2165,15 +2164,15 @@ el muestreo condicionado por clase con guía sin clasificador en
     \end{algorithmic}
 \end{algorithm}
 
-\textcite{Ho2022-ry} presentan unos sólidos rendimientos empíricos en la generación de imágenes condicionadas por clase
-con guía sin clasificador, y se han convertido en un pilar fundamental de
-los modelos de difusión prácticos a mayor escala, como Stable Diffusion
+\textcite{Ho2022-ry} presenta un sólido rendimiento empírico en la generación de imágenes condicionadas por clase
+con guía sin clasificador y se ha convertido en un pilar fundamental de
+los modelos de difusión prácticos a la mayor escala, como Stable Diffusion
 \cite{rombach2022high} y sus derivados.
 
-\paragraph{¿Qué \textit{denoisers} promueve aprender la guía sin clasificador?}
+\paragraph{¿Qué tipo de \textit{denoiser} fomenta el aprendizaje con guía sin clasificador?}
 Como hemos visto, la derivación de la guía sin clasificador es bastante opaca y
-se basa en la experiencia,
-lo que ofrece poca información sobre los mecanismos que subyacen a su excelente rendimiento.
+de motivación empírica,
+lo que ofrece poca información sobre los mecanismos que subyacen a su buen rendimiento.
 Varios trabajos teóricos han intentado abordar esta cuestión
 \cite{Bradley2024-jg,Li2025-li,Wu2024-js}.
 Ofrecen explicaciones sobre algunos aspectos de la metodología general de CFG,
@@ -2181,15 +2180,13 @@ que abarca la parametrización y el entrenamiento del \textit{denoiser},
 así como la configuración de la intensidad de la guía
 y el rendimiento en el momento del muestreo.
 A continuación, siguiendo el hilo conductor del libro, daremos una interpretación
-en el contexto simplificado de una distribución de datos de modelo de mezcla gaussiana y
-\textit{denoiser}.
-En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso grande $\gamma
-\gg 1$?
+en el contexto simplificado de una distribución de datos y un \textit{denoiser} basados en un modelo de mezcla gaussiana.
+En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso grande $\gamma \gg 1$?
 
 % \yima{Please make messages that the example below try to convey some
 % what more modular. Probably break it into two related parts?}
 \begin{example}\label{example:denoising-gaussian-mixture-cfg}
-    Recordemos el proceso generador de datos de mezcla gaussiana de rango bajo
+    Recordemos el proceso generador de datos de una mezcla gaussiana de rango bajo
     que estudiamos en el
     \Cref{example:denoising_gaussian_mixture} (y, concretamente, la forma que aparece en la
     \Cref{eq:MoG1}). Dadas $K \in \bN$ clases, suponemos que
@@ -2210,7 +2207,7 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
     Al aplicar el análisis de \Cref{example:denoising_gaussian_mixture} (y el
         análisis posterior del caso de rango bajo, que culmina en la
     \Cref{eq:gmm_lowrank_denoiser}), obtenemos para los eliminadores de ruido óptimos
-    condicionados por clase
+    condicionados a la clase
     \begin{equation}\label{eq:gmm_lowrank_denoiser-ch6-classcond}
         \bE[ \vx \mid \vx_t = \vxi, y = \nu ]
         = \frac{1}{1 + t^{2}}
@@ -2252,15 +2249,15 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
     Este filtro de eliminación de ruido tiene una forma sencilla e interpretable:
     \begin{enumerate}
         \item El primer término, correspondiente al \textit{denoiser incondicional},
-            realiza el proceso de eliminación de ruido de la señal $\vx_t$ comparándola con un promedio de los
+            realiza el proceso de eliminación de ruido de la señal $\vx_t$ usando como referencia un promedio de los
             \textit{denoisers} asociados a cada subespacio, ponderado por el grado de correlación
             que existe entre $\vx_t$ y cada subespacio.
         \item El segundo término, correspondiente al \textit{denoiser condicional}, 
             simplemente realiza el proceso de eliminación de ruido utilizando el \textit{denoiser}
-            de la clase de condicionamiento.
+            de la clase condicionante.
     \end{enumerate}
 
-    El esquema CFG promedia estos dos filtros de eliminación de ruido.
+    El esquema CFG promedia estos dos \textit{denoisers}.
     El efecto de este promedio se puede deducir de la refactorización
     \begin{equation}\label{eq:cfg-denoiser-mog-low-rank-2}
         \begin{split}
@@ -2287,9 +2284,8 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
             \vx_t,
         \end{split}
     \end{equation}
-    donde combinamos el \textit{denoiser} condicional con el término correspondiente $k=y$
-    en la suma sobre $k \in [K]$.
-    Tenemos
+    donde se ha combinado el \textit{denoiser} condicional con el término correspondiente 
+    a $k=y$ en la suma sobre $k \in [K]$. Se tiene que
     \begin{equation}
         \sum_{k=1}^K
         \frac{\exp\rp{\frac{1}{2t^{2}(1
@@ -2298,8 +2294,8 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
         + t^{2})}\norm{\vU_{i}^{\top}\vx_t}_{2}^{2}}}
         = 1,
     \end{equation}
-    y cada sumando es no negativo, por lo que también está acotado por arriba por $1$.
-    Por lo tanto, podemos concluir que existen dos regímenes para los términos en
+    y cada sumando es no negativo, por lo que también está acotado superiormente por $1$.
+    Por consiguiente, se pueden distinguir dos regímenes para los términos en
     \Cref{eq:cfg-denoiser-mog-low-rank-2}:
     \begin{enumerate}
         \item \textbf{Régimen bien correlacionado:} En este caso, supongamos que la entrada ruidosa
@@ -2316,10 +2312,9 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
                 + t^{2})}\norm{\vU_{i}^{\top}\vx_t}_{2}^{2}}}
                 \approx 1,
             \end{equation}
-            todos los demás pesos son necesariamente cercanos a cero, y el \textit{denoiser} del CFG
+            todos los demás pesos son necesariamente cercanos a cero, y el \textit{denoiser} de CFG
             es aproximadamente igual al \textit{denoiser} asociado a la
-            clase de condicionamiento
-            $y$.
+            clase condicionante $y$.
 
             Esto implica que: ¡\textit{si la entrada del \textit{denoiser} CFG está altamente
                 correlacionada con uno de los subespacios de clase, el \textit{denoiser} es
@@ -2350,7 +2345,7 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
             esté mucho
             más correlacionada con la clase de condicionamiento $y$ y
             de hacer que esté negativamente
-            correlacionada con la iteración anterior (es decir, la iteración
+            correlacionada con el iterado anterior (es decir, la iteración
             previa a la eliminación del ruido).
 
             En otras palabras, \textit{CFG orienta el proceso iterativo de eliminación de ruido
@@ -2368,12 +2363,12 @@ muestreo) cuando el nivel de ruido $t$ es pequeño.
 Esto sugiere por qué se ha considerado esencial en la práctica
 utilizar un peso grande $\gamma \gg 1$.
 
-A continuación, el siguiente ejemplo ilustrará la
+A continuación, el siguiente ejemplo mostrará una perspectiva de la
 \textit{parametrización} del \textit{denoiser} en presencia de
 una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
 
 \begin{example}\label{example:denoising-gaussian-mixture-cfg-parameterization}
-    Consideremos de nuevo el modelo de mezcla gaussiana estudiado en
+    Volvamos a considerar el modelo de mezcla gaussiana estudiado en
     \Cref{example:denoising-gaussian-mixture-cfg}:
     \begin{equation}
         \vx \sim \frac{1}{K}\sum_{k = 1}^{K}\dNorm(\vzero,
@@ -2482,7 +2477,7 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     % which actually
     % parallels the kinds of geometric structure common in real-world data.
     % More precisely,
-    Por razones de manejabilidad, añadimos una suposición adicional relacionada con
+    Por razones de tractabilidad, añadimos una suposición adicional relacionada con
     los subespacios
     $\vU_k$ que sean «distinguibles» entre sí, lo cual es natural en
     la práctica: concretamente, suponemos que para cualquier par de índices $k, k' \in
@@ -2497,10 +2492,10 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     distinguibilidad, pero
     hay que señalar que no es excesivamente restrictiva: por ejemplo, sigue
     permitiendo que los subespacios $\vU_{k}$ tengan correlaciones significativas entre
-    sí.\footnote{En términos más generales, esta suposición se formula naturalmente
+    sí.\footnote{De forma más general, esta suposición se formula naturalmente
         como una
         \textit{condición de incoherencia} entre los subespacios
-        $\vU_{[K]}$, conocida en la teoría de la detección compresiva
+        $\vU_{[K]}$, conocida en la teoría del \textit{compressive sensing}
     \cite{Wright-Ma-2022}.}
 
     Estos vectores $\vv_k$ pueden considerarse entonces como \textit{incrustaciones} de la
@@ -2582,7 +2577,7 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
         \abs*{\ip{\vz}{\vU_y^\top \vv_y} + t \ip{\vg}{\vv_y}}.
     \end{align*}
     Dado que $\vz$ y $\vg$ son variables aleatorias gaussianas independientes con
-    matrices identidad como covarianza, de la \textit{invarianza rotacional}
+    matrices covarianza identidad, de la \textit{invarianza rotacional}
     de la distribución gaussiana (véase \cite{Vershynin2018-br}) se deduce que
     \begin{align*}
         \abs*{\vx_t^\top \vv_y}
@@ -2645,13 +2640,13 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     con probabilidad abrumadora con respecto a $\vx_t$.
     Por lo tanto, si $t$ es acotado y la dimensión del subespacio $P$ es suficientemente
     grande,\footnote{Por ejemplo, basta considerar un régimen asintótico a gran escala,
-        en el que $P, D \to \infty$ y su relación
+        en que $P, D \to \infty$ y su relación
         $P/D$ converge
         hacia una constante fija. En tal escenario, la \textit{relación de
         aspecto} de los
         subespacios es fija mientras que sus tamaños tienden a infinito, lo que puede servir como
         un modelo para algunos fenómenos de discretización (p. ej., una escena fija
-            muestreada como una
+            muestreada para producir una
     imagen con el número de píxeles tendiendo a infinito).}
     % Then by the previous expression,
     % if the
@@ -2681,7 +2676,7 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     \end{equation}
     En otras palabras, \textbf{al evaluar el operador
         \eqref{eq:mog-conditional-denoising-unified-operator} en la
-        incrustación para
+        incrustación de
     una clase $\vv_{t, y}$ ¡se obtiene el \textit{denoiser} condicionado a la clase para $y$!}
     % This argument shows that the operator
     % \eqref{eq:mog-conditional-denoising-unified-operator} is, with
@@ -2730,42 +2725,42 @@ los operadores de la forma
     }
     \vU_{k}\vU_{k}^{\top}\vx_t
 \end{equation}
-proporcionar una clase de operadores lo suficientemente amplia como para parametrizar el
+proporcionar una clase de operadores lo suficientemente rica como para parametrizar el
 \textit{denoiser} ideal para observaciones ruidosas $\vx_t$ de $\vx$ cuando se utiliza
 una guía sin clasificador.
 % where one network is to be used to represent both the
 % unconditional and class-conditional denoisers for $\vx_t$.
 Para tales operadores,
 la entrada auxiliar $\vv$ puede tomarse como $\vx_t$ o como una incrustación adecuada
-de la etiqueta de clase $y \mapsto \vv_y$ con el fin de implementar dicho \textit{denoiser}; tal y como
+de la etiqueta de clase $y \mapsto \vv_y$ con el fin de realizar dicho \textit{denoiser}; tal y como
 muestra el ejemplo, el \textit{denoiser} ideal es una suma ponderada de dichos operadores, con
 pesos derivados de la intensidad de la guía $\gamma>1$.
 
-Partiendo del marco descrito en el \Cref{ch:deep-networks}, que desarrolla arquitecturas de redes profundas
+Sobre la base del marco descrito en el \Cref{ch:deep-networks}, que desarrolla arquitecturas de redes profundas
 adecuadas para transformar distribuciones de datos más generales en
 representaciones estructuradas utilizando el modelo de mezcla de gaussianas de bajo rango como
 primitiva, resulta natural imaginar que los operadores del tipo
 \eqref{eq:operator-for-parameterizing-cfg-denoiser-mog} puedan aprovecharse en
 \textit{denoisers} para
-distribuciones de datos generales $\vx$ con componentes de baja dimensión y estructura geométrica
+distribuciones de datos generales $\vx$ con componentes de baja dimensión y con estructura geométrica
 que sean suficientemente distinguibles (digamos, incoherentes) entre sí.
-En la siguiente sección se demuestra que así es.
+En la siguiente sección se demuestra que efectivamente es así.
 
 \subsection{Generación de imágenes condicionada por pies de imagen}\label{sub:text-cond}
 En la \Cref{sub:cfg} hemos visto, a nivel conceptual, cómo configurar los \textit{denoisers} 
-para utilizarlos con
+para su uso con
 \textit{la guía sin clasificador}, la metodología práctica predominante para
 realizar muestreos condicionales mediante el paradigma de la difusión con eliminación de ruido.
 % We instantiated this in the special case of class-conditional sampling, where
 % the conditioning signal $y$ is a scalar.
 En resumen, estos filtros de eliminación de ruido toman como entrada los datos ruidosos $\vx_t$, así como
-la señal de condicionamiento $\vy$ o una «entrada nula» $\varnothing$,
-lo que determina si el filtro debe realizar una \textit{eliminación de ruido incondicional
-} o una \textit{eliminación de ruido condicional} (condicionada por $\vy$).
+ya sea la señal de condicionamiento $\vy$ o una «entrada nula» $\varnothing$,
+lo que determina si el filtro debe realizar una \textit{eliminación de ruido incondicional} 
+o una \textit{eliminación de ruido condicional} (condicionada a $\vy$).
 
 Dado este diseño, la pregunta práctica más importante es: \textit{¿cómo
 implementar esta familia de operadores como una red neuronal?}
-Una arquitectura de capas conocida como de 'atención cruzada', cuya eficacia ha sido validada empíricamente
+Una arquitectura de capas conocida como de «atención cruzada», cuya eficacia ha sido validada empíricamente
 y que presentaremos más adelante, ofrece una respuesta práctica
 a esta pregunta. Sin embargo, incluso antes de eso, hay varias cuestiones más fundamentales
 que debemos resolver:
@@ -2776,7 +2771,7 @@ que debemos resolver:
         muchas relaciones estructurales subyacentes. Por ejemplo, lo vimos en
         el caso de una etiqueta de clase $y$ en \Cref{sub:cfg}. En términos más generales,
         se podría considerar una descripción en lenguaje natural $\vy$ de una imagen $\vx$
-        (denominada «pies de imagen»), donde $\vy$ correspondería a
+        (denominada «pie de imagen»), donde $\vy$ correspondería a
         una secuencia de caracteres de diferentes alfabetos.
     \item \textit{Parámetrización y flexibilidad}: Más allá de la cuestión de la
         modalidad de entrada, se plantea una cuestión fundamental: si se puede utilizar la misma
@@ -2786,7 +2781,7 @@ que debemos resolver:
         % possibility to use \textit{transfer learning}, where
     \item \textit{Entrenamiento}: Esto implica la forma adecuada de utilizar nuestras muestras emparejadas
         $(\vx, \vy)$ para entrenar e implementar los \textit{denoisers} condicionales. El
-        espacio de diseño es amplio: se podría imaginar la aplicación de diversas
+        espacio de diseño es vasto: se podría imaginar la aplicación de diversas
         arquitecturas de codificador-decodificador específicas para cada modalidad, tal como las hemos desarrollado en
         los \Cref{ch:lossy-compression,ch:consistent-representations}, junto con
         diferentes estructuras de base de eliminación de ruido en diversas combinaciones. Las cuestiones clave
@@ -2798,7 +2793,7 @@ que debemos resolver:
 \end{enumerate}
 
 A continuación abordaremos estos tres temas en detalle, ofreciendo orientación sobre cómo
-explorar el espacio de diseño y, cuando sea posible, recomendaciones de utilidad general.
+explorar el espacio de diseño y, cuando sea posible, directrices de uso general.
 
 \subsubsection{Incrustación de entradas independiente de la modalidad}
 
@@ -2831,7 +2826,7 @@ en el \Cref{ch:lossy-compression} (\Cref{eq:information-entropy}):
     I(\vx; \vy) = h(\vx) - h(\vx \mid \vy).
 \end{equation}
 La información mutua \eqref{eq:mutual-info-ch7} es una magnitud puramente
-informática que no depende de aspectos específicos de la modalidad
+de la teoría de la información que no depende de aspectos específicos de la modalidad
 de $\vx$ y $\vy$.
 Por lo tanto, ofrece un criterio natural para aprender una representación útil de
 cualquiera de las entradas $\vx$ o $\vy$: simplemente se busca aprender, por ejemplo para $\vx$,
@@ -2842,15 +2837,15 @@ Es decir:
     \text{Aprender} \enspace \vz = f(\vx) \enspace \text{tal que} \enspace I(\vz;
     \vy) \approx I(\vx; \vy).
 \end{equation}
-De hecho, podemos ser aún más precisos en este punto. Para un codificador $f$ que sea
-determinista (que se ajusta a todos los casos que hemos estudiado a lo largo de los
+De hecho, podemos ser aún más explícitos en lo prescriptivo. Para un codificador $f$ que sea
+determinista (que abarca todos los casos que hemos estudiado a lo largo de los
 \Cref{ch:lossy-compression,ch:consistent-representations}), un resultado fundamental
 en teoría de la información conocido como la \textit{desigualdad del procesamiento de datos} nos dice
 que procesar $\vx$ con $f$ para producir $\vz = f(\vx)$ cambia la información mutua
 de una manera predecible: \textit{solo puede reducirla}.
 \begin{theorem}[Desigualdad del procesamiento de datos]\label{thm:dpi}
     Consideremos las variables aleatorias $\vy, \vx, \vz$ definidas de tal manera que $\vz$ es
-    independiente de $\vy$, condicional a $\vx$.\footnote{En otras palabras, las
+    independiente de $\vy$ dado $\vx$.\footnote{En otras palabras, las
     variables aleatorias forman una cadena de Markov $\vy \to \vx \to \vz$.} Entonces se cumple la
     \textit{desigualdad de procesamiento de datos}:
     \begin{equation}\label{eq:dpi-ch7}
@@ -2895,8 +2890,7 @@ La \Cref{eq:infomax-x-abstract} conduce entonces al objetivo
     \max_{f}\, I(f(\vx); \vy).
 \end{equation}
 Esto se conoce como el \textit{principio de Infomax} \cite{infomax}, y
-se remonta a los
-primeros años del aprendizaje de representaciones.
+se remonta a los inicios del aprendizaje de representaciones.
 
 \paragraph{Consideraciones computacionales en la aplicación del principio de Infomax.}
 
@@ -2908,16 +2902,15 @@ estimar la información mutua, que constituye el objetivo en
 Como ya comentamos en el contexto de la relación tasa-distorsión y la codificación con pérdida
 al presentar
 la información mutua en el \Cref{ch:lossy-compression}, la información mutua
-puede flexibilizarse para seguir estando bien definida incluso cuando $\vx$ y $\vy$ son
+puede relajarse para seguir estando bien definida incluso cuando $\vx$ y $\vy$ son
 de baja dimensión y tienen una entropía diferencial que se aproxima a $-\infty$ (por ejemplo, mediante
     la conexión con la función gaussiana de reducción de tasa que hemos estudiado en los
-\Cref{ch:lossy-compression,ch:consistent-representations}).
-Además, desde el punto de vista empírico, estas relajaciones presentan 
-propiedades estadísticas que no corresponden al peor de los casos
-en la práctica, tal como observamos en los experimentos del
+\Cref{ch:lossy-compression,ch:deep-networks,ch:consistent-representations}).
+Además, desde el punto de vista empírico, estas relajaciones presentan, en la práctica, 
+propiedades estadísticas **lejos del peor caso**, tal como observamos en los experimentos del
 \Cref{ch:lossy-compression}; y la precisión de estas aproximaciones puede
 mejorarse mediante el procesamiento incremental, tal como vimos en el \Cref{ch:deep-networks}.
-Esto hace que un criterio como el de la \Cref{eq:infomax-x} sea una base excelente para
+Esto hace que un criterio como el de la \Cref{eq:infomax-x} sea un fundamento excelente para
 aprender representaciones de datos emparejados $(\vx, \vy)$.
 
 La segunda cuestión que hay que tener en cuenta es que, para que el objetivo \eqref{eq:infomax-x}
@@ -2932,14 +2925,16 @@ Analizamos técnicas basadas en principios para estructurar el espacio de repres
 bucle cerrado; muchas de estas técnicas pueden aplicarse a nuestro
 actual contexto de incrustación conjunta y lo detallaremos más adelante en esta
 sección, cuando pasemos a la implementación práctica.
+
 \paragraph{Incrustación conjunta con el principio de Infomax.}
+
 Ahora queda por resolver la cuestión de la representación \textit{conjunta} de $(\vx, \vy)$.
 Al aplicar una vez más la desigualdad de procesamiento de datos, obtenemos para otro codificador
-$g$ que produce una representación de $\vy$ que
+$g$ que produce una representación de $\vy$, que
 \begin{equation*}
     I(\vx; \vy) \geq I(f(\vx); \vy) \geq I(f(\vx); g(\vy)).
 \end{equation*}
-El objectivo conjunto
+El objetivo conjunto
 \begin{equation}\label{eq:infomax-x-y}
     \max_{f, g}\, I(f(\vx); g(\vy))
 \end{equation}
@@ -2957,11 +2952,11 @@ Más concretamente, una incrustación de este tipo $\vu_y \in \R^D$ permite, cua
 con las incrustaciones $\vU_{\vx}$ de $\vx \in \R^D$ (generalmente una
 matriz) mediante $\vu_y^\top
 \vU_{\vx}$, «seleccionar» únicamente las incrustaciones relevantes para la componente de mezcla
-correcto de la distribución.
+correcta de la distribución.
 Cómo diseñar exactamente estas capas para su uso en redes neuronales que se entrenan con
 datos no lineales de alta dimensión
 más complejos es una cuestión difícil
-que analizaremos con
+que profundizaremos con
 más detalle a continuación. Pero hay una condición necesaria que está clara: las incrustaciones
 $f$ y $g$ deben mapear sus entradas a un \textit{espacio de incrustación común}, por ejemplo
 $\R^d$, para facilitar la comparación posterior al realizar el muestreo
@@ -2985,12 +2980,12 @@ Tomemos el caso simple de pares de imagen-texto $[(\x_i, \y_i)]_{i=1}^N$
 muestreados de un conjunto de datos $\mathcal{D}$, donde $\x_i$ es una imagen y
 $\y_i$ es un pie de imagen.
 CLIP entrena dos codificadores: un codificador de imágenes $f_{\theta}(\x)$ y un codificador de texto
-$g_{\phi}(\y)$ para mapear muestras emparejadas en una esfera unitaria compartida
+$g_{\plainphi}(\y)$ para mapear muestras emparejadas en una esfera unitaria compartida
 de $d$ dimensiones (es decir, $\|f_{\theta}(\x_i)\|_2 = 1$ y
-$\|g_{\phi}(\y_i)\|_2 = 1$).
+$\|g_{\plainphi}(\y_i)\|_2 = 1$).
 Para lograrlo, podemos adoptar una pérdida de entropía cruzada simétrica sencilla
-que acerque la similitud coseno de los pares coincidentes
-$(f_{\theta}(\x_i),g_{\theta}(\y_i))$ al tiempo que
+que acerque las representaciones de los pares coincidentes 
+$(f_{\theta}(\x_i),g_{\plainphi}(\y_i))$ en términos de similitud coseno, al tiempo que
 repele a los pares no coincidentes:
 \begin{align}
     \mathcal{L}_{\mathrm{CLIP}} = -\frac{1}{N}\mathbb{E}_{[(\x_i,
@@ -3018,11 +3013,11 @@ del texto:\footnote{Este resultado se cumple bajo el supuesto de que los
     \mathcal{L}_{\mathrm{CLIP}} + \log N.
 \end{equation}
 
-Por lo tanto, CLIP ofrece una fórmula práctica para aprender representaciones conjuntas de datos emparejados
+Por lo tanto, CLIP ofrece una receta práctica para aprender representaciones conjuntas de datos emparejados
 que aumenta la información mutua entre las muestras emparejadas.
 Empíricamente, se ha demostrado que CLIP es eficaz para aprender incrustaciones conjuntas
 para pares de imagen-texto y se ha utilizado en una variedad de aplicaciones, incluyendo
-la subtitulación de imágenes, la recuperación de imagen-texto, la generación de imágenes y más. Veremos
+la generación de leyendas de imágenes, la recuperación de imagen-texto, la generación de imágenes y más. Veremos
 ejemplos más específicos en el \Cref{ch:applications} (con detalles clave de implementación
 descritos en detalle en la \Cref{sec:CLIP}).
 
@@ -3041,7 +3036,8 @@ descritos en detalle en la \Cref{sec:CLIP}).
 % with the image $\vx$ in
 % order to provide a concise and unified scheme for parameterizing the optimal
 % denoisers (conditional and unconditional).
-Por último, describiremos un sistema integral que integra codificadores conjuntos de imagen y texto,
+
+Por último, describiremos un sistema de extremo a extremo que integra codificadores conjuntos de imagen y texto,
 entrenados con la pérdida CLIP tal y como se ha descrito anteriormente, con operadores de condicionamiento
 que recuerdan al operador de mezcla de gaussianas
 \eqref{eq:operator-for-parameterizing-cfg-denoiser-mog} que vimos en el
@@ -3050,7 +3046,7 @@ Estas técnicas
 constituyeron la base de la implementación original de código abierto de Stable Diffusion
 \cite{rombach2022high},
 en la que la incrustación y el condicionamiento posterior no se realizan sobre
-una etiqueta de clase, sino sobre una indicación de texto que describe el contenido deseado de la imagen
+una etiqueta de clase, sino sobre un \textit{prompt} de texto que describe el contenido deseado de la imagen
 (\Cref{fig:text-to-image}).
 En esta sección se ofrece una visión general de alto nivel sobre la generación de imágenes al estilo de Stable Diffusion.
 Para obtener todos los detalles de implementación necesarios para volver a implementar
@@ -3072,12 +3068,12 @@ describen el entrenamiento del modelo de difusión (latente).
         \caption{}
     \end{subfigure}
 
-    \caption{Esquema general del entrenamiento y la aplicación de un modelo generativo de texto a imagen,
+    \caption{Esquema de alto nivel del entrenamiento y la aplicación de un modelo generativo de texto a imagen,
         mediante la generación condicional a partir de una indicación de texto.
         \textbf{Izquierda:}
         Para entrenar un modelo de texto a imagen, se utiliza un amplio conjunto de datos de imágenes emparejadas con
         los pies de foto correspondientes. Se utiliza un codificador para
-        asignar los pies de foto a
+        mapear los pies de foto a
         secuencias de vectores, que se utilizan como señales de condicionamiento
         para un
         \textit{denoiser} condicional, entrenado según se describe algorítmicamente en la \Cref{sub:cfg} (véase la
@@ -3165,7 +3161,7 @@ es fija. La atención cruzada (con $K$ cabezales y sin sesgo) se define como
     [\vU_{\val}^{K}]^{\top}\tau(\vY^+))}, %
 \end{equation}
 donde $\mathrm{SA}$ denota la operación de atención de producto escalar
-en el transformer (que recordamos en detalle en \Cref{ch:applications}: véase
+en el transformer puesta a escala (que recordamos en detalle en \Cref{ch:applications}: véase
 \Cref{eq:mhsa,eq:self_attention}), y $\vU_{*}^{k} \in
 \bR^{d_{\mathrm{model}}\times
 d_{\mathrm{attn}} }$ para $* \in \set{\mathrm{qry}, \mathrm{key}, \mathrm{val}}$
@@ -3173,12 +3169,12 @@ d_{\mathrm{attn}} }$ para $* \in \set{\mathrm{qry}, \mathrm{key}, \mathrm{val}}$
 aprendibles de la capa.
 
 Obsérvese que, según la definición de la operación de autoatención, la operación de atención cruzada
-\textit{genera combinaciones lineales de las incrustaciones de texto proyectadas en valores,
+\textit{genera combinaciones lineales de las proyecciones de valor de las incrustaciones de texto,
 ponderadas por las correlaciones entre las características de la imagen y las incrustaciones de texto.}
 En la arquitectura del \textit{denoiser} utilizada por \textcite{rombach2022high},
 los bloques residuales de autoatención de la arquitectura del \textit{denoiser}, aplicados a la
 representación de la imagen en la capa actual y definidos de manera análoga
-a los de \Cref{eq:vit-res-block}, que se aplican al Transformer de Visión, van
+a los de \Cref{eq:vit-res-block}, correspondientes al Transformer de Visión, van
 seguidos de bloques residuales de atención cruzada
 de la forma \eqref{eq:mhca}.
 Una estructura de este tipo requiere que el codificador de texto $\tau$ comparta, en cierto
@@ -3186,10 +3182,10 @@ sentido, parte de la
 estructura de su salida con la incrustación de características de la imagen $\psi$: esto se puede
 lograr mediante una incrustación conjunta,
 aprendida mediante un procedimiento como CLIP, tal y como se ha descrito anteriormente.
-Desde el punto de vista conceptual, este espacio de incrustación conjunto de texto e imagen y la propia capa de atención cruzada
+Desde el punto de vista conceptual, este espacio de incrustación conjunta de texto e imagen y la propia capa de atención cruzada
 presentan un gran parecido con el
 \textit{denoiser} de mezcla condicional de gaussianas que derivamos en la sección anterior
-(véase \eqref{eq:mog-conditional-denoising-unified-operator}), en el
+(recuérdese \eqref{eq:mog-conditional-denoising-unified-operator}), en el
 caso particular de una secuencia de un solo token. Se pueden establecer conexiones más profundas
 en el contexto de múltiples tokens siguiendo el marco de reducción de tasa
 para derivar arquitecturas de redes profundas que se analiza en el
@@ -3209,12 +3205,12 @@ en imágenes o textos.
 
 \section{Inferencia condicional con autoconsistencia de la medición}
 \label{sec:measurement-self-consistency}
-En esta última sección, analizamos el caso más extremo, aunque en realidad
-muy común, del aprendizaje de distribuciones, en el que solo contamos con un
+En esta última sección, consideramos el caso más extremo, aunque en realidad
+omnipresente, del aprendizaje de distribuciones, en el que solo contamos con un
 conjunto de muestras observadas $\Y = \{\y_1,\ldots, \y_N\}$ de los datos
 $\x$, ¡pero no tenemos muestras directas de $\x$! En general, la observación
 $\y \in \mathbb{R}^d$ es de menor dimensión que $\x \in
-\mathbb{R}^D$. Para que el problema esté bien definido, suponemos que
+\mathbb{R}^D$. Para que el problema esté bien definido, de hecho, asumimos que
 se sabe que el modelo de observación entre $\y$ y $\x$ pertenece a una
 cierta familia de modelos analíticos, denotada como $\y = h(\x, \theta)
 +\vw$, donde $\theta$ puede ser conocido o desconocido.
@@ -3231,7 +3227,7 @@ generalidad, podemos suponer que existen funciones:
 \begin{equation}
     F(\x) = \boldsymbol{0},\quad     G(\y) = \boldsymbol{0}.
 \end{equation}
-Obsérvese que aquí podemos suponer que conocemos $G(\y)$, pero no $F(\x)$.
+Obsérvese que aquí podemos suponer que $G(\y)$ es conocida, pero $F(\x)$ no lo es.
 Sea $\mathcal{S}_{\y} \doteq \{\y \mid G(\y) = \boldsymbol{0}\}$ el
 soporte de $p(\y)$. En general, $h^{-1}(\mathcal{S}_{\y}) = \{\x
 \mid G(h(\x)) = \boldsymbol{0}\}$ es un superconjunto de $\mathcal{S}_{\x}
@@ -3266,7 +3262,7 @@ Del proceso de eliminación de ruido de $\y_t$, tenemos
 \begin{equation}
     \y_{t-s} \approx  \y_t + st \nabla \log p_t(\y_t).
 \end{equation}
-A continuación tenemos:
+Luego tenemos:
 \begin{equation}
     \vA\x_{t-s} \approx   \vA\x_t + st \nabla \log p_t(\vA \x_t),
 \end{equation}
@@ -3288,21 +3284,21 @@ Por lo tanto, en sentido estricto, se necesita más información para recuperar 
 $\vx$. Sin embargo, esto permite recuperar la componente de $\vx$
 que es ortogonal al espacio nulo de $\vA$.
 
-\subsection{Aprendizaje de modelos 3D a partir de imágenes 2D}
+\subsection{Aprendizaje de un modelo del mundo en 3D a partir de imágenes 2D}
 \label{sec:3D-visual-model}
 En la práctica, el modelo de medición suele ser no lineal o solo
 se conoce parcialmente. Un problema típico de este tipo es, de hecho, lo que subyace
-a la forma en que podemos aprender un modelo válido del mundo exterior a partir de las
+a la forma en que podemos aprender un modelo funcional del mundo exterior a partir de las
 imágenes que percibimos, por ejemplo, a través de nuestros ojos, telescopios o microscopios. En
-particular, los seres humanos y los animales son capaces de construir un modelo del mundo en 3D
-(o en 4D, en el caso de un mundo dinámico) a través de una secuencia de sus proyecciones en 2D
+particular, los seres humanos y los animales son capaces de construir un modelo del mundo 3D
+(o 4D, en el caso de un mundo dinámico) a través de una secuencia de sus proyecciones en 2D
 ---una secuencia de imágenes en 2D (o pares de imágenes estereoscópicas). El
-modelo matemático o geométrico de la proyección es bien conocido:
+modelo matemático o geométrico de la proyección es generalmente conocido:
 \begin{equation}
     \y^i = h(\x, \theta^i) +\vw^{i},
 \end{equation}
 donde $h(\cdot)$ representa una proyección (en perspectiva) de la escena 3D (o
-4D) desde una determinada perspectiva de la cámara en el instante $t_i$ hacia una imagen 2D (o
+4D) desde una determinado punto de vista de la cámara en el instante $t_i$ hacia una imagen 2D (o
 un par estereoscópico) y $\vw$ es un pequeño ruido de medición, posiblemente aditivo.
 La \Cref{fig:projection-2D} ilustra esta relación
 de manera concreta, mientras que la \Cref{fig:inference_distributed} ilustra el
@@ -3324,8 +3320,8 @@ que las múltiples imágenes de una escena contengan información suficiente sob
     \centering
     \includegraphics[width=0.7\linewidth]{\toplevelprefix/chapters/chapter7/figs/inference_distributed.pdf}
     \caption{\small \textbf{Inferencia con mediciones distribuidas.}
-        Tenemos una distribución de baja dimensión \(\vx\) (aquí, de forma similar
-            a \Cref{fig:inference_roadmap}, representada como la unión de dos
+        Tenemos una distribución de baja dimensión \(\vx\) (aquí, como
+            en \Cref{fig:inference_roadmap}, representada como la unión de dos
         variedades bidimensionales en \(\R^{3}\)) y un modelo de medición
         \(\y^{i} = h^{i}(\vx) + \vw^{i}\). Como antes, queremos
         inferir varias propiedades de la distribución condicional de
@@ -3334,8 +3330,8 @@ que las múltiples imágenes de una escena contengan información suficiente sob
     \label{fig:inference_distributed}
 \end{figure}
 
-En general, nos gustaría conocer la distribución $p(\x)$ de la escena del mundo en 3D
-(o 4D) $\x$\footnote{Aquí, por conveniencia, utilizamos
+En general, nos gustaría aprender la distribución $p(\x)$ de la escena del mundo en 3D
+(o 4D) $\x$\footnote{Aquí, por abuso de notación, utilizamos
     $\x$ para representar tanto un punto en 3D como una muestra de un objeto 3D
 completo o una escena compuesta por muchos puntos.} a partir de las imágenes 2D
 del mundo percibidas hasta el momento. La función principal de un modelo
@@ -3343,7 +3339,7 @@ del mundo percibidas hasta el momento. La función principal de un modelo
 hemos estado o predecir cómo se vería la escena actual en un
 momento futuro desde un nuevo punto de vista.
 
-Examinemos primero el caso particular, pero importante, de la visión estereoscópica.
+Examinemos primero el caso especial, pero importante, de la visión estereoscópica.
 En este caso, contamos con dos vistas calibradas de la escena 3D $\x$:
 \begin{equation}
     \y^0 = h(\x, \theta^0) +\vw^0, \quad \y^1 = h(\x, \theta^1) +\vw^1,
@@ -3352,7 +3348,7 @@ donde se puede suponer que los parámetros $\theta^0$ y $\theta^1$ de las poses 
 son conocidos. $\y^0$ y $\y^1$ son dos proyecciones en 2D de la
 escena 3D $\x$. También podemos suponer que tienen la misma distribución marginal
 $p(\y)$ y que hemos aprendido un modelo de difusión y eliminación de ruido
-para ella. Es decir, conocemos el \textit{denoiser}:
+para esta. Es decir, conocemos el \textit{denoiser}:
 \begin{equation}
     \bE[\vy \mid \vy_t=\vnu] =
     \vnu + t^2 \nabla_{\vnu}\log p_t(\vnu).
@@ -3360,10 +3356,10 @@ para ella. Es decir, conocemos el \textit{denoiser}:
 \end{equation}
 O, incluso, podemos suponer que contamos con un número suficiente de
 muestras de pares estéreo $(\y^0, \y^1)$ y que también hemos aprendido la
-distribución multivariada de los pares. Haciendo un pequeño abuso de notación,
+distribución conjunta de los pares. Haciendo un pequeño abuso de notación,
 también utilizamos $\y = h(\x)$ para indicar el par $\y = (\y^0, \y^1)$ y
 $p(\y)$ como la distribución de probabilidad aprendida del par (por ejemplo, mediante
-un \textit{denoiser} como el anterior).
+un \textit{denoiser} como el descrito anteriormente).
 
 La pregunta principal ahora es: ¿Cómo aprender (una representación de) la
 distribución de la escena 3D $\x$ a partir de sus dos proyecciones con relaciones
@@ -3372,46 +3368,47 @@ Podría cuestionarse el fundamento de esto: ¿por qué es
 necesario si la función $h(\cdot)$ es en gran medida invertible? Es decir,
 la observación $\y$ puede determinar en gran medida la incógnita $\x$, lo cual
 ocurre en cierta medida con la visión estereoscópica: en general, dos imágenes (calibradas)
-contienen información suficiente sobre la estructura tridimensional de la escena, desde la
+contienen información suficiente sobre la profundidad de la escena, desde la
 perspectiva dada. Sin embargo, las imágenes 2D distan mucho de ser la representación más compacta
 de una escena 3D, ya que una misma escena puede producir
 infinitas imágenes 2D (altamente correlacionadas) o pares de imágenes. De
-hecho, una buena representación de una escena 3D debería ser invariante con respecto al
+hecho, una buena representación de una escena 3D debería ser invariante al
 punto de vista. Por lo tanto, una representación correcta de la distribución de las escenas 3D
 debería ser mucho más compacta y estructurada que la
-distribución de imágenes 2D, pares estéreo o pares de imagen-profundidad.
+distribución de imágenes 2D, pares estéreo o pares de imagen y profundidad.
 
 Consideremos el proceso de eliminación de ruido (inverso) para la difusión: $\y_t =
 \y + t\vg $ en \eqref{eq:y-posterior-sampling-denoiser}, donde $\vg$
-es una distribución gaussiana estándar. A partir del proceso de eliminación de ruido de
+sigue una distribución gaussiana estándar. A partir del proceso de eliminación de ruido de
 \eqref{eq:y-posterior-sampling-denoiser}, tenemos
 \begin{equation}
     \y_{t-s} =  \y_t + st \nabla_{\y} \log p_t(\y_t).
 \end{equation}
-Intentamos encontrar un proceso de «eliminación de ruido» correspondiente para $\x_t$ tal
+Tratamos de encontrar un proceso de «eliminación de ruido» correspondiente para $\x_t$ tal
 que $\x$ se relacione con $\y$ de la siguiente manera:
 \begin{equation}
     \y =  h(\x).
 \end{equation}
-A continuación tenemos:
+
+A continuación, tenemos:
 \begin{equation}
     h(\x_{t-s}) \approx h(\x_t) + st \nabla_{\y} \log p_t(h(\x_t)),
 \end{equation}
-para un valor pequeño de $s > 0$.
+para un $s > 0$ pequeño.
 Supongamos que $\x_{t-s} = \x_t + s \vv$ para algún vector $\vv$ y un
-incremento pequeño $s$. Tenemos que
+incremento $s$ pequeño. Tenemos que
 \begin{equation}
     h(\x_{t-s}) \approx h(\x_t) + \frac{\partial h}{\partial
     \x}(\vx_{t}) \cdot \vv s \doteq h(\x_t) + \vA(\x_t) \vv s.
 \end{equation}
-Por lo tanto, tenemos
+Por lo tanto, se tiene
 \begin{equation}
     \vA(\x_t) \vv = t \nabla_{\y} \log p_t(h(\x_t)).
     \label{eqn:pushforward}
 \end{equation}
 Geométricamente, el vector $\vv$ en el dominio de $\x$ puede considerarse como
 la aplicación regrediente (pullback) del campo vectorial $t \nabla \log p_t(\y)$ bajo la
-función $\y = h(\x)$. En general, como antes, podemos elegir (arbitrariamente)
+aplicación $\y = h(\x)$. En general, como antes, podemos elegir (arbitrariamente)
 $\vv$ como el vector de norma cuadrática mínima que satisface la relación de retroceso.
 Por lo tanto, podemos expresar  $\hat{\x}_{t-s}$ aproximadamente como:
 \begin{equation}
@@ -3428,7 +3425,7 @@ Por lo tanto, podemos expresar  $\hat{\x}_{t-s}$ aproximadamente como:
         \begin{equation}
             \y^i = h^i(\x) +\vw^i, i =1, \ldots, K.
         \end{equation} 
-        En este caso, obtenemos un conjunto de ecuaciones
+        En este caso, se obtiene un conjunto de ecuaciones
         que el campo vectorial $\vv$ debe satisfacer en el dominio de $\x$:
         \begin{equation}
             \vA^i(\x_t) \vv = t \nabla_{\y^i} \log p_t(h^i(\x_t)),
@@ -3443,8 +3440,8 @@ Por lo tanto, podemos expresar  $\hat{\x}_{t-s}$ aproximadamente como:
             \vv^i = t\vA^i(\x_t)^\dagger \big[\nabla_{\y^i} \log
             p_t(h^i(\x_t))\big], \quad i = 1, \ldots, K,
         \end{equation}
-        que se calculan de forma paralela y distribuida. Una pregunta
-        pendiente aquí es hacia qué converge exactamente el proceso de «eliminación de ruido»
+        que se calculan de forma paralela y distribuida. Una cuestión
+        abierta aquí es hacia qué converge exactamente el proceso de «eliminación de ruido»
         así definido para $\x_t$, incluso en el caso del modelo de medición
         lineal. ¿Cuándo convergería a una distribución que tiene el
         mismo soporte de baja dimensión que el $\x_0$ original, a medida que $\y_t$
@@ -3453,12 +3450,12 @@ Por lo tanto, podemos expresar  $\hat{\x}_{t-s}$ aproximadamente como:
 
 \paragraph{Modelo visual del mundo a partir de secuencias de imágenes sin calibrar.}
 
-En la derivación anterior, hemos supuesto que el modelo de medición
+En la deducción anterior, hemos supuesto que el modelo de medición
 $h(\cdot)$ se conoce por completo. En el caso de la visión estereoscópica, esto resulta
-bastante razonable, ya que la pose relativa (y la calibración) de las dos
-vistas de las cámaras (o de los dos ojos\footnote{La pose relativa de nuestros dos ojos
+bastante razonable, ya que la pose relativa (y la calibración) de los dos
+puntos de vista de las cámaras (o de los dos ojos\footnote{La pose relativa de nuestros dos ojos
 es bien conocida por nuestro cerebro.}) suele conocerse de antemano. Por lo tanto,
-a través de los pares de imágenes estereoscópicas, en principio deberíamos poder
+a través de los pares de imágenes estéreo, en principio deberíamos poder
 aprender la distribución de las escenas 3D, o al menos la distribución egocéntrica
 de las escenas 3D. Sin embargo, las estructuras de baja dimensión de
 la así llamada distribución aprendida contienen variaciones causadas por
@@ -3468,9 +3465,9 @@ Para muchas tareas prácticas de visión (como la localización y
 la navegación), es importante que podamos disociar esta variación de
 los puntos de vista de una representación invariante de (la distribución de) las escenas 3D.
 
-\begin{remark}Conviene recordar que el objetivo anterior concuerda perfectamente con el
+\begin{remark}Conviene recordar que el objetivo anterior se alinea bien con el
     Programa de Erlangen de Klein para la geometría moderna, cuyo objetivo es estudiar
-    los invariantes de una variedad bajo un grupo de transformaciones. En este caso,
+    los invariantes de una variedad bajo un grupo de transformaciones. Aquí,
     podemos considerar la variedad que nos interesa como la distribución de
     representaciones egocéntricas de escenas tridimensionales. Hemos aprendido que
     admite un grupo de traslaciones y rotaciones de cuerpos rígidos en el espacio tridimensional que actúan sobre
@@ -3487,8 +3484,8 @@ No obstante, sigue siendo difícil caracterizar los operadores relacionados con 
 la eliminación de ruido que sean invariantes ante grupos de transformación más generales
 \cite{cohen2016group}.
 En el caso del problema de la visión 3D en su contexto más general, sabemos que
-el cambio de nuestros puntos de vista puede modelarse adecuadamente como un movimiento de cuerpo rígido.
-Sin embargo, normalmente no se desconoce el movimiento relativo exacto de nuestros ojos entre diferentes
+el cambio de posición de la cámara puede modelarse adecuadamente como un movimiento de cuerpo rígido.
+Sin embargo, normalmente se desconoce el movimiento relativo exacto de nuestros ojos entre diferentes
 vistas. En términos más generales, también podría haber
 objetos (por ejemplo, automóviles, personas, manos) que se muevan en la escena y,
 por lo general, tampoco conocemos su movimiento. ¿Cómo podemos generalizar el
@@ -3497,7 +3494,7 @@ calibrados a contextos tan generales? Más concretamente, queremos
 aprender una representación compacta $\x$ de las escenas 3D que sea
 invariante con respecto a los movimientos de la cámara o del ojo. Una vez aprendida dicha representación,
 podríamos muestrear y generar una escena 3D y renderizar imágenes o
-pares estereoscópicos a partir de poses arbitrarias.
+pares estéreo a partir de poses arbitrarias.
 
 A tal fin, cabe señalar que podemos modelar una secuencia de pares estéreo de la siguiente manera:
 \begin{equation}
@@ -3505,9 +3502,9 @@ A tal fin, cabe señalar que podemos modelar una secuencia de pares estéreo de 
 \end{equation}
 donde $h(\cdot)$ representa la función de proyección de 3D a 2D.
 $\theta^k$ denota los parámetros de movimiento de cuerpo rígido de la $k$-ésima
-vista, con respecto a algún sistema de coordenadas canónico de mundo. $\x^k$
-representa la escena 3D en el instante $k$. Si la escena es estática, $\x^k$
-debería ser siempre igual a $\x^k = \x$. Para simplificar la notación, podemos
+vista, con respecto a algún sistema de coordenadas canónico del mundo. $\x^k$
+representa la escena 3D en el instante $k$. Si la escena es estática, todos los 
+$\x^k$ deben ser iguales a $\x$. Para simplificar la notación, podemos
 denotar el conjunto de $k$ ecuaciones como una sola:
 \begin{equation}
     \Y = H(\x,\Theta).
@@ -3521,7 +3518,7 @@ conocimiento, este sigue siendo un problema abierto y complejo, que probablement
 
 \section{Resumen y Notas}
 \paragraph{Comparación de mediciones sin muestras limpias.} En nuestro desarrollo del
-muestreo condicional, consideramos la correspondencia de medidas en un modelo de observación
+muestreo condicional, consideramos el ajuste de mediciones en un modelo de observación
 \eqref{eq:measurement-matching-observation}, en el que suponemos que disponemos de
 datos emparejados $(\vx, \vy)$ --- es decir, los datos de referencia para cada observación $\vy$.
 En muchos problemas inversos de relevancia práctica, esto no es así: uno de los
@@ -3530,9 +3527,8 @@ recordamos en el \Cref{ch:classic-models}, donde necesitamos reconstruir
 $\vx$ a partir de $\vy$
 utilizando el conocimiento previo sobre $\vx$ (es decir, la esparcidad).
 En el contexto de la difusión con eliminación de ruido, tenemos acceso a una distribución a priori implícita para
-$\vx$ a través de los \textit{denoisers} aprendidos $\bar{\vx}_{\theta}(t, \vxi)$. ¿Podemos
-aún realizar
-un muestreo condicional sin tener acceso a las muestras de referencia $\vx$?
+$\vx$ a través de los \textit{denoisers} aprendidos $\bar{\vx}_{\theta}(t, \vxi)$. ¿Aún podemos
+realizar un muestreo condicional sin acceso a muestras de referencia $\vx$?
 
 Para entender intuitivamente por qué esto podría ser posible, recordemos un ejemplo clásico
 de la estadística conocido como el estimador de riesgo no sesgado de Stein (SURE).
@@ -3560,14 +3556,14 @@ estimador de riesgo no sesgado de Stein
 observe que el lado derecho se puede escribir como una expectativa con respecto a $\vx_t$ --- en
 particular, ¡el error cuadrático medio de \textit{cualquier denoiser $f$} se puede estimar
 \textit{únicamente a partir de muestras ruidosas}!
-Este hecho notable, en sus formas más refinadas, constituye la base de muchas técnicas prácticas
-para llevar a cabo la restauración de imágenes, la difusión para la eliminación de ruido, etc., utilizando
+Este hecho notable, en sus formas refinadas, constituye la base de muchas técnicas prácticas
+para llevar a cabo la restauración de imágenes, la \textit{denoising-diffusion}, etc., utilizando
 únicamente datos ruidosos: ejemplos notables son el paradigma «Noise2Noise»
 \cite{pmlr-v80-lehtinen18a}
 y Ambient Diffusion \cite{daras2023ambient}.
 
 Cabe mencionar como curiosidad que \Cref{eq:sure-risk} conduce a una prueba alternativa
-de la fórmula de Tweedie (\Cref{thm:tweedie}). A grandes rasgos, se calculan
+de la fórmula de Tweedie (\Cref{thm:tweedie}). A grandes rasgos, se toman
 las expectativas sobre $\vx$ y se expresa la parte principal del lado derecho de la
 \Cref{eq:sure-risk} de forma equivalente, mediante integración por partes, como
 \begin{eqnarray}
@@ -3591,9 +3587,9 @@ argumento puede demostrarse de manera rigurosa utilizando conceptos básicos del
 En el \Cref{example:denoising-conditional-gaussian} y, en particular, en la
 \Cref{fig:conditional_sampling_computational_gaussian}, señalamos
 una limitación de la aproximación DPS de la
-\Cref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx} cuando
-los niveles de ruido de medición son bajos.
-Esta limitación es bien conocida, y Rozet et al. han propuesto un enfoque fundamentado para mitigarla
+\Cref{eq:conditional-posterior-measurementmatching-gaussian-case-dps-approx} para
+niveles bajos de ruido de medición.
+Esta limitación es bien comprendida, y Rozet et al. han propuesto un enfoque fundamentado para mitigarla
 \cite{rozet2024learning}.
 El enfoque consiste en incorporar una estimación adicional de la varianza de
 la distribución a posteriori ruidosa $p_{\vx \mid \vx_t}$ a
@@ -3601,14 +3597,14 @@ la distribución a posteriori ruidosa $p_{\vx \mid \vx_t}$ a
 remitimos al artículo para más detalles.
 Las estimaciones naturales de la varianza a posteriori son ligeramente menos escalables que el propio DPS
 debido a la necesidad de invertir una transformación afín de la jacobiana del
-\textit{denoiser} a posteriori $\bE[\vx \mid \vx_t=\vxi]$ (una matriz de gran tamaño). Esto se lleva a cabo
+\textit{denoiser} posterior $\bE[\vx \mid \vx_t=\vxi]$ (una matriz de gran tamaño). Esto se lleva a cabo
 de manera relativamente eficiente por Rozet et al. \ \cite{rozet2024learning}
 mediante la diferenciación automática y una
 aproximación de la inversa basada en gradientes conjugados. Parece que
 sería posible mejorar aún más este enfoque (por ejemplo, utilizando ideas clásicas
 de la optimización de segundo orden).
 
-\paragraph{Más información sobre la adaptación de medidas y los modelos de difusión para problemas inversos.}
+\paragraph{Más información sobre el ajuste de mediciones y los modelos de difusión para problemas inversos.}
 
 Los modelos de difusión se han convertido en una herramienta muy popular para resolver problemas inversos
 que surgen en aplicaciones científicas. Se han desarrollado, y se siguen desarrollando, muchos más métodos además del sencillo
@@ -3622,7 +3618,7 @@ que permiten aplicar restricciones de medición específicas de forma mucho más
 rigurosa que en el DPS y los enfoques exactos que pueden evitar el uso de
 aproximaciones como en el DPS, tales como el TDS \cite{wu2023practical}.
 Para obtener más información sobre este tema, recomendamos \cite{zheng2025inversebench}, que
-sirve simultáneamente la vez como revisión exhaustiva y como un benchmark para varios métodos populares
+sirve la vez como revisión y como un benchmark para varios métodos populares
 en conjuntos de datos específicos de problemas inversos científicos.
 
 \paragraph{Historia del principio Infomax.}
@@ -3630,10 +3626,8 @@ El principio de Infomax \cite{infomax}, que presentamos en nuestro análisis sob
 el aprendizaje conjunto de incrustaciones y CLIP en la \Cref{sub:text-cond}, constituye una base bien conocida e
 importante para gran parte de la investigación moderna sobre el aprendizaje de representaciones
 no supervisado. Para más información, nos remitimos a
-\cite{Van_den_Oord2018-qf}, sobre el que se amplía nuestro análisis conceptual en
-\Cref{sub:text-cond},
-y a \cite{Oko2025-wk}, que detalla otras cuestiones teóricas importantes
-relacionadas con
+\cite{Van_den_Oord2018-qf}, sobre el cual nuestro análisis conceptual en \Cref{sub:text-cond} profundiza,
+y a \cite{Oko2025-wk}, que detalla otras cuestiones teóricas importantes relacionadas con
 la optimización de objetivos del tipo Infomax a partir de muestras finitas.
 
 \section{Ejercicios y extensiones}
@@ -3644,9 +3638,9 @@ la optimización de objetivos del tipo Infomax a partir de muestras finitas.
         \item Utilizando el código proporcionado en el GitHub del libro para implementar la
             \Cref{fig:conditional_sampling_computational_gaussian},
             implemente la
-            corrección de la varianza a posteriori propuesta por
+            correctitud de la varianza a posteriori propuesta por
             \textcite{rozet2024learning}.
-        \item Compruebe si mejora el colapso posterior en condiciones de baja varianza del ruido
+        \item Compruebe que mejora el colapso posterior en condiciones de baja varianza del ruido
             que se observa en la
             \Cref{fig:conditional_sampling_computational_gaussian}.
         \item Analice cualquier problema relacionado con la corrección del muestreo que se mantenga o

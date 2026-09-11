@@ -1406,7 +1406,7 @@ en esencia, asigna a cada clase de datos una sola palabra de código: el
 vector «one-hot» que representa cada clase. Desde el punto de vista de la compresión con pérdidas,
 un codificador de este tipo presenta demasiadas pérdidas como para conservar la información en
 la distribución de los datos. Otra información, como la que resulta útil para
-tareas tales como la segmentación de imágenes, el completamiento de imágenes o la generación de imágenes, se
+tareas tales como la segmentación de imágenes, el completado de imágenes o la generación de imágenes, se
 pierde en gran medida en un proceso de aprendizaje supervisado de este tipo.
 
 Para remediar esta situación, queremos aprender un esquema de codificación diferente
@@ -2452,7 +2452,7 @@ consistente con $\vx$, sino también mucho más {\em estructurada} que la
 distribución nativa de los datos de $\vx$: las clases son linealmente
 discriminativas. Esto haría que la representación aprendida fuera mucho más
 eficiente en su uso que la distribución nativa de los datos para tareas posteriores
-como el reconocimiento, la segmentación y el completamiento. El objetivo de reducción máxima de la tasa de codificación 
+como el reconocimiento, la segmentación y el completado. El objetivo de reducción máxima de la tasa de codificación 
 introducido es una materialización natural y computable de estos requisitos. En el
 \Cref{ch:conditional-inference}, veremos cómo generalizar este
 objetivo a un contexto mucho más amplio, en el que $\y$ podría ser un código con pérdida más general

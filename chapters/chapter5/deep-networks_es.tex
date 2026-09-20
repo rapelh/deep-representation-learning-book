@@ -1356,7 +1356,7 @@ tareas de lenguaje, cada \(\x_{i} \in \bR^{D}\) se interpreta como una
 \textit{incrustación de token}, es decir, una representación vectorial continua de
 un token discreto, como una palabra o una subpalabra.\footnote{Con un ligero
     desvío terminológico, a lo largo de este capítulo nos referiremos tanto a los tokens discretos como a sus
-    incrustaciones asociadas simplemente como «tokens» por
+    \textit{embeddings} asociados simplemente como «tokens» por
 razones de conveniencia.}  %
 Los \(\x_{i}\) pueden tener estructuras de correlación arbitrarias. Utilizamos
 \(\Z = \mat{\z_{1}, \dots, \z_{N}} \in \bR^{d \times N}\) para denotar
@@ -1371,7 +1371,7 @@ las variables aleatorias que definen nuestras representaciones, donde \(\z_{i}
     los tokens suelen ser palabras o subpalabras; en la visión artificial,
     corresponden a fragmentos de imagen; y en otras modalidades, pueden
     representar pasos de tiempo, ubicaciones espaciales u otras unidades
-    específicas del dominio. Una {\em incrustación de token} es una representación vectorial continua
+    específicas del dominio. Un {\em \textit{embedding} de token} es una representación vectorial continua
     de un token que sirve como entrada para un
     transformer. Asigna a cada token un punto en un espacio de alta dimensión,
     lo que permite al modelo procesar entradas simbólicas mediante
@@ -2152,7 +2152,7 @@ lingüísticas, incorporamos además LayerNorm antes del operador MSSA
 para mejorar el rendimiento. La arquitectura completa se construye
 apilando dichas capas, junto con pasos esenciales de preprocesamiento
 y posprocesamiento específicos de la tarea, tales como la codificación
-posicional, la incrustación de tokens y una cabeza final específica de la tarea para adaptarse a
+posicional, el \textit{embedding} de tokens y una cabeza final específica de la tarea para adaptarse a
 diferentes aplicaciones. La \Cref{tab:aot_vision} muestra el rendimiento de 
 este transformer minimalista en la clasificación
 de imágenes; el rendimiento es razonable, a pesar de su diseño
@@ -2605,7 +2605,7 @@ del \Cref{ch:intro}, decimos que un codificador \(f\) es
 \end{align}
 donde \(\vZ_{1:N-1} = [\vz_{1}, \dots, \vz_{N-1}]\), etc. En español,
 esto significa que las primeras \(N-1\) características son iguales a la salida del
-codificador sobre las primeras \(N-1\) incrustaciones de tokens de la entrada; dicho de manera aún
+codificador sobre los primeros \(N-1\) \textit{embeddings} de tokens de la entrada; dicho de manera aún
 más sencilla, significa que podemos calcular las características de cada token
 \textit{una por una} y esto sería equivalente a calcular las
 características de toda la entrada. Esta causalidad es necesaria para las

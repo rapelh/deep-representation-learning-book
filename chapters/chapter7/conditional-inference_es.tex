@@ -2498,7 +2498,7 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
         $\vU_{[K]}$, conocida en la teoría del \textit{compressive sensing}
     \cite{Wright-Ma-2022}.}
 
-    Estos vectores $\vv_k$ pueden considerarse entonces como \textit{incrustaciones} de la
+    Estos vectores $\vv_k$ pueden considerarse entonces como \textit{embeddings} de la
     etiqueta de clase $y \in [K]$ y podemos utilizarlos para definir un operador más
     general
     capaz de representar tanto los \textit{denoisers} incondicionales como los condicionales a la clase.
@@ -2523,7 +2523,7 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     \textit{denoiser} incondicional óptimo para $\vx_t$.
     Por otro lado,
     si sustituimos $\vv = \vv_y$ por algún $y \in [K]$, obtenemos
-    por la construcción de los vectores de incrustación $\vv_k$
+    por la construcción de los vectores de \textit{embedding} $\vv_k$
     \begin{eqnarray}
         &&\sum_{k = 1}^{K}
         \frac{
@@ -2615,13 +2615,13 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     y las propiedades de la distribución gaussiana implican nuevamente que
     $\norm{\vx_t}_2$ se concentrará en torno a $\sqrt{P + t^2 D}$ con
     una probabilidad abrumadora.
-    Por lo tanto, es conveniente renormalizar las incrustaciones $\vv_y$ de modo que su
+    Por lo tanto, es conveniente renormalizar los \textit{embeddings} $\vv_y$ de modo que su
     producto escalar con $\vx_t$ tenga la misma escala: definiendo
     \begin{equation*}
         \vv_{t, y} = \frac{(P + t^2 D)}{\sqrt{(2/\pi)(1 + t^2)}}
         \frac{\vv_y}{\norm{\vv_y}_2}
     \end{equation*}
-    para las incrustaciones normalizadas, nuestro razonamiento anterior implica
+    para los \textit{embeddings} normalizadas, nuestro razonamiento anterior implica
     \begin{equation*}
         \abs*{\vx_t^\top \vv_{t,y}}
         \approx
@@ -2675,8 +2675,8 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
         \vU_{y}\vU_{y}^{\top}\vx_t.
     \end{equation}
     En otras palabras, \textbf{al evaluar el operador
-        \eqref{eq:mog-conditional-denoising-unified-operator} en la
-        incrustación de
+        \eqref{eq:mog-conditional-denoising-unified-operator} en el
+        \textit{embedding} de
     una clase $\vv_{t, y}$ ¡se obtiene el \textit{denoiser} condicionado a la clase para $y$!}
     % This argument shows that the operator
     % \eqref{eq:mog-conditional-denoising-unified-operator} is, with
@@ -2704,7 +2704,7 @@ una estructura de baja dimensión, nuevamente en el modelo de mezcla gaussiana.
     El operador resultante
     es una función de $(t, \vx_t, y)$, y computacionalmente,
     los subespacios
-    $(\vU_k)_{k=1}^K$ y las incrustaciones $y \mapsto \vv_{t, y}$ se convierten en sus parámetros
+    $(\vU_k)_{k=1}^K$ y los \textit{embeddings} $y \mapsto \vv_{t, y}$ se convierten en sus parámetros
     aprendibles.
 \end{example}
 
@@ -2731,7 +2731,7 @@ una guía sin clasificador.
 % where one network is to be used to represent both the
 % unconditional and class-conditional denoisers for $\vx_t$.
 Para tales operadores,
-la entrada auxiliar $\vv$ puede tomarse como $\vx_t$ o como una incrustación adecuada
+la entrada auxiliar $\vv$ puede tomarse como $\vx_t$ o como un \textit{embedding} adecuado
 de la etiqueta de clase $y \mapsto \vv_y$ con el fin de realizar dicho \textit{denoiser}; tal y como
 muestra el ejemplo, el \textit{denoiser} ideal es una suma ponderada de dichos operadores, con
 pesos derivados de la intensidad de la guía $\gamma>1$.
@@ -2923,7 +2923,7 @@ ejemplo, ¡basta con tomar $f(\vx) = \vx$ como la identidad!
 Analizamos técnicas basadas en principios para estructurar el espacio de representaciones en el
 \Cref{ch:consistent-representations} cuando tratamos el tema de la autocodificación y la transcripción en
 bucle cerrado; muchas de estas técnicas pueden aplicarse a nuestro
-actual contexto de incrustación conjunta y lo detallaremos más adelante en esta
+actual contexto de \textit{embedding} conjunto y lo detallaremos más adelante en esta
 sección, cuando pasemos a la implementación práctica.
 
 \paragraph{Incrustación conjunta con el principio de Infomax.}
@@ -2946,19 +2946,19 @@ a través de nuestro trabajo en el
 que, en el caso de un modelo de mezcla de gaussianas para $\vx$, con la
 señal de condicionamiento $y$ identificando qué componente específica de la mezcla genera
 la observación, se podría construir una arquitectura flexible de \textit{denoiser} mediante
-una incrustación adecuada de la etiqueta de clase $y$ en el \textit{mismo espacio} que los
+un \textit{embedding} adecuado de la etiqueta de clase $y$ en el \textit{mismo espacio} que los
 datos $\vx$.
-Más concretamente, una incrustación de este tipo $\vu_y \in \R^D$ permite, cuando se correlaciona
-con las incrustaciones $\vU_{\vx}$ de $\vx \in \R^D$ (generalmente una
+Más concretamente, un \textit{embedding} de este tipo $\vu_y \in \R^D$ permite, cuando se correlaciona
+con los \textit{embeddings} $\vU_{\vx}$ de $\vx \in \R^D$ (generalmente una
 matriz) mediante $\vu_y^\top
-\vU_{\vx}$, «seleccionar» únicamente las incrustaciones relevantes para la componente de mezcla
+\vU_{\vx}$, «seleccionar» únicamente los \textit{embeddings} relevantes para la componente de mezcla
 correcta de la distribución.
 Cómo diseñar exactamente estas capas para su uso en redes neuronales que se entrenan con
 datos no lineales de alta dimensión
 más complejos es una cuestión difícil
 que profundizaremos con
-más detalle a continuación. Pero hay una condición necesaria que está clara: las incrustaciones
-$f$ y $g$ deben mapear sus entradas a un \textit{espacio de incrustación común}, por ejemplo
+más detalle a continuación. Pero hay una condición necesaria que está clara: los \textit{embeddings}
+$f$ y $g$ deben mapear sus entradas a un \textit{espacio de \textit{embedding} común}, por ejemplo
 $\R^d$, para facilitar la comparación posterior al realizar el muestreo
 condicional.
 Esto nos lleva al objetivo
@@ -2974,7 +2974,7 @@ a gran escala.
 \subsubsection{Guía práctica para el aprendizaje de representaciones conjuntas: CLIP}
 
 Una implementación concreta y muy influyente del aprendizaje de
-incrustaciones conjuntas para datos emparejados es el método de
+\textit{embeddings} conjuntos para datos emparejados es el método de
 preentrenamiento contrastivo de lenguaje e imagen (CLIP) \cite{radford2021learning}.
 Tomemos el caso simple de pares de imagen-texto $[(\x_i, \y_i)]_{i=1}^N$
 muestreados de un conjunto de datos $\mathcal{D}$, donde $\x_i$ es una imagen y
@@ -3015,7 +3015,7 @@ del texto:\footnote{Este resultado se cumple bajo el supuesto de que los
 
 Por lo tanto, CLIP ofrece una receta práctica para aprender representaciones conjuntas de datos emparejados
 que aumenta la información mutua entre las muestras emparejadas.
-Empíricamente, se ha demostrado que CLIP es eficaz para aprender incrustaciones conjuntas
+Empíricamente, se ha demostrado que CLIP es eficaz para aprender \textit{embeddings} conjuntos
 para pares de imagen-texto y se ha utilizado en una variedad de aplicaciones, incluyendo
 la generación de leyendas de imágenes, la recuperación de imagen-texto, la generación de imágenes y más. Veremos
 ejemplos más específicos en el \Cref{ch:applications} (con detalles clave de implementación
@@ -3045,7 +3045,7 @@ que recuerdan al operador de mezcla de gaussianas
 Estas técnicas
 constituyeron la base de la implementación original de código abierto de Stable Diffusion
 \cite{rombach2022high},
-en la que la incrustación y el condicionamiento posterior no se realizan sobre
+en la que el \textit{embedding} y el condicionamiento posterior no se realizan sobre
 una etiqueta de clase, sino sobre un \textit{prompt} de texto que describe el contenido deseado de la imagen
 (\Cref{fig:text-to-image}).
 En esta sección se ofrece una visión general de alto nivel sobre la generación de imágenes al estilo de Stable Diffusion.
@@ -3137,7 +3137,7 @@ una capa conocida como «atención cruzada», inspirada en la arquitectura origi
 de \textcite{vaswani2017attention}. La atención cruzada se
 implementa de la siguiente manera. Sea $\tau : \bR^{D_{\mathrm{text}} \times N} \to
 \bR^{d_{\mathrm{model}} \times N_{\mathrm{text}}}$
-una red de codificación para las incrustaciones de texto (a menudo un
+una red de codificación para los \textit{embeddings} de texto (a menudo un
 transformer causal --- véase la \Cref{sec:clm_text}), y sea $\psi : \bR^{d_{\mathrm{img}}}
 \to \bR^{d_{\mathrm{model}} \times N_{\mathrm{img}}}$ la
 correspondencia de una de
@@ -3169,8 +3169,8 @@ d_{\mathrm{attn}} }$ para $* \in \set{\mathrm{qry}, \mathrm{key}, \mathrm{val}}$
 aprendibles de la capa.
 
 Obsérvese que, según la definición de la operación de autoatención, la operación de atención cruzada
-\textit{genera combinaciones lineales de las proyecciones de valor de las incrustaciones de texto,
-ponderadas por las correlaciones entre las características de la imagen y las incrustaciones de texto.}
+\textit{genera combinaciones lineales de las proyecciones de valor de los \textit{embeddings} de texto,
+ponderadas por las correlaciones entre las características de la imagen y los \textit{embeddings} de texto.}
 En la arquitectura del \textit{denoiser} utilizada por \textcite{rombach2022high},
 los bloques residuales de autoatención de la arquitectura del \textit{denoiser}, aplicados a la
 representación de la imagen en la capa actual y definidos de manera análoga
@@ -3179,10 +3179,10 @@ seguidos de bloques residuales de atención cruzada
 de la forma \eqref{eq:mhca}.
 Una estructura de este tipo requiere que el codificador de texto $\tau$ comparta, en cierto
 sentido, parte de la
-estructura de su salida con la incrustación de características de la imagen $\psi$: esto se puede
-lograr mediante una incrustación conjunta,
+estructura de su salida con el \textit{embedding} de características de la imagen $\psi$: esto se puede
+lograr mediante un \textit{embedding} conjunto,
 aprendida mediante un procedimiento como CLIP, tal y como se ha descrito anteriormente.
-Desde el punto de vista conceptual, este espacio de incrustación conjunta de texto e imagen y la propia capa de atención cruzada
+Desde el punto de vista conceptual, este espacio de \textit{embedding} conjunto de texto e imagen y la propia capa de atención cruzada
 presentan un gran parecido con el
 \textit{denoiser} de mezcla condicional de gaussianas que derivamos en la sección anterior
 (recuérdese \eqref{eq:mog-conditional-denoising-unified-operator}), en el
@@ -3623,7 +3623,7 @@ en conjuntos de datos específicos de problemas inversos científicos.
 
 \paragraph{Historia del principio Infomax.}
 El principio de Infomax \cite{infomax}, que presentamos en nuestro análisis sobre
-el aprendizaje conjunto de incrustaciones y CLIP en la \Cref{sub:text-cond}, constituye una base bien conocida e
+el aprendizaje conjunto de \textit{embeddings} y CLIP en la \Cref{sub:text-cond}, constituye una base bien conocida e
 importante para gran parte de la investigación moderna sobre el aprendizaje de representaciones
 no supervisado. Para más información, nos remitimos a
 \cite{Van_den_Oord2018-qf}, sobre el cual nuestro análisis conceptual en \Cref{sub:text-cond} profundiza,

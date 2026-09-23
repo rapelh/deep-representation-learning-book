@@ -7,22 +7,22 @@
 \label{app:optimization}
 
 \begin{quote}
-    ``{\em Puesto que la estructura del universo es sumamente perfecta y es obra 
-        de un Creador sumamente sabio, no ocurre absolutamente nada en el universo 
-        en lo que no se manifieste alguna regla de máximo o mínimo.}''
+    ``{\em Puesto que la estructura del universo es perfecta y es obra 
+        del un Creador de sabiduría, no ocurre nada en el universo 
+        en lo que no se manifieste el sentido de algún máximo o mínimo.}''
 
     $~$\hfill -- L. Euler
 \end{quote}
 \vspace{5mm}
 
-En este capítulo, ofrecemos una breve introducción a algunos de los
+En este capítulo, damos una breve introducción a algunos de los
 algoritmos de optimización más básicos pero importantes que se utilizan en este libro. El
 objetivo es únicamente ayudar al lector a aplicar estos algoritmos a los problemas
 que se estudian en este libro, no adquirir una comprensión profunda de dichos
 algoritmos. Por lo tanto, no proporcionaremos una justificación exhaustiva de
 los algoritmos presentados en términos de garantías de rendimiento.
 
-\section{Descenso por gradiente más pronunciado}
+\section{Descenso por gradiente más empinado}
 
 La optimización se ocupa de la cuestión de cómo determinar en qué punto una
 función, por ejemplo \(\cL(\theta)\), alcanza su valor mínimo.
@@ -56,12 +56,12 @@ esta sección solo utilizan un oráculo de primer orden.\footnote{Remitimos a lo
     a los algoritmos de optimización en un espacio de alta dimensión,
 incluidos los algoritmos que asumen oráculos de orden superior.}
 
-\subsection{Descenso por gradiente clásico para problemas suaves}
+\subsection{Descenso por gradiente estándar para problemas suaves}
 
 El método más sencillo y más utilizado para la optimización es
 el \textit{descenso por gradiente} (GD). Fue introducido por primera vez por Cauchy en
 1847. La idea es muy sencilla: partiendo de un estado inicial,
-damos pequeños pasos en forma iterativa, de modo que cada paso reduzca el valor de
+damos pequeños pasos iterativamente, de modo que cada paso reduzca el valor de
 la función \(\cL(\theta)\).
 
 Supongamos que el estado actual es \(\theta\). Queremos dar un pequeño
@@ -83,7 +83,7 @@ minimizar esta expansión de Taylor entre los vectores unitarios \(\vv\). Si
 \(\nabla \cL(\theta) = \vzero\), entonces el segundo término anterior es \(0\)
 independientemente del valor de \(\vv\), por lo que no podemos intentar
 avanzar, es decir, el algoritmo ha convergido. Por otro lado, si
-\(\nabla \cL(\theta) \neq 0\), entonces se cumple que
+\(\nabla \cL(\theta) \neq \vzero\), entonces se cumple que
 \begin{equation}\label{eq:steepest_descent_l2_norm}
     \argmin_{\substack{\vv \in \R^{d} \\ \norm{\vv}_{2} = 1}}
     [\cL(\theta) + h\ip{\nabla \cL(\theta)}{\vv}] =
@@ -95,17 +95,17 @@ En otras palabras, esto significa que el valor de \(\cL(\theta + h\vv)\)
 disminuye más rápidamente en la dirección \(\vv = -\nabla \cL(\theta)
 / \norm{\nabla \cL(\theta)}_{2}\), para valores de \(h\) suficientemente pequeños. Esto conduce
 al método de descenso por gradiente: a partir del estado actual \(\theta_{k}\)
-(\(k=0, 1, \ldots\)), damos un paso de tamaño \(h\) en la dirección
+(\(k=0, 1, \ldots\)), se da un paso de tamaño \(h\) en la dirección
 del gradiente negativo para llegar a la siguiente iteración,
 \begin{equation}
     \theta_{k+1} = \theta_{k} - h \nabla \cL(\theta_{k}).
 \end{equation}
-La magnitud del paso \(h\) también se conoce como \textit{tasa de aprendizaje} en
+El tamaño del paso \(h\) también se conoce como \textit{tasa de aprendizaje} en
 los contextos de aprendizaje automático.
 
-\subsubsection{Selección de la magnitud del paso}
+\subsubsection{Selección del paso}
 
-La pregunta que queda por resolver es: ¿cuál debe ser la magnitud del paso \(h\)? Si
+La pregunta que queda por resolver es: ¿cuál debe ser el paso \(h\)? Si
 elegimos un \(h\) demasiado pequeño, el valor de la función puede disminuir
 muy lentamente, como se muestra en el gráfico del centro de
 \Cref{fig:step-size}. Si \(h\) es demasiado grande, es posible que el valor ni siquiera
@@ -118,14 +118,14 @@ disminuya, como lo muestra el gráfico de la derecha en la \Cref{fig:step-size}.
     \includegraphics[height=3.5cm]{\toplevelprefix/chapters/appendixA/figs/GD-2.png}
     \hspace{3mm}
     \includegraphics[height=3.5cm]{\toplevelprefix/chapters/appendixA/figs/GD-3.png}
-    \caption{El efecto del tamaño de paso (constante) \(h\) en la
+    \caption{El efecto del tamaño de paso (constante) \(h\) sobre la
     convergencia del método de descenso del gradiente.}
     \label{fig:step-size}
 \end{figure}
 
-Por lo tanto, la magnitud del paso \(h\) debe elegirse en función del paisaje de la
-función \(\cL(\theta_{k})\). Lo ideal, para elegir el mejor tamaño de paso
-\(h\), es resolver el siguiente problema de optimización sobre una sola
+Por lo tanto, el tamaño de paso \(h\) debe elegirse en función del paisaje de la
+función \(\cL(\theta_{k})\). Para elegir el mejor tamaño de paso
+\(h\), podemos resolver el siguiente problema de optimización sobre una sola
 variable \(h\):
 \begin{equation}
     h = \argmin_{h^{\prime} \geq 0} \cL(\theta_{k} - h^{\prime}\nabla
@@ -138,7 +138,7 @@ función \(\cL(\theta_{k})\) es complicada, lo cual suele ser el
 caso al entrenar una red neuronal profunda, esta optimización unidimensional
 es muy difícil de resolver en cada iteración del descenso del gradiente.
 
-Entonces, ¿cómo debemos elegir un tamaño de paso adecuado \(h\)? Un enfoque común y
+Entonces, ¿cómo deberíamos elegir un tamaño de paso adecuado \(h\)? Un enfoque común y
 clásico consiste en intentar obtener una buena aproximación del
 paisaje local alrededor del estado actual \(\theta\) basándose en cierto
 conocimiento sobre el paisaje general de la función \(\cL(\theta)\).
@@ -167,7 +167,7 @@ conocimiento sobre el paisaje general de la función \(\cL(\theta)\).
     \end{tikzpicture}
     \caption{\small\textbf{Esquema e intuición de mayorización-minimización.} 
         Una función \(\cL \colon \Theta \to \R\) tiene una
-        cota superior global \(u \colon \Theta \to \R\) que se cruza con \(\cL\) en
+        cota superior global \(u \colon \Theta \to \R\) que toca a \(\cL\) en
         al menos un punto \(\theta\). Entonces, encontrar el \(\theta^{\prime}\)
         que minimiza \(u\) mejorará el valor de \(\cL\) a partir de
         \(\cL(\theta)\). Obsérvese que se pueden demostrar resultados similares sobre
@@ -175,10 +175,10 @@ conocimiento sobre el paisaje general de la función \(\cL(\theta)\).
     \label{fig:majorization_minimization}
 \end{figure}
 
-Entre las condiciones comunes para el conjunto de definiciones de \(\cL(\theta)\) se cuentan:
+Entre las condiciones comunes para el paisaje de \(\cL(\theta)\) se cuentan:
 \begin{itemize}
     \item Convexidad \(\alpha\)-fuerte. Recordemos que \(\cL\) es
-        \textit{\(\alpha\)-fuertemente convexa} si su gráfica se encuentra por encima de una
+        \textit{\(\alpha\)-fuertemente convexa} si su gráfica está por encima de una
         cota inferior cuadrática global de pendiente \(\alpha\), es decir,
         \begin{equation}
             \cL(\theta^{\prime}) \geq l_{\theta,
@@ -187,18 +187,18 @@ Entre las condiciones comunes para el conjunto de definiciones de \(\cL(\theta)\
             \frac{\alpha}{2}\norm{\theta^{\prime} - \theta}_{2}^{2}
         \end{equation}
         para cualquier «punto base» \(\theta\). Decimos que \(\cL\) es
-        \textit{convexa} si es fuertemente convexa en \(0\), es decir, si su
+        \textit{convexa} si es \(0\)-fuertemente convexa, es decir, si su
         gráfico se encuentra por encima de sus tangentes. Es fácil demostrar (la demostración se deja como
         ejercicio) que las funciones fuertemente convexas tienen un único mínimo global.
         Otro hecho importante (demostración como ejercicio) es que
-        las funciones dos veces diferenciables y fuertemente convexas en \(\alpha\)
+        las funciones dos veces diferenciables y \(\alpha\)-fuertemente convexas 
         \(\cL\) tienen Hessianos (simétricos) \(\nabla^{2}\cL\) cuyo
         valor propio mínimo es \(\geq \alpha\). Para \(\alpha > 0\)
         esto implica que la matriz hessiana es simétrica y definida positiva, y
-        para \(\alpha = 0\) (es decir, \(\cL\) es convexo) esto implica
+        para \(\alpha = 0\) (es decir, \(\cL\) es convexa) esto implica
         que la matriz hessiana es simétrica y semidefinida positiva.
     \item Gradiente \(\beta\)-Lipschitz (también denominado
-        suavidad \(\beta\)). Recordemos que \(\cL\) tiene
+        \(\beta\)-suavidad). Recordemos que \(\cL\) tiene
         un \textit{\(\beta\)-gradiente Lipschitz} si \(\nabla \cL\)
         existe y es \(\beta\)-Lipschitz, es decir,
         \begin{equation}
@@ -215,8 +215,8 @@ Entre las condiciones comunes para el conjunto de definiciones de \(\cL(\theta)\
             \frac{\beta}{2}\norm{\theta^{\prime} - \theta}_{2}^{2}.
         \end{equation}
         para cualquier «punto base» \(\theta\). Otro hecho importante
-        (demostración como ejercicio) es que las funciones convexas \(\beta\)-Lipschitz
-        con gradiente dos veces diferenciable tienen hessianas (simétricas)
+        (demostración como ejercicio) es que las funciones convexas dos veces diferenciables con gradiente \(\beta\)-Lipschitz
+        tienen hessianas (simétricas)
         \(\nabla^{2}\cL\) cuyo mayor valor propio es \(\leq \beta\).
 \end{itemize}
 En primer lugar, supongamos que \(\cL\) tiene un gradiente \(\beta\)-Lipschitz
@@ -239,7 +239,7 @@ siguiente lema visualizado en la \Cref{fig:majorization_minimization}.
 Utilizaremos este lema para demostrar que podemos recurrir a la propiedad Lipschitz del gradiente 
 para garantizar que cada paso del gradiente no empeore el valor de
 \(\cL\). De hecho, en cada punto base \(\theta\), tenemos que
-\(u_{\theta, \beta}\) es un límite superior global de \(\cL\), y
+\(u_{\theta, \beta}\) es una cota superior global de \(\cL\), y
 \(u_{\theta, \beta}(\theta) = \cL(\theta)\). Por lo tanto, por el
 \Cref{lem:majorization_minimization}
 \begin{equation}
@@ -248,9 +248,9 @@ para garantizar que cada paso del gradiente no empeore el valor de
     u_{\theta, \beta}(\theta) = \cL(\theta).
 \end{equation}
 Esto nos lleva a que, al buscar una actualización para obtener \(\theta_{k +
-1}\) a partir de \(\theta_{k}\), podamos, en su lugar, minimizar el límite superior
+1}\) a partir de \(\theta_{k}\), podamos, en su lugar, minimizar la cota superior
 \(u_{\theta_{k}, \beta}\) sobre \(\theta\) y establecer que ese valor sea
-\(\theta_{k + 1}\). Al minimizar \(u_{\theta_{k}, \beta}\) (demostración como
+\(\theta_{k + 1}\). Al minimizar \(u_{\theta_{k}, \beta}\) (la demostración se deja como
 ejercicio) obtenemos
 \begin{equation}\label{eq:GD}
     \theta_{k + 1} = \theta_{k} - \frac{1}{\beta}\nabla
@@ -259,7 +259,7 @@ ejercicio) obtenemos
 Esto implica que un tamaño de paso \(h = 1/\beta\) es una tasa de aprendizaje
 válida, pero no proporciona una tasa de convergencia ni garantiza que
 \(\cL(\theta_{k})\) converja realmente a \(\min_{\theta}\cL(\theta)\).
-Esto requiere un poco más de rigor, lo que abordaremos a continuación.
+Esto requiere algo más de rigor, lo que abordaremos a continuación.
 
 Ahora, supongamos que \(\cL\) es \(\alpha\)-fuertemente convexa, tiene
 un gradiente \(\beta\)-Lipschitz y posee un óptimo global
@@ -269,10 +269,10 @@ forma muy fuerte de convergencia. En particular, acotaremos
 \(\norm{\theta^{\star} - \theta_{k}}_{2}\) utilizando tanto la
 convexidad fuerte como la propiedad de Lipschitz del gradiente de \(\cL\), es decir,
 analizando el entorno alrededor de \(\theta_{k}\):\footnote{En esta
-    demostración, el paso en el que se recurre al gradiente \(\beta\)-Lipschitz es un poco
+    demostración, el paso en que se invoca la propiedad del gradiente \(\beta\)-Lipschitz es un poco
     complicado. También dejamos este paso como ejercicio, con la pista de
     sustituir \(\theta = \theta_{0} - h\nabla \cL(\theta_{0})\) en la
-    identidad del gradiente de Lipschitz.}
+    identidad del gradiente Lipschitz.}
 \begin{align}
     \norm{\theta^{\star} - \theta_{k + 1}}_{2}^{2}
     &\leq \norm{\theta^{\star} - \theta_{k} + h\nabla
@@ -295,7 +295,7 @@ analizando el entorno alrededor de \(\theta_{k}\):\footnote{En esta
     2h(1 - \beta h)(\cL(\theta_{k}) - \cL(\theta^{\star})).
 \end{align}
 Para garantizar que la iteración del descenso por gradiente avance,
-debemos elegir el tamaño del paso de tal manera que \(1 - \beta h \geq 0\), es decir, \(h
+debemos elegir el tamaño del paso de modo que \(1 - \beta h \geq 0\), es decir, \(h
 \leq 1/\beta\). Si se da esta condición, entonces
 \begin{align}
     \norm{\theta^{\star} - \theta_{k + 1}}_{2}^{2}
@@ -304,13 +304,13 @@ debemos elegir el tamaño del paso de tal manera que \(1 - \beta h \geq 0\), es 
     1}}_{2}^{2} \leq \cdots \\
     &\leq (1 - \alpha h)^{k + 1}\norm{\theta^{\star} - \theta_{0}}_{2}^{2}.
 \end{align}
-Para simplificar el lado derecho, podemos poner \(h = 1/\beta\),
+Para minimizar el lado derecho de la desigualdad, podemos tomar \(h = 1/\beta\),
 lo que nos da
 \begin{equation}
     \norm{\theta^{\star} - \theta_{k + 1}}_{2}^{2} \leq (1 -
     \alpha/\beta)^{k + 1}\norm{\theta^{\star} - \theta_{0}}_{2}^{2},
 \end{equation}
-que muestra una convergencia exponencial hacia el óptimo global con un error que decrece exponencialmente.
+que muestra una convergencia hacia el óptimo global con un error que decrece a ritmo exponencial.
 Obsérvese que aquí hemos utilizado una tasa de convergencia para obtener un
 \textit{tamaño de paso} adecuado de \(h = 1/\beta\). Este patrón
 volverá a aparecer en esta sección.
@@ -334,18 +334,18 @@ del óptimo.
         seguir el campo vectorial del gradiente negativo apenas permite
         avanzar hacia el mínimo, pero en todos los casos, seguir
         el campo vectorial del método de Newton permite avanzar al mismo ritmo
-        hacia el óptimo, ya que el gradiente se ha «blanqueado». Dado que
+        hacia el punto óptimo, ya que el gradiente se ha «blanqueado». Dado que
         el hessiano en este caso es diagonal, los algoritmos de tasa de aprendizaje adaptativa
         (por ejemplo, Adam, como se verá más adelante en esta sección) pueden lograr
-        un progreso similar al del método de Newton, pero un hessiano no alineado con el eje
-    podría incluso impedir que Adam alcance el éxito rápidamente.}
+        un progreso similar al del método de Newton, pero un hessiano no alineado con los ejes
+    podría incluso impedir que Adam logre converger rápidamente.}
     \label{fig:hessian_geometry}
 \end{figure}
 
 \subsubsection{Método de Newton}
 
-Hay algunos problemas suaves y otros fuertemente convexos en los que,
-sin embargo, el descenso por gradiente obtiene resultados poco satisfactorios. Por ejemplo, sea
+Hay algunos problemas suaves y fuertemente convexos en los que,
+sin embargo, el descenso por gradiente rinde bastante mal. Por ejemplo, sea
 \(\lambda \geq 0\) y sea \(\cL_{\lambda} \colon \R^{2} \to \R\) de la siguiente forma
 \begin{equation}
     \cL_{\lambda}(\theta) = \cL_{\lambda}\rp{\mat{\theta_{1}
@@ -354,19 +354,19 @@ sin embargo, el descenso por gradiente obtiene resultados poco satisfactorios. P
     + \lambda & 0 \\ 0 & 1}\theta.
 \end{equation}
 Este problema es \(1\)-fuertemente convexo y tiene un gradiente \((1 +
-\lambda)\)-Lipschitz. Por lo tanto, la tasa de convergencia es geométrica
+\lambda)\)-Lipschitz. Por lo tanto, la convergencia es geométrica
 con una tasa de \(1 - 1/(1 + \lambda)\). Para valores grandes de \(\lambda\), esto
 sigue sin ser muy rápido. En esta sección, presentaremos una clase de
 problemas de optimización que pueden optimizar con éxito este tipo de
 funciones mal condicionadas.
 
 La clave reside en la \textit{curvatura} del objetivo, que viene dada por
-la matriz hessiana. Supongamos (a modo de hipótesis) que tuviéramos un
+la matriz hessiana. Supongamos (como contrafactual) que tuviéramos un
 oráculo de \textit{segundo orden} que nos permitiera calcular
 \(\cL(\theta)\), \(\nabla \cL(\theta)\) y
 \(\nabla^{2}\cL(\theta)\). Entonces, en lugar de elegir una dirección de descenso
-\(\vv\) para optimizar la expansión de Taylor de primer orden alrededor de
-\(\theta\), podríamos optimizar la expansión de Taylor de segundo orden
+\(\vv\) para optimizar el desarrollo de Taylor de primer orden alrededor de
+\(\theta\), podríamos optimizar el desarrollo de Taylor de segundo orden
 en su lugar. Intuitivamente, esto nos permitiría incorporar información sobre la curvatura
 en la actualización.
 
@@ -376,7 +376,7 @@ de \(\cL(\theta + h\vv)\) en torno a \(h = 0\) es
     \cL(\theta + h\vv) = \cL(\theta) + h\ip{\nabla \cL(\theta)}{\vv}
     + \frac{1}{2}h^{2}\ip{[\nabla^{2}\cL(\theta)]\vv}{\vv} + o(h^{2}).
 \end{equation}
-Entonces podemos calcular la dirección de descenso:
+Luego podemos calcular la dirección de descenso:
 \begin{align}
     & \argmin_{\substack{\vv \in \R^{n} \\ \norm{\vv}_{2} =
     1}}\bs{\cL(\theta) + h\ip{\nabla \cL(\theta)}{\vv} +
@@ -385,10 +385,10 @@ Entonces podemos calcular la dirección de descenso:
     1}}\bs{\ip{\nabla \cL(\theta)}{\vv} +
     \frac{1}{2}h\ip{[\nabla^{2}\cL(\theta)]\vv}{\vv}}.
 \end{align}
-Este problema de optimización resulta complicado de resolver debido a
-la restricción \(\norm{\vv}_{2} = 1\). Pero, en la práctica, nunca
-normalizamos la dirección de descenso \(\vv\) y utilizamos el tamaño del paso \(h\)
-para controlar la magnitud de la actualización. Así que resolvamos simplemente el problema anterior
+Este problema de optimización resulta un tanto difícil de resolver debido a
+la restricción \(\norm{\vv}_{2} = 1\). Sin embargo, en la práctica no
+normalizamos la dirección de descenso \(\vv\); en su lugar, utilizamos el tamaño del paso \(h\)
+para controlar la magnitud de la actualización. Por lo tanto, resolvamos simplemente el problema anterior
 para todos los vectores \(\vv \in \R^{n}\):\footnote{Si
     \(\nabla^{2}\cL(\theta)\) no es invertible, entonces podemos sustituir
     \([\nabla^{2}\cL(\theta)]^{-1}\) por la pseudoinversa de Moore-Penrose
@@ -398,7 +398,7 @@ de \(\nabla^{2}\cL(\theta)\).}
     \frac{1}{2}h\ip{[\nabla^{2}\cL(\theta)]\vv}{\vv}} =
     -\frac{1}{h}[\nabla^{2}\cL(\theta)]^{-1}[\nabla \cL(\theta)].
 \end{equation}
-Por lo tanto, podemos utilizar la iteración del gradiente máximo
+Por lo tanto, podemos utilizar la iteración de descenso más pronunciado
 \begin{equation}
     \theta_{k + 1} = \theta_{k} -
     [\nabla^{2}\cL(\theta_{k})]^{-1}[\nabla \cL(\theta_{k})],
@@ -409,7 +409,7 @@ Por lo tanto, podemos utilizar la iteración del gradiente máximo
     h[\nabla^{2}\cL(\theta_{k})]^{-1}[\nabla \cL(\theta_{k})],
 \end{equation}
 (conocido como \textit{método de Newton subamortiguado}). Dado que
-el término cuadrático de segundo orden \(\cL_{\lambda}\) es igual a su, 
+el término cuadrático de segundo orden \(\cL_{\lambda}\) es igual a su desarrollo de Taylor de segundo orden, 
 si aplicamos el método de Newton durante \textit{un paso},
 alcanzaremos el mínimo global en \textit{un paso} sin importar cuán
 grande sea \(\lambda\). La \Cref{fig:hessian_geometry} ofrece una
@@ -420,7 +420,7 @@ frente a los pasos de Newton.
 
 En la práctica, \textit{no} disponemos de un oráculo de segundo orden que
 nos permita calcular \(\nabla^{2}\cL(\theta)\). En su lugar, podemos
-intentar \textit{aprender una aproximación de este} junto con la
+intentar \textit{aprender una aproximación a este} junto con la
 actualización del parámetro \(\theta_{k + 1}\) a partir de \(\theta_{k}\).
 
 ¿Cómo podemos obtener una aproximación a ella? Encontraremos algunas ecuaciones
@@ -433,12 +433,12 @@ punto \(\theta\), obtenemos
     \cL(\theta)}_{\doteq \delta_{\vg}} = [\nabla^{2}
     \cL(\theta)]\delta_{\theta} + o(\norm{\delta_{\theta}}_{2}).
 \end{equation}
-En este caso tenemos
+En este caso tenemos que
 \begin{equation}
     \delta_{\vg} \approx [\nabla^{2}\cL(\theta)]\delta_{\theta}
     \implies \delta_{\theta} \approx [\nabla^{2}\cL(\theta)]^{-1}\delta_{\vg}
 \end{equation}
-Ahora podemos intentar encontrar una matriz precondicionadora simétrica semidefinida positiva
+Ahora podemos intentar aprender una matriz precondicionadora simétrica semidefinida positiva
 \(P \in \R^{n \times n}\) tal que
 \begin{equation}
     \delta_{\theta} \approx P\delta_{\vg},
@@ -458,11 +458,11 @@ ya dijimos que no podemos almacenar una matriz \(n \times n\)) y cómo podemos
 relacionadas; nunca podemos materializar \(P\) en la memoria de la computadora, pero
 podemos representarla utilizando una factorización de rango bajo (o métodos comparables
     como la \textit{factorización de Kronecker}, que es
-particularmente adecuada para la forma de las redes neuronales profundas). A continuación, la
+particularmente adecuada a la forma de las redes neuronales profundas). A continuación, la
 etapa de actualización del precondicionador está diseñada para aprovechar la estructura de
 la representación del precondicionador.
 
-Finalizamos esta subsección con una consideración importante: en el aprendizaje profundo, por ejemplo,
+Finalizamos esta subsección con una observación importante: en el aprendizaje profundo, por ejemplo,
 \(\cL\) no es una función convexa, por lo que el método de Newton (y
 sus aproximaciones) no tienen sentido. En este caso, nos fijamos en la
 intuición geométrica del método de Newton en funciones convexas, por ejemplo, a partir de
@@ -481,9 +481,9 @@ aprendizaje de diccionarios, el problema no es fuertemente convexo, sino simplem
 y el objetivo ya no es solo suave, sino más bien la suma de una
 función suave y un regularizador no suave (como la
 norma \(\ell^{1}\)). Estos problemas se resuelven mediante \textit{algoritmos de optimización proximal}, 
-que generalizan el método del gradiente máximo a objetivos no suaves.
+que generalizan el método del máximo descenso a objetivos no suaves.
 
-En términos formales, digamos que
+Formalmente, diríamos que
 \begin{equation}
     \cL(\theta) \doteq \cS(\theta) + \cR(\theta)
 \end{equation}
@@ -492,8 +492,8 @@ donde \(\cS\) es suave, por ejemplo, con un gradiente \(\beta\)-Lipschitz, y
 generaliza el algoritmo del gradiente máximo, utilizando el
 enfoque de mayorización-minimización (es decir,
 \Cref{lem:majorization_minimization}) con una cota superior global diferente.
-Concretamente, construimos dicho límite superior preguntándonos: ¿qué pasaría si
-tomáramos la cota superior del gradiente de Lipschitz de \(S\) pero \textit{dejáramos
+Concretamente, construimos dicha cota superior preguntándonos: ¿qué pasaría si
+tomáramos la cota superior obtenida por la suavidad de Lipschitz del gradiente de \(S\) pero \textit{dejáramos
 \(R\) sin modificar}?  Es decir, tenemos
 \begin{equation}
     \cL(\theta^{\prime}) = \cS(\theta^{\prime}) +
@@ -502,7 +502,7 @@ tomáramos la cota superior del gradiente de Lipschitz de \(S\) pero \textit{dej
     \theta} + \frac{\beta}{2}\norm{\theta^{\prime} - \theta}_{2}^{2}
     + \cR(\theta^{\prime}).
 \end{equation}
-Nótese que (demostración como ejercicio)
+Obsérvese que (prueba como ejercicio)
 \begin{equation}
     \argmin_{\theta^{\prime}}u_{\theta, \beta}(\theta^{\prime}) =
     \argmin_{\theta^{\prime}}\bs{\frac{\beta}{2}\norm*{\theta^{\prime}
@@ -512,7 +512,7 @@ Nótese que (demostración como ejercicio)
 Ahora bien, si intentamos minimizar la cota superior \(u_{\theta, \beta}\),
 estamos eligiendo un \(\theta^{\prime}\) tal que:
 \begin{itemize}
-    \item sea similar a la actualización del gradiente \(\theta -
+    \item sea cercano a la actualización del gradiente \(\theta -
         \frac{1}{\beta}\nabla \cS(\theta)\);
     \item tenga un valor pequeño del regularizador \(\cR(\theta^{\prime})\)
 \end{itemize}
@@ -524,7 +524,7 @@ y equilibre estas propiedades en función del parámetro de suavidad
     \theta}_{2}^{2} + \cR(\theta^{\prime})}.
 \end{equation}
 A continuación, podemos definir la iteración del \textit{descenso por gradiente proximal}
-que, en cada iteración, minimiza el límite superior \(u_{\theta_{k},
+que, en cada iteración, minimiza la cota superior \(u_{\theta_{k},
 h^{-1}}\), es decir,
 \begin{equation}
     \theta_{k + 1} = \prox_{h, \cR}(\theta_{k} - h\nabla \cS(\theta_{k})).
@@ -536,7 +536,7 @@ Una pregunta que queda por resolver es: ¿cómo podemos calcular el operador pro
 vista, parece que hemos cambiado un problema de minimización inmanejable por
 otro. Dado que hasta ahora no hemos hecho ninguna suposición sobre \(\cR\), el marco
 funciona incluso cuando \(\cR\) es una función muy compleja (como una pérdida de red neuronal
-), lo que nos obligaría a resolver un problema de entrenamiento de redes neuronales
+), lo que nos exigiría resolver un problema de entrenamiento de redes neuronales
 para calcular un solo operador proximal. Sin embargo, en la práctica, para
 regularizadores simples \(\cR\) como los que utilizamos en este artículo, existen
 operadores proximales que son fáciles de calcular o que incluso se 
@@ -568,7 +568,7 @@ algunos ejemplos (las demostraciones quedan como ejercicio).
         \argmin_{\theta^{\prime}}\bs{\frac{1}{2h}\norm{\theta^{\prime}
         - \theta}_{2}^{2} + \lambda\norm{\theta^{\prime}}_{1}}
     \end{equation}
-    entonces \(S_{h}(\theta)\) se define por coordenadas mediante
+    entonces \(S_{h}(\theta)\) se define coordenada por coordenada mediante
     \begin{equation}
         S_{h}(\theta)_{i} = \casework{\theta_{i} - h\lambda, &
             \text{if}\ \theta_{i} \geq h\lambda \\ 0, &
@@ -579,8 +579,8 @@ algunos ejemplos (las demostraciones quedan como ejercicio).
         h\lambda \\ 0, & \text{if}\ \abs{\theta_{i}} < h\lambda.}
     \end{equation}
     La operación de gradiente proximal en la que la parte suave del
-    objetivo es el método de mínimos cuadrados y la parte no suave es la
-    norma \(\ell^{1}\) (por lo que se utiliza este operador proximal de umbralización suave)
+    objetivo es el término de mínimos cuadrados y la parte no suave es la
+    norma \(\ell^{1}\) (por lo que se invoca este operador proximal de umbralización suave)
     se denomina «algoritmo iterativo de contracción y umbralización» (ISTA).
 \end{example}
 
@@ -603,10 +603,10 @@ algunos ejemplos (las demostraciones quedan como ejercicio).
     utiliza en el \Cref{ch:deep-networks} y en otros trabajos posteriores.
 \end{example}
 
-\subsection{Descenso de gradiente estocástico para problemas a gran escala}
+\subsection{Descenso de gradiente estocástico para problemas de gran escala}
 
 En el aprendizaje profundo, la función objetivo \(\cL\) no suele poder
-calcularse con exactitud, por lo que, en cada paso de optimización, se
+calcularse con exactitud, y en su lugar, en cada paso de optimización, se
 \textit{estima} utilizando muestras finitas (por ejemplo, mediante un mini-lote). Una
 forma común de modelar esta situación es definir una \textit{función de pérdida estocástica
 } \(\cL_{\omega}(\theta)\), donde \(\omega\) es una
@@ -619,9 +619,9 @@ muestrear \(\omega\) y calcular \(\cL_{\omega}(\theta)\) y
 \(\nabla_{\theta}\cL_{\omega}(\theta)\). Este problema de minimización se
 denomina \textit{problema de optimización estocástica}.
 
-El algoritmo estocástico básico de primer orden es el \textit{descenso estocástico
-por gradiente}: en cada iteración \(k\) tomamos una muestra de \(\omega_{k}\),
-definimos \(\cL_{k} \doteq \cL_{\omega_{k}}\), y ejecutamos un paso por gradiente
+El algoritmo estocástico básico de primer orden es el \textit{descenso de gradiente estocástico}: 
+en cada iteración \(k\) tomamos una muestra \(\omega_{k}\),
+definimos \(\cL_{k} \doteq \cL_{\omega_{k}}\), y ejecutamos un paso de gradiente
 sobre \(\cL_{k}\), es decir,
 \begin{equation}
     \theta_{k + 1} = \theta_{k} - h\nabla \cL_{k}(\theta_{k}).
@@ -629,24 +629,24 @@ sobre \(\cL_{k}\), es decir,
 Sin embargo, incluso para problemas muy sencillos no podemos esperar el mismo tipo
 de convergencia que obtuvimos con el descenso por gradiente. Por ejemplo,
 supongamos que hay \(m\) valores posibles para \(\omega \in \{1,
-\dots, m\}\) que toma con igual probabilidad, y que hay
+\dots, m\}\), cada uno tomado con igual probabilidad, y que hay
 \(m\) objetivos posibles \(\xi_{1}, \dots, \xi_{m}\), de tal manera que la
 función de pérdida \(\cL_{\omega}\) es
 \begin{equation}
     \cL_{\omega}(\theta) \doteq \frac{1}{2}\norm{\theta - \xi_{\omega}}_{2}^{2}.
 \end{equation}
 Entonces, \(\argmin_{\theta}\Ex[\cL_{\omega}(\theta)] = \frac{1}{m}\sum_{i
-= 1}^{m}\xi_{i}\), pero el descenso de gradiente estocástico puede «oscilar» alrededor
+= 1}^{m}\xi_{i}\), pero el descenso de gradiente estocástico puede «rebotar» alrededor
 del valor óptimo global y no converger, tal como se muestra en la
 \Cref{fig:sgd_nonconvergence}.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/appendixA/figs/sgd_vs_nesterov.png}
     \centering
-    \caption{\small\textbf{Es posible que el descenso estocástico por gradiente no
+    \caption{\small\textbf{Es posible que el descenso estocástico de gradiente no
             converja, incluso con objetivos muy sencillos, pero el SGD con momentum
         sí converge.} Incluso con objetivos cuadráticos simples, las iteraciones del descenso estocástico
-        por gradiente pueden oscilar alrededor del óptimo global,
+        de gradiente pueden oscilar alrededor del óptimo global,
     mientras que los gradientes promediados por momentum se alinean para apuntar al valor óptimo.}
     \label{fig:sgd_nonconvergence}
 \end{figure}
@@ -656,7 +656,7 @@ Para solucionar esto, podemos promediar los parámetros
 \cL_{k}(\theta_{k})\) a lo largo del tiempo. Si promediamos los parámetros
 \(\theta_{k}\), entonces (utilizando \Cref{fig:sgd_nonconvergence} como modelo mental
 ), el problema del rebote es simplemente imposible,
-ya que la iteración promedio tiende a acercarse progresivamente al centro. Por lo tanto,
+ya que el iterato promedio tiende a acercarse progresivamente al centro. Por lo tanto,
 la mayoría de las demostraciones teóricas de convergencia analizan la convergencia de la
 iteración promedio \(\frac{1}{k}\sum_{i = 0}^{k}\theta_{i}\) hacia el
 mínimo global. Si promediamos los gradientes, acabaremos obteniendo
@@ -677,13 +677,13 @@ Una iteración del método de descenso de gradiente estocástico con momentum es
     &= \theta_{k} - h\vg_{k}.
 \end{align}
 No vamos a entrar en detalles sobre la demostración de convergencia (véase el capítulo 7 de
-\cite{garrigos2023handbook} para ver un ejemplo). Sin embargo, el algoritmo Momentum
+\cite{garrigos2023handbook} para un ejemplo). Sin embargo, el algoritmo Momentum
 resuelve fácilmente nuestro caso de ejemplo de la \Cref{fig:sgd_nonconvergence} (véase la
 figura de la derecha): deja de oscilar y, finalmente, converge hacia
 el óptimo global.
 
-Terminamos con una advertencia: se puede demostrar que el momentum de Polyak y el momentum de Nesterov
-son equivalentes, para ciertas elecciones de los ajustes de los parámetros.
+Terminamos con una salvedad: se puede demostrar que el momentum de Polyak y el momentum de Nesterov
+son equivalentes, para ciertos valores de los parámetros.
 Entonces también es posible demostrar que un esquema de tasa de aprendizaje decreciente
 (es decir, la tasa de aprendizaje \(h\) depende de la iteración
 \(k\), y su límite es \(h_{k} \to 0\) cuando \(k \to \infty\)) con
@@ -691,9 +691,9 @@ SGD simple (o PSGD) puede imitar el efecto del momentum. Es decir,
 \cite{defazio2023optimal} demuestra que si el algoritmo SGD dura \(K\)
 iteraciones, las normas de los gradientes están acotadas por \(\norm{\nabla
 \cL(\theta_{k})}_{2} \leq G\), y definimos \(D \doteq
-\norm{\theta_{0} - \theta^{\star}}_{2}\), entonces las iteraciones del SGD simple
-\(\theta_{k}\) satisfacen la tasa \(\Ex[\cL(\theta_{k}) -
-\cL(\theta^{\star})] \leq DG/\sqrt{K}\) --- pero solo mientras la
+\norm{\theta_{0} - \theta^{\star}}_{2}\), entonces los iteratos del SGD simple
+\(\theta_{k}\) satisfacen la cota \(\Ex[\cL(\theta_{k}) -
+\cL(\theta^{\star})] \leq DG/\sqrt{K}\) --- pero solo siempre que la
 tasa de aprendizaje \(h_{k} = (D/[G\sqrt{K}])(1 - k/K)\) decaiga
 \textit{linealmente} con el tiempo. Esto concuerda con los esquemas de tasa de aprendizaje
 utilizados en la práctica. De hecho, sorprendentemente, dicha teoría de la optimización convexa
@@ -704,12 +704,12 @@ no está claro por qué ocurre esto.
 
 \subsection{Uniéndolo todo: Adam}
 
-El método de descenso por gradiente propone una iteración dada por
+El método de descenso por gradiente propone una iteración de la forma
 \begin{equation}
     \theta_{k + 1} = \theta_{k} + h\vv_{k},
 \end{equation}
-donde (recordemos) \(\vv_{k}\) se elige para que sea (proporcional al)
-vector del gradiente máximo en la norma euclidiana:
+donde (recordemos) \(\vv_{k}\) se elige de modo que sea (proporcional al)
+vector de descenso máximo con respecto a la norma euclidiana:
 \begin{equation}
     \vv_{k} = -\frac{\nabla \cL(\theta_{k})}{\norm{\nabla
     \cL(\theta_{k})}_{2}} \in \argmin_{\substack{\vv \in \R^{n}
@@ -735,13 +735,13 @@ posible demostrar que
     \argmin_{\substack{\vv \in \R^{n} \\ \norm{\vv}_{\infty} =
     1}}\ip{\nabla \cL(\theta_{k})}{\vv},
 \end{equation}
-donde \(\sign(\vx)_{i} = \sign(x_{i}) \in \{-1, 0, 1\}\). Por lo tanto, si
-quisieramos, podríamos utilizar el llamado \textit{descenso por gradiente con signo}:
+donde \(\sign(\vx)_{i} = \sign(x_{i}) \in \{-1, 0, 1\}\). Por lo tanto, si así lo
+deseáramos, podríamos utilizar el llamado \textit{descenso por gradiente con signo}:
 \begin{equation}\label{eq:sign_gradient_descent}
     \theta_{k + 1} = \theta_{k} - h\sign(\nabla \cL(\theta_{k})).
 \end{equation}
 A partir del descenso por gradiente de signo, podemos derivar el famoso algoritmo de optimización de Adam.
-Obsérvese que, para un escalar \(x \in \R\), podemos escribir
+Obsérvese que, para un escalar \(x \in \R\), se puede escribir
 \begin{equation}
     \sign(x) = \frac{x}{\abs{x}} = \frac{x}{\sqrt{x^{2}}}.
 \end{equation}
@@ -750,7 +750,7 @@ Del mismo modo, para un vector \(\vx \in \R^{n}\) escribimos (donde \(\hada\) y
 \begin{equation}
     \sign(\vx) = \vx \haddiv [\vx^{\hada 2}]^{\hada (1/2)}.
 \end{equation}
-Utilizando esta representación, podemos escribir \eqref{eq:sign_gradient_descent} como
+Con esta representación, podemos escribir \eqref{eq:sign_gradient_descent} como
 \begin{equation}
     \theta_{k + 1} = \theta_{k} - h ([\nabla \cL(\theta_{k})] \haddiv [\nabla
     \cL(\theta_{k})^{\hada 2}]^{\hada \frac{1}{2}}).
@@ -774,7 +774,7 @@ descrito por estas iteraciones es el famoso optimizador
     \(\vs_{k}^{\hada (1/2)} + \eps \vone_{n}\), donde \(\eps\) es pequeño,
 digamos del orden de \(10^{-8}\).} que es el optimizador más utilizado en
 el aprendizaje profundo. Aunque las demostraciones de convergencia de Adam son más complejas,
-se derivan del mismo principio del gradiente máximo que hemos utilizado hasta ahora, por lo que
+se derivan del mismo principio del descenso más empinado que hemos utilizado hasta ahora, por lo que
 cabría esperar que, con una tasa de aprendizaje lo suficientemente pequeña, cada
 actualización mejorara la pérdida.
 
@@ -797,14 +797,14 @@ viceversa, como se puede observar en la ecuación anterior.
 Anteriormente, analizamos varios algoritmos de optimización para redes profundas
 que partían del supuesto de tener acceso a un \textit{oráculo de primer orden}, es decir, un dispositivo
 que nos permitiera calcular \(\cL(\theta)\) y \(\nabla
-\cL(\theta)\). Para funciones simples de \(\cL\), es posible hacerlo
+\cL(\theta)\). Para funciones simples \(\cL\), es posible hacerlo
 a mano. Sin embargo, para redes neuronales profundas, esto se vuelve rápidamente
 tedioso y dificulta la experimentación rápida. Por lo tanto, necesitamos un
 algoritmo general que nos permita calcular de manera eficiente los
-gradientes de arquitecturas de redes diferenciables (parcialmente) o "subdiferenciables" arbitrarias.
+gradientes de arquitecturas de redes (sub)diferenciables arbitrarias.
 
-En esta sección, presentamos los fundamentos de la \textit{diferenciación automática} (AD o \textit{autodiff}), que es un
-método computacionalmente eficiente para calcular gradientes y jacobianos de
+En esta sección, presentamos los fundamentos de la \textit{diferenciación automática} (AD o \textit{autodiff}), que es una
+manera computacionalmente eficiente para calcular gradientes y jacobianos de
 funciones generales \(f: \R^{m} \to \R^{n}\). Mostraremos cómo esto
 conduce al algoritmo de retropropagación para calcular gradientes de
 funciones de pérdida que involucran redes neuronales. A continuación se presenta un resumen de la estructura
@@ -812,32 +812,32 @@ de esta sección:
 \begin{enumerate}
     \item Presentamos los \textbf{diferenciales}, un formalismo práctico
         para calcular y organizar las derivadas de funciones
-        entre espacios de parámetros de alta dimensión (que pueden
-            ser a su vez productos de otros espacios que involucran matrices,
+        entre espacios de parámetros de alta dimensión (los cuales pueden, a su vez,
+            ser producto de otros espacios que incluyen matrices,
         tensores, etc.).
     \item Describimos los fundamentos de la diferenciación automática en \textbf{modo directo} y
-        \textbf{modo inverso}, lo cual
-        implica consideraciones importantes para el cálculo eficiente
+        \textbf{modo reverso}, lo cual
+        conlleva consideraciones importantes para el cálculo eficiente
         de gradientes y jacobianos para diferentes tipos de
         funciones que surgen en aplicaciones de aprendizaje automático.
     \item Describimos la \textbf{retropropagación} en el caso particular de
-        una función de pérdida aplicada a una red neuronal de capas apiladas
+        una función de pérdida aplicada a una red neuronal multicapas 
         como una instancia de la diferenciación automática en modo reverso.
 \end{enumerate}
 
-Nuestro enfoque se inclinará hacia el aspecto matemático, con el fin de proporcionar al lector una
-comprensión profunda de los fundamentos matemáticos subyacentes. El lector debe
+Nuestro tratamiento se inclinará hacia el aspecto matemático, con el fin de proporcionar al lector una
+comprensión profunda de las matemáticas subyacentes. El lector debe
 asegurarse de complementar esta comprensión con un dominio sólido de los aspectos prácticos
 de la diferenciación automática para el aprendizaje profundo, tal como se
-muestra, por ejemplo, en el excelente tutorial de \textcite{karpathy-micrograd}.
+manifiesta, por ejemplo, en el excelente tutorial de \textcite{karpathy-micrograd}.
 
 \subsection{Diferenciales}
 
 En la excelente guía
 \cite{bright2025matrix} se ofrece una explicación detallada de esta subsección. 
-Para introducir el concepto de diferenciales, consideremos primero
+Para motivar el concepto de diferenciales, consideremos primero
 el ejemplo sencillo de una función diferenciable \(\cL \colon
-\R \to \R\) que depende de un parámetro \(\theta\). Podemos escribir
+\R \to \R\) que actúa sobre un parámetro \(\theta\). Podemos escribir
 \begin{equation}
     \cL(\theta^{+}) - \cL(\theta) =
     \cL^{\prime}(\theta)\cdot(\theta^{+} - \theta) +
@@ -880,24 +880,24 @@ respecto a \(\theta\). Obsérvese aquí que hemos fijado todas las potencias sup
 los productos de coordenadas de \(\odif{\theta}\)  en \(0\). En resumen,
 \begin{quote}
     \centering
-    \textit{Todos los productos y potencias \(\geq 2\) de diferenciales son
+    \textit{Todos los productos y potencias de orden \(\geq 2\) de diferenciales son
     iguales a \(0\).}
 \end{quote}
 
 Consideremos ahora una función tensorial de orden superior \(\cL \colon \R^{m \times
 n} \to \R^{p \times q}\). Entonces, nuestra ecuación de linealización básica
 resulta insuficiente para este caso: \(\odif{\cL} = \cL^{\prime}(\theta) \cdot
-\odif{\theta}\) no tiene sentido, ya que \(\theta\) es una matriz de \(m \times
-n\), pero \(\odif{\cL}\) es una matriz \(p \times q\), por lo que no hay
-ninguna forma de vector o matriz posible para \(\cL^{\prime}(\theta)\) que
+\odif{\theta}\) no tiene sentido, ya que \(\theta\) es una matriz \(m \times
+n\), pero \(\odif{\cL}\) es una matriz \(p \times q\), por lo que no existe 
+ninguna forma posible para \(\cL^{\prime}(\theta)\), ya sea vectorial o matricial, que 
 funcione en general (ya que ninguna matriz puede multiplicar una matriz \(m \times n\)
-para formar una matriz \(p \times q\) a menos que \(m = p\)). Así que debemos tener una
+para formar una matriz \(p \times q\) a menos que \(m = p\)). En consecuencia, debemos tener una
 interpretación un poco más avanzada.
 
 Es decir, consideramos \(\cL^{\prime}(\theta)\) como una \textit{transformación lineal}
 cuya entrada es el espacio de \(\theta\) y cuya salida es
 el espacio de \(\cL\), que toma un pequeño cambio en \(\theta\) y
-devuelve el pequeño cambio correspondiente en \(\cL\). Es decir, podemos escribir
+devuelve el pequeño cambio correspondiente en \(\cL\). En otras palabras, podemos escribir
 \begin{equation}
     \odif{\cL} = \cL^{\prime}(\theta)[\odif{\theta}].
 \end{equation}
@@ -967,7 +967,7 @@ ejemplos.
     \begin{equation}
         \odif{f} = p^{\prime}(v(x))v^{\prime}(x)[\odif{x}].
     \end{equation}
-    Para calcular \(v^{\prime}(x)\) podemos calcular
+    Para hallar \(v^{\prime}(x)\), podemos calcular
     \begin{equation}
         \odif{v} = v^{\prime}(x)[\odif{x}] = v(x + \odif{x}) - v(x) =
         \mat{g(x + \odif{x}) - g(x) \\ h(x + \odif{x}) - h(x)} =
@@ -981,12 +981,12 @@ ejemplos.
         &= (\odif{a})b + a(\odif{b}) + (\odif{a})(\odif{b}) =
         (\odif{a})b + a(\odif{b}),
     \end{align}
-    donde (recordemos) el producto de las derivadas \(\odif{a}\) y
+    donde (recordemos) el producto de las diferenciales \(\odif{a}\) y
     \(\odif{b}\) se establece en \(0\). Por lo tanto
     \begin{equation}
         p^{\prime}(a, b)[\odif{a}, \odif{b}] = (\odif{a})b + (\odif{b})a.
     \end{equation}
-    Si juntamos todo esto, obtenemos
+    Al combinar estos resultados, se obtiene
     \begin{align}
         f^{\prime}(x)[\odif{x}]
         &= p^{\prime}(v(x))v^{\prime}(x)[\odif{x}] = p^{\prime}(g(x),
@@ -1029,12 +1029,12 @@ ejemplos.
         f(\vA)_{ij} = \sum_{t = 1}^{k}A_{ijt}.
     \end{equation}
     No podemos escribir una jacobiana (con valores matriciales) ni un gradiente para esta
-    función. Pero sí podemos calcular su derivada sin problemas:
+    función. Pero sí podemos calcular su diferencial sin problemas:
     \begin{equation}
         \odif{f}_{ij} = [f(\vA + \odif{\vA}) - f(\vA)]_{ij} = \sum_{t
         = 1}^{k}\odif{\vA}_{ijt} = \vone_{k}^{\top}(\odif{\vA})_{ij}.
     \end{equation}
-    Entonces
+    Luego
     \begin{equation}
         (f^{\prime}(\vA)[\odif{\vA}])_{ij} = \vone_{k}^{\top}(\odif{\vA})_{ij},
     \end{equation}
@@ -1042,9 +1042,9 @@ ejemplos.
     que, no obstante, está bien definida.
 \end{example}
 
-Esto nos proporciona toda la tecnología que necesitamos para calcular las derivadas de cualquier cosa.
+Esto nos proporciona toda la tecnología que necesitamos para calcular las diferenciales de cualquier cosa.
 Lo último que trataremos en esta sección es un método para calcular gradientes utilizando
-la derivada. Concretamente, para una función \(\cL\) cuyo resultado es un escalar, el
+la diferencial. Concretamente, para una función \(\cL\) cuyo resultado es un escalar, el
 gradiente \(\nabla \cL\) se define como
 \begin{equation}
     \odif{\cL} = \cL^{\prime}(\theta)[\odif{\theta}] = \ip{\nabla
@@ -1057,7 +1057,7 @@ para tensores de orden superior es el producto interno análogo de suma de coord
 Esta definición es la generalización correcta del ejemplo «familiar» del
 gradiente de una función de $\R^n$ a $\R$ como el vector de derivadas parciales:
 una versión del teorema de Taylor para funciones generales $f : \R^m \to
-\R^n$ hace que esta conexión sea rigurosa.
+\R^n$ hace rigurosa esta conexión.
 Así que una forma de calcular el gradiente \(\nabla \cL\) es calcular la diferencial
 \(\odif{\cL}\) y reescribirla en la forma
 \(\ip{\text{algo}}{\odif{\theta}}\), entonces ese «algo» es el
@@ -1065,7 +1065,7 @@ gradiente.
 
 \subsection{Diferenciación automática}
 
-La idea principal del AD es calcular la regla de la cadena de manera eficiente.
+La idea principal de la AD es calcular la regla de la cadena de manera eficiente.
 El problema básico al que nos enfrentamos es el siguiente. En la
 sección de optimización
 del apéndice, consideramos
@@ -1133,17 +1133,17 @@ Por otra parte, la diferenciación automática en modo inverso conlleva los sigu
     &\text{calcular}\ a^{\prime}(b(c(\vx)))b^{\prime}(c(\vx))c^{\prime}(\vx)
     \in \R^{s \times p}\ \text{toma un tiempo del orden de \(\cO(qrs + pqs)\).}
 \end{align}
-En otras palabras, el algoritmo de sumas en modo directo tarda un tiempo de orden \(\cO(p(qr + rs))\),
+En otras palabras, el algoritmo de sumas en modo directo tarda un tiempo del orden de \(\cO(p(qr + rs))\),
 y el algoritmo de sumas en modo inverso tarda un tiempo de orden \(\cO(s(pq + qr))\). \textit{¡Estos
 tardan un tiempo diferente!}
 
 En términos más generales, supongamos que \(f = f^{L} \circ \cdots \circ f^{1}\)
 donde cada \(f^{\ell} \colon \R^{d^{\ell - 1}} \to \R^{d^{\ell}}\),
-de modo que \(f \colon \R^{d^{0}} \to \R^{d^{L}}\). Entonces, el modo directo
+de modo que \(f \colon \R^{d^{0}} \to \R^{d^{L}}\). Entonces, la diferenciación automática (AD) en modo directo 
 tarda \(\cO(d^{0}(\sum_{\ell = 2}^{L}d^{\ell - 1}d^{\ell}))\) tiempo
 mientras que el algoritmo de diferenciación automática (AD) en modo reverso tarda \(\cO(d^{L}(\sum_{\ell = 1}^{L -
-1}d^{\ell - 1}d^{\ell}))\) tiempo. A partir de las tasas anteriores, vemos que,
-en igualdad de condiciones:
+1}d^{\ell - 1}d^{\ell}))\) tiempo. A partir de estas tasas, vemos que,
+ceteris paribus:
 \begin{itemize}
     \item Si la función que se va a optimizar tiene \textit{más salidas que
         entradas} (es decir, \(d^{L} > d^{0}\)), utilice \textit{el AD en modo directo}.
@@ -1154,18 +1154,18 @@ En una red neuronal, calculamos el gradiente de una \textit{función de pérdida
 } \(\cL \colon \Theta \to \R\), donde el espacio de parámetros
 \(\Theta\) suele ser de muy alta dimensión. Por eso, en la práctica siempre
 utilizamos la diferenciación automática en modo inverso para entrenar redes 
-neuronales. El método de descenso por gradiente en modo inverso, en
-el contexto del entrenamiento de redes neuronales, se denomina \textit{retropropagación}.
+neuronales. La diferenciación automática en modo inverso, en el contexto del entrenamiento de redes neuronales, 
+se denomina \textit{retropropagación}.
 
 \subsection{Retropropagación}
 \label{app:BP-section}
 En esta sección analizaremos la retropropagación algorítmica utilizando un
 ejemplo sencillo pero totalmente práctico. Supongamos que fijamos un
-par de entrada y etiqueta \((\vX, \vy)\), y fijamos una arquitectura de red
+par entrada-etiqueta \((\vX, \vy)\), y fijamos una arquitectura de red
 \(f_{\theta} = f_{\theta}^{L} \circ \cdots \circ f_{\theta}^{1} \circ
 f_{\theta}^{\emb}\), donde \(\theta = (\theta^{\emb}, \theta^{1},
 \dots, \theta^{L}, \theta^{\head})\) y el cabezal específico de la tarea
-\(h_{\theta^{\head}}\), y escribimos
+\(h_{\theta^{\head}}\), y formulamos
 \begin{align}
     &\vZ_{\theta}^{1}(\vX) \doteq f_{\theta}^{\emb}(\vX), \\
     &\vZ_{\theta}^{\ell + 1}(\vX) \doteq
@@ -1173,15 +1173,15 @@ f_{\theta}^{\emb}\), donde \(\theta = (\theta^{\emb}, \theta^{1},
     \in \{1, \dots, L\}, \\
     &\hat{\vy}_{\theta^{\head}}(\vX) \doteq h_{\theta^{\head}}(\vZ_{\theta}^{L+1}(\vX)).
 \end{align}
-Entonces, podemos definir la función de pérdida para este ejemplo mediante
+Entonces, podemos definir la función de pérdida de este término mediante
 \begin{equation}
     \cL(\theta) \doteq \sfL(\vy, \hat{\vy}_{\theta}(\vX)),
 \end{equation}
 donde \(\sfL\) es una función diferenciable de su segundo argumento.
-Entonces, el AD en modo inverso nos indica que calculemos las derivadas en
+Entonces, la AD en modo inverso nos prescribe que calculemos las derivadas en
 el orden \(\theta^{\head}, \theta^{L}, \dots, \theta^{1}, \theta^{\emb}\).
 
-Para realizar este cálculo, vamos a introducir algunos cambios en la notación.
+Para realizar este cálculo, introduzcamos algunos cambios en la notación.
 \begin{itemize}
     \item En primer lugar, modifiquemos la notación para enfatizar la
         estructura de dependencia entre las variables. Es decir,
@@ -1192,14 +1192,14 @@ Para realizar este cálculo, vamos a introducir algunos cambios en la notación.
             &\hat{\vy} \doteq h(\vZ^{L+1}, \theta^{\head}), \\
             &\cL \doteq \sfL(\vy, \hat{\vy}).
         \end{align}
-    \item Entonces, en lugar de escribir la derivada como \(f^{\prime}\),
-        denotamos explícitamente la variable independiente y escribimos la
+    \item Entonces, en lugar de denotar la derivada como \(f^{\prime}\),
+        especificamos explícitamente la variable independiente y escribimos la
         derivada como \(\odv{f}{\theta^{1}}\), por ejemplo. Esto se debe
-        a que hay muchas variables en nuestro modelo y solo 
+        a que modelo contiene muchas variables y solo 
         nos interesa una a la vez.
 \end{itemize}
 Podemos empezar calculando las derivadas correspondientes. En primer lugar, para
-\(\theta^{\head}\) tenemos
+\(\theta^{\head}\) tenemos que
 \begin{align}
     \odif{\cL}
     &= \odif{\sfL} \\
@@ -1249,7 +1249,7 @@ describe con cierto detalle un enfoque básico para hacerlo. Por cierto,
 la retropropagación también se conoce como el \textit{método adjunto} por esta
 razón, es decir, porque utilizamos derivadas adjuntas para calcular el gradiente.
 
-Ahora calculemos las derivadas con respecto a algún \(\theta^{\ell}\):
+Ahora calculemos las diferenciales con respecto a algún \(\theta^{\ell}\):
 \begin{align}
     \odif{\cL}
     &= \odv{\cL}{\vZ^{\ell + 1}}\cdot \odif{\vZ^{\ell + 1}} \\
@@ -1260,7 +1260,7 @@ Ahora calculemos las derivadas con respecto a algún \(\theta^{\ell}\):
     \odv{f^{\ell}}{\theta^{\ell}}\cdot\odif{\theta}^{\ell}} \\
     &= \odv{\cL}{\vZ^{\ell + 1}}\cdot
     \odv{f^{\ell}}{\theta^{\ell}}\cdot\odif{\theta}^{\ell} \qquad
-    \text{(b/c~\(\vZ^{\ell}\) isn't fn.~of \(\theta^{\ell}\) so
+    \text{(ya que~\(\vZ^{\ell}\) no es función de \(\theta^{\ell}\) de modo que
     \(\odif{\vZ}^{\ell} = 0\))} \\
     &= [\nabla_{\vZ^{\ell +
     1}}\cL]^{\top}\odv{f^{\ell}}{\theta^{\ell}}\cdot\odif{\theta}^{\ell} \\
@@ -1286,10 +1286,10 @@ con respecto a \(\vZ^{\ell}\). Esto se puede calcular exactamente de la misma ma
     \odv{f^{\ell}}{\theta^{\ell}}\cdot\odif{\theta}^{\ell}} \\
     &= \odv{\cL}{\vZ^{\ell +
     1}}\cdot\odv{f^{\ell}}{\vZ^{\ell}}\cdot\odif{\vZ}^{\ell} \qquad
-    \text{(b/c~~\(\theta^{\ell}\) isn't fn.~of \(\vZ^{\ell}\) so
-    \(\odif{\theta}^{\ell} = 0\) this time)} \\
+    \text{(ya que~\(\theta^{\ell}\) no es función de \(\vZ^{\ell}\) de modo que
+    \(\odif{\theta}^{\ell} = 0\) esta vez)} \\
     &= \ip*{\bp{\odv{f^{\ell}}{\vZ^{\ell}}}^{*}\nabla_{\vZ^{\ell +
-    1}}\cL}{\odif{\vZ}^{\ell}} \qquad \text{(same machine)} \\
+    1}}\cL}{\odif{\vZ}^{\ell}} \qquad \text{(misma máquina)} \\
     &= \ip{\nabla_{\vZ^{\ell}}\cL}{\odif{\vZ}^{\ell}}.
 \end{align}
 Por lo tanto, para calcular \(\nabla_{\vZ^{\ell}}\cL\) calculamos
@@ -1310,7 +1310,7 @@ para calcular \(\nabla_{\vZ^{\ell}}\cL\) para todo \(\ell\), con el caso base
     1}}}^{*}\nabla_{\hat{\vy}}\sfL}{\odif{\vZ}^{L + 1}} \\
     &= \ip{\nabla_{\vZ^{L + 1}}\cL}{\odif{\vZ}^{L + 1}}.
 \end{align}
-Así, tenemos la recursión:
+De este modo, tenemos la siguiente recursión:
 \begin{align}
     \nabla_{\vZ^{L + 1}}\cL
     &= \bp{\odv{h}{\vZ^{L + 1}}}^{*}\nabla_{\hat{\vy}}\sfL \\
@@ -1338,7 +1338,7 @@ capa simple.
         f^{\ell}(\vZ, \vW^{\ell}, \vb^{\ell}) \doteq \vW^{\ell}\vZ +
         \vb^{\ell}\vone^{\top} = \mat{\vW^{\ell} & \vb^{\ell}}.
     \end{equation}
-    Podemos calcular las derivadas con respecto a ambos parámetros como
+    Podemos calcular el con respecto a ambos parámetros como
     \begin{align}
         \odif{f}^{\ell}
         &= [(\vW^{\ell} + \odif{\vW}^{\ell})\vZ + (\vb^{\ell} +
@@ -1358,7 +1358,7 @@ capa simple.
     \end{equation}
     Calculamos el adjunto \(T^{*} \colon \R^{m \times n} \to \R^{m
     \times d} \times \R^{m}\) con respecto al producto interno
-    (de Frobenius) de suma sobre las coordenadas mediante el siguiente procedimiento:
+    de suma sobre las coordenadas (de Frobenius) mediante el siguiente procedimiento:
     \begin{align}
         \ip{T[\vA, \vu]}{\vB}_{\R^{m \times n}}
         &= \tr((\vA\vZ + \vu\vone^{\top})\vB^{\top}) \\
@@ -1384,8 +1384,8 @@ en la práctica.
 
 En ciertos casos, como en el \Cref{ch:consistent-representations}, un problema de aprendizaje
 no puede reducirse a un único problema de optimización, sino que
-representa múltiples componentes del sistema, potencialmente opuestos, que intentan
-minimizar cada uno su propio objetivo. Entre los ejemplos de este paradigma
+representa múltiples componentes del sistema, potencialmente opuestos, que cada uno intenta
+minimizar su propio objetivo. Entre los ejemplos de este paradigma
 se incluyen el aprendizaje de distribuciones mediante redes generativas adversarias
 (GAN) y la transcripción en bucle cerrado (CTRL). Denominaremos a dicho
 sistema un \textit{juego de dos jugadores}, en el que hay dos «jugadores»
@@ -1401,8 +1401,8 @@ existen funciones \(u(\theta)\) y \(v(\eta)\) tales que
 \begin{equation}
     \cL(\theta, \eta) = -u(\theta) + v(\eta).
 \end{equation}
-Entonces, los objetivos de ambos jugadores son independientes del otro jugador,
-y los jugadores deben intentar alcanzar sus respectivos óptimos:
+Entonces, los objetivos de ambos jugadores son independientes entre sí
+y cada jugador debe intentar alcanzar su óptimo respectivo:
 \begin{equation}
     \theta^{\star} \in \argmin_{\theta \in \Theta}u(\theta), \qquad
     \eta^{\star} \in \argmin_{\eta \in \Eta}v(\eta).
@@ -1438,7 +1438,7 @@ es probable que elija dado que el Jugador 1 ha elegido \(\theta\). Entonces
     \argmin_{\eta  \in \Eta}\cL(\theta^{\star}, \eta).
 \end{equation}
 De hecho (demostración como ejercicio), se puede demostrar que, en el contexto de
-los juegos de Stackelberg de suma cero para dos jugadores, \((\theta^{\star},
+los juegos de Stackelberg de dos jugadores de suma cero, \((\theta^{\star},
 \eta^{\star})\) es un equilibrio de Stackelberg si y solo si
 \begin{equation}
     \theta^{\star} \in \argmax_{\theta \in \Theta}\min_{\eta \in
@@ -1461,9 +1461,9 @@ los juegos de Stackelberg de suma cero para dos jugadores, \((\theta^{\star},
 \end{proof}
 
 En el resto de esta sección, analizaremos brevemente algunos enfoques algorítmicos
-para aprender puntos de equilibrio de Stackelberg. La intuición central
+para aprender puntos de equilibrio de Stackelberg. La intuición que conviene tener
 es que aprender un equilibrio es como dejar que las diferentes
-partes del sistema determinen automáticamente las compensaciones entre los
+partes del sistema determinen automáticamente los compromisos entre los
 diferentes objetivos que desean optimizar.
 
 Terminamos esta sección con una advertencia: en los juegos de suma cero para dos jugadores, si
@@ -1483,7 +1483,7 @@ silla,\footnote{Conocido como \textit{equilibrio de Nash}.} es decir,
 tiene el (mismo) valor objetivo \[\max_{\theta \in \Theta}\min_{\eta
 \in \Eta}\cL(\theta, \eta).\]
 \begin{proof} %
-    Supongamos que, efectivamente,
+    Supongamos que, en efecto,
     \begin{equation}
         \max_{\theta \in \Theta}\min_{\eta \in \Eta}\cL(\theta, \eta)
         = \min_{\eta \in \Eta}\max_{\theta  \in \Theta}\cL(\theta, \eta).
@@ -1537,15 +1537,15 @@ tiene el (mismo) valor objetivo \[\max_{\theta \in \Theta}\min_{\eta
         \max_{\theta \in \Theta}\min_{\eta \in \Eta}\cL(\theta, \eta)
         = \cL(\theta^{\star}, \eta^{\star}).
     \end{equation}
-    Entonces, por la suposición de que \(\min\max = \max\min\), tenemos
+    Entonces, por el supuesto de que \(\min\max = \max\min\), tenemos
     \begin{equation}
         \max_{\theta \in \Theta}\min_{\eta \in \Eta}\cL(\theta, \eta)
         = \cL(\theta^{\star}, \eta^{\star}) = \min_{\eta \in
         \Eta}\max_{\theta \in \Theta}\cL(\theta, \eta).
     \end{equation}
     Esto demuestra que todos los equilibrios minimax tienen el valor objetivo deseado
-    \(\cL(\theta^{\star}, \eta^{\star})\). Ahora queremos
-    demostrar que
+    \(\cL(\theta^{\star}, \eta^{\star})\). Ahora, queremos
+    probar que
     \begin{equation}
         \theta^{\star} \in \argmax_{\theta \in \Theta}\cL(\theta,
         \eta^{\star}), \qquad \eta^{\star} \in \argmin_{\eta \in
@@ -1557,7 +1557,7 @@ tiene el (mismo) valor objetivo \[\max_{\theta \in \Theta}\min_{\eta
         \max_{\theta \in \Theta}\cL(\theta, \eta^{\star}) =
         \cL(\theta^{\star}, \eta^{\star}).
     \end{equation}
-    Para demostrar esto, basta con que, por definición de \(\max\)
+    Para demostrarlo, basta con que, por definición de \(\max\)
     \begin{equation}
         \cL(\theta^{\star}, \eta^{\star}) \leq \max_{\theta \in
         \Theta}\cL(\theta, \eta^{\star}),
@@ -1581,7 +1581,7 @@ vienen dadas por los llamados \textit{teoremas del minimax}; el más destacado
 de ellos es un teorema de von Neumann. Sin embargo, en los casos que nos
 ocupan, esta propiedad no suele cumplirse.
 
-\subsection{El aprendizaje de los equilibrios de Stackelberg}
+\subsection{Aprendizaje de los equilibrios de Stackelberg}
 
 ¿Cómo podemos aprender puntos de equilibrio de Stackelberg mediante GDA? En general, esto es
 claramente imposible, ya que aprender equilibrios de Stackelberg mediante GDA es
@@ -1612,7 +1612,7 @@ convergencia local para objetivos no convexos que tienen una geometría
 localmente favorable.
 
 El algoritmo en estos dos casos es el mismo, denominado
-descenso-ascenso por gradiente (GDA). Para entender el GDA, supongamos que estamos tratando
+descenso-ascenso por gradiente (GDA). Para motivar el GDA, supongamos que estamos tratando
 de aprender \(\theta^{\star}\). Podríamos aplicar el ascenso por gradiente a la
 función \(\theta \mapsto \min_{\eta \in \Eta}\cL(\theta, \eta)\).
 Pero entonces tendríamos que tomar la derivada con respecto a \(\theta\) de esta
@@ -1648,14 +1648,14 @@ la siguiente plantilla algorítmica:
     \eta_{k + 1}).
 \end{align}
 Es decir, damos \(T\) pasos de descenso por gradiente para actualizar
-\(\eta_{k}\) (con la esperanza de llegar al mínimo de \(\cL(\theta_{k},
+\(\eta_{k}\) (con la esperanza de llegar al punto minimizador de \(\cL(\theta_{k},
 \cdot)\)), y luego damos un paso de ascenso por gradiente para actualizar
 \(\theta_{k}\). Como ventaja adicional, además de estimar \(\theta_{K} \approx
 \argmax_{\theta}\min_{\eta}\cL(\theta, \eta)\), también aprendemos un
 \(\eta_{K} \approx \argmin_{\eta}\cL(\theta_{K}, \eta)\) --- esto es
 un equilibrio de Stackelberg aproximado.
 
-En la práctica, este método no suele utilizarse, ya que requiere \(T + 1\)
+En la práctica, este método no se suele utilizar, ya que requiere \(T + 1\)
 iteraciones totales de descenso por gradiente para actualizar \(\theta\) una sola vez. En su lugar,
 utilizamos la denominada iteración de \textit{descenso-ascenso por gradiente (simultáneo)}
 (GDA)
@@ -1675,11 +1675,11 @@ Es fundamental elegir \(T\) de manera sensata. ¿Cómo podemos hacerlo? A contin
 analizamos dos configuraciones de \(T\) que conducen a
 la convergencia del GDA hacia un equilibrio de Stackelberg bajo diferentes supuestos.
 
-\subsubsection{Convergencia del GDA de escala única de tiempo hacia el equilibrio de Stackelberg}
+\subsubsection{Convergencia del GDA de una sola escala temporal hacia el equilibrio de Stackelberg}
 
-Si \(T = 1\) (es decir, denominado \textit{de escala de tiempo única} porque tanto
-las actualizaciones de \(\theta\) como las de \(\eta\) son de la misma escala), entonces el algoritmo GDA
-se convierte en
+Si \(T = 1\) (es decir, enn el caso denominado \textit{de una sola escala temporal} porque tanto
+las actualizaciones de \(\theta\) como las de \(\eta\) operan a la misma escala), entonces el algoritmo GDA
+se reduce a
 \begin{equation}
     \theta_{k + 1} = \theta_{k} + h\nabla_{\theta}\cL(\theta_{k},
     \eta_{k}), \qquad \eta_{k + 1} = \eta_{k} -
@@ -1692,16 +1692,16 @@ es coercitiva (es decir, \(\lim_{\norm{\theta}_{2}, \norm{\eta}_{2} \to
 equilibrios de Stackelberg y viceversa. El trabajo
 \cite{zamani2024convergence} demuestra que el GDA (de nuevo, con \(T = 1\))
 con un tamaño de paso \(h\) suficientemente pequeño converge a un punto de silla
-(y, por lo tanto, a un equilibrio de Stackelberg) a una velocidad exponencial si existe alguno,
+(y, por lo tanto, a un equilibrio de Stackelberg) a velocidad exponencial cuando lo haya,
 en forma análoga al descenso por gradiente para funciones fuertemente convexas con
 gradiente de Lipschitz.\footnote{No proporcionamos el tamaño del paso ni
     la base exponencial, ya que se trata de funciones complejas de la
-    constante de convexidad/concavidad/Lipschitz del gradiente. Por supuesto,
+    constante de fuerte convexidad/concavidad/Lipschitz del gradiente. Por supuesto,
     el artículo \cite{zamani2024convergence} ofrece los valores exactos de los parámetros.} 
 Según nuestro conocimiento, este tipo de resultados constituye la única
 justificación rigurosa conocida para el GDA de escala temporal única.
 
-\subsubsection{Convergencia local del GDA de doble escala de tiempo hacia el
+\subsubsection{Convergencia local del GDA de doble escala temporal hacia el
 equilibrio de Stackelberg}
 
 La convexidad/concavidad fuerte es una propiedad \textit{global}, y ninguno de
@@ -1713,7 +1713,7 @@ entonces el GDA puede converger hacia él, dado un tamaño de paso \(h\)
 y una escala de tiempo \(T\) adecuados.
 
 De hecho, nuestros resultados también se mantienen para una versión del \textit{equilibrio local}
-denominado \textit{punto de equilibrio diferencial de Stackelberg}, 
+de Stackelberg denominado \textit{equilibrio diferencial de Stackelberg}, 
 que fue introducido en \cite{fiez2019convergence}
 (aunque utilizamos la definición precisa de \cite{li2022convergence}),
 y que definimos de la siguiente manera. Un punto \((\theta^{\star},
@@ -1721,11 +1721,11 @@ y que definimos de la siguiente manera. Un punto \((\theta^{\star},
 \begin{itemize}
     \item \(\nabla_{\eta}\cL(\theta^{\star}, \eta^{\star}) = \vzero\);
     \item \(\nabla_{\eta}^{2}\cL(\theta^{\star}, \eta^{\star})\) es
-        simétrica positiva definida;
+        simétrica definida positiva;
     \item \(\nabla_{\theta}\cL(\theta^{\star}, \eta^{\star}) = \vzero\);
     \item \((\nabla_{\theta}^{2}\cL +
             [\odv*{\nabla_{\eta}\cL}{\theta}][\nabla_{\eta}^{2}\cL]^{-1}[\odv*{\nabla_{\theta}\cL}{\eta}])(\theta^{\star},
-        \eta^{\star})\) es simétrica negativa definida.
+        \eta^{\star})\) es simétrica definida negativa.
 \end{itemize}
 Nótese que la última condición requiere la matriz hessiana (total)
 \begin{equation}
@@ -1741,18 +1741,18 @@ consideramos el cálculo de \(\nabla_{\theta}[\min_{\eta \in
 criterios son, en realidad, restricciones sobre el gradiente y la hessiana de
 la función \(\theta \mapsto \min_{\eta \in \Eta}\cL(\theta,
 \eta)\), lo que garantiza que el gradiente sea \(0\) y que la hessiana sea
-semidefinida negativa. Esta intuición nos indica que podemos esperar
+semidefinida negativa. Esta intuición sugiere que podemos esperar
 que cada equilibrio de Stackelberg sea un equilibrio diferencial de Stackelberg;
 \cite{fiez2020implicit} confirma esto de manera rigurosa (con sujeción a
 ciertas condiciones técnicas).
 
-De manera análoga al concepto de óptimo local estricto en la optimización de un solo agente
+De manera análoga al concepto de óptimo local estricto en la optimización de un solo jugador
 (donde se requiere que \(\nabla^{2}\cL(\theta^{\star})\) sea
 semidefinida positiva), la definición del equilibrio diferencial de Stackelberg
-implica que \(\cL(\theta, \cdot)\) es localmente
-    (estricta) en una vecindad del equilibrio, y que
-    \(\min_{\eta \in \Eta}\cL(\cdot, \eta)\) es localmente (estricta)
-cóncava en la misma región.
+\textit{implica que \(\cL(\theta, \cdot)\) es localmente
+    (estrictamente) convexa en una vecindad del equilibrio, y que
+    \(\min_{\eta \in \Eta}\cL(\cdot, \eta)\) es localmente (estrictamente)
+cóncava en la misma región}.
 
 En este contexto, presentamos el resultado de \cite{li2022convergence}.
 Sea \((\theta^{\star}, \eta^{\star})\) un equilibrio diferencial de Stackelberg.
@@ -1817,7 +1817,7 @@ el equilibrio. En la práctica, existen algunos enfoques habituales:
         para alcanzar un buen equilibrio.
     \item Supongamos que \(T\) es una constante, por ejemplo, \(T = 10^{6}\), lo que
         implica que \(\eta\) alcanza el equilibrio \(10^{6}\) veces más rápido
-        que \(\theta\). Aquí también puedes utilizar actualizaciones al estilo Adam, y
+        que \(\theta\). Aquí también se pueden utilizar actualizaciones al estilo Adam, y
         esperar que eso solucione el problema de la escala de tiempo.
     \item Supongamos que \(T\) depende de la iteración \(k\), y que \(T_{k}
         \to \infty\) cuando \(k \to \infty\). Este esquema fue estudiado
@@ -1844,13 +1844,13 @@ decodificador es el Jugador \(2\). En el
     \end{align*}
     donde $\theta^*$ es un minimizador de $f$.
 
-    Demuestre que, en virtud de la desigualdad de PL y suponiendo que
+    Demuestre que, dada la desigualdad de PL y suponiendo que
     $f$ es $\beta$-suave, el descenso por gradiente \eqref{eq:GD} converge
     linealmente a  $\theta^*$.
 \end{exercise}
 
 \begin{exercise}
-    Calcule la derivada y la derivada adjunta de la función softmax,
+    Calcule la diferencial y la derivada adjunta de la función softmax,
     definida de la siguiente manera.
     \begin{equation}
         \softmax\rp{\mat{x_{1} \\ \vdots \\ x_{n}}} =
@@ -1859,7 +1859,7 @@ decodificador es el Jugador \(2\). En el
 \end{exercise}
 
 \begin{exercise}
-    Realize el cálculo de retropropagación para una red neuronal multicapas (MLP) de \(L\) capas,
+    Realice el cálculo de retropropagación para una red neuronal multicapa (MLP) de \(L\) capas,
     tal y como se define en la \Cref{sub:contrastive_learning_architecture}.
 \end{exercise}
 

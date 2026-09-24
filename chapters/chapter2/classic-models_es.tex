@@ -182,7 +182,7 @@ donde $\tilde{\vU}$ está restringida a ser una matriz ortonormal, tal como
 se ha indicado anteriormente. Omitiremos
 esta restricción en las exposiciones similares que siguen, en aras de la brevedad.
 
-\paragraph{Codificación y decodificación en subespacios mediante eliminación de ruido.}
+\paragraph{Codificación y decodificación en subespacios mediante reducción de ruido.}
 Para simplificar este problema, para un valor fijo de \(\tilde{\vU}\), tenemos (la demostración
 como ejercicio):
 \begin{align}
@@ -209,7 +209,7 @@ los siguientes dos problemas equivalentes:
     \tilde{\vU}\tilde{\vU}^{\top}\vx_{i}}_{2}^{2}.
 \end{equation}
 Téngase en cuenta que el problema que aparece en el miembro derecho de \eqref{eq:pca_equals_denoising}
-es un problema de \textit{eliminación de ruido}: dadas observaciones ruidosas \(\vx_{i}\) de
+es un problema de \textit{reducción de ruido}: dadas observaciones ruidosas \(\vx_{i}\) de
 datos de bajo rango, nuestro objetivo es encontrar la copia \textit{sin ruido} de \(\vx_{i}\), que
 bajo el modelo \eqref{eq:pca_dgp} es $\vU\vz_{i}$. Es decir, la entrada sin ruido
 $\hat{\vx}_i = \vU\vU^\top \vx_i$. Nótese que este es el punto del subespacio
@@ -341,7 +341,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
     son los \(d\) primeros vectores propios de \(\vX^{\top}\vX/N\).
 \end{remark}
 
-\begin{remark}[Selección de base mediante valores propios de la eliminación de ruido]
+\begin{remark}[Selección de base mediante valores propios de la reducción de ruido]
     En muchos casos, nuestros datos no estarán distribuidos realmente
     según un modelo de subespacio más ruido, o bien no conoceremos la
     verdadera dimensión subyacente \(d\) del subespacio. En este caso,
@@ -366,10 +366,10 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
         \min_{\tilde{\vU}}\frac{1}{N}\sum_{i = 1}^{N}\norm{\vx_{i} -
         \tilde{\vU}\tilde{\vU}^{\top}\vx_{i}}_{2}^{2},
     \end{equation}
-    es lo que se conoce como un \textit{problema de eliminación de ruido}, llamado así
+    es lo que se conoce como un \textit{problema de reducción de ruido}, llamado así
     porque se trata de un problema de optimización cuya solución
     \textit{elimina el ruido de las muestras para que estas se ajusten al
-    subespacio}. La eliminación de ruido ---el aprendizaje de un mapa que elimina el ruido de
+    subespacio}. La reducción de ruido ---el aprendizaje de un mapa que elimina el ruido de
     muestras ruidosas para que se ajuste a la estructura de datos (como en
     \eqref{eq:pca_dgp}, aunque quizá en forma más compleja)--- es un método habitual
     para el aprendizaje de distribuciones que se analizará en lo que sigue
@@ -380,7 +380,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
 
 \begin{remark}[Interpretación como red neuronal]
     Si realizamos un análisis de componentes principales (PCA), recuperamos aproximadamente el soporte de la distribución
-    codificada por el parámetro \(\vU^{\star}\). El mapa de eliminación de ruido aprendido adopta entonces
+    codificada por el parámetro \(\vU^{\star}\). El mapa de reducción de ruido aprendido adopta entonces
     la forma \(\vU^{\star}(\vU^{\star})^{\top}\). Además de ser un \textit{denoiser}, esto 
     puede considerarse como una \textit{red neuronal lineal simple de dos capas con pesos vinculados} RN: la 
     primera capa multiplica por \((\vU^{\star})^{\top}\) y la segunda multiplica por \(\vU^{\star}\), es decir
@@ -400,7 +400,7 @@ abarcan todo el espacio \(\R^{d}\)), entonces tendríamos una recuperación perf
         capa}}}_{\text{post-activación de la primera capa}}}_{\text{salida de la RN}}
     \end{equation}
     En concreto, el PCA puede interpretarse como \textit{el aprendizaje de un autocodificador simple de 
-    dos capas de eliminación de ruido},\footnote{De hecho, como hemos mencionado en el
+    dos capas de reducción de ruido},\footnote{De hecho, como hemos mencionado en el
         capítulo anterior, el PCA fue uno de los primeros problemas en el que se
     utilizaron redes neuronales para resolverlo \cite{Oja1982SimplifiedNM,Baldi89}.} 
     uno de los ejemplos más simples de una red neuronal no trivial. En este marco, 
@@ -496,16 +496,16 @@ la siguiente ecuación:
     a \(\lambda_{1}\) a una velocidad comparable.
 \end{proof}
 
-\begin{remark}[El método de las potencias como proceso de eliminación de ruido] Nótese que
+\begin{remark}[El método de las potencias como proceso de reducción de ruido] Nótese que
     el cálculo de la componente principal mediante el método de las potencias puede
-    interpretarse como un proceso de «eliminación de ruido»: partiendo de un ruido aleatorio,
+    interpretarse como un proceso de «reducción de ruido»: partiendo de un ruido aleatorio,
     converge iterativamente hacia un subespacio unidimensional.
     De hecho, como mostraremos más adelante en el \Cref{ch:denoising}, si
     suponemos que {\em el soporte de la distribución de los datos es un único
-    subespacio}, el operador de eliminación de ruido asociado (o la función de \textit{score})
+    subespacio}, el operador de reducción de ruido asociado (o la función de \textit{score})
     es exactamente el mismo que la iteración de potencias anterior. En
     el \Cref{ch:denoising}, mostraremos cómo generalizar ese
-    proceso de eliminación de ruido a distribuciones de estructuras
+    proceso de reducción de ruido a distribuciones de estructuras
     de baja dimensión más generales. Se trata, en esencia, de un enfoque universal y
     muy eficaz para aprender cualquier distribución de baja dimensión.
 \end{remark}
@@ -675,8 +675,8 @@ de \(\Cov[\vx]\).
 
 \begin{remark}
     Al aplicar el enfoque probabilístico del PCA, logramos una comprensión más clara
-    y cuantitativa de cómo se relaciona con la eliminación de ruido. En primer lugar, 
-    consideremos el problema de eliminación de ruido en \eqref{eq:ppca_denoising}, 
+    y cuantitativa de cómo se relaciona con la reducción de ruido. En primer lugar, 
+    consideremos el problema de reducción de ruido en \eqref{eq:ppca_denoising}, 
     es decir
     \begin{equation}
         \min_{\tilde{\vU}}\Ex\norm{\vx -
@@ -699,7 +699,7 @@ de \(\Cov[\vx]\).
         = \mathop{\mathrm{col}}(\vU^{\star}(\vU^{\star})^{\top})
         = \mathop{\mathrm{col}}(\vU^{\star}).
     \end{equation}
-    En concreto, el \textit{mapa de eliminación de ruido} estimado
+    En concreto, el \textit{mapa de reducción de ruido} estimado
     \(\vU^{\star}(\vU^{\star})^{\top}\) es una proyección ortogonal
     sobre \(\cS\), que empuja los puntos con ruido hacia el subespacio de soporte
     de la verdad de referencia (ground truth). Podemos obtener un resultado técnico similar

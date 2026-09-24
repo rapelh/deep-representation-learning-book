@@ -2811,7 +2811,7 @@ lo cual coincide con sus mejores puntuaciones en rFID.
 % \yima{Besides the quantitative results, please have some
 % illustrations to show qualitative improvements... }
 
-\subsection{Muestreo a partir de representaciones aprendidas mediante eliminación de ruido}
+\subsection{Muestreo a partir de representaciones aprendidas mediante reducción de ruido}
 
 Una vez que hemos aprendido una representación consistente y estructurada de la distribución de las 
 imágenes naturales, por ejemplo, mediante VAE o RAE, normalmente nos interesa generar de manera 
@@ -2821,17 +2821,17 @@ aprendido $\hat{\x} = g(\z) \in \cX$. Este proceso de autocodificación se ilust
 superior de la Figura \ref{fig:mental-picture} del Capítulo \ref{ch:intro}.
 
 Para aprender (y con ello muestrear) la distribución de las características $\z$ en el espacio 
-latente $\cZ$, podemos valernos del método de eliminación de ruido y difusión presentado en el 
+latente $\cZ$, podemos valernos del método de reducción de ruido y difusión presentado en el 
 Capítulo \ref{ch:denoising}. Concretamente, supongamos que $p(\z)$ es la distribución de las 
 características aprendidas $\z$ en el espacio de características. Podemos aprender un proceso 
-de eliminación de ruido que, partiendo de una distribución gaussiana estándar inicial $\vg \sim \cN(0, \vI)$, 
+de reducción de ruido que, partiendo de una distribución gaussiana estándar inicial $\vg \sim \cN(0, \vI)$, 
 converja hacia esta distribución $p(\z)$. Siguiendo el método presentado en el Capítulo \ref{ch:denoising}, 
 queremos aprender un \textit{denoiser} $\bar{\z}$ tal que, de manera iterativa, transforme una muestra de la 
 distribución inicial $\cN(0, \vI)$ en una muestra de la distribución objetivo de las representaciones 
 aprendidas $p(\z)$. Este proceso se ilustra en la mitad inferior de la Figura \ref{fig:mental-picture} 
 del Capítulo \ref{ch:intro}.
 
-Para entender el proceso de eliminación de ruido, tomemos el caso sencillo de la coincidencia de flujos 
+Para entender el proceso de reducción de ruido, tomemos el caso sencillo de la coincidencia de flujos 
 presentado en el Capítulo \ref{ch:denoising}. Podemos definir el \textit{denoiser} como un campo vectorial 
 dependiente del tiempo $\bar{\z}_{\theta}(t, \z_t)$, parametrizado por $\theta$, que transforma una muestra desde la
 distribución inicial hacia la distribución objetivo a lo largo del tiempo $t \in [0, 1]$. 
@@ -2848,7 +2848,7 @@ El objetivo de entrenamiento para el \textit{denoiser} puede expresarse entonces
 \norm{\bar{\z}_{\theta}(t,\z_t) - (\z_1 - \z_0)}_2^2 \right].
 \end{equation}
 
-Por lo general, el campo vectorial de eliminación de ruido $\bar{\z}_{\theta}(t, \z_t)$ 
+Por lo general, el campo vectorial de reducción de ruido $\bar{\z}_{\theta}(t, \z_t)$ 
 se modela mediante una red profunda. Las opciones más comunes para la red profunda son 
 una U-Net o un transformer de imágenes por difusión (DiT). A continuación ofrecemos 
 más detalles sobre cómo se pueden implementar en la práctica.
@@ -2877,14 +2877,14 @@ más detalles sobre cómo se pueden implementar en la práctica.
 % embeddings serve as keys and values. This allows the network to attend to 
 % relevant parts of the text prompt when denoising each spatial location.
 
-\subsection{Implementación de la eliminación de ruido mediante una red U-Net}
+\subsection{Implementación de la reducción de ruido mediante una red U-Net}
 \label{sec:UNet-implement}
 
-La arquitectura predominante para implementar la red de eliminación de ruido $\boldsymbol{\epsilon}_\theta$ 
+La arquitectura predominante para implementar la red de reducción de ruido $\boldsymbol{\epsilon}_\theta$ 
 en los modelos de difusión ha sido la \textit{U-Net}~\citep{ronneberger2015unet}, una red convolucional tipo 
 codificador-decodificador con conexiones de salto (skip connections) desarrollada originalmente para la segmentación de 
 imágenes biomédicas. Ho et al.~\citep{ho2020denoising} fueron los primeros en adoptar la red U-Net como 
-estructura principal de los modelos probabilísticos de difusión con eliminación de ruido (DDPM), 
+estructura principal de los modelos probabilísticos de difusión con reducción de ruido (DDPM), 
 consolidándola como la arquitectura por defecto en este campo. Posteriormente, Dhariwal 
 y Nichol~\citep{dhariwal2021diffusion} llevaron a cabo una serie sistemática de ablaciones arquitectónicas 
 que mejoraron sustancialmente el diseño de U-Net, dando lugar a lo que ellos denominan 
@@ -2932,7 +2932,7 @@ $\hat{\boldsymbol{\epsilon}} \in \mathbb{R}^{h \times w \times c}$, con $h = H/f
 tal como se define en la Sección~\ref{sec:VAE-implement}.
 
 \paragraph{Condicionamiento por paso de tiempo mediante normalización adaptativa por grupos.}
-La red de eliminación de ruido debe condicionarse al paso de tiempo de difusión $t$ para que 
+La red de reducción de ruido debe condicionarse al paso de tiempo de difusión $t$ para que 
 pueda adaptar su comportamiento a los distintos niveles de ruido. Siguiendo el esquema de 
 codificación posicional del transformer~\citep{vaswani2017attention}, el paso de tiempo $t$ 
 se mapea primero a un \textit{embedding} de frecuencia sinusoidal:
@@ -2962,7 +2962,7 @@ del \textit{embedding} del paso de tiempo y $\hada$ denota la multiplicación el
 elemento. Este mecanismo es análogo a la normalización adaptativa de 
 instancias~\citep{dumoulin2017learned} y al condicionamiento FiLM~\citep{perez2018film}, 
 y permite que cada capa module sus activaciones en función del nivel de ruido actual. 
-Los experimentos de ablación en~\citep{dhariwal2021diffusion} muestran que la eliminación 
+Los experimentos de ablación en~\citep{dhariwal2021diffusion} muestran que la reducción 
 de AdaGN deteriora el FID en más de 2 puntos, lo que confirma su importancia.
 
 Para la generación condicionada por clase, simplemente se añade un \textit{embedding} de clase 
@@ -3005,7 +3005,7 @@ cuando se combinó con una pila de supermuestreo (ADM-U).
 El principal inconveniente de la guía basada en clasificadores es que requiere entrenar un 
 clasificador independiente sobre imágenes con ruido. Esta limitación se abordó posteriormente 
 mediante la \emph{guía libre de clasificadores}~\citep{ho2022classifier}, que prescinde por completo 
-del clasificador externo al aprender en forma conjunta la eliminación de ruido condicional e 
+del clasificador externo al aprender en forma conjunta la reducción de ruido condicional e 
 incondicional dentro de un único modelo, una técnica que describimos en detalle en 
 la Sección~\ref{sec:DiT-implement}.
 
@@ -3101,10 +3101,10 @@ Gflops-FID de $-0,93$) y una arquitectura más simple.
 % process. The generated feature samples can then be decoded back to
 % the image space with the corresponding decoder $g$.
 
-\subsection{Implementación de la eliminación de ruido mediante un Transformer de difusión}
+\subsection{Implementación de la reducción de ruido mediante un Transformer de difusión}
 \label{sec:DiT-implement}
 
-Una alternativa a U-Net para implementar la red de eliminación de ruido 
+Una alternativa a U-Net para implementar la red de reducción de ruido 
 $\boldsymbol{\epsilon}_\theta$ es el \textit{Diffusion Transformer (DiT)}~\citep{peebles2023scalable}, 
 que sustituye por completo las convoluciones por bloques Transformer. El hallazgo clave es que 
 el sesgo inductivo espacial de U-Net \emph{no es crucial} para el rendimiento de los modelos de 
@@ -3258,12 +3258,12 @@ que mejora a 2,27 con una escala de guía de s = 1,5, superando a todos los mode
 anteriores en el banco de pruebas ImageNet de 256 × 256 con condiciones de clase.
 
 \subsubsection{Generación}
-Una vez entrenada la red de eliminación de ruido $\boldsymbol{\epsilon}_\theta$ (es decir, la DiT), 
+Una vez entrenada la red de reducción de ruido $\boldsymbol{\epsilon}_\theta$ (es decir, la DiT), 
 se pueden generar nuevas imágenes ejecutando el proceso inverso aprendido. Partiendo de un ruido 
 puro $\z_{t_{\max}} \sim \mathcal{N}(\boldsymbol{0}, \boldsymbol{I})$, el modelo elimina el ruido 
 de manera iterativa mediante el muestreo de $\z_{t-1} \sim p_\theta(\z_{t-1} | \z_t)$ en cada paso, 
 utilizando el ruido predicho $\hat{\boldsymbol{\epsilon}}_\theta$ y la covarianza $\boldsymbol{\Sigma}_\theta$ 
-para parametrizar la transición inversa. Tras $t_{\max}$ pasos de eliminación de ruido, la variable 
+para parametrizar la transición inversa. Tras $t_{\max}$ pasos de reducción de ruido, la variable 
 latente limpia $\z_0$ se decodifica de nuevo al espacio de la imagen mediante el decodificador 
 VAE: $\tilde{\x} = \mathcal{D}(\z_0) \in \mathbb{R}^{H \times W \times 3}$.
 
@@ -5332,7 +5332,7 @@ geométrica en 3D como la fidelidad de la apariencia con respecto a la imagen de
 Obsérvese que el marco de dos etapas descrito anteriormente desacopla la distribución
 de los objetos 3D en varias componentes interrelacionadas ---forma, pose y
 apariencia--- y aprende cada una de manera independiente. Aunque esto implica que debemos
-aprender dos modelos generativos de eliminación de ruido al mismo tiempo, las representaciones aprendidas
+aprender dos modelos generativos de reducción de ruido al mismo tiempo, las representaciones aprendidas
 resultantes están mucho mejor estructuradas y permiten un razonamiento espacial y una generación mucho más
 precisos y flexibles.
 \end{remark}
@@ -5515,7 +5515,7 @@ de muestreo para incluir $K$ vistas de entrada ${ \image^{(k)} }_{k=1}^K$.
 En la primera etapa, nuestro objetivo es recuperar una única geometría canónica y, al mismo 
 tiempo, estimar $K$ poses de cámara distintas. Inicializamos una latente de geometría 
 compartida $\boldsymbol{S}_{o}$ y $K$ latentes de pose independientes 
-$\{ \boldsymbol{S}_{uv}^{(k)} \}_{k=1}^K$. En cada paso de eliminación de ruido $t$, 
+$\{ \boldsymbol{S}_{uv}^{(k)} \}_{k=1}^K$. En cada paso de reducción de ruido $t$, 
 predecimos los campos de flujo tanto para la geometría como para la pose en paralelo para 
 cada vista. Sea la salida de la red de flujo para la vista $k$-ésima un vector concatenado 
 de actualizaciones de geometría y pose:
@@ -5885,7 +5885,7 @@ $\boldsymbol{c}$.}
 donde:
 \begin{itemize}
     \item $p_\theta(\boldsymbol{x}_0 \mid \boldsymbol{c})$ es una distribución a priori condicional
-        aprendida, concretamente un modelo de difusión para la eliminación de ruido
+        aprendida, concretamente un modelo de difusión para la reducción de ruido
         genera movimientos corporales plausibles a partir del movimiento de la cabeza.
     \item $p(\boldsymbol{y}^{\text{mano}}, \boldsymbol{y}^{\text{físico}} \mid
         \boldsymbol{x}_0)$ es la verosimilitud de las observaciones sobre la mano y
@@ -6024,12 +6024,12 @@ posición y la orientación de la articulación de la cabeza a partir de los dat
 dispositivo estuviera fijado rígidamente a la cabeza.
 
 \paragraph{Objetivo del entrenamiento.}
-El entrenamiento utiliza la pérdida de \textit{score matching} con eliminación de ruido del \Cref{ch:denoising}:
+El entrenamiento utiliza la pérdida de \textit{score matching} con reducción de ruido del \Cref{ch:denoising}:
 \begin{equation}
     \mathcal{L}_{\text{diff}} = \mathbb{E}_{\boldsymbol{x}_0, \boldsymbol{n}} \left[ w_n
     \left\| D_\theta(\boldsymbol{x}_n, \boldsymbol{n}, \boldsymbol{c}) - \boldsymbol{x}_0 \right\|^2 \right],
 \end{equation}
-donde $D_\theta$ es la red de eliminación de ruido, $w_n$ son pesos que dependen del ruido
+donde $D_\theta$ es la red de reducción de ruido, $w_n$ son pesos que dependen del ruido
 y $\boldsymbol{x}_n$ se obtiene añadiendo ruido al movimiento limpio
 $\boldsymbol{x}_0$ según el proceso de difusión hacia adelante. El modelo
 aprende a predecir el movimiento limpio a partir del movimiento ruidoso, condicionado a las trayectorias
@@ -6126,13 +6126,13 @@ En la práctica, en lugar de calcular los gradientes a través de toda la
 energía de guía en cada paso, EgoAllo alterna entre dos operaciones:
 
 \begin{enumerate}
-    \item \textbf{Paso previo de eliminación de ruido.} Aplicar una actualización al estilo DDIM
+    \item \textbf{Paso previo de reducción de ruido.} Aplicar una actualización al estilo DDIM
         utilizando el eliminador de ruido condicionado por la cabeza
         $D_n^{\text{head}}(\cdot;\boldsymbol{c})$ para obtener una propuesta
-        $\tilde{\boldsymbol{x}}_{n-1}$. DDIM (Modelos implícitos de difusión con eliminación de ruido) 
+        $\tilde{\boldsymbol{x}}_{n-1}$. DDIM (Modelos implícitos de difusión con reducción de ruido) 
         proporciona un procedimiento de muestreo determinista que mapea
         muestras ruidosas hacia otras más limpias; a diferencia de los muestreadores estocásticos,
-        cada paso de eliminación de ruido es una función determinista del
+        cada paso de reducción de ruido es una función determinista del
         estado actual, lo que permite un muestreo más rápido con menos pasos.
 
     \item \textbf{Paso de ajuste de medidas.} Refinar la propuesta resolviendo
@@ -6157,7 +6157,7 @@ interpola entre el descenso de gradiente y la optimización de Gauss-Newton,
 adaptando el tamaño de su paso en función de lo bien que la linealización
 aproxima al objetivo real. Esto es adecuado para la estimación de parámetros SMPL-H,
 donde el objetivo implica una cinemática directa diferenciable. Bastan unas pocas iteraciones 
-en cada paso de eliminación de ruido.
+en cada paso de reducción de ruido.
 
 \begin{figure}[htbp]
     \centering
@@ -6178,7 +6178,7 @@ en cada paso de eliminación de ruido.
 \paragraph{Alineación global.}
 El modelo de difusión opera en un sistema de coordenadas relativo a la cabeza,
 prediciendo la postura del cuerpo en relación con la cabeza, en lugar de hacerlo en coordenadas absolutas
-de mundo. Tras el último paso de eliminación de ruido, EgoAllo ancla el
+de mundo. Tras el último paso de reducción de ruido, EgoAllo ancla el
 cuerpo en el mundo componiéndolo con las posturas de la cabeza obtenidas por SLAM:
 \begin{equation}
     \boldsymbol{T}_{\text{world},\text{root}}^t
@@ -6195,7 +6195,7 @@ esté correctamente anclado: los pies en el suelo y la cabeza alineada con la c�
 El modelo de difusión se entrena con secuencias de longitud fija (32-128 fotogramas). 
 Para grabaciones más largas, EgoAllo utiliza el enfoque MultiDiffusion
 \citep{bar2023multidiffusion}: la secuencia se divide en
-ventanas superpuestas y se elimina el ruido en paralelo. Tras cada paso de eliminación de ruido,
+ventanas superpuestas y se elimina el ruido en paralelo. Tras cada paso de reducción de ruido,
 los resultados de las regiones de superposición se promedian
 antes de proceder al siguiente paso. Esta combinación paso a paso garantiza
 que las ventanas mantengan coherencia entre sí durante el

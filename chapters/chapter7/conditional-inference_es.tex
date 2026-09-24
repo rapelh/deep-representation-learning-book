@@ -287,11 +287,11 @@ $h(\x)$ y $F(\x)$, respectivamente.
 Obsérvese que el siguiente (gradiente)
 $$-  \mu (F(\x) - c) \pdv{F}{\vx}(\vx)$$ que siempre apunta
 hacia el soporte de baja dimensión de la distribución. Por lo tanto, el
-proceso de descenso puede considerarse como un proceso de «eliminación de ruido», estudiado en el
+proceso de descenso puede considerarse como un proceso de «reducción de ruido», estudiado en el
 \Cref{ch:denoising}, que gradualmente obliga a los datos a acercarse
 al soporte correcto. Nótese que la derivación anterior
 sugiere que el «tamaño del paso» del \textit{score} $\nabla_{\x}
-\log p(\x)$ del proceso de eliminación de ruido es 
+\log p(\x)$ del proceso de reducción de ruido es 
 $$\mu \big| F(\x) - \lambda/\mu\big|$$, 
 lo cual, para cualquier $\mu$ fijo, es casi proporcional
 a la distancia del punto $\x$ al soporte.
@@ -344,7 +344,7 @@ desde el punto de vista conceptual, presentan un grado de dificultad cada vez ma
         el modelo de observación $\y = h(\x)$ (posiblemente con ruido añadido $\vw$),
         incluso de forma analítica. Este suele ser el
         caso de muchos problemas clásicos de procesamiento de señales, como
-        la eliminación de ruido en señales, el problema de recuperación de vectores esparsos que vimos
+        la reducción de ruido en señales, el problema de recuperación de vectores esparsos que vimos
         en el \Cref{ch:classic-models} y el problema de recuperación de matrices de rango bajo
         que se presentará a continuación.
     \item {\em Caso 2:} No disponemos de un modelo de distribución,
@@ -700,7 +700,7 @@ deberíamos tratarla como un problema de muestreo condicional.
 Para ello, primero deberíamos aprender la distribución (de baja dimensión)
 de todas las imágenes naturales $\X$. Si contamos con suficientes
 muestras de imágenes naturales, podemos aprender la distribución mediante un
-proceso de eliminación de ruido $\X_t$ descrito en el \Cref{ch:denoising}. Entonces, el
+proceso de reducción de ruido $\X_t$ descrito en el \Cref{ch:denoising}. Entonces, el
 problema de recuperar $\X$ a partir de su observación parcial $\Y =
 \mathcal{P}_\Omega(\x) +\vw$ se convierte en un problema de generación condicional: 
 obtener muestras de la distribución condicionadas a la observación.
@@ -745,7 +745,7 @@ se tiene $ \mathbb{E}[\X_0 \mid \vA\X_t, \vA] =
 \mathbb{E}[\X_0 \mid \X_t]$. Por lo tanto, en el caso más general, se ha
 sugerido en \cite{daras2023ambient} que aún se podría utilizar
 el $\mathbb{E}[\X_0 \mid \vA(\X_t), \vA]$ así obtenido para sustituir el
-$\mathbb{E}[\X_0 \mid \X_t]$ en el proceso estándar de eliminación de ruido para $\X_t$:
+$\mathbb{E}[\X_0 \mid \X_t]$ en el proceso estándar de reducción de ruido para $\X_t$:
 \begin{equation}
     \X_{t-s} = \gamma_t \X_t + (1-\gamma_t) \mathbb{E}[\X_0 \mid \vA\X_t, \vA].
 \end{equation}
@@ -821,7 +821,7 @@ a reconstruir y muestrear $\vx$.
     \caption{Diagramas de dependencia estadística para el proceso de
         muestreo condicional.
         \textbf{Izquierda:} En una aplicación directa (conceptual) del
-        esquema de eliminación de ruido por difusión
+        esquema de reducción de ruido por difusión
         que hemos desarrollado en el \Cref{ch:denoising} al muestreo condicional, utilizamos
         muestras de la distribución a posteriori $p_{\vx \mid \vy}$ para entrenar
         los eliminadores de ruido directamente sobre
@@ -837,7 +837,7 @@ a reconstruir y muestrear $\vx$.
         de $\vx_t$ y
         $\vy$ dado $\vx$. Implica que $p_{\posteriorsample_t \mid \vy} =
         p_{\vx_t \mid
-        \vy}$, lo que da lugar a una función de \textit{score} para la eliminación de ruido que consiste en la
+        \vy}$, lo que da lugar a una función de \textit{score} para la reducción de ruido que consiste en la
         función de \textit{score} incondicional, más un término de corrección que
     garantiza la consistencia de la medición.}
     \label{fig:posterior-sampling-cds}
@@ -860,11 +860,11 @@ para diferentes niveles de observaciones ruidosas $\x_t = \x + t \vg$ (y $\vxi$ 
 sus realizaciones) bajo
 ruido gaussiano $\vg \sim \cN(\mathbf{0}, \vI)$, y $t \in
 [0, T]$ con una elección de tiempos $0 = t_1 < \dots < t_{L} = T$ en los que
-realizar la eliminación de ruido iterativa, comenzando desde $\hat{\vx}_{t_L} \sim
+realizar la reducción de ruido iterativa, comenzando desde $\hat{\vx}_{t_L} \sim
 \cN(\mathbf{0}, T^2 \vI)$ (recordemos
 \Cref{eq:denoising-iteration-basic}).\footnote{Recordemos que, como 
     vimos en nuestra discusión en \Cref{sub:sampling_denoising}, unas pocas mejoras menores
-    en este esquema básico de eliminación de ruido iterativo son
+    en este esquema básico de reducción de ruido iterativo son
     suficientes para lograr un rendimiento práctico competitivo. Para
     mayor claridad a medida que desarrollamos
 el muestreo condicional, nos centraremos aquí en la implementación más simple.}
@@ -885,7 +885,7 @@ sufre de la maldición de la dimensionalidad.
 Afortunadamente, resulta que esto no es necesario.
 Consideremos el diagrama de dependencia estadística alternativo de la
 \Cref{fig:posterior-sampling-cds}(b), que corresponde a las variables aleatorias
-del proceso habitual de difusión con eliminación de ruido, junto con la medición $\vy$.
+del proceso habitual de difusión con reducción de ruido, junto con la medición $\vy$.
 Dado que nuestro modelo de observación supuesto
 \eqref{eq:measurement-matching-observation}
 implica que $\vx_t$ y $\vy$ son independientes condicionales a $\vx$, tenemos que para
@@ -1773,11 +1773,11 @@ y $\z$ e intentar entrenar un codificador combinado:
 donde la distribución conjunta de $(\z, \y)$ es de muy baja dimensión.
 
 Según lo visto en los capítulos anteriores, el mapeo $f$ suele
-aprenderse como una secuencia de operadores de compresión o de eliminación de ruido en el
+aprenderse como una secuencia de operadores de compresión o de reducción de ruido en el
 mismo espacio. Por lo tanto, para aprovechar esta familia de operaciones, podemos
 introducir un vector auxiliar $\vw$ que puede considerarse como una
 conjetura aleatoria inicial de la etiqueta de clase $\y$. De esta manera, podemos aprender un
-mapeo de compresión o de eliminación de ruido:
+mapeo de compresión o de reducción de ruido:
 \begin{equation}\label{eq:classifier-with-class-token}
     f: (\x, \vw) \mapsto (\z, \y)
 \end{equation}
@@ -1798,7 +1798,7 @@ clase determinada, mediante
 el muestreo de la distribución aprendida de imágenes naturales. En cierta medida, esto puede
 considerarse como el problema «inverso» a la clasificación de imágenes. Sea $p_{\x}$ la
 distribución de imágenes naturales, modeladas, por ejemplo, mediante un proceso de
-eliminación de ruido por difusión. Dada una variable aleatoria de clase $y \in [K]$ con
+reducción de ruido por difusión. Dada una variable aleatoria de clase $y \in [K]$ con
 realización $\nu$, por ejemplo,
 una «Manzana», nos gustaría muestrear la distribución condicional $p_{\x \mid
 y}(\,\cdot\, \mid \nu)$ para generar una imagen de una manzana:
@@ -1808,7 +1808,7 @@ y}(\,\cdot\, \mid \nu)$ para generar una imagen de una manzana:
 A esto se le llama «generación de imágenes condicionada a la clase».
 
 En la \Cref{sec:conditioned-decoding}, hemos visto cómo utilizar el
-paradigma de difusión con eliminación de ruido para el
+paradigma de difusión con reducción de ruido para el
 muestreo condicional a partir de la distribución a posteriori $p_{\vx \mid \vy}$ dadas
 mediciiones \textit{basada en el modelo} $\vy = h(\vx) + \vw$
 (\Cref{eq:measurement-matching-observation}), lo que culmina en el
@@ -1864,7 +1864,7 @@ del \textit{denoiser} condicional óptimo es válida independientemente de si lo
 $\vy = h(\vx) + \vw$.
 Esto significa que si logramos aprender un \textit{denoiser} de este tipo
 \eqref{eq:conditional-denoising-mmse-denoiser-paired-data} en el contexto de datos emparejados,
-podremos seguir la metodología de difusión con eliminación de ruido que hemos desarrollado en el
+podremos seguir la metodología de difusión con reducción de ruido que hemos desarrollado en el
 \Cref{ch:denoising} para realizar un muestreo condicional por clase.
 
 Una idea natural es, entonces, implementar directamente el término de corrección de verosimilitud en
@@ -1912,7 +1912,7 @@ requiere dos procesos de entrenamiento independientes, con pérdidas distintas: 
 parámetros del clasificador $\theta_{\mathrm{c}}$, sobre una pérdida de clasificación
 \footnote{En \Cref{ch:applications}, revisamos el proceso de entrenamiento de dicho
 clasificador con todo detalle.} y otro para los parámetros del \textit{denoiser} 
-$\theta_{\mathrm{d}}$, sobre una pérdida de eliminación de ruido. Este enfoque del muestreo condicional
+$\theta_{\mathrm{d}}$, sobre una pérdida de reducción de ruido. Este enfoque del muestreo condicional
 ya se había reconocido y aprovechado para llevar a cabo el muestreo condicional en
 los primeros trabajos pioneros sobre modelos de difusión, en particular los de
 \citet{Sohl-Dickstein2015} y \citet{song2020score}. 
@@ -2246,14 +2246,14 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
         \end{split}
     \end{equation}
 
-    Este filtro de eliminación de ruido tiene una forma sencilla e interpretable:
+    Este filtro de reducción de ruido tiene una forma sencilla e interpretable:
     \begin{enumerate}
         \item El primer término, correspondiente al \textit{denoiser incondicional},
-            realiza el proceso de eliminación de ruido de la señal $\vx_t$ usando como referencia un promedio de los
+            realiza el proceso de reducción de ruido de la señal $\vx_t$ usando como referencia un promedio de los
             \textit{denoisers} asociados a cada subespacio, ponderado por el grado de correlación
             que existe entre $\vx_t$ y cada subespacio.
         \item El segundo término, correspondiente al \textit{denoiser condicional}, 
-            simplemente realiza el proceso de eliminación de ruido utilizando el \textit{denoiser}
+            simplemente realiza el proceso de reducción de ruido utilizando el \textit{denoiser}
             de la clase condicionante.
     \end{enumerate}
 
@@ -2319,7 +2319,7 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
             Esto implica que: ¡\textit{si la entrada del \textit{denoiser} CFG está altamente
                 correlacionada con uno de los subespacios de clase, el \textit{denoiser} es
                 aproximadamente igual al \textit{denoiser} condicional de la clase
-            correspondiente}! Por lo tanto, esperamos que el muestreador de eliminación de ruido CFG converja.
+            correspondiente}! Por lo tanto, esperamos que el muestreador de reducción de ruido CFG converja.
         \item \textbf{Régimen con baja correlación:} Por el contrario, si $\vx_t$
             \textit{no} se correlaciona bien con $\vU_y$ (por ejemplo,
             porque $t$ es grande),
@@ -2346,9 +2346,9 @@ En primer lugar, consideramos \textit{el efecto de CFG}: ¿qué promueve un peso
             más correlacionada con la clase de condicionamiento $y$ y
             de hacer que esté negativamente
             correlacionada con el iterado anterior (es decir, la iteración
-            previa a la eliminación del ruido).
+            previa a la reducción del ruido).
 
-            En otras palabras, \textit{CFG orienta el proceso iterativo de eliminación de ruido
+            En otras palabras, \textit{CFG orienta el proceso iterativo de reducción de ruido
                 hacia la clase de condicionamiento y lo aleja de
                 la iteración
             anterior}, una dinámica diferente a la del muestreo puramente condicional
@@ -2750,13 +2750,13 @@ En la siguiente sección se demuestra que efectivamente es así.
 En la \Cref{sub:cfg} hemos visto, a nivel conceptual, cómo configurar los \textit{denoisers} 
 para su uso con
 \textit{la guía sin clasificador}, la metodología práctica predominante para
-realizar muestreos condicionales mediante el paradigma de la difusión con eliminación de ruido.
+realizar muestreos condicionales mediante el paradigma de la difusión con reducción de ruido.
 % We instantiated this in the special case of class-conditional sampling, where
 % the conditioning signal $y$ is a scalar.
-En resumen, estos filtros de eliminación de ruido toman como entrada los datos ruidosos $\vx_t$, así como
+En resumen, estos filtros de reducción de ruido toman como entrada los datos ruidosos $\vx_t$, así como
 ya sea la señal de condicionamiento $\vy$ o una «entrada nula» $\varnothing$,
-lo que determina si el filtro debe realizar una \textit{eliminación de ruido incondicional} 
-o una \textit{eliminación de ruido condicional} (condicionada a $\vy$).
+lo que determina si el filtro debe realizar una \textit{reducción de ruido incondicional} 
+o una \textit{reducción de ruido condicional} (condicionada a $\vy$).
 
 Dado este diseño, la pregunta práctica más importante es: \textit{¿cómo
 implementar esta familia de operadores como una red neuronal?}
@@ -2784,9 +2784,9 @@ que debemos resolver:
         espacio de diseño es vasto: se podría imaginar la aplicación de diversas
         arquitecturas de codificador-decodificador específicas para cada modalidad, tal como las hemos desarrollado en
         los \Cref{ch:lossy-compression,ch:consistent-representations}, junto con
-        diferentes estructuras de base de eliminación de ruido en diversas combinaciones. Las cuestiones clave
+        diferentes estructuras de base de reducción de ruido en diversas combinaciones. Las cuestiones clave
         aquí son la \textit{expresividad}, es decir, obtener el mejor
-        rendimiento en la eliminación de ruido condicional; la \textit{eficiencia}, es decir, obtener el mejor
+        rendimiento en la reducción de ruido condicional; la \textit{eficiencia}, es decir, obtener el mejor
         rendimiento por unidad de datos de entrenamiento; y la \textit{estabilidad},
         es decir, garantizar que el proceso de entrenamiento converja rápidamente sin
         colapsar.
@@ -3094,7 +3094,7 @@ Stable Diffusion sigue la metodología de generación condicional que describimo
 \Cref{sub:cfg}, con dos modificaciones clave: (i) La señal de condicionamiento es un
 prompt de texto tokenizado $\vY \in
 \bR^{D_{\mathrm{text}} \times N}$, en lugar de una etiqueta de clase; (ii)
-La eliminación del ruido de la imagen se
+La reducción del ruido de la imagen se
 realiza en el espacio «latente» en lugar de sobre los píxeles sin procesar, utilizando un par 
 de autocodificadores variacionales especializados y preentrenados $f : \bR^{D_{\mathrm{img}}} \to
 \bR^{d_{\mathrm{img}}}$, $g : \bR^{d_{\mathrm{img}}} \to
@@ -3120,18 +3120,18 @@ es el codificador y $g$ es el decodificador.
 % In contrast, issue (i) is essential, and the approach proposed to address it
 % represents one of the lasting methodological innovations of
 % \textcite{rombach2022high}.
-En cuanto al punto (i), en el contexto del marco de eliminación de ruido condicional iterativo
+En cuanto al punto (i), en el contexto del marco de reducción de ruido condicional iterativo
 que hemos
 desarrollado en \Cref{sub:cfg}, esto se refiere a la parametrización de los eliminadores de ruido
 $\bar{\vz}_{\theta}(t, \vz_t, \vY^+)$.\footnote{En el contexto del
     condicionamiento de texto, la etiqueta «aumentada» $\vY^+$, que puede ser la
     solicitud de texto
-    codificada o $\varnothing$ (lo que denota un proceso de eliminación de ruido incondicional),
+    codificada o $\varnothing$ (lo que denota un proceso de reducción de ruido incondicional),
     suele implementarse
     asignando $\varnothing$ a la cadena vacía «» y luego codificando esta solicitud de texto
     con el tokenizador como de costumbre. Esto proporciona una forma sencilla y unificada
     de tratar
-la eliminación de ruido condicional e incondicional con el acondicionamiento de texto.}
+la reducción de ruido condicional e incondicional con el acondicionamiento de texto.}
 \textcite{rombach2022high} implementan el condicionamiento de texto en el \textit{denoiser} utilizando
 una capa conocida como «atención cruzada», inspirada en la arquitectura original de transformer codificador-decodificador
 de \textcite{vaswani2017attention}. La atención cruzada se
@@ -3258,7 +3258,7 @@ $\x_t$ como aquel que satisface:
     \y_t = \vA \x_t.
 \end{equation}
 
-Del proceso de eliminación de ruido de $\y_t$, tenemos
+Del proceso de reducción de ruido de $\y_t$, tenemos
 \begin{equation}
     \y_{t-s} \approx  \y_t + st \nabla \log p_t(\y_t).
 \end{equation}
@@ -3272,7 +3272,7 @@ para un valor pequeño de $s > 0$. Por lo tanto, $\x_{t-s}$ y $\x_t$ deben cumpl
 \end{equation}
 Entre todos los $\x_{t-s}$ que satisfacen la restricción anterior,
 se selecciona arbitrariamente aquel que minimiza la distancia $\|\x_{t-s} -
-\x_t\|_2^2$. Por lo tanto, obtenemos un proceso de «eliminación de ruido» para $\x_t$:
+\x_t\|_2^2$. Por lo tanto, obtenemos un proceso de «reducción de ruido» para $\x_t$:
 \begin{equation}
     \x_{t-s}  \approx \x_t + st\vA^\dagger \nabla \log p_t(\vA\x_t).
     \label{eqn:denoising-projection}
@@ -3347,7 +3347,7 @@ En este caso, contamos con dos vistas calibradas de la escena 3D $\x$:
 donde se puede suponer que los parámetros $\theta^0$ y $\theta^1$ de las poses de la vista
 son conocidos. $\y^0$ y $\y^1$ son dos proyecciones en 2D de la
 escena 3D $\x$. También podemos suponer que tienen la misma distribución marginal
-$p(\y)$ y que hemos aprendido un modelo de difusión y eliminación de ruido
+$p(\y)$ y que hemos aprendido un modelo de difusión y reducción de ruido
 para esta. Es decir, conocemos el \textit{denoiser}:
 \begin{equation}
     \bE[\vy \mid \vy_t=\vnu] =
@@ -3377,14 +3377,14 @@ punto de vista. Por lo tanto, una representación correcta de la distribución d
 debería ser mucho más compacta y estructurada que la
 distribución de imágenes 2D, pares estéreo o pares de imagen y profundidad.
 
-Consideremos el proceso de eliminación de ruido (inverso) para la difusión: $\y_t =
+Consideremos el proceso de reducción de ruido (inverso) para la difusión: $\y_t =
 \y + t\vg $ en \eqref{eq:y-posterior-sampling-denoiser}, donde $\vg$
-sigue una distribución gaussiana estándar. A partir del proceso de eliminación de ruido de
+sigue una distribución gaussiana estándar. A partir del proceso de reducción de ruido de
 \eqref{eq:y-posterior-sampling-denoiser}, tenemos
 \begin{equation}
     \y_{t-s} =  \y_t + st \nabla_{\y} \log p_t(\y_t).
 \end{equation}
-Tratamos de encontrar un proceso de «eliminación de ruido» correspondiente para $\x_t$ tal
+Tratamos de encontrar un proceso de «reducción de ruido» correspondiente para $\x_t$ tal
 que $\x$ se relacione con $\y$ de la siguiente manera:
 \begin{equation}
     \y =  h(\x).
@@ -3417,7 +3417,7 @@ Por lo tanto, podemos expresar  $\hat{\x}_{t-s}$ aproximadamente como:
     \label{eqn:pullback-denoise}
 \end{equation}
 
-\begin{remark}[Detección paralela y eliminación distribuida del ruido.]
+\begin{remark}[Detección paralela y reducción distribuida del ruido.]
     {Hay algo muy interesante en la ecuación anterior
         \eqref{eqn:pullback-denoise}. Parece sugerir que podríamos
         intentar aprender la distribución de $\x$ mediante un proceso que
@@ -3441,7 +3441,7 @@ Por lo tanto, podemos expresar  $\hat{\x}_{t-s}$ aproximadamente como:
             p_t(h^i(\x_t))\big], \quad i = 1, \ldots, K,
         \end{equation}
         que se calculan de forma paralela y distribuida. Una cuestión
-        abierta aquí es hacia qué converge exactamente el proceso de «eliminación de ruido»
+        abierta aquí es hacia qué converge exactamente el proceso de «reducción de ruido»
         así definido para $\x_t$, incluso en el caso del modelo de medición
         lineal. ¿Cuándo convergería a una distribución que tiene el
         mismo soporte de baja dimensión que el $\x_0$ original, a medida que $\y_t$
@@ -3481,7 +3481,7 @@ invariantes ante traslaciones y rotaciones en un contexto limitado. Sabemos que 
 asociados adoptan la forma necesaria de convoluciones (multicanal),
 lo que da lugar a las redes neuronales convolucionales (profundas).
 No obstante, sigue siendo difícil caracterizar los operadores relacionados con la compresión o
-la eliminación de ruido que sean invariantes ante grupos de transformación más generales
+la reducción de ruido que sean invariantes ante grupos de transformación más generales
 \cite{cohen2016group}.
 En el caso del problema de la visión 3D en su contexto más general, sabemos que
 el cambio de posición de la cámara puede modelarse adecuadamente como un movimiento de cuerpo rígido.
@@ -3526,7 +3526,7 @@ ejemplos más fundamentales se da en el contexto del muestreo con compresión, q
 recordamos en el \Cref{ch:classic-models}, donde necesitamos reconstruir
 $\vx$ a partir de $\vy$
 utilizando el conocimiento previo sobre $\vx$ (es decir, la esparcidad).
-En el contexto de la difusión con eliminación de ruido, tenemos acceso a una distribución a priori implícita para
+En el contexto de la difusión con reducción de ruido, tenemos acceso a una distribución a priori implícita para
 $\vx$ a través de los \textit{denoisers} aprendidos $\bar{\vx}_{\theta}(t, \vxi)$. ¿Aún podemos
 realizar un muestreo condicional sin acceso a muestras de referencia $\vx$?
 
@@ -3659,7 +3659,7 @@ la optimización de objetivos del tipo Infomax a partir de muestras finitas.
             muestreo condicional
             (\Cref{alg:iterative_denoising_conditional_CFG},
                 ya que este \textit{denoiser} también se puede utilizar para la
-            eliminación de ruido incondicional).
+            reducción de ruido incondicional).
         \item Integre el clasificador en un muestreador condicional basado en
             guía por clasificador, tal como se describe en la primera parte de la
             \Cref{sub:cfg}.

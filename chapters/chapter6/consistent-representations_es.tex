@@ -31,7 +31,7 @@ dos problemas relacionados:
 En los \cref{ch:denoising,ch:lossy-compression}, hemos desarrollado una solución computacional completa
 para
 el problema del aprendizaje de distribuciones en el contexto de distribuciones de datos generales, basada en el
-proceso de eliminación de ruido por difusión. %
+proceso de reducción de ruido por difusión. %
 %It uses data samples $\vx$ to learn the score
 %function $\nabla \log p_t(\vx_t)$ of the noisy data distribution.
 %Also in \Cref{ch:denoising},
@@ -555,7 +555,7 @@ sobre la que se sustenta nuestra distribución hipotética de datos. Un enfoque 
 constructivo para aplanar la variedad procede de manera incremental, en
 paralelo a lo que hemos visto en los
 \Cref{ch:denoising,ch:lossy-compression,ch:deep-networks} con
-la interacción entre la difusión, la eliminación de ruido y la compresión. En el contexto geométrico,
+la interacción entre la difusión, la reducción de ruido y la compresión. En el contexto geométrico,
 el \textit{proceso de aplanamiento} incremental correspondiente a $f_{\ell}$
 consiste en transformar un entorno cercano a un punto de la variedad para que
 quede más próximo a una variedad plana (es decir, un subespacio) y en garantizar la consistencia local
@@ -830,9 +830,9 @@ nuevas muestras a partir de ella, como se ilustra en la \Cref{fig:VAE-SD}.
     \caption{Diagrama del modelo de difusión latente tomado del trabajo de
         \cite{rombach2022high}, que utiliza un autocodificador variacional
         (recuadro rojo a la izquierda) para aprender una representación latente de los
-        datos $\x$. A continuación, se aprende un modelo de difusión/eliminación de ruido (recuadro verde en el
+        datos $\x$. A continuación, se aprende un modelo de difusión/reducción de ruido (recuadro verde en el
         centro) para acceder a la representación $\z$. El bloque
-        de la derecha trata de cómo controlar el proceso de muestreo para la eliminación de ruido
+        de la derecha trata de cómo controlar el proceso de muestreo para la reducción de ruido
         mediante una señal de control (basada en texto) que estudiaremos en el
     \Cref{ch:conditional-inference}.}
     \label{fig:VAE-SD}
@@ -1013,17 +1013,17 @@ por muestra se debería utilizar?
 Además, esas estructuras de baja dimensión (lineales) siguen estando incrustadas en
 un espacio de representación de alta dimensión. Por lo tanto, para poder utilizar las representaciones así aprendidas,
 necesitamos poder acceder también a sus distribuciones. En el
-\Cref{ch:denoising}, hemos aprendido que la eliminación de ruido es un enfoque general
+\Cref{ch:denoising}, hemos aprendido que la reducción de ruido es un enfoque general
 para identificar y, por lo tanto, acceder a dichas representaciones de baja dimensión. De este modo,
 podemos acceder a la distribución de las características aprendidas a través de un
-proceso (aprendido) de eliminación de ruido a partir de un ruido aleatorio:
+proceso (aprendido) de reducción de ruido a partir de un ruido aleatorio:
 \begin{equation}
     h: \bm{G} \rightarrow \Z.
 \end{equation}
 Además, hemos
 aprendido que, si la distribución objetivo de $\Z$ puede modelarse
 (aproximadamente) como
-una mezcla de subespacios o gaussianas de bajo rango, sus operadores óptimos de eliminación de ruido
+una mezcla de subespacios o gaussianas de bajo rango, sus operadores óptimos de reducción de ruido
 comparten una estructura similar a la que se encuentra en los transformers o en CRATE,
 presentado en el \Cref{ch:deep-networks}.
 
@@ -1114,12 +1114,12 @@ SimDINO. Como se discutió en la \Cref{sec:vae}, las representaciones VAE están
 obligadas a aproximar una distribución a posteriori gaussiana \textit{por muestra} y
 no se modela ninguna distribución conjunta del espacio latente, haciendo que el
 espacio de representación sea menos estructurado y que el proceso de
-eliminación de ruido sea potencialmente más desafiante. Por el contrario, las representaciones aprendidas
+reducción de ruido sea potencialmente más desafiante. Por el contrario, las representaciones aprendidas
 mediante MCR$^2$ o SimDINO tienden a presentar estructuras lineales y
 de baja dimensión más pronunciadas, como mezclas de subespacios o gausianas de rango bajo
 (como se demuestra en la \Cref{sec:SimDINO}), lo que puede
-facilitar el proceso de eliminación de ruido. Esta propiedad estructural puede conducir
-a modelos de eliminación de ruido más eficientes y efectivos, ya que pueden aprovechar mejor
+facilitar el proceso de reducción de ruido. Esta propiedad estructural puede conducir
+a modelos de reducción de ruido más eficientes y efectivos, ya que pueden aprovechar mejor
 la geometría subyacente del espacio de representación.
 
 Una vez que hayamos entrenado el \textit{denoiser}, podemos utilizarlo para generar nuevas muestras a partir de

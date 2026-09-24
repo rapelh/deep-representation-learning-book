@@ -32,10 +32,10 @@ posible identificar y acceder a una distribución con un soporte de
 dimensión arbitrariamente bajas, como la que se ilustra en la
 \Cref{fig:representation-learning} (izquierda), transformando gradualmente
 la distribución de ruido puro (alta entropía) en la distribución que 
-se desea aprender mediante \textit{eliminación iterativa de ruido}. Hemos
+se desea aprender mediante \textit{reducción iterativa de ruido}. Hemos
 mostrado que el \textit{denoiser} en cada iteración está directamente relacionado con
 el gradiente de la log-densidad de la distribución mediante la fórmula de Tweedie
-\eqref{eq:tweedie}. Demostramos que, en la práctica, ese filtro de eliminación de ruido
+\eqref{eq:tweedie}. Demostramos que, en la práctica, ese filtro de reducción de ruido
 \(\bar{\vx}_{\theta}\) puede estimarse utilizando un número finito de muestras. Por lo tanto,
 desarrollamos un método general para aprender o aproximarse a una distribución de datos.
 
@@ -46,12 +46,12 @@ notado que, para una distribución general, nunca hemos
 especificado explícitamente cuál debería ser la forma funcional del \textit{denoiser}. En la práctica,
 la gente suele modelarlo con alguna red neuronal profunda que tiene una
 arquitectura empíricamente diseñada. Además, aunque sabemos que el
-proceso de eliminación de ruido anterior reduce la entropía, no sabemos en qué
+proceso de reducción de ruido anterior reduce la entropía, no sabemos en qué
 medida, ni conocemos la entropía de las distribuciones intermedias y finales.
 Por lo tanto, sería muy útil conocer la forma (óptima)
-de la operación de eliminación de ruido y cómo medir el cambio en
+de la operación de reducción de ruido y cómo medir el cambio en
 la entropía. Por último, al final del capítulo anterior demostramos que si
-el proceso de eliminación de ruido reduce la entropía \textit{en exceso}, esto conduce
+el proceso de reducción de ruido reduce la entropía \textit{en exceso}, esto conduce
 a que solo se aprendan los datos de entrenamiento, sin posibilidad de interpolación o
 extrapolación. La innovación metodológica que resuelve todas
 estas cuestiones se desarrollará en el próximo capítulo.
@@ -92,10 +92,10 @@ del volumen de la distribución de los datos empíricos. Con una medida de este 
 podemos cuantificar con precisión en qué medida se reduce la entropía
 mediante una transformación de la distribución, por ejemplo, mediante un \textit{denoiser}. Además,
 con una medida de este tipo, podemos obtener, al menos en principio,
-el operador óptimo de eliminación de ruido que reduce la entropía más rápidamente.
+el operador óptimo de reducción de ruido que reduce la entropía más rápidamente.
 
 \paragraph{El aprendizaje de representaciones.}
-Aunque el proceso de difusión y eliminación de ruido presentado en el
+Aunque el proceso de difusión y reducción de ruido presentado en el
 capítulo anterior nos permite, en principio, aprender una distribución
 arbitraria de baja dimensión, no ofrece una representación explícita
 de dicha distribución. Como veremos, se accederá a la distribución
@@ -437,12 +437,12 @@ no creciente} en $\epsilon$.
         mediante bolas de radio \(\epsilon\).} Podemos observar que, a medida que el parámetro \(\epsilon\)
         se reduce, la unión de las bolas de radio \(\epsilon\) se aproxima cada vez mejor al soporte de la
         distribución real (negra). Además, los
-        filtros de eliminación de ruido asociados (cuyo mapeo entrada-salida viene dada por las flechas proporcionadas)
+        filtros de reducción de ruido asociados (cuyo mapeo entrada-salida viene dada por las flechas proporcionadas)
         obtenidos al aproximar la distribución real mediante una mezcla
         de distribuciones gaussianas,
         cada una con covarianza \((\epsilon^{2}/D)\vI\), se acercan cada vez
         más
-        a los filtros de eliminación de ruido verdaderos.
+        a los filtros de reducción de ruido verdaderos.
         Para valores grandes de \(\epsilon\), estos eliminadores de ruido no se acercan 
         en absoluto a la distribución real, mientras que para valores pequeños de \(\epsilon\) 
         se aproximan mucho a los eliminadores de ruido reales.
@@ -450,7 +450,7 @@ no creciente} en $\epsilon$.
         establece que esta aproximación caracteriza la función de tasa-distorsión
         para distorsiones pequeñas $\epsilon$, unificando los
         enfoques paralelos
-        de minimización de la tasa de codificación y eliminación de ruido para el aprendizaje de distribuciones de baja dimensión
+        de minimización de la tasa de codificación y reducción de ruido para el aprendizaje de distribuciones de baja dimensión
     sin patologías.}
     \label{fig:continuation}
 \end{figure}
@@ -534,7 +534,7 @@ aproximar el soporte de la distribución de
 \(\vx\) mediante una mezcla de muchas bolas pequeñas (\Cref{fig:continuation}).
 
 Ahora analizaremos otra relación entre esto y la
-jerarquía de complejidad «eliminación de ruido-difusión-entropía» que hemos comentado anteriormente en este
+jerarquía de complejidad «reducción de ruido-difusión-entropía» que hemos comentado anteriormente en este
 capítulo.
 
 \begin{remark}\label{rem:slb}
@@ -569,7 +569,7 @@ capítulo.
     \eqref{eqn:rate-distortion-general}.
 
     La cota inferior de Shannon constituye el nexo entre la tasa de codificación, la minimización de la entropía /
-    la eliminación de ruido y los enfoques de empaquetamiento geométrico de esferas para el aprendizaje
+    la reducción de ruido y los enfoques de empaquetamiento geométrico de esferas para el aprendizaje
     de distribuciones de baja dimensión. Obsérvese que, en el caso especial de una densidad uniforme
     $p(\vx)$, \eqref{eq:slb} se convierte en
     \begin{align}
@@ -585,7 +585,7 @@ capítulo.
     bolas de radio $\epsilon$ necesarias para cubrir $K$ mediante un argumento del peor caso, lo cual es
     preciso para conjuntos $K$ suficientemente regulares cuando $\epsilon$ es pequeño (véase
     el \Cref{app:rate-distortion-covering} para más detalles).
-    Mientras tanto, recordemos el modelo gaussiano de eliminación de ruido $\vx_{\epsilon} = \vx
+    Mientras tanto, recordemos el modelo gaussiano de reducción de ruido $\vx_{\epsilon} = \vx
     + \epsilon \vg$ mencionado
     anteriormente en este capítulo, donde $\vg \sim \cN(\vzero, \vI)$ es independiente de
     $\vx$.
@@ -611,7 +611,7 @@ capítulo.
     la distribución de $\vx_{\epsilon}$ admite incluso una buena aproximación local
     mediante el
     producto de las distribuciones $p(\vx)$ y $p(\vg)$, lo que justifica el cálculo anterior.
-    Por lo tanto, el proceso de eliminación de ruido gaussiano ofrece otra interpretación más de la
+    Por lo tanto, el proceso de reducción de ruido gaussiano ofrece otra interpretación más de la
     cota inferior de Shannon, ya que se deriva de la entropía de una versión con ruido de
     $\vx$, con un nivel de ruido proporcional al nivel de distorsión $\epsilon$.
 
@@ -1183,7 +1183,7 @@ Hasta ahora, en este capítulo hemos analizado cómo identificar una
 distribución con estructuras de baja dimensión mediante el principio de
 compresión. Como hemos visto en las dos secciones anteriores,
 la compresión computacional puede llevarse a cabo mediante la
-operación de eliminación de ruido o por vía de la agrupación en clústeres. La \Cref{fig:Gaussian-Subspaces}
+operación de reducción de ruido o por vía de la agrupación en clústeres. La \Cref{fig:Gaussian-Subspaces}
 ilustra este concepto con nuestro ejemplo favorito.
 
 Es importante señalar que el algoritmo de agrupamiento y las fórmulas de la tasa de codificación
@@ -1243,7 +1243,7 @@ La pregunta fundamental del aprendizaje de representaciones es
     \centering
     \includegraphics[width=0.8\linewidth]{\toplevelprefix/chapters/chapter4/figs/Gaussian-Subspaces.png}
     \caption{Identificación de una distribución de baja dimensión con dos
-        subespacios (izquierda) mediante la eliminación de ruido o la agrupación, partiendo de una
+        subespacios (izquierda) mediante la reducción de ruido o la agrupación, partiendo de una
     distribución gaussiana aleatoria genérica (derecha).}
     \label{fig:Gaussian-Subspaces}
 \end{figure}
@@ -1511,7 +1511,7 @@ deben hacerse (geométricamente) incoherentes o (estadísticamente)
 independientes, tal y como se ilustra anteriormente en la
 \Cref{fig:representation-learning}. La \Cref{chap4-fig:mcr-diagram}
 ilustra  cuándo la distribución de los datos es, en realidad, una mezcla de
-subvariedades de baja dimensión. Mediante la compresión (eliminación de ruido o
+subvariedades de baja dimensión. Mediante la compresión (reducción de ruido o
 agrupación), identificamos en primer lugar la distribución real de los datos
 (izquierda). A continuación, queremos transformar la distribución de tal manera que las
 subvariedades acaben convirtiéndose en subespacios lineales mutuamente incoherentes o independientes
@@ -2429,8 +2429,8 @@ la segmentación de instancias.}, tal y como se ilustra en la
 	\Cref{ch:denoising} se encuentra «fuera» de la subvariedad del soporte
 de la distribución, mientras que el ruido analizado en este capítulo se encuentra
 «dentro» del soporte. De manera informal, podemos referirnos al
-proceso de difusión/eliminación de ruido fuera del soporte como
-«continuación» y al proceso de difusión/eliminación de ruido dentro del
+proceso de difusión/reducción de ruido fuera del soporte como
+«continuación» y al proceso de difusión/reducción de ruido dentro del
 soporte como «percolación». Un análisis más unificado y una comprensión más profunda
 de su efecto combinado son objeto de futuros estudios.
 

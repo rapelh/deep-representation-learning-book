@@ -3,7 +3,7 @@
 
 \begin{document}
 
-\chapter{Entropía, difusión, eliminación de ruido y
+\chapter{Entropía, difusión, reducción de ruido y
 codificación con pérdida}\label{app:entropy}
 
 \begin{quote}
@@ -11,18 +11,18 @@ codificación con pérdida}\label{app:entropy}
         ejemplo de lo que se denomina «flecha del tiempo», algo que
     distingue el pasado del futuro, dando una dirección al tiempo.}''
 
-    $~$\hfill -- Breve historia del tiempo, Stephen Hawking
+    $~$\hfill -- Una breve historia del tiempo, Stephen Hawking
 \end{quote}
 \vspace{5mm}
 
 En este apéndice ofrecemos demostraciones de varios resultados, mencionados en el
 \Cref{ch:denoising}, relacionados con la entropía diferencial, cómo
 evoluciona en procesos de difusión y sus conexiones con la codificación con pérdida. Haremos
-la siguiente supuesto moderado sobre la variable aleatoria que representa
+el siguiente supuesto moderado sobre la variable aleatoria que representa
 la fuente de datos, denotada por \(\vx\).
 
 \begin{assumption}\label{assumption:entropy_x_compact_support}
-    \(\vx\) se define en un conjunto compacto \(\cS \subseteq \R^{D}\) de
+    \(\vx\) está soportado en un conjunto compacto \(\cS \subseteq \R^{D}\) de
     radio no mayor que \(R\), es decir, \(R \doteq \sup_{\vxi \in \cS}\norm{\vxi}_{2}\).
 \end{assumption}
 
@@ -30,11 +30,11 @@ En particular, dado que los conjuntos compactos en el espacio euclidiano son aco
 se cumple que \(R < \infty\). Utilizaremos de manera sistemática la notación
 \(B_{r}(\vxi) \doteq \{\vu \in \R^{D} \colon \norm{\vxi - \vu}_{2}
 \leq r\}\) para denotar la bola euclidiana de radio \(r\) centrada en
-\(\vxi\). En este sentido, el \Cref{assumption:entropy_x_compact_support}
+\(\vxi\). Bajo esta interpretación, el \Cref{assumption:entropy_x_compact_support}
 tiene \(\cS \subseteq B_{R}(\vzero)\).
 
 Obsérvese que este supuesto se cumple para (casi) todas las variables que nos interesan
-en la práctica, ya que (a menudo) viene impuesta por un paso de normalización
+en la práctica, ya que (a menudo) viene impuesto por un paso de normalización
 durante el preprocesamiento de los datos.
 
 \section{Entropía diferencial de distribuciones
@@ -43,21 +43,21 @@ de baja dimensión}\label{sec:low_dim_entropy}
 En este breve apéndice analizamos la entropía diferencial de
 las distribuciones de baja dimensión. Por definición, la entropía
 diferencial de una variable aleatoria \(\vx\) que no posee densidad
-es \(-\infty\); esto incluye a todas las variables aleatorias definidas en
+es \(-\infty\); esto incluye a todas las variables aleatorias con soporte en
 conjuntos de baja dimensión. El objetivo de esta sección es analizar por qué
 este es un valor «moralmente correcto».
 
 De hecho, sea \(\vx\) cualquier variable aleatoria tal que
-se cumpla la hipótesis del \Cref{assumption:entropy_x_compact_support}, es decir, el soporte
+se satisfaga el \Cref{assumption:entropy_x_compact_support}, es decir, que el soporte
 \(\cS\) de \(\vx\) tiene volumen \(0\).\footnote{Formalmente, esto significa
-que \(\cS\) es boreliana medible con medida boreliana \(0\).} Consideraremos
+que \(\cS\) es un conjunto de Borel de medida boreliana \(0\).} Consideraremos
 el caso en que \(\vx\) sea uniforme en \(\cS\).\footnote{Digamos,
 con respecto a la medida de Hausdorff en \(\cS\).} Nuestro objetivo es calcular \(h(\vx)\).
 
 En este caso, \(\vx\) no tendría densidad; en el caso hipotético
-en el que no supiéramos que \(h(\vx) = -\infty\), no podríamos
+en que no supiéramos que \(h(\vx) = -\infty\), no podríamos
 definirla directamente utilizando la definición estándar de
-entropía diferencial. En cambio, como en el resto del análisis y la teoría de la información,
+entropía diferencial. En cambio, como en el resto del análisis y de la teoría de la información,
 sería razonable considerar el límite de las entropías de 
 aproximaciones sucesivamente mejores \(\vx_{\eps}\) de \(\vx\) que
 tienen densidades, es decir,
@@ -70,7 +70,7 @@ Con este fin, la idea básica consiste en tomar un entorno tubular de espesor \(
 \begin{equation}
     \cS_{\eps} = \bigcup_{\vxi \in \cS}B_{\eps}(\vxi)
 \end{equation}
-y que se muestra en la \Cref{fig:entropy_eps_thickening}.
+y que se ilustra en la \Cref{fig:entropy_eps_thickening}.
 \begin{figure}[th]
     \centering
     \begin{tikzpicture}
@@ -97,7 +97,7 @@ y que se muestra en la \Cref{fig:entropy_eps_thickening}.
     una curva \(\cS \subseteq \R^{2}\).}
     \label{fig:entropy_eps_thickening}
 \end{figure}
-Trabajaremos con variables aleatorias cuyo soporte sea \(\cS_{\eps}\),
+Trabajaremos con variables aleatorias cuyo soporte es \(\cS_{\eps}\),
 que es de dimensión completa, y tomaremos el límite cuando \(\eps \to 0\).
 De hecho, definamos \(\vx_{\eps} \sim \dUnif(\cS_{\eps})\). Dado que
 \(\cS_{\eps}\) tiene medida de Lebesgue positiva, \(\vx_{\eps}\) tiene una densidad
@@ -124,14 +124,13 @@ a \(0\) cuando \(\eps \searrow 0\). Por lo tanto
     h(\vx) = \lim_{\eps \searrow 0}h(\vx_{\eps}) = \lim_{\eps
     \searrow 0}\log(\volume(\cS_{\eps})) = -\infty,
 \end{equation}
-tal como se desea.
+tal como se deseaba.
 
-El cálculo anterior es, en realidad, una consecuencia de un conjunto de resultados mucho más famosos
+El cálculo anterior es, en realidad, un corolario de un conjunto de resultados mucho más famosos
 y reconocidos sobre la entropía máxima posible de
 \(\vx\) sujeta a ciertas restricciones en la distribución de
 \(\vx\). Sería una omisión por nuestra parte no incluir aquí dichos resultados; las
-demostraciones se encuentran, por ejemplo, en el capítulo 2 de \cite{poliyanski2024information},
-por ejemplo.
+demostraciones se encuentran, por ejemplo, en el capítulo 2 de \cite{poliyanski2024information}.
 \begin{theorem}\label{thm:max_entropy}
     Sea \(\vx\) una variable aleatoria en \(\R^{D}\).
     \begin{enumerate}
@@ -159,15 +158,15 @@ por ejemplo.
     \end{enumerate}
 \end{theorem}
 
-\section{Procesos de difusión y eliminación de ruido}\label{sec:entropy_diffusion}
+\section{Procesos de difusión y reducción de ruido}\label{sec:entropy_diffusion}
 
-En el cuerpo principal (\Cref{ch:denoising}), consideramos una variable aleatoria
+En el texto principal, (\Cref{ch:denoising}), consideramos una variable aleatoria
 \(\vx\) y un proceso estocástico definido por
 \eqref{eq:additive_gaussian_noise_model}, es decir,
 \begin{equation}\label{eq:app_additive_gaussian_noise_model}
     \vx_{t} = \vx + t\vg, \qquad  \forall t \in [0, T]
 \end{equation}
-donde \(\vg \sim \dNorm(\vzero, \vI)\) independientemente de \(\vx\).
+donde \(\vg \sim \dNorm(\vzero, \vI)\) independiente de \(\vx\).
 
 La estructura de esta sección es la siguiente. En el
 \Cref{sub:diffusion_entropy_increases} presentamos un teorema formal
@@ -177,7 +176,7 @@ es decir, \(\odv*{h(\vx_{t})}{t} > 0\). En el
 \Cref{sub:denoising_entropy_decreases} presentamos un teorema formal
 y una demostración rigurosa que muestra que, bajo la
 \Cref{eq:app_additive_gaussian_noise_model}, la entropía disminuye
-durante el proceso de eliminación de ruido, es decir, \(h(\Ex[\vx_{s} \given \vx_{t}]) <
+durante el proceso de reducción de ruido, es decir, \(h(\Ex[\vx_{s} \given \vx_{t}]) <
 h(\vx_{t})\) para todo \(s < t\). En el
 \Cref{sub:app_diffusion_intermediate_results} ofrecemos pruebas de
 los lemas técnicos necesarios para establecer las afirmaciones de las
@@ -189,7 +188,7 @@ Antes de empezar, vamos a definir algunas notaciones clave. En primer lugar, sea
     \phi_{t}(\vxi) \doteq
     \frac{1}{(2\pi)^{D/2}t^{D}}\exp\rp{-\frac{\norm{\vxi}_{2}^{2}}{2t^{2}}}.
 \end{equation}
-A continuación, dado que \(\vx_{t}\) se define en todo el espacio \(\R^{D}\), tiene una
+A continuación, dado que \(\vx_{t}\) tiene como soporte todo el espacio \(\R^{D}\), tiene una
 \textit{densidad}, que denotamos como \(p_{t}\) (al igual que en el cuerpo principal). Un
 cálculo rápido muestra que
 \begin{equation}\label{eq:p_t_representation}
@@ -217,16 +216,16 @@ supongamos que:
     \(\vx\) tiene una densidad dos veces continuamente diferenciable, denotada por \(p\).
 \end{assumption}
 
-\subsection{El proceso de difusión aumenta la entropía con el
+\subsection{El proceso de difusión incrementa la entropía con el
 paso del tiempo}\label{sub:diffusion_entropy_increases}
 
 En esta sección ofrecemos una demostración del
-\Cref{thm:diffusion_entropy_increases}. Por razones de conveniencia, la reformulamos
+\Cref{thm:diffusion_entropy_increases}. Por razones de conveniencia, lo reformulamos
 de la siguiente manera.
 
 \begin{theorem}[La difusión aumenta
     la entropía]\label{thm:diffusion_entropy_increases}
-    Sea \(\vx\) una variable aleatoria cualquiera tal que los
+    Sea \(\vx\) una variable aleatoria arbitraria tal que los
     \Cref{assumption:entropy_x_compact_support,assumption:entropy_x_density}
     se cumplan, y sea \((\vx_{t})_{t \in [0, T]}\) el proceso estocástico
     \eqref{eq:app_additive_gaussian_noise_model}. Entonces
@@ -235,7 +234,7 @@ de la siguiente manera.
     \end{equation}
 \end{theorem}
 \begin{proof}
-    Antes de comenzar, debemos preguntarnos: ¿en qué casos tiene sentido la desigualdad de
+    Antes de comenzar, debemos preguntarnos: ¿cuándo tiene sentido la desigualdad de
     \eqref{eq:diffusion_entropy_increases}? Demostraremos
     en el \Cref{lem:diffusion_entropy_exists} que, bajo nuestras
     suposiciones, la entropía diferencial está bien definida, nunca es
@@ -273,15 +272,15 @@ de la siguiente manera.
     \end{equation}
 
     Es decir, al utilizar la representación integral de \(p_{t}\) y
-    derivarla con respecto a la integral, podemos calcular las
-    derivadas de \(p_{t}\) (lo cual hacemos en la
+    diferenciar bajo la integral, podemos calcular las
+    derivadas de \(p_{t}\) (como se hace en la
     \Cref{prop:p_t_derivatives}) y observamos que \(p_{t}\) satisface
-    la ecuación diferencial parcial de tipo calorífico
+    la ecuación diferencial parcial análoga a la ecuación del calor
     \begin{equation}
         \pdv{p_{t}}{t}(\vxi) = t\Delta p_{t}(\vxi).
     \end{equation}
     A continuación, para hallar la dinámica de \(h(\vx_{t})\), podemos volver a utilizar la
-    \Cref{prop:dutis}, así como la ecuación diferencial parcial de tipo calorífico, para obtener
+    \Cref{prop:dutis}, así como la ecuación diferencial parcial análoga a la del calor, para derivar
     \begin{align}
         \odv*{h(\vx_{t})}{t}
         &= -\odv*{\int_{\R^{D}}p_{t}(\vxi)\log p_{t}(\vxi)\odif{\vxi}}{t} \\
@@ -305,7 +304,7 @@ de la siguiente manera.
     no se cumpliera, \(\nabla p_{t}(\vxi)\) tendría que ser nulo casi
     en todas partes (es decir, en todas partes excepto, posiblemente, en un conjunto de volumen cero), 
     pero esto implicaría que \(p_{t}\) sería constante
-    casi en todas partes, lo cual contradice el hecho de que \(p_{t}\) es una densidad.
+    casi en todas partes, lo cual contradice el hecho de que \(p_{t}\) sea una densidad.
 
     Para completar la demostración, basta con aplicar el teorema fundamental del cálculo
     \begin{equation}
@@ -318,7 +317,7 @@ de la siguiente manera.
     -\infty\), por lo que la afirmación es verdadera de manera vacía de todos modos.)
 \end{proof}
 
-\subsection{El proceso de eliminación de ruido reduce la entropía con el
+\subsection{El proceso de reducción de ruido reduce la entropía con el
 paso del tiempo}\label{sub:denoising_entropy_decreases}
 
 Recordemos que en la \Cref{sub:intro_diffusion_denoising} partimos de la
@@ -331,17 +330,17 @@ iteraciones de la forma
 \end{equation}
 para \(s, t \in \{t_{0}, t_{1}, \dots, t_{L}\}\) con \(s < t\) y
 \(\vx_{T} = \hat{\vx}_{T}\). Queremos demostrar que \(h(\hat{\vx}_{s})
-< h(\hat{\vx}_{t})\), demostrando que el proceso de eliminación de ruido realmente
+< h(\hat{\vx}_{t})\), demostrando que el proceso de reducción de ruido realmente
 reduce la entropía.
 
-Antes de proceder con la demostración, realizaremos varias consideraciones sobre el
+Antes de proceder con la demostración, realizaremos varias observaciones sobre el
 planteamiento del problema. En primer lugar, la fórmula de Tweedie \eqref{eq:tweedie} establece que
 \begin{equation}
     \bar{\vx}^{\ast}(t, \vx_{t}) = \vx_{t} + t^{2}\nabla p_{t}(\vx_{t}),
 \end{equation}
-lo cual equipara un paso completo de eliminación de ruido desde el tiempo \(t\) hasta el tiempo \(0\) a un
+lo cual equipara un paso completo de reducción de ruido desde el tiempo \(t\) hasta el tiempo \(0\) a un
 paso de gradiente sobre la densidad logarítmica de \(\vx_{t}\). ¿Podemos obtener un resultado similar
-para el paso completo de eliminación de ruido desde el tiempo \(t\) hasta el tiempo \(s\) en
+para el paso completo de reducción de ruido desde el tiempo \(t\) hasta el tiempo \(s\) en
 \eqref{eq:app_denoising_iteration}? Resulta que sí podemos,
 y es bastante sencillo. Utilizando \eqref{eq:app_denoising_iteration}
 y la fórmula de Tweedie \eqref{eq:tweedie}, obtenemos
@@ -351,7 +350,7 @@ y la fórmula de Tweedie \eqref{eq:tweedie}, obtenemos
     p_{t}(\vx_{t})} = \vx_{t} + \bp{1 -
     \frac{s}{t}}t^{2}\nabla_{\vx_{t}}\log p_{t}(\vx_{t}).
 \end{equation}
-Así pues, este paso iterativo de eliminación de ruido es, una vez más, un paso de gradiente sobre la
+Así pues, este paso iterativo de reducción de ruido es, una vez más, un paso de gradiente sobre la
 densidad logarítmica perturbada \(\log p_{t}\) con un tamaño de paso reducido. En
 particular, este paso puede verse como una perturbación de la
 distribución de la variable aleatoria \(\vx_{t}\) por el \textit{campo vectorial de la función de \textit{score}}, 
@@ -364,8 +363,8 @@ potente marco y un argumento de límite (por ejemplo, siguiendo el
 \cite{DBLP:conf/iclr/ChenC0LSZ23}). Aquí daremos una prueba más sencilla,
 que utilizará solo herramientas elementales y, por lo tanto, aclarará
 algunas de las cantidades clave detrás del proceso de reducción de la entropía
-mediante la eliminación de ruido. Por otro lado, tendremos que realizar algunos
-cálculos ligeramente técnicos debido a que el proceso de eliminación de ruido
+mediante la reducción de ruido. Por otro lado, tendremos que realizar algunos
+cálculos ligeramente técnicos debido a que el proceso de reducción de ruido
 en el \Cref{thm:conditioning_reduces_entropy} \textit{no}
 se corresponde exactamente con el proceso \textit{inverso} asociado al
 proceso de adición de ruido que genera la observación
@@ -394,7 +393,7 @@ es decir, formalmente:
         U_{t} \doteq \max\rp{\frac{D}{t^{2}},
         \abs*{\frac{R^{2}}{t^{4}} - \frac{D}{t^{2}}}}
     \end{equation}
-    para la información de Fisher de \(p_{t}\) y un límite uniforme
+    para la información de Fisher de \(p_{t}\) y una cota uniforme
     sobre \(\abs{\Delta \log p_{t}}\), respectivamente. Entonces
     \begin{equation}
         h(\Ex[\vx_{s} \mid \vx_{t}]) < h(\vx_{t})
@@ -408,9 +407,9 @@ es decir, formalmente:
 \begin{proof}
     Esta demostración se basa en dos ideas principales:
     \begin{enumerate}
-        \item En primer lugar, calcula una densidad para \(\Ex[\vx_{s} \mid
+        \item En primer lugar, expresa una densidad para \(\Ex[\vx_{s} \mid
             \vx_{t}]\) utilizando una fórmula de cambio de variables.
-        \item En segundo lugar, limita esta densidad para controlar la entropía.
+        \item En segundo lugar, acota esta densidad para controlar la entropía.
     \end{enumerate}
     El cambio de variables se justifica mediante el \Cref{cor:gribonval_A2},
     que se derivó originalmente en \cite{Gribonval2011-pf}.
@@ -454,7 +453,7 @@ es decir, formalmente:
     Analizaremos el último término (incluido el \(-\)) y demostraremos que
     es negativo.
 
-    Por la propiedad de la concavidad, se tiene que \(-x\log x \leq 1 - x\) para todo \(x \geq 0\). Por lo tanto
+    Por concavidad, se tiene que \(-x\log x \leq 1 - x\) para todo \(x \geq 0\). Por lo tanto
     \begin{align}
         h(\bar{\vx}(\vx_{t})) - h(\vx_{t})
         &= - \int_{\cX}\frac{(p_{t} \circ
@@ -473,13 +472,13 @@ es decir, formalmente:
         &= \int_{\R^{D}}p_{t}(\vxi)\det\rp{\vI + \bp{1 -
         \frac{s}{t}}t^{2}\nabla^{2}\log p_{t}(\vxi)}\odif{\vxi} - 1.
     \end{align}
-    Ahora bien, por la desigualdad AM-GM para los valores propios, tenemos que, para cualquier
+    Ahora bien, por la desigualdad AM-GM aplicada a los valores propios, se obtiene que, para cualquier
     matriz simétrica definida positiva \(\vM \in \PSD(D)\), la cota
     \begin{equation}
         \det(\vM)^{1/D} = \prod_{i = 1}^{D}\lambda_{i}(\vM)^{1/D}
         \leq \frac{\sum_{i = 1}^{D}\lambda_{i}(\vM)}{D} = \frac{\tr(\vM)}{D},
     \end{equation}
-    que podemos aplicar a la expresión anterior y obtener
+    que podemos aplicar a la expresión anterior para obtener
     \begin{align}
         &\int_{\R^{D}}p_{t}(\vxi)\det\rp{\vI + \bp{1 -
         \frac{s}{t}}t^{2}\nabla^{2}\log p_{t}(\vxi)}\odif{\vxi} \\
@@ -490,8 +489,8 @@ es decir, formalmente:
         &= \int_{\R^{D}} p_{t}(\vxi)\bp{1 + \frac{\bp{1 -
         \frac{s}{t}}t^{2}}{D}\Delta \log p_{t}(\vxi)}^{D}\odif{\vxi}.
     \end{align}
-    Dado que \(\bar{\vx}^{\prime}(\vxi)\) es definida positiva
-    (\Cref{cor:gribonval_A2}), tenemos que \(1 + \frac{(1 -
+    Dado que \(\bar{\vx}^{\prime}(\vxi)\) es positiva definida 
+    (\Cref{cor:gribonval_A2}), se tiene que \(1 + \frac{(1 -
     s/t)t^{2}}{D}\Delta \log p_{t}(\vxi) =
     \frac{\tr(\bar{\vx}^{\prime}(\vxi))}{D} > 0\). Por la
     desigualdad \(\log(1 + x) \leq x\) para \(x > -1\),
@@ -500,7 +499,7 @@ es decir, formalmente:
         p_{t}(\vxi)}^{D} \leq \exp\bp{\bp{1 -
         \frac{s}{t}}t^{2}\Delta \log p_{t}(\vxi)}.
     \end{equation}
-    Según el \Cref{lem:app_diffusion_laplacian_control} (donde, recordemos,
+    Por el \Cref{lem:app_diffusion_laplacian_control} (donde, recordemos,
     \(R\) es el radio del soporte de \(\vx\), tal como se indica en el
     \Cref{assumption:entropy_x_compact_support}),
     \begin{equation}
@@ -518,7 +517,7 @@ es decir, formalmente:
     puesto que \(e^{c} = 1 + c + \frac{c^{2}}{2}e^{\theta c}\) para algún
     \(\theta \in (0, 1)\), y
     \(e^{\theta c} \leq e^{\max(c, 0)} \leq e^{\varepsilon}\).
-    Aplicando estos límites e integrando,
+    Aplicando estas cotas e integrando,
     \begin{align}
         &\int_{\R^{D}} p_{t}(\vxi)\bp{1 + \frac{\bp{1 -
         \frac{s}{t}}t^{2}}{D}\Delta \log
@@ -540,12 +539,11 @@ es decir, formalmente:
     \end{align}
     donde la identidad \(\int p_{t}\Delta \log p_{t} = -\int
     \norm{\nabla p_{t}}_{2}^{2}/p_{t}\) es la misma que en la demostración
-    del \Cref{thm:diffusion_entropy_increases}. Escribiendo \(J(p_{t})
+    del \Cref{thm:diffusion_entropy_increases}. Definiendo \(J(p_{t})
     \doteq \int_{\R^{D}}\frac{\norm{\nabla
-    p_{t}(\vxi)}_{2}^{2}}{p_{t}(\vxi)}\odif{\vxi}\) para la información de Fisher
-    de \(p_{t}\), y limitando \(\bp{\Delta \log
-    p_{t}}^{2} \leq U_{t}^{2}\), lo combinamos con nuestra estimación anterior
-    para obtener
+    p_{t}(\vxi)}_{2}^{2}}{p_{t}(\vxi)}\odif{\vxi}\) como la información de Fisher
+    de \(p_{t}\) y acotando \(\bp{\Delta \log
+    p_{t}}^{2} \leq U_{t}^{2}\), al combinar esto con la estimación anterior obtenemos
     \begin{equation}
         h(\bar{\vx}(\vx_{t})) - h(\vx_{t}) \leq -\bp{1 -
         \frac{s}{t}}t^{2}J(p_{t}) +
@@ -554,57 +552,57 @@ es decir, formalmente:
     Esto es estrictamente negativo siempre que
     \(\varepsilon^{2}e^{\varepsilon} < 2\bp{1 -
     \frac{s}{t}}t^{2}J(p_{t})\). Sustituyendo
-    \(\varepsilon = \frac{1 - \frac{s}{t}}t^{2}U_{t}\), esto es
+    \(\varepsilon = \bp{1 - \frac{s}{t}}t^{2}U_{t}\), esto es
     precisamente la condición
     \eqref{eq:conditioning_entropy_condition}.
 \end{proof}
 
 Nótese que la condición \eqref{eq:conditioning_entropy_condition}
-siempre se cumple: para cualquier \(t > 0\) fijo, la información de Fisher
+puede siempre cumplirse: para cualquier \(t > 0\) fijo, la información de Fisher
 satisface \(J(p_{t}) > 0\) (puesto que \(p_{t}\) no es
 constante) y \(U_{t} < \infty\), por lo que, si se elige un valor suficientemente pequeño de \(\bp{1 -
-\frac{s}{t}}t^{2}\) lo suficientemente pequeño garantiza que
+\frac{s}{t}}t^{2}\) garantiza que
 se cumpla \eqref{eq:conditioning_entropy_condition}.
 
 Para comprender las implicaciones cuantitativas, consideremos el
-comportamiento cuando \(t \to 0\) (cerca de los datos), donde la condición es
-más restrictiva. Si se establece \(s = (1 - \eps)t\), la condición
+comportamiento cuando \(t \to 0\) (cerca de los datos), donde la restricción es
+más apremiante. Si se establece \(s = (1 - \eps)t\), la condición
 se convierte en \(\eps t^{2}U_{t}^{2}\exp(\eps t^{2}U_{t}) <
-2J(p_{t})\). Para valores pequeños de \(t\), el límite del laplaciano satisface
-\(U_{t} \approx R^{2}/t^{4}\), por lo que el prefactor polinómico se escala como
+2J(p_{t})\). Para valores pequeños de \(t\), la cota del laplaciano satisface
+\(U_{t} \approx R^{2}/t^{4}\), por lo que el prefactor polinómico crece como
 \(\eps t^{2}U_{t}^{2} \approx \eps R^{4}/t^{6}\). El
 escalado crítico es, por lo tanto,
 \(\eps \sim t^{6}/R^{4}\). Si tomamos
 \(\eps = \alpha t^{6}/R^{4}\),
 la condición se reduce a \(\alpha < 2J(p_{t})\). En otras
-palabras, cada paso de eliminación de ruido de tamaño
+palabras, cada paso de reducción de ruido de tamaño
 \(t - s = \eps\, t \sim t^{7}/R^{4}\) reduce la entropía.
 Los pasos deben volverse progresivamente más finos a medida que \(t \to 0\), una
 consecuencia del resto de segundo orden en la expansión de Taylor
 utilizada en la demostración.
 
-Al mismo tiempo, cabe señalar que es probable que nuestros límites sean imprecisos en
+Al mismo tiempo, cabe señalar que es probable que nuestras cotas sean flojas en
 cuanto a la dependencia exacta de \(t\), y sin duda lo son para datos
-con mayor estructura. Por ejemplo, el
-crecimiento exponencial \(U_{t} \sim R^{2}/t^{4}\) refleja un límite del laplaciano en el peor de los casos
-que puede ajustarse considerablemente bajo
+con mayor estructura. Por ejemplo, la explosión
+\(U_{t} \sim R^{2}/t^{4}\) refleja un límite del laplaciano en el peor de los casos
+que puede afilarse considerablemente bajo
 supuestos adicionales de regularidad en \(p\). Además, si
 \(p_{t}\) es log-cóncava (como ocurre, por ejemplo, cuando la propia \(p\) es
 log-cóncava), entonces \(\Delta \log p_{t} \leq 0\) en todo el espacio, y se puede desarrollar un argumento considerablemente
-más sencillo con conclusiones más sólidas.
+más sencillo con conclusiones más fuertes.
 
 \subsection{Lemas técnicos y resultados
 intermedios}\label{sub:app_diffusion_intermediate_results}
 
-En esta subsección presentamos los resultados técnicos que fundamentan nuestros dos
+En esta subsección presentamos los resultados técnicos que sustentan nuestros dos
 teoremas conceptuales principales. Nuestra presentación seguirá más o menos
 el enfoque habitual en matemáticas; empezaremos con los resultados de nivel más alto
-y, progresivamente volveremos a los resultados más graduales. Los
+y, progresivamente volveremos a los resultados incrementales. Los
 resultados de mayor nivel utilizarán los resultados incrementales, y de esta
 manera obtenemos un ordenamiento de dependencias legible y claro: ningún
 resultado depende de los que le preceden. Los resultados que no dependen
 unos de otros suelen ordenarse según el lugar en que aparecen en el
-par de demostraciones anterior.
+par de demostraciones mencionado anteriormente.
 
 \subsubsection{Finitud de la entropía diferencial}
 
@@ -634,13 +632,13 @@ y que es finita.
         g(\vxi) \doteq -p_{t}(\vxi)\log p_{t}(\vxi) \implies
         h(\vx_{t}) = \int_{\R^{D}}g(\vxi)\odif{\vxi}.
     \end{equation}
-    Como es habitual, para limitar el valor de una integral en análisis, se define
+    Como es habitual, para acotar el valor de una integral en análisis, se define
     \begin{eqnarray}
         &&g_{+}(\vxi) \doteq \max(g(\vxi), 0), \quad g_{-}(\vxi) \doteq
         \max(-g(\vxi), 0) \\ && \implies \quad g = g_{+} - g_{-}\quad
         \text{and} \quad g_{+}, g_{-} \geq 0.
     \end{eqnarray}
-    Entonces
+    Luego
     \begin{equation}
         h(\vx_{t}) = \int_{\R^{D}}g_{+}(\vxi)\odif{\vxi} -
         \int_{\R^{D}}g_{-}(\vxi)\odif{\vxi},
@@ -654,7 +652,7 @@ y que es finita.
     \(h(\vx_{t}) > -\infty\), basta con demostrar que
     \(\int_{\R^{D}}g_{-}(\vxi)\odif{\vxi} < \infty\). Para acotar la
     integral de \(g_{-}\) necesitamos comprender la cantidad
-    \(g_{-}\), es decir, queremos caracterizar cuándo \(g\) es negativo.
+    \(g_{-}\), es decir, queremos caracterizar cuando \(g\) es negativa.
     \begin{equation}
         g(\vxi) \leq 0 \iff p_{t}(\vxi)\log p_{t}(\vxi) \geq 0 \iff
         \log p_{t}(\vxi) \geq 0 \iff p_{t}(\vxi) \geq 1.
@@ -665,22 +663,22 @@ y que es finita.
         \indvar(p_{t}(\vxi) \geq 1)p_{t}(\vxi)\log p_{t}(\vxi).
     \end{equation}
     Para poder acotar la integral de \(g_{-}(\vxi)\), necesitamos
-    demostrar que \(p_{t}\) «no está demasiado concentrada», es decir, que
+    demostrar que \(p_{t}\) «no está demasiado concentrada», o lo que es lo mismo, que
     \(p_{t}\) no es demasiado grande. Para demostrarlo, en este caso tenemos
-    la suerte de poder acotar la propia función \(g_{-}(\vxi)\)
-    en sí misma. Es decir, obsérvese que
+    la suerte de poder acotar la propia función \(g_{-}(\vxi)\).
+    Es decir, obsérvese que
     \begin{equation}
         \max_{\vxi \in \R^{D}}\phi_{t}(\vxi - \vx) = \phi_{t}(\vzero)
         = \frac{1}{(2\pi)^{D/2}t^{D}} =: C_{t}.
     \end{equation}
-    que tiende a infinito cuando \(t \to 0\), pero es finito para todo \(t\) finito. Por lo tanto
+    que tiende a infinito cuando \(t \to 0\), pero que es finito para todo \(t\) finito. Por lo tanto
     \begin{equation}
         p_{t}(\vxi) = \Ex \phi_{t}(\vxi - \vx) \leq \Ex C_{t} = C_{t}.
     \end{equation}
-    Ahora hay dos casos.
+    Ahora distinguimos dos casos.
     \begin{itemize}
         \item Si \(C_{t} < 1\), entonces \(p_{t}(\vxi) < 1\), por lo que el
-            indicador nunca es \(1\); por lo tanto, \(g_{-} = 0\) en todos los casos
+            indicador nunca es \(1\); por lo tanto, \(g_{-} = 0\) idénticamente
             y su integral también es \(0\).
         \item Si \(C_{t} \geq 1\), entonces \(\log C_{t} \geq 0\), por lo que
             dado que el logaritmo es monótonamente creciente,
@@ -694,17 +692,17 @@ y que es finita.
             \end{align}
     \end{itemize}
     Por lo tanto, tenemos que \(\int_{\R^{D}}g_{-}(\vxi)\odif{\vxi} < \infty\),
-    por lo que la entropía diferencial \(h(\vx_{t})\) existe y es \(> -\infty\).
+    de modo que la entropía diferencial \(h(\vx_{t})\) existe y es \(> -\infty\).
 
     Para demostrar el \Cref{lem:diffusion_entropy_exists}.2, supongamos que
     se cumple \Cref{assumption:entropy_x_compact_support}. Queremos
     demostrar que \(h(\vx) < \infty\) y \(h(\vx_{t}) < \infty\). El
-    método para hacerlo es el mismo e implica el resultado de entropía máxima
+    método para hacerlo es el mismo y recurre al resultado de entropía máxima
     \Cref{thm:max_entropy}. Es decir, dado que \(\vx\) está
     absolutamente acotado, tiene una covarianza finita que
     denotaremos como \(\vSigma\). Entonces, la covarianza de \(\vx_{t}\) es
     \(\vSigma + t^{2}\vI\). Por lo tanto, la entropía de \(\vx\) y
-    \(\vx_{t}\) puede tener como cota superior la entropía de las
+    \(\vx_{t}\) puede tener como cota superior la entropía de las distribuciones normales
     con las covarianzas respectivas, es decir, \(\log[(2\pi
     e)^{D}\det(\vSigma)]\) o \(\log[(2\pi e)^{D}\det(\vSigma +
     t^{2}\vI)]\), y ambas son \(< \infty\).
@@ -716,8 +714,8 @@ Por último, desarrollamos el argumento de la integración por partes al que se 
 las demostraciones de los
 \Cref{thm:diffusion_entropy_increases,thm:conditioning_reduces_entropy}.
 El argumento es conceptualmente bastante simple, aunque exige algunas
-estimaciones técnicas precisas para mostrar que el término de borde en la
-integración por partes desaparece.
+estimaciones técnicas para mostrar que el término de borde en la
+integración por partes se anula.
 
 \begin{lemma}\label{lem:diffusion_ibp}
     Sea \(\vx\) una variable aleatoria tal que los
@@ -733,12 +731,12 @@ integración por partes desaparece.
     \end{equation}
 \end{lemma}
 \begin{proof}
-    La idea básica de esta demostración se divide en dos pasos:
+    La idea básica de esta demostración consta de dos pasos:
     \begin{itemize}
         \item En primer lugar, aplica el teorema de Green para realizar la integración por partes
             sobre un conjunto compacto;
         \item En segundo lugar, haz que el radio de este conjunto compacto tienda a
-            \(+\infty\), para obtener integrales sobre todo el espacio \(\R^{D}\).
+            \(+\infty\), para obtener la integral sobre todo \(\R^{D}\).
     \end{itemize}
     El teorema de Green establece que, para cualquier conjunto compacto \(\cK \subseteq
     \R^{D}\), una función \(\plainphi \colon
@@ -752,7 +750,7 @@ integración por partes desaparece.
     \end{equation}
     donde \(\odif{\sigma(\vxi)}\) denota una integral sobre la
     «medida de superficie», es decir, la medida heredada en \(\partial
-    \cK\), es decir, el contorno de \(\cK\), y, por consiguiente, \(\vxi\)
+    \cK\), a saber, la frontera de \(\cK\), y, por consiguiente, \(\vxi\)
     toma valores en esta superficie y \(\vn(\vxi)\) es el vector normal unitario
     a \(\cK\) en el punto de la superficie \(\vxi\). Ahora, tomando
     \(\plainphi(\vxi) \doteq p_{t}(\vxi)\) y \(\psi(\vxi) \doteq c
@@ -770,7 +768,7 @@ integración por partes desaparece.
         &= \frac{1}{r}\int_{\partial B_{r}(\vzero)}[c + \log
         p_{t}(\vxi)]\ip*{\nabla p_{t}(\vxi)}{\vxi}\odif{\sigma(\vxi)}.
     \end{align}
-    Al hacer que \(r \to \infty\), se cumple que
+    Al hacer \(r \to \infty\), se tiene que
     \begin{align}
         &\int_{\R^{D}}\bc{\Delta p_{t}(\vxi)[c + \log p_{t}(\vxi)] +
         \ip{\nabla \log p_{t}(\vxi)}{\nabla p_{t}(\vxi)}}\odif{\vxi}
@@ -782,11 +780,11 @@ integración por partes desaparece.
         B_{r}(\vzero)}[c + \log p_{t}(\vxi)]\ip*{\nabla
         p_{t}(\vxi)}{\vxi}\odif{\sigma(\vxi)},
     \end{align}
-    donde la primera igualdad se deduce por convergencia dominada en
-    el integrando. Queda por calcular el último límite. Para ello,
-    tomamos expansiones asintóticas de cada término. El procedimiento principal es el
+    donde la primera igualdad se deduce mediante convergencia dominada 
+    del integrando. Queda por calcular el último límite. Para ello,
+    realizamos expansiones asintóticas de cada término. La estrategia principal es el
     siguiente: para \(\vxi \in \partial B_{r}(\vzero)\), tenemos
-    \(\norm{\vxi}_{2} = r\), por lo que
+    \(\norm{\vxi}_{2} = r\); por lo tanto
     \begin{align}
         p_{t}(\vxi)
         &= \Ex[\phi_{t}(\vxi - \vx)] \\
@@ -799,7 +797,7 @@ integración por partes desaparece.
         &= C_{t}e^{-r^{2}/(2t^{2})}\Ex[e^{(2\ip{\vxi}{\vx} -
         \norm{\vx}_{2}^{2})/(2t^{2})}].
     \end{align}
-    Téngase en cuenta que, dado que \(\norm{\vxi}_{2} = r\), por el teorema de Cauchy-Schwarz se tiene que
+    Obsérvese que, dado que \(\norm{\vxi}_{2} = r\), por la desigualdad de Cauchy-Schwarz se tiene que
     \begin{equation}
         -2r\norm{\vx}_{2} - \norm{\vx}_{2}^{2} \leq 2\ip{\vxi}{\vx} -
         \norm{\vx}_{2}^{2} \leq 2r\norm{\vx}_{2} - \norm{\vx}_{2}^{2}.
@@ -841,18 +839,18 @@ integración por partes desaparece.
         p_{t}(\vxi)}{\vxi} \leq -\frac{r(r - R)}{t^{2}}p_{t}(\vxi).
     \end{align}
     Para \(r > R > 0\) (como corresponde, ya que vamos a tomar
-    el límite \(r \to \infty\) mientras \(R\) es fijo), ambos lados son
-    negativos. Esto tiene sentido: la mayor parte de la masa de probabilidad está
-    contenida dentro de la bola de radio \(R\) y, por lo tanto, el \textit{score}
-    apunta hacia adentro, teniendo un producto interno negativo con el
-    vector que apunta hacia afuera \(\vxi\). Por lo tanto, utilizando las cotas apropiadas
+    el límite \(r \to \infty\) con \(R\) es fijo), ambas cotas son
+    negativas. Esto es de esperar: la mayor parte de la masa de probabilidad se
+    concentra en la bola de radio \(R\), de modo que el \textit{score}
+    apunta hacia el interior, lo que lleva a un producto interno negativo con el
+    vector radial \(\vxi\). Por lo tanto, utilizando las cotas adecuadas
     para \(p_{t}(\vxi)\),
     \begin{equation}
         -\frac{r(R + r)}{t^{2}}\cdot C_{t}e^{[-r^{2} + 2Rr]/(2t^{2})}
         \leq \ip{\nabla p_{t}(\vxi)}{\vxi} \leq -\frac{r(r -
         R)}{t^{2}}\cdot C_{t}e^{-[r^{2} + 2R(r + R)]/(2t^{2})}.
     \end{equation}
-    Entonces, teniendo en cuenta que \(C_{t} = \mathrm{poly}(t^{-1})\), podemos calcular
+    Ahora bien, dado que \(C_{t} = \mathrm{poly}(t^{-1})\), podemos calcular
     \begin{equation}
         [c + \log p_{t}(\vxi)]\ip{\nabla p_{t}(\vxi)}{\vxi} =
         \mathrm{poly}(r, R, t^{-1}, c)e^{-\Theta_{r}(r^{2})}
@@ -865,7 +863,7 @@ integración por partes desaparece.
         p_{t}(\vxi)]\ip{\nabla p_{t}(\vxi)}{\vxi}\odif{\vxi} =
         \mathrm{poly}(r, R, t^{-1}, c)e^{-\Theta_{r}(r^{2})}
     \end{equation}
-    y, por lo tanto, las colas que decaen exponencialmente significan
+    y, por lo tanto, las colas de decaimiento exponencial significan
     \begin{equation}
         \lim_{r \to \infty}\frac{1}{r}\int_{\partial B_{r}(\vzero)}[c
         + \log p_{t}(\vxi)]\ip{\nabla p_{t}(\vxi)}{\vxi}\odif{\vxi} = 0.
@@ -892,9 +890,9 @@ generalizaciones adecuadas de los resultados correspondientes en \cite{Gribonval
     A.1]\label{lem:gribonval_A1}
     Sea \(\vx\) una variable aleatoria tal que los
     \Cref{assumption:entropy_x_compact_support,assumption:entropy_x_density}
-    se cumplen, y sea \((\vx_{t})_{t \in [0, T]}\) el proceso estocástico
-    \eqref{eq:app_additive_gaussian_noise_model}. Sea \(s, t
-    \in [0, T]\) tal que \(0 \leq s < t \leq T\), y sea
+    se satisfacen, y sea \((\vx_{t})_{t \in [0, T]}\) el proceso estocástico
+    \eqref{eq:app_additive_gaussian_noise_model}. Sean \(s, t
+    \in [0, T]\) tales que \(0 \leq s < t \leq T\), y sea
     \(\bar{\vx}(\vxi) \doteq \Ex[\vx_{s} \mid \vx_{t} = \vxi]\). El
     jacobiano \(\bar{\vx}^{\prime}(\vxi)\) es simétrico y definido positivo.
 \end{lemma}
@@ -1018,7 +1016,7 @@ A partir de la combinación de los dos resultados anteriores se obtiene el sigui
     \eqref{eq:app_additive_gaussian_noise_model}. Sea \(s, t
     \in [0, T]\) tales que \(0 \leq s < t \leq T\), y sea
     \(\bar{\vx}(\vxi) \doteq \Ex[\vx_{s} \mid \vx_{t} = \vxi]\). Entonces
-    \(\bar{\vx}\) es inyectiva y, por lo tanto, invertible en su imagen.
+    \(\bar{\vx}\) es inyectiva y, por lo tanto, invertible sobre su imagen.
 \end{corollary}
 \begin{proof}
     Lo único que queda por demostrar es que \(\bar{\vx}\) es
@@ -1031,7 +1029,7 @@ A partir de la combinación de los dos resultados anteriores se obtiene el sigui
 \subsubsection{Control del laplaciano \(\Delta \log p_{t}\)}
 
 Finalmente, desarrollamos una estimación técnica requerida para 
-probar el \Cref{thm:conditioning_reduces_entropy} lo cual motiva directamente
+probar el \Cref{thm:conditioning_reduces_entropy} lo cual motiva de hecho
 el supuesto sobre los valores admisibles de \(t\).
 
 \begin{lemma}\label{lem:app_diffusion_laplacian_control}
@@ -1046,14 +1044,14 @@ el supuesto sobre los valores admisibles de \(t\).
     \end{equation}
 \end{lemma}
 \begin{proof}
-    Mediante la regla de la cadena, un ejercicio sencillo permite calcular
+    Con la regla de la cadena, un ejercicio sencillo permite calcular
     \begin{equation}
         \Delta \log p_{t}(\vxi) = \frac{\Delta
         p_{t}(\vxi)}{p_{t}(\vxi)} - \frac{\norm{\nabla
         p_{t}(\vxi)}_{2}^{2}}{p_{t}(\vxi)^{2}}.
     \end{equation}
-    Utilizando la \Cref{prop:p_t_derivatives} para expresar los términos de \(\Delta
-    p_{t}(\vxi)\), obtenemos
+    Mediante la \Cref{prop:p_t_derivatives}, expresamos los términos de \(\Delta
+    p_{t}(\vxi)\) y obtenemos
     \begin{align}
         \frac{\Delta p_{t}(\vxi)}{p_{t}(\vxi)}
         &= \frac{\Ex\rs{\frac{\norm{\vxi - \vx}_{2}^{2} -
@@ -1064,7 +1062,7 @@ el supuesto sobre los valores admisibles de \(t\).
         \vu)p(\vu)\odif{\vu}}{\int_{\R^{D}}\phi_{t}(\vxi -
         \vu)p(\vu)\odif{\vu}}.
     \end{align}
-    Esto parece una marginalización bayesiana, así que definamos la
+    Esto parece una marginalización bayesiana, de ahí que definamos la
     densidad normalizada adecuada
     \begin{equation}
         q_{\vxi}(\vu) = \frac{\phi_{t}(\vxi -
@@ -1080,7 +1078,7 @@ el supuesto sobre los valores admisibles de \(t\).
         Dt^{2}}{t^{4}}}q_{\vxi}(\vu)\odif{\vu} =
         \frac{1}{t^{4}}\Ex[\norm{\vxi - \vy_{\vxi}}_{2}^{2}] - \frac{D}{t^{2}}.
     \end{equation}
-    Del mismo modo, al desarrollar el segundo término (sin elevar al cuadrado) obtenemos
+    De manera análoga, al desarrollar el segundo término (no al cuadrado) obtenemos
     \begin{equation}
         \frac{\nabla p_{t}(\vxi)}{p_{t}(\vxi)} = -\frac{\vxi -
         \Ex[\vy_{\vxi}]}{t^{2}}.
@@ -1092,7 +1090,7 @@ el supuesto sobre los valores admisibles de \(t\).
         \frac{D}{t^{2}}, \qquad \frac{\nabla
         p_{t}(\vxi)}{p_{t}(\vxi)} = \frac{\Ex[\vz_{\vxi}]}{t^{2}}.
     \end{equation}
-    Por lo tanto, al desarrollar completamente \(\Delta \log p_{t}\), tenemos
+    Por lo tanto, al escribir explícitamente \(\Delta \log p_{t}\), tenemos
     \begin{align}
         \Delta \log p_{t}(\vxi)
         &= \frac{\Ex[\norm{\vz_{\vxi}}_{2}^{2}]}{t^{4}} -
@@ -1119,10 +1117,10 @@ el supuesto sobre los valores admisibles de \(t\).
         -\frac{D}{t^{2}} \leq \Delta \log p_{t}(\vxi) \leq
         \frac{R^{2}}{t^{4}} - \frac{D}{t^{2}},
     \end{equation}
-    que muestra lo que se sostiene.
+    que demuestra lo que se sostiene.
 \end{proof}
 
-\subsubsection{Cálculos de derivadas}
+\subsubsection{Cálculo de derivadas}
 
 A continuación presentamos algunas derivaciones útiles que serán 
 reutilizadas en todo el apéndice.
@@ -1153,14 +1151,14 @@ reutilizadas en todo el apéndice.
     un cálculo muestra que se aplica la \Cref{prop:dutis},\footnote{Utilizamos
         \(f_{t}(\vxi) = p(\vxi) \phi_{t}(\vxi - \vx)\), observando que
         es dos veces continuamente diferenciable en \(\vxi\) y (más
-        que dos veces en \(t\). A continuación, para verificar
+        de) dos veces continuamente diferenciable en \(t\). A continuación, para verificar
         la integrabilidad local de \(f_{t}\), calculamos
         \(\pdv{f_{t}}{t}(\vxi) = f_{t}(\vxi)\cdot
-        \frac{1}{t^{3}}(\norm{\vxi - \vx}_{2}^{2} - Dt^{2})\), lo cual
-        es fácil de comprobar que es integrable sobre \(\vxi\) y \(t \in [t_{\min},
+        \frac{1}{t^{3}}(\norm{\vxi - \vx}_{2}^{2} - Dt^{2})\), lo cual se comprueba
+        fácilmente integrable sobre \(\vxi\) y \(t \in [t_{\min},
         t_{\max}]\) donde \(t_{\min} > 0\). (De hecho, \(f_{t}\) tiene
             colas que decaen exponencialmente, por lo que el término cuadrático en el
-    producto no supone ningún problema.)} así que podemos llevar la derivada al interior
+    producto no supone ningún problema.)} de modo que podemos llevar la derivada al interior
     de la integral/esperanza como:
     \begin{equation}
         \pdv{p_{t}}{t}(\vxi) = \pdv*{\Ex[\phi_{t}(\vxi - \vx)]}{t} =
@@ -1194,20 +1192,20 @@ reutilizadas en todo el apéndice.
     Cálculo directo.
 \end{proof}
 
-\subsubsection{Derivación bajo el signo integral}
+\subsubsection{Diferenciación bajo el signo integral}
 
 En este apéndice, derivamos muchas
 veces bajo el signo de la integral, y resulta esencial conocer las condiciones 
 bajo las cuales es posible proceder. Hay dos
 tipos de derivación bajo el signo de la integral:
 \begin{enumerate}
-    \item Derivación de la integral \(\int f_{t}(\vxi)\odif{\vxi}\)
+    \item Diferenciación de la integral \(\int f_{t}(\vxi)\odif{\vxi}\)
         con respecto al parámetro auxiliar \(t\).
     \item Derivación de una convolución \((f * g)(\vxi) = \int
         f(\vxi)g(\vxi - \vu)\odif{\vu}\) con respecto a la variable \(\vxi\).
 \end{enumerate}
 
-Para la primera categoría, presentamos un resultado explícito, enunciado sin 
+Para la primera categoría, presentamos un resultado concreto, enunciado sin 
 prueba pero atribuible a 
 \href{https://planetmath.org/differentiationundertheintegralsign}{la
 referencia vinculada}, que deduce el siguiente resultado como un caso especial
@@ -1236,17 +1234,17 @@ libro. Se puede encontrar una referencia formal completa en \cite{jones1982theor
     definida para casi todo \(t \in (0, T)\).
 \end{proposition}
 
-Para la segunda categoría, ofrecemos otro resultado concreto, que se expone
-sin demostración, pero que está completamente formalizado en \cite{brezis2011functional}.
+Para la segunda categoría, presentamos otro resultado concreto, enunciado
+sin demostración, pero completamente formalizado en \cite{brezis2011functional}.
 \begin{proposition}[\cite{brezis2011functional}, Proposición
     4.20]\label{prop:diff_convolution}
-    Sea \(f\) una función \(k\)-veces continuamente diferenciable con soporte compacto,
+    Sea \(f\) una función diferenciable \(k\) veces de forma continua con soporte compacto,
     y sea \(g\) una función localmente integrable. Entonces, la
     convolución \(f * g\) definida por
     \begin{equation}
         (f * g)(\vxi) \doteq \int_{\R^{D}}f(\vu)g(\vxi - \vu)\odif{\vu}
     \end{equation}
-    es \(k\)-veces continuamente diferenciable, y su derivada de
+    es diferenciable \(k\) veces de forma continua y su derivada de
     orden \(k\) es
     \begin{equation}
         \nabla^{k}(f * g) =(\nabla^{k}f) * g.
@@ -1254,15 +1252,15 @@ sin demostración, pero que está completamente formalizado en \cite{brezis2011f
 \end{proposition}
 Aunque no aparece en el libro, un sencillo razonamiento basado en la integración por partes
 demuestra que, si \(g\) también es \(k\)-veces diferenciable, entonces podemos
-«intercambiar» la regularidad:
+«repartir» la regularidad:
 \begin{equation}
     \nabla^{k}(f * g) = f * (\nabla^{k} g).
 \end{equation}
 
-\section{Codificación con pérdida y empaquetamiento esférico}\label{app:rate-distortion-covering}
+\section{Codificación con pérdida y empaquetamiento de esferas}\label{app:rate-distortion-covering}
 
 En esta sección, demostramos el \Cref{thm:covering-number-rate-distortion}.
-Siguiendo las convenciones utilizadas a lo largo de este apéndice, escribimos $\cS = \Supp(\vx)$
+Siguiendo las convenciones adoptadas en este apéndice, escribimos $\cS = \Supp(\vx)$
 para el soporte compacto de la variable aleatoria $\vx$.
 
 Tal como se ha adelantado, haremos un supuesto de regularidad sobre el conjunto de soporte $\cS$
@@ -1272,10 +1270,10 @@ proceder bajo supuestos mínimos sería aplicar los resultados de
 a conjuntos $\cS$ con muy baja regularidad (por ejemplo, conjuntos tipo Cantor con estructura
 fractal). Sin embargo, hemos encontrado que el cálculo preciso de estas constantes 
 ---una tarea necesaria para demostrar una conclusión como el
-\Cref{thm:covering-number-rate-distortion}--- resulta bastante tedioso en nuestro
+\Cref{thm:covering-number-rate-distortion}--- resulta un tanto tedioso en nuestro
 contexto.
 Por lo tanto, nuestro enfoque consiste en añadir un supuesto de regularidad geométrica sobre
-el conjunto $\cS$ que cede en términos de generalidad, pero nos permite desarrollar
+el conjunto $\cS$ que sacrifica algo en generalidad, pero nos permite desarrollar
 un argumento más transparente. Para evitar sacrificar demasiada generalidad, debemos
 asegurarnos de que no se prohíba la baja dimensionalidad en el conjunto $\cS$.
 Por lo tanto, consideramos el ejemplo que hemos utilizado a lo largo del libro: la
@@ -1294,19 +1292,19 @@ establecidas de manera compatible con este supuesto.
     El soporte $\cS \subset \R^D$ de la variable aleatoria $\vx$ es una unión finita
     de $K$ esferas, cada una de dimensión $d_k$, donde $k \in [K]$.
     La probabilidad de que $\vx$ se extraiga de la $k$-ésima esfera viene dada por
-    $\pi_k \in [0, 1]$, y, condicionalmente a que se extraiga de la $k$-ésima esfera,
-    $\vx$ se distribuye uniformemente en esa esfera.
-    Los soportes satisfacen que cada esfera es mutuamente ortogonal con todas
+    $\pi_k \in [0, 1]$, y, condicionado a que $\vx$ se extraiga de la $k$-ésima esfera,
+    $\vx$ se distribuye uniformemente sobre esa esfera.
+    Se asume que cada esfera es mutuamente ortogonal a 
     las demás.
 \end{assumption}
 
-Procedemos bajo el \Cref{assumption:union-of-spheres} simplificadora con el fin de
+Procedemos bajo el \Cref{assumption:union-of-spheres} simplificador con el fin de
 evitar un exceso de tecnicismo y establecer una conexión con un importante ejemplo
 que se utiliza a lo largo de toda la monografía. Creemos que nuestros resultados pueden generalizarse
 para abarcar $\cS$ de la clase de \textit{conjuntos con alcance positivo} con
 un esfuerzo técnico adicional, pero dejamos esto para el futuro.
 
-\subsection{Demostración de la relación entre la distorsión de la tasa y la cobertura}
+\subsection{Demostración de la relación entre la tasa-distorsión y la cubierta}
 
 Esbozamos brevemente la demostración, luego pasamos a establecer tres
 lemas fundamentales y, a continuación, presentamos la demostración. La demostración se basará en los conceptos introducidos en el
@@ -1315,9 +1313,9 @@ esbozo que figura a continuación.
 Obtener un límite superior para la función de tasa-distorsión
 \eqref{eqn:rate-distortion-general} es sencillo: según la caracterización de la tasa
 (es decir, la función de tasa-distorsión es la tasa mínima de
-un código para $\vx$ con una distorsión cuadrática esperada $\ell^2$ de $\epsilon$), para establecer un límite superior
+un código para $\vx$ con una distorsión esperada, medida con la norma $\ell^2$ al cuadrado, de $\epsilon$), para establecer un límite superior
 de $\cR_{\epsilon}(\x)$ solo es necesario demostrar que existe un código para $\ x$ que
-alcance esta distorsión objetivo, y cualquier cobertura $\epsilon$ de $\Supp(\x)$
+alcance esta distorsión objetivo, y cualquier cubierta $\epsilon$ de $\Supp(\x)$
 lo logra, con una tasa igual al logaritmo en base 2 de la cardinalidad de
 la cobertura.
 El límite inferior es más sutil. Utilizamos el límite inferior de Shannon,
@@ -1357,7 +1355,7 @@ para cualquier $x > 0$ \cite{Jameson2015-hy}
     \Gamma(x) \leq \sqrt{2\pi} x^{x - 1/2} e^{-x} e^{1/(12x)}.
 \end{equation}
 Aplicaremos esta cota a $\Gamma(D/2)$ en la \Cref{eq:slb-appendix-1}.
-Se obtiene
+Obtenemos
 \begin{align}
     \log
     \left(
@@ -1401,7 +1399,7 @@ Se obtiene
     - \frac{1}{2}\log D\pi,\label{eq:slb-constant-est}
 \end{align}
 que podemos tomar como el valor explícito de la constante $C_D$ en la \Cref{eq:slb}.
-En resumen, el límite inferior de Shannon totalmente cuantificado (en bits):
+En resumen, el límite inferior de Shannon completamente cuantificado (en bits):
 \begin{equation}\label{eq:slb-appendix}
     \cR_{\epsilon}(\x)
     \geq
@@ -1411,7 +1409,7 @@ En resumen, el límite inferior de Shannon totalmente cuantificado (en bits):
 \end{equation}
 
 Ahora bien, la restricción importante para nuestros propósitos actuales es que el límite inferior de Shannon
-exige que la variable aleatoria $\vx$ tenga una densidad, lo que descarta muchas
+exige que la variable aleatoria $\vx$ tenga una densidad, lo que excluye muchas
 distribuciones de interés de baja dimensión.
 Pero consideremos por un momento la situación en la que $\vx$ sí admite una densidad.
 El supuesto de que $\vx$ sigue una distribución uniforme en su soporte se formaliza fácilmente
@@ -1430,9 +1428,9 @@ bolas de tamaño $\epsilon$.
 Para ampliar el programa anterior a distribuciones degeneradas que satisfagan el
 \Cref{assumption:union-of-spheres},
 nuestra demostración del límite inferior en el \Cref{thm:covering-number-rate-distortion}
-aprovechará un argumento de aproximación de la distribución real de baja dimensión
+aprovechará un argumento de aproximación de la propia distribución de baja dimensión
 $\vx$ mediante distribuciones «cercanas» que tienen
-densidades, de manera similar pero no exactamente igual a la esbozada en la demostración
+densidades, semejante —aunque no idéntico— al esbozo de demostración 
 que precede al \Cref{thm:max_entropy}.
 A continuación, relacionaremos el parámetro introducido en
 la secuencia de aproximación con el parámetro de distorsión $\epsilon$ con el fin de
@@ -1447,12 +1445,12 @@ obtener la conclusión deseada en el \Cref{thm:covering-number-rate-distortion}.
         \delta}.
     \end{equation}
 \end{definition}
-La función de distancia a la que se hace referencia en la \Cref{def:thickening-set} se define mediante
+La función de distancia citada en la \Cref{def:thickening-set} se define por
 \begin{equation}\label{eq:dist-func}
     \dist(\vxi, \cS) = \inf_{\vxi' \in \cS} \norm*{\vxi - \vxi'}_2.
 \end{equation}
 Para un conjunto compacto $\cS$, el teorema de Weierstrass implica que, para cualquier $\vxi \in
-\R^D$, siempre existe algún $\vxi' \in \cS$ que alcanza el infimo en
+\R^D$, siempre existe algún $\vxi' \in \cS$ que alcanza el ínfimo en
 la función de distancia.
 La compacidad de $\cS_{\delta}$ se deduce fácilmente de la compacidad de $\cS$, por lo que
 $\volume(\cS_{\delta})$ es finito para cualquier $\delta > 0$. Entonces es posible
@@ -1473,7 +1471,7 @@ establecer la siguiente definición de una variable aleatoria engrosada, especia
     Supongamos que la variable aleatoria $\vx$ satisface el
     \Cref{assumption:union-of-spheres}. Entonces, si $0 < \delta < \tfrac{1}{2}$, la
     variable aleatoria engrosada $\vx_{\delta}$ (\Cref{def:thickening-rv-uos})
-    satisface, para cualquier $\epsilon > 0$
+    satisface, para todo $\epsilon > 0$
     \begin{equation}
         R_{\delta + \epsilon}(\vx_{\delta})
         \leq
@@ -1481,14 +1479,14 @@ establecer la siguiente definición de una variable aleatoria engrosada, especia
     \end{equation}
 \end{lemma}
 
-La demostración del \Cref{lem:rate-distortion-lb-uos} se pospone hasta
+La demostración del \Cref{lem:rate-distortion-lb-uos} se pospone para
 la \Cref{sec:app-rate-dist-deferred-proofs}.
 Utilizando el \Cref{lem:rate-distortion-lb-uos}, el programa anterior puede llevarse a cabo,
 ya que la variable aleatoria $\vx_{\delta}$ tiene una densidad uniforme
 con respecto a la medida de Lebesgue.
 
 \begin{proof}[(Demostración del \Cref{thm:covering-number-rate-distortion})]
-    La cota superior se demuestra fácilmente. Si $S$ es cualquier recubrimiento $\epsilon$ del
+    La cota superior se obtiene fácilmente. Si $S$ es cualquier recubrimiento $\epsilon$ del
     soporte de $\vx$ con cardinalidad $\cN_{\epsilon}(\Supp(\vx))$,
     entonces consideremos el
     esquema de codificación que asigna a cada $\vxi \in \Supp(\vx)$ la reconstrucción
@@ -1506,7 +1504,7 @@ con respecto a la medida de Lebesgue.
         R_{\epsilon}(\vx).
     \end{equation}
     Dado que $\vx_{\delta}$ tiene una densidad de Lebesgue uniforme, podemos entonces
-    aplicar el límite inferior de Shannon, en la forma \eqref{eq:slb-appendix}, para obtener
+    aplicar el límite inferior de Shannon, en la forma de \eqref{eq:slb-appendix}, para obtener
     \begin{equation}\label{eq:slb-proof}
         \log_2 \volume(\Supp(\vx_{\delta}))
         - \log_2 \volume(B_{\delta + \epsilon})
@@ -1514,7 +1512,7 @@ con respecto a la medida de Lebesgue.
         \leq
         R_{\epsilon}(\vx).
     \end{equation}
-    Por último, debemos hallar un límite inferior para la razón
+    Por último, debemos obtener una cota inferior para la razón
     \begin{equation}
         \frac{
             \volume(\Supp(\vx_{\delta}))
@@ -1525,7 +1523,7 @@ con respecto a la medida de Lebesgue.
     \end{equation}
     en términos del número de cobertura.
     Dado que $\Supp(\vx_{\delta}) = \Supp(\vx) + B_{\delta}$, donde $+$ denota aquí
-    la suma de Minkowski, una aplicación estándar de los argumentos de límites de volumen
+    la suma de Minkowski, una aplicación estándar de los argumentos de cotas de volumen
     (véase, por ejemplo, \cite[Proposition 4.2.12]{Vershynin2018-br}) da
     \begin{equation}
         \volume(\Supp(\vx_{\delta}))
@@ -1561,7 +1559,7 @@ con respecto a la medida de Lebesgue.
             }
         \right)^D.
     \end{align}
-    Si se elige $\delta = \epsilon / 2$, se obtiene a partir del límite inferior de Shannon
+    Si se elige $\delta = \epsilon / 2$, se obtiene a partir de la cota inferior de Shannon
     \eqref{eq:slb-proof} y las estimaciones anteriores
     \begin{equation}
         \log_2 \cN_{\epsilon}(\Supp(\vx))
@@ -1569,7 +1567,7 @@ con respecto a la medida de Lebesgue.
         \leq
         R_{\epsilon}(\vx),
     \end{equation}
-    como se debía demostrar.
+    como se quería demostrar.
 
 \end{proof}
 
@@ -1579,7 +1577,7 @@ con respecto a la medida de Lebesgue.
 \begin{proof}[(Demostración de \Cref{lem:rate-distortion-lb-uos})]
     Basta con demostrar que cualquier código para $\vx$ con una distorsión cuadrática esperada
     de $\epsilon^2$ produce un código para $\vx_{\delta}$ con la misma tasa y
-    una distorsión ligeramente superior, si se elige un valor adecuado de $\delta$.
+    una distorsión ligeramente superior, para una elección adecuada de $\delta$.
     Así pues, fijemos un código de este tipo para $\vx$, que alcance una tasa de $R$ y una distorsión cuadrática
     esperada de $\epsilon^2$. Denotamos por $\hat{\vx}$ la variable aleatoria
     reconstruida mediante este código, y por $\mathrm{q} : \Supp(\vx) \to \Supp(\vx)$
@@ -1620,26 +1618,26 @@ con respecto a la medida de Lebesgue.
         &=
         \norm*{\vxi^{\|} - \vxi'}_2^2.
     \end{align}
-    Además, se sabe que para cualquier $\vxi^{\|}$ distinto de cero que pertenezca a $\Span(\cS_k)$,
+    Además, es sabido que para cualquier $\vxi^{\|}$ no nulo en $\Span(\cS_k)$,
     \begin{equation}
         \inf_{\vxi' \in \cS_k}\,
         \norm*{\vxi^{\|} - \vxi'}_2^2
         =
         \norm*{\vxi^{\|} - \frac{\vxi^{\|}}{\norm{\vxi^{\|}}_2}}_2^2.
     \end{equation}
-    Si $\vxi^{\|}$ es cero, es evidente que la distancia anterior es igual a $1$
+    Si $\vxi^{\|}$ es cero, es claro que la distancia anterior es igual a $1$
     para todo $\vxi' \in \cS_k$.
-    Por lo tanto, si definimos un mapeo de proyección
+    Por lo tanto, si definimos la proyección
     $\pi_{\cS_k}(\vxi)$
     mediante
     \begin{equation}
         \pi_{S_k}(\vxi) = \frac{\vU_k\vU_k^\top \vxi}{\norm{\vU_k^\top \vxi}_2}
     \end{equation}
-    Para cualquier $\vxi \in \R^D$ tal que $\vU_k^\top \vxi \neq \mathbf{0}$, entonces
-    $\pi_{\cS_k}(\vxi) = \argmin_{\vxi' \in \cS_k}\norm*{\vxi' - \vxi}_2$.
-    Elegimos $0 < \delta < 1$, de modo que el conjunto engrosado $\cS_{\delta}$
-    no contenga puntos $\vxi \in \R^D$ en los que alguna de los mapeos de proyección
-    $\pi_{\cS_k}$ no esté bien definida.
+    para todo $\vxi \in \R^D$ tal que $\vU_k^\top \vxi \neq \mathbf{0}$, se cumple que
+    $$\pi_{\cS_k}(\vxi) = \frac{\vU_k\vU_k^\top \vxi}{\norm{\vU_k^\top \vxi}_2}.$$
+    Elegimos $0 < \delta < 1$ de modo que el conjunto engrosado $\cS_{\delta}$ 
+    no contenga puntos $\vxi \in \R^D$ en los que alguno de los mapeos de proyección 
+    $\pi_{\cS_k}$ no esté bien definido. 
     Por lo tanto, el conjunto engrosado $\cS_{\delta}$ satisface
     \begin{align}
         \cS_{\delta}
@@ -1705,7 +1703,7 @@ con respecto a la medida de Lebesgue.
         }_2
         \leq \delta,
     \end{align}
-    donde la segunda línea se basa en el supuesto de ortogonalidad de los subespacios
+    donde la segunda línea se sigue de la hipótesis de ortogonalidad entre los subespacios
     $\vU_k$, y la tercera se basa en el hecho de que las proyecciones ortogonales son
     no expansivas.
     Por lo tanto, la $j$-ésima distancia cumple que
@@ -1750,7 +1748,7 @@ con respecto a la medida de Lebesgue.
             - \mathrm{q}(\pi_{\cS}(\vx_{\delta})) }_2^2 \right]^{1/2}
         \right)^2,\label{eq:distortion-decomposition}
     \end{align}
-    donde la desigualdad utiliza la desigualdad de Minkowski.
+    donde se utiliza la desigualdad de Minkowski.
     Ahora, por las \Cref{def:thickening-set,def:thickening-rv-uos}, tenemos
     determinísticamente
     \begin{equation}
@@ -1760,7 +1758,7 @@ con respecto a la medida de Lebesgue.
     por lo que la esperanza también satisface esta estimación.
     Para el segundo término, bastará con caracterizar la densidad de la
     variable aleatoria $\pi_{\cS}(\vx_{\delta})$ como suficientemente cercana a la
-    densidad de $\vx$ —la cual, tal y como implica el \Cref{assumption:union-of-spheres}, es
+    densidad de $\vx$ —la cual, tal y como lo implica el \Cref{assumption:union-of-spheres}, es
     una mezcla de distribuciones uniformes en cada subesfera $\cS_k$.
     Según el argumento anterior, cada punto $\vxi \in \cS_{\delta}$ puede asociarse
     a un único subespacio $\vU_k$, lo que significa que las componentes de la mezcla
@@ -1768,9 +1766,9 @@ con respecto a la medida de Lebesgue.
     \Cref{def:thickening-rv-uos}) no se superponen. Por lo tanto, la densidad
     $\pi_{\cS}(\vx_{\delta})$ puede caracterizarse estudiando el efecto de
     $\pi_{\cS_k}$ sobre la variable aleatoria condicional $\vx_{\delta}$, condicionada
-    a ser extraída de $\cS_{k, \delta}$. Denotemos esta medida por $\mu_{k,
+    a pertenecer a $\cS_{k, \delta}$. Denotemos esta medida por $\mu_{k,
     \delta}$.
-    Afirmamos que la proyección de esta medida bajo $\pi_{\cS_k}$
+    Afirmamos que el empuje de esta medida bajo $\pi_{\cS_k}$
     es uniforme en $\cS_k$.
     Para ver que esto es cierto, recordamos la
     \Cref{eq:distance-to-hypersphere},
@@ -1792,7 +1790,7 @@ con respecto a la medida de Lebesgue.
     da como resultado una variable aleatoria que es uniforme en $\cS_k$.
     Con respecto a estas coordenadas, hemos visto que $\pi_{\cS_k}(\vxi^\|
     + \vxi^\perp) = \vxi^\| / \norm{\vxi^{\|}}_2$.
-    Por lo tanto, para cualquier $\vxi \in \cS_{k}$, tenemos que la preimagen de $\vxi$ en
+    Por lo tanto, para todo $\vxi \in \cS_{k}$, tenemos que la preimagen de $\vxi$ en
     $\cS_{k, \delta}$ bajo $\pi_{\cS_k}$ es
     \begin{equation}
         \pi_{\cS_k}^{-1}(\vxi) = \set*{
@@ -1843,7 +1841,7 @@ con respecto a la medida de Lebesgue.
         }
         \odif r \odif \vtheta^{d_k} \odif \vxi^{\perp}.
     \end{equation}
-    Si comparamos con la representación de fibra \eqref{eq:fiber-of-uos},
+    Al comparar con la representación de fibra \eqref{eq:fiber-of-uos},
     vemos que necesitamos «integrar» sobre las componentes $r$ y $\vxi^\perp$
     de la integral anterior para verificar que el pushforward
     es uniforme.

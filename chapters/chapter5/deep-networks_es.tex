@@ -113,7 +113,7 @@ en un proceso de compresión que minimiza progresivamente la
 entropía o la tasa de codificación de la distribución. Sin embargo, hasta ahora
 hemos estado utilizando redes profundas diseñadas en forma empírica para modelar
 o aproximar las operaciones destinadas a optimizar estos objetivos,
-como la función de \textit{score} para la eliminación de ruido (en
+como la función de \textit{score} para la reducción de ruido (en
 la \Cref{sec:denoising-intro}) o la transformación que maximiza la
 reducción de la tasa (en la \Cref{sec:MCR-landscape}).
 
@@ -1328,7 +1328,7 @@ sería más general suponer que las diferentes regiones de la imagen
 pertenecen a  diferentes modelos de baja dimensión (por ejemplo, una distribución gaussiana o un
 subespacio). Como veremos, tal generalización daría lugar a una arquitectura
 sencilla y general que unifica las operaciones de reducción de tasa y
-de eliminación de ruido que hemos visto en el capítulo anterior.
+de reducción de ruido que hemos visto en el capítulo anterior.
 Además, la arquitectura resultante se asemeja a la popular
 arquitectura de transformer.
 
@@ -2016,7 +2016,7 @@ comprima la representación en forma demostrable?». Según nuestra teoría prev
 la respuesta debería ser una pila de capas MSSA, concebidas como
 operadores de compresión con pérdida. Esta arquitectura de red es lo suficientemente
 simple como para que sea posible analizar el rendimiento de compresión o
-de eliminación de ruido en forma rigurosa y sistemática. Con este
+de reducción de ruido en forma rigurosa y sistemática. Con este
 fin, formalicemos nuestro modelo de subespacios: las representaciones iniciales de los tokens
 $\bm Z^{1}$ se obtienen mediante muestreo de una mezcla ruidosa de
 distribuciones gaussianas de bajo rango, con soporte en subespacios generados por \(\vU_{k} \in
@@ -2033,7 +2033,7 @@ donde $\bm{a}_i \overset{i.i.d.}{\sim}
 para todo $i \in C_k$ y $k \in [K]$, $\{\bm{a}_i\}$ y
 $\{\bm{e}_{i,j}\}$ son mutuamente independientes.
 
-\paragraph{Un operador de eliminación de ruido para representaciones de tokens.} Ahora,
+\paragraph{Un operador de reducción de ruido para representaciones de tokens.} Ahora,
 mostramos que el operador MSSA (véase \eqref{eq:Multi-Head-SSA}) puede
 eliminar en forma incremental el ruido de las representaciones de tokens generadas a partir del
 modelo anterior. Concretamente, consideramos un operador MSSA generalizado: para cada
@@ -2067,7 +2067,7 @@ sofisticado.}
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter5/figs/SNR2.png}
         \caption{Nivel de ruido $\delta = 0.5$}
     \end{subfigure}
-    \caption{{\bf Desempeño en la eliminación de ruido del Transformer
+    \caption{{\bf Desempeño en la reducción de ruido del Transformer
         basado únicamente en atención.} Aquí, muestreamos las representaciones iniciales de los tokens a partir de
         una mezcla de gaussianas de bajo rango en la \Cref{def:MoG}. A continuación, aplicamos
         \eqref{eq:MSSA} para actualizar las representaciones de los tokens y reportamos la
@@ -2077,7 +2077,7 @@ sofisticado.}
 
 Ahora, sean las columnas de $\bm Z_k^{\ell}$ las representaciones de tokens
 del subespacio $k$-ésimo en la capa $\ell$-ésima. Para
-cuantificar la capacidad de eliminación de ruido, definimos la relación señal-ruido
+cuantificar la capacidad de reducción de ruido, definimos la relación señal-ruido
 (SNR) para cada bloque de las representaciones de tokens en la
 capa $\ell$ de la siguiente manera:
 \begin{align}\label{def:SNR}
@@ -2093,7 +2093,7 @@ Para simplificar nuestro análisis, suponemos que $\abs{C_{1}} = \cdots =
     \end{bmatrix} \in \mathcal{O}^{d\times Kp}.
 \end{align}
 
-Con la configuración anterior, ahora podemos caracterizar el desempeño en la eliminación de ruido
+Con la configuración anterior, ahora podemos caracterizar el desempeño en la reducción de ruido
 de un operador MSSA ligeramente modificado, que aplica un umbral a los términos que
 son demasiado pequeños en la función softmax.
 
@@ -2137,11 +2137,11 @@ aplicación del operador MSSA modificado elimina el ruido de las representacione
 a un ritmo lineal. Cabe destacar que nuestros resultados teóricos están bien respaldados por
 las observaciones experimentales realizadas con el operador MSSA \textit{real} en la
 \Cref{fig:MSSA}. Este teorema proporciona una base teórica para
-la capacidad práctica de eliminación de ruido de la arquitectura del transformer
+la capacidad práctica de reducción de ruido de la arquitectura del transformer
 derivada mediante el desenrollado de \eqref{eq:MSSA}.
 
 \paragraph{Transformadores de solo atención.} Para verificar que esta
-capacidad de eliminación de ruido se traduce en un rendimiento razonable con datos y tareas reales,
+capacidad de reducción de ruido se traduce en un rendimiento razonable con datos y tareas reales,
 proponemos formalmente una arquitectura de transformer basada exclusivamente en la atención,
 a la que abreviamos como AoT. Concretamente, al desenrollar
 los pasos iterativos de optimización \eqref{eq:MSSA} como capas de una red profunda,
@@ -2807,7 +2807,7 @@ cerrar esta brecha; ambas son objeto de líneas de investigación activas.
 
     Un enfoque sencillo para esto consiste en aplicar un bucle al modelo: introducir las características finales
     en las capas iniciales de secuencia a secuencia y permitir
-    que pase por más rondas de eliminación iterativa de ruido. Esta
+    que pase por más rondas de reducción iterativa de ruido. Esta
     metodología se conoce en la literatura como «transformers en bucle»
     (en el caso de que el modelo base sea un
     transformer diseñado empíricamente); se ha demostrado que este enfoque
@@ -2815,7 +2815,7 @@ cerrar esta brecha; ambas son objeto de líneas de investigación activas.
     \citep{giannou2023looped,yang2023looped,saunshi2025reasoning}.
     Sin embargo, desde nuestro punto de vista, resulta más razonable recorrer
     la \textit{misma capa} varias veces, aplicando
-    varios pasos de eliminación de ruido o compresión locales sobre el
+    varios pasos de reducción de ruido o compresión locales sobre el
     \textit{mismo modelo} en cada capa antes de pasar a la siguiente.
 
     Otra posible metodología adicional se basa en nuestra comprensión
@@ -2825,7 +2825,7 @@ cerrar esta brecha; ambas son objeto de líneas de investigación activas.
     características, podríamos actualizarlas en tiempo de inferencia utilizando un algoritmo en línea,
     como el (G)PCA en línea. Pasos similares podrían permitir
     adaptar el diccionario en el momento de la inferencia. Esto nos permitiría
-    mejorar y especializar nuestros operadores locales de eliminación de ruido o compresión
+    mejorar y especializar nuestros operadores locales de reducción de ruido o compresión
     en cada capa para las características, lo que, por lo tanto, podría
     dar lugar a un mejor rendimiento.
 

@@ -638,14 +638,14 @@ al conjunto de parámetros \(\theta\).
 \begin{figure}[t!]
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/transformer_backbone.pdf}
-    \caption{\small\textbf{Una capa \(f_{\theta}^{\ell}\) de la
-        estructura principal del transformador.} Las características de entrada pasan por
+    \caption{\small\textbf{Una capa \(f_{\theta}^{\ell}\) del \textit{backbone}
+        del transformador.} Las características de entrada pasan por
         normalización de capa, autoatención multi-cabezal y bloques de perceptrón multi-capa
     en secuencia para formar las características de salida de la capa.}
     \label{fig:transformer_backbone}
 \end{figure}
 
-\paragraph{Red troncal.} Dada una secuencia de \textit{embeddings}
+\paragraph{\textit{Backbone}.} Dada una secuencia de \textit{embeddings}
 \(\vZ_{\theta}^{1}(\vX) \doteq f_{\theta}^{\emb}(\vX) \in
 (\R^{d})^{*}\), la procesamos utilizando el mapa de la red troncal
 \(f_{\theta}^{\backbone}\) de la siguiente manera, como se muestra en
@@ -1672,7 +1672,7 @@ de evaluación y resumimos la configuración de entrenamiento y evaluación de C
 En los modelos CLIP que aquí se presentan, se adopta el \textit{Vision Transformer} como codificador visual 
 \(f_{\theta}\) y se implementa como una de las tres variantes de ViT: ViT-B/32, ViT-B/16 o ViT-L/14. 
 Aquí, \(\text{B}\) («Base») y \(\text{L}\) («Large») especifican el ancho y la profundidad del 
-Transformer (por ejemplo, ViT-B suele utilizar 12 bloques de transformer con una dimensión de 
+Transformer (por ejemplo, ViT-B suele utilizar 12 bloques de Transformer con una dimensión de 
 \textit{embedding} \(d=768\) y 12 cabezales de atención, mientras que ViT-L utiliza 24 bloques con 
 \(d=1024\) y 16 cabezales), mientras que los sufijos \(/32\), \(/16\) y \(/14\) denotan el 
 \emph{tamaño del parche} en píxeles utilizado para particionar la imagen de entrada en parches. Los tamaños 
@@ -1710,7 +1710,7 @@ arquitectura o en la correspondencia de datos.
 \centering
 \begin{tabular}{@{}llcccc@{}}
 \toprule
-Red troncal & Variante & CIFAR-10 & CIFAR-100 & VOC2007 & ImageNet \\
+\textit{Backbone} & Variante & CIFAR-10 & CIFAR-100 & VOC2007 & ImageNet \\
 \midrule
 CLIP-ViT & B/32 & 95.1 & 80.5 & 87.7 & 76.1 \\
 CLIP-ViT & B/16 & 96.2 & 83.1 & 89.2 & 80.2 \\
@@ -1720,7 +1720,7 @@ ResNet & 50  & 91.8 & 74.5 & 83.8 & 74.3 \\
 ResNet & 101 & 93.0 & 77.2 & 84.4 & 75.8 \\
 \bottomrule
 \end{tabular}
-\caption{Rendimiento en conjuntos de datos de tareas aguas abajo para diversos \textit{bachbone} CLIP y modelos de referencia ResNet.}
+\caption{Rendimiento en conjuntos de datos de tareas aguas abajo para diversos \textit{backbone} CLIP y modelos de referencia ResNet.}
 \label{tab:clip_vs_resnet}
 \end{table}
 
@@ -1782,7 +1782,7 @@ s_{i,\text{pos}} \doteq \langle \vz_i^{I}, \vz_{i,\text{pos}}^{T} \rangle,
 s_{i,\text{neg}} \doteq \langle \vz_i^{I}, \vz_{i,\text{neg}}^{T} \rangle.
 \]
 Se considera que el modelo es correcto en la muestra \(i\) si
-\(s_{i,\text{pos}} > s_{i,\text{neg}}\) y la precisión compositiva general es
+\(s_{i,\text{pos}} > s_{i,\text{neg}}\) y la precisión composicional general es
 \[
 \frac{1}{N}\sum_{i=1}^{N}\boldsymbol{1}\{s_{i,\text{pos}} > s_{i,\text{neg}}\}.
 \]
@@ -1887,7 +1887,7 @@ distancia entre \(\vp_{\theta}\) y \(\vy\) medida mediante entropía cruzada:
 
 La arquitectura que utilizamos es la arquitectura de CRATE, descrita con
 cierto detalle en el \Cref{ch:deep-networks}. La configuración general es similar
-a la del transformer estándar de la 
+a la del Transformer estándar de la 
 \Cref{sub:contrastive_learning_architecture}, con algunos cambios.
 Si bien el paso de \textit{embedding} es el mismo que en DINO y SimDINO en la
 \Cref{sub:contrastive_learning_architecture}, el paso de extracción de características
@@ -1983,7 +1983,7 @@ sondeos lineales, visualización de mapas de atención y benchmarks de detecció
 \subsection{Diseño experimental y
 resultados}\label{sub:image_classification_experiments}
 
-Dado que CRATE se basa directamente en el modelo transformer, se comparan los
+Dado que CRATE se basa directamente en el modelo Transformer, se comparan los
 parámetros óptimos para ViT, tal y como se indican en
 \cite{dosovitskiy2020image,touvron2020training}, con las mismos
 configuraciones aplicadas a CRATE, a fin de realizar una comparación imparcial.
@@ -2194,12 +2194,12 @@ parches con información local y global similar deberían estar relacionadas
 
 Se utilizan un codificador y un decodificador CRATE, tal y como se muestra en la
 \Cref{fig:transformer_backbone}, aunque, por supuesto, es posible
-utilizar un codificador y un decodificador transformer estándar. A continuación se ofrecen los detalles.
+utilizar un codificador y un decodificador Transformer estándar. A continuación se ofrecen los detalles.
 
 \paragraph{El codificador.} El codificador es el mismo que el codificador CRATE
 de la \Cref{sub:image_classification_architecture}, con la salvedad de que
 no hay ningún extractor de características \(f_{\theta}^{\ext}\). Sin embargo, tanto
-el \textit{embedding} \(f_{\theta}^{\emb}\) como la red troncal
+el \textit{embedding} \(f_{\theta}^{\emb}\) como el \textit{backbone}
 \(f_{\theta}^{\backbone}\) son las mismas.
 
 \paragraph{El \textit{backbone} del decodificador.} El \textit{backbone} del decodificador es el decodificador CRATE
@@ -2415,7 +2415,7 @@ y basado en principios.}
     imágenes consta de la imagen original (izquierda) y un mapa de saliencia
     seleccionado (derecha) correspondiente a una cabeza de atención de la última capa. Como
     es habitual en los modelos CRATE, pero inusual en los modelos generales de tipo
-transformer, los mapas de saliencia corresponden a los objetos de la imagen de entrada.}
+Transformer, los mapas de saliencia corresponden a los objetos de la imagen de entrada.}
 \label{fig:crate_mae_semantic_heads}
 \end{figure}
 
@@ -2850,7 +2850,7 @@ El objetivo de entrenamiento para el \textit{denoiser} puede expresarse entonces
 
 Por lo general, el campo vectorial de reducción de ruido $\bar{\z}_{\theta}(t, \z_t)$ 
 se modela mediante una red profunda. Las opciones más comunes para la red profunda son 
-una U-Net o un transformer de imágenes por difusión (DiT). A continuación ofrecemos 
+una U-Net o un Transformer de imágenes por difusión (DiT). A continuación ofrecemos 
 más detalles sobre cómo se pueden implementar en la práctica.
 
 % %more detail about the UNet, and refer back to PCA. Add the references.
@@ -2884,7 +2884,7 @@ La arquitectura predominante para implementar la red de reducción de ruido $\bo
 en los modelos de difusión ha sido la \textit{U-Net}~\citep{ronneberger2015unet}, una red convolucional tipo 
 codificador-decodificador con conexiones de salto (skip connections) desarrollada originalmente para la segmentación de 
 imágenes biomédicas. Ho et al.~\citep{ho2020denoising} fueron los primeros en adoptar la red U-Net como 
-estructura principal de los modelos probabilísticos de difusión con reducción de ruido (DDPM), 
+\textit{backbone} de los modelos probabilísticos de difusión con reducción de ruido (DDPM), 
 consolidándola como la arquitectura por defecto en este campo. Posteriormente, Dhariwal 
 y Nichol~\citep{dhariwal2021diffusion} llevaron a cabo una serie sistemática de ablaciones arquitectónicas 
 que mejoraron sustancialmente el diseño de U-Net, dando lugar a lo que ellos denominan 
@@ -2895,7 +2895,7 @@ de una VAE preentrenada (Sección~\ref{sec:VAE-implement}) e introdujeron capas 
 un condicionamiento multimodal flexible, dando lugar al \emph{Modelo de Difusión Latente} (LDM) que 
 sustenta Stable Diffusion. En esta sección, recorremos la evolución de la estructura central de U-Net 
 a lo largo de estas tres etapas, antes de analizar las limitaciones arquitectónicas que han motivado 
-la reciente transición hacia alternativas basadas en transformers (Sección~\ref{sec:DiT-implement}).
+la reciente transición hacia alternativas basadas en Transformers (Sección~\ref{sec:DiT-implement}).
 
 \paragraph{Estructura de codificador-decodificador con conexiones de salto.}
 La U-Net sigue una estructura de codificador-decodificador. El codificador reduce progresivamente la 
@@ -2934,7 +2934,7 @@ tal como se define en la Sección~\ref{sec:VAE-implement}.
 \paragraph{Condicionamiento por paso de tiempo mediante normalización adaptativa por grupos.}
 La red de reducción de ruido debe condicionarse al paso de tiempo de difusión $t$ para que 
 pueda adaptar su comportamiento a los distintos niveles de ruido. Siguiendo el esquema de 
-codificación posicional del transformer~\citep{vaswani2017attention}, el paso de tiempo $t$ 
+codificación posicional del Transformer~\citep{vaswani2017attention}, el paso de tiempo $t$ 
 se mapea primero a un \textit{embedding} de frecuencia sinusoidal:
 \begin{equation}
     \mathrm{Embed}(t)_{2i} = \sin\!\left(\frac{t}{10000^{2i/d_e}}\right), \quad
@@ -3052,7 +3052,7 @@ de arquitecturas alternativas. En primer lugar, \textbf{escalar} una red U-Net r
 su estructura de codificador-decodificador implica numerosas decisiones de diseño interrelacionadas 
 (multiplicadores de canales, ubicación de la atención, tipos de bloques de muestreo 
 ascendente/descendente), y no está claro cómo asignar de manera óptima la capacidad de cálculo 
-adicional. Por el contrario, el transformer básico se escala a lo largo de dos ejes simples, la 
+adicional. Por el contrario, el Transformer básico se escala a lo largo de dos ejes simples, la 
 profundidad y la anchura, y presenta leyes de escalado bien caracterizadas según estudios 
 empíricos~\citep{kaplan2020scaling}. En segundo lugar, las capas convolucionales de U-Net 
 codifican un fuerte \textbf{sesgo inductivo espacial} (localidad, equivarianza a la traslación) 
@@ -3061,12 +3061,12 @@ conjuntos de datos de gran tamaño. La autoatención aborda parcialmente esta li
 los diseños estándar de U-Net solo se aplica en las etapas de baja resolución debido a su coste 
 cuadrático, lo que hace que las características de alta resolución sean totalmente locales. En 
 tercer lugar, U-Net es una arquitectura \textbf{específica para imágenes} que no se generaliza 
-fácilmente a otras modalidades. El modelo transformer, cuya eficacia ha quedado demostrada en 
+fácilmente a otras modalidades. El modelo Transformer, cuya eficacia ha quedado demostrada en 
 entornos lingüísticos, de visión, de audio y multimodales~\citep{vaswani2017attention}, ofrece un 
 \textit{backbone} unificado capaz de aprovechar los conocimientos sobre escalabilidad entre dominios.
 
 Estas consideraciones dieron lugar al Diffusion Transformer (DiT)~\citep{peebles2023scalable}, que 
-sustituye por completo a la red U-Net por un transformer básico que opera sobre parches latentes. 
+sustituye por completo a la red U-Net por un Transformer básico que opera sobre parches latentes. 
 Tal como describimos en la Sección~\ref{sec:DiT-implement}, DiT iguala y supera a los mejores modelos 
 basados en U-Net, al tiempo que presenta un comportamiento de escalabilidad más limpio (correlación 
 Gflops-FID de $-0,93$) y una arquitectura más simple.
@@ -3108,7 +3108,7 @@ Una alternativa a U-Net para implementar la red de reducción de ruido
 $\boldsymbol{\epsilon}_\theta$ es el \textit{Diffusion Transformer (DiT)}~\citep{peebles2023scalable}, 
 que sustituye por completo las convoluciones por bloques Transformer. El hallazgo clave es que 
 el sesgo inductivo espacial de U-Net \emph{no es crucial} para el rendimiento de los modelos de 
-difusión: un transformer estándar que opera sobre secuencias de parches latentes puede igualar e 
+difusión: un Transformer estándar que opera sobre secuencias de parches latentes puede igualar e 
 incluso superar a U-Net, al tiempo que hereda las propiedades de escalabilidad favorables de la 
 clase de arquitecturas Transformer~\citep{vaswani2017attention}. A diferencia de U-Net, DiT no 
 tiene un sesgo inductivo espacial explícito: toda la estructura espacial se aprende a partir de los 
@@ -3117,7 +3117,7 @@ modalidades con modificaciones mínimas.
 
 DiT opera dentro del espacio latente de un VAE preentrenado (Sección~\ref{sec:VAE-implement}), lo que 
 convierte la \textit{pipeline} completa de generación de imágenes en una arquitectura híbrida: un VAE 
-convolucional para la compresión perceptual y un DDPM basado en transformers para el modelado 
+convolucional para la compresión perceptual y un DDPM basado en Transformers para el modelado 
 generativo. Siguiendo el \textit{Vision Transformer} (ViT)~\citep{dosovitskiy2020image}, el latente de 
 entrada se divide en parches y se incrusta linealmente como una secuencia de tokens. A continuación 
 describimos la arquitectura en detalle.
@@ -3141,7 +3141,7 @@ $p \in \{2, 4, 8\}$; la configuración más fina $p = 2$ produce la mejor calida
 
 \paragraph{Bloque DiT con adaLN-Zero.}
 Tras la «patchificación», la secuencia de tokens se procesa mediante una pila de $N$ bloques de 
-Transformer. Cada bloque sigue la estructura estándar del transformer~\citep{vaswani2017attention}: 
+Transformer. Cada bloque sigue la estructura estándar del Transformer~\citep{vaswani2017attention}: 
 normalización de capa, autoatención multi-cabezal (MHSA), una segunda normalización de capa y una red 
 hacia adelante punto a punto (MLP con activaciones GELU).
 
@@ -3192,7 +3192,7 @@ de manera uniforme. Para la generación de imágenes a partir de texto, donde la
 es una secuencia de tokens de texto de longitud variable, son comunes dos enfoques alternativos: 
 (1) la atención cruzada, donde los tokens de imagen prestan atención a los \textit{embeddings} de 
 tokens de texto de un codificador congelado; o (2) anteponer los tokens de texto directamente a 
-la secuencia de tokens de imagen, lo que permite que la autoatención del transformer procese 
+la secuencia de tokens de imagen, lo que permite que la autoatención del Transformer procese 
 conjuntamente ambas modalidades.
 
 \paragraph{Proyección de la salida.}
@@ -3310,7 +3310,7 @@ para proyectar la señal de control $\vc$ en un espacio de \textit{embedding} ú
 general de generación controlada puede describirse formalmente como una composición de un generador 
 $G_\theta$ y el decodificador $\mathcal{D}$:
 \begin{equation}
-    \underbrace{\epsilon \sim \mathcal{N}(\bm{0}, \I)}_{\text{Source}}, \vc 
+    \underbrace{\epsilon \sim \mathcal{N}(\bm{0}, \I)}_{\text{Fuente}}, \vc 
     \xrightarrow{\quad G_\theta(\epsilon, \tau_\phi(\vc)) \quad} 
     \hat{\z} \sim p(\z\mid \vc) 
     \xrightarrow{\quad \mathcal{D}(\hat{\z}) \quad} 
@@ -3336,7 +3336,7 @@ específico, como la atención cruzada.
 \paragraph{El problema inverso uno-a-muchos.}
 El condicionamiento está intrínsecamente mal planteado porque la señal de control suele 
 ser \textit{subdeterminada}. Una indicación textual $\vc=$ «un perro» proporciona información 
-sobre la categoría semántica, pero omite la postura del perro, la iluminación, el fondo y el 
+sobre la categoría semántica, pero omite la pose del perro, la iluminación, el fondo y el 
 patrón del pelaje. En consecuencia, la correspondencia inversa $\vc \to \x$ no es un único punto, 
 sino una distribución multimodal compleja. Si entrenáramos un modelo de regresión determinista 
 simple para minimizar el error euclidiano $\|\x - G_\theta(\vc)\|^2$, el modelo convergería hacia 
@@ -3534,7 +3534,7 @@ Figura~\ref{fig:sd_pipeline}, los modelos modernos de vanguardia (como Stable
 Diffusion~\citep{rombach2022high}) descomponen esta compleja tarea en tres componentes 
 independientes: (1) un módulo de \textbf{compresión perceptual} (VAE) para traducir entre 
 píxeles y latentes, (2) una interfaz de \textbf{condicionamiento semántico} (codificador 
-de texto CLIP) para interpretar las instrucciones de texto (\textit{prompts}) y (3) una red troncal (\textit{backbone}) de 
+de texto CLIP) para interpretar las instrucciones de texto (\textit{prompts}) y (3) un \textit{backbone} de 
 \textbf{generación de latentes} (U-Net) para sintetizar el contenido. A continuación 
 detallamos la implementación de cada componente.
 
@@ -3589,7 +3589,7 @@ sus pesos se congelan y actúa como una interfaz estática para el modelo de dif
 Para guiar el proceso de generación, se requiere una representación semántica robusta del 
 \textit{prompt} del usuario $\vc$ (por ejemplo, «Un gato peludo de color jengibre»). En lugar de 
 entrenar un codificador de texto desde cero, los modelos de difusión latente suelen aprovechar 
-el codificador de texto congelado de CLIP~\citep{radford2021learning}. Este transformer 
+el codificador de texto congelado de CLIP~\citep{radford2021learning}. Este Transformer 
 preentrenado mapea los tokens del texto de entrada a una secuencia de \textit{embeddings} semánticos 
 $\tau_\theta(\vc) \in \mathbb{R}^{d_\tau \times M}$, donde $M$ es la longitud de la secuencia 
 (por ejemplo, 77 tokens) y $d_\tau$ es la dimensión del \textit{embedding} (normalmente 768 o 1024). 
@@ -3714,9 +3714,9 @@ imagen y las coordenadas de recorte y estos se concatenan con la condición de t
 que permite al modelo distinguir explícitamente entre sujetos centrados y recortados.
 
 Por su parte, Flux~\citep{flux2024} supone una transformación paradigmática, migrando de una arquitectura 
-U-Net a un transformer de difusión multimodal (MMDiT). Procesa tokens de texto y visuales en 
+U-Net a un Transformer de difusión multimodal (MMDiT). Procesa tokens de texto y visuales en 
 un flujo unificado mediante bloques de atención conjunta, gracias a componentes modernos de 
-transformers como los \textit{embeddings} posicionales rotativas (\textit{Rotary Positional Embeddings, RoPE}) y RMSNorm. Matemáticamente, 
+Transformers como los \textit{embeddings} posicionales rotativas (\textit{Rotary Positional Embeddings, RoPE}) y RMSNorm. Matemáticamente, 
 Flux sustituye la difusión estándar por un \textbf{\textit{Rectified Flow Matching}}. A diferencia de la 
 difusión estándar, que predice el ruido $\epsilon$, Flow Matching simplifica el objetivo de 
 entrenamiento para predecir un campo de velocidades lineal $v_\theta$ entre el ruido y los datos. 
@@ -3852,7 +3852,7 @@ fuertes), el método busca en el vocabulario del tokenizador secuencias de token
 ejemplo, en el rango del tokenizador T5-XXL $\{5000, \dots, 10000\}$) que tengan asociaciones semánticas 
 débiles. Este identificador siempre se empareja con un sustantivo genérico de clase (p. ej., «un gato $[V]$») 
 en el prompt. Este «anclaje» es fundamental: aprovecha los sólidos \textit{priors} del modelo sobre 
-la clase (saber cómo representar un «gato» en diversas posturas) al tiempo que vincula las características 
+la clase (saber cómo representar un «gato» en diversas poses) al tiempo que vincula las características 
 de identidad específicas al identificador $[V]$.
 
 \textbf{Entrenamiento con preservación de priores.}
@@ -3885,8 +3885,8 @@ nuevos conceptos.
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/gen4gen_teaser.pdf}
     \caption{\textbf{El proceso Gen4Gen para la personalización multi-concepto.} Para superar las 
              limitaciones de los \textit{benchmarks} existentes en escenarios con múltiples sujetos, 
-             Gen4Gen \cite{yeh2024gen4gen} automatiza la creación de un conjunto de datos de 
-             referencia de alta calidad (MyCanvas). El entrenamiento con estos datos mejora 
+             Gen4Gen \cite{yeh2024gen4gen} automatiza la creación de un \textit{benchmark}
+             de alta calidad (MyCanvas). El entrenamiento con estos datos mejora 
              significativamente la capacidad del modelo para generar escenas complejas con múltiples 
              sujetos específicos (por ejemplo, «un $[V1]$ gato y un $[V2]$ perro»).}
     \label{fig:gen4gen_pipeline}
@@ -3932,7 +3932,7 @@ AnimateDiff~\citep{guo2023animatediff} introducen el concepto de «expandir» la
 en capas pseudo-3D. Esto se logra cambiando la forma del tensor de entrada 
 $\boldsymbol{z}$ para alternar entre el procesamiento espacial y el temporal:
 \begin{itemize}
-    \item \textbf{Capas espaciales (congeladas):} La estructura principal 2D (ResNet y atención 
+    \item \textbf{Capas espaciales (congeladas):} El \textit{backbone} 2D (ResNet y atención 
           espacial) procesa los fotogramas de manera independiente reconfigurando la entrada a 
           $(B \cdot T, h, w, c)$. De este modo se conservan las capacidades de generación de 
           texturas y objetos preentrenadas.
@@ -3997,7 +3997,7 @@ así como muchas aplicaciones o tareas basadas en imágenes que
 dichas representaciones facilitan: como el reconocimiento de objetos a partir de imágenes,
 la segmentación o el completado de imágenes, y la
 generación de imágenes.\footnote{Basado en técnicas presentadas anteriormente: el
-transformer visual (ViT)~\cite{NIPS2017_3f5ee243}, el aprendizaje
+Transformer visual (ViT)~\cite{NIPS2017_3f5ee243}, el aprendizaje
 contrastivo de lenguaje e imagen (CLIP)~\cite{pmlr-v139-radford21a} y los modelos de
 difusión latente (VAE-SD)~\cite{rombach2022high}.}
 
@@ -4132,7 +4132,7 @@ prefiere una representación u otra para distintas tareas. En esta sección, uti
 representación tradicional de nubes de puntos y mostraremos cómo aprender la
 distribución de las formas 3D a partir de este tipo de datos. En la siguiente
 sección, mostraremos cómo utilizar una representación (generalizada) de vóxeles
-para aprender la distribución de las formas y las posturas 3D.
+para aprender la distribución de las formas y las poses 3D.
 
 \paragraph{Conjuntos de datos 3D.}
 Existen numerosos conjuntos de datos de acceso público para cada una de las
@@ -4173,7 +4173,7 @@ estructura de cuadrícula regular que se divide fácilmente en parches, los dato
 esparsos, no estructurados e irregulares. Para aprovechar el poder del
 modelado de secuencias y los mecanismos de autoatención en 3D, debemos salvar
 la brecha entre los datos geométricos sin procesar y las secuencias discretas y ordenadas
-que requieren los transformers. Este proceso se conoce como
+que requieren los Transformers. Este proceso se conoce como
 \textit{tokenización 3D}.
 
 \begin{itemize}
@@ -4320,7 +4320,7 @@ secuencia de tokens implica tres pasos clave:
 \item \textbf{Cuantización de coordenadas.} En primer lugar, para un conjunto de $M$ puntos clave
     seleccionados mediante el método de muestreo del punto más lejano (véase «Tokenización de nube de puntos»),
     las coordenadas espaciales continuas $x_i \in
-    \mathbb{R}^3$ se cuantizan en enteros de 8 bits:
+    \mathbb{R}^3$ se discretizan a enteros de 8 bits:
     \begin{equation}
         x_i \rightarrow (x_{i,1}, x_{i,2}, x_{i,3}), \quad
         \text{donde } x_{i,k} \in {0, 1, \dots, 255}.
@@ -4335,7 +4335,7 @@ asociado a cada punto se comprime en un índice discreto del libro de códigos $
 \end{equation}
 donde $D$ representa el tamaño del libro de códigos.
 
-\item \textbf{Construcción de secuencias.} Para facilitar la generación autoregresiva con \textit{transformers}, 
+\item \textbf{Construcción de secuencias.} Para facilitar la generación autoregresiva con \textit{Transformers}, 
 es necesario serializar el conjunto no estructurado de tuplas. 3DILG emplea una ordenación lexicográfica 
 basada en las coordenadas cuantificadas. La forma geométrica final se representa como una secuencia estructurada 
 $\mathcal{S}$ que combina explícitamente la información de las coordenadas posicionales y las 
@@ -4451,12 +4451,12 @@ la nube de puntos de entrada $\vP \in \mathbb{R}^{(3+C)
 características auxiliares $\boldsymbol{f} \in \mathbb{R}^{C \times
 N}$. Los \textit{embeddings} posicionales de alta dimensión
 $\gamma(\boldsymbol{v})$ entonces se concatenan con las
-características conservadas $\boldsymbol{f}$ y se proyectan a través de una
+características preservadas $\boldsymbol{f}$ y se proyectan a través de una
 capa lineal aprendible. Formalmente, la entrada del codificador de formas 3D
 $\boldsymbol{X} \in \mathbb{R}^{d \times N}$ se obtiene como:
 $$\boldsymbol{X} = \text{Linear}([\gamma(\boldsymbol{v}); \boldsymbol{f}])$$
 donde $[\cdot ; \cdot]$ denota la operación de concatenación a lo largo de la 
-dimensión de la característica.
+dimensión de las características.
 
 % Next, a linear layer is used to project the concatenation of
 % the Fourier positional encoded point clouds $\vP$ to the 3D shape
@@ -4467,7 +4467,7 @@ Para procesar esta secuencia de características densa $\vX$ de manera eficiente
 % \yima{Which data, $\vP$ or $\X$?} {\color{blue} Update: We have changed the expression to avoid the ambiguity.} 
 el codificador adopta una
 arquitectura basada en Perceiver~\cite{pmlr-v139-jaegle21a}. A diferencia de
-los transformers estándar que escalan cuadráticamente con la longitud de la entrada,
+los Transformers estándar que escalan cuadráticamente con la longitud de la entrada,
 el Perceiver emplea un mecanismo de cuello de botella latente para desacoplar
 la complejidad del procesamiento del tamaño de la entrada. En lugar de tokenizar los
 puntos de entrada directamente para la autoatención, el modelo utiliza un conjunto fijo
@@ -4494,7 +4494,7 @@ y obtener los \textit{embeddings} de forma finales, $\vE_{\mathrm{s}}
 \in \R^{(1+L_{\mathrm{s}}) \times d}$.
 
 % Drawing inspiration from
-% previous transformer-based architectures for point cloud
+% previous Transformer-based architectures for point cloud
 % understanding~\cite{pmlr-v139-jaegle21a}, the 3D shape encoder is
 % built on a perceiver-based transformer. Specifically, a
 % cross-attention layer is used to inject the 3D shape information from
@@ -4565,7 +4565,7 @@ A continuación, se emplea otra capa de proyección para transformar la variable
 muestreada de la dimensión $d_0$ de vuelta a la dimensión $d$ de mayor cardinalidad con el fin de
 reconstruir los campos neuronales correspondientes de las formas 3D.
 % decode neural field
-Al igual que el codificador, el modelo decodificador también se basa en un transformer con el
+Al igual que el codificador, el modelo decodificador también se basa en un Transformer con el
 mecanismo de atención cruzada. Dado un punto 3D de consulta $\vx \in \R^{3}$ en el campo
 y sus correspondientes \textit{embeddings} latentes de forma $\vE_{\mathrm{s}}$, el decodificador
 calcula la atención cruzada de forma iterativa para predecir la ocupación del punto de consulta
@@ -4600,7 +4600,7 @@ el modelo de difusión latente de formas, es posible generar
 formas 3D de alta calidad que se ajustan mejor a las entradas condicionales visuales o textuales.
 
 El modelo de difusión latente de formas alineadas (ASLDM) se basa en un
-transformer similar a UNet~\cite{10203178}, con el objetivo de ajustar una distribución
+Transformer similar a UNet~\cite{10203178}, con el objetivo de ajustar una distribución
 de los \textit{embeddings} latentes de formas, acompañado de un autocodificador para
 codificar muestras de datos en el espacio latente y reconstruir las
 muestras de datos a partir del latente muestreado. Al aprender en el espacio latente,
@@ -4990,7 +4990,7 @@ una explicación detallada de este importante tema.
     pose canónica respecto a la pose de la cámara a partir de una sola imagen.}
     Izquierda: Imagen de entrada. Centro: El resultado recupera un modelo 3D canónico
     del objeto (con propiedades intrínsecas como la forma y
-    la textura) junto con la postura exacta de la cámara (propiedad extrínseca)
+    la textura) junto con la pose exacta de la cámara (propiedad extrínseca)
     que genera la entrada.
     Derecha: La re-renderización del modelo 3D a partir de la pose estimada
 reproduce fielmente la imagen de entrada.}
@@ -5098,7 +5098,7 @@ A continuación, utilizamos un modelo Rectified Flow~\citep{lipmanflow} para apr
 de esta variable latente. El modelo define una interpolación lineal
 entre una muestra de la distribución de datos,
 $\latentzero$, y una muestra de una distribución de ruido, $\noise$, a lo largo de
-un intervalo de tiempo normalizado $\timestep \in [0,1]$:
+un paso de tiempo normalizado $\timestep \in [0,1]$:
 \begin{equation}
 \latentt = (1 - \timestep) \latentzero + \timestep \noise.
 \end{equation}
@@ -5140,7 +5140,7 @@ parametrizada por los «splats» gaussianos~\citep{kerbl20233d}.
 En concreto, dado un conjunto de características de vóxeles esparsas 
 $\boldsymbol{F} = \{\boldsymbol{f}_i\}_{i=1}^N$ ubicadas en las coordenadas 
 $\boldsymbol{x}_i$, empleamos dos decodificadores distintos, 
-$\mathcal{D}_{geo}$ y $\mathcal{D}_{app}$, para desacopplar la geometría de la 
+$\mathcal{D}_{geo}$ y $\mathcal{D}_{app}$, para desacoplar la geometría de la 
 apariencia. El proceso de decodificación se formula como:
 \begin{equation}
 s_i = \mathcal{D}_{geo}(\boldsymbol{f}_i), \quad \mathcal{G}i = \mathcal{D}_{app}(\boldsymbol{f}_i),
@@ -5221,7 +5221,7 @@ objeto que solo tenga que estar fuertemente correlacionado con la imagen
 (o el texto) dada. No requiere una alineación precisa de la pose entre el
 objeto (en su pose canónica) y la imagen dada (punto de vista). Sin embargo, para
 la tarea que nos ocupa, queremos «reconstruir» un
-objeto cuya forma, apariencia y postura coincidan fielmente con la
+objeto cuya forma, apariencia y pose coincidan fielmente con la
 imagen dada. Por lo tanto, es necesario que la representación interna
 modele explícitamente la forma canónica del objeto y
 su pose relativa de manera simultánea. Téngase en cuenta que tal «desacoplamiento» de la
@@ -5275,7 +5275,7 @@ que distinguen los vóxeles activos de los inactivos. El cubo UV,
 de píxels normalizadas $(u,v)$ para cada vóxel; cabe destacar que los vóxeles que comparten 
 coordenadas de píxel idénticas sealinean sobre el mismo haz (rayo) de la cámara.\footnote{No 
     modelamos explícitamente la oclusión, ya que estudios recientes sugieren que los 
-    transformers modelan eficazmente el transporte de la luz de forma 
+    Transformers modelan eficazmente el transporte de la luz de forma 
 implícita~\citep{jin2024lvsm, zeng2025renderformer}.}
 
 Para mejorar la eficiencia computacional, entrenamos un VAE 3D para comprimir el cubo UV en 
@@ -5321,7 +5321,7 @@ extraemos características complementarias de bajo nivel $\feat^{\low}$ de $\ima
 una cabeza convolucional ligera, y las muestreamos en $\pixcoord_i$ mediante $\interp$. 
 Finalmente, en cada paso temporal $t$, fusionamos la característica de vóxel ruidosa
 $\feat_i^{t}$ con las características alineadas con los píxeles a través de una capa lineal 
-antes de introducirlas en el transformer de flujo:
+antes de introducirlas en el Transformer de flujo:
 \begin{equation}
 l_t = \mathrm{Linear}\big([\feat_i^{t}\,\oplus\, \feat^{\high}_{i} \,\oplus\, \feat^{\low}_{i}]\big).
 \end{equation}
@@ -5717,7 +5717,7 @@ movimientos corporales.
 En esta sección, mostramos cómo el marco de inferencia condicional del
 Capítulo~\ref{ch:conditional-inference} puede aplicarse para aprender la
 distribución del movimiento humano y, posteriormente, aprovecharse para la tarea de
-estimación de la postura corporal. Para ello, consideramos una configuración sencilla pero natural:
+estimación de la pose corporal. Para ello, consideramos una configuración sencilla pero natural:
 una persona lleva un dispositivo montado en la cabeza, como un casco de RA o unas
 gafas inteligentes, que captura vídeo frontal y  rastrea su pose tridimensional
 mediante Estructura a partir del Movimiento (SFM) o Localización y
@@ -5744,8 +5744,8 @@ ilustra la configuración general y la tarea.
     \centering
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/egoallo/teaser_oct9.pdf}
     \caption{\textbf{Estimación egocéntrica del movimiento humano.} A partir de las
-        posturas de la cabeza obtenidas mediante SLAM y de imágenes egocéntricas captadas por un dispositivo montado en la cabeza
-        (a la izquierda), EgoAllo estima la postura completa del cuerpo, la altura y los
+        poses de la cabeza obtenidas mediante SLAM y de imágenes egocéntricas captadas por un dispositivo montado en la cabeza
+        (a la izquierda), EgoAllo estima la pose completa del cuerpo, la altura y los
         parámetros de las manos en el sistema de referencia mundial (alocéntrico) (a la derecha).
         Los cuerpos estimados están anclados en la escena, con los pies
     en contacto con el suelo y las manos en posiciones físicamente plausibles.}
@@ -5770,11 +5770,11 @@ el cuerpo humano, los lectores interesados pueden consultar el clásico libro de
 \paragraph{El modelo corporal SMPL.}
 SMPL (modelo lineal multi-persona con piel) \citep{loper2015smpl}
 ofrece una representación compacta y diferenciable del cuerpo humano,
-tanto en su postura (cinemática) como a su forma. Divide 
+tanto en su pose (cinemática) como a su forma. Divide 
 la configuración del cuerpo en dos componentes:
 \begin{itemize}
     \item \textbf{Parámetros de pose} $\theta$: Rotaciones articulares
-        que especifican la postura del cuerpo. SMPL utiliza 23 articulaciones (más
+        que especifican la pose del cuerpo. SMPL utiliza 23 articulaciones (más
         la raíz), cada una parametrizada por una rotación 3D. En conjunto,
         estos valores determinan si una persona está de pie, sentada,
         alcanzando algo, caminando, etc.
@@ -5796,7 +5796,7 @@ las longitudes de los huesos.
 
 \paragraph{Agregar manos: SMPL-H y MANO.}
 El modelo SMPL original representa las manos como simples puntos finales. Para
-aplicaciones que requieren posturas detalladas de las manos, como agarrar objetos, hacer gestos
+aplicaciones que requieren poses detalladas de las manos, como agarrar objetos, hacer gestos
 o escribir, esto resulta insuficiente. SMPL-H \citep{romero2017embodied}
 amplía SMPL con manos articuladas basadas en el modelo de manos MANO,
 añadiendo 15 articulaciones por mano (tres por dedo), lo que suma un total de 52 articulaciones.
@@ -5825,13 +5825,13 @@ Las entradas consisten en dos flujos procedentes de un dispositivo montado en la
     \item \textbf{Posturas de la cabeza} $\boldsymbol{h}_{1:T} \in \mathsf{SE}(3)^T$\footnote{Aquí, 
             $\mathsf{SE}(3)$ representa el grupo euclidiano especial en $\mathbb{R}^3$, es decir, el 
         grupo de transformaciones compuestas por rotaciones y traslaciones.}:
-        Posición y orientación del dispositivo en el marco de refrencia mundial
+        Posición y orientación del dispositivo en coordenadas de mundo
         en cada paso de tiempo, a partir de SLAM visual-inercial. Aquí $\mathsf{SE}(3)$
         denota el grupo de transformaciones rígidas en 3D, que comprende
         rotaciones y traslaciones.\footnote{Los lectores interesados pueden
             consultar \cite{MaY2003} para obtener una introducción formal al movimiento de
         cuerpos rígidos, así como a su representación y propiedades.} Estas
-        posturas tienen escala métrica, lo que significa que conocemos las distancias reales en
+        poses tienen escala métrica, lo que significa que conocemos las distancias reales en
         metros, en lugar de solo la geometría relativa, y están
         alineadas con la gravedad, por lo que sabemos cuál es la dirección hacia arriba.
     \item \textbf{Imágenes egocéntricas} $I_{1:T}$: Vídeo orientado hacia delante.
@@ -5862,7 +5862,7 @@ que también se comparte. El subíndice $0$ denota el movimiento limpio,
 siguiendo la notación de difusión, donde $\boldsymbol{x}_n$ es la versión con ruido
 en el paso $n$.
 
-EgoAllo estima la altura además de la postura, lo cual es esencial para
+EgoAllo estima la altura además de la pose, lo cual es esencial para
 el anclaje al suelo. Sin ella, el cuerpo flota en una posición vertical
 arbitraria; con ella, los pies tocan el suelo y la cabeza se alinea con la cámara.
 
@@ -5989,7 +5989,7 @@ mundo y al desplazamiento temporal seleccionado para su extracción.
 
 La distribución a priori condicional $p_\theta(\boldsymbol{x}_0 \mid \boldsymbol{c})$ es un
 modelo de difusión que genera secuencias de movimiento corporal condicionadas al movimiento de la cabeza 
-como condición. La arquitectura sigue el diseño basado en transformers
+como condición. La arquitectura sigue el diseño basado en Transformers
 descrito en la Sección~\ref{sec:image_classification}, adaptado
 para datos de movimiento secuenciales.
 
@@ -6003,7 +6003,7 @@ El modelo toma tres entradas:
 \end{itemize}
 
 Los tokens de la cabeza se procesan primero mediante un codificador compuesto por seis
-bloques de transformer con autoatención para generar representaciones
+bloques de Transformer con autoatención para generar representaciones
 contextualizadas. Estas condicionan un decodificador, compuesto por otros seis
 bloques de Transformer, que elimina el ruido de la secuencia de movimiento. El condicionamiento se introduce
 mediante atención cruzada: en cada capa del decodificador, los tokens de movimiento forman
@@ -6177,9 +6177,9 @@ en cada paso de reducción de ruido.
 
 \paragraph{Alineación global.}
 El modelo de difusión opera en un sistema de coordenadas relativo a la cabeza,
-prediciendo la postura del cuerpo en relación con la cabeza, en lugar de hacerlo en coordenadas absolutas
+prediciendo la pose del cuerpo en relación con la cabeza, en lugar de hacerlo en coordenadas absolutas
 de mundo. Tras el último paso de reducción de ruido, EgoAllo ancla el
-cuerpo en el mundo componiéndolo con las posturas de la cabeza obtenidas por SLAM:
+cuerpo en el mundo componiéndolo con las poses de la cabeza obtenidas por SLAM:
 \begin{equation}
     \boldsymbol{T}_{\text{world},\text{root}}^t
     =
@@ -6224,7 +6224,7 @@ cinco parametrizaciones con diferentes propiedades de invarianza:
         descrita en la sección~\ref{sub:egoallo_representation}, con
         invarianza tanto espacial como temporal.
     \item \textbf{Absoluto + relativo}: Posturas absolutas augmentadas con
-        el movimiento relativo en el marco local.
+        el movimiento relativo en ccordenadas locales.
     \item \textbf{Absoluto + deltas globales}: Posturas absolutas con
         desplazamientos (deltas) de posición en coordenadas de mundo.
     \item \textbf{Canonización de secuencias}: alineación al primer
@@ -6303,7 +6303,7 @@ tocan el suelo en algún momento, y la estimación de la altura es esencial para
 \paragraph{El contexto del cuerpo mejora la estimación de la mano.}
 Un hallazgo destacable es la relación simbiótica entre la estimación corporal y la manual.
 Los estimadores monoculares de mano de un solo fotograma, como HaMeR, producen
-posturas locales precisas de la mano, incluida la articulación de los dedos, pero no pueden
+poses locales precisas de la mano, incluida la articulación de los dedos, pero no pueden
 determinar la posición 3D absoluta de la mano debido a la ambigüedad de escala y profundidad. 
 Al estimar primero el cuerpo completo, ganamos restricciones cinemáticas:
 la mano está unida a la muñeca, que se conecta con el
@@ -6320,8 +6320,8 @@ procedentes de cámaras estereoscópicas, los errores disminuyen aún más, hast
 \begin{table}[t]
     \centering
     \caption{\textbf{Estimación de manos en EgoExo4D.} MPJPE mide
-        la precisión en el marco global. PA-MPJPE mide la precisión de la pose local. El contexto corporal
-        mejora notablemente la localización en el marco global al tiempo que
+        la precisión en coordenadas globales. PA-MPJPE mide la precisión de la pose en coordenadas locales. El contexto corporal
+        mejora notablemente la localización en coordenadas globales al tiempo que
     mantiene la calidad de la pose local.}
     \label{tab:egoallo_hands}
     \small
@@ -6349,17 +6349,17 @@ y producen estimaciones más precisas a lo largo de toda la cadena cinemática.
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/egoallo/hands_oct1_v4.png}
     \caption{\textbf{El contexto corporal mejora la estimación de la mano.} Azul:
         estimaciones monoculares de la mano obtenidas con HaMeR, que presentan una pose local
-        precisa pero una posición incorrecta en el marco mundial debido a la ambigüedad de escala/profundidad.
+        precisa pero una posición incorrecta en coordenadas de mundial debido a la ambigüedad de escala/profundidad.
         Morado: estimaciones con contexto corporal, correctamente
-    ancladas en el marco mundial.}
+    ancladas en coordednadas de mundo.}
     \label{fig:egoallo_hands}
 \end{figure}
 
 \paragraph{Resultados cualitativos.}
-La Figura ~\ref{fig:egoallo_qualitative} muestra las posturas corporales estimadas a partir de
+La Figura ~\ref{fig:egoallo_qualitative} muestra las poses corporales estimadas a partir de
 grabaciones egocéntricas del mundo real realizadas con las gafas del Proyecto Aria. Los cuerpos estimados
 están correctamente anclados en el suelo: los pies tocan el suelo de manera adecuada, la altura del cuerpo
-coincide con el entorno y las posturas son coherentes con
+coincide con el entorno y las poses son coherentes con
 el movimiento observado de la cabeza en diversas actividades, como caminar,
 sentarse y manipular objetos.
 
@@ -6368,7 +6368,7 @@ sentarse y manipular objetos.
     \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter8/figs/egoallo/qual_grounded_outputs_v3.png}
     \caption{\textbf{Resultados cualitativos.} Posturas corporales estimadas a partir de
         grabaciones egocéntricas del mundo real, visualizadas en reconstrucciones de escenas en 3D.
-        El método produce posturas físicamente plausibles
+        El método produce poses físicamente plausibles
     con un anclaje adecuado en diversas actividades.}
     \label{fig:egoallo_qualitative}
 \end{figure}
@@ -6407,8 +6407,8 @@ términos de guía sin alterar el marco general.
 \paragraph{La estimación holística supera a los \textit{pipeline} modulares.}
 La relación simbiótica entre la estimación del cuerpo y la de la mano sugiere
 que la inferencia conjunta sobre toda la cadena cinemática supera a
-la estimación independiente de las componentes. El movimiento de la cabeza informa la postura del cuerpo;
-la postura del cuerpo proporciona contexto para la localización de la mano; y las observaciones de la mano
+la estimación independiente de las componentes. El movimiento de la cabeza informa la pose del cuerpo;
+la pose del cuerpo proporciona contexto para la localización de la mano; y las observaciones de la mano
 refinan ambas estimaciones (cuerpo y mano). Este beneficio mutuo surge
 en forma natural de la formulación a posteriori, donde todas las variables están
 acopladas a través de la función de verosimilitud y la distribución a priori.
@@ -6417,7 +6417,7 @@ acopladas a través de la función de verosimilitud y la distribución a priori.
 Persisten varias limitaciones. En primer lugar, el método requiere un SLAM preciso
 con alineación de escala métrica y gravedad; los errores en la estimación de la pose de la cabeza
 se propagan directamente a las estimaciones del cuerpo. En segundo lugar,
-la generalización está limitada por la diversidad de los datos de entrenamiento, por lo que las posturas o actividades inusuales,
+la generalización está limitada por la diversidad de los datos de entrenamiento, por lo que las poses o actividades inusuales,
 no representadas en AMASS, pueden estimarse en forma imprecisa.
 En tercer lugar, las manos solo se pueden refinar si son visibles en la vista egocéntrica;
 las manos ocultas dependen exclusivamente del prior corporal. Por último, el método
@@ -6673,15 +6673,15 @@ contexto, por lo que es una pérdida conceptualmente correcta.
 
 \subsection{Arquitectura: CRATE causal}
 
-En cuanto a la arquitectura, utilizamos un transformer estándar al estilo GPT-2,
-sustituyendo las capas del transformer por capas CRATE.\footnote{En
+En cuanto a la arquitectura, utilizamos un Transformer estándar al estilo GPT-2,
+sustituyendo las capas del Transformer por capas CRATE.\footnote{En
 contravención directa de las convenciones de este libro y de las de
-muchas otras comunidades, la comunidad de PLN denomina a estos transformers al estilo GPT-2
-(que abarcan casi todos los LLM actuales) transformers «solo decodificadores». Los 
-transformers «solo codificador» tienen una arquitectura diferente,
-mientras que los transformers «codificador-decodificador» concatenan un
-transformer «solo codificador» con un transformer «solo decodificador».
-¡Y esto a pesar de que los transformers «solo decodificador»
+muchas otras comunidades, la comunidad de PLN denomina a estos Transformers al estilo GPT-2
+(que abarcan casi todos los LLM actuales) Transformers «solo decodificadores». Los 
+Transformers «solo codificador» tienen una arquitectura diferente,
+mientras que los Transformers «codificador-decodificador» concatenan un
+Transformer «solo codificador» con un Transformer «solo decodificador».
+¡Y esto a pesar de que los Transformers «solo decodificador»
 \textit{también} calculan una codificación de los datos!} Para completar la información,
 especificamos aquí la arquitectura.
 
@@ -6711,7 +6711,7 @@ cada muestra), se utiliza software especializado para garantizar que las actuali
 no sean demasiado onerosas. Obsérvese también que no utilizamos un token de clase
 como en las otras secciones; más adelante se profundizará en este tema.
 
-\paragraph{Red troncal.} Procesamos los \textit{embeddings} utilizando un \textit{backbone} similar a CRATE
+\paragraph{\textit{Backbone}.} Procesamos los \textit{embeddings} utilizando un \textit{backbone} similar a CRATE
 que utiliza enmascaramiento causal. Para entender el enmascaramiento causal,
 consideremos la pérdida de modelado causal del lenguaje \(\cL_{\mathrm{CLM}}\)
 definida en \eqref{eq:clm_loss}. La implementación más ingenua nos obligaría
@@ -6735,7 +6735,7 @@ para calcular la pérdida.
 
 Ahora que queremos una arquitectura causal para el \textit{backbone}, ¿cómo
 podemos conseguirla? Dado que el MLP y las normalizaciones de capa dentro de cada
-capa del transformer afectan a cada token individualmente, lo único que
+capa del Transformer afectan a cada token individualmente, lo único que
 importa para la causalidad es el bloque de atención (o \(\MSSA\) en el
 caso de CRATE). Para que \(\MSSA\) sea causal, definimos el
 bloque \(\mathrm{CMSSA}\) como
@@ -6844,7 +6844,7 @@ obteniendo la siguiente iteración:
 
 \subsection{Metodología de evaluación} \label{sub:clm_text_evals}
 
-Hay varias formas de evaluar un modelo de lenguaje transformer entrenado.
+Hay varias formas de evaluar un modelo de lenguaje Transformer entrenado.
 \begin{itemize}
 \item En un conjunto de datos holdout (de prueba) compuesto por texto arbitrario, podemos evaluar
 \(\cL_{\mathrm{CLM}}\) en él; las pérdidas más bajas son preferibles, ya que reflejan
@@ -6963,7 +6963,7 @@ que realiza varios pasos \(\ISTA\) con un diccionario sobrecompleto.}
 \end{figure}
 
 Una decisión de diseño impuesta por el marco CRATE es el
-\textit{ancho} de la nolinealidad en la red. En un transformer
+\textit{ancho} de la nolinealidad en la red. En un Transformer
 convencional, el ancho suele fijarse en \(4\), \(8\) o
 \(\frac{11}{3}\) veces la dimensión de las características. Sin embargo, CRATE exige
 que el ancho sea exactamente igual a la dimensión de las características; es decir, que los
@@ -7094,7 +7094,7 @@ la imagen de entrada.}
 todos los modelos se entrenan previamente con la mayor parte de OpenWebText, y la
 pérdida de entropía cruzada de validación se mide en un subconjunto reservado de OpenWebText.
 CRATE-\(\alpha\) muestra una mejora significativa con respecto al diseño de CRATE,
-aunque sigue existiendo una brecha con respecto a los transformers tradicionales como GPT-2.}
+aunque sigue existiendo una brecha con respecto a los Transformers tradicionales como GPT-2.}
 \centering
 \begin{tabular}{@{}lcccc@{}}
 \toprule
@@ -7149,7 +7149,7 @@ sustituto directo de una capa de \textit{backbone} en CRATE.
 \MLP_{\theta}^{\ell}(\LN_{\theta}^{2, \ell}(\vZ_{\theta}^{\ell + 1/2}(\vX)))
 \end{align}
 donde el bloque \(\TSSA\) se define tal como se indica en \Cref{sub:tost}. Obsérvese
-que esto es exactamente igual que la arquitectura del transformer visual
+que esto es exactamente igual que la arquitectura del Transformer visual
 discutida en \Cref{sub:contrastive_learning_architecture}, excepto
 que \(\TSSA\) reemplaza al bloque convencional de autoatención multi-cabezal
 \(\MHSA\). En todo caso, la complejidad computacional de la
@@ -7197,7 +7197,7 @@ salida de la capa.}
 \caption{\small \textbf{Precisión de clasificación mediante sondeo lineal de
 ToST} en diversos conjuntos de datos con diferentes tamaños de modelo cuando el
 \textit{backbone} se ha entrenado previamente para la clasificación de ImageNet-1K. Observamos
-que, en comparación con XCiT (una arquitectura de tipo transformer diseñada empíricamente
+que, en comparación con XCiT (una arquitectura de tipo Transformer diseñada empíricamente
 y especializada en el procesamiento eficiente de secuencias largas)
 y el ViT (Vision Transformer), ToST mantiene un rendimiento relativamente similar, incluso
 además de contar con ventajas como un tiempo de ejecución más rápido y un diseño transparente o de \textit{white-box}.}
@@ -7249,12 +7249,12 @@ ToST & \underline{37.25}    & \textbf{66.75}    & \textbf{79.46}
 \bottomrule
 \end{tabular}%
 \caption{\small \textbf{Comparación del rendimiento en Long-Range Arena (LRA)
-    entre ToST(-B) y las principales variantes de transformer optimizadas para
+    entre ToST(-B) y las principales variantes de Transformer optimizadas para
 contextos largos.} Long-Range Arena es una familia de pruebas de rendimiento que evalúa
 la capacidad de modelado de secuencias largas de algoritmos y
 arquitecturas, mediante el uso de un conjunto de datos y un mecanismo de evaluación fijos. ToST
 se ubica en la parte superior del ranking, superando a todas las variantes conocidas
-del transformer, incluyendo XCiT y el transformer regular (ViT)
+del Transformer, incluyendo XCiT y el Transformer regular (ViT)
 (véase \Cref{tab:tost_linear_probing}). Además, ToST presenta
 la inferencia con menor complejidad temporal y espacial. (En esta tabla, la
     mejor puntuación para un benchmark concreto aparece en negrita, y la segunda mejor
@@ -7267,19 +7267,19 @@ Además, la arquitectura propuesta, denominada ToST (por «Token Statistics Tran
 \Cref{tab:tost_linear_probing}) y en tareas lingüísticas (véase, por ejemplo,
 \Cref{tab:tost_lm}). Esto es especialmente cierto en el caso de tareas con secuencias largas
 (véase \Cref{tab:tost_lra_results}), donde logra un mayor
-rendimiento y es mucho más eficiente que los transformers convencionales y
+rendimiento y es mucho más eficiente que los Transformers convencionales y
 todas las demás arquitecturas tipo Transformer.
 
 \subsection{Transformers de solo atención} \label{sub:aot_experiments}
 
 Otro cuello de botella que hay que eliminar de los modelos de aprendizaje profundo, concretamente
-de las arquitecturas tipo transformer, es el cuello de botella de memoria que se deriva
+de las arquitecturas tipo Transformer, es el cuello de botella de memoria que se deriva
 de las multiplicaciones matriciales masivas en los MLP, donde la dimensión interna
 es mucho mayor que la dimensión de las características \(d\). Por lo tanto, resulta
 interesante y relevante plantearse la siguiente pregunta: ¿necesitamos \textit{realmente}
-el MLP dentro de un transformer, y qué nivel de rendimiento
+el MLP dentro de un Transformer, y qué nivel de rendimiento
 se puede alcanzar sin ella? Para explorar esta cuestión, utilizamos la
-arquitectura «Attention-Only Transformer» (AoT, transformer de solo atención) (véase \Cref{sub:aot}),
+arquitectura «Attention-Only Transformer» (AoT, Transformer de solo atención) (véase \Cref{sub:aot}),
 representada en \Cref{fig:aot_backbone}. Concretamente, cada capa tiene simplemente la forma
 \begin{equation}
 \vZ_{\theta}^{\ell + 1}(\vX) = \vZ_{\theta}^{\ell}(\vX) +
@@ -7289,7 +7289,7 @@ En nuestra implementación, también experimentamos con el uso de la autoatenci�
 multi-cabezal (MHSA) en lugar de la MSSA. Resulta que esta
 arquitectura \textit{también} es viable, aunque la profundidad de la red
 debe ser considerablemente mayor para lograr un rendimiento equivalente
-al de la arquitectura CRATE o transformer habitual. %
+al de la arquitectura CRATE o Transformer habitual. %
 
 \begin{figure}[!htbp]
 \centering
@@ -7363,16 +7363,16 @@ y GPT-2 preentrenados en OpenWebText.}  \label{fig:loss}
 
 \section{Resumen y notas}
 
-Todo el trabajo de este capítulo se basa en la arquitectura transformer,
+Todo el trabajo de este capítulo se basa en la arquitectura Transformer,
 introducida por \citet{vaswani2017attention}.
-La arquitectura transformer se describe formalmente en
+La arquitectura Transformer se describe formalmente en
 \Cref{sec:contrastive_learning}. Una innovación empírica principal de
 los últimos años, impulsada por la prevalencia y el rendimiento de la
-arquitectura transformer, consiste en formular un problema de aprendizaje concreto como
-un problema de secuencia a secuencia y aplicar la arquitectura transformer.
-Esto ha permitido que la arquitectura transformer sea
+arquitectura Transformer, consiste en formular un problema de aprendizaje concreto como
+un problema de secuencia a secuencia y aplicar la arquitectura Transformer.
+Esto ha permitido que la arquitectura Transformer sea
 esencialmente omnipresente en (casi) todas las aplicaciones de aprendizaje profundo. Por
-ello, las mejoras directas en el transformer pueden propagarse hasta convertirse en
+ello, las mejoras directas en el Transformer pueden propagarse hasta convertirse en
 soluciones a muchos problemas y tener un impacto considerable; del mismo modo,
 podemos aplicar nuestra comprensión interna (\textit{white-box}) de las arquitecturas similares al Transformer
 a muchos problemas modernos. El material tratado en este
@@ -7387,7 +7387,7 @@ escalado de redes neuronales, que tiene una enorme viabilidad práctica, y
 al menos lo mencionamos aquí. Esta línea de investigación se popularizó gracias a
 la línea de investigación de los «programas tensoriales» \citep{yang2022tensor}. La
 regla básica es que queremos que las actualizaciones iniciales del gradiente en un
-transformer sean de tamaño constante y, al analizar con
+Transformer sean de tamaño constante y, al analizar con
 detalle las ecuaciones de retropropagación (\Cref{app:optimization}), podemos
 determinar la escala de inicialización y la de las tasas de aprendizaje (elegidas
 capa a capa) que se requieren para lograrlo. En la práctica, estas

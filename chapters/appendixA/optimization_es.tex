@@ -78,7 +78,7 @@ h\vv)$ mediante una expansión de Taylor en torno a \(h = 0\):
 \end{equation}
 donde el producto interno aquí (y en este capítulo) será el
 producto interno \(\ell^{2}\), es decir, \(\ip{\vx}{\vy} = \vx^{\top}\vy\).
-Para encontrar la dirección del \textit{gradiente máximo}, intentamos
+Para encontrar la dirección del \textit{descenso más empinado}, intentamos
 minimizar esta expansión de Taylor entre los vectores unitarios \(\vv\). Si
 \(\nabla \cL(\theta) = \vzero\), entonces el segundo término anterior es \(0\)
 independientemente del valor de \(\vv\), por lo que no podemos intentar
@@ -489,7 +489,7 @@ Formalmente, diríamos que
 \end{equation}
 donde \(\cS\) es suave, por ejemplo, con un gradiente \(\beta\)-Lipschitz, y
 \(\cR\) es no suave (es decir, irregular). El algoritmo del gradiente proximal
-generaliza el algoritmo del gradiente máximo, utilizando el
+generaliza el algoritmo del descenso más pronunciado, utilizando el
 enfoque de mayorización-minimización (es decir,
 \Cref{lem:majorization_minimization}) con una cota superior global diferente.
 Concretamente, construimos dicha cota superior preguntándonos: ¿qué pasaría si
@@ -560,7 +560,7 @@ algunos ejemplos (las demostraciones quedan como ejercicio).
 \end{example}
 
 \begin{example}\label{example:prox-of-l1}
-    La norma \(\ell^{1}\) tiene un operador proximal que realiza un umbral
+    La norma \(\ell^{1}\) tiene un operador proximal que realiza una umbralización
     suave:
     \begin{equation}
         S_{h}(\theta) \doteq \prox_{h, \lambda
@@ -1133,8 +1133,8 @@ Por otra parte, la diferenciación automática en modo inverso conlleva los sigu
     &\text{calcular}\ a^{\prime}(b(c(\vx)))b^{\prime}(c(\vx))c^{\prime}(\vx)
     \in \R^{s \times p}\ \text{toma un tiempo del orden de \(\cO(qrs + pqs)\).}
 \end{align}
-En otras palabras, el algoritmo de sumas en modo directo tarda un tiempo del orden de \(\cO(p(qr + rs))\),
-y el algoritmo de sumas en modo inverso tarda un tiempo de orden \(\cO(s(pq + qr))\). \textit{¡Estos
+En otras palabras, el AD en modo directo tarda un tiempo del orden de \(\cO(p(qr + rs))\),
+y el AD en modo inverso tarda un tiempo de orden \(\cO(s(pq + qr))\). \textit{¡Estos
 tardan un tiempo diferente!}
 
 En términos más generales, supongamos que \(f = f^{L} \circ \cdots \circ f^{1}\)

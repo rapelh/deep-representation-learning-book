@@ -151,7 +151,7 @@ escribiremos \(h(\vx)\) para referirnos a la entropía de la distribución (marg
         h(x) = \frac{1}{2}\log(2\pi\sigma^{2}) + \frac{1}{2}.
         \label{eqn:entropy-Gaussian}
     \end{equation}
-    La entropía de una variable aleatoria gaussiana multivariante \(\vx \sim
+    La entropía de una variable aleatoria gaussiana multivariada \(\vx \sim
     \dNorm(\vmu, \vSigma)\) en \(\R^{D}\) es
     \begin{equation}
         h(\vx) = \frac{D}{2}(1 + \log(2\pi)) +
@@ -1290,7 +1290,7 @@ utilizará en el algoritmo de muestreo, \textit{¡tendríamos que entrenar \(L\)
 \textit{denoisers} independientes!} Esto es muy ineficiente: lo habitual es
 que tengamos que entrenar \(L\) redes neuronales distintas, lo que requiere \(L\)
 veces más tiempo de entrenamiento y memoria de almacenamiento y luego quedarnos atados a
-utilizar esos intervalos de tiempo para el muestreo de por siempre. En cambio, podemos
+utilizar esos pasos de tiempo para el muestreo de por siempre. En cambio, podemos
 \textit{entrenar una sola red neuronal} para eliminar el ruido en todos los instantes
 \(t\), tomando como entrada las variables continuas \(\vx_{t}\) y \(t\)
 (en lugar de solo \(\vx_{t}\) como antes). Mecánicamente, nuestra pérdida de entrenamiento
@@ -1300,7 +1300,7 @@ se promedia a lo largo de \(t\), es decir, resuelve el siguiente problema:
     \vx_{\tau}) - \vx}_{2}^{2},
 \end{equation}
 donde \(\tau \sim \dUnif([0, T])\), es decir, se extrae uniformemente del intervalo \([0, T]\).
-Al igual que en el Paso 1, donde utilizamos más intervalos de tiempo más cercanos a \(t = 0\)
+Al igual que en el Paso 1, donde utilizamos más pasos de tiempo más cercanos a \(t = 0\)
 para garantizar un mejor proceso de muestreo, es posible que queramos asegurarnos de que el
 \textit{denoiser} sea de mayor calidad cuanto más cerca de \(t = 0\) y por lo tanto
 \textit{ponderar la pérdida} de modo que \(t\) cerca de \(0\) tenga mayor
@@ -1353,7 +1353,7 @@ funciona en la práctica; comentamos algunos resultados en las
         \State{\(\vx^{(m, i)} \sim \cD\)}
         \Statex{}
 
-        \Statex{\qquad\qquad\ \texttt{\# Muestrear un intervalo de tiempo.}}
+        \Statex{\qquad\qquad\ \texttt{\# Muestrear un pasos de tiempo.}}
         \State{\(t^{(m, i)} \simiid \dUnif(\{t_{\ell}\}_{\ell =
         1}^{L})\)}
         \Statex{}
@@ -1520,7 +1520,7 @@ procesos estocásticos subyacentes.} como se ha argumentado heurísticamente má
         permite una mejor cobertura del intervalo \([0, T]\), lo que ayuda
     a la red a aprender una relación que se generaliza sobre \(t\))
     y en la fase de muestreo (donde un \(L\) menor implica un muestreo más eficiente).
-    Incluso se pueden seleccionar los intervalos de tiempo en forma adaptativa en el momento del muestreo
+    Incluso se pueden seleccionar los pasos de tiempo en forma adaptativa en el momento del muestreo
     para optimizar este equilibrio \cite{bao2022analytic}.
 \end{remark}
 
@@ -1598,7 +1598,7 @@ procesos estocásticos subyacentes.} como se ha argumentado heurísticamente má
     de pasos y evaluaciones de la función?». La respuesta es afirmativa y a esos
     modelos se les suele llamar \textit{modelos de consistencia} o, de manera más
     descriptiva, \textit{modelos de pocos pasos}. La idea central consiste en utilizar un
-    \textit{denoiser} que tome dos veces \(\bar{\vx}_{\theta}(s, t,
+    \textit{denoiser} que tome dos tiempos \(\bar{\vx}_{\theta}(s, t,
     \vx_{t})\) y estime \(\Ex[\vx_{s} \mid \vx_{t}]\), lo cual, en
     cierto sentido, es una tarea más sencilla, o bien utilizar un predictor de velocidad
     \(\bar{\vv}_{\theta}(s, t, \vx_{t})\) y estimar la velocidad media

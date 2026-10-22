@@ -225,7 +225,7 @@ en comparación con el \Cref{ch:denoising}.}
 \begin{equation}
     \alpha \doteq \frac{d}{N\epsilon^2}, \quad \alpha_{k} \doteq
     \frac{d}{\mathrm{tr}(\bm{\Pi}_{k})\epsilon^2}, \quad \gamma_{k}
-    \doteq \frac{\mathrm{tr}(\bm{\Pi}_{k})}{N}, \quad \text{for}\ k
+    \doteq \frac{\mathrm{tr}(\bm{\Pi}_{k})}{N}, \quad \text{para}\ k
     = 1,\ldots, K.
 \end{equation}
 
@@ -1354,7 +1354,7 @@ cada \(\x_{i} \in \bR^{D}\) se interpreta como un
 \textit{token}, que suele corresponder a un fragmento de imagen. En
 tareas de lenguaje, cada \(\x_{i} \in \bR^{D}\) se interpreta como una
 \textit{incrustación de token}, es decir, una representación vectorial continua de
-un token discreto, como una palabra o una subpalabra.\footnote{Con un ligero
+un token discreto, como una palabra o parte de palabra.\footnote{Con un ligero
     desvío terminológico, a lo largo de este capítulo nos referiremos tanto a los tokens discretos como a sus
     \textit{embeddings} asociados simplemente como «tokens» por
 razones de conveniencia.}  %
@@ -1368,7 +1368,7 @@ las variables aleatorias que definen nuestras representaciones, donde \(\z_{i}
     En los transformers, cada muestra de entrada se convierte habitualmente en una
     secuencia de {\em tokens}. Un token es una unidad básica de información
     derivada de la entrada bruta: en el procesamiento del lenguaje natural,
-    los tokens suelen ser palabras o subpalabras; en la visión artificial,
+    los tokens suelen ser palabras o partes de palabras; en la visión artificial,
     corresponden a fragmentos de imagen; y en otras modalidades, pueden
     representar pasos de tiempo, ubicaciones espaciales u otras unidades
     específicas del dominio. Un {\em \textit{embedding} de token} es una representación vectorial continua
@@ -2879,7 +2879,7 @@ un ajuste heurístico, con nuestras arquitecturas ReduNet, fundamentadas matemá
         \hline
         Arquitecturas profundas & prueba y error & optimización iterativa \\  [0.5ex]
         \hline
-        Operadores de capa & empírica & gradiente proyectedo \\  [0.5ex]
+        Operadores de capa & empírica & gradiente proyectado \\  [0.5ex]
         \hline
         Invariancia a traslaciones & CNNs y aumento & ReduNets invariantes \\  [0.5ex]
         \hline

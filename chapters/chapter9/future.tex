@@ -19,30 +19,36 @@
 \end{quote}
 \vspace{5mm}
 
-This manuscript systematically introduces mathematical principles and
-computational mechanisms for how memory or empirical knowledge can be developed from observed high-dimensional data. 
-The ability to seek parsimony in a seemingly random world is a fundamental characteristic of any
+This manuscript has established that the common and fundamental problem behind
+intelligence is {\em to learn parsimonious and structured representations of 
+low-dimensional distributions in a high-dimensional space}. From this perspective, 
+we have systematically introduced mathematical principles and
+computational mechanisms for how such representations can be learned and 
+developed from observed data as information and knowledge. 
+The ability to autonomously seek and discover structure and parsimony in 
+a seemingly random world is a fundamental characteristic of any
 intelligence, natural or artificial. We believe the principles and
-mechanisms presented in this book are unifying and universal, applicable to both animals and machines.
+mechanisms presented in this book are unifying and universal, 
+applicable to both animals and machines.
 
 We hope this book helps readers fully clarify the mystery surrounding
 modern practices of artificial deep neural networks by developing a
-rigorous understanding of their functions and roles in learning (representations of) 
-low-dimensional distributions from high-dimensional data. With this
-understanding, the capabilities and limitations of existing AI models
-and systems become clear:
+rigorous understanding of their functions and roles from the perspective
+of learning structured representations of low-dimensional distributions 
+from high-dimensional data. With this understanding, the capabilities 
+and limitations of existing AI models and systems become clear:
 \begin{enumerate}
-    \item Existing open-loop models and systems fall short of being complete memory systems capable 
+    \item Existing open-loop deep neural network models and systems fall short of being complete memory systems capable 
     of self-learning and self-improving.
     \item Existing realizations of representation learning remain primitive and brute-force, 
-    far from optimal in terms of network architectures or optimization strategies.
+    far from optimal in terms of network architectures or learning mechanisms.
     \item Existing AI models only learn data distributions and
     conduct inductive Bayesian inference, which differs from high-level human intelligence.
 \end{enumerate}
 
 One goal of this book is to help readers establish an objective and
 systematic understanding of current machine intelligence technologies
-and to recognize what open problems and challenges remain for further
+and to recognize what open challenges hence opportunities remain for further
 advancement of machine intelligence. In the last chapter, we provide
 some of our views and projections for the future.
 
@@ -111,10 +117,10 @@ and applies knowledge in an open world. We believe that
 Hence, the so-called ``artificial general intelligence'' (AGI) can never be 
 achieved by simply having a system to memorize all existing data and knowledge 
 of the world. No knowledge, however much, is truly generalizable.\footnote{According to Sir Karl Popper, 
-an influential Philosopher of Science, all scientific theory and knowledge are falsifiable!} Nevertheless, 
+an influential philosopher of Scientific Philosophy, all scientific theory and knowledge are falsifiable!} Nevertheless, 
 it is the ability to improve one's existing memory or knowledge and adapt to any new environments that is 
 truly generalizable. Hence, truly genuine intelligence is itself generalizable if realized 
-completely and correctly.\footnote{In our opinion, AGI should represent ``artificial genuine intelligence.''} 
+correctly.\footnote{In our opinion, AGI should represent ``artificial genuine intelligence.''} 
 This is precisely the essence of the Cybernetics program laid out by Norbert Wiener in the
 1940s that we discussed at the very beginning of this book.
 
@@ -130,18 +136,20 @@ The practice of machine intelligence in recent years has led many to
 believe that one must build a single large model to learn the
 distribution of all data and memorize all knowledge. Even though this
 is technologically possible, such a solution is likely far from
-necessary or efficient. As we know from training deep networks, the
+necessary or most efficient. As we know from training deep networks, the
 only known scalable method to train such networks at scale is through
 back propagation (BP) \citep{Back-Prop}. Although BP offers a way to
 correct errors via gradient signals propagated back through the whole
 model, it is nevertheless rather brute-force and differs
-significantly from how nature learns: BP is an option that nature
-cannot afford due to its high cost and simply cannot implement due to
-physical limitations.
+significantly from how nature learns: Full model BP is an option that nature
+simply cannot afford due to its high cost of power consumption 
+and also cannot implement due to additional physical limitations such as 
+power constraint and data availability.
 
 More generally, we cannot truly understand intelligence unless we
-also understand how it can be efficiently implemented. That is, one
-needs to address the computational complexity of realizing mechanisms
+also understand how it can be efficiently implemented in terms of both
+ computation and data. That is, one needs to address the computational 
+and data complexity of realizing mechanisms
 associated with achieving the objectives of intelligence.
 Historically, our understanding of (machine) intelligence has evolved
 through several phases, from the incomputable Kolmogorov complexity
@@ -150,62 +158,66 @@ understanding of tractability,\footnote{We say a problem is tractable
     if it allows an algorithm whose complexity is polynomial in the size
 of the problem.} and to the strong emphasis on algorithm scalability
 in modern practice of high-dimensional data analysis
-\citep{Wright-Ma-2022} and artificial intelligence. This evolution can
-be summarized as follows:
+\citep{Wright-Ma-2022} and more recently artificial intelligence 
+based on deep networks. This road of enlightenment can be summarized as follows:
 \begin{equation}
     \text{\textbf{incomputable}} \;
     \Longrightarrow \; \text{\textbf{computable}} \;
     \Longrightarrow \; \text{\textbf{tractable}} \; \Longrightarrow \;
     \text{\textbf{scalable}}.
 \end{equation}
-To a large extent, the success and popularity of deep learning and
-back propagation is precisely because they have offered a scalable
+To a large extent, the success and popularity of modern deep learning and
+back propagation is precisely because they have offered a somewhat scalable
 implementation with modern computing platforms (such as GPUs) for
-processing and compressing massive data. Nevertheless, such an
-implementation is still far more expensive than how nature realizes
-intelligence.
+processing and compressing massive high-dimensional data. 
+Nevertheless, such an implementation is still far from the level of
+computational and data efficiency with which nature realizes intelligence.
 
 There remains significant room to improve the efficiency of machine
 intelligence so that it can emulate the efficiency of natural
-intelligence, which should be orders of magnitude greater than
-current brute-force implementations. To this end, we need to discover
-new learning architectures and optimization mechanisms that enable
-learning data distributions under natural physical conditions and
-resource constraints, similar to those faced by intelligent beings in
-nature---for example, without accessing all data at once or updating
-all model parameters simultaneously (via BP).
+intelligence, which should be orders of magnitude better than
+current brute-force implementations. To this end, we need to discover,
+from the principles behind intelligence, new optimizing architectures and 
+learning mechanisms that enable learning data distributions under natural 
+physical conditions and resource constraints, similar to those faced by 
+intelligent beings in nature---for example, with access to only a few 
+samples at a time and severely limited power that cannot afford to update 
+all model parameters simultaneously (say via BP).
 
 The principled framework and approach laid out in this book can guide
-us to discover such new architectures and mechanisms. These new
-architectures and mechanisms should enable online continuous learning
+us to discover such new optimizing architectures and learning mechanisms. 
+These new architectures and mechanisms should enable online continuous learning
 and should be updatable through highly localized and sparse forward
 or backward optimization.\footnote{For learning a distribution, a
-    simple instantiation of these desiderata is in the simplest case of
-    PCA, with the online PCA method introduced in
-    \Cref{ch:consistent-representations}. Once the linear model for the 
-    distribution is learned, the easier task of conducting online prediction 
-    with noisy observations can then be easily accomplished by least-square
-    type methods, such as the Wiener filter \cite{Wiener-1942,Wiener-1949}. 
-    In the case of linear dynamical systems, that becomes the famous
-    the Kalman filter, see \cite[Appendix B]{MaY2003} or \citep{peng2025mathematics}.}
+simple instantiation of these desiderata is in the simplest case of
+PCA, with the online PCA method introduced in 
+\Cref{ch:consistent-representations}. Once the linear model for the 
+distribution is learned, the easier task of conducting online prediction 
+with noisy observations can then be easily accomplished by least-square
+type methods, such as the Wiener filter \cite{Wiener-1942,Wiener-1949}. 
+In the case of linear dynamical systems, that becomes the famous
+the Kalman filter, see \cite[Appendix B]{MaY2003} or 
+\citep{peng2025mathematics}.}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.99\linewidth]{\toplevelprefix/chapters/chapter9/figs/loops.png}
-    \caption{Conjectured architecture of the brain cortex. The cortex
+    \caption{A conjectured architecture of the brain cortex. The cortex
         is a massively parallel and distributed auto-encoding system
         consisting of a hierarchy of closed-loop auto-encoders. They
         extract information from their inputs and maximize the
-        information gain of the representations they output. Such processes are done at multiple
-    levels of the hierarchy with different levels of abstraction of the information.}
+        information gain of the representations they output. Such processes 
+        are done at multiple levels of the hierarchy resulting in 
+        different levels of abstractions of the information.}
     \label{fig:loops}
 \end{figure}
 As we have learned from neuroscience, the cortex of our brain
 consists of tens of thousands of cortical columns
 \citep{Hawkins-2021}. All cortical columns have similar physical
-structures and functions. They are highly parallel and distributed,
-though sparsely interconnected. Hence, we believe that to develop a
-more scalable and structured memory system, we need to consider
+structures hence presumably similar functions. They are highly parallel 
+and distributed, though sparsely interconnected. Therefore, we believe that 
+to develop a more efficient and scalable system for more structured 
+representations (memory) of the world, we need to consider
 architectures that emulate those of the cortex. \Cref{fig:loops}
 shows such a hypothesized architecture: a massively distributed and
 hierarchical system consisting of many largely parallel closed-loop
@@ -213,27 +225,27 @@ auto-encoding modules.\footnote{Elements of such hypothetical
     architectures exist in the literature in various forms, such as
     predictive coding networks \citep{millidge2022predictive}, which have
 an optimization strategy that utilizes efficient local updates.}
-These modules learn to encode different sensory modalities or many
+These modules learn to encode different sensory modalities or different
 projections of data from each sensory modality. Our discussion in
 \Cref{sec:measurement-self-consistency} of
 \Cref{ch:conditional-inference} suggests that such parallel sensing
-and learning of a low-dimensional distribution is theoretically
-possible. Higher-level (lossy) autoencoders can then be learned based
-on outputs of lower-level ones to develop more sparse and
-higher-level ``abstractions'' of the representations learned by the
-lower levels.
+and learning of a low-dimensional distribution in an high-dimensional space 
+is theoretically possible. Higher-level (lossy) autoencoders can then 
+be learned based on outputs of lower-level ones to develop more sparse and
+even discrete higher-level ``abstractions'', such as language, 
+of the representations learned by the lower levels.
 
-The distributed, hierarchical, and closed-loop system architecture
-illustrated in \Cref{fig:loops} shares many characteristics of the
+This distributed, hierarchical, and closed-loop system architecture
+illustrated in \Cref{fig:loops} shares many known characteristics of the
 brain's cortex. Such a system architecture may open up many more
-possibilities than the current single large-model architecture. In particular, it 
-would lead to new optimization mechanisms that support continuouss
-self-supervised online learning and result in an ever more structured and rich 
-representation of the sensed data of an open world. Such a system would truly
+possibilities than the current single large open-loop architecture
+(say the Transformer model). In particular, it would lead to new forward 
+and backward learning mechanisms that result in an ever more structured  
+representation of the sensed data. Such a system would truly
 emulate how the memory in our brain works. It would also allow us to 
-transform the cuurently scalable implementation of machine intelligence into a new 
-continous learning paradigm that achieves or even surpasses the effectiveness 
-andefficiency of intelligence in nature:
+transform the cuurent ways of scaling machine intelligence 
+to a new continous learning paradigm that achieves or even surpasses 
+the efficiency and effectiveness of intelligence in nature:
 \begin{equation}
     \text{\textbf{incomputable}}
     \Longrightarrow \text{\textbf{computable}}
@@ -257,21 +269,21 @@ manifested in at least four distinct forms:
     \Longrightarrow \; \text{\textbf{scientific intelligence}}.
 \end{equation}
 All forms of intelligence share the common objective (and
-characteristic) of learning useful memory or knowledge as low-dimensional
-distributions of high-dim data sensed from the open world.
+characteristic) of learning useful information or knowledge as low-dimensional
+distributions of high-dimensional data sensed from the open world.
 Nevertheless, they differ in the specific code books or coding schemes 
 adopted for encoding the useful information or knowledge, the specific 
-information or knowledge encoded by the individual or a group, 
-the computational mechanisms for acquiring and improving the encoded 
+information or knowledge learned by the intelligent individual or a group, 
+the computational mechanisms for acquiring and improving the learned 
 information or knowledge, and the physical substrate and implementation of 
-such mechanisms. Using the concepts and terminology developed in this book, 
+such mechanisms. Using the concepts and terminologies developed in this book, 
 the four stages of intelligence differ in the following three aspects:
 \begin{enumerate}
-    \item The \textit{code book} or coding scheme used to encode the
+    \item The \textit{code book} and coding scheme used to encode the
         intended information or knowledge.
     \item The \textit{information} or knowledge learned and encoded
         using the code book.
-    \item The \textit{optimization mechanisms} used to create and
+    \item The \textit{optimizing or learning} mechanisms used to create and
         correct the encoded information or knowledge.
 \end{enumerate}
 \Cref{tab:four-stage-intelligence} summarizes their main characteristics:
@@ -296,18 +308,18 @@ the four stages of intelligence differ in the following three aspects:
             \hline
         \end{tabular}
     }
-    \caption{Main characteristics of the four stages of intelligence in nature.}
+    \caption{Comparison of the four stages of intelligence in nature.}
     \label{tab:four-stage-intelligence}
 \end{table}
 
-As we now know, humans have achieved two quantum leaps in intelligence:
+As we now know, mankind has achieved two quantum leaps in its intelligence:
 \begin{enumerate}
     \item The first was the development of spoken and written
         language, which enabled humans to share and transmit learned
         knowledge across generations, much as DNA does in nature.
     \item The second was the development of mathematics and formal
-        logic roughly three thousand years ago, which became the
-        precise language of modern science.
+        logic, which became the language of modern science and enables
+        the scientific methodology of knowledge discovery.
 \end{enumerate}
 The language of mathematics freed us from summarizing knowledge from
 observations only in empirical form and allowed us to formalize
@@ -341,15 +353,15 @@ problem solving that are believed to differentiate humans from animals:
 As we have clarified repeatedly in this book, most technological
 advances in machine intelligence over the past decade or so, although
 carried out under the name ``AI'', are actually more closely related
-to having machines imitate low-level forms of intelligence largely
-shared by both animals and humans, including phylogenetic,
+to having machines realizing learning mechanisms of low-level intelligence 
+largely shared by both animals and humans, including phylogenetic,
 ontogenetic, and societal intelligence. At these levels, intelligence
-creates memory or \textit{empirical} knowledge (from empirical data distributions) 
-and conducts inference (or prediction) that is mostly \textit{inductive} 
-(or Bayesian-like) in nature. Principles and methods introduced in this book 
-aim to reveal scientific objectives and computational mechanisms behind 
-intelligence at these levels. They provide strong theoretical justification 
-and computational evidence for the following claim:
+creates information or \textit{empirical} knowledge (from empirical data 
+distributions) and conducts inference (or prediction) that is mostly 
+\textit{inductive} (or Bayesian-like) in nature. Principles and methods 
+introduced in this book aim to reveal mathematical objectives and computational 
+mechanisms behind intelligence at these levels. They provide strong 
+theoretical justification and computational evidence for the following claim:
 \begin{quote}
     \centering
     \textit{Machines can learn empirical knowledge and conduct
@@ -416,10 +428,10 @@ machines also truly grasp mathematical induction or general logical
 deduction and understand its difference from Bayesian induction?
 How do we verify whether a system truly understands the rules of
 logical and mathematical deduction and can apply them rigorously? Or,
-again, has it merely memorized statistical patterns of such deductions 
-from a large number of instances, such as chain-of-thought data, and
-simply exploited such patterns inductively during inference? Hence the
-following question remains an open one:
+again, has it merely extracted and memorized statistics patterns of 
+such deductions from a large number of instances, such as chain-of-thought 
+data, and simply exploited such patterns inductively during inference? 
+Hence the following question remains an open one:
 \begin{quote}
     \centering
     \textit{Is there any difference between \textbf{memorizing} and
@@ -438,6 +450,8 @@ as the physicist Richard Feynman had famously put it:
     \centering
     \textit{``What I cannot create, I do not understand.''}
 \end{quote}
+It kind of suggests that understanding depends on whether one's knowledge is 
+grounded from creating it from certain first principles. 
 
 
 \subsection{Scientific Tests of Intelligence}
@@ -445,11 +459,11 @@ Hence, it is high time we develop scientifically sound evaluation
 methods to determine which of the following categories a system's
 intelligence capability belongs to:
 \begin{enumerate}[label={Level-\arabic*.}, leftmargin=*]
-    \item having merely learned the distribution of some
-        knowledge-carrying data and being able to regenerate them;
+    \item having merely learned the low-dimensional distribution of some
+        information-carrying data and being able to regenerate them;
     \item being capable of autonomously and continuously
-        learning new knowledge or correcting existing knowledge from new
-        observations and experiences;
+        learning new information or correcting existing knowledge from new
+        observations and predictions;
     \item being able to truly understand and create abstract
         concepts, rules and laws, and know how to apply them
         correctly in a deductive manner;
@@ -472,58 +486,66 @@ we suggest that there should probably be at least three different
 tests, as illustrated in \Cref{fig:three-tests}:
 \begin{enumerate}
     \item \textit{The Norbert Wiener Test:} to determine whether a
-        system can self-correct and create new (empirical) knowledge
-        on its own or merely receives and updates information
+        system can self-correct and create new information or knowledge
+        on its own or merely receives and updates knowledge
         passively through external reinforcement or supervision;
     \item \textit{The Alan Turing Test:} to determine whether a
         system can create and understand abstract concepts and
-        knowledge or merely learns and memorizes statistics of the
-        samples and uses them for Bayesian inference;
+        knowledge or merely learns and memorizes statistics of their 
+        symbols and uses them for Bayesian inference;
     \item \textit{The Karl Popper Test:} to determine whether a
         system can proactively explore and create new abstract
         knowledge by forming and verifying hypotheses or theories
         based on experimental consistency or logical self-consistency.
+        \footnote{In a similar spirit, recently, Demis Hassabis of Google 
+        DeepMind has suggested a so-called ``the Einstein Test'': 
+        If an intelligent system, say a large language model, was only 
+        trained with facts and knowledge up to the year 1905, would it be 
+        able to invent or discover the theory of special relativity?}
 \end{enumerate}
 We believe that, for such tests, the evaluator, or interrogator,
 should not be a single human or an arbitrary group of humans but rather a
 scientifically certified entity following a scientifically sound
 protocol and process so that the conclusions would be rigorous and trustworthy.
 
+
+\subsection{From Compression to Abstraction}
 As we have seen throughout this book, \textit{compression} has played
-a fundamental role in developing a memory or creating empirical knowledge. 
-It is the governing principle and a universal mechanism for identifying an
-empirical data distribution and organizing the information encoded therein 
-with a structured representation. To a large extent, it explains the practice 
-of ``artificial intelligence'' with deep networks, which is largely inductive and Bayesian 
-in nature.\footnote{Systems that have built-in deductive mechanisms for conducting formal 
-verification or logical deduction are not in this category.} An outstanding question for future
-study is whether \textit{compression alone} is sufficient to achieve
-all the higher-level deductive intelligence mentioned above.
+a fundamental role in gaining information or creating empirical knowledge from data. 
+It is the governing principle and a universal mechanism for identifying a
+low-dimensional data distribution and organizing the information encoded therein 
+with a structured representation. To a large extent, it explains the current practice 
+of ``artificial intelligence'' with deep networks, which is largely inductive 
+and Bayesian in nature.\footnote{Systems that have built-in deductive mechanisms 
+for conducting formal verification or logical deduction are not in this category.} 
+An outstanding question for future study is whether \textit{compression alone} is 
+sufficient to achieve all the higher-level deductive intelligence mentioned above.
 In particular, are mathematical abstraction, causal inference, hypothesis
 generation, and logical reasoning and deduction some kind of extended or
 transcended forms of compression? Is there some fundamental difference between 
 learning data distributions through compression and forming high-level concepts and 
-theories through (mathematical) abstraction? Hence we have another open question:
+theories through (mathematical) abstraction? Hence we face another open question:
 \begin{quote}
     \centering
     \textit{Is there any difference between \textbf{compression} and
     \textbf{abstraction}?}
 \end{quote}
 Only by knowing the difference can we possibly attempt to provide a meaningful 
-answer to the question: ``\textit{Can machines create knowledge proactively via deduction?}''
+answer to the question: ``\textit{Can machines create knowledge proactively 
+via hypothesizing and deduction?}''
 
 To a large extent, Science---and its associated code book,
-Mathematics---can be viewed as the most advanced form of
-intelligence. It is largely deductive in nature and unique to educated and enlightened humans. 
-Philosopher Sir Karl Popper once suggested:
+Mathematics---can be viewed as the most advanced and effective form of
+intelligence. It is largely deductive in nature and unique to educated and 
+enlightened humans. Philosopher Sir Karl Popper once suggested:
 \begin{quote}
     \centering
     \textit{``Science may be described as the art of systematic
     oversimplification.''}
 \end{quote}
-We believe that uncovering and understanding the underlying
-mathematical principles and computational mechanisms of such higher-level intelligence, 
-and successfully reproducing them through machines,
- will be the final frontier for Science, Mathematics, and Computation altogether!
+We believe that uncovering and understanding the underlying mathematical 
+principles and computational mechanisms of such higher-level intelligence, 
+and successfully reproducing them through machines, will be the final frontier 
+for Science, Mathematics, and Computation altogether!
 
 \end{document}

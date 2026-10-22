@@ -85,12 +85,13 @@ in Figure \ref{fig:subspaces}.
     \label{fig:subspaces}
 \end{figure}
 In \Cref{ch:intro}, we have referred to such models of the data as
-``analytical models''. These modeling assumptions allow us to derive
+``analytical models'' as their basic structures (subspaces) can be described by
+certain simple analytical formulas. These modeling assumptions allow us to derive
 efficient algorithms with provable efficiency
 guarantees, both in terms of data and computational
-complexity, for processing data at scale. However, they are
-imperfect models for often-complex real-world data distributions, and
-so their underlying assumptions only approximately hold. This means
+complexity, for processing data at scale. However, these models can be too 
+idealistic for often-complex real-world data distributions, as their underlying 
+assumptions on the data structures only approximately hold in practice. This means
 that the guarantees afforded by detailed analysis of these algorithms
 also only approximately hold in the case of real data.
 
@@ -433,13 +434,13 @@ so we discuss it here.
 
 Let \(\vM\) be a symmetric positive semidefinite matrix. There exists
 an orthonormal basis for \(\R^{D}\) consisting of eigenvectors
-\((\vw_{i})_{i = 1}^{D}\) of \(\vM\), with corresponding eigenvalues
+\((\vu_{i})_{i = 1}^{D}\) of \(\vM\), with corresponding eigenvalues
 \(\lambda_{1} \geq \cdots \geq \lambda_{D} \geq 0\). By definition,
-any eigenvector $\vw_i$ satisfies $\lambda_i \vw_i = \vM \vw_i$.
-Therefore, for any $\lambda_i > 0$, $\vw_i$ is a   ``fixed point'' to
+any eigenvector $\vu_i$ satisfies $\lambda_i \vu_i = \vM \vu_i$.
+Therefore, for any $\lambda_i > 0$, $\vu_i$ is a   ``fixed point'' to
 the following equation:
 \begin{equation}
-    \vw = \frac{\vM\vw}{\norm{\vM\vw}_{2}}.
+    \vu = \frac{\vM\vu}{\norm{\vM\vu}_{2}}.
     \label{eqn:PCA-fixed-point}
 \end{equation}
 
@@ -448,59 +449,59 @@ the following equation:
     we compute the fixed point of  \eqref{eqn:PCA-fixed-point} using
     the following iteration:
     \begin{equation}\label{eq:power_iteration}
-        \vv_{0} \sim \dNorm(\vzero, \vone), \qquad \vv_{t + 1} \gets
-        \frac{\vM\vv_{t}}{\norm{\vM\vv_{t}}_{2}},
+        \vz_{0} \sim \dNorm(\vzero, \vone), \qquad \vz_{t + 1} \gets
+        \frac{\vM\vz_{t}}{\norm{\vM\vz_{t}}_{2}},
     \end{equation}
-    then, in the limit, \(\vv_{t}\) will converge to a top unit-norm
+    then, in the limit, \(\vz_{t}\) will converge to a top unit-norm
     eigenvector of \(\vM\).
 \end{theorem}
 
 \begin{proof} First, note that for all \(t\), we have
     \begin{equation}
-        \vv_{t} = \frac{\vM\vv_{t - 1}}{\norm{\vM\vv_{t - 1}}_{2}} =
-        \frac{\vM^{2}\vv_{t - 2}}{\norm{\vM\vv_{t -
-        1}}_{2}\norm{\vM\vv_{t - 2}}_{2}} = \cdots =
-        \frac{\vM^{t}\vv_{0}}{\prod_{s = 1}^{t}\norm{\vM\vv_{s}}_{2}}.
+        \vz_{t} = \frac{\vM\vz_{t - 1}}{\norm{\vM\vz_{t - 1}}_{2}} =
+        \frac{\vM^{2}\vz_{t - 2}}{\norm{\vM\vz_{t -
+        1}}_{2}\norm{\vM\vz_{t - 2}}_{2}} = \cdots =
+        \frac{\vM^{t}\vz_{0}}{\prod_{s = 1}^{t}\norm{\vM\vz_{s}}_{2}}.
     \end{equation}
-    Thus, \(\vv_{t}\) has the same direction as \(\vM^{t}\vv_{0}\)
+    Thus, \(\vz_{t}\) has the same direction as \(\vM^{t}\vz_{0}\)
     and is unit norm, so we can write
     \begin{equation}
-        \vv_{t} = \frac{\vM^{t}\vv_{0}}{\norm{\vM^{t}\vv_{0}}_{2}}.
+        \vz_{t} = \frac{\vM^{t}\vz_{0}}{\norm{\vM^{t}\vz_{0}}_{2}}.
     \end{equation}
-    Because all the eigenvectors \(\vw_{i}\) of $\vM$ form an
+    Because all the eigenvectors \(\vu_{i}\) of $\vM$ form an
     orthonormal basis for \(\R^{D}\), we can write
     \begin{equation}
-        \vv_{0} = \sum_{i = 1}^{D}\alpha_{i}\vw_{i},
+        \vz_{0} = \sum_{i = 1}^{D}\alpha_{i}\vu_{i},
     \end{equation}
-    where because \(\vv_{0}\) is Gaussian the \(\alpha_{i}\) are all
+    where because \(\vz_{0}\) is Gaussian the \(\alpha_{i}\) are all
     nonzero with probability \(1\). Thus, we can use our earlier
-    expression for \(\vv_{t}\) to write
+    expression for \(\vz_{t}\) to write
     \begin{equation}
-        \vv_{t} = \frac{\vM^{t}\vv_{0}}{\norm{\vM^{t}\vv_{0}}_{2}} =
+        \vz_{t} = \frac{\vM^{t}\vz_{0}}{\norm{\vM^{t}\vz_{0}}_{2}} =
         \frac{\sum_{i =
-        1}^{D}\lambda_{i}^{t}\alpha_{i}\vw_{i}}{\norm{\sum_{i =
-        1}^{D}\lambda_{i}^{t}\alpha_{i}\vw_{i}}_{2}} = \frac{\sum_{i
-        = 1}^{D}\lambda_{i}^{t}\alpha_{i}\vw_{i}}{\sqrt{\sum_{i =
+        1}^{D}\lambda_{i}^{t}\alpha_{i}\vu_{i}}{\norm{\sum_{i =
+        1}^{D}\lambda_{i}^{t}\alpha_{i}\vu_{i}}_{2}} = \frac{\sum_{i
+        = 1}^{D}\lambda_{i}^{t}\alpha_{i}\vu_{i}}{\sqrt{\sum_{i =
         1}^{D}\lambda_{i}^{2t}\alpha_{i}^{2}}}.
     \end{equation}
     Now, let us consider the case where \(\lambda_{1} > \lambda_{2}
     \geq \cdots \geq \lambda_{D} \geq 0\). (The case with repeated
     top eigenvalues goes similarly.) Then we can write
     \begin{equation}
-        \vv_{t} = \frac{\alpha_{1}\vw_{1} + \sum_{i =
-        2}^{D}(\lambda_{i}/\lambda_{1})^{t}\alpha_{i}\vw_{i}}{\sqrt{\alpha_{1}^{2}
+        \vz_{t} = \frac{\alpha_{1}\vu_{1} + \sum_{i =
+        2}^{D}(\lambda_{i}/\lambda_{1})^{t}\alpha_{i}\vu_{i}}{\sqrt{\alpha_{1}^{2}
         + \sum_{i = 2}^{D}(\lambda_{i}/\lambda_{1})^{2t}\alpha_{i}^{2}}}.
     \end{equation}
     Because \(\lambda_{1} > \lambda_{i}\) for all \(i > 1\), the
     terms inside the summation go to \(0\) exponentially fast, and
     the remainder is the limit
     \begin{equation}
-        \lim_{t \to \infty}\vv_{t} =
-        \frac{\alpha_{1}}{\abs{\alpha_{1}}}\vw_{1} = \sign(\alpha_{1})\vw_{1},
+        \lim_{t \to \infty}\vz_{t} =
+        \frac{\alpha_{1}}{\abs{\alpha_{1}}}\vu_{1} = \sign(\alpha_{1})\vu_{1},
     \end{equation}
     which is a top unit eigenvector of \(\vM\). The top eigenvalue
     \(\lambda_{1}\) of \(\vM\) can be estimated by
-    \(\vv_{t}^{\top}\vM\vv_{t}\), which converges similarly rapidly
+    \(\vz_{t}^{\top}\vM\vz_{t}\), which converges similarly rapidly
     to \(\lambda_{1}\).
 \end{proof}
 
@@ -519,8 +520,8 @@ the following equation:
 \end{remark}
 
 To find the second top eigenvector, we apply the power iteration
-algorithm to \(\vM - \lambda_{1}\vv_{1}\vv_{1}^{\top}\), which has
-eigenvectors \((\vw_{i})_{i = 2}^{D}\) and corresponding eigenvalues
+algorithm to \(\vM - \lambda_{1}\vu_{1}\vu_{1}^{\top}\), which has
+eigenvectors \((\vu_{i})_{i = 2}^{D}\) and corresponding eigenvalues
 \((\lambda_{i})_{i = 2}^{D}\). By repeating this procedure \(d\)
 times in sequence, we can very efficiently estimate the top \(d\)
 eigenvectors of \(\vM\) for any symmetric positive semidefinite
@@ -551,15 +552,15 @@ question was answered by the work of Oja in 1982 \cite{Oja1982SimplifiedNM}.
 \begin{example}[Normalized Hebbian learning scheme for PCA] Consider a
     sequence of i.i.d. random vectors $\x_1, \ldots, \x_i, \ldots \in
     \mathbb{R}^n$ with covariance $\boldsymbol{\Sigma} \in
-    \mathbb{R}^{n\times n}$. Let $\vu_0 \in \mathbb{R}^n$ and define
+    \mathbb{R}^{n\times n}$. Let $\vz_0 \in \mathbb{R}^n$ and define
     the response of an input vector $\x_i$ against a weight vector
-    $\vu_i$ to be their inner product:
+    $\vz_i$ to be their inner product:
     \begin{equation}
-        \eta_i = \vu_i^T \x_i
+        \eta_i = \vz_i^\top \x_i
     \end{equation}
     and we update the weight vector according to the following scheme:
     \begin{equation}
-        \vu_{i+1} = \frac{\vu_i + \gamma \eta_i \x_i}{\|\vu_i + \gamma
+        \vz_{i+1} = \frac{\vz_i + \gamma \eta_i \x_i}{\|\vz_i + \gamma
         \eta_i \x_i\|_2}
         \label{eqn:Hebbian}
     \end{equation}
@@ -567,11 +568,11 @@ question was answered by the work of Oja in 1982 \cite{Oja1982SimplifiedNM}.
     as a normalized Hebbian scheme, in which the weights of connections
     between neurons become stronger if (products of) both the input
     $\x$ and output $\eta$ are strong. One may view the vector of
-    weights $\vu$ as ``learned'' based on a form of feedback from the
+    weights $\vz$ as ``learned'' based on a form of feedback from the
     output $\eta$.
     Then, under reasonable assumptions, Oja \cite{Oja1982SimplifiedNM} has
-    shown that $\vu_i$ converges to the eigenvector associated with
-    the largest eigenvalue of $\boldsymbol{\Sigma}$.
+    shown that $\vz_i$ converges to the eigenvector $\vu_1$ associated with
+    the largest eigenvalue $\lambda_1$ of $\boldsymbol{\Sigma}$.
 \end{example}
 
 To interpret the normalized Hebbian scheme \eqref{eqn:Hebbian}, let us think of

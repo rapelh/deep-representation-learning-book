@@ -296,17 +296,17 @@ ortogonal y \(\vLambda\) es diagonal con entradas no negativas. Por lo tanto
 \end{equation}
 Dado que \(\vQ\) es una transformación ortogonal invertible,
 \(\vQ^{\top}\tilde{\vu}\) es un vector unitario y optimizar con respecto a
-\(\tilde{\vu}\) equivale a optimizar con respecto a \(\tilde{\vw} \doteq
+\(\tilde{\vu}\) equivale a optimizar con respecto a \(\tilde{\vu} \doteq
 \vQ^{\top}\tilde{\vu}\). Por lo tanto, podemos escribir
 \begin{equation}
     \tilde{\vu}^{\top}(\vX\vX^{\top}/N)\tilde{\vu} =
-    \tilde{\vw}^{\top}\vLambda\tilde{\vw},
+    \tilde{\vu}^{\top}\vLambda\tilde{\vu},
 \end{equation}
-cuyas soluciones óptimas \(\vw^{\star}\) entre los vectores unitarios son
+cuyas soluciones óptimas \(\vu^{\star}\) entre los vectores unitarios son
 vectores «one-hot» cuya única entrada distinta de cero (y, por lo tanto, unitaria) se encuentra en uno de
 los índices correspondientes al mayor valor propio de
 \(\vX\vX^{\top}/N\). Esto significa que \(\vu^\star =
-\vQ\vw^\star\), la solución óptima del problema original,
+\vQ\vu^\star\), la solución óptima del problema original,
 corresponde a un vector propio unitario de \(\vX\vX^{\top}/N\) (es decir,
 una columna de \(\vQ\)) que corresponde al mayor valor propio.
 Generalizando adecuadamente esto al caso \(d > 1\) y resumiendo todo
@@ -424,13 +424,13 @@ por lo que lo abordamos aquí.
 
 Sea \(\vM\) una matriz simétrica semidefinida positiva. Existe
 una base ortonormal para \(\R^{D}\) formada por los vectores propios
-\((\vw_{i})_{i = 1}^{D}\) de \(\vM\), con los valores propios correspondientes
+\((\vu_{i})_{i = 1}^{D}\) de \(\vM\), con los valores propios correspondientes
 \(\lambda_{1} \geq \cdots \geq \lambda_{D} \geq 0\). Por definición,
-cualquier vector propio $\vw_i$ cumple que $\lambda_i \vw_i = \vM \vw_i$.
-Por lo tanto, para cualquier $\lambda_i > 0$, $\vw_i$ es un «punto fijo» de
+cualquier vector propio $\vu_i$ cumple que $\lambda_i \vu_i = \vM \vu_i$.
+Por lo tanto, para cualquier $\lambda_i > 0$, $\vu_i$ es un «punto fijo» de
 la siguiente ecuación:
 \begin{equation}
-    \vw = \frac{\vM\vw}{\norm{\vM\vw}_{2}}.
+    \vu = \frac{\vM\vu}{\norm{\vM\vu}_{2}}.
     \label{eqn:PCA-fixed-point}
 \end{equation}
 
@@ -439,39 +439,39 @@ la siguiente ecuación:
     calculamos el punto fijo de \eqref{eqn:PCA-fixed-point} utilizando
     la siguiente iteración:
     \begin{equation}\label{eq:power_iteration}
-        \vv_{0} \sim \dNorm(\vzero, \vone), \qquad \vv_{t + 1} \gets
-        \frac{\vM\vv_{t}}{\norm{\vM\vv_{t}}_{2}},
+        \vz_{0} \sim \dNorm(\vzero, \vone), \qquad \vz_{t + 1} \gets
+        \frac{\vM\vz_{t}}{\norm{\vM\vz_{t}}_{2}},
     \end{equation}
-    entonces, en el límite, \(\vv_{t}\) convergerá al vector propio unitario de \(\vM\)
+    entonces, en el límite, \(\vz_{t}\) convergerá al vector propio unitario de \(\vM\)
     asociado al mayor de los valores propios.
 \end{theorem}
 
 \begin{proof} En primer lugar, nótese que, para todo \(t\), tenemos
     \begin{equation}
-        \vv_{t} = \frac{\vM\vv_{t - 1}}{\norm{\vM\vv_{t - 1}}_{2}} =
-        \frac{\vM^{2}\vv_{t - 2}}{\norm{\vM\vv_{t -
-        1}}_{2}\norm{\vM\vv_{t - 2}}_{2}} = \cdots =
-        \frac{\vM^{t}\vv_{0}}{\prod_{s = 1}^{t}\norm{\vM\vv_{s}}_{2}}.
+        \vz_{t} = \frac{\vM\vz_{t - 1}}{\norm{\vM\vz_{t - 1}}_{2}} =
+        \frac{\vM^{2}\vz_{t - 2}}{\norm{\vM\vz_{t -
+        1}}_{2}\norm{\vM\vz_{t - 2}}_{2}} = \cdots =
+        \frac{\vM^{t}\vz_{0}}{\prod_{s = 1}^{t}\norm{\vM\vz_{s}}_{2}}.
     \end{equation}
-    Por lo tanto, \(\vv_{t}\) tiene la misma dirección que \(\vM^{t}\vv_{0}\)
+    Por lo tanto, \(\vz_{t}\) tiene la misma dirección que \(\vM^{t}\vz_{0}\)
     y es de norma unitaria, por lo que podemos escribir
     \begin{equation}
-        \vv_{t} = \frac{\vM^{t}\vv_{0}}{\norm{\vM^{t}\vv_{0}}_{2}}.
+        \vz_{t} = \frac{\vM^{t}\vz_{0}}{\norm{\vM^{t}\vz_{0}}_{2}}.
     \end{equation}
-    Dado que todos los vectores propios \(\vw_{i}\) de $\vM$ forman una
+    Dado que todos los vectores propios \(\vu_{i}\) de $\vM$ forman una
     base ortonormal para \(\R^{D}\), podemos escribir
     \begin{equation}
-        \vv_{0} = \sum_{i = 1}^{D}\alpha_{i}\vw_{i},
+        \vz_{0} = \sum_{i = 1}^{D}\alpha_{i}\vu_{i},
     \end{equation}
-    donde, dado que \(\vv_{0}\) es gaussiano, los \(\alpha_{i}\) son todos
+    donde, dado que \(\vz_{0}\) es gaussiano, los \(\alpha_{i}\) son todos
     distintos de cero con probabilidad \(1\). Por lo tanto, podemos utilizar 
-    nuestra expresión anterior para \(\vv_{t}\) y escribir
+    nuestra expresión anterior para \(\vz_{t}\) y escribir
     \begin{equation}
-        \vv_{t} = \frac{\vM^{t}\vv_{0}}{\norm{\vM^{t}\vv_{0}}_{2}} =
+        \vz_{t} = \frac{\vM^{t}\vz_{0}}{\norm{\vM^{t}\vz_{0}}_{2}} =
         \frac{\sum_{i =
-        1}^{D}\lambda_{i}^{t}\alpha_{i}\vw_{i}}{\norm{\sum_{i =
-        1}^{D}\lambda_{i}^{t}\alpha_{i}\vw_{i}}_{2}} = \frac{\sum_{i
-        = 1}^{D}\lambda_{i}^{t}\alpha_{i}\vw_{i}}{\sqrt{\sum_{i =
+        1}^{D}\lambda_{i}^{t}\alpha_{i}\vu_{i}}{\norm{\sum_{i =
+        1}^{D}\lambda_{i}^{t}\alpha_{i}\vu_{i}}_{2}} = \frac{\sum_{i
+        = 1}^{D}\lambda_{i}^{t}\alpha_{i}\vu_{i}}{\sqrt{\sum_{i =
         1}^{D}\lambda_{i}^{2t}\alpha_{i}^{2}}}.
     \end{equation}
     Ahora, consideremos el caso en el que \(\lambda_{1} > \lambda_{2}
@@ -479,20 +479,20 @@ la siguiente ecuación:
     los valores propios principales se resuelve de manera similar.) 
     Entonces podemos escribir
     \begin{equation}
-        \vv_{t} = \frac{\alpha_{1}\vw_{1} + \sum_{i =
-        2}^{D}(\lambda_{i}/\lambda_{1})^{t}\alpha_{i}\vw_{i}}{\sqrt{\alpha_{1}^{2}
+        \vz_{t} = \frac{\alpha_{1}\vu_{1} + \sum_{i =
+        2}^{D}(\lambda_{i}/\lambda_{1})^{t}\alpha_{i}\vu_{i}}{\sqrt{\alpha_{1}^{2}
         + \sum_{i = 2}^{D}(\lambda_{i}/\lambda_{1})^{2t}\alpha_{i}^{2}}}.
     \end{equation}
     Dado que \(\lambda_{1} > \lambda_{i}\) para todo \(i > 1\), los
     términos dentro de la suma tienden exponencialmente a \(0\) y
     el resultado es el límite
     \begin{equation}
-        \lim_{t \to \infty}\vv_{t} =
-        \frac{\alpha_{1}}{\abs{\alpha_{1}}}\vw_{1} = \sign(\alpha_{1})\vw_{1},
+        \lim_{t \to \infty}\vz_{t} =
+        \frac{\alpha_{1}}{\abs{\alpha_{1}}}\vu_{1} = \sign(\alpha_{1})\vu_{1},
     \end{equation}
     que es el vector propio unitario asociado al valor propio principal de \(\vM\). El valor propio principal
     \(\lambda_{1}\) de \(\vM\) puede estimarse mediante
-    \(\vv_{t}^{\top}\vM\vv_{t}\), que converge 
+    \(\vz_{t}^{\top}\vM\vz_{t}\), que converge 
     a \(\lambda_{1}\) a una velocidad comparable.
 \end{proof}
 
@@ -511,8 +511,8 @@ la siguiente ecuación:
 \end{remark}
 
 Para hallar el segundo vector propio principal, aplicamos el algoritmo de las potencias
-a \(\vM - \lambda_{1}\vv_{1}\vv_{1}^{\top}\), que tiene
-vectores propios \((\vw_{i})_{i = 2}^{D}\) y los valores propios correspondientes
+a \(\vM - \lambda_{1}\vz_{1}\vz_{1}^{\top}\), que tiene
+vectores propios \((\vu_{i})_{i = 2}^{D}\) y los valores propios correspondientes
 \((\lambda_{i})_{i = 2}^{D}\). Repitiendo este procedimiento \(d\)
 veces seguidas, podemos estimar de manera muy eficiente los \(d\)
 vectores propios principales de \(\vM\) para cualquier matriz simétrica semidefinida positiva
@@ -1273,11 +1273,11 @@ El problema en cuestión es
     \max_{\norm{\tilde{\vu}}_2^2 = 1}\, \kurt(\vX^\top \tilde{\vu}).
 \end{equation}
 En primer lugar, realizaremos un análisis muy básico de este objetivo para
-verificar su corrección. Obsérvese que, mediante el cambio de variables $\tilde{\vw} =
+verificar su corrección. Obsérvese que, mediante el cambio de variables $\tilde{\vu} =
 \vU^\top \tilde{\vu}$, este problema es equivalente a
 \begin{equation*}
-    \max_{\norm{\tilde{\vw}}_2^2 = 1}\,
-    \mathrm{kurt}(\vZ^\top \tilde{\vw}).
+    \max_{\norm{\tilde{\vu}}_2^2 = 1}\,
+    \mathrm{kurt}(\vZ^\top \tilde{\vu}).
 \end{equation*}
 Este objetivo es tan sencillo que podemos hacer afirmaciones contundentes
 sobre su corrección como formulación para recuperar el diccionario $\vU$.
@@ -1287,7 +1287,7 @@ podemos utilizar las propiedades de aditividad de la curtosis
 normalización supuesta de las componentes independientes para expresar el problema anterior
 en forma equivalente como
 \begin{equation}\label{eq:kurtosis-maximization-sphere-population-simple}
-    \max_{\norm{\tilde{\vw}}_2^2 = 1}\,
+    \max_{\norm{\tilde{\vu}}_2^2 = 1}\,
     \sum_{i=1}^d \mathrm{kurt}(z_i) \tilde{w}_i^4.
 \end{equation}
 Se puede mostrar que, bajo el supuesto Bernoulli-gaussiano, el
@@ -1297,7 +1297,7 @@ de la función objetivo corresponden a la recuperación de una de
 las componentes independientes.
 
 En la práctica, no podemos calcular directamente el cambio de variables que lleva de
-$\tilde{\vu}$ a $\tilde{\vw}$, ya que requiere el diccionario de referencia
+$\tilde{\vu}$ a $\tilde{\vu}$, ya que requiere el diccionario de referencia
 $\vU$, por lo que desarrollamos directamente algoritmos para la parametrización de $\tilde{\vu}$
 y la matriz de datos $\vX$.
 Entonces, una forma eficaz y escalable de calcular uno de estos máximos es mediante
@@ -1377,10 +1377,10 @@ Al iterar el mapeo definido por el lado izquierdo de esta expresión de punto fi
 se obtiene el algoritmo FastICA de Hyvärinen y Oja \cite{hyvarinen-1997}:
 \begin{equation}
     \begin{split}\label{eq:fast-ica}
-        \tilde{\vv}^+ &= \tfrac{1}{N}\vX (\vX^\top
+        \tilde{\vz}^+ &= \tfrac{1}{N}\vX (\vX^\top
         \tilde{\vu})^{\hada 3}- 3 \tilde{\vu}
         ,  \\
-        \tilde{\vu}^+ &= \tilde{\vv}^+ / \norm*{\tilde{\vv}^+}_2.
+        \tilde{\vu}^+ &= \tilde{\vz}^+ / \norm*{\tilde{\vz}^+}_2.
     \end{split}
 \end{equation}
 Resulta que el algoritmo FastICA converge con extrema rapidez (de hecho, a
@@ -2282,7 +2282,7 @@ más complejas.
             Demuestre, utilizando estos datos, que el espacio tangente a la
             esfera en $\vu$ viene dado por
             \begin{equation*}
-                T_{\vu} \bS^{d-1} = \set{\vv \in \R^d \given \ip{\vv}{\vu} = 0},
+                T_{\vu} \bS^{d-1} = \set{\vz \in \R^d \given \ip{\vz}{\vu} = 0},
             \end{equation*}
             y que la proyección ortogonal sobre este subespacio es
             $\vP_{\vu}^\perp = \vI - \vu\vu^\top$.
@@ -2302,12 +2302,12 @@ más complejas.
             Desde el punto de vista geométrico, esto significa que el gradiente euclidiano de
             $f$ en $\vu$ debe ser ortogonal al espacio tangente a
             la esfera en $\vu$.
-            Supongamos ahora que $\vv \in \R^d$ es distinto de cero. Demuestre que
+            Supongamos ahora que $\vz \in \R^d$ es distinto de cero. Demuestre que
             \begin{equation*}
-                \mathrm{proj}_{\bS^{d-1}}(\vv) \doteq
-                \min_{\norm{\vu}_2^2 = 1}\, \norm{\vu - \vv}_2
+                \mathrm{proj}_{\bS^{d-1}}(\vz) \doteq
+                \min_{\norm{\vu}_2^2 = 1}\, \norm{\vu - \vz}_2
                 =
-                \frac{\vv}{\norm{\vv}_2},
+                \frac{\vz}{\norm{\vz}_2},
             \end{equation*}
             utilizando las condiciones de optimalidad de primer orden.
         \item Al optimizar en $\R^d$, se comprueban las
@@ -2344,12 +2344,12 @@ más complejas.
             \eqref{eq:kurtosis-maximization-sphere-population-simple} es 
             \begin{equation}\label{eq:kurtosis-sphere-landscape-stationarity}
                 \left(\sum_{i=1}^d \kurt(z_i) w_i^4 \right)
-                \vw = \kurt(\vz) \hada \vw^{\hada 3},
+                \vu = \kurt(\vz) \hada \vu^{\hada 3},
             \end{equation}
             donde la curtosis se calcula elemento por elemento, $\hada$
             denota la multiplicación elemento por elemento de vectores y
-            $\vw^{\hada 3}$ denota el cubo elemento por elemento de su argumento.
-        \item Demuestra que los vectores $\vw$ de norma unitaria que además
+            $\vu^{\hada 3}$ denota el cubo elemento por elemento de su argumento.
+        \item Demuestra que los vectores $\vu$ de norma unitaria que además
             satisfacen \eqref{eq:kurtosis-sphere-landscape-stationarity}
             adoptan todos la siguiente forma.
             Sea $S^+ = \{i \in [d] \mid \kurt(z_i) > 0\}$ y
@@ -2357,7 +2357,7 @@ más complejas.
             Sea $S$ un subconjunto de $S^+$ o de $S^-$.
             Entonces 
             \begin{equation}\label{eq:kurtosis-sphere-landscape-cps}
-                \vw_S = \sum_{i \in S} \pm \sqrt{\frac{1}{\kurt(z_i)
+                \vu_S = \sum_{i \in S} \pm \sqrt{\frac{1}{\kurt(z_i)
                 \sum_{j \in S} \frac{1}{\kurt(z_j)}}} \ve_i
             \end{equation}
             satisface \eqref{eq:kurtosis-sphere-landscape-stationarity},

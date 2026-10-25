@@ -260,7 +260,7 @@ otras magnitudes de la teoría de la información. Para comprender este teorema,
 primero debemos definir una medida de \textit{diferencia} entre dos
 distribuciones conocida como la divergencia de \textit{Kullback-Leibler} (KL),
 o \textit{entropía relativa}, que se denota por \(\KL(\cdot \mmid
-\cdot)\) y se define en relación con la entropía y la entropía cruzada
+\cdot)\) y se define en relación con la entropía y la entropía cruzada (CE)
 (véase la \Cref{sub:min_entropy}) como
 \begin{align}
     \KL(p \mmid q) &= \CE(p \mmid q) - h(p) = \Ex_{\vx \sim p}[-\log
@@ -351,7 +351,7 @@ no creciente} en $\epsilon$.
         I(\vx; \hat\vx) = h(\vx) - h(\vx \mid \hat \vx),
     \end{equation}
     donde $h(\vx \mid \hat \vx) = -\bE[\log_2 p(\vx \mid \hat\vx)]$ es la
-    \textit{entropía condicional} de $\vx$ dado $\hat \vx$.
+    \textit{entropía condicional} de $\vx$ dado $\hat \vx$i, similarmente para $h(\hat \vx \mid \vx)$.
     Por lo tanto, la tasa de codificación mínima se alcanza cuando la diferencia entre la
     entropía de $\vx$ y la entropía condicional de $\vx$ dado $\hat \vx$
     se minimiza entre todas las distribuciones que satisfacen

@@ -21,7 +21,7 @@
     de un tipo exiguo e insatisfactorio: puede ser el
     comienzo del conocimiento, pero apenas has avanzado, en tus
     pensamientos, a la etapa de la ciencia, sea cual sea
-    el tema de que se trate.}''
+    el tema del que se trate.}''
 
     $~$\hfill -- Lord Kelvin, 1883
 \end{quote}
@@ -29,13 +29,13 @@
 
 Recapitulemos lo que hemos visto hasta ahora. Hemos mostrado que es
 posible identificar y acceder a una distribución con un soporte de
-dimensión arbitrariamente bajas, como la que se ilustra en la
+dimensión arbitrariamente baja, como la que se ilustra en la
 \Cref{fig:representation-learning} (izquierda), transformando gradualmente
 la distribución de ruido puro (alta entropía) en la distribución que 
 se desea aprender mediante \textit{reducción iterativa de ruido}. Hemos
-mostrado que el \textit{denoiser} en cada iteración está directamente relacionado con
+mostrado que el \textit{denoiser} en cada iteración está directamente conectado con
 el gradiente de la log-densidad de la distribución mediante la fórmula de Tweedie
-\eqref{eq:tweedie}. Demostramos que, en la práctica, ese filtro de reducción de ruido
+\eqref{eq:tweedie}. Demostramos que, en la práctica, ese \textit{denoiser} 
 \(\bar{\vx}_{\theta}\) puede estimarse utilizando un número finito de muestras. Por lo tanto,
 desarrollamos un método general para aprender o aproximarse a una distribución de datos.
 
@@ -71,7 +71,7 @@ de dimensión cero.\footnote{En la Introducción
     aclarar con precisión qué estructuras de baja dimensión debemos
 buscar y cómo hacerlo.} Si, en cambio, utilizamos la entropía de los datos, entonces
 para todas las distribuciones con soporte de baja dimensión, la entropía diferencial
-es siempre negativa infinita. O bien, si utilizamos el volumen del
+es siempre igual a menos infinito. O bien, si utilizamos el volumen del
 espacio que abarcan los datos, el volumen del soporte de cualquier
 modelo de baja dimensión es siempre cero. Entonces, entre todas las distribuciones con
 un soporte de baja dimensión que podrían haber generado las mismas
@@ -85,27 +85,27 @@ haciendo más explícito el segundo enfoque sugerido al final de la
 \Cref{sub:min_entropy}. Como veremos, este enfoque nos permite, en esencia,
 aproximar con precisión la entropía de las distribuciones aprendidas
 en términos de una \textit{tasa de codificación con pérdida} asociada
-al esquema de codificación, tal como se describe y justifica (aunque no se formaliza)
+al esquema de codificación, tal como se describe y fundamenta (aunque no se formaliza)
 al final de la \Cref{sec:diffusion_memorization}. A grandes rasgos, esta medida 
 puede considerarse como una noción generalizada
 del volumen de la distribución de los datos empíricos. Con una medida de este tipo,
 podemos cuantificar con precisión en qué medida se reduce la entropía
 mediante una transformación de la distribución, por ejemplo, mediante un \textit{denoiser}. Además,
-con una medida de este tipo, podemos obtener, al menos en principio,
+con una medida de este tipo, podemos derivar, al menos en principio,
 el operador óptimo de reducción de ruido que reduce la entropía más rápidamente.
 
 \paragraph{El aprendizaje de representaciones.}
 Aunque el proceso de difusión y reducción de ruido presentado en el
 capítulo anterior nos permite, en principio, aprender una distribución
 arbitraria de baja dimensión, no ofrece una representación explícita
-de dicha distribución. Como veremos, se accederá a la distribución
-aprendida en repetidas ocasiones y se utilizará para tareas posteriores
+de la distribución. Como veremos, se accederá reiteradamente a la distribución
+aprendida y se utilizará para tareas posteriores
 (por ejemplo, como distribución a priori para la inferencia bayesiana en el
 \Cref{ch:conditional-inference}). Por lo tanto, es conveniente que podamos
 transformar la distribución de los datos, por ejemplo mediante un mapeo $f(\vx,\theta)$, a
-alguna forma estructurada estándar que facilite un acceso eficiente, como
-una mezcla de subespacios lineales (incoherentes) o gaussianas de bajo rango, tal y como
-se ilustra en la figura de la derecha de la \Cref{fig:representation-learning}. En
+alguna forma estándar estructurada que facilite un acceso eficiente, como
+una mezcla de subespacios lineales (incoherentes) o gaussianas de bajo rango, como
+se ilustra en el panel derecho de la \Cref{fig:representation-learning}. En
 este capítulo formalizaremos este proceso como «aprendizaje de representaciones».
 
 \begin{figure}
@@ -116,13 +116,13 @@ este capítulo formalizaremos este proceso como «aprendizaje de representacione
         muestrear) la distribución de los datos originales como hicimos en el
         \Cref{ch:denoising} anterior, aquí queremos aprender una transformación
         $f(\vx, \theta)$ para la distribución de los datos, de modo que se obtenga una
-        representación con mejores propiedades geométricas o estadísticas deseadas,
+        representación con mejores propiedades geométricas o estadísticas deseables,
     por ejemplo, lineal e incoherente.}\label{fig:representation-learning}
 \end{figure}
 
 Como también veremos, para una distribución arbitraria, la medida de información anterior
 (tasa de codificación) no se puede calcular (fácilmente). Sin embargo,
-en el caso de una mezcla de subespacios o gaussianas de bajo rango, podemos obtener una
+en el caso de una mezcla de subespacios o gaussianas de bajo rango, derivar obtener una
 fórmula cerrada precisa para la medida. Al optimizar esta medida,
 podremos encontrar la representación óptima. Como veremos en
 el siguiente \Cref{ch:deep-networks}, la optimización de la medida también nos permite
@@ -145,12 +145,12 @@ de la codificación con la geometría del soporte de datos
 por medio del recubrimiento esférico (\Cref{thm:covering-number-rate-distortion}).
 Esta conexión constituye el puente entre los enfoques basados en la teoría de la información y los enfoques geométricos
 para el aprendizaje de distribuciones de baja dimensión. Por último, desarrollamos
-una aproximación estrecha en forma cerrada de la tasa de codificación con pérdida para las distribuciones gaussianas
+una aproximación ajustada en forma cerrada de la tasa de codificación con pérdida para las distribuciones gaussianas
 (\Cref{subsec:lossy DR}), así como un algoritmo eficaz para agrupar mezclas de
 distribuciones gaussianas de baja dimensión (\Cref{sec:clustering-Gaussians}), que se
 generalizará a distribuciones no lineales en la siguiente sección.
 
-\subsection{La necesidad de la codificación con pérdida}
+\subsection{La necesidad de codificación con pérdida}
 \label{sub:rate-dist}
 
 Ya hemos abordado en varias ocasiones una dificultad: si al final
@@ -164,17 +164,17 @@ algunas de las dificultades conceptuales y técnicas con ejemplos concretos.
 \begin{example}[Volumen, dimensión y entropía]\label{eg:measures-of-complexity}
     Para el ejemplo que se muestra en la parte superior de la \Cref{fig:1d-line}, supongamos
     que hemos tomado algunas muestras de una distribución uniforme en una recta
-    (por ejemplo, en un plano bidimensional). El volumen de la recta o de los conjuntos de muestras es cero.
+    (por ejemplo, en un plano bidimensional). El volumen de la recta y de los conjuntos de muestras es cero.
     Desde el punto de vista geométrico, la distribución empírica sobre el conjunto finito de muestras 
     obtenido es aquella de {\em dimensión mínima} capaz de generar
     dicho conjunto finito de muestras.\footnote{Un conjunto de muestras discretas tiene
-    dimensión cero, mientras que la recta de soporte tiene dimensión uno.}
+    dimensión cero, mientras que la recta de soporte tiene dimensión 1.}
     Pero esto parece estar en contraste con otra medida más de
     la complejidad: la entropía. La entropía (diferencial) de la recta es
     el infinito negativo, pero la entropía (discreta) de este conjunto de muestras
     es finita y positiva. Así pues, parece que nos encontramos ante una situación paradójica
     según estos criterios habituales de parsimonia o
-    complejidad: no son capaces de diferenciar adecuadamente entre (los modelos de)
+    complejidad: no son capaces en absoluto de diferenciar adecuadamente entre (los modelos de)
     distribuciones con soportes de baja dimensión y algunos parecen
     diferenciarlos incluso de maneras totalmente opuestas.\footnote{Por supuesto, en sentido estricto, la
     entropía diferencial y la entropía discreta no son directamente comparables.}
@@ -183,23 +183,23 @@ algunas de las dificultades conceptuales y técnicas con ejemplos concretos.
 \begin{example}[Densidad]\label{eg:density} Consideremos los dos conjuntos de
     puntos de datos muestreados que se muestran en la \Cref{fig:1d-line}. Geométricamente,
     son esencialmente iguales: cada conjunto consta de ocho puntos
-    y cada punto ha aparecido con una frecuencia igual a 1/8. La
+    y cada punto ha aparecido con una frecuencia de 1/8. La
     única diferencia es que, en el segundo conjunto de datos, algunos puntos están
-    lo suficientemente «cerca» como para que se considere que tienen una mayor densidad alrededor
-    de su respectivo «grupo». ¿Cuál de las dos es más relevante para la
-    distribución real que podría haber generado las muestras? ¿Cómo podemos
+    suficientemente «cercanos» como para percibirse una mayor densidad en torno a 
+    su respectivo «grupo». ¿Cuál de los dos es más relevante para la
+    distribución verdadera que podría haber generado las muestras? ¿Cómo podemos
     resolver esta ambigüedad a la hora de interpretar este tipo de distribuciones (empíricas)?
     \begin{figure}[t]
         \centering
         \includegraphics[width=0.7\linewidth]{\toplevelprefix/chapters/chapter4/figs/one-dim-distribution.png}
         \caption{Ocho puntos situados en una línea con diferentes
-            configuraciones geométricas; distribuidos uniformemente (arriba) o muy
+            configuraciones geométricas; distribuidos uniformemente (arriba) o densamente
         agrupados (abajo).}
         \label{fig:1d-line}
     \end{figure}
 \end{example}
 
-Existe una dificultad técnica adicional relacionada con
+Existe una dificultad técnica adicional más relacionada con
 la construcción de un esquema explícito de codificación y decodificación para un conjunto de datos.
 Dado un conjunto de datos muestreados en $\vX = [\vx_1, \ldots, \vx_N]$, ¿cómo
 se puede diseñar un esquema de codificación que sea implementable en máquinas con
@@ -209,10 +209,9 @@ cabe preguntarse si la entropía de una distribución es una medida directa
 de la complejidad de su esquema de codificación (óptimo). Analizamos
 este tema con otro ejemplo sencillo.
 \begin{example}[Precisión] \label{eg:two-inrational}
-    Consideremos una distribución discreta $\vX = [e, \pi]$ en la que hay una
-    probabilidad igual de $1/2$ de que que toma los valores del número de Euler $e \approx 2.71828$ 
-    y de $\pi \approx 3.14159$ **con probabilidad $1/2$ cada uno. La entropía
-    de esta distribución es $H = 1$, lo que sugiere que se pueden
+    Consideremos una distribución discreta $\vX = [e, \pi]$ en la que cada valor, 
+    $e \approx 2.71828$ o $\pi \approx 3.14159$, se toma con probabilidad $1/2$.
+    La entropía de esta distribución es $H = 1$, lo que sugiere que se pueden
     codificar los dos números mediante un único bit, $0$ o $1$,
     respectivamente. ¿Pero se puede implementar un esquema de decodificación para este código
     en una máquina de estados finitos? La respuesta es, de hecho, no, ya que se necesita
@@ -238,13 +237,13 @@ precisamente, nos gustaría considerar esquemas de codificación
 \end{equation}
 de tal manera que el error esperado causado por la cuantización esté acotado por
 $\epsilon$. Es matemáticamente más conveniente, y conceptualmente
-prácticamente idéntico, acotar el error esperado \textit{al cuadrado} por
+prácticamente idéntico, acotar el error \textit{cuadrado} esperado por
 \(\epsilon^{2}\), es decir,
 \begin{equation}
     \Ex[d(\vx, \hat \vx)^{2}] \le \epsilon^{2}.
 \end{equation}
 Por lo general, se elige que la distancia \(d\) sea la distancia euclidiana, o la
-norma \(L^{2}\).\footnote{De manera más general, podemos sustituir \(d^{2}\) por cualquiera
+norma 2 (euclidiana).\footnote{De manera más general, podemos sustituir \(d^{2}\) por cualquiera
 de las llamadas \textit{divergencias}.} Adoptaremos esta opción en lo sucesivo.
 
 \subsection{La tasa-distorsión y la geometría de los datos}
@@ -271,8 +270,8 @@ La divergencia de KL siempre es no negativa y es igual a cero si y solo
 si \(p = q\);\footnote{Técnicamente, esta igualdad debe interpretarse
     en el sentido de «casi en todas partes», es decir, salvo, quizás, en un conjunto de medida
     (volumen) nula, ya que este conjunto no afectaría al valor de ninguna
-integral.} en el caso de que \(p\) y \(q\) tengan el mismo soporte
-y ambas sean densidades de probabilidad, esto se puede demostrar mediante
+integral.} en el caso en que \(p\) y \(q\) compartan el mismo soporte
+y ambas sean densidades de probabilidad, esto se puede demostrarse mediante 
 el siguiente cálculo, basado en la desigualdad de Jensen y en el hecho de que
 la función \(\log(\cdot)\) es estrictamente cóncava:
 \begin{align}
@@ -339,36 +338,36 @@ no creciente} en $\epsilon$.
     se codifican de manera efectiva, mientras que las direcciones con una menor varianza 
     se descartan, lo que garantiza que la restricción de distorsión se
     cumpla con una información mutua mínima. Consulte el
-    \Cref{exer:KKT} para ver una derivación detallada de esta fórmula cerrada.
+    \Cref{exer:KKT} para consultar una derivación detallada de esta fórmula cerrada.
 \end{example}
 
 \begin{remark}
-    Resulta que la tasa-distorsión es una aproximación viable
+    Resulta que la tasa-distorsión es una aproximación realizable
     a la entropía de $\vx$ en el siguiente sentido.
     Supongamos que $\vx$ y $\hat{\vx}$ son vectores aleatorios continuos.
     Entonces, la información mutua se puede escribir como
     \begin{equation}\label{eq:information-entropy}
-        I(\vx; \hat\vx) = h(\vx) - h(\vx \mid \hat \vx),
+        I(\vx; \hat\vx) = h(\vx) - h(\vx \mid \hat \vx) = h(\hat \vx) - h(\hat \vx \mid \vx),
     \end{equation}
-    donde $h(\vx \mid \hat \vx) = -\bE[\log_2 p(\vx \mid \hat\vx)]$ es la
-    \textit{entropía condicional} de $\vx$ dado $\hat \vx$i, similarmente para $h(\hat \vx \mid \vx)$.
+    donde $h(\vx \mid \hat \vx) = -\bE[\log_2 p(\vx \mid \hat\vx)]$ denota la
+    \textit{entropía condicional} de $\vx$ dado $\hat \vx$i (análogamente para $h(\hat \vx \mid \vx)$).
     Por lo tanto, la tasa de codificación mínima se alcanza cuando la diferencia entre la
     entropía de $\vx$ y la entropía condicional de $\vx$ dado $\hat \vx$
     se minimiza entre todas las distribuciones que satisfacen
     la restricción: $\mathbb{E} [\norm{\vx- \hat \vx}_2^2] \le \epsilon^2$.
 
     De hecho, no es necesario suponer que $\vx$ y $\hat \vx$ sean continuos
-    para llegar a una conclusión como la anterior. Por ejemplo, si ambos vectores aleatorios
+    para llegar a una conclusión de este tipo. Por ejemplo, si ambos vectores aleatorios
     son discretos, tras una interpretación adecuada de la divergencia de KL
     para vectores aleatorios de valores discretos, tenemos que
     \begin{equation}\label{eq:mutual}
-        I(\vx; \hat\vx) = H(\vx) - H(\vx \mid \hat \vx),
+        I(\vx; \hat\vx) = H(\vx) - H(\vx \mid \hat \vx) = H(\hat \vx) - H(\hat \vx \mid \vx),
     \end{equation}
     donde $H(\vx)$ se define en la ecuación \eqref{eqn:entropy-discrete} de la
     \Cref{sub:min_entropy}.
-    En términos más generales, se pueden emplear conceptos matemáticos avanzados de la teoría de la medida
-    para definir la información mutua (y, por lo tanto, la tasa-distorsión) para
-    cualquier variable aleatoria $\vx$ y $\hat \vx$, incluidas aquellas con distribuciones de baja dimensión bastante
+    Más en general, se pueden emplear conceptos matemáticos avanzados de la teoría de la medida
+    para definir la información mutua (y, por lo tanto, la tasa-distorsión) para variables aleatorias arbitrarias
+    $\vx$ y $\hat \vx$, incluidas aquellas con distribuciones de baja dimensión bastante
     exóticas; véase \textcite[\S 8.5]{Cover-Thomas}.
 \end{remark}
 
@@ -437,33 +436,32 @@ no creciente} en $\epsilon$.
         mediante bolas de radio \(\epsilon\).} Podemos observar que, a medida que el parámetro \(\epsilon\)
         se reduce, la unión de las bolas de radio \(\epsilon\) se aproxima cada vez mejor al soporte de la
         distribución real (negra). Además, los
-        filtros de reducción de ruido asociados (cuyo mapeo entrada-salida viene dada por las flechas proporcionadas)
+        \textit{denoisers} asociados (cuyo mapeo entrada-salida viene dado por las flechas proporcionadas)
         obtenidos al aproximar la distribución real mediante una mezcla
         de distribuciones gaussianas,
-        cada una con covarianza \((\epsilon^{2}/D)\vI\), se acercan cada vez
-        más
-        a los filtros de reducción de ruido verdaderos.
+        cada una con covarianza \((\epsilon^{2}/D)\vI\), aproximan cada vez
+        mejor los \textit{denoisers} verdaderos.
         Para valores grandes de \(\epsilon\), estos eliminadores de ruido no se acercan 
         en absoluto a la distribución real, mientras que para valores pequeños de \(\epsilon\) 
-        se aproximan mucho a los eliminadores de ruido reales.
+        se aproximan mucho a los eliminadores de ruido verdaderos.
         El \Cref{thm:covering-number-rate-distortion}
         establece que esta aproximación caracteriza la función de tasa-distorsión
         para distorsiones pequeñas $\epsilon$, unificando los
         enfoques paralelos
         de minimización de la tasa de codificación y reducción de ruido para el aprendizaje de distribuciones de baja dimensión
-    sin patologías.}
+    sin comportamientos patológicos.}
     \label{fig:continuation}
 \end{figure}
 
-Resulta ser un problema notoriamente difícil obtener expresiones en forma cerrada
-para la función de tasa-distorsión \eqref{eqn:rate-distortion-general} para distribuciones generales
-$p(\vx)$. Sin embargo, tal y como
+Resulta notoriamente difícil obtener expresiones en forma cerrada
+para la función de tasa-distorsión \eqref{eqn:rate-distortion-general} para distribuciones arbitrarias
+$p(\vx)$. Sin embargo, como
 sugiere el \Cref{example:sphere-covering-rate-distortion}, existen casos especiales importantes
 en los que la \textit{geometría} del soporte de la distribución
 $p(\vx)$ puede vincularse con la función de tasa-distorsión y, por lo tanto, con la tasa de codificación óptima
 para un nivel de distorsión $\epsilon$. De hecho, este ejemplo puede generalizarse a cualquier contexto en el que el
-soporte de $p(\vx)$ sea un conjunto compacto suficientemente regular —incluidas
-las distribuciones de baja dimensión— y $p(\vx)$ esté uniformemente distribuída en su
+soporte de $p(\vx)$ sea un conjunto compacto suficientemente regular ---incluidas
+las distribuciones de baja dimensión--- y $p(\vx)$ esté uniformemente distribuida en su
 soporte.
 Esto abarca una gran cantidad de casos de interés práctico.
 Formalizamos esta noción en el siguiente resultado, que establece esta
@@ -476,7 +474,7 @@ propiedad para un caso especial.
     de bolas de radio \(\epsilon\) que pueden cubrir \(K\), es decir,
     \begin{equation}
         \cN_{\epsilon}(K) \doteq \min\left\{n \in \bN \colon \exists
-            \vp_{1}, \dots, \vp_{n} \in K\ \text{s.t.}\ K \subseteq
+            \vp_{1}, \dots, \vp_{n} \in K\ \text{sujeto a}\ K \subseteq
         \bigcup_{i = 1}^{n}B_{\epsilon}(\vp_{i})\right\},
     \end{equation}
     donde \(B_{\epsilon}(\vp) = \{\vxi \in \R^D \mid \norm{\vxi -
@@ -488,7 +486,7 @@ propiedad para un caso especial.
         \cR_{\epsilon}(\vx)
         \leq \log_{2} \cN_{\epsilon}(K).
     \end{equation}
-    Si, además, $\vx$ sigue una distribución uniforme en $K$ y $K$ es
+    Si, además, $\vx$ sigue una distribución uniforme sobre $K$ y $K$ es
     una unión de hiperesferas de baja dimensión mutuamente ortogonales,\footnote{De hecho, es
     posible tratar casos de $K$ altamente irregulares, como variedades compactas o incluso fractales,
     con un resultado paralelo,
@@ -499,9 +497,9 @@ propiedad para un caso especial.
     para uniones de hiperesferas ortogonales, una suposición que equivale a
     una mezcla de distribuciones gaussianas de rango bajo con soportes ortogonales cuando la dimensión
     de cada subespacio es suficientemente grande. Véase el
-    \Cref{app:rate-distortion-covering} para un análisis más detallado de esta
+    \Cref{app:rate-distortion-covering} para un análisis más amplio de esta
     hipótesis.}
-    entonces se cumple una cota inferior correspondiente:
+    entonces se cumple una cota inferior afín:
     \begin{equation}
         \cR_{\epsilon}(\vx)
         \geq
@@ -521,7 +519,7 @@ gaussianas de rango bajo (con la normalización adecuada).\footnote{Más adelant
 en la \Cref{subsec:MCR2}, veremos una función objetivo cuyos máximos son mezclas normalizadas 
 de gaussianas de bajo rango que corresponden a los datos de entrada de cierta manera.
 El \Cref{ch:deep-networks} desarrollará aún más este marco para el aprendizaje profundo,
-demostrando que la suposición estructural que hacemos para demostrar la cota inferior
+demostrando que la hipótesis estructural que hacemos para demostrar la cota inferior
 no es excesivamente restrictiva.}
 Bajo estos supuestos, la implicación del
 \Cref{thm:covering-number-rate-distortion} puede resumirse de la siguiente manera: para
@@ -543,11 +541,10 @@ capítulo.
     la teoría de la información conocido como el \textit{límite inferior de Shannon} para la 
     tasa-distorsión, que lleva el nombre de Claude Shannon, quien lo derivó por primera vez en un
     caso especial
-    \cite{shannon1959coding}. En él
-    se establece la siguiente estimación para la función de tasa-distorsión,
+    \cite{shannon1959coding}. Éste establece la siguiente estimación para la función de tasa-distorsión
     para cualquier variable aleatoria
     $\vx$ con
-    una densidad $p(\vx)$ y una norma al cuadrado con esperanza finita \cite{Linder1994-ej}:
+    densidad $p(\vx)$ y norma al cuadrado de esperanza finita \cite{Linder1994-ej}:
     \begin{equation}\label{eq:slb}
         \cR_{\epsilon}(\vx)
         \geq
@@ -564,14 +561,14 @@ capítulo.
         \volume(B_{\epsilon}) - C_D\right] = 0.
     \end{equation}
     Así pues, cuando la distorsión $\epsilon$ es pequeña, podemos pensar únicamente en términos de la
-    cota inferior de Shannon, en lugar del problema de optimización (generalmente inmanejable)
+    cota inferior de Shannon, en lugar del problema de optimización (generalmente intratable)
     que define la relación tasa-distorsión
     \eqref{eqn:rate-distortion-general}.
 
     La cota inferior de Shannon constituye el nexo entre la tasa de codificación, la minimización de la entropía /
     la reducción de ruido y los enfoques de empaquetamiento geométrico de esferas para el aprendizaje
     de distribuciones de baja dimensión. Obsérvese que, en el caso especial de una densidad uniforme
-    $p(\vx)$, \eqref{eq:slb} se convierte en
+    $p(\vx)$, \eqref{eq:slb} se reduce a
     \begin{align}
         \cR_{\epsilon}(\vx) &\geq -\int_K \frac{1}{\volume(K)} \log_2
         \frac{1}{\volume(K)} \odif \vxi
@@ -603,7 +600,7 @@ capítulo.
     \end{align}
     Hemos visto la entropía gaussiana calculada en la
     \Cref{eqn:entropy-Gaussian-multi}: cuando $\epsilon$ es pequeño, es igual, salvo
-    por constantes aditivas, a la cantidad $-\log_2
+    constantes aditivas, a la cantidad $-\log_2
     \volume(B_{\epsilon})$ que hemos visto en la cota inferior de Shannon.
     En ciertos casos especiales (por ejemplo, datos apoyados en subespacios incoherentes
     de bajo rango),
@@ -611,14 +608,14 @@ capítulo.
     la distribución de $\vx_{\epsilon}$ admite incluso una buena aproximación local
     mediante el
     producto de las distribuciones $p(\vx)$ y $p(\vg)$, lo que justifica el cálculo anterior.
-    Por lo tanto, el proceso de reducción de ruido gaussiano ofrece otra interpretación más de la
-    cota inferior de Shannon, ya que se deriva de la entropía de una versión con ruido de
+    Por lo tanto, el proceso de reducción de ruido gaussiano ofrece una interpretación adicional de la
+    cota inferior de Shannon, pues se deriva de la entropía de una versión con ruido de
     $\vx$, con un nivel de ruido proporcional al nivel de distorsión $\epsilon$.
 
-    Por lo tanto, este enfoque de tasa-distorsión finita mediante el recubrimiento de esferas revalida o
+    Por lo tanto, este enfoque de tasa-distorsión finita mediante el recubrimiento de esferas rehabilita o
     generaliza todas las medidas previas de complejidad de la
     distribución, lo que nos permite
-    diferenciar y clasificar las distintas distribuciones de manera unificada.
+    diferenciar y jerarquizar las distintas distribuciones de manera unificada.
     Estas perspectivas interrelacionadas se visualizan en la \Cref{fig:continuation}.
 \end{remark}
 
@@ -644,7 +641,7 @@ Supongamos ahora que disponemos de un conjunto de muestras de datos en $\vX = [\
 \ldots, \vx_N]$ procedente de cualquier distribución.\footnote{O bien, estos puntos de datos
 podrían considerarse ellos mismos como una distribución (empírica).} Nos gustaría
 elaborar un esquema constructivo que pueda codificar los datos
-con cierta precisión, digamos
+hasta cierta precisión, digamos
 \begin{equation}
     \vx_i \mapsto \hat \vx_i, \quad \mbox{sujeto a} \quad \|\vx_i -
     \hat \vx_i\|_2 \le \epsilon.
@@ -655,7 +652,7 @@ garantiza que los datos se codifiquen de tal manera que \(\frac{1}{N}\sum_{i = 1
 desigualdad es precisamente la restricción de tasa-distorsión para la distribución
 empírica dada y su codificación. Por ejemplo, en el
 \Cref{example:sphere-covering-rate-distortion}, utilizamos este
-criterio simplificado para determinar la distorsión mínima y
+criterio simplificado para determinar explícitamente la distorsión mínima y
 el esquema de codificación explícitos para una tasa de codificación dada.
 
 Sin pérdida de generalidad, supongamos que la media de $\vX$ es cero,
@@ -669,7 +666,7 @@ para lo que podría ser el peor de los casos en cuanto a la tasa de codificació
 \begin{equation}
     {\boldsymbol{\Sigma}} = \frac{1}{N} \vX\vX^\top.
 \end{equation}
-Obsérvese que, desde el punto de vista geométrico, ${\boldsymbol{\Sigma}}$ caracteriza una
+Nótese que, desde el punto de vista geométrico, ${\boldsymbol{\Sigma}}$ caracteriza una
 región elipsoidal en la que se encuentran la mayoría de las muestras $\vx_i$.
 
 Podemos considerar $\hat \vX = [\hat \vx_1,\ldots, \hat \vx_N]$ como una versión con ruido
@@ -705,7 +702,7 @@ proporcional a
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{\toplevelprefix/chapters/chapter4/figs/Gaussian-compression.png}
-    \caption{Cubrir la región abarcada por los vectores de datos utilizando
+    \caption{Cubrir la región generada por los vectores de datos utilizando
         bolas de radio $\epsilon$. Cuanto mayor sea el volumen del espacio, más
         bolas se necesitarán y, por lo tanto, más bits se necesitarán para codificar y
         enumerar las bolas. Cada vector de valor real $\vx$ puede codificarse
@@ -719,7 +716,7 @@ de radio $\epsilon$, como se ilustra en la
 \Cref{fig:ball-packing}. Cuando el volumen de la región abarcada por
 $\hat \vx_i$ es significativamente mayor que el volumen de la
 bola de radio $\epsilon$, el número total de bolas que necesitamos para cubrir la región es
-aproximadamente igual a el cociente entre ambos volúmenes:
+aproximadamente igual al cociente entre ambos volúmenes:
 \begin{equation}
     \# \,\epsilon\mbox{-bolas} \approx \frac{\mbox{volumen}(\hat
     \vx_i)}{\mbox{volumen}(\vw_i)} = \sqrt{\det\left(\boldsymbol{I} +
@@ -736,7 +733,7 @@ interés, el número total de bits necesarios es, por lo tanto, %
 \end{equation}
 Nótese que, a partir del \Cref{ex:gaussian_rate_distortion}, se puede mostrar que
 el lado derecho de esta fórmula coincide con la 
-tasa-distorsión (hasta una precisión de \(\epsilon\)) de una fuente gaussiana con
+tasa-distorsión (con una precisión de \(\epsilon\)) de una fuente gaussiana con
 matriz de covarianza \(\frac{1}{N} \vX\vX^\top + (\epsilon^{2}/D) \vI\)
 (por ejemplo, la matriz de covarianza empírica de los datos más un
 término de ruido). De este modo, un argumento geométrico sobre el volumen de los
@@ -784,14 +781,14 @@ de codificación (y decodificación). Presenta dos propiedades interesantes:
     \item En segundo lugar, la misma tasa de codificación en forma cerrada $R_{\epsilon}(\vX)$
         puede derivarse como una aproximación de \(\cR_{\epsilon}(\vX)\)
         si se supone que los datos $\vX$ proceden de un subespacio lineal.
-        Esto se puede demostrar cuantificando adecuadamente la descomposición en valores singulares
+        Esto se puede demostrar al cuantificar adecuadamente la descomposición en valores singulares
         (SVD) de $\vX = \boldsymbol{U}
         \boldsymbol{\Sigma}\boldsymbol{V}^\top$ y construyendo un
         esquema de codificación con pérdida para vectores en el subespacio generado por
         $\boldsymbol{U}$ \cite{MaY2007-PAMI}. 
 \end{itemize}
 En nuestro contexto, la expresión en forma cerrada $R_{\epsilon}(\vX)$ es
-bastante fundamental: se trata de la tasa de codificación asociada a un esquema explícito y natural de codificación con pérdidas 
+bastante fundamental: se trata de la tasa de codificación asociada a un esquema explícito y natural de codificación con pérdida 
 para datos extraídos de una distribución gaussiana
 o de un subespacio lineal. Como veremos en el próximo
 capítulo, esta fórmula desempeña un papel importante en la comprensión de la
@@ -799,14 +796,14 @@ arquitectura de las redes neuronales profundas.
 
 \subsection{Agrupamiento de una mezcla de gaussianas de baja dimensión}
 \label{sec:clustering-Gaussians}
-Como ya hemos comentado anteriormente, el conjunto de datos dado $\vX$ suele tener
+Como ya comentamos, el conjunto de datos dado $\vX$ suele tener
 estructuras intrínsecas de baja dimensión. Por lo tanto, codificarlo como una distribución
 gaussiana general resultaría muy redundante. Si podemos identificar esas estructuras intrínsecas
 en $\vX$, podríamos diseñar esquemas de codificación mucho mejores que
-ofrezcan tasas de codificación mucho más bajas. O, dicho de otra forma, los códigos utilizados para
+ofrezcan tasas de codificación mucho más bajas. O, de forma equivalente, los códigos utilizados para
 codificar el $\vX$ en cuestión pueden comprimirse. Veremos que la compresión
 ofrece una forma computable y unificadora de identificar tales estructuras. En esta
-sección, ilustramos esta importante idea con la familia más básica
+sección, mostramos esta importante idea con la familia más básica
 de estructuras de baja dimensión: una mezcla de gaussianas (de baja dimensión)
 o subespacios.
 
@@ -818,7 +815,7 @@ o subespacios.
     por todas las bolas azules, es obviamente muy redundante. Podemos intentar
     identificar las ubicaciones de los dos subespacios, denotados por $S_1$ y
     $S_2$ y diseñar un libro de códigos que abarque únicamente esos dos subespacios,
-    es decir, las bolas verdes. Si logramos particionar correctamente las muestras de
+    es decir, las bolas verdes. Si es posible particionar correctamente las muestras de
     los datos $\vX$ en los dos subespacios: $\vX = [\vX_1, \vX_2]\bm \Pi$
     con $\vX_1 \in S_1$ y $\vX_2 \in S_2$, donde $\bm \Pi$ denota una
     matriz de permutación, entonces la tasa de codificación resultante para los datos
@@ -845,28 +842,28 @@ identificar esas componentes y codificar los datos basándose en las dimensiones
 de dichas componentes. Resulta que no perdemos mucha
 generalidad al suponer que los datos provienen de una mezcla de
 distribuciones gaussianas de baja dimensión. Esto se debe a que una mezcla de distribuciones gaussianas puede
-aproximar con gran precisión a la mayoría de las distribuciones generales \cite{borkar2016gaussian}.
+aproximar con gran precisión a las distribuciones más generales \cite{borkar2016gaussian}.
 
 \paragraph{El problema de agrupamiento.}
 Ahora bien, en el caso de esta familia concreta de distribuciones, ¿cómo podemos identificar de manera eficaz
-y eficiente esas componentes de baja dimensión a partir de un conjunto de muestras
+y eficiente esas componentes de baja dimensión a partir de un conjunto de muestras?
 \begin{equation}
     \vX = \left[\vx_1, \vx_2, \ldots, \vx_N\right],
 \end{equation}
 extraído de ellos? En otras palabras, dado el conjunto de datos completo $\vX$,
-queremos dividirlo, o agruparlo, en varios subconjuntos, digamos $K$ subconjuntos:
+queremos dividirlo, o agruparlo, en varios ---degamos $K$--- subconjuntos:
 \begin{equation}
     \vX\bm \Pi = [\vX_1, \vX_2, \dots, \vX_K],
 \end{equation}
 donde cada subconjunto está formado por muestras extraídas de una sola
-gaussiana o subespacio de baja dimensión y $\bm \Pi$ es una matriz de permutación
+gaussiana o subespacio, ambos de baja dimensión, y $\bm \Pi$ es una matriz de permutación
 que indica la pertenencia a la partición. Cabe señalar que, dependiendo de
 la situación, la partición podría ser determinista o
 probabilística. Como se muestra en \cite{ma2007segmentation}, en el caso de una mezcla de
 distribuciones gaussianas, la partición probabilística no da lugar a una menor tasa de codificación.
 Por lo tanto, en aras de la simplicidad, aquí consideramos únicamente una partición determinista.
 
-\paragraph{Agrupamiento mediante compresión con pérdidas.}
+\paragraph{\textit{Clustering} mediante compresión con pérdidas.}
 La principal dificultad para resolver el problema de agrupamiento mencionado anteriormente radica en que
 normalmente no conocemos el número de agrupamientos $K$, ni tampoco
 la dimensión de cada componente. El estudio de este problema de agrupamiento
@@ -876,14 +873,14 @@ este problema. Para encontrar un enfoque eficaz para este problema, primero
 debemos comprender y aclarar por qué queremos agrupar los datos. En otras
 palabras, ¿qué ganamos exactamente al agrupar los datos, en comparación
 con no hacerlo? ¿Cómo medimos esa ganancia? Desde el punto de vista de la
-compresión de datos, una agrupación correcta debería dar lugar a un esquema de
+compresión de datos, un agrupamiento correcto debería dar lugar a un esquema de
 codificación (y decodificación) más eficiente.
 
 Para cualquier conjunto de datos dado $\vX$, ya existen dos esquemas de codificación
 obvios que sirven de referencia. Estos representan dos formas extremas de codificar los datos:
 \begin{itemize}
-    \item Simplemente considerar todas las muestras juntas como si procedieran de una
-        única distribución gaussiana. La tasa de codificación asociada, tal y como se ha
+    \item Simplemente considerar todas las muestras conjuntamente como si procedieran de una
+        única distribución gaussiana. La tasa de codificación asociada, tal como se ha
         deducido anteriormente, viene dada por: 
         \begin{equation}
             \cR_{\epsilon}(\vX) \approx R_{\epsilon}(\vX) =
@@ -910,7 +907,7 @@ para una determinada elección (extrema) del error de cuantización $\epsilon$:
         $\lim_{\epsilon \rightarrow 0} \cR_\epsilon \rightarrow \log(N)$. 
 \end{enumerate}
 Nótese que el primer esquema corresponde al caso en el que
-no nos interesa en absoluto ningún aspecto relevante de la distribución.
+no nos interesa en absoluto ningún aspecto interesante de la distribución.
 No se desea reservar ningún bit para información relevante. A esto lo llamamos
 el «régimen perezoso». El segundo esquema corresponde al
 caso en el que se desea decodificar cada muestra con una precisión extremadamente alta.
@@ -918,10 +915,10 @@ Por lo tanto, sería mejor «memorizar» cada muestra. A esto lo llamamos
 el «régimen de memorización».
 
 Nótese que estas asintóticas en términos de \(\epsilon\) son exactamente
-las mismas que se analizaron al presentar la tasa de codificación con pérdida como una magnitud
-que los modelos de difusión entrenados de manera realista aproximan, tal como se muestra al
+las mismas que se analizaron al presentar la tasa de codificación con pérdida como una magnitud 
+que se aproxima en los modelos de difusión entrenados de manera realista, tal como se muestra al
 final de la \Cref{sec:diffusion_memorization}. En la situación actual,
-codificamos \textit{explícitamente} la distribución con una precisión de \(\epsilon\); en
+codificamos \textit{explícitamente} la distribución hasta una precisión de \(\epsilon\); en
 el caso de los modelos de difusión, codificamos \textit{implícitamente} la
 distribución. Ciertas propiedades del esquema, como la memorización
 y la generalización, se manifiestan de manera similar en ambos casos y, de hecho,
@@ -930,7 +927,7 @@ se puede estudiar un caso para comprender el otro.
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{\toplevelprefix/chapters/chapter4/figs/circle-packing.png}
-    \caption{Varias de muestras aleatorias en un plano bidimensional. Consideremos un
+    \caption{Varias muestras aleatorias en un plano bidimensional. Consideremos un
         disco de radio $\epsilon$ asociado a cada muestra, con la muestra como
     centro. La densidad de las muestras aumenta de izquierda a derecha.}
     \label{fig:circle-packing}
@@ -944,7 +941,7 @@ se puede estudiar un caso para comprender el otro.
     fijo $\epsilon$. Esto equivale a colocar un
     disco de $\epsilon$ alrededor de cada muestra, como se muestra en la
     \Cref{fig:circle-packing}. Cuando $N$ es pequeño, la probabilidad de que todos
-    los discos se superpongan entre sí es nula. En este caso, es necesario y óptimo un libro de códigos de tamaño $N$.
+    los discos se solapen entre sí es nula. En este caso, es necesario y óptimo un libro de códigos de tamaño $N$.
     Cuando $N$ o la densidad
     alcanza un determinado valor crítico $N_c$, con alta probabilidad todos
     los discos comienzan a superponerse y a conectarse en un único grupo que
@@ -970,7 +967,7 @@ de baja dimensión}. El régimen interesante se encuentra entre estos dos.
         \includegraphics[width=0.9\linewidth]{\toplevelprefix/chapters/chapter4/figs/Coding-Rate.jpg}
         \caption{Parte superior: 358 muestras ruidosas extraídas de dos rectas y un
             plano en $\R^3$. Parte inferior: el efecto de variar
-            $\epsilon$ sobre el resultado de la agrupación y la tasa de codificación. La
+            $\epsilon$ sobre el resultado del agrupamiento y la tasa de codificación. La
             línea roja marca la varianza $\epsilon_0$ del ruido gaussiano
             añadido a las muestras. Obsérvese que los gráficos de la parte inferior izquierda y
             del centro muestran la misma magnitud con diferentes
@@ -979,19 +976,19 @@ de baja dimensión}. El régimen interesante se encuentra entre estos dos.
         \label{fig:two-lines-and-plane-epsilon}
     \end{figure}
     La \Cref{fig:two-lines-and-plane} muestra un ejemplo con muestras ruidosas
-    extraídas de dos rectas y un plano en $\R^3$. Como se observa en la
-    figura (c) de la derecha, la tasa de codificación óptima disminuye en forma monótona a medida que
-    aumentamos $\epsilon$, tal y como se esperaba a partir de la propiedad de la función de tasa-distorsión.
-    Las figuras (a) y (b) muestran, al variar $\epsilon$ desde valores muy
+    extraídas de dos rectas y un plano en $\R^3$. Como se observa en el
+    panel (c) de la derecha, la tasa de codificación óptima disminuye en forma monótona a medida que
+    aumentamos $\epsilon$, como se esperaba a partir de la propiedad de la función de tasa-distorsión.
+    Los paneles (a) y (b) muestran, al variar $\epsilon$ desde valores muy
     pequeños (cercanos a cero) hasta valores muy grandes (cercanos al infinito), el número óptimo de
     grupos cuando la tasa de codificación es mínima. Se pueden observar claramente el régimen «perezoso»
     y el régimen de memorización en los dos extremos de los gráficos. Pero también se puede
-    observar en el figura (b) que, cuando el error de cuantización $\epsilon$ se elige
+    observar en el panel (b) que, cuando el error de cuantización $\epsilon$ se elige
     en torno al nivel de la varianza real del ruido $\epsilon_0$, el número óptimo
     de grupos es el número «correcto» tres, que representa dos líneas y
     un plano.  Nos referimos informalmente a este régimen intermedio como el
     «régimen de generalización». Obsérvese que se produce una transición de fase brusca
-    entre estos regímenes.\footnote{Hasta donde sabemos,
+    entre estos regímenes.\footnote{Hasta donde nos consta,
         no existe una justificación teórica rigurosa para estos
     comportamientos de transición de fase.}
 \end{example}
@@ -1009,8 +1006,8 @@ fines de aprendizaje, nos interesa cómo aprovechar este fenómeno para
 diseñar algoritmos capaces de encontrar la distribución correcta.
 
 Utilicemos el sencillo ejemplo que se muestra en la \Cref{fig:two-subspaces} para
-ilustrar las ideas básicas. Si se pueden particionar todas las muestras en $\vX$
-en dos grupos en $\vX_1$ y $\vX_2$, con $N_1$ y $N_2$ muestras
+ilustrar las ideas básicas. Si se pueden particionar todas las muestras **de** $\vX$ 
+en dos grupos, $\vX_1$ y $\vX_2$, con $N_1$ y $N_2$ muestras 
 respectivamente, entonces la tasa de codificación asociada sería\footnote{Aquí
     ignoramos algunos bits de sobrecarga necesarios para codificar la pertenencia de
 cada muestra, por ejemplo, mediante la codificación de Huffman.}
@@ -1036,14 +1033,14 @@ que minimiza la tasa de codificación:
 
 \paragraph{Estrategias de optimización para el agrupamiento.}
 La pregunta que queda por resolver es cómo optimizar el objetivo de tasa de codificación anterior
-para encontrar los grupos óptimos. Existen tres enfoques naturales
+para encontrar los \textit{clusters} óptimos. Existen tres enfoques naturales
 para abordar este objetivo:
 \begin{enumerate}
     \item Podemos empezar con el conjunto completo $\vX$ como un único grupo
         (es decir, el régimen «perezoso») y luego buscar (por ejemplo, al azar) la forma de
         dividirlo de modo que se obtenga una tasa de codificación menor. 
-    \item A la inversa, podemos partir de cada muestra $\vx_i$ como un grupo independiente
-        (es decir, el régimen de memorización)  y buscar fusionar grupos
+    \item A la inversa, podemos partir de cada muestra $\vx_i$ como un su propio grupo 
+        (es decir, el régimen de «memorización»)  y buscar fusionar grupos
         que den lugar a una tasa de codificación menor.
     \item Por otra parte, si pudiéramos representar (o aproximar) la
         función de pertenencia $\boldsymbol{\Pi}$ mediante unos parámetros continuos,
@@ -1061,11 +1058,11 @@ objetivo de la tasa de codificación.
 El segundo enfoque fue propuesto originalmente en el trabajo de
 \cite{ma2007segmentation}. Este trabajo demuestra las ventajas de poder
 evaluar la tasa de codificación de manera eficiente (por ejemplo, mediante una fórmula
-analítica). Gracias a ello, los grupos (de baja dimensión) de datos pueden
+analítica). Gracias a ello, los \textit{clusters} (de baja dimensión) de los datos pueden
 identificarse en forma bastante eficiente y eficaz mediante el principio de
 minimización de la longitud de codificación (MCL). Nótese que, para un grupo $\vX_k$ con
 $N_k$ muestras, el número de bits binarios necesarios para codificar todas las
-muestras de $\vX_k$ viene dada por:\footnote{De hecho, una estimación más precisa
+muestras de $\vX_k$ viene dado por:\footnote{De hecho, una estimación más precisa
     de la longitud de codificación es $L(\vX_k) = (N_k+D) R_\epsilon(\vX_k)$
     donde los bits adicionales se utilizan para codificar la base del subespacio
 \cite{ma2007segmentation}. Aquí omitimos esta sobrecarga por simplicidad.}
@@ -1081,7 +1078,7 @@ muestras como dos grupos separados, el número de bits binarios necesarios es
 Los dos últimos términos corresponden al número de bits necesarios para codificar la
 pertenencia de las muestras según el código de Huffman.
 
-Entonces, dados cualesquiera dos grupos distintos $\vX_1$ y $\vX_2$, podemos
+Entonces, dados cualesquiera dos grupos separados $\vX_1$ y $\vX_2$, podemos
 decidir si fusionarlos o no basándonos en la diferencia entre
 las dos longitudes de codificación:
 \begin{equation}
@@ -1093,11 +1090,11 @@ significa que la longitud de codificación se reduciría si fusionamos los dos
 grupos en uno solo. Este simple hecho da lugar al siguiente algoritmo de agrupamiento
 propuesto por \cite{ma2007segmentation}:
 \begin{algorithm}[!htbp]
-    \caption{Descenso más pronunciado por pares de longitud de 
+    \caption{Descenso más pronunciado por pares de la longitud de 
     codificación}\label{alg:steepest_descent_coding_length}
     \begin{algorithmic}[1]
         \Require{\(N\) puntos de datos \(\{\vx_{i}\}_{i = 1}^{N}\)}
-        \Ensure{Un conjunto \(\cC\) de grupos}
+        \Ensure{Un conjunto \(\cC\) de \textit{clústeres}}
 
         \Procedure{PairwiseSteepestDescentOfCodingLength}{$\{\vx_{i}\}_{i
         = 1}^{N}$}
@@ -1134,12 +1131,12 @@ propuesto por \cite{ma2007segmentation}:
     \end{algorithmic}
 \end{algorithm}
 
-Cabe señalar que este algoritmo es manejable, ya que el número total de
+Cabe señalar que este algoritmo es tratable, ya que el número total de
 comparaciones (por pares) y fusiones es de aproximadamente $O(N^2\log N)$. Sin embargo,
 debido a su naturaleza voraz, no existe garantía teórica de que el
 proceso converja hacia la solución de agrupamiento óptima a nivel global.
 No obstante, según se señala en \cite{ma2007segmentation}, en la práctica,
-este algoritmo, aparentemente sencillo, funciona extremadamente bien. Los resultados de la agrupación
+este algoritmo, aparentemente sencillo, funciona extremadamente bien. Los resultados del agrupamiento
 representados en la \Cref{fig:two-lines-and-plane} se calcularon, de hecho,
 mediante este algoritmo.
 
@@ -1147,7 +1144,7 @@ mediante este algoritmo.
     medida de longitud de codificación mencionada anteriormente y el algoritmo de agrupamiento
     asociado suponen que la distribución de los datos es una mezcla de
     distribuciones gaussianas (de baja dimensión). Aunque esto pueda parecer un tanto
-    idealizado, la medida y el algoritmo pueden resultar muy útiles
+    idealizado, la medida y el algoritmo ya pueden resultar muy útiles
     e incluso potentes en situaciones en las que el modelo sea (aproximadamente) válido.
 
     Por ejemplo, una imagen natural suele estar compuesta por múltiples
@@ -1155,8 +1152,8 @@ mediante este algoritmo.
     de cada región, estas deberían parecerse a muestras extraídas de
     una distribución gaussiana (de baja dimensión), tal como se ilustra en
     la \Cref{fig:image-patch}. La \Cref{fig:image-segmentation} muestra los
-    resultados de la segmentación de imágenes obtenidos al aplicar el
-    algoritmo de agrupamiento mencionado anteriormente directamente a los fragmentos de imagen. Se pueden encontrar más
+    resultados de la segmentación de imágenes obtenidos al aplicar directamente el
+    algoritmo de agrupamiento mencionado anteriormente a los fragmentos de imagen (parches). Se pueden encontrar más
     detalles técnicos sobre la adaptación del algoritmo al
     problema de la segmentación de imágenes en \cite{Mobahi-IJCV2011}.
 \end{example}
@@ -1164,7 +1161,7 @@ mediante este algoritmo.
 \begin{figure}
     \centering
     \includegraphics[width=0.4\linewidth]{\toplevelprefix/chapters/chapter4/figs/image-segmentation-tiles.png}
-    \caption{Fragmentos de imagen con un tamaño de $w\times w$ pixels.}
+    \caption{Fragmentos de imagen (parches) de tamaño $w\times w$ pixels.}
     \label{fig:image-patch}
 \end{figure}
 
@@ -1172,28 +1169,28 @@ mediante este algoritmo.
     \centering
     \includegraphics[width=0.8\linewidth]{\toplevelprefix/chapters/chapter4/figs/image-segmentation.png}
     \caption{Resultados de la segmentación basados en el algoritmo de agrupamiento
-    aplicado a los fragmentos de imagen.}
+    aplicado a los parches de imagen.}
     \label{fig:image-segmentation}
 \end{figure}
 
-\section{Transformación mediante maximización de la ganancia de información}
+\section{Transformación mediante la maximización de la ganancia de información}
 \label{sec:chap4-representation-learning-problem}
 
 Hasta ahora, en este capítulo hemos analizado cómo identificar una
 distribución con estructuras de baja dimensión mediante el principio de
 compresión. Como hemos visto en las dos secciones anteriores,
 la compresión computacional puede llevarse a cabo mediante la
-operación de reducción de ruido o por vía de la agrupación en clústeres. La \Cref{fig:Gaussian-Subspaces}
+operación de reducción de ruido o mediante agrupamiento en clústeres. La \Cref{fig:Gaussian-Subspaces}
 ilustra este concepto con nuestro ejemplo favorito.
 
 Es importante señalar que el algoritmo de agrupamiento y las fórmulas de la tasa de codificación
 desarrollados en la sección anterior partían del supuesto de que la distribución de los datos
 es \textit{ya} (aproximadamente) una mezcla de gaussianas de baja dimensión.
-En la práctica, los datos brutos —imágenes, audio, texto— rara vez cumplen esta
-hipótesis de manera directa: sus estructuras intrínsecas suelen ser
+En la práctica, los datos brutos —imágenes, audio, texto— rara vez cumplen este
+supuesto de manera directa: sus estructuras intrínsecas suelen ser
 \textit{no lineales}. El objetivo de esta sección es desarrollar un
 marco para \textit{transformar} los datos de tal manera que sus representaciones
-adopten la forma de una mezcla de subespacios incoherentes de baja dimensión,
+sí adopten la forma de una mezcla de subespacios incoherentes de baja dimensión,
 momento en el que las herramientas de la sección anterior se vuelven directamente
 aplicables. Es decir, la sección anterior responde a la pregunta «cómo comprimir
 y agrupar datos que ya son gaussianos», mientras que esta sección
@@ -1211,18 +1208,18 @@ utilizar de manera eficiente y eficaz la información relacionada con estas
 tareas posteriores. Esto plantea, naturalmente, una pregunta fundamental: {\em ¿qué
 hace que una representación sea verdaderamente «buena» para su uso posterior?} A
 continuación, exploraremos las propiedades esenciales que debe poseer una representación
-significativa y útil y cómo estas propiedades
+significativa y útil, y cómo estas propiedades
 pueden caracterizarse y perseguirse explícitamente mediante la maximización de la ganancia de información.
 
 \paragraph{Cómo evaluar la calidad de las representaciones.}
 Se puede considerar un conjunto de datos dado como un conjunto de muestras de un vector aleatorio $\vx$ con
 una distribución determinada en un espacio de alta dimensión, por ejemplo,
 $\R^D$. Por lo general, la distribución de $\vx$ tiene una dimensión intrínseca mucho menor
-que el espacio circundante. En términos generales,  {\em
+que el espacio ambiente. En términos generales,  {\em
 aprender una representación} se refiere a aprender una aplicación continua,
 digamos $f(\cdot)$, que transforma $\vx$ en lo que se denomina {\em vector de características
 } $\vz$ en otro espacio (normalmente de menor dimensión), digamos
-$\R^d$, donde $d < D$. Se espera que a través de tal mapeo
+$\R^d$, donde $d < D$. Es de esperar que a través de tal applicación
 \begin{equation}
     \vx \in \R^D \xrightarrow{\hspace{2mm} f(\vx)\hspace{2mm}}
     \vz  \in \R^d,
@@ -1243,7 +1240,7 @@ La pregunta fundamental del aprendizaje de representaciones es
     \centering
     \includegraphics[width=0.8\linewidth]{\toplevelprefix/chapters/chapter4/figs/Gaussian-Subspaces.png}
     \caption{Identificación de una distribución de baja dimensión con dos
-        subespacios (izquierda) mediante la reducción de ruido o la agrupación, partiendo de una
+        subespacios (izquierda) mediante la reducción de ruido o el agrupamiento, partiendo de una
     distribución gaussiana aleatoria genérica (derecha).}
     \label{fig:Gaussian-Subspaces}
 \end{figure}
@@ -1275,18 +1272,18 @@ de clasificación.\footnote{La clasificación es el ámbito en el que el
 generalizarse en forma natural a otros contextos, como la regresión.} Para facilitar la tarea
 de aprender la distribución $\mathcal{D}$, en el popular contexto de la
 clasificación supervisada, se asigna a cada muestra $\vx_i$ una etiqueta de clase verdadera (o una palabra de código para cada
-clase), representada normalmente por un vector one-hot $\y_i \in \R^K$.
+clase), representada normalmente por un vector \textit{one-hot} $\y_i \in \R^K$.
 
 \paragraph{Codificación de la información de clases mediante la entropía cruzada.} Amplios
 estudios han mostrado que, para muchos conjuntos de datos prácticos (por ejemplo, imágenes,
-audio y lenguajes naturales), el mapeo (de codificación) entre los datos
-$\bm{x}$ y su etiqueta de clase $\bm{y}$ puede modelarse de manera eficaz mediante
+audio y lenguajes naturales), el mapeo (de codificación) de los datos
+$\bm{x}$ a su etiqueta de clase $\bm{y}$ puede modelarse de manera eficaz mediante
 el entrenamiento de una red profunda,\footnote{Por ahora, no nos preocupemos
     por qué red debemos usar aquí y por qué. El objetivo aquí es
     considerar cualquier red profunda probada empíricamente. Dejaremos la
 justificación de las arquitecturas de red para el próximo capítulo.} aquí
 denotada $$f(\vx, \theta):\vx \mapsto \y$$ con parámetros de red
-$\theta \in \Theta$, donde $\Theta$ es el espacio de parámetros. Para
+$\theta \in \Theta$, donde $\Theta$ denota el espacio de parámetros. Para
 que la salida $f(\vx, \theta)$ coincida bien con la etiqueta $\y$, nos interesa
 minimizar la {\em pérdida de entropía cruzada} sobre un conjunto de entrenamiento
 $\{(\vx_i, \y_i)\}_{i=1}^N$:\footnote{Aquí interpretamos \(\vy\) como una
@@ -1303,23 +1300,22 @@ como vectores en \(\R^{K}\).}
     \label{chap4-eqn:cross-entropy}
 \end{equation}
 Los parámetros óptimos $\theta$ de la red suelen obtenerse
-optimizando el objetivo anterior mediante un método eficiente de descenso por gradientes,
-en el que los gradientes se calculan por retropropagación, tal y como
+optimizando el objetivo anterior mediante un método eficiente de descenso por gradiente,
+en el que los gradientes se calculan por retropropagación, tal como
 se describe en la Sección \ref{app:BP-section} del \Cref{app:optimization}.
 
 A pesar de su eficacia y su enorme popularidad, este enfoque presenta dos
-limitaciones importantes: (1) Su único objetivo es predecir
+limitaciones graves: (1) Su único objetivo es predecir
 las etiquetas $\y$, incluso si estas pudieran estar mal etiquetadas. Los estudios empíricos
-muestran que las redes profundas, utilizadas como una «caja negra», pueden incluso adaptarse a etiquetas aleatorias
-~\cite{zhang2017understanding}. (2) Con este tipo de ajuste de datos de extremo a extremo,
+muestran que las redes profundas, utilizadas como una «caja negra», pueden incluso ajustarse a etiquetas aleatorias
+~\cite{zhang2017understanding}. (2) Con este tipo de ajuste extremo a extremo de los datos,
 a pesar de los numerosos esfuerzos empíricos por interpretar las características así aprendidas, %
 no queda claro hasta qué punto las características intermedias aprendidas por
 la red captan las estructuras intrínsecas de los datos que hacen
 posible, en primer lugar, una clasificación significativa. Las propiedades geométricas y estadísticas precisas
 de las características aprendidas también suelen quedar
-ocultas, lo que da lugar a una falta de interpretabilidad y a la
-consiguiente ausencia de garantías de rendimiento (por ejemplo, generalización,
-transferibilidad y robustez, etc.) en el aprendizaje profundo.
+ocultas, lo que da lugar a una falta de interpretabilidad y de las garantías de rendimiento subsiguientes
+(por ejemplo, generalizabilidad, transferibilidad y robustez, etc.) en el aprendizaje profundo.
 Por lo tanto, {\em uno de los objetivos de esta sección es abordar dichas
     limitaciones reformulando el objetivo para aprender
     representaciones explícitamente significativas y útiles para los datos $\vx$,
@@ -1338,14 +1334,14 @@ sin limitarse a la clasificación.}
 Un enfoque habitual para interpretar el papel de las redes profundas consiste en
 considerar que las salidas de las capas intermedias de la red seleccionan
 ciertas características latentes $\vz = f(\vx, \theta) \in \Re^d$ de los datos
-que permiten distinguir entre varias clases. Las representaciones
-aprendidas $\vz$ facilitan entonces la posterior tarea de clasificación
-para predecir la etiqueta de clase $\y$ mediante la optimización de un clasificador $g(\vz)$:
+que son discriminativas entre varias clases. Las representaciones
+aprendidas $\vz$ facilitan entonces la subsecuente tarea de clasificación
+para predecir la etiqueta de clase $\y$ optimizando un clasificador $g(\vz)$:
 \begin{equation}
     \vx   \xrightarrow{\hspace{2mm} f(\vx, \theta)\hspace{2mm}} \vz
     \xrightarrow{\hspace{2mm} g(\vz) \hspace{2mm}} \y.
 \end{equation}
-Sabemos por \eqref{eq:mutual} que {\em la
+Sabemos, por \eqref{eq:mutual}, que {\em la
 información mutua} entre dos variables aleatorias, digamos $\vx,\vz$, se
 define como
 \begin{equation}
@@ -1364,7 +1360,7 @@ entre $\vz$ y $\y$, al tiempo que minimiza la información mutua $I(\vx,
 \vz)$ entre $\vx$ y $\vz$:
 \begin{equation}
     \max_{\theta\in \Theta}\; \mbox{IB}(\vx, \y, \vz) \doteq I(\vz; \y) -
-    \beta I(\vx; \vz) \quad\ \mathrm{s.t.}\ \vz = f(\vx, \theta),
+    \beta I(\vx; \vz) \quad\ \mathrm{sujeto a}\ \vz = f(\vx, \theta),
     \label{chap4-eqn:information-bottleneck}
 \end{equation}
 donde $\beta >0$.
@@ -1378,13 +1374,13 @@ Por ejemplo, un trabajo reciente \cite{papyan2020prevalence} demuestra, de hecho
 que las representaciones aprendidas mediante la pérdida de entropía cruzada
 \eqref{chap4-eqn:cross-entropy} presentan un fenómeno de \emph{colapso neuronal}.
 Es decir, las características de cada clase se mapean a un vector unidimensional,
-mientras que el resto de la información de la clase se suprime, tal y como
+mientras que el resto de la información de la clase se suprime, como
 se ilustra en la \Cref{chap4-fig:neural-collapse}.\footnote{Observaremos 
     este fenómeno en experimentos con datos de imágenes reales más adelante
 en el \Cref{eg:Rate-Reduction-CIFAR10}.}
 \begin{remark}[Colapso Neuronal]
     El colapso neuronal se refiere a un fenómeno observado en redes neuronales profundas
-    entrenadas para la clasificación, en el que las representaciones de características
+    entrenadas para la clasificación, en el que las representaciones de las características
     aprendidas y los pesos del clasificador muestran un comportamiento altamente simétrico y
     estructurado durante la fase final del entrenamiento
     \cite{papyan2020prevalence,zhu2021geometric,yaras2022neural}.
@@ -1412,11 +1408,11 @@ pierde en gran medida en un proceso de aprendizaje supervisado de este tipo.
 Para remediar esta situación, queremos aprender un esquema de codificación diferente
 de tal manera que la representación de características resultante $\vz$ pueda
 capturar tanta información como sea posible sobre la distribución de los datos,
-sin limitarse únicamente a la información útil para la clasificación. Más concretamente,
+sin limitarse a la información útil exclusivamente para la clasificación. Más concretamente,
 queremos que la representación $\vz = f(\vx, \theta)$ sea tal que
 exista un decodificador $g(\vz,\eta)$ de modo que:
 \begin{equation}
-    \|\vx - \hat \vx\|_2 \le \epsilon \quad \text{s.t.} \quad \hat{\vx}
+    \|\vx - \hat \vx\|_2 \le \epsilon \quad \text{sujeto a} \quad \hat{\vx}
     = g(f(\vx)).
 \end{equation}
 Introduciremos formalmente dicho esquema de codificación-decodificación como un
@@ -1432,11 +1428,11 @@ representación de características aprendida $\vz$ sea consistente. Por lo tant
 debería fijarse un objetivo de aprendizaje (consistente) de representaciones (RL):
 \begin{eqnarray}
     \max_{\theta,\eta}\; \mbox{RL}(\vx, \y, \vz) \doteq I(\vz; \y) - \beta
-    I(\vx; \vz) \nonumber \\ \mathrm{s.t.}\quad  \vz = f(\vx,\theta),\quad
+    I(\vx; \vz) \nonumber \\ \mathrm{sujeto a}\quad  \vz = f(\vx,\theta),\quad
     \|\vx - g(\vz, \eta) \|_2 \le \epsilon.
     \label{chap4-eqn:representation-learning}
 \end{eqnarray}
-Resolver el problema anterior en el contexto más general es una tarea muy
+Resolver el problema descrito anteriormente en el contexto más general es una tarea muy
 desalentadora. En general, ni siquiera sabemos qué clases de
 codificadores o decodificadores podrían garantizar la consistencia\footnote{En
     la práctica, las personas tienden a aprenderlas, al margen del objetivo
@@ -1447,10 +1443,10 @@ $I(\vz;\y)$ puede resultar muy complicado, si no imposible.
 
 Antes de estudiar cómo abordar este problema en contextos generales (en
 los capítulos siguientes), en el resto de este capítulo mostraremos
-cómo resolverlo, de manera limitada, en el caso particular en el que
+cómo resolverlo, de alguna manera limitada, en el caso particular en el que
 la distribución de los datos se compone de clases bien diferenciadas (de baja dimensión).
 
-\subsection{Representaciones discriminantes lineales}\label{subsec:LDR}
+\subsection{Representaciones lineales discriminantes}\label{subsec:LDR}
 
 Que los datos proporcionados $\vX$ de una distribución mixta $\mathcal{D}$ puedan
 clasificarse o agruparse de manera efectiva depende de cuán separables (o
@@ -1460,16 +1456,16 @@ de cada clase presenta estructuras intrínsecas
 de {\em dimensión} relativamente {\em baja}. Por lo tanto, podemos suponer que la distribución $\mathcal{D}_k$
 de cada clase tiene su soporte en una subvariedad de baja dimensión, digamos
 $\mathcal{M}_k$ con dimensión $d_k \ll D$, y que la distribución
-$\mathcal D$ de $\vx$ está definida sobre la mezcla de esas
+$\mathcal D$ de $\vx$ tiene su soporte en** la unión de esas 
 subvariedades, $\mathcal M = \cup_{k=1}^K \mathcal{M}_k$,  en el
 espacio ambiental de alta dimensión $\Re^D$, como se ilustró anteriormente en la
 \Cref{fig:representation-learning}.
 
 No solo necesitamos identificar la distribución de baja dimensionalidad, sino que
 también queremos representar la distribución de una forma que
-facilite al máximo las tareas posteriores, como la clasificación, la agrupamiento en clústeres y
+facilite al máximo las tareas posteriores, como la clasificación, el \textit{clustering} y
 la generación condicionada (como veremos más adelante). Para ello,
-necesitamos que nuestras representaciones de características aprendidas tengan las siguientes
+necesitamos que nuestras representaciones aprendidas de características tengan las siguientes
 propiedades:
 \begin{enumerate}
     \item {\em Comprimibilidad intraclase:} Las características de las muestras de la
@@ -1479,19 +1475,19 @@ propiedades:
         diferentes clases deben estar muy {\em descorrelacionadas} y pertenecer
         a subespacios lineales de baja dimensión diferentes e incoherentes.
     \item {\em Representación con máxima diversidad:} La dimensión (o varianza)
-        de las características de cada clase debe ser {\em lo más grande
+        de las características de cada clase debe ser {\em tan grande como sea
         posible}, siempre y cuando sean incoherentes con respecto a las de las demás clases.
 \end{enumerate}
 Nos referimos a dicha representación como la {\em representación discriminativa 
 lineal} (LDR).
 
-Obsérvese que la primera propiedad se ajusta bien al el objetivo del
+Obsérvese que la primera propiedad se ajusta bien al objetivo del
 clásico {\em análisis de componentes principales} (PCA) que hemos
 expuesto en la \Cref{sub:pca}. En esencia, esto significa que las características de
 las muestras que pertenecen a la misma clase\footnote{incluidas las
-instancias augmentadas de las mismas muestras} deben volverse o
+instancias aumentadas de esas mismas muestras} deben volverse o
 hacerse altamente correlacionadas. En otras palabras, la representación de características debe ser {\em
-contractiva} para las muestras que son similares.
+contractiva} para muestras similares.
 
 \begin{figure}
     \centering
@@ -1500,19 +1496,17 @@ contractiva} para las muestras que son similares.
         $\vx\in \Re^D$ tiene su soporte en una variedad $\mathcal{M}$ y sus
         clases se encuentran en subvariedades de baja dimensión $\mathcal{M}_k$. Nuestro objetivo es
 aprender una aplicación $f(\vx, \theta)$ parametrizada por $\theta$ tal que
-$\vz_i = f(\vx_i, \theta)$ se encuentre en una unión de subespacios con máxima descorrelación
+$\vz_i = f(\vx_i, \theta)$ se encuentre en una unión de subespacios máximamente descorrelacionados
 $\{\mathcal{S}_k\}$.}
     \label{chap4-fig:mcr-diagram}
 \end{figure}
 
-La segunda propiedad exige que, en el caso de las muestras que pertenecen a
-clases diferentes o que se presumen que son distintas entre sí, sus características
-deben hacerse (geométricamente) incoherentes o (estadísticamente)
-independientes, tal y como se ilustra anteriormente en la
-\Cref{fig:representation-learning}. La \Cref{chap4-fig:mcr-diagram}
-ilustra  cuándo la distribución de los datos es, en realidad, una mezcla de
+La segunda propiedad exige que las características de muestras pertenecientes a clases diferentes, 
+o que se presume que son distintas, sean (geométricamente) incoherentes o (estadísticamente) 
+independientes (véase \Cref{fig:representation-learning}).  La \Cref{chap4-fig:mcr-diagram}
+ilustra  el caso en que la distribución de los datos es, en realidad, una mezcla de
 subvariedades de baja dimensión. Mediante la compresión (reducción de ruido o
-agrupación), identificamos en primer lugar la distribución real de los datos
+agrupamiento), identificamos en primer lugar la distribución real de los datos
 (izquierda). A continuación, queremos transformar la distribución de tal manera que las
 subvariedades acaben convirtiéndose en subespacios lineales mutuamente incoherentes o independientes
 (derecha).
@@ -1521,7 +1515,7 @@ subvariedades acaben convirtiéndose en subespacios lineales mutuamente incohere
     Se puede observar que
     el segundo criterio se asemeja al del clásico {\em  análisis discriminante lineal}
     (LDA)~\cite{HastieTiFr09}. El análisis discriminante lineal (LDA)~\cite{HastieTiFr09} es una
-    técnica supervisada de reducción de dimensionalidad cuyo objetivo es encontrar una
+    técnica supervisada de reducción de dimensión cuyo objetivo es encontrar una
     proyección lineal de los datos que maximice la separabilidad de las clases.
     En concreto, a partir de datos etiquetados, el LDA busca una transformación lineal
     que proyecte las entradas de alta dimensión en un espacio de menor dimensión
@@ -1547,7 +1541,7 @@ subvariedades acaben convirtiéndose en subespacios lineales mutuamente incohere
 \begin{remark}[Aprendizaje contrastivo]
     Cabe señalar que el {\em aprendizaje contrastivo} convencional
     \citep{hadsell2006dimensionality,Van_den_Oord2018-qf,he2019momentum}
-    pretende alcanzar objetivos similares en cuanto a la representación de características, tal y como establecen las dos primeras
+    pretende alcanzar objetivos similares en cuanto a la representación de características, tal como establecen las dos primeras
     propiedades. En el caso de datos que pertenecen a $k$ clases diferentes,
     un par elegido al azar $(\vx_i, \vx_j)$ tiene una alta probabilidad
     de pertenecer a clases diferentes si $k$ es grande.\footnote{Por
@@ -1556,10 +1550,10 @@ subvariedades acaben convirtiéndose en subespacios lineales mutuamente incohere
     representación $\vz_i = f(\vx_i, \bm \theta)$ de una muestra $\vx_i$ sea
     altamente incoherente con respecto a las $\vz_j$ de otras muestras $\vx_j$, mientras que
     coherente con la característica de su versión transformada $\tau(\vx_i)$, denotada
-    como $\vz(\tau(\vx_i))$ para $\tau$ en cierto conjunto dado de aumentos $\mathcal
-    T$. Por lo tanto, se propuso de manera heurística que, para
-    fomentar el poder discriminativo de la representación aprendida, se podría
-    intentar minimizar la denominada {\em pérdida contrastiva}:
+    como $\vz(\tau(\vx_i))$ para $\tau$ en cierto conjunto dado de aumentaciones $\mathcal
+    T$ considerado. Por lo tanto, se propuso de manera heurística que, para
+    fomentar el poder discriminativo de la representación aprendida, se busque
+    minimizar la denominada {\em pérdida contrastiva}:
     \begin{equation}
         \min_{\bm \theta} - \log \frac{\exp(\langle \vz_i,
         \vz(\tau(\vx_i))\rangle)}{\sum_{j\not= i} \exp(\langle \vz_i,
@@ -1568,15 +1562,15 @@ subvariedades acaben convirtiéndose en subespacios lineales mutuamente incohere
     \end{equation}
     que es pequeña siempre que el producto interno $\langle \vz_i,
     \vz(\tau(\vx_i))\rangle$ sea grande y $\langle \vz_i, \vz_j\rangle$ sea
-    pequeño para $i \neq j$. Esta pérdida contrastiva y muchas de sus
-    variantes se han utilizado ampliamente en métodos populares de aprendizaje de características
-    (autosupervisado), como las características de tipo DINO
+    pequeño para $i \neq j$. Dicha pérdida contrastiva y muchas de sus
+    variantes se han utilizado ampliamente en métodos populares de aprendizaje autosupervisado de características, 
+    como las características de tipo DINO
     \cite{caron2021unsupervisedlearningvisualfeatures,DINOv2} para datos visuales.
-    Como veremos, basándonos en el marco de codificación con pérdidas estudiado en
+    Como veremos, basándonos en el marco de codificación con pérdida estudiado en
     la sección anterior, podremos llegar a una función objetivo fundamentada
     que promueva ambas propiedades y, al mismo
     tiempo, simplifique significativamente prácticas como el aprendizaje de
-    las características de tipo DINO (tal y como lo expondremos con gran detalle en el
+    las características de tipo DINO (como lo expondremos con gran detalle en el
     \Cref{ch:applications}).
 \end{remark}
 
@@ -1602,14 +1596,14 @@ colapso neuronal} comentado anteriormente (véase la
 En general, aunque las estructuras intrínsecas de cada clase o grupo
 puedan ser de baja dimensión, no son en absoluto simplemente lineales (o
 gaussianas) en su representación original $\vx$, y es necesario
-convertirlas primero en lineales mediante alguna transformación no lineal.\footnote{Analizaremos
+convertirlas primero en lineales mediante alguna transformación no lineal.\footnote{Abordaremos
     cómo se puede hacer esto de manera explícita en el
-\Cref{ch:consistent-representations}.} Por lo tanto, en general, utilizamos
+\Cref{ch:consistent-representations}.} Por lo tanto, en conjunto, utilizamos
 la transformación no lineal
 $f(\vx,\theta)$ para buscar una representación de los datos
 tal que los subespacios que representan todas las clases sean subespacios lineales
 máximamente incoherentes. Para ser más precisos, queremos aprender una
-función {$\vz = f(\vx,\theta)$} que mapee cada una de las subvariedades
+aplicación {$\vz = f(\vx,\theta)$} que aplique cada una de las subvariedades
 $\mathcal{M}_k \subset \Re^D$ (\Cref{chap4-fig:mcr-diagram} izquierda) a
 un subespacio {\em lineal} $\mathcal{S}_k \subset \Re^d$
 (\Cref{chap4-fig:mcr-diagram} derecha). En cierta medida, los
@@ -1647,7 +1641,7 @@ semisupervisados y no supervisados (como veremos en
 secciones posteriores).
 
 Sin pérdida de generalidad, supongamos que la distribución $\mathcal D$
-del vector aleatorio $\vx$ se define sobre una mezcla de distribuciones,
+del vector aleatorio $\vx$ tiene como soporte una mezcla de distribuciones,
 es decir, $\mathcal D = \cup_{k=1}^K \mathcal{D}_k$, donde cada
 $\mathcal{D}_k \subset \Re^D$ tiene una dimensión intrínseca baja en el
 espacio ambiente de alta dimensión $\Re^D$. Sea $\bm X_k \in \Re^{D\times
@@ -1681,12 +1675,12 @@ tasa de codificación de las características aprendidas.
 a la hora de evaluar la tasa de codificación es que la distribución subyacente de
 las representaciones de las características $\vZ$ suele ser desconocida. Para solucionar
 esto, podemos aproximar las características $\vZ = [\vz_1, \ldots, \vz_N]$ como
-muestras extraídas de una distribución gaussiana multivariante. Bajo esta
-hipótesis, tal y como se analiza en la \Cref{subsec:lossy DR}, la compacidad
+muestras extraídas de una distribución gaussiana multivariante. Bajo este
+supuesto, tal como se analiza en la \Cref{subsec:lossy DR}, la compacidad
 de las características $\vZ$ {\em en su conjunto} puede medirse en términos de la
 longitud media de codificación por muestra, denominada {\em tasa de codificación}, 
 sujeta a un nivel de precisión $\epsilon > 0$ (véase
-\eqref{eqn:rate-Gaussian}) definida de la siguiente manera:
+\eqref{eqn:rate-Gaussian}), definida de la siguiente manera:
 \begin{equation}
     R_{\epsilon}(\vZ) = \frac{1}{2}\logdet\left(\I +
     \frac{d}{N\epsilon^{2}}\vZ\vZ^{\top}\right).
@@ -1694,8 +1688,8 @@ sujeta a un nivel de precisión $\epsilon > 0$ (véase
 \end{equation}
 
 Por otro lado, esperamos que una transformación no lineal $f(\vx)$
-asigne a cada subvariedad específica de clase $\mathcal{M}_k \subset
-\R^D$ un subespacio lineal maximamente incoherente
+mapee cada subvariedad específica de clase $\mathcal{M}_k \subset
+\R^D$ a un subespacio lineal maximamente incoherente
 $\mathcal{S}_k \subset \R^D$, de manera que las características aprendidas
 $\vZ$ se encuentren en una unión de subespacios de baja dimensión. Esta estructura
 permite una evaluación más precisa de la tasa de codificación mediante el análisis
@@ -1707,7 +1701,7 @@ $\bm Z_k$ se puede calcular de la siguiente manera:
     R_{\epsilon}(\vZ_k) = \frac{N_k}{2N}\log\det\left(\I +
     \frac{d}{N_k\epsilon^{2}}\vZ_k\vZ_k^{\top}\right)
 \end{align}
-Entonces, la suma de las tasas de codificación promedio de las características de cada clase es
+Entonces, la suma de las tasas medias de codificación de las características de cada clase es
 \begin{equation}
     R_{\epsilon}^c(\vZ) \doteq \sum_{k=1}^K R_{\epsilon}(\vZ_k),
     \label{chap4-eqn:compress-loss-eval}
@@ -1720,7 +1714,7 @@ la de todas las clases:
     \Delta R_{\epsilon}(\vZ) \doteq R_{\epsilon}(\vZ) - R_{\epsilon}^c(\vZ).
     \label{chap4-eqn:coding-length-reduction}
 \end{equation}
-Obsérvese que, tal y como hemos comentado anteriormente en este capítulo, esta
+Obsérvese que, como se ha comentado anteriormente en este capítulo, esta
 diferencia puede interpretarse como la cantidad de «información ganada»
 al identificar los clústeres de baja dimensión correctos $\vZ_k$ dentro del
 conjunto global $\vZ$.
@@ -1757,19 +1751,19 @@ de características con respecto a sus clases:
     \begin{aligned}
         \max_{\theta } & \;  \Delta R_{\epsilon}\big(\vZ \big) \doteq
         R_{\epsilon}(\vZ) - R_{\epsilon}^c(\vZ ), \\
-        \mbox{s.t.} & \ \ \, \vZ = f(\bm X, \theta),\  \|\vZ_k\|_F^2
+        \mbox{sujeto a} & \ \ \, \vZ = f(\bm X, \theta),\  \|\vZ_k\|_F^2
         = N_k,\ k=1,\dots,K.
     \end{aligned}
     \label{eqn:maximal-rate-reduction}
 \end{equation}
-Denominamos esto el principio de la {\em reducción máxima de la tasa de codificación
-} (MCR$^2$), como una encarnación de la famosa cita de Aristóteles:
+Llamamos esto el principio de {\em reducción máxima de la tasa de codificación
+} (MCR$^2$), como una materialización de la célebre cita de Aristóteles:
 \begin{quote}
     \centering
     ``{\em El todo es más que la suma de sus partes.}''
 \end{quote}
-Para aprender la mejor representación, se requiere que {\em la totalidad sea superior 
-en la máxima medida a la suma de sus partes}. En gran medida, la
+Para aprender la mejor representación, se requiere que {\em el todo supere en la máxima medida a
+la suma de sus partes}. En gran medida, la
 cantidad $\Delta R$ puede considerarse como una realización computable del
 término de información mutua $I(\vz; \y)$ introducido en el objetivo
 \eqref{chap4-eqn:representation-learning}.
@@ -1780,7 +1774,7 @@ término de información mutua $I(\vz; \y)$ introducido en el objetivo
     \begin{figure}[t]
         \centering
         \includegraphics[width=0.99\linewidth]{\toplevelprefix/chapters/chapter4/figs/Expansion2.png}
-        \caption{Tras identificar la distribución de los datos en baja dimensión,
+        \caption{Tras identificar la distribución de baja dimensión de los datos,
             deseamos dar un paso más en la transformación de la distribución de los datos en una
             representación estructurada más informativa: $R$ es el número de
             bolas de radio $\epsilon$ que cubren todo el espacio y $R^c$
@@ -1826,10 +1820,10 @@ problemas de aprendizaje no supervisado se formula de la siguiente manera:
 \begin{align}\label{eq:MCR pi}
     \max_{\bm \Pi, \theta} & \  \Delta R_{\epsilon}\big(\vZ  \mid \bm \Pi)
     \doteq R_{\epsilon}(\bm Z) - R_{\epsilon}^c(\vZ \mid \bm \Pi) \notag \\
-    \mathrm{s.t.}  & \ \ \ \bm Z = f(\bm X, \theta),\ \|\bm Z \bm
+    \mathrm{sujeto a}  & \ \ \ \bm Z = f(\bm X, \theta),\ \|\bm Z \bm
     \Pi_k\|_F^2 = N_k,\ k = 1,\dots,K,\ \bm\Pi \in \Omega.
 \end{align}
-En comparación con \eqref{eqn:maximal-rate-reduction}, esta formulación 
+En comparación con \eqref{eqn:maximal-rate-reduction}, la formulación aquí presentada
 permite la optimización conjunta tanto de las pertenencias a grupos como
 de los parámetros de la red. En particular, cuando $\bm \Pi$ se establece como una
 matriz de pertenencia a grupos que asigna $N$ puntos de datos a $K$ grupos,
@@ -1849,8 +1843,8 @@ el problema \eqref{eq:MCR pi} puede recuperar el problema
     Es un resultado clásico que calcular el logaritmo del determinante de una
     matriz \(n \times n\) requiere un tiempo de orden \(\cO(n^{3})\). Por lo tanto,
     calcular las tasas de codificación \(\Delta R_{\epsilon}\) o
-    \(R_{\epsilon}\) (etc.) parece una tarea inmanejable a la escala del análisis de datos
-    moderno. Hay varias formas de evadirlo, que
+    \(R_{\epsilon}\) (etc.) parece una tarea intratable a la escala del análisis de datos
+    moderno. Hay varias formas de sortear esta limitación, que
     utilizaremos sin mayor explicación en los experimentos que sirven de base al resto del libro.
     \begin{itemize}
         \item \textit{Utilizar la estructura de la tasa de codificación.} Supongamos
@@ -1865,7 +1859,7 @@ el problema \eqref{eq:MCR pi} puede recuperar el problema
         \item \textit{Utilizar la simetría de la matriz de Gram.}
             Obsérvese que \(\vZ\vZ^{\top}\) (y, de manera similar,
             \(\vZ^{\top}\vZ\)) es una matriz simétrica. Por lo tanto, resulta
-            relativamente sencillo (aunque sigue siendo de tiempo cúbico) calcular sus
+            relativamente poco costoso (aunque sigue siendo de tiempo cúbico) calcular sus
             valores propios \(\lambda_{i}(\vZ\vZ^{\top})\). Entonces, el
             logaritmo del determinante se puede expresar de la siguiente manera:
             \begin{equation}
@@ -1875,7 +1869,7 @@ el problema \eqref{eq:MCR pi} puede recuperar el problema
             (y análogamente para \(\vZ^{\top}\vZ\)). Sin embargo, este
             método se vuelve innecesario ante el siguiente, que aprovecha
             mejor la estructura de los datos de entrada y ofrece mejores resultados.
-        \item \textit{Utilizar la definitud positiva de los términos que intervienen en el
+        \item \textit{Utilizar la definitud positiva del argumento del logaritmo del 
             determinante logarítmico.} Dado que \(\vZ\vZ^{\top}\) (y, de manera análoga,
             \(\vZ^{\top}\vZ\)) es simétrico y semidefinido positivo,
             la cantidad \(\vI + \alpha \vZ\vZ^{\top}\) es simétrica
@@ -1906,7 +1900,7 @@ que plantean las redes neuronales, consideramos una versión simplificada
 del problema \eqref{eqn:maximal-rate-reduction} de la siguiente manera:
 \begin{align}\label{eqn1:maximal-rate-reduction}
     \max_{\bm Z}\ R_{\epsilon}(\vZ) - R_{\epsilon}^c(\vZ)\qquad
-    \mathrm{s.t.}\quad \|\bm Z_k\|_F^2 = N_k,\ k =1,\dots,K.
+    \mathrm{sujeto a}\quad \|\bm Z_k\|_F^2 = N_k,\ k =1,\dots,K.
 \end{align}
 En teoría, el principio MCR$^2$ \eqref{eqn1:maximal-rate-reduction}
 se caracteriza por una gran generalizabilidad y puede aplicarse a
@@ -1914,7 +1908,7 @@ representaciones $\vZ$ de {\em cualquier} distribución, siempre y cuando las ta
 $R_\epsilon$ y $R^c_\epsilon$ de dichas distribuciones puedan
 evaluarse con precisión y eficiencia. La representación óptima
 $\vZ^{\ast}$  debería presentar algunas propiedades geométricas y estadísticas
-interesantes. Aquí revelamos algunas propiedades útiles de la representación óptima
+interesantes. Aquí revelamos algunas propiedades valiosas de la representación óptima
 en el caso especial de los subespacios, que tienen muchas
 aplicaciones importantes en el aprendizaje automático. Cuando la representación deseada
 para $\vZ$ consiste en múltiples subespacios, las tasas $R_\epsilon$
@@ -1942,7 +1936,7 @@ enunciado formal y demostraciones detalladas).
             \frac{N_k}{N}\frac{d^2}{d_k^2}\right\}$, donde $c>0$ es una
             constante. Cada subespacio alcanza su dimensión máxima, es decir,
             $\mathrm{rank}{(\vZ_{k}^*)}= d_k$. Además, los
-            $d_k-1$ valores singulares más grandes de $\vZ_{k}^*$ son iguales.
+            $d_k-1$ mayores valores singulares de $\vZ_{k}^*$ son iguales.
             \label{thm:MCR2-properties}
     \end{itemize}
 \end{theorem}
@@ -1950,7 +1944,7 @@ enunciado formal y demostraciones detalladas).
 Este teorema indica que el principio MCR$^2$ favorece el \textit{embedding}
 de los datos en múltiples subespacios independientes (como se ilustra en
 \Cref{fig:mcr-global}), con características distribuidas {\em isotrópicamente}
-en cada subespacio (salvo, quizás, en una dimensión). Cabe destacar que este
+en cada subespacio (salvo, quizás, una sola dimensión). Cabe destacar que este
 teorema también confirma que las características aprendidas por el principio MCR$^2$
 presentan las propiedades discriminativas de baja dimensión deseadas
 que se analizaron en \Cref{subsec:LDR}. Además, de entre todas
@@ -1966,9 +1960,9 @@ Debido a las restricciones de la norma de Frobenius, resulta
 difícil analizar el problema \eqref{eqn1:maximal-rate-reduction}
 desde una perspectiva de la teoría de la optimización. Es por eso que consideramos
 la formulación lagrangiana de \eqref{eqn1:maximal-rate-reduction}. 
-Esto puede considerarse como una relajación estricta o incluso un problema equivalente
+Esto puede considerarse como una relajación ajustada o incluso un problema equivalente
 al de \eqref{eqn1:maximal-rate-reduction}, cuyas soluciones óptimas
-coinciden bajo ajustes específicos del parámetro de regularización;
+coinciden bajo valores específicos del parámetro de regularización;
 véase \cite[Proposition 3.2]{wang2024global}.
 En concreto, la formulación que estudiamos, a la que en adelante nos referiremos como el
 \textit{problema MCR$^2$ regularizado}, es la siguiente:
@@ -1977,10 +1971,10 @@ En concreto, la formulación que estudiamos, a la que en adelante nos referiremo
     \frac{\lambda}{2}\|\bm Z\|_F^2,
 \end{align}
 donde $\lambda > 0$ es el parámetro de regularización. Aunque el
-programa \eqref{eq:MCR-reg} es extremadamente no cóncavo e implica
-inversas de matrices en el cálculo de su gradiente, no obstante podemos
+programa \eqref{eq:MCR-reg} es altamente no cóncavo e implica
+inversas de matrices en el cálculo de su gradiente, aún así podemos
 caracterizar explícitamente sus óptimos locales y globales de la siguiente manera (véase
-\cite[Theorem 3.1]{wang2024global} para una demostración detallada).
+\cite[Theorem 3.1]{wang2024global} para demostraciones detalladas).
 
 \begin{theorem}[\bf Óptimos locales y globales]\label{thm:mcr-global-opt}
     Sea $N_k$ el número de muestras de entrenamiento en la $k$-ésima clase
@@ -2039,13 +2033,13 @@ el algoritmo de descenso por gradiente (GD) para resolver el problema
 como un punto de silla. 
 Afortunadamente, \cite{sun2015nonconvex,lee2016gradient} demostraron que si una
 función es dos veces continuamente diferenciable y satisface la {\em
-propiedad de silla estricta}, es decir, cada punto crítico ya es, o un
+propiedad de silla estricta}, es decir, cada punto crítico es, ya sea un
 maximizador local o bien un punto de silla estricto\footnote{Decimos que un punto crítico
     es un punto de silla estricto del problema \eqref{eq:MCR-reg} si
     tiene una dirección con curvatura estrictamente positiva
     ~\cite{sun2015nonconvex}. Esto incluye tanto los puntos de silla clásicos
     con curvatura estrictamente positiva como los minimizadores locales
-    estrictos.}, GD converge casi seguro a un maximizador local con
+    estrictos.}, GD converge casi con seguridad a un maximizador local con
 inicialización aleatoria. Investigamos el paisaje de optimización global
 del problema \eqref{eq:MCR-reg} caracterizando todos sus
 puntos críticos de la siguiente manera (véase \cite[Teorema 3.3]{wang2024global}
@@ -2065,16 +2059,16 @@ reducción de tasa ---y no solo a los maximizadores globales--- se estructuran
 como subespacios incoherentes de baja dimensión. Además, el
 objetivo de reducción de la tasa (regularizado)
 \eqref{eqn:maximal-rate-reduction} presenta un paisaje muy benigno, con
-solo maximizadores locales y puntos de silla estrictos como puntos críticos, tal y como
+solo maximizadores locales y puntos de silla estrictos como puntos críticos, tal como
 se ilustra en \Cref{fig:mcr-global-local}.
 Según \cite{sun2015nonconvex,lee2016gradient}, los
 \Cref{thm:mcr-global-opt,thm:mcr-benign-opt-landscape} implican que
-las representaciones de baja dimensión y discriminativas (LDR) pueden
+las representaciones de baja dimensión y de carácter discriminativo (LDR) pueden
 encontrarse de manera eficiente aplicando el descenso por gradiente (estocástico) al
 objetivo de reducción de tasa \eqref{eqn:maximal-rate-reduction} a partir de 
-una inicialización aleatoria. Estos resultados también explican indirectamente por qué en la
+una inicialización aleatoria. Estos resultados también explican indirectamente por qué en el
 \Cref{eg:Rate-Reduction-CIFAR10}, si la red elegida es lo suficientemente expresiva
-y está bien entrenada, la representación resultante suele ofrecer
+y está bien entrenada, suele dar lugar a
 una representación lineal incoherente que probablemente corresponda a la
 solución óptima global. Se remite a los lectores interesados a 
 \cite{wang2024global} para consultar las demostraciones.
@@ -2088,10 +2082,10 @@ solución óptima global. Se remite a los lectores interesados a
 A continuación, mostramos cómo el objetivo MCR$^2$
 \eqref{eqn:maximal-rate-reduction} ayuda a aprender mejores representaciones
 que la entropía cruzada (CE) \eqref{chap4-eqn:cross-entropy} para la clasificación
-de imágenes. Aquí, para simplificar,\footnote{Estudiaremos y justificaremos rigurosamente
+de imágenes. Para simplificar,\footnote{Estudiaremos y justificaremos rigurosamente
     cómo diseñar o derivar una arquitectura profunda adecuada
 a partir del objetivo MCR$^2$ y para este en el \Cref{ch:deep-networks}.}
-adoptamos una popular arquitectura de redes neuronales, la
+adoptamos una arquitectura popular de redes neuronales, la
 ResNet-18~\cite{he2016deep}, para modelar el mapeo de características $\vz =
 f(\vx,\theta)$. Optimizamos los parámetros de la red neuronal $\theta$ mediante
 el algoritmo de retropropagación (detallado en la
@@ -2103,7 +2097,7 @@ La \Cref{fig:train-test-loss} ilustra cómo evolucionan las dos tasas y su
 diferencia (tanto para los datos de entrenamiento como para los de prueba) a lo largo de las épocas de
 entrenamiento: tras una fase inicial, $R_\epsilon$ aumenta gradualmente
 mientras que $R^c_\epsilon$ disminuye, lo que indica que las características $\bm Z$ se están
-expandiendo en su conjunto, mientras que cada clase $\bm Z_k$ se está comprimiendo.
+expandiendo en su conjunto, mientras cada clase $\bm Z_k$ se está comprimiendo.
 
 En primer lugar, evaluamos el rendimiento con el conjunto de datos de clasificación de imágenes CIFAR-10
 ~\cite{krizhevsky2009learning} y los resultados
@@ -2127,7 +2121,7 @@ ajustarse a las etiquetas de las muestras individuales.
     \centering
     \includegraphics[width=\linewidth]{chapters/chapter4/figs/Table-label-corruption.png}
     \caption{Comparación de la exactitud de clasificación entre el entrenamiento con
-        la pérdida de entropía cruzada (CE) o el objetivo MCR$^2$, con
+        la pérdida de entropía cruzada (CE) y usando el objetivo MCR$^2$, con
     diferentes proporciones de etiquetas de clase corrompidas aleatoriamente.}
     \label{fig:CIFAR10-performance}
 \end{figure}
@@ -2136,15 +2130,15 @@ ajustarse a las etiquetas de las muestras individuales.
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter4/figs/mcr_pca_individual.pdf}
-        \caption{Vectores de componentes principales (PCA) de las características de clases individuales, aprendidas
-        por MCR$^2$.}
+        \caption{Vectores de componentes principales (PCA) de las características de clases individuales, obtenidas
+        mediante MCR$^2$.}
         \label{fig:MCR-pca}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter4/figs/ce_pca_individual.pdf}
-        \caption{PCA de las características de las clases individuales aprendidas
+        \caption{PCA de las características de las clases individuales, aprendidas
         mediante la entropía cruzada.}
         \label{fig:CE-pca}
     \end{subfigure}
@@ -2187,20 +2181,20 @@ las características aprendidas utilizando la entropía cruzada (CE)
 que las características aprendidas por el objetivo MCR$^2$ para las diferentes
 clases son mucho más incoherentes (o independientes) que las características
 aprendidas utilizando la pérdida de entropía cruzada. Dentro de cada clase, las características
-también son menos coherentes y, por lo tanto, más diversas, tal y como indica la
+también son menos coherentes y, por lo tanto, más diversas, como indica la
 distribución de sus valores singulares que se muestra en la \Cref{fig:MCR-pca}.
 
 Visualizamos las imágenes que se proyectan a lo largo de diferentes vectores singulares
 en el subespacio de características de cada clase, a las que denominamos
 imágenes «principales». La \Cref{fig:pca-images} muestra estas
-imágenes principales a lo largo de cada uno de los 10 vectores singulares principales. Como podemos
+imágenes principales a lo largo de cada uno de los 10 primeros vectores singulares. Como podemos
 ver, las imágenes correspondientes a cada vector singular son muy similares en cuanto a su
 aspecto y estructura, mientras que las imágenes correspondientes a diferentes
 vectores singulares son muy distintas entre sí.
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{chapters/chapter4/figs/visual_2class.pdf}
-    \caption{Las 10 mejores imágenes «principales» para las clases «Ave» y
+    \caption{Las 10 primeras imágenes «principales» para las clases «Ave» y
     «Barco» en el conjunto de datos de imágenes CIFAR-10.}
     \label{fig:pca-images}
 \end{figure}
@@ -2227,18 +2221,18 @@ A continuación, presentamos cómo extender el principio MCR$^2$ al
 entorno no supervisado. A diferencia del aprendizaje supervisado, en el que se conocen las
 etiquetas de clase, en el aprendizaje no supervisado se desconoce a qué grupo
 pertenecen las muestras de datos. En este caso, podemos aplicar cierta
-clase de aumentos o transformaciones, digamos $\tau$ con una
+clase de aumentaciones o transformaciones, digamos $\tau$ con una
 distribución $P_{\tau}$, a cada muestra. Por ejemplo, en el caso de las imágenes,
-los aumentos suelen incluir traslaciones, rotaciones o recortes
-de cada muestra de imagen. Podemos considerar que las muestras augmentadas de cada punto de datos
+las aumentaciones suelen incluir traslaciones, rotaciones o recortes
+de cada muestra de imagen. Podemos considerar que las muestras aumentadas de cada punto de datos
 pertenecen al mismo grupo o clúster.
 
 Más concretamente, dado un conjunto de $N$ muestras de datos $\vX =
-[\vx_1,\dots,\vx_N]$, generamos $m$ vistas augmentadas
-$\{\tau_i\}_{i=1}^m$ para cada punto de datos $\vx_k$, denotadas como
+[\vx_1,\dots,\vx_N]$, generamos $m$ vistas aumentadas
+$\{\tau_i\}_{i=1}^m$, para cada punto de datos $\vx_k$, denotadas como
 $\tilde{\vX}_{k} = [\tau_1(\vx_k), \tau_2(\vx_k), \dots, \tau_m(\vx_k)]$.
-Tratamos las muestras augmentadas $\tilde{\vX}_{i}$ como la clase $i$-ésima
-con un total $K=N$ grupos/clústeres. Ahora podemos aplicar el principio MCR$^2$
+Tratamos las muestras aumentadas $\tilde{\vX}_{i}$ como la clase $i$-ésima
+con un total de $K=N$ grupos/clústeres. Ahora bien, podemos aplicar el principio MCR$^2$
 tal como lo hicimos anteriormente en el caso del aprendizaje supervisado.
 Concretamente, aprendemos la función de mapeo de características $f(\vx,\theta)$
 maximizando la reducción de la tasa de codificación de la siguiente manera:
@@ -2246,13 +2240,13 @@ maximizando la reducción de la tasa de codificación de la siguiente manera:
     \begin{aligned}
         \max_{\theta } & \;  \Delta R_{\epsilon}\big(\vZ \big) \doteq
         R_{\epsilon}(\vZ) - R_{\epsilon}^c(\vZ ), \\
-        \mbox{s.t.} & \ \ \, \vZ = f(\tilde{\vX}, \theta),\  \|\vZ_k\|_F^2
+        \mbox{sujeto a} & \ \ \, \vZ = f(\tilde{\vX}, \theta),\  \|\vZ_k\|_F^2
         = m,\ k=1,\dots,N.
     \end{aligned}
     \label{eqn:maximal-rate-reduction-unsupervised}
 \end{equation}
 Aquí, $\tilde{\vX} = [\tilde{\vX}_1,\dots,\tilde{\vX}_N]$ y $\vZ_k =
-f(\tilde{\vX}_k,\theta)$ denotan las características de las muestras augmentadas
+f(\tilde{\vX}_k,\theta)$ denotan las características de las muestras aumentadas
 de $\vx_k$ para cada $k=1,\dots,N$.
 
 Adoptemos de nuevo ResNet-18 como la función de mapeo de características $f(\vx,\theta)$
@@ -2288,13 +2282,13 @@ de agrupamiento de subespacios denominado EnSC \cite{you2016oracle}. Como métri
 tenemos en cuenta la información mutua normalizada (NMI), la precisión
 de agrupamiento (ACC) y el índice de Rand ajustado (ARI) \footnote {Consulte el
 apéndice en \cite{yu2020learning} para ver sus definiciones específicas.}.
-A modo de comparación, analizamos métodos como JULE
+A modo de comparación, consideramos métodos como JULE
 \cite{yang2016joint}, RTM \cite{nina2019decoder}, DEC
 \cite{xie2016unsupervised}, DAC \cite{chang2017deep} y DCCM
-\cite{wu2019deep}. Los resultados de la agrupación se resumen en la
+\cite{wu2019deep}. Los resultados del agrupamiento se resumen en la
 \Cref{fig:unsupervised-clustering-results}. Como podemos ver, las
 características aprendidas al maximizar el objetivo MCR$^2$-{\scriptsize CTRL}
-alcanzan una mayor precisión de agrupación que las aprendidas por
+alcanzan una mayor precisión de agrupamiento que las aprendidas por
 otros algoritmos.
 \begin{figure}[t]
     \begin{subfigure}[t]{0.45\textwidth}
@@ -2318,8 +2312,8 @@ otros algoritmos.
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{chapters/chapter4/figs/clustering_results.png}
-    \caption{Comparación de la precisión de la agrupación entre
-        el entrenamiento con el objetivo MCR$^2$-{\scriptsize CTRL} y otros
+    \caption{Comparación de la precisión del agrupamiento entre
+        el entrenamiento con el objetivo MCR$^2$-{\scriptsize CTRL} frente a
         algoritmos de aprendizaje no supervisado en los conjuntos de datos CIFAR-10, CIFAR-100 y
     STL-10.}
     \label{fig:unsupervised-clustering-results}
@@ -2328,12 +2322,12 @@ otros algoritmos.
 Sin embargo, hay un inconveniente principal: el método de aprendizaje no supervisado basado en MCR$^2$
 requiere una costosa operación $\log \det$ de complejidad $\O(d^3)$
 \textit{por muestra} al calcular $R^c_\epsilon$. Esto
-se vuelve rápidamente prohibitivo en lo computacional a medida que intentamos escalar a
+se vuelve rápidamente prohibitivo desde el punto de vista computacional, a medida que intentamos escalar a
 conjuntos de datos más grandes. En lugar de minimizar la tasa de codificación exacta para cada
-grupo de muestras augmentadas $\tilde{\vX}_{i}$, podemos aproximar el
+grupo de muestras aumentadas $\tilde{\vX}_{i}$, podemos aproximar el
 efecto de la compresión de características en cada grupo maximizando la {\em
 similitud coseno} entre las características de las muestras
-augmentadas:\footnote{Dejamos como ejercicio para los lectores que verifiquen
+aumentadas:\footnote{Dejamos como ejercicio para los lectores verificar
     bajo qué condiciones la minimización de la tasa de codificación por clase
     $R^c(\vZ)$ es (aproximadamente) equivalente a maximizar la similitud coseno
 entre las características $\vZ$.}
@@ -2343,7 +2337,7 @@ entre las características $\vZ$.}
         \max_{\theta } & \;  R_{\epsilon}(\vZ) +
         \frac{\gamma}{N}\sum_{k=1}^N \sum_{i \neq j}
         \vz_{k,j}^\top \vz_{k,i}, \\
-        \mbox{s.t.} &  \ \ \, \vz_{i,j} = f(\tau_j(\vx_i),\theta),\
+        \mbox{sujeto a} &  \ \ \, \vz_{i,j} = f(\tau_j(\vx_i),\theta),\
         \|\vz_{i,j}\|_2^2                                          = 1,
     \end{aligned}
     \label{eqn:maximal-rate-reduction-unsupervised-simdino}
@@ -2363,11 +2357,11 @@ Como mostraremos más adelante en la
 \eqref{eqn:maximal-rate-reduction-unsupervised-simdino} puede
 implementarse de manera muy eficiente para aprender una representación
 altamente estructurada $\vZ$ que es muy lineal y discriminativa.
-La representación de características aprendida ofrece un rendimiento de vanguardia 
+La representación de características aprendida ofrece un desempeño del estado del arte 
 en grandes conjuntos de datos del mundo real, comparable o incluso superior
 al de las características aprendidas por DINO, pero sin los considerables esfuerzos de ingeniería
 que requiere DINO. Por ello, denominamos a este objetivo {\em
-DINO simplificado} (SimDINO). A modo de avance, la
+DINO simplificado} (SimDINO). A modo de adelanto, la
 \Cref{tab:dino_imagenet_linear_probing_teaser} muestra que SimDINO
 supera a DINO en la clasificación de ImageNet-1k utilizando tanto
 la precisión de los \(k\) vecinos más cercanos como el sondeo lineal (es decir, el entrenamiento de un
@@ -2375,9 +2369,9 @@ clasificador lineal sobre modelos preentrenados). Esto demuestra que el
 objetivo da lugar a representaciones muy estructuradas y linearizadas.
 También podemos utilizar estas representaciones para tareas posteriores, como
 la segmentación no supervisada\footnote{En concreto, adoptamos MaskCut
-    \cite{wang2023cut}, un enfoque no supervisado eficaz para extraer
-    características de una red de visión con pesos congelados, a fin de realizar la detección de objetos y
-la segmentación de instancias.}, tal y como se ilustra en la
+    \cite{wang2023cut}, un enfoque no supervisado eficaz de extraer
+    características de una red troncal de visión con pesos congelados, a fin de realizar la detección de objetos y
+la segmentación de instancias.}, como se ilustra en la
 \Cref{fig:maskcut_segmentation}. En el
 	\Cref{ch:applications} se presentarán más detalles sobre la implementación y
 	los resultados experimentales de SimDINO.
@@ -2417,7 +2411,7 @@ la segmentación de instancias.}, tal y como se ilustra en la
 	\section{Resumen y notas}
 
 	\paragraph{Mensajes clave.}
-	En este capítulo, hemos estudiado los conceptos e ideas básicos subyacentes a la forma de
+	En este capítulo, hemos estudiado los conceptos e ideas básicos subyacentes al proceso de
 	aprender una distribución a partir de un número finito de muestras y obtener un esquema de codificación y decodificación {\em
 	computable} para dicha distribución. En el caso de
 	las distribuciones continuas y, posiblemente, de baja dimensión, hemos
@@ -2432,13 +2426,13 @@ de la distribución, mientras que el ruido analizado en este capítulo se encuen
 proceso de difusión/reducción de ruido fuera del soporte como
 «continuación» y al proceso de difusión/reducción de ruido dentro del
 soporte como «percolación». Un análisis más unificado y una comprensión más profunda
-de su efecto combinado son objeto de futuros estudios.
+de su efecto conjunto son objeto de futuros estudios.
 
 En este capítulo, hemos introducido por primera vez el concepto de
 aprendizaje de una {\em representación} para una distribución. Hemos
-considerado el caso posiblemente más sencillo: el de la clasificación. Si
+considerado el caso, sin duda, más sencillo: el de la clasificación. Si
 se considera la etiqueta de clasificación $\y$ como un código fijo simple (con
-pérdidas enormes) para los datos $\vx$, podríamos buscar una representación 
+fuertes pérdidas) para los datos $\vx$, podemos buscar una representación 
 consistente\footnote{Es decir, podemos recuperar fielmente $\vx$ a partir de 
     $\vz$, ya que aclararemos el concepto de representaciones «consistentes» más adelante en el
 \Cref{ch:consistent-representations}.} $\vz = f(\vx)$ de los datos $\vx$
@@ -2447,7 +2441,7 @@ representación y este código simple:
 \begin{equation}
     \max I(\vz, \y) = H(\vz) - H(\vz \mid \y).
 \end{equation}
-Además, exigimos que dicha representación $\vz$ no solo sea
+Además, requerimos que dicha representación $\vz$ no solo sea
 consistente con $\vx$, sino también mucho más {\em estructurada} que la
 distribución nativa de los datos de $\vx$: las clases son linealmente
 discriminativas. Esto haría que la representación aprendida fuera mucho más
@@ -2531,8 +2525,8 @@ objetivo a un contexto mucho más amplio, en el que $\y$ podría ser un código 
             \end{align*}
             donde $\alpha > 0$.
 
-        \item Derive la condición necesaria y suficiente
-            bajo la cual se cumple la igualdad.
+        \item Obtenga la condición necesaria y suficiente
+            para que se cumpla la igualdad.
     \end{enumerate}
 
 \end{exercise}
@@ -2546,7 +2540,7 @@ objetivo a un contexto mucho más amplio, en el que $\y$ podría ser un código 
         \item $\min \|\vz_1 - \vz_2\|_2^2$.
         \item $\max \log \det (\I + \vZ\vZ^\top)$.
     \end{itemize}
-    Sin embargo, es posible que ya no sean necesariamente equivalentes cuando hay más
+    Sin embargo, es posible que ya no sean exactamente equivalentes cuando hay más
     de dos vectores en un espacio de alta dimensión. El $\log\det$ es más
     general, ya que mide el volumen total que abarcan todos los vectores en
     el espacio de alta dimensión.
@@ -2603,7 +2597,7 @@ objetivo a un contexto mucho más amplio, en el que $\y$ podría ser un código 
     %             \min_{\lambda_1,\dots,\lambda_d}  \sum_{i=1}^d
     %             \max\left\{\frac{1}{2}\log\left(
     %             \frac{\sigma_i}{\lambda_i} \right), 0 \right\}\quad
-    %             \mathrm{s.t.}\ \sum_{i=1}^d \lambda_i = \epsilon^2.
+    %             \mathrm{sujeto a}\ \sum_{i=1}^d \lambda_i = \epsilon^2.
     %         \end{align}
 
     %         % \item Consider setting up the Lagrangian

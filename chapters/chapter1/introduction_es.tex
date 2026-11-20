@@ -38,7 +38,7 @@ seres inteligentes es
 Antes de poder entender cómo esto se logra es necesario abordar tres interrogantes:
 \begin{itemize}
     \item ¿Cómo puede modelarse y representarse matemáticamente la información predecible? 
-    \item ¿Cómo se puede aprender dicha información computacionalmente, de manera efectiva y eficiente, a partir de datos?
+    \item ¿Cómo se puede aprender dicha información computacionalmente, de manera eficaz y eficiente, a partir de datos?
     \item ¿Cómo se debería organizar y estructurar de la mejor manera esta información
         como memoria o conocimiento (empírico), ya sea en nuestra mente o en una máquina,
         para apoyar las futuras predicciones e inferencias?
@@ -46,21 +46,21 @@ Antes de poder entender cómo esto se logra es necesario abordar tres interrogan
 Este libro tiene como objetivo proporcionar algunas respuestas a estas preguntas. Estas
 respuestas nos ayudarán a mejorar nuestra comprensión de la inteligencia,
 especialmente los principios y mecanismos computacionales
-que la habilitan. La evidencia sugiere que todas las formas de 
+que la posibilitan. La evidencia sugiere que todas las formas de 
 inteligencia---desde la inteligencia de bajo nivel observable en las formas
-de vida tempranas y primitivas hasta las formas más altas de inteligencia,
+de vida tempranas y primitivas hasta los niveles más altos de inteligencia,
 la práctica de la ciencia moderna---comparten un conjunto común de principios y
 mecanismos. A continuación lo explicamos con más detalle.
 
-\paragraph{Surgimiento y la evolución de la inteligencia.}
+\paragraph{Surgimiento y evolución de la inteligencia.}
 
-Una condición necesaria para el surgimiento de la vida en la Tierra hace aproximadamente 
+Una condición necesaria para el surgimiento de la vida en la Tierra hace unos 
 cuatro mil millones de años es que el ambiente sea en gran
 medida predecible. La vida ha desarrollado mecanismos que le permiten
-aprender lo que sea predecible sobre el medio ambiente, codificar esa 
-información y usarla para la supervivencia. Hablando en general, 
-a esta habilidad de adquirir conocimientos sobre el mundo la llamamos
-\textit{inteligencia}. En gran medida, la evolución de la vida es obra 
+aprender lo que es predecible en el medio ambiente, codificar esa 
+información y usarla para la supervivencia. En general, denominamos \textit{inteligencia}
+a esta capacidad de adquirir conocimientos sobre el mundo.
+En gran medida, la evolución de la vida es obra 
 de los mecanismos de la inteligencia \cite{Bennett-2023}, al igual que la evolución
 del universo es obra de las leyes de la física. En las etapas
 tempranas de la vida, la inteligencia se desarrolla principalmente a 
@@ -82,8 +82,8 @@ por parte de la naturaleza, de lo que ahora se conoce como «aprendizaje por ref
 Sin embargo, tal proceso de «prueba-y-error» puede ser extremadamente lento, exigente en recursos e
 impredecible. Desde el surgimiento de las primeras formas de vida, aproximadamente hace 4400 a 3800 
 millones de años\citep{bell2015potentially}, la vida se ha basado en esta forma
-de evolución.\footnote{Los lectores más perspicaces quizá noten una sorprendente similitud
-entre la forma en que se ha desarrollado la vida primitiva y la forma en que evolucionan hoy en 
+de evolución.\footnote{Los lectores más perspicaces quizá noten una inquietante similitud
+entre la forma en que se desarrolla la vida primitiva y la forma en que evolucionan hoy en 
 día los grandes modelos de lenguaje (LLMs).}
 
 \begin{figure}
@@ -94,8 +94,8 @@ día los grandes modelos de lenguaje (LLMs).}
         mundo exterior se codifica y transmite por vía del ADN (a la izquierda) y se decodifica
         de  ADN a ARN y a proteínas. En etapas tempranas de la evolución de la vida 
         (a la derecha), la inteligencia desarrolla memoria o conocimiento al nivel de la especie 
-        por vía de mutaciones (aleatorias) de genes y la selección natural
-        ---«que sobreviva el más apto»--- lo que puede verse como una forma primitiva de
+        por vía de mutaciones (aleatorias) de genes y la selección natural ---«que sobreviva el más apto»--- 
+        lo que puede verse como una forma primitiva de
     aprendizaje por refuerzo.}
     \label{fig:phylogenetic}
 \end{figure}
@@ -106,7 +106,7 @@ día los grandes modelos de lenguaje (LLMs).}
     \includegraphics[height=0.19\linewidth]{\toplevelprefix/chapters/chapter1/figs/Worm.jpeg}
     \includegraphics[height=0.19\linewidth]{\toplevelprefix/chapters/chapter1/figs/Cambrian.jpg}
     \caption{La evolución de la vida, desde el antepasado de toda la vida actual 
-        (LUCA---last universal common ancestor), un organismo de tipo unicelular
+        (LUCA---last universal common ancestor), un organismo unicelular
         que vivió hace 3500--4300 millones de años
         \cite{moody2024nature}, hasta el surgimiento del primer sistema nervioso
         en especies similares a gusanos (al medio), hace unos 550 millones de años 
@@ -117,13 +117,13 @@ día los grandes modelos de lenguaje (LLMs).}
 
 La \textit{inteligencia ontogenética} se refiere a aquellos mecanismos de
 aprendizaje que permiten que un individuo aprenda a través de sus propios sentidos,
-memorias y predicciones dentro de su entorno específico, mejorando y adaptando
+la memoria y las predicciones dentro de su entorno específico, mejorando y adaptando
 sus conductas. El aprendizaje ontogenético empezó a ser posible después del
 surgimiento del sistema nervioso hace alrededor de 550--600 millones de años (en
-organismos similares a gusanos) \cite{wang2025preservation}, como se muestra en la
-\Cref{fig:evolution} en el centro. Con su sistema sensorial y nervioso, un individuo
+organismos similares a gusanos) \cite{wang2025preservation}, como se muestra en la parte central de la
+\Cref{fig:evolution}. Con su sistema sensorial y nervioso, un individuo
 puede formar y perfeccionar de manera continua su propia memoria del mundo, 
-adicionalmente a lo que haya heredado mediante ADN o genes. Esta capacidad mejoró 
+además de lo heredado a través del ADN o de los genes. Esta capacidad mejoró 
 considerablemente las posibilidades de supervivencia del individuo contribuyendo
 a la explosión de las formas de vida en el Cámbrico, hace alrededor de 530
 millones de años \cite{Parker-2004}. En comparación con el aprendizaje filogenético,
@@ -137,13 +137,13 @@ el caso de las especies o las acciones ejecutadas por el individuo.} Este hallaz
 inspiró a Norbert Wiener a concluir en su programa de cibernética
 \cite{Wiener-Cybernetics-1948} que todos los seres inteligentes, ya sean especies o
 individuos, se basan en mecanismos de retroalimentación en circuito cerrado para
-aprender y mejorar su memoria y conocimiento del mundo. Además,
+aprender y mejorar su memoria y conocimiento sobre el mundo. Además,
 desde las plantas pasando por peces, aves y mamíferos, las especies más
 avanzadas se basan progresivamente en el aprendizaje ontogenético: permanecen con
-sus padres por períodos más largos después de su nacimiento y aprenden de ellos,
+sus padres después de su nacimiento y aprenden de ellos por períodos más largos,
 porque los individuos de una misma especie deben sobrevivir en ambientes
 muy diversos. En otras palabras, a medida que las especies se vuelven cada vez 
-más «inteligentes», dependen cada vez menos de su ADN heredado («modelos base 
+más «inteligentes», dependen cada vez menos de su ADN heredado («modelos fundacionales 
 preentrenados») y cada vez más de su capacidad para aprender por sí mismas 
 después de nacer.
 
@@ -157,7 +157,7 @@ individuos se comuniquen y compartan información útil, permitiendo que la
 comunidad humana se comporte como un único organismo inteligente que aprende
 más rápido y retiene más conocimientos que cualquier individuo. Los textos escritos
 desempeñan, por tanto, un papel análogo al del ADN y los genes, ya que permiten que 
-las sociedades acumulen y transmitan conocimientos entre territorios y generaciones. 
+las sociedades acumulen y difundan conocimientos entre territorios y generaciones. 
 Podemos referirnos a este tipo de inteligencia como \textit{inteligencia colectiva de la sociedad},
 o \textit{inteligencia societal}, diferenciándola de la inteligencia filogenética de las especies y de la inteligencia
 ontogenética de los individuos. Esta acumulación de conocimientos sostiene a todas las civilizaciones (antiguas).
@@ -170,8 +170,8 @@ ontogenética de los individuos. Esta acumulación de conocimientos sostiene a t
     \hspace{5mm}
     \includegraphics[height=0.25\linewidth]{\toplevelprefix/chapters/chapter1/figs/adopt-euclid1685-2.jpg}
     \caption{El desarrollo de la comunicación verbal y de los lenguajes 
-        orales (hace 70,000--30,000 años), de los lenguajes escritos (alrededor
-        de 3000 AC) \cite{schmandt2014evolution} y de las matemáticas abstractas
+        orales (hace 70,000--30,000 años), el de los lenguajes escritos (alrededor
+        de 3000 AC) \cite{schmandt2014evolution} y el de las matemáticas abstractas
         (alrededor de 500--300 AC) \cite{heath1956thirteen} constituyen tres
     hitos clave en la evolución de la inteligencia humana.}
     \label{fig:human-intelligence}
@@ -182,7 +182,7 @@ permitiendo a filósofos y matemáticos desarrollar un conocimiento que
 va mucho más allá de la organización de observaciones empíricas.
 El desarrollo de conceptos y símbolos abstractos, como números,
 tiempo, espacio, lógica y geometría, dio origen a un lenguaje totalmente
-novedoso y riguroso de la \textit{matemática}. Además, el desarrollo 
+novedoso y riguroso de las \textit{matemáticas}. Además, el desarrollo 
 de la capacidad de formular hipótesis y comprobar su veracidad mediante 
 la deducción lógica o la experimentación sentó las bases de la 
 \textit{ciencia} moderna. Por primera vez, los humanos pudieron descubrir
@@ -223,11 +223,11 @@ y científico avanzado siguen siendo en gran parte un enigma, aunque creemos que
 construirse sobre la capacidad de desarrollar conocimiento empírico. Dejamos esta 
 cuestión como problema abierto para su discusión en el \Cref{ch:future}.
 
-\paragraph{El origen de la inteligencia artificial --- la cibernética.}
+\paragraph{El origen de la inteligencia de las máquinas --- la cibernética.}
 En la década de 1940, impulsados por el esfuerzo bélico, los científicos, 
 inspirados por la inteligencia natural, buscaron emular la inteligencia 
 animal mediante máquinas, dando origen al movimiento de la «Cibernética»,
-encabezado por Norbert Wiener \cite{Kline-2011}. Wiener estudió zoología 
+impulsado por Norbert Wiener \cite{Kline-2011}. Wiener estudió zoología 
 en Harvard, durante sus estudios de licenciatura, antes de convertirse 
 en matemático y especialista en teoría de control. Consagró su vida a la 
 comprensión y construcción de sistemas autónomos que pudieran reproducir
@@ -237,7 +237,7 @@ como algo centrado sobre todo en los sistemas de control por retroalimentación,
 área en la que Wiener hizo sus contribuciones técnicas más significativas. 
 Sin embargo, el programa era mucho más 
 amplio y profundo: buscaba comprender la inteligencia en su
-totalidad ---al menos en el nivel animal--- e influyó en la obra de toda
+totalidad --- al menos en el nivel animal --- e influyó en la obra de toda
 una generación de científicos de renombre, entre los que se cuentan
 Warren McCulloch, Walter Pitts, Claude Shannon, John von Neumann y 
 Alan Turing.
@@ -253,11 +253,11 @@ Alan Turing.
     \label{fig:cybernetcis}
 \end{figure}
 
-Se considera que Wiener fue el primero en estudiar la inteligencia 
-\textit{como sistema}, en lugar de centrarse en sus componentes o 
-aspectos aislados. Su visión integral se publicó en el célebre 
-libro de 1948 \textit{Cibernética: o el control y la comunicación en 
-los animales y las máquinas} \cite{Wiener-Cybernetics-1948}. En ese 
+Es probable que Wiener haya sido el primero en estudiar la inteligencia 
+\textit{como sistema}, en lugar de centrarse en componentes o 
+aspectos aislados de la misma. Su visión integral se publicó en el célebre 
+libro de 1948 \textit{Cibernética, o control y comunicación en el hombre y la 
+máquina} \cite{Wiener-Cybernetics-1948}. En ese 
 libro y en su segunda edición publicada en 1961 \cite{Wiener-Cybernetics-1961} 
 (véase la \Cref{fig:cybernetcis}), intentó identificar diversas características
 y mecanismos necesarios de los sistemas inteligentes, incluyendo (pero sin limitarse a): 
@@ -265,7 +265,7 @@ y mecanismos necesarios de los sistemas inteligentes, incluyendo (pero sin limit
     \item Cómo \textit{medir y almacenar} información (en el cerebro) y cómo
         comunicarse con los demás.\footnote{Wiener fue el primero en
         señalar que la «información» no es ni materia ni energía, sino una
-        cantidad independiente digna de estudiarse.} Esta idea llevó a
+        cantidad independiente digna de estudio.} Este hallazgo llevó a
         Claude Shannon a formular la \textit{teoría de la información} en
         1948 \cite{Shannon-1948}.
     \item Cómo \textit{corregir errores} en predicciones y estimaciones
@@ -273,15 +273,15 @@ y mecanismos necesarios de los sistemas inteligentes, incluyendo (pero sin limit
         formalizar la teoría del control por retroalimentación (en
         circuito cerrado) en la década de 1940.
     \item Cómo aprender a \textit{tomar mejores decisiones} al
-        interactuar con un entorno poco cooperativo o incluso hostil.
+        interactuar con un entorno no cooperativo o incluso hostil.
         John von Neumann formalizó este tema como \textit{teoría
         de juegos} en 1944 \cite{von-Neumann-1944}.
 \end{itemize}
 En 1943, inspirados por el programa de Cibernética de Wiener, el
 científico de la cognición Warren McCulloch y el lógico Walter Pitts
 formalizaron conjuntamente el primer modelo computacional de una neurona
-\cite{McCulloch-Pitts}, llamado \textit{neurona artificial} y más tarde
-lo ilustró en la \Cref{fig:neuron}. Sobre la base de este modelo,
+\cite{McCulloch-Pitts}, llamado \textit{neurona artificial} que se ilistra más adelante
+en la \Cref{fig:neuron}. Sobre la base de este modelo,
 Frank Rosenblatt construyó el Perceptrón Mark I en la década de 1950---una
 máquina física que contenía cientos de neuronas artificiales de ese tipo
 \cite{Rosenblatt:1957}. El Perceptrón fue la primera red neuronal artificial 
@@ -289,7 +289,7 @@ materializada físicamente; véase la \Cref{fig:perceptron}. Cabe destacar que
 la arquitectura universal de computadoras de John von Neumann, propuesta
 en 1945, también fue diseñada para facilitar el objetivo de construir
 \textit{máquinas computacionales} que pudieran materializar físicamente los
-mecanismos sugeridos por el programa de cibernética \cite{von-Neumann-1958}.
+mecanismos sugeridos por el programa de Cibernética \cite{von-Neumann-1958}.
 
 Los lectores más perspicaces se darán cuenta de que los años cuarenta fueron 
 realmente mágicos: se inventaron numerosas ideas fundamentales y se formalizaron
@@ -305,7 +305,7 @@ históricos muestran que el movimiento de la cibernética encabezado por Wiener
 ejerció influencia sobre casi todos estos pioneros y su obra. En gran medida, 
 el programa de Wiener puede considerarse el verdadero precursor del actual 
 programa de «inteligencia encarnada»; de hecho, el propio Wiener articuló una 
-visión de dicho programa con notable claridad y concreción en este libro 
+visión para dicho programa con notable claridad y concreción en este libro 
 \cite{Wiener-Cybernetics-1961}.
 \begin{figure}
     \centering
@@ -313,7 +313,7 @@ visión de dicho programa con notable claridad y concreción en este libro
     \includegraphics[height=0.3\linewidth]{\toplevelprefix/chapters/chapter1/figs/Shannon.jpg}
     \includegraphics[height=0.3\linewidth]{\toplevelprefix/chapters/chapter1/figs/neumann.jpg}
     \includegraphics[height=0.3\linewidth]{\toplevelprefix/chapters/chapter1/figs/Turing.jpeg}
-    \caption{Pioneros de las fundaciones teóricas y computacionales de la inteligencia:
+    \caption{Pioneros de los fundamentos teóricos y computacionales de la inteligencia:
         Norbert Wiener (cibernética y teoría de control), Claude Shannon 
         (teoría de la información), John von Neumann (teoría de juegos) y
         Alan Turing (teoría de la computación).}
@@ -329,27 +329,27 @@ la segunda edición de \textit{Cybernetics} \cite{Wiener-Cybernetics-1961},
 insistió en la necesidad de \textit{abordar la no linealidad} si se quiere que 
 las máquinas emulen los mecanismos de aprendizaje típicos de la naturaleza,
 pero no ofreció ninguna solución concreta ni eficaz para este difícil 
-problema. Para ser justos, incluso la teoría de los sistemas lineales se 
+problema. Para ser justos, incluso la teoría de los sistemas lineales 
 aún estaba en su etapa embrionaria en aquella época,\footnote{El famoso logro de Wiener,
 el filtro de Wiener \cite{Wiener-1942,Wiener-1949}, que presentaremos más adelante,
 solo se aplicaba a sistemas lineales.} y los sistemas no lineales parecían mucho 
 menos accesibles.
 
-No obstante, no podemos evitar de maravillarnos ante la clarividencia de Wiener respecto a
+No obstante, no podemos evitar maravillarnos ante la extraordinaria previsión de Wiener respecto a
 la importancia de la no linealidad. Como se mostrará en este libro, la
 respuesta llegó sólo recientemente: la no linealidad puede ser tratada
 de manera efectiva a través de la linearización progresiva y la 
 transformación que llevan a cabo las redes neuronales y representaciones
-profundas (véase el \Cref{ch:deep-networks}). Más aún, demostraremos en
+profundas (véase el \Cref{ch:deep-networks}). Asimismo, demostraremos en
 este libro cómo todos los mecanismos listados con anterioridad pueden
-integrarse de manera natural en un sistema completo que exhibe ciertas
+integrarse de manera natural en un sistema completo que presenta ciertas
 características de un sistema autónomo inteligente (véase 
 el \Cref{ch:consistent-representations}).
 
 \paragraph{El origen de la inteligencia artificial.}
 El subtítulo del libro \textit{Cybernetics} de Wiener ---\textit{Control y
 comunicación en animales y máquinas}--- revela que en la década de 1940
-la investigación estaba primordialmente orientada a emular la inteligencia 
+la investigación se orientaba primordialmente a emular la inteligencia 
 a nivel animal. Como se ha señalado anteriormente, las agendas de aquella 
 época estaban dominadas por el movimiento cibernético de Wiener.
 
@@ -357,23 +357,23 @@ Alan Turing estuvo entre los primeros en reconocer esta limitación. En
 su célebre artículo de 1950 titulado «\textit{Computing Machinery and
 Intelligence}» \cite{Turing-1950}, Turing planteó formalmente la
 cuestión de «¿las máquinas pueden pensar?» En otras palabras, si 
-las máquinas podrían imitar inteligencia de nivel humano
+las máquinas podrían imitar inteligencia comparable a la humana
 hasta el punto en que la inteligencia de las máquinas fuera indistinguible
 de la inteligencia humana---lo que hoy se conoce como la
 \textit{prueba de Turing}.
 
-Alrededor de 1955, un grupo de científicos jóvenes y ambiciosos 
-intentó desmarcarse del programa de cibernética, que por entonces era 
-dominante, y forjar su propio legado. Aceptaron el desafío de Turing
-de imitar la inteligencia humana y propusieron organizar un taller en 
-el Dartmouth College para el verano de 1956. En su propuesta
-declaraban \cite{McCarthy-1955}:
+Hacia 1955, un grupo de jóvenes científicos ambiciosos se propuso 
+desmarcarse del programa de Cibernética, entonces dominante, y forjar su 
+propio legado. Aceptaron el desafío que planteó Turing 
+de imitar la inteligencia humana y propusieron celebrar un taller en 
+el Dartmouth College durante el verano de 1956. En su propuesta 
+afirmaban \cite{McCarthy-1955}:
 \begin{quote}
     «\textit{El estudio se basará en la conjetura de que
         todos los aspectos del aprendizaje o cualquier otra característica de
         la inteligencia pueden, en principio, describirse con tal precisión que
         se pueda construir una máquina capaz de simularlos. Se intentará
-        descubrir cómo hacer que las máquinas utilicen el lenguaje, formar abstracciones y
+        descubrir cómo hacer que las máquinas utilicen el lenguaje, formen abstracciones y
         conceptos, resuelvan tipos de problemas que ahora están reservados a los humanos y
     se perfeccionen a sí mismas}.»
 \end{quote}
@@ -382,18 +382,18 @@ distingue a los seres humanos de los animales. Su programa incluía
 la abstracción, los métodos simbólicos, el lenguaje natural y el 
 razonamiento deductivo (inferencia causal, deducción lógica, etc.), 
 es decir, la inteligencia científica.  El organizador del taller, 
-John McCarthy---entonces un joven profesor adjunto de 
-matemáticas en el Dartmouth College---acuñó el ahora famoso término 
-«inteligencia artificial» (IA) refiriéndose a las máquinas que 
-muestran inteligencia científica, al describir formalmente los 
+John McCarthy ---entonces un joven profesor adjunto de 
+matemáticas en Dartmouth College--- acuñó el ahora célebre término 
+«inteligencia artificial» (IA) para describir las máquinas que 
+qexhiben inteligencia científica y así formalizar los 
 problemas y objetivos del taller.
 
 \paragraph{¿Renacimiento de la «inteligencia artificial» o de la «cibernética»?}
 A lo largo de la última década, la inteligencia de las máquinas ha experimentado
 un desarrollo explosivo, impulsado en su mayor parte por las redes
-neuronales artificiales profundas, a raíz del trabajo de Geoffrey
-Hinton y sus estudiantes, en 2012 \cite{krizhevsky2012imagenet}. Este 
-período es aclamado como el «Renacimiento de la IA». Sin embargo, en lo que 
+neuronales profundas, a raíz del trabajo de 2012 de Geoffrey
+Hinton y sus estudiantes\cite{krizhevsky2012imagenet}. Este 
+período es aclamado como el «Renacimiento de la IA». No obstante, en lo que 
 respecta a las tareas que realmente se abordan (reconocimiento, generación, 
 predicción) y a las técnicas desarrolladas (aprendizaje por refuerzo, 
 aprendizaje por imitación, codificación, decodificación, reducción de 
@@ -401,16 +401,16 @@ ruido y compresión), estamos en gran medida emulando mecanismos
 comunes de la inteligencia de las primeras formas de vida y de los animales.
 Incluso en este aspecto, como aclararemos en este libro, los modelos y
 sistemas actuales de «IA» no han implementado de manera completa ni correcta 
-todos los mecanismos necesarios para la inteligencia a nivel animal que ya 
-se conocían en el movimiento de la Cibernética de la década de 1940.
+todos los mecanismos necesarios para la inteligencia a nivel animal que 
+el movimiento de la Cibernética de la década de 1940 ya conocía.
 
-En sentido estricto, los recientes avances en inteligencia maquinal de la
-última década se ajustan mal al programa de IA de Dartmouth en 1956.
+En sentido estricto, los recientes avances en inteligencia de máquina en la
+última década no se ajustan bien al programa de IA de Dartmouth en 1956.
 En cambio, lo que se ha logrado es más cercano a los objetivos del
 clásico programa de cibernética de Wiener de la década de 1940.
-Probablemente sea más apropiado denominar a la era actual el «Renacimiento 
+Sería probablemente más apropiado denominar a la era actual el «Renacimiento 
 de la Cibernética». El reciente auge de la denominada «IA encarnada» para
-robots y agentes autónomos se alinea aún más con los objetivos del programa 
+agentes y robots autónomos se alinea aún más con los objetivos del programa 
 de cibernética. Solo cuando comprendamos plenamente, desde una perspectiva 
 científico-matemática, lo que realmente hemos logrado, podremos
 determinar qué problemas siguen sin resolverse y qué caminos conducen a la
@@ -425,7 +425,7 @@ Ese es uno de los principales objetivos de este libro.
 \label{sec:predictability}
 Los datos que contienen información útil se manifiestan de muchas formas. En su
 forma más natural, se pueden modelar como secuencias que son predecibles y 
-computables. El concepto de una secuencia predecible y computable fue 
+computables. La noción de una secuencia predecible y computable fue 
 fundamental para la teoría de la información \cite{Shannon-1948} y la 
 informática, lo que condujo en gran medida a la invención de las computadoras 
 \cite{Turing-1936}. El papel de las secuencias predecibles en la inferencia 
@@ -445,9 +445,9 @@ en la que el siguiente número \(x_{n+1}\) se define como el número anterior
 \begin{equation}
     x_{n+1} = x_{n} + 1.
 \end{equation}
-Se puede generalizar el concepto de predictibilidad a cualquier secuencia
+Se puede generalizar la noción de predictibilidad a cualquier secuencia
 \(\{x_{n}\}_{n=1}^{\infty}\) con \(x_{n} \in \R\) si el número siguiente 
-\(x_{n+1}\) puede computarse siempre a partir de su predecesor \(x_{n}\):
+\(x_{n+1}\) puede calcularse siempre a partir de su predecesor \(x_{n}\):
 \begin{equation}
     x_{n+1} = f(x_{n}), \quad x_{n} \in \R, \; n = 1, 2, 3, \ldots
 \end{equation}
@@ -457,19 +457,19 @@ es computable, lo que significa que puede implementarse como un programa
 en una computadora.} El trabajo pionero de Alan Turing de 1936 
 \cite{Turing-1936} proporciona una definición rigurosa de computabilidad. 
 En la práctica, a menudo suponemos además que \(f\) es computable de 
-manera eficiente y tiene propiedades deseables, como la continuidad 
+manera eficiente y tiene propiedades favorables, como la continuidad 
 y la diferenciabilidad. La necesidad de estas propiedades
-quedará clara más adelante, una vez que comprendamos conceptos más
-sofisticados de computabilidad y su papel en el aprendizaje automático
+quedará clara más adelante, una vez que comprendamos nociones más
+refinadas de computabilidad y su papel en el aprendizaje automático
 y la inteligencia artificial.
 
-\paragraph{El caso multivariable.}
-El valor siguiente también puede depender de dos predecesores. Por
+\paragraph{Caso multivariable.}
+El siguiente valor también puede depender de dos predecesores. Por
 ejemplo, la famosa \textit{secuencia de Fibonacci}
 \begin{equation}
     S = 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, \ldots
 \end{equation}
-satisface
+cumple
 \begin{equation}
     x_{n+2} = x_{n+1} + x_{n}, \quad x_{n} \in \R, \; n = 1, 2, 3, \ldots
 \end{equation}
@@ -477,7 +477,7 @@ De manera más general, podemos escribir
 \begin{equation}
     x_{n+2} = f(x_{n+1}, x_{n}), \quad x_{n} \in \R, \; n = 1, 2, 3, \ldots
 \end{equation}
-para cualquier función computable \(f\) con dos parámetros de entrada. Extendiendo aún más,
+para cualquier función computable \(f\) con dos entradas. Extendiendo aún más,
 el siguiente valor puede depender de los \(d\) valores precedentes:
 \begin{equation}
     x_{n+d} = f(x_{n+d-1}, \ldots, x_{n}), \quad x_{n} \in \R, \; n =
@@ -505,14 +505,14 @@ en
 \end{equation}
 donde \(g(\cdot)\) está unívocamente determinada por la función \(f\) en
 \eqref{eqn:recursive-d} y mapea un vector \(d\)-dimensional a un vector
-de dimensión \(d\). En diferentes contextos, un vector de este tipo a
-veces es llamado «estado» o «token». Nótese que
+de dimensión \(d\). En diferentes contextos, a un vector de este tipo a
+veces se le llama «estado» o «token». Nótese que
 \eqref{eqn:recursive-d} define un mapeo \(\R^{d} \to \R\), mientras que
 aquí tenemos \(g \colon \R^{d} \to \R^{d}\).
 
 \paragraph{Predicción controlada.}
 También podemos definir una secuencia predecible que depende de otra
-secuencia predecible como entrada:
+secuencia predecible, como entrada:
 \begin{equation}
     \vx_{n+1} = f(\vx_{n}, \vu_{n}) \in \R^{d}, \quad n = 1, 2, 3, \ldots,
     \label{eqn:recursive-control}
@@ -520,7 +520,7 @@ secuencia predecible como entrada:
 donde \(\{\vu_{n}\}\) con \(\vu_{n} \in \R^{k}\) es una secuencia 
 predecible (computable). En otras palabras, el vector siguiente
 \(\vx_{n+1} \in \R^{d}\) depende tanto de \(\vx_{n} \in \R^{d}\) como de \(\vu_{n} \in
-\R^{k}\). En teoría de control, la secuencia \(\{\vu_{n}\}\) generalmente se denomina
+\R^{k}\). En teoría de control, la secuencia \(\{\vu_{n}\}\) suele denominarse 
 «entrada de control» y la secuencia \(\vx_{n}\) el «estado» o la «salida» del sistema 
 \eqref{eqn:recursive-control}. Un ejemplo clásico es un sistema dinámico lineal:
 \begin{equation}
@@ -528,7 +528,7 @@ predecible (computable). En otras palabras, el vector siguiente
     d}, \vB \in \R^{d \times k},
     \label{eqn:lineary-system}
 \end{equation}
-que se estudia ampliamente en teoría de control \cite{Cal:Des}.
+que ha sido ampliamente estudiado en teoría de control \cite{Cal:Des}.
 
 A menudo la entrada de control viene dada por una función computable del propio
 estado \(\vx_{n}\):
@@ -537,7 +537,7 @@ estado \(\vx_{n}\):
     \label{eqn:control-function}
 \end{equation}
 Como resultado, la secuencia \(\{\vx_{n}\}\) se obtiene por la composición de
-dos funciones computables \(f\) y \(h\):
+las funciones computables \(f\) y \(h\):
 \begin{equation}
     \vx_{n+1} = f(\vx_{n}, h(\vx_{n})), \quad n = 1, 2, 3, \ldots
     \label{eqn:recursive-closed-loop}
@@ -556,7 +556,7 @@ el sistema en bucle cerrado se transforma en
     = (\vA + \vB\vF)\vx_{n},
     \label{eqn:lineary-system-closed}
 \end{equation}
-lo que es una autoregresión lineal.
+lo cual es una autoregresión lineal.
 
 \paragraph{Procesos continuos.}
 Las secuencias predecibles tienen contrapartes continuas naturales,
@@ -564,7 +564,7 @@ que denominamos procesos predecibles. El proceso más simple de este
 tipo es el propio tiempo,
 \(x(t) = t\).
 
-Más generalmente, un proceso \(\vx(t)\) es \textit{predecible} si,
+En términos más generales, un proceso \(\vx(t)\) es \textit{predecible} si,
 en cada instante \(t\), su valor en el instante \(t + \delta t\) se
 determina por su valor en \(t\), donde \(\delta t\) es un incremento
 infinitesimal. Por lo general, \(\vx(t)\) es continuo y suave, por lo que 
@@ -577,12 +577,12 @@ mediante ecuaciones diferenciales (multivariables)
 \end{equation}
 En teoría de sistemas \cite{Cal:Des,Sastry-Nonlinear}, la ecuación
 \eqref{eqn:process} se conoce como modelo de espacio de estados. Un
-proceso controlado se modela por
+proceso controlado se modela mediante
 \begin{equation}
     \dot{\vx}(t) = f(\vx(t), \vu(t)), \quad \vx \in \R^{d}, \vu \in \R^{k},
     \label{eqn:process-controlled}
 \end{equation}
-donde \(\vu(t)\) es una señal de entrada computable.
+donde \(\vu(t)\) es un proceso de entrada computable.
 
 \begin{example}
     La segunda ley de Newton determina la trayectoria \(\vx(t) \in \R^{3}\)
@@ -601,7 +601,7 @@ donde \(\vu(t)\) es una señal de entrada computable.
     \end{equation}
 \end{example}
 
-\subsection{Baja dimensión}\label{sec:intro-low-dimensionality}
+\subsection{Baja dimensionalidad}\label{sec:intro-low-dimensionality}
 \paragraph{Aprender a predecir.}
 Ahora supongamos que se han observado o proporcionado muchos 
 segmentos de la secuencia:
@@ -610,7 +610,7 @@ segmentos de la secuencia:
 \end{equation}
 extraídos de una secuencia predecible \(\{x_{n}\}_{n=1}^{\infty}\).
 Sin pérdida de generalidad, supongamos que cada segmento tiene una
-longitud \(D \gg d\), de manera que
+longitud \(D \gg d\), de modo que
 \begin{equation}
     \vx_{i} = [x_{j(i)}, x_{j(i)+1}, \ldots, x_{j(i)+D-1}]^{\top} \in \R^{D}
 \end{equation}
@@ -625,14 +625,14 @@ La dificultad es que la función generadora \(f\) y su orden
 \end{equation}
 Por lo tanto, el objetivo es aprender \(f\) y \(d\) a partir de los segmentos 
 de muestra \(\vx_{1}, \vx_{2}, \ldots, \vx_{N}\). La tarea principal del
-aprendizaje de la predicción es:
+aprendizaje del proceso de predicción es:
 \begin{center}
-    \textit{Dados numerosos segmentos de muestra de una secuencia predecible,
-    ¿cómo podemos identificar de manera eficaz y eficiente la función \(f\)?}
+    \textit{Dados numerosos segmentos muestreados de una secuencia predecible,
+    ¿cómo podríamos identificar la función \(f\) de manera eficaz y eficiente?}
 \end{center}
 
 \paragraph{Predecibilidad y baja dimensión.}
-Para identificar la función predictiva \(f\), podemos observar una 
+Para identificar la función predictiva \(f\), podríamos observar una 
 característica común de los segmentos de cualquier secuencia predecible 
 dada por \eqref{eqn:sequence-order-d}. Si tomamos un segmento largo, digamos de
 longitud \(D \gg d\), y lo consideramos como un vector
@@ -666,8 +666,8 @@ la secuencia viene dada por la autoregresión lineal
     \label{eqn:sequence-2d}
 \end{equation}
 para constantes \(a, b \in \R\) y si muestreamos segmentos de longitud
-\(D = 10\), entonces todas las muestras se ubican en un plano de dimensión dos
-en \(\R^{10}\), tal como se ilustra en la \Cref{fig:lowdimplane}. Al
+\(D = 10\), entonces todas las muestras yacen en un plano bidimensional 
+en \(\R^{10}\), como se ilustra en la \Cref{fig:lowdimplane}. Al
 identificar este subespacio bidimensional se determinan completamente las
 constantes \(a\) y \(b\) en \eqref{eqn:sequence-2d}.
 
@@ -691,7 +691,7 @@ se encuentran en una subvariedad de baja dimensión.} En gran medida,
 la ciencia y las matemáticas modernas tratan precisamente de identificar y
 describir esa estructura de baja dimensión de los fenómenos observados.
 Esto explica por qué los descubrimientos científicos más importantes y famosos
-acerca de nuestro mundo físico se describen a menudo mediante ecuaciones, tal y como 
+acerca de nuestro mundo físico se describen a menudo mediante ecuaciones, como 
 ilustra la figura \ref{fig:famous-equations}, ya que las ecuaciones restringen las
 cantidades observadas ---que de otro modo serían independientes--- a variedades de menor dimensión.
 \begin{figure}
@@ -699,7 +699,7 @@ cantidades observadas ---que de otro modo serían independientes--- a variedades
     \includegraphics[width=0.65\linewidth]{\toplevelprefix/chapters/chapter1/figs/Equations.png}
     \caption{17 ecuaciones famosas que cambiaron el mundo. La mayoría de
         estas ecuaciones describe leyes físicas del universo. En cuanto 
-        a la inteligencia, la ecuación 15 de entropía jugará un papel muy
+        a la inteligencia, la ecuación 15, la de la entropía, jugará un papel muy
         especial y explicaremos por qué en este libro, especialmente en el capítulo 
     \ref{ch:denoising}.}
     \label{fig:famous-equations}
@@ -708,7 +708,7 @@ cantidades observadas ---que de otro modo serían independientes--- a variedades
 Según la teoría de cuerdas, que unifica casi todas las leyes físicas que
 conocemos sobre el mundo, todo el universo evoluciona en un espacio de 10
 dimensiones, desde el Big Bang; véase la \Cref{fig:universe-10D}.
-Como veremos en este libro, todos los métodos de aprendizaje modernos 
+Como veremos en este libro, todos los métodos modernos de aprendizaje 
 también explotan la propiedad de baja dimensión de los datos, ya 
 sea de manera implícita o explícita.
 \begin{figure}
@@ -734,7 +734,7 @@ sea de manera implícita o explícita.
 
 En situaciones reales, los datos observados suelen proceder de múltiples
 secuencias predecibles. Por ejemplo, una secuencia de video puede contener
-varios objetos en movimiento. En tales casos, los datos yacen sobre 
+varios objetos en movimiento. En esos casos, los datos yacen sobre 
 una mezcla de subespacios lineales de baja dimensión o subvariedades no 
 lineales, tal como se ilustra en la \Cref{fig:mixture-models}.
 \begin{figure}
@@ -753,9 +753,9 @@ imágenes aleatorias sin estructura, como se muestra en la
 \Cref{fig:noise-image} (a la izquierda). Las imágenes y los vídeos naturales,
 sin embargo, presentan un alto grado de redundancia debido a las fuertes 
 correlaciones espaciales y temporales entre los valores de los píxeles.
-Esta redundancia nos permite identificar fácilmente si una imagen tiene 
+Esta redundancia nos permite reconocer fácilmente si una imagen tiene 
 ruido o está limpia, como se muestra en la \Cref{fig:noise-image} (en la parte central 
-y a derecha). En consecuencia, la distribución de las imágenes naturales 
+y a la derecha). En consecuencia, la distribución de las imágenes naturales 
 tiene una dimensión intrínseca muy baja en relación con el número total 
 de píxeles.
 
@@ -782,8 +782,8 @@ modelos de baja dimensión: principios, cálculo y aplicaciones}
     el reconocimiento de patrones, el aprendizaje automático y la estadística.}» 
 
 Al restringir el punto de datos observado $\vx$ a una superficie o subvariedad 
-de baja dimensión, hacemos que sus componentes sean muy dependientes entre sí o
-estén correlacionadas y, en cierto sentido, sean «predecibles» a partir de los
+de baja dimensión, hacemos que sus componentes sean muy dependientes o
+estén correlacionadas entre sí y, en cierto sentido, sean «predecibles» a partir de los
 valores de las demás componentes. Por ejemplo, si sabemos que los datos están
 restringidos a una superficie de dimensión $d$ en $\R^D$, podemos realizar
 varias tareas útiles más allá de la predicción:
@@ -821,14 +821,14 @@ el autocompletado y la reducción de ruido--- inspiran el
 desarrollo de métodos eficaces en el aprendizaje de tales estructuras.
 
 Para simplificar, hasta ahora hemos utilizado el caso determinista para
-introducir los conceptos de predictibilidad y baja dimensión, en el cual
+introducir las nociones de predictibilidad y baja dimensionalidad, en el cual
 los datos se sitúan exactamente sobre estructuras geométricas como subespacios o
 superficies. Sin embargo, en la práctica, los datos siempre contienen cierta incertidumbre
 o aleatoriedad. En este caso, podemos suponer que los datos siguen una
 distribución probabilística con densidad \(p(\vx)\). Una distribución se
 considera «de baja dimensión» si su densidad se concentra en torno a una
 estructura geométrica de baja dimensión---un subespacio, una superficie o una
-combinación de ambos--- tal y como se muestra en la \Cref{fig:mixture-models}.
+mezcla de ambos--- tal como se muestra en la \Cref{fig:mixture-models}.
 Esta estructura también se conoce como el «soporte» de la distribución.
 Una vez aprendida, esta densidad \(p(\vx)\) sirve como una potente distribución 
 a priori para estimar \(\vx\) a partir de observaciones parciales, ruidosas o 
@@ -837,11 +837,11 @@ corruptas:
     \vy = f(\vx) + \vn,
     \label{eqn:noisy-observation}
 \end{equation}
-calculando la estimación condicional \(\hat{\vx}(\vy) = \Ex(\vx \mid
+mediante el cálculo la estimación condicional \(\hat{\vx}(\vy) = \Ex(\vx \mid
 \vy)\) o mediante el muestreo de la distribución condicional \(\hat{\vx}(\vy)
 \sim p(\vx\mid \vy)\).\footnote{Las tecnologías modernas de IA generativa,
 como la generación condicionada de imágenes, se basan en gran medida en este principio,
-tal y como veremos en el \Cref{ch:conditional-inference}}
+como veremos en el \Cref{ch:conditional-inference}}
 
 En numerosos trabajos anteriores se han estudiado las propiedades de conjuntos de datos cuyas distribuciones
 se apoyan en una superficie o subvariedad de baja dimensión, por ejemplo,
@@ -859,7 +859,7 @@ La pregunta que queda por resolver es cómo aprender estas estructuras de baja d
 de manera correcta y computacionalmente eficiente a partir de
 datos de alta dimensión. Como veremos, los modelos paramétricos estudiados en
 los enfoques analíticos clásicos y los modelos no paramétricos, como
-las redes profundas, tan populares en la práctica actual, no son más que diferentes medios
+las redes profundas, populares en la práctica actual, no son más que diferentes medios
 para alcanzar un mismo fin.
 
 \section{¿Cómo aprender?}
@@ -878,7 +878,7 @@ en forma cerrada o numéricas. Además, ofrecen nuevas luces
 sobre problemas más generales y ya aportan soluciones útiles 
 para casos importantes, aunque limitados. En el pasado, cuando los recursos 
 computacionales eran escasos, los modelos analíticos que permitían soluciones 
-eficientes en forma cerrada o soluciones numéricas eran los únicos que se 
+eficientes en forma cerrada o numéricas eran los únicos que se 
 podían implementar. Las \textit{estructuras lineales} fueron la primera clase 
 de modelos que se estudió a fondo.
 
@@ -891,24 +891,24 @@ a partir de un número finito de muestras (con ruido) constituye el problema cl�
 análisis de componentes principales (PCA) y se han desarrollado algoritmos eficaces
 para esta clase de modelos \cite{JolliffeI2002}. La familia de modelos puede hacerse 
 cada vez más compleja y expresiva.
-Asimismo se puede suponer que los datos se distribuyen en torno a una
+En particular, se puede suponer que los datos se distribuyen en torno a una
 mezcla de componentes de baja dimensión (subespacios o gaussianas de baja dimensión),
 como en el análisis de componentes independientes (ICA)
 \cite{Ans-1985}, el aprendizaje de diccionarios (DL), el análisis de componentes principales
 generalizado (GPCA) \cite{Vidal-GPCA} o la clase más general
 de modelos esparsos de baja dimensión que se han estudiado
-extensivamente en los últimos años en campos como la detección compresiva
+extensivamente en los últimos años en campos como el sendado comprimido
 \cite{Wright-Ma-2022}.
 
 En todas estas familias de modelos analíticos, el problema central consiste en
 identificar el modelo más compacto dentro de cada familia que mejor se ajuste a los
-datos proporcionados. A continuación, ofrecemos una breve descripción de estos modelos 
+datos proporcionados. A continuación, ofrecemos un breve repaso de estos modelos 
 analíticos clásicos, pero dejamos un estudio más sistemático para el 
 \Cref{ch:classic-models}. En teoría, estos modelos analíticos han ofrecido
 profundas perspectivas sobre las propiedades geométricas y estadísticas de
 las estructuras de baja dimensión. A menudo proporcionan soluciones en forma cerrada o
 algoritmos eficientes y escalables, que resultan muy útiles para datos
-cuya distribución puede aproximarse bien mediante dichos modelos. Y lo que es más
+cuyas distribuciones puede aproximarse bien mediante dichos modelos. Y lo que es más
 importante, en el caso de problemas más generales, dan una idea de lo
 fácil o difícil que puede resultar identificar estructuras de baja dimensión
 y cuáles son las ideas básicas para abordar ese tipo de problemas.
@@ -929,7 +929,7 @@ donde \(*\) es la operación de convolución, \(z\) es la entrada y
 \(h\) es la función de respuesta al impulso.\footnote{Por lo general, se supone que \(h\)
 tiene ciertas propiedades deseables, como una longitud finita
 o un espectro de banda limitada.} Aquí, \(\epsilon[n]\) denota el
-ruido aditivo de la observación. Dado el proceso de entrada \(\{z[n]\}\) y
+ruido aditivo de observación. Dado el proceso de entrada \(\{z[n]\}\) y
 las observaciones del proceso de salida \(\{x[n]\}\), el objetivo es encontrar
 el \(h[n]\) óptimo tal que \(\hat{x}[n] = h[n]*z[n]\) prediga
 \(x[n]\) de manera óptima. La calidad de la predicción (es decir, su bondad) se mide
@@ -938,8 +938,8 @@ mediante el error cuadrático medio (MSE):
     \min_{h} \Ex[\epsilon[n]^{2}] = \Ex[\|x[n] - h[n]*z[n]\|_{2}^{2}].
     \label{eqn:wiener-mse}
 \end{equation}
-La solución óptima \(h[n]\) se denomina filtro (de reducción de ruido). 
-Norbert Wiener ---quien también fue quien inició el movimiento de Cibernética--- estudió 
+La solución óptima \(h[n]\) se denomina un filtro (de reducción de ruido). 
+Norbert Wiener ---quien también inició el movimiento de la Cibernética--- estudió 
 este problema en la década de 1940 y derivó una elegante solución en forma cerrada
 conocida como el \textit{filtro de Wiener} \cite{Wiener-1942,Wiener-1949}.
 Este resultado, también conocido como estimación y filtrado por mínima varianza,
@@ -948,8 +948,8 @@ pueden consultar \cite[Apéndice B]{MaY2003} para obtener una derivación detall
 de este tipo de estimador.
 
 \paragraph{El filtro de Kalman.}
-La idea de atenuar el ruido en un sistema dinámico o filttrarlo fue posteriormente
-ampliada por Rudolph Kalman en la década de 1960 al caso de un sistema lineal 
+La idea de atenuar o filtrar el ruido en un sistema dinámico fue posteriormente
+ampliada por Rudolf Kalman en la década de 1960 al caso de un sistema lineal 
 invariante en el tiempo descrito por un modelo de espacio de estados de dimensión 
 finita:
 \begin{equation}
@@ -975,7 +975,7 @@ se expresa en forma cerrada mediante el denominado \textit{filtro de Kalman}
 moderna de control, ya que permite estimar el estado de un sistema dinámico a 
 partir de observaciones con ruido. Con ello, se puede introducir una 
 retroalimentación lineal de estado, por ejemplo, \(\vu[n] = \vF \hat{\vz}[n]\), 
-y hacer que el sistema en bucle cerrado sea totalmente autónomo, tal y como se 
+y hacer que el sistema en bucle cerrado sea completamente autónomo, tal como se 
 muestra en la \Cref{eqn:recursive-closed-loop}. Los lectores interesados pueden consultar
 \cite[Apéndice B]{MaY2003} para ver una derivación detallada del filtro de Kalman.
 
@@ -987,7 +987,7 @@ de sistemas}: cómo \textit{aprender} los parámetros \(\vA, \vB,
 \vC\) a partir de numerosas muestras de la secuencia de entrada \(\{\vu[n]\}\) y
 de la secuencia de observación \(\{\vx[n]\}\). Este es un problema clásico de
 la teoría de sistemas. Si el sistema es lineal, las secuencias de entrada y salida
-\(\{\vu[n], \vx[n]\}\) se encuentran conjuntamente en un determinado
+\(\{\vu[n], \vx[n]\}\) se encuentran conjuntamente en cierto
 subespacio de baja dimensión\footnote{que tiene la misma dimensión que el
 orden del modelo de espacio de estados \eqref{eqn:linear-state-space}.}.
 Por lo tanto, el problema de identificación equivale esencialmente a
@@ -1006,7 +1006,7 @@ Kalman tratan de estimar dicho \(\vx_{o}\) a partir de sus observaciones ruidosa
 \end{equation}
 donde \(\vepsilon\) suele ser un ruido (o proceso) aleatorio gaussiano.
 Por lo tanto, sus soluciones se basan en identificar un subespacio lineal de baja 
-dimensión que se ajuste mejor a los datos ruidosos observados.
+dimensión que mejor se ajuste a los datos ruidosos observados.
 Al proyectar los datos sobre este subespacio, se obtienen las
 operaciones óptimas de reducción de ruido, todas en forma cerrada.
 
@@ -1023,7 +1023,7 @@ modelar dicha estructura como
     \vepsilon =  \vU \vz + \vepsilon, \quad \vU \in \R^{D\times d},
     \label{eqn:PCA-model}
 \end{equation}
-donde \(\vepsilon \in \R^{D}\) es un ruido aleatorio de pequeña magnitud. La \Cref{fig:PCA}
+donde \(\vepsilon \in \R^{D}\) es ruido aleatorio de pequeña magnitud. La \Cref{fig:PCA}
 ilustra una distribución de este tipo con dos componentes principales.
 \begin{figure}
     \centering
@@ -1032,13 +1032,13 @@ ilustra una distribución de este tipo con dos componentes principales.
     \label{fig:PCA}
 \end{figure}
 El problema consiste en encontrar la base del subespacio \(\vU\) a partir de numerosas muestras
-de \(\vx\). Un enfoque habitual consiste en minimizar el error de la proyección
+de \(\vx\). Un enfoque habitual consiste en minimizar el error de proyección
 sobre el subespacio:
 \begin{equation}
     \min_{\vU}\Ex[\|\vx - \vU\vU^{\top} \vz\|_{2}^{2}].
 \end{equation}
-En esencia, se trata de una tarea de reducción de ruido: una vez que se ha
-encontrado correctamente la base \(\vU\), podemos eliminar el ruido de la muestra ruidosa \(\vx\)
+En esencia, se trata de una tarea de reducción de ruido: una vez encontrada
+correctamente la base \(\vU\), podemos eliminar el ruido de la muestra ruidosa \(\vx\)
 proyectándola sobre el subespacio de baja dimensión generado por \(\vU\):
 \begin{equation}
     \vx \rightarrow \hat{\vx} = \vU\vU^{\top} \vx.
@@ -1055,9 +1055,9 @@ al espacio original:
     \label{eqn:auto-encoding-PCA}
 \end{equation}
 Debido a la sencillez de la estructura de datos, tanto el codificador \(\cE\) como el decodificador
-\(\cD\) se convierten en operadores lineales simples (de proyección y elevación).
+\(\cD\) se convierten en operadores lineales sencillos (de proyección y elevación).
 
-Este problema clásico de la estadística se conoce como análisis de componentes principales
+Este problema clásico en estadística se conoce como análisis de componentes principales
 (PCA). Fue estudiado por primera vez por Pearson en 1901
 \cite{Pearson1901} y, posteriormente, de manera independiente por Hotelling en 1933
 \cite{Hotelling1933}. El tema se resume en forma sistemática en el
@@ -1073,17 +1073,17 @@ lo cual equivale a suponer que \(\vz\) en el modelo PCA
 se conoce como PCA probabilístico \cite{TippingM1999} y tiene la misma
 solución computacional que el PCA.
 
-En este libro reexaminamos el PCA en el \Cref{ch:classic-models} desde la
+En este libro volvemos a examinar el PCA en el \Cref{ch:classic-models} desde la
 perspectiva del aprendizaje de una distribución de baja dimensión. Nuestro objetivo es
 utilizar este modelo sencillo e idealizado para transmitir algunas de las ideas más
 fundamentales para el aprendizaje de una representación compacta de una distribución de baja 
-dimensión, incluyendo conceptos importantes como la compresión mediante la reducción de ruido 
-y la autocodificación para obtener una representación coherente.
+dimensión, incluyendo las nociones importantes de compresión mediante reducción de ruido 
+y de autocodificación para obtener una representación coherente.
 \paragraph{Análisis de componentes independientes.}
 El análisis de componentes independientes (ICA) fue propuesto originalmente por
 \cite{Ans-1985} como un modelo clásico para \textit{aprender una buena
 representación}. De hecho, en un principio se propuso como un simple
-modelo matemático de nuestra memoria. El modelo ICA adopta una forma aparentemente
+modelo matemático de nuestra memoria. El modelo ICA adopta una forma engañosamente
 similar a la del modelo PCA mencionado anteriormente \eqref{eqn:PCA-model}, al suponer
 que la variable aleatoria observada \(\vx\) es una superposición lineal
 de múltiples componentes independientes \(z_{i}\):\footnote{En el PCA, las
@@ -1111,7 +1111,7 @@ una variable gaussiana!} El problema ICA tiene como objetivo identificar tanto
     \centering
     \includegraphics[width=0.7\linewidth]{\toplevelprefix/chapters/chapter1/figs/PCA_ICA.png}
     \caption{PCA (a la izquierda) versus ICA (a la derecha). Obsérvese que el PCA encuentra los
-        vectores \textit{ortogonales} que abarcan aproximadamente los datos,
+        vectores \textit{ortogonales} que aproximadamente abarcan los datos,
         mientras que el ICA encuentra vectores (no necesariamente ortogonales) que
         se combinan \textit{de manera independiente} para formar aproximadamente los datos, así
     como los coeficientes de esta combinación.}
@@ -1119,7 +1119,7 @@ una variable gaussiana!} El problema ICA tiene como objetivo identificar tanto
 \end{figure}
 
 Aunque el mapeo de \(\vz\) a \(\vx\) (la decodificación) parece lineal
-y sencilla una vez que se han aprendido \(\vU\) y \(\vz\), el
+y sencillo una vez que se han aprendido \(\vU\) y \(\vz\), el
 mapeo de \(\vx\) a \(\vz\) (la codificación) puede ser complicado y es posible
 que no se pueda representar mediante un simple mapeo lineal. Por lo tanto, el ICA generalmente
 proporciona una autocodificación de la forma:
@@ -1143,7 +1143,7 @@ de nuevo en el \ref{ch:denoising}.
 Si \(p\) en \eqref{eqn:ICA-modes} es muy pequeño, la probabilidad de que
 cualquier componente sea distinto de cero es baja. En este caso, decimos que \(\vx\) es
 un vector generado de manera esparsa y que se concentra en una unión de subespacios lineales
-cuya dimensión es \(k = p \cdot d\). Por lo tanto, podemos ampliar el modelo ICA
+cuya dimensión es \(k = p \cdot d\). Podríamos, por tanto, ampliar el modelo ICA
 a una familia más general de estructuras de baja dimensión conocidas como
 modelos esparsos.
 
@@ -1151,10 +1151,10 @@ Un modelo \(k\)-esparso es el conjunto de todos los \textit{vectores \(k\)-espar
 \begin{equation}
     \cZ = \{\vz \in \R^{n} \mid \|\vz\|_{0} \leq k\},
 \end{equation}
-donde \(\|\cdot\|_{0}\) cuenta el número de entradas distintas de cero. Por lo tanto,
+donde \(\|\cdot\|_{0}\) cuenta el número de entradas distintas de cero. En consecuencia,
 \(\cZ\) es la unión de todos los subespacios de dimensión \(k\) alineados con
 los ejes de coordenadas, tal como se ilustra en la \Cref{fig:mixture-models}
-(a la izquierda). Un problema fundamental en el procesamiento de señales y la estadística consiste en
+(a la izquierda). Un problema fundamental en el procesamiento de señales y en estadística consiste en
 recuperar un vector esparso \(\vz\) a partir de sus observaciones lineales
 \begin{equation}
     \vx = \vA \vz + \vepsilon, \quad \vA \in \R^{m\times n},
@@ -1165,8 +1165,8 @@ un ruido pequeño. Este problema, que a primera vista parece sencillo, es NP-dif
 incluso difícil de aproximar (véase \cite{Wright-Ma-2022} para más detalles).
 
 A pesar de su rica historia, que se remonta al siglo XVIII
-\cite{Boscovichca1750}, no existía ningún algoritmo de demostrablemente eficiente para resolver
-esta clase de problemas, aunque entre los años de 1960 y 1990
+\cite{Boscovichca1750}, no existía ningún algoritmo de eficiencia demostrable para resolver
+esta clase de problemas, aunque entre las décadas de 1960 y 1990
 se propusieron muchos algoritmos heurísticos. Algunos resultaron eficaces en la práctica,
 pero carecían de una justificación rigurosa. Se produjo un gran avance a
 principios de la década de 2000, cuando matemáticos como David Donoho, Emmanuel
@@ -1179,9 +1179,9 @@ eficiente mediante la minimización convexa de \(\ell^{1}\):
     \min \|\vz\|_{1} \quad \text{subject to} \quad \|\vx -
     \vA\vz\|_{2} \leq \epsilon,
 \end{equation}
-donde \(\|\cdot\|_{1}\) es la norma \(\ell^{1}\) de promoción de esparcidad
-de un vector y \(\epsilon\) es una constante pequeña. Cualquier solución da como resultado
-una (auto) codificación esparsa
+donde \(\|\cdot\|_{1}\) es la norma \(\ell^{1}\) que promueve la esparcidad
+de un vector y \(\epsilon\) es una constante pequeña. Cualquier solución genera
+una (auto)codificación esparsa
 \begin{equation}
     \vx \xrightarrow{\hspace{2mm} \cE \hspace{2mm}} \vz
     \xrightarrow{\hspace{2mm} \vA \hspace{2mm}} \hat{\vx}.
@@ -1194,13 +1194,13 @@ esparsa y el aprendizaje profundo.\footnote{Ya en 2010 se señalaron similitudes
     y las redes profundas
 \cite{gregor2010learning}.}
 
-Las condiciones para que la minimización de \(\ell^{1}\) tenga éxito son sorprendentemente
+Las condiciones para que la minimización en \(\ell^{1}\) tenga éxito son sorprendentemente
 generales: el número mínimo de mediciones \(m\) necesarias para una
 recuperación exitosa solo es proporcional a la dimensión intrínseca
-\(k\). Este es el fenómeno de la \textit{detección compresiva}
+\(k\). Este es el fenómeno de la \textit{sensado compresivo}
 \cite{CandesE2006-ICM}. Se extiende a amplias familias de
 estructuras de baja dimensión, incluidas las matrices de bajo rango. Estos
-resultados cambiaron radicalmente nuestra comprensión de la recuperación
+resultados cambiaron fundamentalmente nuestra comprensión de la recuperación
 de estructuras de baja dimensión en espacios de alta dimensión. David Donoho,
 entre otros, celebró este cambio de tendencia como la «bendición de
 la dimensionalidad» \cite{DonohoD2000}, en contraste con la habitual
@@ -1209,14 +1209,14 @@ y el conjunto de resultados se presentan en \cite{Wright-Ma-2022}.
 
 No se puede subestimar la importancia computacional de este marco.
 Transformó problemas que antes se consideraban intratables en otros que no 
-solo son abordables, sino que pueden resolverse de manera escalable mediante
+solo son tratables, sino que pueden resolverse de manera escalable mediante
 algoritmos extremadamente eficientes:
 \begin{equation}
     \text{intratable} \;\Longrightarrow\; \text{tratable}
     \;\Longrightarrow\; \text{escalable}.
 \end{equation}
 Los algoritmos cuentan con rigurosas garantías teóricas de
-corrección, siempre que se cumplan unos requisitos precisos en cuanto a datos y cálculo. La naturaleza
+corrección, siempre que se cumplan requisitos precisos en cuanto a datos y cálculo. La naturaleza
 deductiva de este enfoque contrasta marcadamente con la
 práctica empírica e inductiva de las redes neuronales profundas. Sin embargo, ahora
 sabemos que ambos enfoques comparten un objetivo común: la búsqueda
@@ -1225,7 +1225,7 @@ de estructuras de baja dimensión en espacios de alta dimensión.
 \paragraph{Aprendizaje de diccionarios.}
 Desde el punto de vista conceptual, surge un problema aún más complejo que el de la codificación esparsa
 \eqref{eqn:sparse-model} cuando la matriz de observación \(\vA\)
-es desconocida y debe aprenderse a partir de un conjunto de observaciones (posiblemente ruidosas)
+es desconocida y debe aprenderse a partir de un conjunto de observaciones, posiblemente ruidosas
 \(\vX = [\vx_{1}, \vx_{2}, \ldots, \vx_{n}]\):
 \begin{equation}
     \vX = \vA \vZ + \vE, \quad \vA \in \R^{m\times n}.
@@ -1239,7 +1239,7 @@ se sabe que los \(\vz_{i}\) son esparsos. Este es el
 \eqref{eqn:ICA-model} comentado anteriormente. En otras palabras,
 dado que la distribución de los datos \(\vX\) es la imagen de una
 distribución esparsa estándar \(\vZ\) bajo una transformación lineal
-\(\vA\), queremos aprender tanto \(\vA\) como su mapeo «inverso»
+\(\vA\), deseamos aprender tanto \(\vA\) como su mapeo «inverso»
 \(\cE\) para obtener un autocodificador:
 \begin{equation}
     \vX   \xrightarrow{\hspace{2mm} \cE\hspace{2mm}}  \vZ
@@ -1253,9 +1253,9 @@ tramos de baja dimensión, o se aproxima a ellas. Cada método requiere aprender
 o local) para estas estructuras a partir de muestras con ruido. En el \Cref{ch:classic-models} 
 estudiamos cómo identificar este tipo de estructuras de baja dimensión mediante estos 
 modelos clásicos. En particular, veremos que todos estos modelos de baja dimensión, lineales o 
-lineales por tramos, pueden aprenderse de manera eficiente mediante la misma familia 
+lineales a trozos, pueden aprenderse de manera eficiente mediante la misma familia 
 de algoritmos rápidos conocida como \textit{iteración de potencias} \cite{Zhai-2020}. 
-Aunque estos modelos lineales o lineales por tramos son algo idealizados para la 
+Aunque estos modelos lineales o lineales a trozos son algo idealizados para la 
 mayoría de los datos del mundo real, comprenderlos es un primer paso esencial para
 comprender distribuciones de baja dimensión más generales.
 
@@ -1281,22 +1281,22 @@ unificadores que permitan identificar sus estructuras de baja dimensión más ge
 representaciones eficientes, por ejemplo,
 con fines de codificación y decodificación \cite{ALLARD2012435,LITTLE2017504}.
 
-En la práctica, en el caso de una distribución general de datos del mundo real,
+En la práctica, ante una distribución general de datos del mundo real,
 por lo general solo disponemos de muchas muestras de dicha distribución: la
 llamada \textit{distribución empírica}. En tales casos, normalmente
 no podemos esperar contar con una forma analítica clara para sus
 estructuras de baja dimensión, ni para los operadores de reducción de ruido
-resultantes.\footnote{Esto difiere de los casos del PCA, el filtro de Wiener
+resultantes.\footnote{A diferencia de los casos del PCA, el filtro de Wiener
 y el filtro de Kalman.} Por lo tanto, necesitamos desarrollar una solución más general
 para estas distribuciones empíricas, no necesariamente en forma cerrada,
-pero al menos que se pueda calcular de manera eficiente. Si lo hacemos correctamente,
+pero al menos computable de manera eficiente. Si lo hacemos correctamente,
 las soluciones de los modelos lineales antes mencionados deberían convertirse en sus 
 casos particulares.
 
 \paragraph{Eliminación de ruido.} En la década de 1950, los estadísticos comenzaron 
 a interesarse por el problema de reducir el ruido en los datos muestreados de una 
 distribución arbitraria. Sea \(\vx_{o}\) una variable aleatoria con función de densidad de probabilidad
-\(p_{o}(\cdot)\). Supongamos que observamos una versión ruidosa de \(vx_{o}\):
+\(p_{o}(\cdot)\). Supongamos que observamos una versión ruidosa de \(\vx_{o}\):
 \begin{equation}
     \vx = \vx_{o} + \sigma \vg,
 \end{equation}
@@ -1306,7 +1306,7 @@ la función de densidad de probabilidad de \(\vx\).\footnote{Es decir,
     \(p(\vx) = \int_{-\infty}^{\infty} \phi_{\sigma}(\vx - \vz)p_{o}(\vz)
     \odif{\vz}\), donde \(\phi_{\sigma}\) es la función de densidad de la
 distribución gaussiana \(\mathcal{N}(\vzero, \sigma^{2} \vI)\).}
-Cabe destacar que la esperanza a posteriori de \(\vx_{o}\) dada \(\vx\) 
+Sorprendentemente, la esperanza a posteriori de \(\vx_{o}\) dada \(\vx\) 
 se puede calcular mediante una elegante fórmula, conocida como fórmula de Tweedie
 \cite{Robbins1956AnEB}:\footnote{Herbert Robbins atribuyó el mérito de
 esta fórmula a Maurice Kenneth Tweedie, según se desprende de su correspondencia personal.}
@@ -1320,7 +1320,7 @@ El ruido \(\vg\) se puede estimar explícitamente como
     \hat{\vg} = \frac{\vx - \hat{\vx}_{o}}{\sigma} = -\sigma \nabla \log p(\vx),
 \end{equation}
 para lo cual solo necesitamos conocer la distribución \(p(\cdot)\) de
-\(\vx\), y no la distribución real \(p_{o}(\cdot)\) para \(\vx_{o}\). Una
+\(\vx\), y no la verdad de referencia \(p_{o}(\cdot)\) para \(\vx_{o}\). Una
 consecuencia importante de este resultado es que, si añadimos ruido gaussiano
 a cualquier distribución, el proceso de reducción de ruido puede llevarse a cabo fácilmente si
 logramos obtener de alguna manera la función \(\nabla \log p(\vx)\).
@@ -1344,7 +1344,7 @@ es la generación de imágenes mediante la reducción iterativa de ruido
     \centering
     \includegraphics[width=1\linewidth]{\toplevelprefix/chapters/chapter1/figs/Density-compress.png}
     \caption{Interpretación geométrica de una función de \textit{score} \(\nabla
-        \log p(\vx)\) para una distribución con densidad \(p(\vx)\) a la
+        \log p(\vx)\) para una distribución con densidad \(p(\vx)\), que se muestra a la
         izquierda. La operación generada por la función de \textit{score} empuja la
         distribución hacia las zonas de mayor densidad. El objetivo es que,
         según una determinada medida de compacidad (por ejemplo, la entropía 
@@ -1378,7 +1378,7 @@ menor dimensión. Por ejemplo, la distribución \(p(\vx)\) en la
     \(p^{*}(\vx) = p^{*}(\vx_{1})\delta(\vx-\vx_{1}) +
     p^{*}(\vx_{2}) \delta(\vx-\vx_{2})\) con \(p^{*}(\vx_{1}) +
 p^{*}(\vx_{2}) = 1\).}\footnote{Obsérvese que en esta sección
-    analizamos el proceso de reducir el ruido y comprimir en forma iterativa una
+    analizamos el proceso de reducir el ruido y comprimir iterativamente una
     distribución con ruido y de alta entropía hasta que converja a la distribución de datos de baja entropía.
     Como veremos en el \Cref{ch:denoising}, este
     problema es dual al problema de aprender una codificación óptima para
@@ -1399,25 +1399,25 @@ de \textit{tasa-distorsión}.
 Más adelante en este capítulo y en los
 \Cref{ch:denoising,ch:lossy-compression}, exploramos cómo este sencillo
 marco de reducción de ruido y compresión unifica 
-potentes métodos para el aprendizaje de distribuciones de baja dimensión en
+métodos potentes para el aprendizaje de distribuciones de baja dimensión en
 espacios de alta dimensión, incluidas las distribuciones de imágenes naturales.
 
 \subsection{Enfoques empíricos basados en datos}
 En la práctica, resulta difícil modelar datos importantes del mundo real ---como 
 imágenes, sonidos y texto--- con los modelos lineales idealizados,
-lineales por tramos u otros modelos analíticos que se han comentado en
-la sección anterior. Por ello, a lo largo de la historia se han propuesto muchos modelos y
+lineales a trozos u otros modelos analíticos que se han tratado en
+la sección anterior. Por ello, históricamente se han propuesto muchos modelos y
 métodos no paramétricos para modelar o capturar la
 distribución empírica de los datos y, posteriormente, utilizar dichos «modelos» para
-la inferencia. Estos modelos, especialmente las redes neuronales profundas, a menudo se han
-inspirado en el sistema nervioso biológico, ya que el cerebro de
+la inferencia. Estos modelos, especialmente las redes neuronales profundas, a menudo se 
+inspiraron en el sistema nervioso biológico, ya que el cerebro de
 un animal o de un ser humano procesa esos datos con una eficiencia y
 eficacia notables. En comparación con los modelos analíticos presentados en la
 sección anterior, estos modelos basados en datos son los menos comprendidos,
 a pesar de que han dominado en gran medida la práctica de la
 tecnología de IA durante aproximadamente la última década. Por lo tanto, 
 uno de los principales objetivos de este libro es ofrecer un marco conceptual 
-sólido y unificado (en gran parte a través de los capítulos \ref{ch:deep-networks} a
+basado en principios y unificado (en gran parte a través de los capítulos \ref{ch:deep-networks} a
 \ref{ch:applications}) para comprender tanto estos modelos empíricos «modernos»
 como los modelos analíticos clásicos y poner de manifiesto las conexiones fundamentales
 entre ellos.
@@ -1430,12 +1430,12 @@ entre ellos.
     \includegraphics[width=0.55\linewidth]{\toplevelprefix/chapters/chapter1/figs/neuron.png}
     \hspace{3mm}
     \includegraphics[width=0.40\linewidth]{\toplevelprefix/chapters/chapter1/figs/Artificial_neuron.png}
-    \caption{El primer modelo matemático de una neurona artificial
+    \caption{El primer modelo matemático de neurona artificial
     (a la derecha) que emula la manera en que una neurona (a la izquierda) procesa señales.}
     \label{fig:neuron}
 \end{figure}
 
-Inspirándose en el sistema nervioso del cerebro, el primer modelo matemático
+Inspirado en el sistema nervioso del cerebro, el primer modelo matemático
 de una neurona artificial\footnote{conocida como «unidad de umbral lineal»
 o «perceptrón»} fue propuesto por Warren McCulloch\footnote{un
 profesor de psiquiatría de la Universidad de Chicago en aquella época} y
@@ -1448,7 +1448,7 @@ donde $\varphi(\cdot)$ es alguna función de activación no lineal, que suele
 representarse mediante una función umbral. Este modelo se ilustra en la
 \Cref{fig:neuron}. Como podemos ver, esta estructura ya comparte las principales
 características de una unidad básica en las redes neuronales profundas modernas.
-El modelo se basa en observaciones sobre el funcionamiento de una neurona individual en
+El modelo se deriva de observaciones sobre el funcionamiento de una neurona individual en
 nuestro sistema nervioso. Sin embargo, los investigadores no sabían exactamente qué
 funciones podría realizar y llevar a cabo un conjunto de neuronas de este tipo. En
 un plano más técnico, tampoco tenían claro qué función de activación no lineal
@@ -1467,11 +1467,11 @@ sigmoide, etc. \cite{dubey2022activation}.}
 
 \paragraph{La red neuronal artificial.}
 En la década de 1950, Frank Rosenblatt fue el primero en construir una máquina con
-una \textit{red} de este tipo de neuronas artificiales, tal y como se muestra en la
+una \textit{red} de este tipo de neuronas artificiales, como se muestra en la
 \Cref{fig:perceptron}. La máquina, denominada Mark I Perceptron,
 consta de una capa de entrada, una capa de salida y una única capa oculta
-de 512 neuronas artificiales, tal y como se muestra en la \Cref{fig:perceptron}
-(a la izquierda), que es similar a lo que se ilustra en
+de 512 neuronas artificiales, tal como se muestra en la \Cref{fig:perceptron}
+(a la izquierda), que es similar a lo que se ilustra en la
 \Cref{fig:single-deep} (a la izquierda). Se diseñó para clasificar
 imágenes ópticas de letras. Sin embargo, la capacidad de una red de una sola capa es
 limitada y solo puede aprender patrones linealmente separables. En el libro de 1969
@@ -1482,10 +1482,10 @@ una función XOR. Este resultado frenó considerablemente el interés por
 las redes neuronales artificiales, aunque más tarde se demostró que una
 red multicapa puede aprender una función XOR \cite{Rumelhart1986}.
 De hecho, una red multicapa lo suficientemente grande, como se muestra en la
-\Cref{fig:single-deep} (a la derecha), compuesta por neuronas simples de este tipo, puede
+\Cref{fig:single-deep} (a la derecha), compuesta por este tipo de neuronas simples, puede
 simular cualquier máquina de estados finitos, incluso la máquina universal de 
 Turing.\footnote{No hay que confundir lo que las redes neuronales son capaces de
-    hacer en teoría con el hecho de que sea factible o fácil entrenar una
+    hacer en principio con si es tratable o fácil entrenar una
 red neuronal que realice determinadas funciones deseadas.} Sin embargo, el estudio 
 de las redes neuronales artificiales entró posteriormente en su primer invierno 
 en la década de 1970.
@@ -1508,25 +1508,25 @@ los perceptrones multicapa (MLP), podría no ser suficiente. Para construir rede
 y eficientes, resulta de gran ayuda comprender el
 propósito o la función colectiva que deben cumplir las neuronas de la red, de modo
 que se puedan organizar y aprender de manera especializada. Así pues, en
-aquel momento decisivo, el estudio de la inteligencia artificial volvió a
+aquel momento decisivo, el estudio de la inteligencia de las máquinas, una vez más, volvió a
 buscar inspiración en el sistema nervioso animal.
 
 Se sabe que la mayor parte de nuestro cerebro se dedica a procesar información visual
 \cite{PalmerS1999}. En las décadas de 1950 y 1960, David Hubel
 y Torsten Wiesel estudiaron sistemáticamente las cortezas visuales de
 los gatos. Descubrieron que la corteza visual contiene diferentes tipos
-de células ---células simples y células complejas--- que resultan sensibles a
+de células ---células simples y células complejas--- que son sensibles a
 estímulos visuales de diferentes orientaciones y ubicaciones
 \cite{Hubel-Wiesel-1959}. Hubel y Wiesel ganaron el Premio Nobel de
-Fisiología o Medicina de 1981 por este descubrimiento revolucionario.
+Fisiología o Medicina de 1981 por este descubrimiento pionero.
 
 En el ámbito de las redes neuronales artificiales, el trabajo de Hubel y Wiesel
-inspiró a Kunihiko Fukushima a diseñar la red «neocognitron» en
+inspiró a Kunihiko Fukushima a diseñar la red «neocognitrón» en
 1980, la cual consiste en neuronas artificiales que emulan a las neuronas biológicas
 de la corteza visual \cite{Fukushima1980NeocognitronAS}. Esta se conoce como la 
 primera \textit{red neuronal convolucional} (CNN), y su arquitectura se ilustra en la
 \Cref{fig:neocognitron}. A diferencia del perceptrón, el neocognitrón tenía
-más de una capa oculta y podía considerarse una red profunda, tal y como
+más de una capa oculta y podía considerarse una red profunda, como
 se muestra en la \Cref{fig:single-deep} (a la derecha).
 
 Inspirándose también en el funcionamiento de las neuronas de la corteza visual del gato,
@@ -1606,7 +1606,7 @@ paralelas y distribuidas. Sin embargo, es probable que la naturaleza no utilice 
     hemos comentado anteriormente, la naturaleza aprende casi en forma generalizada a corregir
 los errores mediante la retroalimentación en bucle cerrado.} ya que el mecanismo resulta demasiado costoso
 para su implementación física.\footnote{La BP de extremo a extremo
-    resulta computacionalmente inmanejable para estructuras neuronales tan complejas como el
+    resulta computacionalmente intratable para estructuras neuronales tan complejas como el
     cerebro, especialmente si las actualizaciones deben realizarse en tiempo real.
     En cambio, las actualizaciones localizadas en pequeñas secciones del circuito neuronal
     son mucho más factibles desde el punto de vista biológico. Existen relativamente pocos
@@ -1616,8 +1616,8 @@ para su implementación física.\footnote{La BP de extremo a extremo
     que esta es una oportunidad emocionante para mejorar la escalabilidad del
 entrenamiento de redes profundas.} Esto deja un amplio margen para mejoras futuras.
 
-A pesar de los avances algorítmicos mencionados, el entrenamiento de redes profundas
-seguía siendo complicado y computacionalmente costoso en las décadas de 1980 y 1990. 
+A pesar de los avances algorítmicos antes mencionados, el entrenamiento de redes profundas
+seguía siendo caprichoso y computacionalmente costoso en las décadas de 1980 y 1990. 
 A finales de la década de 1990, las máquinas de vectores de soporte (SVM) [CV95] habían ganado 
 popularidad como una alternativa superior para las tareas de clasificación.\footnote{Ideas 
 similares para problemas de clasificación se remontan a la tesis doctoral que Thomas Cover defendió en 1964,
@@ -1655,25 +1655,25 @@ entre los datos originales \(\vX\) y los datos regenerados \(\hat{\vX}\).}:
     \min_{f,g} \|\vX - \hat{\vX}\|_{2}^{2}, \qquad \text{donde} \quad
     \hat{\vX} = g(f(\vX)),
 \end{equation}
-un autocodificador puede aprenderse directamente a partir de los datos \(\vX\).
+un autocodificador se puede entrenar directamente a partir de los datos \(\vX\).
 
 ¿Pero cómo podemos garantizar que una autocodificación de este tipo realmente
 capture las verdaderas estructuras de baja dimensión en \(\vX\) en lugar de
-producir uona representación trivial redundante? Por ejemplo, uno podría simplemente
+producir una representación trivial redundante? Por ejemplo, uno podría simplemente
 elegir que \(f\) y \(g\) sean mapeos de identidad y definir \(\vZ = \vX\). Para
-asegurar que la autocodificación valga la pena, la representación resultante
-debería ser compresiva, según alguna medida calculable de complejidad.
+justificar la autocodificación, la representación resultante
+debería ser compresiva, según alguna medida computable de complejidad.
 En 1993, Geoffrey Hinton y sus colegas propusieron usar la longitud de código
-como tal medida, transformando la meta de autocodificación en la búsqueda
-de representación que minimice la longitud de código \cite{Hinton-1993}.
+como tal medida, transformando el objetivo de autocodificación en la búsqueda
+de una representación que minimice la longitud de código \cite{Hinton-1993}.
 Este trabajo estableció una conexión fundamental entre el principio de longitud
 mínima de descripción\cite{Rissanen-1978} y la minimización de la energía libre
 (Helmholtz). Los trabajos posteriores del grupo de Hinton \cite{Hinton504}
 demostraron empíricamente que esa autocodificación es capaz de aprender
 representaciones significativas de baja dimensión para imágenes del mundo real.
-Pierre Baldi presentó un estudio exhaustivo sobre los autocodificadores en 2011 
+Pierre Baldi presentó una revisión exhaustiva sobre los autocodificadores en 2011 
 \cite{Baldi2011}, justo antes de que las redes profundas alcanzaran una gran 
-popularidad. Analizaremos las medidas de complejidad y la autocodificación con 
+popularidad. Examinaremos las medidas de complejidad y la autocodificación con 
 más detalle en la \Cref{sec:unifying-approach} y presentaremos un estudio 
 sistemático de la autocodificación compresiva en el \Cref{ch:consistent-representations}
 desde una perspectiva más unificada.
@@ -1697,24 +1697,24 @@ prohibitiva para el hardware de la época. Estos factores provocaron una disminu
 del interés y un estancamiento en los avances y solo un puñado de investigadores siguió adelante.
 
 \paragraph{Clasificación y reconocimiento.}
-El enorme potencial de las redes profundas solo pudo ponerse de manifiesto
+El enorme potencial de las redes profundas solo pudo desatarse en toda su magnitud 
 una vez que se dispuso de datos y potencia computacional suficientes. En la
 década de 2010 habían surgido grandes conjuntos de datos como ImageNet y las GPU se habían
 hecho suficientemente poderosas como para que la retropropagación resultara 
 viable incluso para redes mucho más grandes que LeNet. En 2012, la red convolucional
 profunda AlexNet ---que debe su nombre a Alex Krizhevsky, uno de los autores
 \cite{krizhevsky2012imagenet}--- atrajo amplia atención al superar a los métodos
-de clasificación existentes operando sobre ImageNet por un margen significativo.
+de clasificación existentes en ImageNet por un margen significativo.
 \footnote{Las redes profundas ya habían logrado
     resultados de vanguardia en tareas de reconocimiento de voz, pero estos
     éxitos recibieron mucha menos atención que el salto cualitativo logrado en la clasificación
 de imágenes.} En la \Cref{fig:LeNet-AlexNet} se compara a AlexNet con LeNet. AlexNet
 retiene muchas características de LeNet --- simplemente es más grande y reemplaza
-las activaciones por sigmoide de LeNet por ReLUs. Este trabajo contribuyó a que
+las funciones de activación sigmoide de LeNet por ReLUs. Este trabajo contribuyó a que
 se le otorgara el Premio Turing de 2018 a Geoffrey Hinton.
 
 Este éxito temprano inspiró a la comunidad de la inteligencia artificial a
-explorar nuevas arquitecturas para redes neuronales, así como variaciones y mejoras.
+explorar nuevas arquitecturas de redes neuronales, así como variaciones y mejoras.
 Empíricamente, se descubrió que las redes más grandes y más
 profundas arrojan un mejor desempeño en tareas como la clasificación de
 imágenes. Entre las notables arquitecturas que surgieron se cuentan
@@ -1723,19 +1723,19 @@ VGG\cite{Simonyan15}, GoogLeNet \cite{Szegedy2014GoingDW}, ResNet
 Pese al rápido mejoramiento empírico del desempeño, las explicaciones teóricas
 de esas arquitecturas ---y, de existir, las relaciones entre ellas--- siguieron
 siendo escasas. Una meta de este libro consiste en desvelar el objetivo común que
-estas redes persiguen optimizar y en explicar sus características compartidas, tales
+estas redes optimizan y en explicar sus características compartidas, tales
 como múltiples capas de operadores lineales intercalados con activaciones no lineales
 (véase el \Cref{ch:deep-networks}).
 
 \paragraph{Aprendizaje por refuerzo.}
 Los primeros éxitos de las redes profundas se dieron principalmente en tareas de clasificación supervisada,
 como el reconocimiento del habla y de imágenes. Más tarde, se empezaron a
-utilizar las redes profundas para aprender políticas de toma de decisiones o de control para los juegos.
+utilizar las redes profundas para aprender políticas de toma de decisiones o de control para juegos.
 En este contexto, las redes profundas modelan la política óptima 
 de decisión/control (es decir, una distribución de probabilidad sobre
 las acciones que se deben realizar para maximizar la recompensa esperada) o la
 función de valor óptimo asociada (una estimación de la recompensa esperada
-partiendo de un estado dado), tal y como se muestra en la \Cref{fig:Alpha-Go}.
+partiendo de un estado dado), tal como se muestra en la \Cref{fig:Alpha-Go}.
 Los parámetros de la red se optimizan de manera incremental\footnote{Normalmente mediante
 retropropagación (BP)} en función de las recompensas obtenidas por el éxito o
 el fracaso al jugar la partida con la política actual. Este paradigma de aprendizaje
@@ -1745,7 +1745,7 @@ la práctica de los sistemas de control de finales de la década de 1960
 de una larga y rica historia, a la \textit{programación dinámica} de Richard Bellman \cite{Bellman-DP} y el
 \textit{aprendizaje por ensayo y error} \cite{Minsky-1954} de Marvin Minsky en la década de 1950.
 
-Desde el punto de vista de la implementación, la combinación de redes profundas y
+Desde el punto de vista de la implementación, la unión de redes profundas y
 aprendizaje por refuerzo resultó ser potente: las redes profundas pueden aproximar
 políticas de control y funciones de valor para entornos del mundo real que
 resultan difíciles de modelar analíticamente. Esto culminó en el sistema
@@ -1756,18 +1756,18 @@ Lee Sedol y, en 2017, al campeón mundial Jie Ke.\footnote{En
     como la búsqueda y poda de árboles, métodos que han demostrado ser menos
 escalables y poco eficaces para juegos más complejos como el Go.}
 
-El éxito de AlphaGo sorprendió a la comunidad informática, la que durante largo
-tiempo había considerado que el espacio de estados de ese juego era demasiado vasto
+El éxito de AlphaGo sorprendió a la comunidad informática, que durante largo
+tiempo había considerado que el espacio de estados del juego era demasiado vasto
 para cualquier solución eficiente en términos de cálculo y tamaño de muestra. La
-única explicación plausible es que el valor óptimo y la función de política del Go
+única explicación plausible es que la función de valor óptima y la función de política óptima del Go
 poseen una estructura favorable significativa: cualitativamente, sus dimensiones 
 intrínsecas son suficientemente bajas como para que puedan ser bien aproximadas por 
-redes neuronales que se pueden entrenar a partir de un número manejable de muestras.
+redes neuronales que se pueden entrenar a partir de un número tratable de muestras.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter1/figs/Policy-Value.png}
-    \caption{AlphaGo: el uso de redes neuronales profundas para modelar la función óptima de política
+    \caption{AlphaGo: el uso de redes neuronales profundas para modelar las funciones óptimas de política
     o de valor para el juego Go.}
     \label{fig:Alpha-Go}
 \end{figure}
@@ -1786,31 +1786,31 @@ para más detalles.}):
     \vX   \xrightarrow{\hspace{2mm} f \hspace{2mm}} \vZ.
     \label{eqn:encoding-deep-networks}
 \end{equation}
-En este caso, la función de mapeo aprendida \(f\) no necesita conservar la mayor parte de la información distributiva
+En este caso, la función de mapeo aprendida \(f\) no necesita preservar la mayor parte de la información distributiva
 sobre \(\vX\); basta con retener solo las estadísticas suficientes
 para la tarea. Por ejemplo, una muestra \(\vx \in \vX\) podría
 ser la imagen de una manzana, a la que \(f\) asigna la etiqueta de clase \(\vz =
 \text{``manzana''}\).
 
-En muchos entornos modernos---como los denominados grandes modelos de propósito general
-(«fundamentales»)---es posible que también tengamos que decodificar \(\vZ\) para
+En muchos entornos modernos ---como los denominados grandes modelos de propósito general
+(«fundamentales»)--- es posible que también tengamos que decodificar \(\vZ\) para
 recuperar el \(\vX\) correspondiente con una precisión preestablecida:
 \begin{equation}
     \vZ   \xrightarrow{\hspace{2mm} g  \hspace{2mm}} \hat{\vX}.
     \label{eqn:decoding-deep-networks}
 \end{equation}
-Como \(\vX\) típicamente representa datos observados en el mundo exterior,
+Como \(\vX\) típicamente representa datos observados del mundo exterior,
 un buen decodificador nos permite simular o predecir lo que sucede en el
 mundo. En una tarea de «texto a imagen» o «texto a video», por 
 ejemplo, \(\vz\) es el texto que describe la imagen deseada \(\vx\),
-y el decodificador debe generar un \(\hat{\vx}\) cuyo contenido 
+y el decodificador debería generar un \(\hat{\vx}\) cuyo contenido 
 concuerde con \(\vx\). Dada una clase de objetos \(\vz = \text{``manzana''}\),
 el decodificador \(g\) debería producir una imagen \(\hat{\vx}\) que se vea
 como una manzana, aunque no necesariamente idéntica al original \(\vx\).
 
-\paragraph{Generación por la vía de enfoques discriminativos.}
-Para que las imágenes generadas \(\hat{\vX}\) parezcan imágenes naturales
-verdaderas \(\vX\), debemos ser capaces de evaluar y minimizar alguna distancia:
+\paragraph{Generación mediante enfoques discriminativos.}
+Para que las imágenes generadas \(\hat{\vX}\) parezcan imágenes verdaderamente naturales
+\(\vX\), debemos ser capaces de evaluar y minimizar alguna distancia:
 \begin{equation}
     \min \operatorname{dist}(\vX, \hat{\vX}).
 \end{equation}
@@ -1848,14 +1848,14 @@ separar \(\hat{\vX}\) de \(\vX\):
     \label{fig:gan-networks}
 \end{figure}
 
-donde los rótulos \(0\) y \(1\) indican si una imagen es generada o real.
+donde las etiquetas \(0\) y \(1\) indican si una imagen es generada o real.
 Intuitivamente, mientras más difícil se hace separar \(\hat{\vX}\) de 
-\(\vX\), más probablemente similares son. 
+\(\vX\), con mayor probabilidad son más similares.
 
 El trabajo de Tu \cite{Tu-2007} demostró por primera vez la viabilidad de
 aprender un modelo generativo a partir de un enfoque discriminativo. Sin embargo,
 el trabajo utilizaba métodos tradicionales para la generación de imágenes y
-la clasificación de la distribución (como el boosting), que resultaron ser lentos y
+la clasificación de la distribución (como el \textit{boosting}), que resultaron ser lentos y
 difíciles de implementar. A partir de 2012, las redes neuronales profundas ganaron
 popularidad para la clasificación de imágenes. En 2014, Ian Goodfellow y
 sus colegas volvieron a proponer la generación de imágenes naturales mediante un
@@ -1866,7 +1866,7 @@ un juego minimax:
 \begin{equation}
     \min_{g} \max_{d} \ell(\vX, \hat{\vX}),
 \end{equation}
-donde \(\ell(\cdot)\) es alguna función de pérdida natural asociada a
+donde \(\ell(\cdot)\) es una función de pérdida natural asociada a
 la tarea de clasificación. En esta formulación, el discriminador \(d\)
 maximiza su éxito al separar \(\vX\) y \(\hat{\vX}\), mientras el
 generador \(g\) hace lo contrario. Este enfoque  se denomina
@@ -1936,11 +1936,12 @@ Hasta ahora, hemos ofrecido una breve exposición del objetivo principal y
 la historia de la inteligencia artificial, junto con muchas ideas y
 enfoques importantes relacionados con ella. En los últimos años, tras el
 éxito empírico de las redes neuronales profundas, se han
-realizado considerables esfuerzos para desarrollar marcos teóricos que nos ayuden a comprender
-las redes profundas diseñadas empíricamente, ya sea en lo que se refiere a componentes específicas que parecen
-necesarios (por ejemplo, el dropout \cite{srivastava2014dropout},
+realizado enormes esfuerzos para desarrollar marcos teóricos que nos ayuden a comprender
+las redes profundas diseñadas empíricamente, *…ya se trate de componentes específicas que parecen necesarias
+(por ejemplo, el dropout \cite{srivastava2014dropout},
     la normalización \cite{ioffe2015batch,ba2016layer}, la atención
-\cite{vaswani2017attention}) o en cuanto a sus comportamientos globales (por ejemplo, el doble
+\cite{vaswani2017attention}) 
+o de sus comportamientos globales (por ejemplo, el doble
     descenso \cite{belkin2019reconciling}, el colapso neuronal
 \cite{papyan2020prevalence}).
 
@@ -1949,9 +1950,9 @@ y ambiciosos:
 \begin{itemize}
     \item Desarrollar un marco teórico que proporcione interpretaciones matemáticas rigurosas
         de las redes neuronales profundas.
-    \item Asegurar la corrección de la distribución de los datos aprendida y
+    \item Asegurar la corrección de la distribución de datos aprendida y
         su coherencia con la representación aprendida.
-    \item Demostrar que el marco permite crear arquitecturas de alto rendimiento
+    \item Demostrar que el marco conduce a arquitecturas de alto rendimiento
         y sirve de guía para futuras mejoras prácticas.
 \end{itemize}
 En los últimos años, cada vez hay más indicios de que estos objetivos pueden en efecto alcanzarse
@@ -1965,38 +1966,38 @@ libro es ofrecer una introducción sistemática a este nuevo enfoque.
 \subsection{Aprendizaje de representaciones parsimoniosas}
 \label{sec:computational-approach-compression}
 Una condición necesaria para que cualquier tarea de aprendizaje resulte factible es que
-las secuencias de interés sean \textit{calculables}, al menos en el
+las secuencias de interés sean \textit{computables}, al menos en el
 sentido de Alan Turing \cite{Turing-1936}. Es decir, una secuencia puede
-calcularse mediante un programa en una computadora común.\footnote{De hecho,
+calcularse mediante un programa en una computadora típica.\footnote{De hecho,
 hay secuencias bien definidas que no son computables.} Además
 de ser computable, exigimos que el cálculo sea
-\textit{manejable}.\footnote{No es necesario que nos planteemos predecir
-    cosas cuya complejidad computacional sea inmanejable, por ejemplo, que crezca
+\textit{tratable}.\footnote{No es necesario que nos ocupemos de predecir
+    cosas cuya complejidad computacional sea intratable, por ejemplo, que crezca
 exponencialmente con la longitud o la dimensión de la secuencia.} Es decir,
 el costo computacional (espacial y temporal) de aprender y calcular
-la secuencia no debería crecer exponencialmente con la longitud. Además, tal y como
+la secuencia no debería crecer exponencialmente con la longitud. Además, como
 vemos en la naturaleza (y en la práctica moderna de la inteligencia
 artificial), para la mayoría de las tareas prácticas, un sistema inteligente necesita
 aprender qué es lo predecible a partir de grandes volúmenes de datos en un espacio de
 muy alta dimensión, como los datos de visión, sonido y tacto. Por lo tanto,
 para hablar de inteligencia no es necesario considerar todas las secuencias y
-estructuras computables y manejables; conviene centrarnos únicamente en
+estructuras computables y tratables; conviene centrarnos únicamente en
 las secuencias y estructuras predecibles que admiten realizaciones \textit{escalables}
 de sus algoritmos de aprendizaje y computación:
 \begin{equation}
     \text{\textbf{computable}} \;
-    \Longrightarrow \; \text{\textbf{manejable}} \; \Longrightarrow \;
+    \Longrightarrow \; \text{\textbf{tratable}} \; \Longrightarrow \;
     \text{\textbf{escalable}}.
 \end{equation}
 
 Esto es porque cualquier algoritmo que los seres inteligentes usen para aprender
-información útil éste tiene que ser \textit{escalable}. Más concretamente, la
+información útil debe ser \textit{escalable}. Más concretamente, la
 complejidad computacional de los algoritmos debería escalar en forma adecuada ---por 
 lo general, de manera lineal o incluso sublineal--- en función del tamaño y
 la dimensión de los datos. A nivel técnico, esto requiere que las operaciones
 en las que se basan los algoritmos para aprender sólo pueden utilizar información
 de oráculo que pueda calcularse de manera eficiente a partir de los datos. Más
-específicamente, cuando la dimensión es alta y la escala es grande,el único oráculo 
+específicamente, cuando la dimensión es alta y la escala es grande, el único oráculo 
 que se puede permitir calcular es o bien la información geométrica de primer orden
 sobre los datos\footnote{como aproximar una estructura no lineal localmente con 
     subespacios lineales y calcular el gradiente de una 
@@ -2010,11 +2011,11 @@ soluciones o algoritmos eficientes y eficaces con tales oráculos y operaciones
 escalables para \textit{aprender} estructuras de baja dimensión
 a partir de los datos muestreados y, posteriormente, la función predictiva.
 
-\paragraph{Búsqueda de baja dimensiionalidad mediante compresión.}
+\paragraph{Búsqueda de baja dimensión mediante compresión.}
 A partir de los ejemplos de secuencias que presentamos en la \Cref{sec:predictability},
 queda claro que algunas secuencias son fáciles de modelar y calcular, mientras que
 otras son más difíciles. El costo computacional de una secuencia
-depende de la complejidad de la función predictora \(f\). Cuanto
+depende de la complejidad de la función de predicción \(f\). Cuanto
 mayor sea el grado de regresión \(d\), más costoso resulta
 calcularlo. La función \(f\) podría ser una simple función lineal, o bien
 una función no lineal cuya especificación y cálculo
@@ -2055,18 +2056,18 @@ la secuencia, lo que cuantifica el beneficio que obtenemos al aprender
 su mecanismo generativo. Sin embargo, la complejidad de Kolmogorov es, por lo general, {\em
 incomputable} \cite{Cover-Thomas} y su aproximación resulta prácticamente imposible.
 Por lo tanto, tiene poca utilidad práctica: no permite predecir
-las dificultades del aprendizaje ni evaluar lo bien que hemos aprendido.
+el grado de dificultad del aprendizaje ni evaluar lo bien que hemos aprendido.
 
 \paragraph{Una medida computable de parsimonia.}
 Para fines prácticos, necesitamos una medida eficientemente computable
 de complejidad para secuencias generadas por la misma función predictiva.\footnote{En 
 la práctica, lo que típicamente nos interesa es aprender la función predictiva \(f\),
     en lugar de cualquier secuencia particular generada por \(f\).} Cabe señalar que 
-parte de la razón por la que la complejidad de Kolmogorov no es computable se debe en 
-parte a que su definición no es constructiva.
+una de las razones por la que la complejidad de Kolmogorov no es computable 
+es que su definición no es constructiva.
 
 Para introducir una medida computable de la complejidad, podemos adoptar un enfoque más
-constructivo, tal y como proponía Claude Shannon en el
+constructivo, tal como propugnaba Claude Shannon en el
 marco de la teoría de la información
 \cite{Shannon-1948,Cover-Thomas}.\footnote{Este marco ha
     guiado con éxito la práctica ingenieril en la industria de las comunicaciones
@@ -2074,9 +2075,9 @@ durante más de 80 años.} Suponiendo que la secuencia \(\vx\) se extrae
 de una distribución probabilística \(p(\vx)\), la entropía de la
 distribución:\footnote{Aquí consideramos la entropía diferencial, ya que
     suponemos que la secuencia está formada por variables continuas. Para variables discretas,
-utilizaríamos \(H(\vx) = - \sum_{i}p(s_{i}) \log p(s_{i})\).}
+utilizaríamos \(H(\vx) = - \sum_{i}p(\vx_{i}) \log p(\vx_{i})\).}
 \begin{equation}
-    h(\vx) \doteq -\int p(s) \log p(s) \odif{s}
+    h(\vx) \doteq -\int p(\vx) \log p(\vx) \odif{\vx}
     \label{eqn:entropy-definition}
 \end{equation}
 proporciona una medida natural de su complejidad. Esta medida también tiene
@@ -2090,12 +2091,12 @@ de segmentos largos de secuencia:
 \end{equation}
 generado por una función predictiva \(f\). Sin pérdida de generalidad,
 suponemos que todas las secuencias tienen la misma longitud \(D\), de modo que
-cada secuencia puede ser vista como vector en \(\R^{D}\). Introducimos un esquema de codificación
+cada secuencia puede considerarse como vector en \(\R^{D}\). Introducimos un esquema de codificación
 (con un libro de códigos), denotado \(\cE\), que mapea cada segmento \(x_{i}\) 
 a una secuencia única de bits binarios \(\cE(x_{i})\) y un esquema de decodificación
 correspondiente \(\cD\) que mapea las cadenas de bits binarios de vuelta a segmentos
-de secuencias (digamos que sujetos a un error máximo de \(\epsilon \geq 0\) ya que tal
-esquema de codificación puede tener pérdidas). El esquema más sencillo consiste en llenar el espacio
+de secuencias (admitiendo un error de hasta \(\epsilon \geq 0\) ya que tal
+esquema de codificación puede ser con pérdida). El esquema más sencillo consiste en llenar el espacio
 abarcado por todos los segmentos con bolas de radio \(\epsilon\), tal como se muestra en
 \Cref{fig:coding-schemes}. A continuación, numeramos las bolas, y cada
 secuencia se codifica como el índice binario de la bola más cercana, mientras que
@@ -2106,7 +2107,7 @@ correspondiente. Por lo tanto, cada segmento puede recuperarse con una precisió
     \centering
     \includegraphics[width=0.5\linewidth]{\toplevelprefix/chapters/chapter1/figs/Coding-schemes.png}
     \caption{Comparación de dos esquemas de codificación. Imaginemos que la
-        distribución verdadera de los datos se ubica a lo largo de las dos líneas con flechas $S_1'$ and $S_2'$.
+        distribución verdadera de los datos se ubica a lo largo de las dos líneas con flechas $S_1'$ y $S_2'$.
         Las muestras de estas líneas pueden codificarse con un libro de códigos de todas las
         bolas azules, o bien con un libro de códigos formado únicamente por las bolas verdes. El segundo esquema
     arroja una longitud/tasa de codificación mucho menor para la misma precisión.}
@@ -2115,12 +2116,12 @@ correspondiente. Por lo tanto, cada segmento puede recuperarse con una precisió
 
 Luego, para una codificación \(\cE\), la complejidad de la función
 predictiva \(f\) puede evaluarse como la longitud de codificación media
-\(L(\cE(x))\) de todas las secuencias \(x\) que genera, conocida como la
-tasa de codificación:\footnote{Se puede hacer esto más preciso tomando \(R(\vx
+\(L(\cE(\vx))\) de todas las secuencias \(\vx\) que genera, conocida como la
+tasa de codificación:\footnote{Se puede precisar esto aún más tomando \(R(\vx
     \mid \cE)\) como la longitud de codificación esperada para todos los segmentos \(\vx\)
 de longitud \(D\).}
 \begin{equation}
-    R(x \mid \cE) = \Ex[L(\cE(x))] \approx \frac{1}{N}\sum_{i=1}^{N}
+    R(\vx \mid \cE) = \Ex[L(\cE(\vx))] \approx \frac{1}{N}\sum_{i=1}^{N}
     L(\cE(x_{i})).
     \label{eqn:coding-rate}
 \end{equation}
@@ -2128,7 +2129,7 @@ La medida de la tasa de codificación cambiará si utilizamos un esquema de codi
 (o libro de códigos) diferente. En la práctica, cuanto mejor conozcamos la
 estructura de baja dimensión en torno a la cual se distribuyen los segmentos,
 más eficiente será el libro de códigos que podamos diseñar, tal como se ilustra en la
-\Cref{fig:coding-schemes}. Los lectores más perspicaces se darán cuenta de que,
+\Cref{fig:coding-schemes}. Los lectores más perspicaces se podrían dar cuenta de que,
 desde el punto de vista conceptual, el proceso de reducción de ruido ilustrado en la
 \Cref{fig:diffusion} se asemeja mucho al paso del esquema de codificación
 con las bolas azules al de las bolas verdes.
@@ -2136,39 +2137,39 @@ con las bolas azules al de las bolas verdes.
 Dados dos esquemas de codificación \(\cE_{1}\) y \(\cE_{2}\) para los
 segmentos, si la diferencia entre las tasas de codificación es positiva:
 \begin{equation}
-    R(x \mid \cE_{1}) -  R(x \mid \cE_{2}) > 0,
+    R(\vx \mid \cE_{1}) -  R(\vx \mid \cE_{2}) > 0,
 \end{equation}
 podemos decir que el esquema de codificación \(\cE_{2}\) es mejor. Esta diferencia
 puede verse como una medida de cuánta más información tiene \(\cE_{2}\) en 
 comparación con \(\cE_{1}\) acerca de la distribución de los datos. En gran medida,
 el objetivo de aprender la distribución de los datos es equivalente al de
 hallar el esquema de codificación y decodificación más eficiente que
-minimiza la tasa de codificación con una precisión deseada:
+minimiza la tasa de codificación satisfaciendo una precisión deseada:
 \begin{equation}
-    \min_{\cE, \cD} R(x \mid \cE) \quad \text{sujeto a} \quad
-    \operatorname{dist}(x, \cD(\cE(x))) \leq \epsilon.
+    \min_{\cE, \cD} R(\vx \mid \cE) \quad \text{sujeto a} \quad
+    \operatorname{dist}(\vx, \cD(\cE(\vx))) \leq \epsilon.
 \end{equation}
 Como veremos en el \Cref{ch:lossy-compression}, la tasa mínima que se puede lograr está
 estrechamente relacionada con la noción de entropía \(H(x)\)
 \eqref{eqn:entropy-definition}.
 
 \begin{remark}\label{rem:computable-complexity}
-    La idea de medir la complejidad de los datos mediante
-    esquemas de codificación explícitos ha motivado varios criterios de aprendizaje
-    propuestos para revisar la complejidad de Kolmogorov y mejorar su computabilidad
+    La perspectiva de medir la complejidad de los datos mediante
+    esquemas de codificación explícitos ha motivado varios objetivos de aprendizaje
+    propuestos para revisar la complejidad de Kolmogorov y con el fin de mejorar su computabilidad
     \cite{WallaceC1999}, entre ellos la longitud mínima del mensaje (MML)
     propuesta en 1968 \cite{WallaceC1968} y la longitud mínima de descripción
     (MDL) en 1978 \cite{Rissanen-1978,HansenM2001}.
-    Estos objetivos incluyen la longitud del esquema de codificación
+    Estos objetivos suelen incluir la longitud del esquema de codificación
     \(\cE\) en sí mismo (incluido su libro de códigos) además de los datos
     \(vx\) de interés: \(L(\cE(x)) + L(\cE)\). Sin embargo, si el objetivo
     es aprender un libro de códigos de tamaño finito y aplicarlo a un gran
     número de secuencias, el costo amortizado del libro de códigos puede ignorarse, ya que
     \begin{equation}
         \frac{1}{N}\left( L(\cE) + \sum_{i=1}^{N}
-        L(\cE(x_{i}))\right) \approx \frac{1}{N}\sum_{i=1}^{N} L(\cE(vx_{i}))
+        L(\cE(\vx_{i}))\right) \approx \frac{1}{N}\sum_{i=1}^{N} L(\cE(\vx_{i}))
     \end{equation}
-    a medida que \(N\) se hace grande.
+    cuando \(N\) tiende a infinito.
 \end{remark}
 
 Una vez más, se puede considerar que el esquema de codificación óptimo resultante es aquel
@@ -2179,15 +2180,15 @@ esquema de codificación siempre será mayor:
     K(\vx) < L(\cE(\vx)).
 \end{equation}
 Por lo tanto, minimizar la tasa o longitud de codificación equivale, en esencia, a minimizar una
-cota superior de la complejidad de Kolmogorov, que de otro modo sería no calculable.
+cota superior de la complejidad de Kolmogorov, que de otro modo sería no computable.
 
 \subsection{Aprendizaje de representaciones informativas}
-Si el objetivo simplemente fuese comprimir los datos proporcionados por el solo hecho de hacerlo,
-los códigos óptimos que se acercan a la complejidad de Kolmogorov se convertirían, en teoría,
+Si el objetivo simplemente fuese comprimir los datos proporcionados por el mero hecho de hacerlo,
+los códigos óptimos de longitud acotada por la complejidad de Kolmogorov se convertirían, en teoría,
 en secuencias casi aleatorias o carentes de estructura
 \cite{Chaitin-1966}.\footnote{Cualquier código con estructura puede comprimirse aún más.}
 Sin embargo, nuestro verdadero objetivo al aprender la distribución de datos
-de las secuencias $S$ es poder utilizarla repetidamente y con facilidad en
+de las secuencias $\vx$ es poder utilizarla repetidamente y con facilidad en
 predicciones futuras. Por lo tanto, aunque la compresión nos permite identificar
 la distribución de baja dimensión en los datos, nos gustaría codificar
 esta distribución de una manera \textit{estructurada y organizada} para que
@@ -2199,8 +2200,8 @@ de manera intuitiva por qué es deseable dicha transformación.
 \begin{figure}
     \centering
     \includegraphics[width=0.98\linewidth]{\toplevelprefix/chapters/chapter1/figs/coding-transform.png}
-    \caption{Transformación de la distribución de baja dimensión de los datos identificada ---aquí sobre dos subespacios lineales--- 
-    en una representación más informativa y estructurada, en la que los dos subespacios se vuelven más incoherentes.} 
+    \caption{Transformación de la distribución de baja dimensión identificada de los datos ---aquí sobre dos subespacios 
+    lineales--- en una representación más informativa y estructurada, en la que los dos subespacios se vuelven más incoherentes.} 
     \label{fig:expansion}
 \end{figure}
 Como veremos en el \Cref{ch:lossy-compression}, estas estructuras
@@ -2209,9 +2210,9 @@ elegir una medida natural de \textit{ganancia de información} basada en
 las tasas de codificación de los esquemas de codificación elegidos.\footnote{La ganancia de información
     es un concepto muy extendido en la teoría algorítmica de la información y se ha
     incorporado en varios enfoques de este tema, siendo la más reciente
-    la teoría de la información \(\mathcal{V}\) \cite{xu2020theory}. Esta
+    la información \(\mathcal{V}\) \cite{xu2020theory}. Esta
     instanciación concreta, al igual que muchas otras medidas de complejidad que
-    hemos comentado, sufre de un **condicionamiento cada vez peor** a medida que
+    hemos comentado, sufre de un condicionamiento cada vez peor a medida que
     el soporte de los datos se vuelve más compacto y de baja dimensión, por lo que no
 resulta adecuada para nuestras necesidades.} A lo largo de este libro, un enfoque de 
 codificación tan explícito y constructivo ofrece un potente marco computacional
@@ -2219,20 +2220,20 @@ para aprender buenas representaciones de estructuras de baja dimensión
 en datos del mundo real. En muchos casos de importancia práctica,
 la función de longitud de codificación puede calcularse de manera eficiente o
 aproximarse con precisión. En algunos casos bien comportados, incluso podemos obtener 
-fórmulas en forma cerrada, por ejemplo, modelos de subespacio y gaussianos.
+fórmulas en forma cerrada, por ejemplo, modelos de subespacios y gaussianos.
     
 Además, este marco computacional da lugar a un enfoque basado en principios
-que revela en forma natural el papel que desempeñan las redes profundas en este
+que revela naturalmente el papel que desempeñan las redes profundas en este
 proceso de aprendizaje. Como derivaremos sistemáticamente en el
 \Cref{ch:deep-networks}, las capas de una red profunda realizan
-operaciones que optimizan en forma incremental la función objetivo de
+operaciones que optimizan incrementalmente la función objetivo de
 interés. Desde esta perspectiva, el papel de las redes profundas puede
-interpretarse precisamente como la emulación de un determinado algoritmo de optimización iterativa
----por ejemplo, el descenso por gradiente---para optimizar el objetivo de
+interpretarse precisamente como la emulación de cierto algoritmo de optimización iterativa ---por 
+ejemplo, el descenso por gradiente--- para optimizar el objetivo de
 ganancia de información. Las capas de las arquitecturas profundas resultantes pueden
 dotarse de interpretaciones estadísticas y geométricas precisas,
-es decir, realizar operaciones incrementales de codificación y decodificación
-compresivas. En consecuencia, las redes profundas derivadas se convierten en
+es decir, realizar operaciones compresivas de codificación y decodificación
+incrementales. En consecuencia, las redes profundas derivadas se convierten en
 «cajas blancas» transparentes que son totalmente explicables desde el punto de vista matemático.
 
 \subsection{Aprendizaje de representaciones consistentes}
@@ -2252,9 +2253,9 @@ En el contexto del aprendizaje automático, a \(\vZ\) se le suele llamar las
 «características» de \(\vX\). Nótese que sin conocer la distribución subyacente
 de \(\vX\), no sabemos qué codificador \(\cE\) se debe
 utilizar para conservar la información más útil sobre la distribución
-de \(\vX\). En la práctica, la gente suele empezar probando un
+de \(\vX\). En la práctica, se suele empezar probando un
 esquema de codificación compacto que se adapte bien a una tarea concreta.
-En concreto, se intenta entrenar un codificador que optimice una determinada 
+En particular, se intenta entrenar un codificador que optimice una determinada 
 medida (empírica) de parsimonia para la representación aprendida:
 \begin{equation}
     \min \rho(\vZ).
@@ -2274,7 +2275,7 @@ medida (empírica) de parsimonia para la representación aprendida:
     las \(k\) clases: \(\hat{\vz} = f(\vx) \in \R^{K}\). Entonces, la
     «calidad» de un clasificador se puede medir mediante la denominada
     {\em entropía cruzada}:\footnote{La entropía cruzada puede considerarse como
-        una medida de distancia entre la distribución real de
+        una medida de distancia entre la distribución de la verdad de referencia
         \(\vz\) y la de la predicción \(\hat{\vz}\). También puede
         considerarse como la longitud de codificación esperada de \(\vz\) si utilizamos el
         libro de códigos óptimo para \(\hat{\vz}\) a fin de codificar \(\vz\). La entropía cruzada
@@ -2287,7 +2288,7 @@ medida (empírica) de parsimonia para la representación aprendida:
     \(\vz\). Como indicaron los primeros trabajos sobre redes profundas
     \cite{krizhevsky2012imagenet}, si se dispone de suficientes datos, un
     esquema de codificación de este tipo a menudo puede representarse mediante una red profunda y
-    aprenderse en forma integral mediante la optimización de la entropía cruzada.
+    aprenderse de extremo a extremo mediante la optimización de la entropía cruzada.
 \end{example}
 
 La pérdida de entropía cruzada \(\ell(\hat{\vz}, \vz)\) puede considerarse como una
@@ -2305,10 +2306,10 @@ Por supuesto, el otro extremo es exigir que el esquema de codificación sea
 \textit{sin pérdida}. Es decir, que exista una correspondencia biunívoca entre
 \(\vx\) y su código \(\vz\). Sin embargo, como veremos en
 \Cref{ch:lossy-compression}, la codificación sin pérdida (o compresión) resulta
-sre impráctica, a menos que \(\vx\) sea discreta. En el caso de una variable aleatoria continua,
+ser impráctica, a menos que \(\vx\) sea discreta. En el caso de una variable aleatoria continua,
 solo podemos considerar esquemas de codificación con pérdida, de modo que
 la longitud de codificación de los datos sea finita. Es decir, solo codificamos los
-datos hasta una precisión predeterminada. Como desarrollaremos con más detalle
+datos hasta cierta precisión preestablecida. Como desarrollaremos con más detalle
 en \Cref{ch:lossy-compression}, la codificación con pérdida no es solo una
 opción práctica, sino que desempeña un papel fundamental a la hora de hacer 
 posible el aprendizaje de la distribución continua subyacente a partir de 
@@ -2330,10 +2331,10 @@ representación aprendida \(\vZ\).
 \paragraph{Autocodificación bidireccional para la consistencia.}
 En un contexto de aprendizaje más amplio, el objetivo principal de un esquema de codificación compresiva
 \(\cE\) es identificar las estructuras de baja dimensión en los
-datos \(\vX\) para utilizarlas en la realizción de predicciones en el
-espacio de datos original. Esto requiere que el esquema de codificación aprendido
+datos \(\vX\) para hacer predicciones en el espacio de datos original.
+Esto requiere que el esquema de codificación aprendido
 \(\cE\) admita un esquema de decodificación eficiente, denotado por \(\cD\), que
-mapea la representación codificada \(\vZ\) de vuelta al espacio de datos:
+mapea la característica o los datos codificados \(\vZ\) de vuelta al espacio de datos:
 \begin{equation}
     \vX   \xrightarrow{\hspace{2mm} \cE\hspace{2mm}} \vZ
     \xrightarrow{\hspace{2mm} \cD \hspace{2mm}} \hat{\vX}.
@@ -2355,7 +2356,7 @@ cierta medida.\footnote{Más adelante aclararemos qué entendemos por
 «similar».} Si esto se cumple, podemos recuperar o predecir a partir de
 \(\vZ\) lo que ocurre en el espacio de datos original. En este caso, decimos que
 el par \((\cE, \cD)\) proporciona una autocodificación \textit{consistente}.
-Para la mayoría de los efectos prácticos, no solo necesitamos que exista tal decodificación,
+En la mayoría de los casos prácticos, no solo necesitamos que exista tal decodificación,
 sino que también sea posible llevarla a cabo de manera eficiente y
 implementarla físicamente. Por ejemplo, si \(\vx\) es una variable de valor real, se requiere la cuantización
 para que cualquier esquema de decodificación sea realizable en una
@@ -2375,7 +2376,7 @@ de la siguiente forma:
 \end{equation}
 donde \(\ell(\cdot, \cdot)\) es una función de distancia que promueve
 la similitud entre \(\vX\) y \(\hat{\vX}\)\footnote{Ya sea
-    a nivel de muestras o a nivel de distribución, dependiendo de la elección de
+    a nivel de muestra o a nivel de distribución, dependiendo de la elección de
 \(\ell\).} y \(\rho(\vZ)\) es una medida que favorece la parsimonia y
 la riqueza de información de \(\vZ\). El análisis de componentes principales
 clásico (PCA) \cite{JolliffeI2002} es un ejemplo típico de
@@ -2394,7 +2395,7 @@ similitud adecuada. El cálculo de la similitud entre \(\hat{\vX}\) y
 imposible. \footnote{Por ejemplo, minimizar la distancia entre distribuciones que existe
     entre las dos variables aleatorias resulta difícil tanto desde el punto de vista estadístico como
 computacional.} En la naturaleza, los animales aprenden de manera autónoma
-sin comparar su estimación \(\hat{\vX}\) con los datos reales
+sin comparar su estimación \(\hat{\vX}\) con la verdad de referencia
 \(\vX\) en el espacio de datos; por lo general, carecen de esa
 opción.\footnote{Tanto en los animales como en los seres humanos, los ojos procesan la información visual
     mucho antes de que llegue al cerebro; el cerebro no cuenta con un
@@ -2416,7 +2417,7 @@ concepto lo denominamos \textit{autoconsistencia}, como se ilustra a continuaci�
     \label{eqn:closed-loop}
 \end{equation}
 A este proceso lo denominamos \textit{transcripción en bucle cerrado},\footnote{Inspirado en la transcripción entre el ADN y
-el ARN u otras proteínas.} tal y como se muestra en la \Cref{fig:closed-loop}.
+el ARN u otras proteínas.} como se muestra en la \Cref{fig:closed-loop}.
 
 \begin{figure}[t]
     \centering
@@ -2455,8 +2456,8 @@ una clase a la vez o incluso una muestra a la vez.} sin sufrir problemas como
 el olvido catastrófico asociado a los modelos de bucle abierto.
 
 % Start of Selection
-\section{Tender un puente entre teoría y práctica en inteligencia artificial}
-Hasta ahora, hemos presentado varios marcos relacionados para aprender una
+\section{Puente entre teoría y práctica en inteligencia artificial}
+Hasta ahora, hemos presentado varios marcos relacionados para el aprendizaje de una
 representación compacta y estructurada \(\vZ\) de una distribución de datos
 dada \(\vX\):
 \begin{itemize}
@@ -2464,10 +2465,10 @@ dada \(\vX\):
     \item la autocodificación bidireccional \eqref{eqn:auto-encoding};
     \item la transcripción en bucle cerrado \eqref{eqn:closed-loop}.
 \end{itemize}
-En este libro, estudiaremos de manera sistemática los tres marcos, uno
+En este libro, estudiaremos de manera sistemática los tres enfoques, uno
 tras otro:
 \begin{equation}
-    \text{\textbf{circuito abierto}} \; \Longrightarrow \;
+    \text{\textbf{abierto}} \; \Longrightarrow \;
     \text{\textbf{bidireccional}} \; \Longrightarrow \;
     \text{\textbf{en bucle cerrado}},
 \end{equation}
@@ -2481,7 +2482,7 @@ computable} de la distribución de los datos $\X$:
 \begin{equation}
     \X \longleftrightarrow \Z \longleftrightarrow \boldsymbol{G},
 \end{equation}
-en los que se incluyen dos conjuntos de mapeos:
+que incluye dos conjuntos de mapeos:
 \begin{enumerate}
     \item una autocodificación entre los datos $\X$ y la representación $\Z$ de sus 
         características informativas,
@@ -2489,7 +2490,7 @@ en los que se incluyen dos conjuntos de mapeos:
         aprendida $\Z$ y una distribución simple 
         $\boldsymbol{G}$, por ejemplo, gaussiana.
 \end{enumerate}
-Este último proceso nos permite acceder de las características estructuradas de baja dimensión aprendidas $\Z$ y muestrearlas para tareas 
+Este último proceso nos permite acceder a las características estructuradas de baja dimensión aprendidas $\Z$ y muestrearlas para tareas 
 como la regeneración de los datos originales $\hat\X$.\footnote{Nótese que, incluso
     si las características aprendidas se encuentran en un único subespacio lineal de baja dimensión,
     la forma más eficaz de identificar dicho subespacio es,
@@ -2504,7 +2505,7 @@ operadores\footnote{mediante optimización desenrollada, como veremos} necesario
 para llevar a cabo las transformaciones anteriores entre distribuciones.
 Las arquitecturas populares de redes neuronales profundas (como las CNN, ResNet o
 Transformers) que se desarrollaron de manera empírica
-se interpretarán matemáticamente, se justificarán y se mejorarán mediante este enfoque.
+se interpretarán, se justificarán y se mejorarán matemáticamente mediante este enfoque.
 
 \begin{figure}[t]
     \centering
@@ -2540,7 +2541,7 @@ se trata de un proceso interminable por dos razones:
     \item Es poco probable que la memoria o el conocimiento adquirido a partir 
         de datos ---por ejemplo, mediante esquemas de codificación y 
         decodificación--- sea correcto u óptimo. La inteligencia
-        debe ser capaz de perfeccionarse cuando las predicciones de nuevas observaciones
+        debe ser capaz de perfeccionarse cuando las predicciones sobre nuevas observaciones
         contengan errores.
     \item Los datos observados aún no abarcan toda la información predecible.
         La inteligencia debe reconocer cuándo la memoria o el conocimiento actuales son
@@ -2559,7 +2560,7 @@ nueva información o conocimientos por sí mismo} a través de un bucle cerrado
 de retroalimentación sobre la eficacia con la que su información o sus conocimientos 
 actuales logran explicar o predecir sus observaciones. En consecuencia, en cierta 
 medida, podemos expresar simbólicamente la relación entre la inteligencia y
-el conocimiento\footnote{Aquí entendemos «información» en el sentido más amplio
+la información\footnote{Aquí entendemos «información» en el sentido más amplio
     posible, incluyendo tanto la memoria empírica como el conocimiento científico.} 
 de la siguiente manera:
 \begin{eqnarray*}
@@ -2570,7 +2571,7 @@ de la siguiente manera:
 \end{eqnarray*}
 Un marco de retroalimentación en bucle cerrado es un mecanismo universal para cualquier
 sistema capaz de superarse a sí mismo y de aprender por sí mismo ---siendo el refuerzo
-una forma primitiva, como en la selección natural--- o de competir, siendo
+una forma primitiva, como en la selección natural--- o de jugar estratégicamente, siendo
 la investigación científica su forma más avanzada a través de
 la formulación de hipótesis o conjeturas y la falsificación o verificación. Todos los
 seres y sistemas inteligentes de la naturaleza utilizan este tipo de mecanismos de
@@ -2586,7 +2587,7 @@ o el conocimiento empírico. Creemos que este trabajo no solo tiende un puente
 entre la teoría y la práctica, sino que también conecta el presente con el futuro: 
 aclara lo que hemos hecho hasta ahora y, al mismo tiempo, revela lo que no hemos hecho.
 Por lo tanto, sienta las bases para el estudio futuro de posibles nuevos mecanismos 
-a la base de la inteligencia de alto nivel propia del ser humano: la verdadera 
+que sustentan la inteligencia de alto nivel propia del ser humano: la verdadera 
 «inteligencia artificial» a la que se refería el programa de Dartmouth de 1956.
 Dichos mecanismos pueden crear conceptos abstractos y realizar inferencias deductivas 
 que, en nuestra opinión, van más allá de la compresión de datos empíricos para la memoria, 

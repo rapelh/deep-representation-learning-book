@@ -13,16 +13,16 @@
 \end{quote}
 \vspace{5mm}
 
-En el \Cref{ch:classic-models}, mostramos cómo se aprenden clases simples de
-distribuciones cuyos soportes se supone que son un único
+En el \Cref{ch:classic-models} mostramos cómo aprender clases simples de
+distribuciones cuyos soportes se asume que son un único
 subespacio de baja dimensión, una mezcla de tales subespacios o
-gaussianas de bajo rango. Para simplificar, se considera que los diferentes modos lineales o gaussianos (ocultos)
+gaussianas de bajo rango. Por simplicidad, se considera que los diferentes modos lineales o gaussianos (ocultos)
 son ortogonales o independientes,\footnote{O pueden
-reducirse a tales casos idealizados en condiciones favorables.} tal y como
+reducirse a tales casos idealizados en condiciones favorables.} como
 se ilustra en la \Cref{fig:subspaces}. Para estas distribuciones especiales,
 se pueden derivar algoritmos de aprendizaje sencillos y eficaces con garantías de corrección y eficiencia,
-siendo claras las interpretaciones geométricas y estadísticas
-de las operaciones algorítmicas asociadas.
+mientras las interpretaciones geométricas y estadísticas
+de las operaciones algorítmicas asociadas son claras.
 
 En la práctica, tanto la linealidad como la independencia son supuestos idealizados
 que las distribuciones de datos reales de alta dimensión 
@@ -31,14 +31,14 @@ dimensión intrínseca de la distribución es muy baja en comparación con la
 dimensión del espacio ambiente en el que los datos están incrustados. Por lo tanto,
 en este capítulo mostramos cómo aprender una clase más general de
 distribuciones de baja dimensión en un espacio de alta dimensión que
-\textit{no} es necesariamente (ni por tramos) lineal.
+\textit{no} es necesariamente lineal (ni siquiera lineal a trozos).
 
 Las distribuciones del mundo real suelen contener múltiples componentes o
 modos, por ejemplo, correspondientes a diferentes clases de objetos en
-las imágenes. Es posible que estos modos no sean estadísticamente independientes 
-e incluso puedan tener dimensiones intrínsecas diferentes. Por lo tanto, generalmente
+las imágenes. Estos modos no son necesariamente estadísticamente independientes e incluso pueden tener 
+dimensiones intrínsecas diferentes. Por lo tanto, generalmente
 suponemos que los datos se distribuyen sobre una mezcla de subvariedades no lineales 
-de baja dimensión incrustadas en un espacio de alta dimensión; la 
+de baja dimensión incrustadas en un espacio de alta dimensión. La 
 \Cref{fig:mixture-manifolds} ilustra este tipo de distribución.  Otra
 limitación es que, en situaciones del mundo real, normalmente solo tenemos acceso
 a un número finito de muestras de la distribución de datos,
@@ -52,7 +52,7 @@ tres preguntas fundamentales:
     \item ¿Cómo medimos la complejidad de la distribución para
         poder aprovechar eficazmente su baja dimensionalidad en el aprendizaje? 
     \item ¿Cómo podemos hacer que el proceso de aprendizaje sea computacionalmente
-        manejable y escalable, especialmente cuando la dimensión del entorno
+        tratable y escalable, especialmente cuando la dimensión ambiente
         es elevada y el tamaño de la muestra es grande? 
 \end{itemize}
 Como veremos, la idea fundamental de la \textit{compresión}, o
@@ -77,20 +77,20 @@ generales.
         envolvente de muy alta dimensión, por ejemplo, \(\R^{D}\). Este es un caso mucho
         más general que los casos especiales estudiados en el
         \Cref{ch:classic-models}, donde se suponía que las subvariedades eran
-        lineales por tramos y, por lo tanto, admitían formas paramétricas y
+        lineales a trozos y, por lo tanto, admitían formas paramétricas y
     soluciones analíticas.}
     \label{fig:mixture-manifolds}
 \end{figure}
 
-\section{Minimización de la entropía y compresión}
+\section{Minimización de la entropía y de la compresión}
 
-\subsection{Entropía y tasas de codificación}
+\subsection{Entropía y tasa de codificación}
 En el \Cref{ch:intro} mencionamos que el objetivo del aprendizaje es
 encontrar la forma más sencilla de generar un conjunto de datos dado. En términos conceptuales,
 la complejidad de Kolmogorov fue concebida para proporcionar una medida de
 complejidad de este tipo, pero no es computable y no está asociada a ningún
 esquema implementable que pueda reproducir realmente los datos. Por lo tanto,
-necesitamos una medida de complejidad alternativa, computable y aplicable.
+necesitamos una medida de complejidad alternativa, computable e implementable.
 Esto nos lleva al concepto de \textit{entropía},
 introducido por Shannon en 1948~\cite{Shannon-1948}.
 
@@ -98,11 +98,11 @@ Para ilustrar el carácter constructivo de la entropía, comencemos con
 el caso más sencillo. Supongamos que tenemos una variable aleatoria discreta
 que toma \(N\) valores distintos, o \textit{tokens}, \(\{\vx_{1},
 \dots, \vx_{N}\}\) con una probabilidad uniforme de \(1/N\). Podemos
-codificar cada token \(\vx_{i}\) utilizando la representación binaria de \(\log_{2} N\) bits
-del número \(i\). Este esquema de codificación puede generalizarse para
+codificar cada token \(\vx_{i}\) utilizando la representación binaria de \(i\) de i
+\(\log_{2} N\) bits. Este esquema de codificación puede generalizarse para
 codificar distribuciones discretas arbitrarias~\cite{Cover-Thomas}: dada
 una distribución \(p\) tal que \(\sum_{i=1}^{N} p(\vx_{i}) = 1\), se
-puede asignar a cada token \(\vx_{i}\) con probabilidad de \(p(\vx_{i})\)
+puede asignar a cada token \(\vx_{i}\), con probabilidad \(p(\vx_{i})\),
 un código binario de longitud \(\log_{2} [1/p(\vx_{i})] = - \log_{2}
 p(\vx_{i})\) bits. Por lo tanto, el número promedio de bits, o \textit{la
 tasa de codificación}, necesario para codificar cualquier muestra de la distribución
@@ -125,7 +125,7 @@ distribución marginal de \(\vx\).
 \subsection{Entropía diferencial}
 
 Cuando la variable aleatoria \(\vx \in \R^{D}\) es continua y tiene una
-densidad de probabilidad \(p\), se puede interpretar dicho límite 
+densidad de probabilidad \(p\), se puede interpretar el límite de dicha suma
 \eqref{eqn:entropy-discrete} como relacionado con una integral:
 \begin{equation}
     h(p) \doteq \Ex_{\vx \sim p}[-\log p(\vx)] = - \int_{\R^{D}}
@@ -138,7 +138,7 @@ Más precisamente, dada una distribución de probabilidad continua \(p\) en
 centrado en \(\vx_{i}\), y definir la distribución discretizada
 \(p^{\epsilon}\) mediante \(p^{\epsilon}(\vx_{i}) = \Pr_{\vx \sim p}[\vx
 \in C_{i}^{\epsilon}]\). Entonces se puede demostrar que \(H(p^{\epsilon}) +
-\log \epsilon \approx h(p)\). Tomando \(\epsilon\) suficientemente pequeño,
+\log \epsilon \approx h(p)\). Al tomar \(\epsilon\) suficientemente pequeño,
 observamos que la entropía diferencial \(h(p)\) puede ser negativa.
 Los lectores interesados pueden consultar \cite{Cover-Thomas} para obtener una explicación más
 detallada. Al igual que con la entropía discreta, a menudo
@@ -191,7 +191,7 @@ a esta aparente dificultad relacionada con la degeneración.
 \label{sub:min_entropy}
 El problema de aprendizaje consiste en recuperar una distribución (potencialmente continua)
 \(p(\vx)\) a partir de muestras \(\{\vx_{1}, \dots, \vx_{N}\}\)
-extraídas de ella. Para facilitar la exposición, escribimos \(\vX = \mat{\vx_{1},
+extraídas de dicha distribución. Para facilitar la exposición, escribimos \(\vX = \mat{\vx_{1},
 \dots, \vx_{N}} \in \R^{D \times N}\). Dado que las distribuciones de
 interés son (casi) de baja dimensión, esperamos que su entropía (diferencial)
 sea muy pequeña. Sin embargo, a diferencia de las situaciones estudiadas en
@@ -200,7 +200,7 @@ de baja dimensión a la que pertenece \(p(\vx)\). Por lo tanto, comprobar
 si la entropía es baja parece ser la única pauta en la que podemos
 basarnos para identificar y modelar la distribución.
 
-Ahora bien, si solo se tienen las muestras sin saber cuáles \(p(\vx)\), en
+Ahora bien, si solo se tienen las muestras sin saber cuál es \(p(\vx)\), en
 teoría podrían interpretarse como muestras de cualquier distribución
 genérica. En particular, podrían interpretarse como cualquiera de las siguientes:
 \begin{enumerate}
@@ -224,7 +224,7 @@ que creemos que estos datos \(\vX\) provienen de una distribución concreta
 \(q(\vx)\), que podría ser una de las anteriores. Entonces podríamos
 codificar los puntos de datos con el libro de códigos óptimo para la distribución
 \(q(\vx)\). Entonces, a medida que el número de muestras \(N\) aumenta, la
-longitud media de codificación requerida (o tasa de codificación) viene dada por la
+longitud media requerida de codificación (o tasa de codificación) viene dada por la
 denominada \textit{entropía cruzada}:
 \begin{equation}
     \CE(p \mmid q) \doteq \Ex_{\vx \sim p}[-\log q(\vx)].
@@ -238,7 +238,7 @@ o igual que la entropía \(h(\vx)\), a menos que \(p = q\).
 Por lo tanto, dado un conjunto de datos muestreados \(\vX\), para determinar qué
 distribución caracteriza mejor los datos entre
 \(p^{n}\), \(p^{e}\) y \(\hat{q}\), podemos comparar sus tasas de codificación
-para \(\vX\) y ver cuál ofrece la tasa más baja. Sabemos
+para \(\vX\) y ver cuál genera la tasa más baja. Sabemos
 por lo anterior que la tasa de codificación (teóricamente alcanzable) de una
 distribución está estrechamente relacionada con su entropía. En general,
 \begin{equation}
@@ -261,12 +261,12 @@ Sugiere dos posibles enfoques:
         mediante la reducción de la entropía; 
     \item Dentro de una amplia familia de distribuciones (paramétricas o no paramétricas)
         con esquemas de codificación explícitos que codifican los
-        datos en cuestión, buscar progresivamente mejores esquemas de codificación
+        datos considerados, buscar progresivamente mejores esquemas de codificación
         que ofrezcan tasas de codificación más bajas. 
 \end{enumerate}
 A nivel conceptual, tanto el enfoque A1 como el A2 pretenden lograr lo mismo.
-Para A1, debemos asegurarnos de que exista tal ruta de transformación y de que sea
-computable. Para A2, es necesario que la familia elegida sea lo suficientemente amplia
+Para A1, debemos asegurarnos de que exista tal trayectoria de transformación y de que sea
+computable. Para A2, es necesario que la familia elegida sea lo suficientemente expresiva
 y pueda aproximarse de cerca (o abarcar) a la distribución verdadera. En cualquiera de 
 los dos enfoques, debemos asegurarnos de que las soluciones con menor entropía 
 o mejores tasas de codificación puedan calcularse de manera eficiente
@@ -274,7 +274,7 @@ y converjan rápidamente hacia la distribución deseada.\footnote{Por ejemplo,
 la distribución de datos del mundo real, como imágenes y textos.} Exploraremos
 ambos enfoques en las secciones restantes de este capítulo.
 
-\section{Compresión mediante reducción de ruido}\label{sub:compression_denoising}
+\section{Compresión mediante eliminación de ruido}\label{sub:compression_denoising}
 
 En esta sección describimos una forma \textit{natural} y
 \textit{computacionalmente tratable} de aprender una distribución
@@ -283,7 +283,7 @@ entropía o la tasa de codificación de la representación y luego utilizando es
 para transformar muestras de alta entropía de una distribución gaussiana estándar en
 muestras de baja entropía de la distribución objetivo, tal como se ilustra en
 la \Cref{fig:diffusion-chapter3}. Esta metodología combina los enfoques
-A1 y A2 mencionados anteriormente para aprender y obtener muestras de la distribución.
+A1 y A2 mencionados anteriormente para aprender la distribución y obtener muestras de ella.
 
 \begin{figure}[t]
     \centering
@@ -299,7 +299,7 @@ A1 y A2 mencionados anteriormente para aprender y obtener muestras de la distrib
 En primer lugar, queremos un procedimiento que reduzca la entropía de una variable 
 aleatoria muy ruidosa, generando una muestra de menor entropía a partir de la 
 distribución de los datos. Aquí describimos un posible enfoque, quizá el más natural.
-Primero, diseñamos un método para \textit{aumentar gradualmente} la entropía de
+Primero, ideamos un método para \textit{aumentar gradualmente} la entropía de
 las muestras ya extraídas de la distribución de datos. A continuación, buscamos una
 \textit{inversa aproximada} de este proceso. En general, el aumento de
 la entropía no tiene inverso, ya que parte de la información de la distribución original
@@ -311,7 +311,7 @@ condiciones hacen que nuestro enfoque sea viable.
 
 \subsubsection{Procesos de difusión}
 
-Aumentaremos la entropía de lo que podría considerarse la forma más sencilla posible,
+Aumentaremos la entropía de la que podría considerarse la forma más sencilla posible,
 es decir, \textit{añadiendo ruido gaussiano isotrópico}. Más precisamente, dada
 la variable aleatoria \(\vx\), podemos considerar el \textit{proceso estocástico}
 \((\vx_{t})_{t \in [0, T]}\) que le añade ruido en forma gradual, es decir,
@@ -319,8 +319,8 @@ la variable aleatoria \(\vx\), podemos considerar el \textit{proceso estocástic
     \vx_{t} \doteq \vx + t\vg, \qquad \forall t \in [0, T],
 \end{equation}
 donde \(T \in [0, \infty)\) es un horizonte temporal y \(\vg \sim
-\dNorm(\vzero, \vI)\) se extrae en forma independiente de \(\vx\). Este proceso
-es un ejemplo de \textit{proceso de difusión}, llamado así porque
+\dNorm(\vzero, \vI)\) se extrae de forma independiente de \(\vx\). Este proceso
+es un ejemplo de un \textit{proceso de difusión}, llamado así porque
 distribuye (es decir, \textit{difunde}) la masa de probabilidad por todo
 \(\R^{D}\) a medida que pasa el tiempo, aumentando la entropía. Esta
 intuición queda confirmada gráficamente en la \Cref{fig:ve_forward_density},
@@ -338,7 +338,7 @@ y de manera rigurosa, mediante el siguiente teorema.
     es decir, la entropía de la distribución de \(\vx_{t}\) aumenta
     con el paso del tiempo \(t\).
 \end{theorem}
-La demostración es elemental, pero bastante extensa, por lo que la posponemos hasta
+La demostración es elemental, pero bastante extensa, por lo que la aplazamos hasta
 la \Cref{sub:diffusion_entropy_increases}. La principal consecuencia, aún no expresada,
 de este resultado es que \(h(\vx_{t}) > h(\vx_{s})\) para todo
 \(t > s \geq 0\). Para comprobarlo, nótese que si \(s = 0\) y \(h(\vx) =
@@ -384,7 +384,7 @@ h(\vx_{s})\) para todo \(t > s \geq 0\).
     Los modelos de mezcla gaussiana son relevantes porque pueden aproximar
     muchas distribuciones: dada cualquier distribución para \(\vx\), existe
     una mezcla gaussiana que la aproxima con precisión arbitraria.
-    Por este motivo, los modelos de mezcla gaussiana son una alternativa popular y
+    Por este motivo, los modelos de mezcla gaussiana son un sustituto popular y
     analíticamente manejable para las distribuciones de datos multimodales y complejas.
     En este libro los utilizamos ampliamente como «problema modelo» para comprender 
     y desarrollar casi todos los conceptos. Por ahora, representamos los datos \(\vx\) 
@@ -430,7 +430,7 @@ de la variable aleatoria verdadera \(\vx\), dados tanto \(t\) como \(\vx_{t}\):
 \end{equation}
 La solución a este problema, al optimizar \(\bar{\vx}(t, \cdot)\)
 sobre todas las funciones posibles (cuadráticamente integrables), es el denominado
-\textit{filtro óptimo de reducción de ruido de Bayes} y resulta ser la esperanza condicional:
+\textit{denoiser óptimo de Bayes} y resulta ser la esperanza condicional:
 \begin{equation}\label{eq:optimal_denoiser}
     \bar{\vx}^{\star}(t, \vxi) \doteq \Ex[\vx \mid \vx_{t} = \vxi].
 \end{equation}
@@ -438,12 +438,12 @@ sobre todas las funciones posibles (cuadráticamente integrables), es el denomin
 Esta expresión justifica la notación \(\bar{\vx}\), que calcula
 una esperanza condicional (es decir, la media condicional o el promedio
 condicional). En resumen, intenta eliminar el ruido de la entrada ruidosa
-y genera la mejor estimación posible (en términos de esperanza y con
+y produce como resultado la mejor estimación posible (en términos de esperanza y con
 respecto a la distancia \(\ell^{2}\)) de la variable aleatoria original sin ruido.
 
-\begin{example}[Eliminación del ruido gaussiano en una mezcla de
+\begin{example}[Eliminación del ruido gaussiano de una mezcla de
     distribuciones gaussianas]\label{example:denoising_gaussian_mixture}
-    En este ejemplo calculamos el filtro óptimo de reducción de ruido de Bayes para una
+    En este ejemplo calculamos el \textit{denoiser} óptimo de Bayes para una
     clase importante de distribuciones: el modelo de mezcla gaussiana
     del \Cref{ex:gaussian_mixture}. Definamos \(\phi(\vx ;
     \vmu, \vSigma)\) como la densidad de probabilidad de \(\dNorm(\vmu,
@@ -464,14 +464,14 @@ respecto a la distancia \(\ell^{2}\)) de la variable aleatoria original sin ruid
         t\vI}\mat{\vu \\ \vg}.
     \end{equation}
     Esto muestra que \(\vx\) y \(\vx_{t}\) siguen una distribución gaussiana multivariada
-    (condicionada en \(y\)), tal como se afirmaba. Por lo tanto, podemos escribir
+    (condicionada a \(y\)), tal como se afirmaba. Por lo tanto, podemos escribir
     \begin{equation}
         \mat{\vx \\ \vx_{t}} \sim \dNorm\rp{\mat{\vmu_{y}
             \\ \vmu_{y}}, \mat{\vSigma_{y} & \vSigma_{y} \\ \vSigma_{y} &
         \vSigma_{y} + t^{2}\vI}}.
     \end{equation}
     Por lo tanto, la esperanza condicional de \(\vx\) dada \(\vx_{t}\) (es decir, el
-    filtro óptimo de reducción de ruido de Bayes dado \(y\)) es, como es bien sabido,
+    \textit{denoiser} óptimo de Bayes condicionado a \(y\)) es, como es bien sabido,
     (véase también el \Cref{exercise:conditional_gaussian})
     \begin{equation}
         \Ex[\vx \mid \vx_{t}, y] = \vmu_{y} + \vSigma_{y}(\vSigma_{y}
@@ -494,12 +494,12 @@ respecto a la distancia \(\ell^{2}\)) de la variable aleatoria original sin ruid
         + t^{2}\vI)}{\sum_{i = 1}^{K}\pi_{i}\phi(\vx_{t} ; \vmu_{i},
         \vSigma_{i} + t^{2}\vI)}.
     \end{align}
-    Por otro lado, la esperanza condicional es la ya descrita:
+    Por otro lado, el valor esperado condicional es el ya descrito:
     \begin{equation}
         \Ex[\vx \mid \vx_{t}, y = k] = \vmu_{k} +
         \vSigma_{k}(\vSigma_{k} + t^{2}\vI)^{-1}(\vx_{t} - \vmu_{k}).
     \end{equation}
-    Para resumir todo lo anterior, el verdadero filtro de reducción de ruido óptimo de Bayes es
+    Para resumir todo lo anterior, el verdadero \textit{denoiser} óptimo de Bayes es
     \begin{align}\label{eq:gmm_bayes_optimal_denoiser}
         \bar{\vx}^{\star}(t, \vx_{t}) &= \sum_{k =
         1}^{K}\Bigg\{\frac{\pi_{k}\phi(\vx_{t}
@@ -510,14 +510,14 @@ respecto a la distancia \(\ell^{2}\)) de la variable aleatoria original sin ruid
         \vSigma_{k}(\vSigma_{k} + t^{2}\vI)^{-1}(\vx_{t} - \vmu_{k})}\Bigg\}.
     \end{align}
     Este ejemplo es especialmente importante, y varios casos particulares
-    nos proporcionarán una gran perspectiva conceptual más adelante. Por ahora, intentemos
+    nos proporcionarán una profunda comprensión conceptual más adelante. Por ahora, intentemos
     extraer alguna intuición geométrica a partir de la forma funcional
-    del filtro óptimo de reducción de ruido \eqref{eq:gmm_bayes_optimal_denoiser}.
+    del \textit{denoiser} óptimo \eqref{eq:gmm_bayes_optimal_denoiser}.
 
     Para comprender \eqref{eq:gmm_bayes_optimal_denoiser}
     de manera intuitiva, fijemos primero \(K = 1\) (es decir, una sola gaussiana) de tal
     manera que \(\vx \sim \dNorm(\vmu, \vSigma)\). Diagonalicemos entonces
-    \(\vSigma = \vV\vLambda \vV^{\top}\). Entonces, el filtro óptimo de reducción de ruido de Bayes es
+    \(\vSigma = \vV\vLambda \vV^{\top}\). Entonces, el \textit{denoiser} óptimo de Bayes es
     \begin{align}
         \bar{\vx}^{\star}(t, \vx_{t}) & = \vmu + \vSigma(\vSigma +
         t^{2}\vI)^{-1}(\vx_{t} - \vmu) \\
@@ -538,7 +538,7 @@ respecto a la distancia \(\ell^{2}\)) de la variable aleatoria original sin ruid
             contracción sea igualmente de bajo rango.
         \item Trasladar el resultado hacia atrás por \(\vmu\). 
     \end{itemize}
-    Esta es la interpretación geométrica del filtro de reducción de ruido de una
+    Esta es la interpretación geométrica del \textit{denoiser} de una
     \textit{única} gaussiana. El \textit{denoiser} global del modelo de mezcla gaussiana
     \eqref{eq:gmm_bayes_optimal_denoiser} utiliza \(K\)
     \textit{denoisers} de este tipo, ponderando su salida mediante las probabilidades a posteriori
@@ -558,9 +558,9 @@ respecto a la distancia \(\ell^{2}\)) de la variable aleatoria original sin ruid
         \Cref{fig:ve_forward_density}, mostramos el efecto del
         \{textit{denoiser} óptimo de Bayes \(\bar{\vx}^{\star}\) graficando
         \(\vx_{t}\) (rojo) y \(\bar{\vx}^{\star}(t, \vx_{t})\) (verde)
-        para un valor arbitrario de \(t\) y \(\vx_{t}\). Según la fórmula de Tweedie,
-        \Cref{thm:tweedie}, el residuo entre ambos es proporcional a
-        l \textit{score} (Hyv\"arinen) \(\nabla_{\vx_{t}}\log
+        para una elección concreta de \(t\) y \(\vx_{t}\). Según la fórmula de Tweedie,
+        \Cref{thm:tweedie}, el residuo entre ambos es proporcional al llamado
+        \textit{score} (Hyv\"arinen) \(\nabla_{\vx_{t}}\log
         p_{t}(\vx_{t})\). Podemos observar que el \textit{score} apunta hacia los
     modos de la distribución de \(\vx_{t}\).}
     \label{fig:ve_forward_denoising}
@@ -573,14 +573,14 @@ hacia los modos de la distribución de \(\vx\). Resulta que podemos
 cuantificar esto mostrando que el \textit{denoiser} óptimo de Bayes
 \textit{da un paso de ascenso por gradiente} en la log-densidad 
 de \(\vx_{t}\), que (recordemos) hemos denotado como \(p_{t}\). Es decir,
-aplicar el filtro de reducción de ruido implica pasar de la iteración de entrada a una
+seguir al \textit{denoiser} implica pasar de la iteración de entrada a una
 región de mayor probabilidad dentro de esta distribución (perturbada). Para valores 
 pequeños de \(t\), la perturbación es pequeña, por lo que nuestra intuición inicial 
-es, por lo tanto, casi totalmente correcta. La imagen se muestra en la
+es, por lo tanto, casi exactamente correcta. La imagen se muestra en la
 \Cref{fig:ve_forward_denoising} y se formula rigurosamente como
 la fórmula de Tweedie \cite{Robbins1956AnEB}.
 \begin{theorem}[La fórmula de Tweedie]\label{thm:tweedie}
-    Supongamos que \((\vx_{t})_{t \in [0, T]}\) obedece a
+    Supongamos que \((\vx_{t})_{t \in [0, T]}\) satisface
     \eqref{eq:additive_gaussian_noise_model}. Sea \(p_{t}\) la
     densidad de \(\vx_{t}\) (tal como se ha definido anteriormente). Entonces
     \begin{equation}\label{eq:tweedie}
@@ -591,7 +591,7 @@ la fórmula de Tweedie \cite{Robbins1956AnEB}.
 \begin{proof}
     Para demostrarlo, supongamos que \(\vx\) tiene una
     densidad,\footnote{Obsérvese que el
-        teorema es cierto sin esta suposición y que puede demostrarse mediante
+        teorema es cierto sin esta suposición y que puede probarse mediante
         una modificación mínima de esta demostración para utilizar medidas de probabilidad
     en lugar de densidades.} y llamemos a esta densidad \(p\). Sean
     \(p_{0 \mid t}\) y \(p_{t \mid 0}\) las densidades condicionales de \(\vx
@@ -635,18 +635,18 @@ la fórmula de Tweedie \cite{Robbins1956AnEB}.
     \end{align}
     Una simple reorganización de la igualdad anterior demuestra el teorema.
 \end{proof}
-Este resultado establece una conexión entre la reducción de ruido y la optimización:
+Este resultado desarrolla una conexión entre la reducción de ruido y la optimización:
 el \textit{denoiser} óptimo de Bayes da un único paso de ascenso por gradiente en
 la densidad de datos perturbada \(p_{t}\), y el tamaño del paso se reduce en forma adaptativa
 (es decir, da pasos más precisos) a medida que la perturbación
 de la distribución de datos se va reduciendo. La cantidad
 \(\nabla_{\vx_{t}}\log p_{t}(\vx_{t})\) se denomina
-\textit{puntuación (de Hyv\"arinen)} y aparece con frecuencia en discusiones
+\textit{score} o puntuación (de Hyv\"arinen) y aparece con frecuencia en discusiones
 sobre la reducción de ruido, etc.; apareció por primera vez en un artículo de Aapo
 Hyv\"arinen en el contexto del ICA \cite{hyvarinen05a}.
 
 De manera similar a cómo un solo paso de descenso por gradiente casi nunca es suficiente para
-minimizar un objetivo en la práctica cuando se inicia lejos del óptimo, la
+minimizar una función objetivo en la práctica cuando se inicia lejos del óptimo, la
 salida del \textit{denoiser} óptimo de Bayes \(\bar{\vx}^{\star}(t, \cdot)\)
 casi nunca se encuentra en una región de alta probabilidad de la distribución de datos
 cuando \(t\) es grande, \textit{especialmente} cuando los datos
@@ -657,7 +657,7 @@ en el siguiente ejemplo.
     Sea \(x\) una variable aleatoria uniforme en el conjunto de dos puntos \(\{-1, +1\}\) y sea
     \((x_{t})_{t \in [0, T]}\) una variable aleatoria que sigue
     la ecuación \eqref{eq:additive_gaussian_noise_model}. Se trata precisamente de un
-    modelo de mezcla gaussiana degenerada con distribuciones a priori iguales a
+    modelo de mezcla gaussiana degenerada con probabiidades a priori iguales a
     \(\frac{1}{2}\), medias \(\{-1, +1\}\) y covarianzas ambas iguales
     a \(0\). Para un valor fijo de \(t > 0\), podemos utilizar el cálculo del
     \textit{denoiser} óptimo de Bayes en \eqref{eq:gmm_bayes_optimal_denoiser}
@@ -670,26 +670,26 @@ en el siguiente ejemplo.
     Para valores de \(t\) cercanos a \(0\), esta cantidad se aproxima a \(\{-1, +1\}\) para
     casi todas las entradas \(\bar{x}^{\star}(t, x_{t})\). Sin embargo, para
     \(t\) grande, esta cantidad no se encuentra necesariamente ni siquiera aproximadamente
-    en el soporte original de \(x\), que, como recordaremos, es \(\{-1,
+    en el soporte original de \(x\), que, como recordemos, es \(\{-1,
     +1\}\). En particular, para \(x_{t} \approx 0\) se cumple que
     \(\bar{x}^{\star}(t, x_{t}) \approx 0\), lo cual se encuentra completamente
     entre los dos puntos posibles. Por lo tanto, \(\bar{x}^{\star}\)
-    \textit{no dará como resultado un \(x\) «realista»}. Más rigurosamente,
+    \textit{no generará un \(x\) «realista»}. Más rigurosamente,
     la distribución de \(\bar{x}^{\star}(t, x_{t})\) es muy
     diferente de la distribución de \(x\).
 \end{example}
 
 \subsubsection{Eliminación de ruido incremental}
 Por lo tanto, para eliminar el ruido de la muestra muy ruidosa \(\vx_{T}\) (donde,
-recordemos, \(T\) es el tiempo máximo), no podemos utilizar el filtro de reducción de ruido solo
+recordemos, \(T\) es el tiempo máximo), no podemos utilizar el \textit{denoiser} solo
 una vez. En cambio, debemos aplicarlo muchas veces, en forma análoga al descenso por gradiente
 con tamaños de paso decrecientes, para converger hacia un punto estacionario
-\(\hat{\vx}\). Es decir, utilizamos el filtro de reducción de ruido para pasar de \(\vx_{T}\) a
+\(\hat{\vx}\). Es decir, utilizamos el \textit{denoiser} para pasar de \(\vx_{T}\) a
 \(\hat{\vx}_{T - \delta}\), que se aproxima a \(\vx_{T - \delta}\),
 luego de \(\hat{\vx}_ {T - \delta}\) a \(\hat{\vx}_{T - 2\delta}\),
 y así sucesivamente, desde \(\hat{\vx}_{\delta}\) hasta \(\hat{\vx} =
-\hat{\vx}_{0}\). Cada paso de reducción de ruido hace que la acción del filtro de reducción de ruido
-se parezca más a un paso de gradiente sobre la densidad (logarítmica) original.
+\hat{\vx}_{0}\). Cada paso de reducción de ruido hace que la acción del \textit{denoiser} 
+se parezca más a un paso de gradiente sobre la log-densidad original.
 
 De manera más formal, discretizamos uniformemente el intervalo \([0, T]\) en \(L + 1\)
 pasos temporales \(0 = t_{0} < t_{1} < \cdots < t_{L} = T\), es decir,
@@ -713,12 +713,12 @@ A continuación, para cada \(\ell \in [L] = \{1, 2, \dots, L\}\), procediendo de
 
 Al inicio de la iteración, cuando \(\ell\) es grande, apenas
 confiamos en la salida del \textit{denoiser} y, en su mayor parte, conservamos el iterado actual.
-Esto tiene sentido, ya que el filtro de reducción de ruido puede presentar una enorme varianza (véase
+Esto tiene sentido, ya que el \textit{denoiser} puede tener una enorme varianza (véase
 el \Cref{example:denoising_twopoints}). Cuando \(\ell\) es pequeño, el
-\textit{denoiser} se «fija» en los modos de la distribución de los datos, ya que un
+\textit{denoiser} se «centra» en los modos de la distribución de los datos, ya que un
 paso de la reducción de ruido es, en esencia, un paso de gradiente sobre la
 log-densidad de la distribución verdadera y podemos confiar en que no generará
-muestras poco verosímiles; por lo tanto, la etapa de reducción de ruido está determinada por la
+muestras poco verosímiles; por lo tanto, el paso de reducción de ruido está dominada por la
 salida del \textit{denoiser}. Cuando \(\ell = 1\), incluso descartamos el
 iterado actual y conservamos únicamente la salida del \textit{denoiser}.
 
@@ -728,9 +728,9 @@ iterado actual y conservamos únicamente la salida del \textit{denoiser}.
     \caption{\small\textbf{Eliminación del ruido en una mezcla de gaussianas
         de rango bajo.} Cada figura muestra muestras de la distribución real de los datos
         (gris, naranja, rojo) y muestras sometidas al
-        proceso de reducción de ruido \eqref{eq:denoising-iteration-basic} (celeste). 
+        proceso de eliminación de ruido \eqref{eq:denoising-iteration-basic} (celeste). 
         En la parte superior izquierda, el proceso acaba de comenzar y el ruido
-        es muy intenso. A medida que avanza el proceso, el ruido se desplaza
+        es muy intenso. A medida que avanza el proceso, el ruido es empujado
         cada vez más hacia el soporte de la distribución de datos de rango bajo.
         Por último, en la parte inferior derecha, las muestras generadas se alinean perfectamente
         con el soporte de los datos y se asemejan mucho a
@@ -741,12 +741,12 @@ iterado actual y conservamos únicamente la salida del \textit{denoiser}.
 Visualizamos el proceso de convergencia en \(\R^{3}\) en la
 \Cref{fig:ve_gmm_denoising}. Aunque más adelante desarrollaremos algunos resultados rigurosos
 sobre la convergencia, ahora ofrecemos un ejemplo en forma cerrada del
-proceso iterativo de reducción de ruido aplicado a la reducción de ruido de una distribución gaussiana de datos.
+proceso iterativo de reducción de ruido aplicado a la reducción de ruido en una distribución gaussiana de datos.
 
 \begin{example}[Eliminación de ruido iterativa para una sola gaussiana]
     \label{ex:single_gaussian_denoising}
     Para comprender de manera intuitiva el procedimiento iterativo de reducción de ruido descrito anteriormente,
-    la aplicamos para eliminar el ruido de \(\vx_{T}\), definido en
+    lo aplicamos para eliminar el ruido de \(\vx_{T}\), definido en
     \eqref{eq:additive_gaussian_noise_model}, donde \(\vx \sim
     \dNorm(\vmu, \vSigma)\). Utilizando \eqref{eq:iter denoise}, calculamos
     \begin{align}
@@ -760,7 +760,7 @@ proceso iterativo de reducción de ruido aplicado a la reducción de ruido de un
     \end{align}
     A continuación, al sustituir la expresión de \(\bar{\vx}^{\star}\) que
     obtenemos de \eqref{eq:gaussian_denoiser} y realizar algunas
-    operaciones tediosas de álgebra matricial, obtenemos
+    operaciones tediosas de álgebra matricial, se obtiene
     \begin{equation}
         \vx_{t_{\ell - 1}} - \vmu = \vV\mat{1 - \frac{\ell
             T^{2}}{\lambda_{1}L^{2} + \ell^{2} T^{2}} & & \\ & \ddots &
@@ -776,40 +776,40 @@ proceso iterativo de reducción de ruido aplicado a la reducción de ruido de un
         \ell^{2}T^{2}}}}_{c_{\ell, L}} \cdot \norm{\vx_{t_{\ell}} - \vmu}_{2}.
     \end{equation}
     A primera vista, esta desigualdad parece implicar que la iteración de reducción de ruido es, 
-    conceptualmente, muy similar a un mapeo de contracción, como la iteración de potencias 
-    \eqref{eq:power_iteration}, que lleva el iterado \(\vx_{t}\) a la media \(\vmu\), ya que 
+    conceptualmente, muy cercana a un mapeo de contracción, como la iteración de potencias 
+    \eqref{eq:power_iteration}, que lleva el iterado \(\vx_{t}\) a la media \(\vmu\), dado que 
     todos los valores de \(c_{\ell, L}\) pertenecen a \((0,1)\) para cualquier \(\ell\) y \(L\). 
-    Sin embargo, esto no es así. Para verlo, obsérvese que, al iterar 
+    Sin embargo, esto no es así. Para ver la razón, obsérvese que, al iterar 
     \eqref{eq:denoising_contraction_1step}, se cumple que
     \begin{equation}
         \norm{\vx_{0} - \vmu}_{2} \leq \prod_{\ell = 1}^{L}c_{\ell,
         L} \cdot \norm{\vx_{T} - \vmu}_{2}.
     \end{equation}
-    Si cada actualización de reducción de ruido tuviera propiedades similares a las de un
-    mapeo de contracción, entonces \(\prod_{\ell = 1}^{L}c_{\ell, L}\) tendería a
-    \(0\) cuando \(L \to \infty\) y la iteración convergería a
+    Si cada paso de reducción de ruido tuviera propiedades similares a las de una
+    contracción, entonces \(\prod_{\ell = 1}^{L}c_{\ell, L}\) tendería a
+    \(0\) cuando \(L \to \infty\) y el iterado convergería a
     \(\vmu\) extremadamente rápido, lo que haría que el muestreador fuera completamente inútil
     o vacuo. Pero, en realidad, la iteración de reducción de ruido
-    \textit{no es, en realidad, un mapeo de contracción}, ya que \(c_{\ell, L}\)
+    \textit{no es, en efecto, una contracción}, ya que \(c_{\ell, L}\)
     varía con ambos índices \(\ell\) y \(L\), de modo que \(\prod_{\ell =
     1}^{L}c_{\ell, L}\) no tiende a \(0\) cuando \(L \to \infty\), como
     se demuestra en la \Cref{fig:not_contraction_mapping} (también es
     posible calcular el límite analíticamente). En realidad, el
-    muestreador garantiza que las iteraciones finales se dispersen a lo largo del
+    muestreador garantiza que los términos finales de la secuencia se dispersen a lo largo del
     soporte de la distribución de datos, lo que permite un muestreo real a partir de
     la distribución de datos, algo muy distinto del objetivo de
     la iteración de potencias (por ejemplo).
     \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{\toplevelprefix/chapters/chapter3/figs/not_contraction_mapping.png}
-        \caption{\small\textbf{La iteración de reducción de ruido en el \Cref{ex:single_gaussian_denoising} 
+        \caption{\small\textbf{La iteración de reducción de ruido del \Cref{ex:single_gaussian_denoising} 
                 no es un mapeo de 
             contracción.} Gráfico de los productos de los coeficientes de contracción
-            \(\prod_{\ell = 1}^{L}c_{\ell, L}\) en el caso de que los
+            \(\prod_{\ell = 1}^{L}c_{\ell, L}\) en el caso en que los
             datos se encuentran en \(D = 1\), el horizonte temporal \(T = 1\) y la
             varianza de los datos \(\lambda_{1} = a\), para distintos valores de
             \(a\). Si la iteración de reducción de ruido fuera (conceptualmente similar
-            a) una aplicación de contracción, estos productos tenderían a \(0\),
+            a) una aplicación contractiva, estos productos tenderían a \(0\),
         pero, en cambio, convergen hacia valores distintos de cero.}
         \label{fig:not_contraction_mapping}
     \end{figure}
@@ -831,8 +831,7 @@ entropía.
     \end{equation}
 \end{theorem}
 El enunciado completo del teorema y la propia demostración requieren
-cierto grado de tecnicismo, por lo que se posponen hasta la
-\Cref{sub:denoising_entropy_decreases}.
+cierto grado de tecnicismo, por lo que se remiten a la \Cref{sub:denoising_entropy_decreases}.
 
 \subsubsection{Cálculo del \textit{denoiser}}
 Lo último que comentamos aquí es que, en muchas ocasiones,
@@ -842,7 +841,7 @@ intentar \textit{aprender una a partir de los datos}. Recordemos que el \textit{
 \(\bar{\vx}^{\star}\) se define en \eqref{eq:denoising_loss} como
 la minimización del error cuadrático medio \(\Ex\norm{\bar{\vx}(t, \vx_{t}) -
 \vx}_{2}^{2}\). Podemos utilizar este error cuadrático medio como función de pérdida o
-función objetivo para entrenar el filtro de reducción de ruido. Por ejemplo, podemos
+función objetivo para aprender el \textit{denoiser}. Por ejemplo, podemos
 parametrizar \(\bar{\vx}(t, \cdot)\) mediante una red neuronal, escribiéndola
 como \(\bar{\vx}_{\theta}(t, \cdot)\) y optimizar la pérdida en el
 espacio de parámetros \(\Theta\):
@@ -906,7 +905,7 @@ Esto implica
     t^{2}}\vU\vU^{\top}.\label{eq:gaussian_lowrank_denoiser_simplified}
 \end{align}
 Nuestro filtro de reducción de ruido óptimo es una proyección lineal (reescalada) sobre el
-subespacio de rango bajo que sustenta la distribución de nuestros datos. Esto es
+subespacio de rango bajo en el que se apoya la distribución de nuestros datos. Esto es
 básicamente lo mismo que el PCA probabilístico del
 \Cref{ch:classic-models} (véase ~\Cref{subsec:probabilistic PCA}). Podemos
 formalizar esta intuición considerando una clase de
@@ -917,7 +916,7 @@ formalizar esta intuición considerando una clase de
 y mostrando que el problema de reducción de ruido \(\min_{\vV \in \O(D,
     P)}\Ex\norm{\bar{\vx}_{\vV}(t, \vx_{t}) -
 \vx}_{2}^{2}\) obtiene la misma solución que el PCA probabilístico
-(\Cref{subsec:probabilistic PCA}). De hecho, al sustituir nuestro \textit{denoiser} por subespacios
+(\Cref{subsec:probabilistic PCA}). De hecho, al incorporar nuestro \textit{denoiser} basado en subespacios
 en la función de pérdida de entrenamiento \eqref{eq:denoising_loss}, obtenemos
 \begin{equation}
     \min_{\vV \in \O(D, P)}\Ex\norm{\bar{\vx}_{\vV}(t,
@@ -925,8 +924,8 @@ en la función de pérdida de entrenamiento \eqref{eq:denoising_loss}, obtenemos
     t^{2}}\vV\vV^{\top}(\vx + t\vg) - \vx}_{2}^{2},
 \end{equation}
 donde la igualdad se debe a
-\eqref{eq:additive_gaussian_noise_model}. Condicionando respecto a \(\vx\)
-(integrando así sobre \(\vg\)), calculamos
+\eqref{eq:additive_gaussian_noise_model}. Dado \(\vx\)
+(integrando sobre \(\vg\)), calculamos
 \begin{align}
     & \Ex_{\vg}\norm*{\frac{1}{1 + t^{2}}\vV\vV^{\top}(\vx + t\vg) -
     \vx}_{2}^{2} \\
@@ -937,12 +936,12 @@ donde la igualdad se debe a
     &= \norm*{\frac{1}{1 + t^{2}}\vV\vV^{\top}\vx - \vx}_{2}^{2} +
     \frac{t^2P}{(1+t^2)^2}
 \end{align}
-donde la segunda igualdad se deduce de \(\vg \sim \dNorm(\vzero,
-\vI)\) y del hecho de que \(\vV \in \O(D, P)\), lo que implica que \(
+donde la segunda igualdad se sigue de \(\vg \sim \dNorm(\vzero,
+\vI)\) y del hecho de que \(\vV \in \O(D, P)\), lo cual implica que \(
     \Ex_{\vg}\norm{\vV\vV^\top
     \vg}_{2}^{2} =
 \Ex_{\vg}\norm{\vV^\top \vg}_{2}^{2} = P\). Por lo tanto, el problema de reducción de ruido
-es equivalente a
+resulta equivalente a
 \begin{align}
     \min_{\vV \in \O(D, P)} & \Bigg\{\Ex \norm*{\frac{1}{1 +
         t^{2}}\vV\vV^{\top}\vx - \vx}_{2}^{2} \\
@@ -950,7 +949,7 @@ es equivalente a
             t^{2})^{2}} - \frac{2}{1 +
     t^{2}}}\Ex\norm{\vV^{\top}\vx}_{2}^{2}\Bigg\},
 \end{align}
-lo cual, a su vez, equivale del problema
+lo cual, a su vez, es equivalente al problema
 \begin{equation}\label{eq:PCA}
     \max_{\vV \in \O(D, P)}\Ex\norm{\vV^{\top}\vx}_{2}^{2}
 \end{equation}
@@ -965,9 +964,9 @@ nuestro algoritmo de reducción de ruido consistiría básicamente en aplicar su
 muchas iteraciones de PCA a datos cada vez menos ruidosos.
 Aunque este método parece muy sencillo, en realidad puede generar comportamientos de reducción de ruido complejos
 y relativamente potentes cuando se aplica a datos reales,
-tal y como ha demostrado PCANet \parencite{chan2015pcanet}.
+tal como ha demostrado PCANet \parencite{chan2015pcanet}.
 No obstante, para obtener un operador de reducción de ruido más general
-que pueda ser aplicable a con distribuciones de datos complejas y multimodales,
+que pueda ser aplicable a distribuciones de datos complejas y multimodales,
 consideraremos una clase más amplia de distribuciones de datos: la omnipresente
 clase de \textit{modelos de mezcla gaussiana de bajo rango}, cuyo \textit{denoiser}
 calculamos en el \Cref{ex:gaussian_mixture} y el
@@ -981,11 +980,11 @@ Formalmente, supongamos ahora que \(\vx\) se extrae de un modelo de mezcla gauss
 \(\frac{1}{K}\sum_{k = 1}^{K}\dNorm(\vzero,
 \vU_{k}\vU_{k}^{\top})\), donde \(\vU_{k} \in \O(D, P)\) son matrices ortogonales altas
 cuyas columnas abarcan los subespacios de dimensión \(P\)
-que soportan las \(K\) componentes gaussianas de rango bajo. Escribimos
+que constituyen el soporte de las \(K\) componentes gaussianas de rango bajo. Escribimos
 \begin{equation}\label{eq:MoG1}
     \vx \sim \frac{1}{K}\sum_{k = 1}^{K}\dNorm(\vzero, \vU_{k}\vU_{k}^{\top}).
 \end{equation}
-Entonces, el \textit{denoiser} óptimo según
+Entonces, el \textit{denoiser} óptimo bajo
 \eqref{eq:additive_gaussian_noise_model} es (de acuerdo
 al \Cref{example:denoising_gaussian_mixture})
 \begin{align}
@@ -1034,7 +1033,7 @@ Podemos entonces calcular las probabilidades a posteriori de la siguiente manera
         1}^{K}\exp\rp{\frac{1}{2t^{2}(1 +
     t^{2})}\norm{\vU_{i}^{\top}\vx_{t}}_{2}^{2}}}.
 \end{align}
-Se trata de una operación softmax ponderada por la proyección de \(\vx_{t}\)
+Se trata de una operación \textit{softmax} ponderada por la proyección de \(\vx_{t}\)
 sobre cada subespacio, cuantificada por \(\norm{\vU_{i}^{\top}\vx_{t}}_{2}\)
 (con temperatura \(2t^{2}(1 + t^{2})\)). Por su parte, los
 \textit{denoisers} por componente pueden expresarse en forma análoga a 
@@ -1054,15 +1053,15 @@ Combinando todo esto, obtenemos
 es decir, una proyección de \(\vx_{t}\) sobre cada uno de los \(K\) subespacios,
 ponderada por una función softmax de una función cuadrática de \(\vx_{t}\). ¡Esta
 forma funcional es similar a un \textit{mecanismo de atención} en una 
-arquitectura de transformer! Como veremos en el
+arquitectura de Transformer! Como veremos en el
 \Cref{ch:deep-networks}, esto no es en absoluto una coincidencia; el profundo
 vínculo entre la reducción de ruido y la compresión con pérdida (que se tratará en la
-\Cref{sec:lossy_compression}) hace que los \textit{denoisers} basados en transformers sean tan
+\Cref{sec:lossy_compression}) hace que los \textit{denoisers} basados en Transformers sean tan
 eficaces en la práctica. Por lo tanto, nuestra teoría del modelo de mezcla gaussiana
-justifica el uso de redes neuronales tipo transformador para la reducción de ruido.
+motiva el uso de redes neuronales tipo Transformer para la reducción de ruido.
 
 En general, la arquitectura del \textit{denoiser} aprendido corresponde a un
-esquema de codificación (paramétrico implícito) de los datos dados, ya que puede
+esquema de codificación (paramétrico implícito) de los datos en cuestión, ya que puede
 utilizarse para eliminar el ruido o proyectar sobre la distribución de los datos. Entrenar un
 \textit{denoiser} equivale a encontrar un mejor esquema de codificación, lo que
 implementa parcialmente el enfoque A2 (es decir, buscar una
@@ -1074,7 +1073,7 @@ implementar el otro enfoque.
 reducción iterativa de ruido}\label{sub:sampling_denoising}
 
 Recordemos que, al final de la \Cref{sub:min_entropy}, analizamos dos
-enfoques para obtener una distribución con estructura de baja dimensión.
+enfoques para lograr una distribución con estructura de baja dimensión.
 El primer enfoque (A1) comienza con una distribución normal de alta
 entropía y reduce gradualmente su entropía hasta alcanzar la distribución
 de los datos. A este procedimiento lo llamamos \textit{muestreo}, ya que
@@ -1094,7 +1093,7 @@ forma de hacerlo se justifica a continuación:
 \end{equation}
 Por lo tanto, \(\vx_{T} \approx \dNorm(\vzero, T^{2}\vI)\). Esta
 aproximación es bastante buena para casi todas las distribuciones prácticas,
-y se muestra en la \Cref{fig:xT_vs_noise}.
+y se ilustra en la \Cref{fig:xT_vs_noise}.
 \begin{figure}
     \centering
     \includegraphics[width=0.75\textwidth]{\toplevelprefix/chapters/chapter3/figs/xT_vs_noise.png}
@@ -1118,7 +1117,7 @@ una forma posible de obtener muestras a partir de ruido puro es:
 \begin{itemize}
     \item Muestrear \(\hat{\vx}_{T} \sim \dNorm(\vzero, T^{2}\vI)\)
         (independientemente de todo lo demás).
-    \item Ejecutar la iteración de reducción de ruido tal y como se indica en la
+    \item Ejecutar la iteración de reducción de ruido como se indica en la
         \Cref{sub:intro_diffusion_denoising}, es decir, 
         \begin{equation}\label{eq:denoising-iteration-basic}
             \hat{\vx}_{t_{\ell - 1}} = \bp{1 -
@@ -1128,8 +1127,8 @@ una forma posible de obtener muestras a partir de ruido puro es:
     \item Output \(\hat{\vx} = \hat{\vx}_{0}\).
 \end{itemize}
 Conceptualmente, esto es todo lo que hay detrás de los \textit{modelos de difusión},
-que transforman el ruido en muestras de datos de acuerdo con la primera propiedad
-deseada. Sin embargo, aún quedan algunos pasos por dar antes de obtener modelos que
+que transforman el ruido en muestras de datos de acuerdo con el primera \textit{desideratum}.
+Sin embargo, aún quedan algunos pasos por dar antes de obtener modelos que
 puedan realmente tomar muestras de distribuciones de datos reales, como imágenes, bajo
 restricciones prácticas de recursos. En lo que sigue, presentamos y
 justificamos varios de esos pasos.
@@ -1138,7 +1137,7 @@ justificamos varios de esos pasos.
 en la observación de que \textit{no necesitamos realizar tantas
 iteraciones de reducción de ruido} para valores grandes de \(t\). La \Cref{fig:ve_gmm_denoising}
 muestra que las primeras \(200\) o \(300\) iteraciones de las \(500\)
-iteraciones del proceso de muestreo se dedican a reducir el ruido
+iteraciones del proceso de muestreo se dedican a contraer el ruido
 hacia la distribución de los datos en su conjunto, antes de que las iteraciones restantes
 empujen las muestras hacia un subespacio. Dado un número fijo
 de iteraciones \(L\), esto sugiere que deberíamos asignar más
@@ -1152,7 +1151,7 @@ t_{L} \leq T\), como por ejemplo una \textit{discretización exponencial}:
 \end{equation}
 donde \(C_{1}, C_{2} > 0\) son constantes que pueden ajustarse para
 obtener un rendimiento óptimo en la práctica; los análisis teóricos suelen especificar
-también dichas constantes óptimas. La iteración de reducción de ruido/muestreo se convierte entonces
+también dichas constantes óptimas. La iteración de reducción de ruido / muestreo se convierte entonces
 en
 \begin{equation}\label{eq:denoising_iteration}
     \hat{\vx}_{t_{\ell - 1}} \doteq \frac{t_{\ell -
@@ -1176,7 +1175,7 @@ con \(\hat{\vx}_{t_{L}} \sim \dNorm(\vzero, t_{L}^{2}\vI)\).
 considerar modelos ligeramente distintos a los de
 \eqref{eq:additive_gaussian_noise_model}. La motivación fundamental para
 esto es la siguiente. En la práctica, la distribución del ruido
-\(\dNorm(\vzero, t_{L}^{2}\vI)\) se convierte en una estimación cada vez
+\(\dNorm(\vzero, t_{L}^{2}\vI)\) se vuelve una estimación cada vez
 menos precisa de la covarianza real en dimensiones elevadas; es decir,
 \eqref{eq:ve_converge_to_large_gaussian} se convierte en una aproximación cada vez
 menos precisa, especialmente con datos anisotrópicos de alta dimensión.
@@ -1227,7 +1226,7 @@ La iteración de reducción de ruido \eqref{eq:denoising_iteration} se transform
 
 \begin{example}[El modelo de mezcla gaussiana]
     Para un modelo de mezcla gaussiana (véase el \Cref{ex:gaussian_mixture}),
-    su filtro de reducción de ruido \eqref{eq:gmm_bayes_optimal_denoiser} se convierte en
+    su \textit{denoiser} \eqref{eq:gmm_bayes_optimal_denoiser} se convierte en
     \begin{align}\label{eq:gen_gmm_bayes_optimal_denoiser}
         \bar{\vx}^{\star}(t, \vx_{t})
         &= \sum_{k = 1}^{K}\Bigg\{\frac{\pi_{k}\phi(\vx_{t}
@@ -1244,7 +1243,7 @@ La iteración de reducción de ruido \eqref{eq:denoising_iteration} se transform
 \end{example}
 
 Cabe señalar que la iteración de reducción de ruido \eqref{eq:gen_denoising_iteration}
-da lugar a un algoritmo de muestreo denominado DDIM («Denoising Diffusion
+da lugar a un algoritmo de muestreo conocido como el muestreador DDIM («Denoising Diffusion
 Implicit Model») \cite{song2020denoising}, y es uno de los
 algoritmos de muestreo más populares utilizados actualmente en los modelos de difusión. Lo
 resumimos en el \Cref{alg:iterative_denoising}.
@@ -1259,7 +1258,7 @@ resumimos en el \Cref{alg:iterative_denoising}.
         1}^{L} \times \R^{D} \to \R^{D}\).}
         \Require{Funciones de escala y de nivel de ruido \(\alpha, \sigma
         \colon \{t_{\ell}\}_{\ell = 0}^{L} \to \R_{\geq 0}\).}
-        \Ensure{Una muestra \(\hat{\vx}\), aproximadamente de la
+        \Ensure{Una muestra \(\hat{\vx}\), que sigue aproximadamente la
         distribución de \(\vx\).}
         \Function{DDIMSampler}{$\bar{\vx}, (t_{\ell})_{\ell = 0}^{L}$}
         \State{Inicializar \(\hat{\vx}_{t_{L}} \sim\) la distribución aproximada
@@ -1285,10 +1284,10 @@ resumimos en el \Cref{alg:iterative_denoising}.
 
 \paragraph{Paso 3: Optimización de los procesos de entrenamiento.} Si usáramos el
 procedimiento prescrito en la \Cref{sub:intro_diffusion_denoising} para entrenar un
-\textit{denoiser} independiente \(\bar{\vx}(t, \cdot)\) para cada instante \(t\) que se
-utilizará en el algoritmo de muestreo, \textit{¡tendríamos que entrenar \(L\)
-\textit{denoisers} independientes!} Esto es muy ineficiente: lo habitual es
-que tengamos que entrenar \(L\) redes neuronales distintas, lo que requiere \(L\)
+\textit{denoiser} diferente \(\bar{\vx}(t, \cdot)\) para cada instante \(t\) que se
+utilizará en el algoritmo de muestreo, \textit{¡tendríamos que entrenar \(L\) \textit{denoisers}}
+diferentes. Esto es muy ineficiente: lo habitual es
+que tengamos que entrenar \(L\) redes neuronales diferentes, lo que requiere \(L\)
 veces más tiempo de entrenamiento y memoria de almacenamiento y luego quedarnos atados a
 utilizar esos pasos de tiempo para el muestreo de por siempre. En cambio, podemos
 \textit{entrenar una sola red neuronal} para eliminar el ruido en todos los instantes
@@ -1314,7 +1313,7 @@ Si \(w_{t}\) es el peso en el momento \(t\), la pérdida ponderada tendría la f
     \vx_{\tau}) - \vx}_{2}^{2}].
 \end{equation}
 Una opción razonable para el peso en la práctica es \(w_{t} =
-\alpha_{t}^{2}/\sigma_{t}^{2}\). La razón exacta se explicará en el
+\alpha_{t}^{2}/\sigma_{t}^{2}\). La razón exacta se abordará en el
 siguiente párrafo, pero, en general, sirve para dar mayor peso a las pérdidas
 correspondientes a \(t\) cerca de \(0\), sin dejar de mantener una estabilidad numérica
 razonable. Además, por supuesto, en la práctica no podemos calcular la
@@ -1324,18 +1323,18 @@ ofrece varias ventajas conceptuales y computacionales: no necesitamos
 entrenar múltiples \textit{denoisers}, podemos entrenar con un solo conjunto de pasos de tiempo y
 realizar el muestreo utilizando un subconjunto (o incluso otros distintos), etc. El proceso completo se
 analiza en el \Cref{alg:learning_denoiser}. Sin duda, este proceso
-funciona en la práctica; comentamos algunos resultados en las
+funciona en la práctica; presentamos algunos resultados en las
 \Cref{sec:auto-encode-img-gen,sec:cond_gen,sec:object-generation,sec:shape-and-pose,sec:egoallo}.
 
 \begin{algorithm}
-    \caption{Aprender un \textit{denoiser} a partir de datos.}
+    \caption{Aprendizaje de un \textit{denoiser} a partir de datos.}
     \begin{algorithmic}[1]
         \Require{Conjunto de datos \(\cD \subseteq \R^{D}\).}
         \Require{Una lista ordenada de pasos de tiempo \(0 \leq t_{0} < \cdots
         < t_{L} \leq T\) que se utilizarán para el muestreo.}
         \Require{Una función de ponderación \(w \colon \{t_{\ell}\}_{\ell =
         1}^{L} \to \R_{\geq 0}\).}
-        \Require{Funciones de escala y nivel de ruido \(\alpha, \sigma
+        \Require{Funciones de escala y de nivel de ruido \(\alpha, \sigma
         \colon \{t_{\ell}\}_{\ell = 0}^{L} \to \R_{\geq 0}\).}
         \Require{Un espacio de parámetros \(\Theta\) y una arquitectura
         de \textit{denoiser} \(\bar{\vx}_{\theta}\).}
@@ -1358,7 +1357,7 @@ funciona en la práctica; comentamos algunos resultados en las
         1}^{L})\)}
         \Statex{}
 
-        \Statex{\qquad\qquad\ \texttt{\# Calcular ponderaciones y escalas.}}
+        \Statex{\qquad\qquad\ \texttt{\# Calcular pesos y escalas.}}
         \State{\((\alpha^{(m, i)}, \sigma^{(m, i)}, w^{(m, i)}) =
         (\alpha_{t^{(m, i)}}, \sigma_{t^{(m, i)}}, w_{t^{(m, i)}})\)}
         \Statex{}
@@ -1391,14 +1390,14 @@ funciona en la práctica; comentamos algunos resultados en las
 \end{algorithm}
 
 \paragraph{Paso 4: Cambio del objetivo de estimación.}
-Es habitual, en su lugar, reorientar todo el proceso de reducción de ruido
+En su lugar, es habitual reorientar todo el proceso de reducción de ruido
 en torno a los \textit{predictores de ruido}, es decir, las estimaciones de \(\Ex[\vg \mid
 \vx_{t}]\). En la práctica, los predictores de ruido son ligeramente más fáciles de
 entrenar porque su salida es (casi) siempre de un tamaño comparable al de una
 variable aleatoria gaussiana, por lo que el entrenamiento es más estable numéricamente, pero
 pueden requerir modelos más grandes, ya que predicen un
 objetivo de dimensión completa en lugar de datos potencialmente de baja dimensión
-\citep{li2025back}. Por \eqref{eq:gen_additive_gaussian_noise_model} tenemos
+\citep{li2025back}. A partir de \eqref{eq:gen_additive_gaussian_noise_model} tenemos
 \begin{equation}
     \vx_{t} = \alpha_{t}\Ex[\vx \mid \vx_{t}] + \sigma_{t}\Ex[\vg
     \mid \vx_{t}] \implies \Ex[\vg \mid \vx_{t}] =
@@ -1412,7 +1411,7 @@ de \(\vg\) utilizando la relación anterior, es decir,
 \end{equation}
 y viceversa. Por lo tanto, una buena red para estimar \(\bar{\vg}\) es
 lo mismo que una buena red para estimar \(\bar{\vx}\) \textit{más
-una conexión residual} (como se ve, por ejemplo, en los transformers). Sus pérdidas
+una conexión residual} (como se ve, por ejemplo, en los Transformers). Sus pérdidas
 son también las mismas que las del \textit{denoiser}, salvo por el factor
 \(\alpha_{t}/\sigma_{t}\), es decir,
 \begin{equation}
@@ -1434,10 +1433,10 @@ Hemos introducido muchos cambios en nuestro proceso platónico original de gener
 Para asegurarnos de que el nuevo proceso sigue funcionando en
 la práctica, podemos calcular ejemplos numéricos (como
 en la \Cref{fig:vp_gmm_denoising}). Para asegurarnos de que es
-teóricamente sólido, podemos demostrar una \textit{cota de la tasa de error}
-para el algoritmo de muestreo, lo que demuestra que la tasa de error es pequeña.
+teóricamente sólido, podemos establecer una \textit{cota de la tasa de error}
+para el algoritmo de muestreo, lo que muestra que la tasa de error es pequeña.
 A continuación, presentamos una cota de este tipo tomada de la literatura, que muestra que la
-distribución de los resultados del muestreador converge, en la denominada
+distribución de la salida del muestreador converge, en la denominada
 \textit{distancia de variación total (TV)}, hacia la distribución verdadera. La
 distancia TV entre dos variables aleatorias \(\vx\) y
 \(\vy\) se define como:\footnote{El supremo aquí se toma únicamente sobre
@@ -1458,7 +1457,7 @@ un ejercicio.)
     Supongamos que \(\Ex\norm{\vx}_{2} < \infty\). Si se elimina el ruido de \(\vx\) 
     según el proceso VP con una discretización
     exponencial\footnote{La definición exacta es bastante extensa
-        en nuestra notación y solo se define hasta diversas
+        en nuestra notación y solo se define salvo diversas
         constantes absolutas, por lo que la omitimos aquí por brevedad. Se encuentra en el
     artículo original \citep{li2024d}.} como en
     \eqref{eq:denoising_exponential_discretization}, la salida
@@ -1470,7 +1469,7 @@ un ejercicio.)
             & \qquad \qquad + \underbrace{\sqrt{\frac{1}{L}\sum_{\ell =
                     1}^{L}\frac{\alpha_{t_{\ell}}^{2}}{\sigma_{t_{\ell}}^{4}}\Ex\norm{\bar{\vx}^{\star}(t_{\ell},
                         \vx_{t_{\ell}}) - \bar{\vx}(t_{\ell},
-            \vx_{t_{\ell}})}_{2}^{2}}}_{\text{error medio excesivo del denoiser}}\Bigg)\nonumber
+            \vx_{t_{\ell}})}_{2}^{2}}}_{\text{exceso medio de error del denoiser}}\Bigg)\nonumber
     \end{align}
     donde \(\bar{\vx}^{\star}\) es el \textit{denoiser} óptimo de Bayes para
     \(\vx\) y \(\tilde{\cO}\) es una versión de la notación «big-\(\cO\)»
@@ -1525,7 +1524,7 @@ procesos estocásticos subyacentes.} como se ha argumentado heurísticamente má
 \end{remark}
 
 \begin{remark}
-    En otros trabajos, el proceso inverso se define como un desplazamiento hacia atrás
+    En varios otros trabajos, el proceso inverso se define como un desplazamiento hacia atrás
     en el índice temporal \(t\) mediante una ecuación de diferencias explícita, o
     una ecuación diferencial en el límite \(L \to \infty\), o hacia adelante
     en el tiempo utilizando la transformación \(\vy_{t} = \vx_{T - t}\), de tal manera
@@ -1549,13 +1548,13 @@ procesos estocásticos subyacentes.} como se ha argumentado heurísticamente má
     puede resultar útil transportar la distribución de los datos hacia y desde una
     distribución objetivo arbitraria, que podría ser gaussiana, una
     mezcla gaussiana o incluso otro tipo de distribución de datos. Si
-    tenemos este requisito, podemos utilizar el marco de \textit{flow matching}
+    tenemos este \textit{desideratum}, podemos utilizar el marco de \textit{flow matching}
     para lograrlo. Supongamos que la variable aleatoria objetivo es
     \(\vy\) y que nuestro flujo es
     \begin{equation}
         \vx_{t} = \alpha_{t}\vx + \sigma_{t}\vy, \qquad \forall t \in [0, 1].
     \end{equation}
-    de tal manera que \(\alpha_{0} = \sigma_{1} = 1\) y \(\alpha_{1} =
+    de modo que \(\alpha_{0} = \sigma_{1} = 1\) y \(\alpha_{1} =
     \sigma_{0} = 0\), de modo que \(\vx_{0} = \vx\) y \(\vx_{1} =
     \vy\). Nuestra estrategia no cambia en absoluto: podemos
     entrenar un \textit{denoiser} \(\bar{\vx}_{\theta}\) para eliminar el ruido de
@@ -1566,7 +1565,7 @@ procesos estocásticos subyacentes.} como se ha argumentado heurísticamente má
     relaciona el \textit{score} \(\nabla \log p_{t}\) del \textit{denoiser} con el
     \textit{denoiser} propiamente tal; dicha fórmula no existe en general.
 
-    En la práctica, inspirándose en el concepto de aprender un llamado
+    En la práctica, inspirándose en el concepto de aprender lo que se conoce como
     \textit{mapa de transporte} entre pares de datos \(\vx\) y \(\vy\),
     los profesionales suelen preferir entrenar un \textit{predictor de velocidad}
     \(\bar{\vv}_{\theta}\) para predecir \(\vv_{t} = \odv*{\vx_{t}}{t} =
@@ -1584,21 +1583,21 @@ procesos estocásticos subyacentes.} como se ha argumentado heurísticamente má
         \hat{\vx}_{t_{\ell - 1}} = \hat{\vx}_{t_{\ell}} -
         \bar{\vv}_{\theta}(t_{\ell}, \hat{\vx}_{t_{\ell}}) \Delta t,
     \end{equation}
-    donde \(\Delta t = t_{\ell} - t_{\ell - 1}\) es el intervalo de tiempo.
-    Téngase en cuenta que la predicción de velocidad es algebraicamente equivalente a
-    la reducción de ruido (véase el \Cref{exercise:velocity_prediction}). Las
-    \Cref{sec:auto-encode-img-gen,sec:shape-and-pose} contienen aplicaciones prácticas
-    del flow matching.
+    donde \(\Delta t = t_{\ell} - t_{\ell - 1}\) es el paso de tiempo.
+    Nótese que la predicción de velocidad es algebraicamente equivalente a
+    la reducción de ruido (véase el \Cref{exercise:velocity_prediction}). Véanse las
+    \Cref{sec:auto-encode-img-gen,sec:shape-and-pose} para aplicaciones prácticas
+    de \textit{flow matching}.
 \end{remark}
 
 \begin{remark}
-    En la práctica, la difusión suele requerir muchos pasos y muchas evaluaciones
+    En la práctica, la difusión toma muchos pasos y muchas evaluaciones
     de la función del \textit{denoiser}. Por lo tanto, es lógico preguntarse:
     «¿Podemos acelerar el proceso de muestreo utilizando un número menor
     de pasos y evaluaciones de la función?». La respuesta es afirmativa y a esos
     modelos se les suele llamar \textit{modelos de consistencia} o, de manera más
     descriptiva, \textit{modelos de pocos pasos}. La idea central consiste en utilizar un
-    \textit{denoiser} que tome dos tiempos \(\bar{\vx}_{\theta}(s, t,
+    \textit{denoiser} que tome como entrada dos tiempos \(\bar{\vx}_{\theta}(s, t,
     \vx_{t})\) y estime \(\Ex[\vx_{s} \mid \vx_{t}]\), lo cual, en
     cierto sentido, es una tarea más sencilla, o bien utilizar un predictor de velocidad
     \(\bar{\vv}_{\theta}(s, t, \vx_{t})\) y estimar la velocidad media
@@ -1606,7 +1605,7 @@ procesos estocásticos subyacentes.} como se ha argumentado heurísticamente má
     filtros de reducción de ruido tienen condiciones de consistencia
     adicionales, tales como \(\bar{\vx}_{\theta}(u, t,
     \bar{\vx}_{\theta}(s, u, \vxi)) = \bar{\vx}_{\theta}(s, t, \vxi)\),
-    lo que motiva el uso de pérdidas de entrenamiento auxiliares. 
+    lo que motiva la introducción de pérdidas de entrenamiento auxiliares. 
     Una vez que se aprende dicho predictor, el proceso de muestreo se vuelve 
     muy simple y eficiente, ya que solo requiere unos pocos pasos de la forma
     \begin{equation}
@@ -1622,7 +1621,7 @@ procesos estocásticos subyacentes.} como se ha argumentado heurísticamente má
 
 El cálculo que se presenta al final de la
 \Cref{sub:intro_diffusion_denoising} parece indicar (en términos generales)
-que, en la práctica, utilizar una red de tipo transformer es una
+que, en la práctica, utilizar una red de tipo Transformer es una
 buena opción para entrenar o aproximar un \textit{denoiser}. Esto es
 razonable, pero ¿qué problema hay en utilizar cualquier red neuronal corriente
 (como un perceptrón multicapa (MLP)) y simplemente escalarla
@@ -1656,9 +1655,9 @@ extraído de la distribución empírica se expresa de la siguiente manera:
     1}^{N}\Ex[w_{\tau}\norm{\vx^{(i)} - \bar{\vx}_{\theta}(\tau,
     \vx_{\tau}^{(i)})}_{2}^{2}]
 \end{equation}
-donde \(\vx_{t}^{(i)}\) es la versión con ruido de la muestra de entrenamiento
+donde \(\vx_{t}^{(i)}\) es la versión ruidosa de la muestra de entrenamiento
 \(\vx^{(i)}\). El optimizador de esta pérdida sobre todos los
-eliminadores de ruido (cuadráticamente integrables) \(\bar{\vx}\) es el \textit{denoiser} gaussiano óptimo asociado
+\textit{denoisers} (cuadráticamente integrables) \(\bar{\vx}\) es el \textit{denoiser} gaussiano óptimo asociado
 del \Cref{example:denoising_gaussian_mixture}, es decir,
 \begin{equation}\label{eq:memorizing_denoiser}
     \bar{\vx}^{\star}(t, \vx_{t}) = \sum_{i =
@@ -1668,7 +1667,7 @@ del \Cref{example:denoising_gaussian_mixture}, es decir,
     \alpha_{t}\vx^{(j)}\|_{2}^{2}/(2\sigma_{t}^{2})})}\vx^{(i)}.
 \end{equation}
 Esta es una combinación convexa de los datos \(\vx^{(i)}\) y los
-coeficientes se vuelven más «agudos» (es decir, más cercanos a \(0\) o \(1\)) a medida que \(t
+coeficientes se vuelven más «puntiagudos» (es decir, más cercanos a \(0\) o \(1\)) a medida que \(t
 \to 0\). En particular, para valores pequeños de \(t\), el \textit{denoiser} es casi
 exactamente igual a la muestra más cercana del conjunto de entrenamiento y la
 actualización acerca la iteración al punto más cercano, de modo que al
@@ -1679,7 +1678,7 @@ buen muestreador, nuestras muestras regenerarán los datos de entrenamiento}. Es
 queda confirmado por nuestra garantía teórica sobre el muestreo
 \Cref{thm:diffusion_sampler_convergence}, que, cuando se aplica en
 este contexto, establece que si llevamos el número de pasos de muestreo a
-\(\infty\) y utilizamos el programa de pasos de tiempo prescrito, el modelo de difusión
+\(\infty\) y utilizamos la programación de pasos de tiempo prescrito, el modelo de difusión
 asociado al \textit{denoiser} \eqref{eq:memorizing_denoiser}
 siempre tomará muestras de la distribución empírica y, por lo tanto, siempre
 reproducirá una muestra de entrenamiento. Este fenómeno constituye una instanciación especialmente estricta
@@ -1705,7 +1704,7 @@ no es mucho más interesante que una simple base de datos con los datos de entre
     \caption{\small\textbf{Muestras generadas (izquierda) a partir de un modelo de difusión
             entrenado con \(6{.}000\) muestras y (derecha) sus puntos más cercanos
         en el conjunto de datos de entrenamiento (en la norma euclidiana).} Observamos
-        que las muestras generadas son, en esencia, equivalentes a nivel de pixel 
+        que las muestras generadas equivalen, píxel a píxel, 
         a los datos de entrenamiento más similares. Ambos conjuntos de imágenes
     provienen de \cite{yoon2023diffusion}.}
     \label{fig:diffusion_memorization_euclidean_samples}
@@ -1729,16 +1728,16 @@ no es mucho más interesante que una simple base de datos con los datos de entre
     \cite{gu2023memorization}.}
 \end{figure}
 
-El argumento anterior es válido para modelos de arbitrariamente potentes que puedan
+El argumento anterior se aplica a modelos arbitrariamente potentes que puedan
 ajustar el (verdadero) \textit{denoiser} memorizador. Por lo tanto, es pertinente preguntarse
 si esto se confirma realmente en la práctica: ¿los modelos muy grandes
-(en relación con el conjunto de datos) aprenden a memorizar los datos de entrenamiento? Resulta
+(con respecto al conjunto de datos) aprenden a memorizar los datos de entrenamiento? Resulta
 que esto es cierto desde el punto de vista empírico. Uno de los primeros estudios al respecto
 fue \cite{yoon2023diffusion}. Para comprender sus resultados, definimos la
 razón de memorización como la probabilidad de memorización:
 \begin{equation}
     \mathrm{TasaMem}(\bar{\vx}) = \Pr_{\hat{\vx} \sim
-    \mathrm{DM}(\bar{\vx})}[\hat{\vx}\ \text{ha sido memorizado}],
+    \mathrm{DM}(\bar{\vx})}[\hat{\vx}\ \text{está memorizado}],
 \end{equation}
 donde \(\mathrm{DM}(\bar{\vx})\) es la distribución inducida por el
 modelo de difusión que utiliza el \textit{denoiser} \(\bar{\vx}\), y la muestra
@@ -1800,7 +1799,7 @@ entre la memorización y la generalización en datos reales,
 mediante el siguiente razonamiento. En el espacio de dimensiones muy elevadas de
 las imágenes naturales, las distancias euclidianas entre puntos se vuelven mucho más
 estrictas \cite{Wright-Ma-2022}, en el sentido de que, si dos imágenes no
-coinciden a la perfección a nivel de píxeles, sus distancias euclidianas
+coinciden a la perfección, a nivel de píxel, sus distancias euclidianas
 se concentrarán en forma marcada en torno a un valor fijo (que escala con la
 dimensión de las imágenes). Esto no tiene en cuenta los casos en los que ciertos
 \textit{conceptos} (como los personajes de dibujos animados protegidos por derechos de autor) se
@@ -1816,7 +1815,7 @@ conceptualmente en el sentido necesario para la memorización. Entonces,
 \cite{pmlr-v235-zhang24cn} afirma que una muestra \(\hat{\vx}\) ha sido memorizada si su
 similitud con cualquier punto de entrenamiento es \(> 3/5\), es decir,
 \begin{equation}\label{eq:diffusion_sscd_memorization_criterion}
-    \hat{\vx}\ \text{está memorizada} \iff \max_{i \in [N]}
+    \hat{\vx}\ \text{está memorizado} \iff \max_{i \in [N]}
     \frac{f_{\mathrm{SSCD}}(\hat{\vx})^{\top}f_{\mathrm{SSCD}}(\vx^{(i)})}{\norm{f_{\mathrm{SSCD}}(\hat{\vx})}_{2}\norm{f_{\mathrm{SSCD}}(\vx^{(i)})}_{2}}
     > \frac{3}{5}
 \end{equation}
@@ -1828,16 +1827,16 @@ la estimación de la memorización y el cálculo de la pérdida de entrenamiento
 El resultado concuerda con lo expuesto anteriormente: cuando el modelo es
 demasiado grande en relación con los datos de entrenamiento y la pérdida de entrenamiento es demasiado pequeña,
 se produce memorización y las muestras reproducen los datos de entrenamiento. Así pues, nuestra
-intuición se confirma en la práctica: \textit{¡en el caso de los modelos generativos de difusión, escalar
+intuición se cumple en la práctica: \textit{¡en el caso de los modelos generativos de difusión, escalar
 el modelo \underline{no} es lo único que se necesita!}
 
-Entonces, la pregunta es: ¿qué tipo de \textit{denoiser} deberíamos usar? La clave
+Entonces, la pregunta ahora es: ¿qué tipo de \textit{denoiser} deberíamos usar? La clave
 es elegir una arquitectura de red que pueda aproximar el verdadero
 \textit{denoiser} (por ejemplo, el que corresponde a una distribución de rango bajo, como en
 \eqref{eq:gmm_lowrank_denoiser}) sin aproximar el \textit{denoiser} memorizador
-\eqref{eq:memorizing_denoiser}. Algunos trabajos han analizado esta
-delgada línea y por qué los modelos de difusión modernos, que utilizan arquitecturas basadas en
-transformers y convoluciones, pueden memorizar y generalizar en
+\eqref{eq:memorizing_denoiser}. Algunos trabajos han explorado esta
+delgada línea divisoria y por qué los modelos de difusión modernos, que utilizan arquitecturas basadas en
+Transformers y convoluciones, pueden memorizar y generalizar en
 diferentes regímenes
 \citep{kamb2024analytic,niedoba2024towards,zhang2025generalization}.
 
@@ -1845,7 +1844,7 @@ diferentes regímenes
     \centering
     \includegraphics[width=0.4\textwidth]{\toplevelprefix/chapters/chapter3/figs/diffusion_perturbation.png}
     \caption{\small\textbf{Visualización del funcionamiento de un
-        \textit{denoiser} bien entrenado} como una perturbación del filtro empírico para
+        \textit{denoiser} bien entrenado} como una perturbación del \textit{denoiser} empírico para
         \textit{valores pequeños de \(t\)}, cuando el filtro memorizador actúa como una
     proyección sobre el punto más cercano del conjunto de entrenamiento.}
     \label{fig:diffusion_perturbation}
@@ -1861,7 +1860,7 @@ cierta: encontrar la distribución con la \textit{tasa de codificación} mínima
 forma de aprender la distribución. Supongamos por un momento que \(\vx\)
 tiene una densidad \(p\); la tasa de codificación (es decir, la entropía cruzada) de la
 distribución empírica \(p^{\vX}\) con respecto a \(p\) es
-\(\CE(p \mid p^{\vX}) = \infty\). Es evidente que esta tasa de codificación no es
+\(\CE(p \mmid p^{\vX}) = \infty\). Es evidente que esta tasa de codificación no es
 mínima en ningún sentido; si utilizamos las mismas aproximaciones sucesivamente mejores
 \(p^{n}\), \(p^{e}\) y \(\hat{q}\) analizadas en la
 \Cref{sub:min_entropy}, se cumple que
@@ -1870,20 +1869,20 @@ mínima en ningún sentido; si utilizamos las mismas aproximaciones sucesivament
     p^{e}) > \CE(p \mmid \hat{q}) \approx h(p).
 \end{equation}
 Por lo tanto, la minimización de la tasa de codificación parece una forma sensata de aprender la
-distribución y, al mismo tiempo, evitar este problema. Sin embargo, ahora surge un problema de
-manejabilidad: ¿cómo podemos diseñar algoritmos que aprendan la
-distribución minimizando la tasa de codificación y evitar los inconvenientes
+distribución y, al mismo tiempo, evitar esta dificultad. Sin embargo, ahora surge un problema de
+tratabilidad: ¿cómo podemos diseñar algoritmos que aprendan la
+distribución minimizando la tasa de codificación sin incurrir en los inconvenientes
 asociados a una minimización excesiva de la entropía?
 
 Una pista consiste en analizar qué ocurre con los modelos de difusión
-entrenados con éxito que no memorizan. Al expresar el \textit{denoiser} entrenado
+entrenados con éxito que no memorizan. Al expresar el \textit{denoiser} memorizador
 \(\bar{\vx}_{\theta}\) como una perturbación del \textit{denoiser}
 \(\bar{\vx}^{\star}\), es decir,
 \begin{equation}
     \bar{\vx}_{\theta}(t, \vx_{t}) = \bar{\vx}^{\star}(t, \vx_{t}) +
     \vdelta_{\theta}(t, \vx_{t})
 \end{equation}
-podemos hacernos una idea gráfica del funcionamiento de un filtro de reducción de ruido bien entrenado,
+podemos hacernos una idea gráfica del funcionamiento de un \textit{denoiser} bien entrenado,
 como se muestra en la \Cref{fig:diffusion_perturbation}. A grandes rasgos,
 el \textit{denoiser} entrenado calcula el filtro de memorización más una
 perturbación. Para un \(t\) pequeño (quizás incluso en el último paso de la
@@ -1895,11 +1894,11 @@ bolas de radio \(\epsilon\) alrededor de cada punto,\footnote{Más formalmente, 
     distribución perturbada tiene su soporte en (un subconjunto de) la unión de
     bolas de radio \(\epsilon\) centradas en cada muestra de entrenamiento. Esta visión está
 respaldada por trabajos anteriores, p. ej., \cite{song2025selective}.} donde
-\(\epsilon\) es una cota superior de la magnitud de la perturbación,
+\(\epsilon\) es una cota superior de la magnitud de las perturbaciones,
 visualizado en la \Cref{fig:diffusion_perturbation} por las bolas de color naranja 
 pálido.\footnote{En dimensiones elevadas, se plantea la hipótesis de que un mejor
-    modelo para estas perturbaciones no se describe mediante esferas, sino
-    más bien mediante formas mucho más anisotrópicas y adaptadas a la geometría
+    modelo para estas perturbaciones no queda acotado por esferas, sino 
+    por formas mucho más anisótropas y adaptadas a la geometría
 \cite{farghly2025diffusion}, aunque la intuición sigue siendo similar.} En el caso de
 modelos de difusión cada vez más grandes y bien entrenados, el
 radio de perturbación \(\epsilon\) se reduce a \(0\) y el modelo
@@ -1908,30 +1907,30 @@ lo suficientemente grande como para que las bolas correspondientes a puntos dife
 o estén muy cerca puede implicar que el modelo de difusión generalice bien.
 
 Por lo tanto, nuestro modelo de difusión eficaz puede considerarse como una minimización de una
-\textit{tasa de codificación con pérdida}, es decir, una tasa de codificación con precisión
+\textit{tasa de codificación con pérdida}, es decir, una tasa de codificación hasta una precisión
 de \(\epsilon\) (de modo que se puedan ignorar las bolas de radio \(\epsilon\)
 alrededor de cada punto). Esta noción de la tasa de codificación con pérdida resulta ser
-lo que conviene minimizar, en principio, y será
-\textit{extremadamente} útil. Exploraremos sus aplicaciones en el
+lo que conviene minimizar, en un sentido amplio, y será
+\textit{extremadamente} útil. Examinaremos a fondo sus aplicaciones en el
 \Cref{ch:lossy-compression} y a lo largo del resto de este libro.
 
 \section{Resumen y notas}
 \paragraph{Mensajes clave.}
-En este capítulo, hemos mostrado que, para lograr una distribución general
+En este capítulo, hemos mostrado que, para conseguir una distribución general
 de baja dimensión, un enfoque computacional universal consiste
 en partir de una distribución genérica y comprimirla hasta alcanzar
 dicha distribución mediante la reducción (iterativa) del ruido o de la entropía. Como
 vimos en el capítulo anterior, esto ocurre incluso en el caso de
 las que podrían considerarse las distribuciones más simples de un único subespacio, como
 el cálculo del PCA mediante el algoritmo de iteración de potencias. Como veremos en
-los próximos capítulos, las funciones fundamentales de las redes profundas modernas
-no es ajustar distribuciones de datos o funciones arbitrarias (con ruido),
+los próximos capítulos, los roles fundamentales de las redes profundas modernas
+no consisten en ajustar distribuciones de datos o funciones arbitrarias (con ruido),
 sino más bien realizar o aproximar esos operadores de compresión
 o de reducción de ruido (con pérdida). En capítulos posteriores derivaremos las formas precisas de esos
 operadores y las arquitecturas profundas asociadas.
 
 \paragraph{Más extensiones y referencias.}
-El uso de la reducción de ruido y la difusión para el muestreo tiene una larga trayectoria.
+El uso de la reducción de ruido y la difusión para el muestreo tiene una larga y rica trayectoria.
 Probablemente, el primer trabajo que trata específicamente de un modelo de difusión sea
 \cite{Sohl-Dickstein2015}, pero antes de este ya existían numerosos trabajos sobre
 la reducción del ruido como problema computacional y estadístico. El más
@@ -2014,7 +2013,7 @@ el «desaprendizaje» \citep{chen2025dual}, aunque esta lista no es exhaustiva.
             \end{bmatrix}
         \right),
     \end{equation*}
-    donde los parámetros de media y covarianza se dan por
+    donde los parámetros de media y covarianza están dados por
     \begin{equation*}
         \vmu_{\vx} = \bE[\vx],\quad \vmu_{\vy} = \bE[\vy],\quad
         \begin{bmatrix}
@@ -2033,7 +2032,7 @@ el «desaprendizaje» \citep{chen2025dual}, aunque esta lista no es exhaustiva.
             \end{bmatrix}^\top
         \right]
     \end{equation*}
-    Supongamos que $\vSigma_{\vy}$ es positiva definida (y, por lo tanto,
+    Supongamos que $\vSigma_{\vy}$ es definida positiva (y, por lo tanto,
     invertible); entonces,
     que la matriz de covarianza sea semidefinida positiva es equivalente
     a la condición del complemento de Schur
@@ -2052,12 +2051,12 @@ el «desaprendizaje» \citep{chen2025dual}, aunque esta lista no es exhaustiva.
             \vSigma_{\vx\vy}^{\top}
         \right).
     \end{equation}
-    Una vía directa para demostrar este resultado consiste en manipular el cociente definitoria de
+    Una vía directa para demostrar este resultado consiste en manipular el cociente definitorio de
     las densidades $p_{\vx, \vy} / p_{\vy}$. A continuación esbozamos un argumento algebraicamente conciso
     de este tipo.
 
     \begin{enumerate}
-        \item Compruebe la siguiente identidad matricial para la covarianza:
+        \item Compruebe la siguiente identidad matricial de la covarianza:
             \begin{equation}\label{eq:gaussian-conditional-covariance-block}
                 \begin{bmatrix}
                     \vSigma_{\vx} & \vSigma_{\vx\vy} \\
@@ -2153,7 +2152,7 @@ el «desaprendizaje» \citep{chen2025dual}, aunque esta lista no es exhaustiva.
             % que la primera
             % y la última de las matrices del lado derecho de la
             % \Cref{eq:gaussian-conditional-covariance-block} son
-            % transpuestas la una de la otra.})
+            % transpuestas entre si.})
         \item Dividiendo $p_{\vx, \vy} / p_{\vy}$, demuestre la 
             \Cref{eq:gaussian-conditional-eqn}. (\textit{Pista:
                     Utilizando las identidades anteriores,

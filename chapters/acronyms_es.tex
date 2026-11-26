@@ -3,35 +3,39 @@
 \begin{document}
 \chapter*{Acrónimos}\label{ch:acronyms}
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|l|l|}
-\hline
-\multicolumn{2}{|c|}{Inglés} & \multicolumn{1}{|c|}{Español} \\
+%\begin{longtable}{|l|l|l|}
+%\begin{longtable}{@{} p{\dimexpr 0.15\linewidth - 2\tabcolsep\relax} @{\hspace{1em}} p{\dimexpr 0.55\linewidth - 2\tabcolsep\relax} @{\hspace{1em}} p{\dimexpr 0.55\linewidth - 2\tabcolsep\relax} @{}}
+\begin{longtable}{@{} p{\dimexpr 0.12\linewidth - 2\tabcolsep\relax} @{\hspace{1em}} p{\dimexpr 0.55\linewidth - 2\tabcolsep\relax} @{\hspace{1em}} p{\dimexpr 0.55\linewidth - 2\tabcolsep\relax}}
+\caption{Acrónimos} \label{tab:acronyms} \\
 \hline
 Sigla & Expansión & Traducción \\
 \hline
+\endfirsthead
+\multicolumn{3}{l}{\small (sigue)} \\
+\hline
+Sigla & Expansión & Traducción \\
+\hline
+\endhead
 AD & Automatic Differentiation & Diferenciación automática \\
-ADM & Ablated Diffusion Model & Modelo de difusión con ablación \\
 ADM & Ablated Diffusion Model & Modelo de difusión con ablación \\
 AI & Artificial Intelligence & Inteligencia artificial \\
 ANN & Artificial Neural Network & Red neuronal artificial \\
 AoT & Attention only Transformer & Transformer de solo atención \\
-AP & Average Precision & Precisión promedio \\
+AP & Average Precision  & Precisión promedio \\
 ARI & Adjusted Rand Index & Índice Rand ajustado \\
 ASLDM & Aligned Shape Latent Diffusion Model & Modelo latente de difusión con formas alineadas \\
 BP & Back Propagation & Retropropagación \\
-BPE & Byte-pair Encoding & Codificación de pares de bytes \\
+BPE & Byte Pair Encoding & Codificación de pares de bytes \\
 CE & Cross-entropy & Entropía cruzada \\
 CFG & Classifier-free Guidance & Guía sin clasificador \\
-CFM & Conditional Flow-matching & \\
-CFG & Classifier Guidance & Guía por clasificador \\
-CIFAR & Canadian Institute for Advanced Research & Instituto canadiense de investigación avanzada \\
-CISE & & \\
+CFM & Conditional Flow Matching & Matching de flujos condicionales \\
+CG & Classifier Guidance & Guía por clasificador \\
+CIFAR & Canadian Institute for Advanced Research & Instituto Canadiense de Investigación Avanzada \\
+CISE & NSF Directorate for Computer and Information Science and Engineering & Directorio NSF para la Ingeniería y Ciencia de la Información y la Computación \\
 CLIP & Contrastive Language–image Pre-training & Pre-entrenamiento contrastivo de lenguaje-imagen \\
 CNN & Convolutional Neural Network & Red neuronal convolucional \\
 CRATE & Coding Rate Transformer & Transformer de tasa de codificación \\
-CS & Computer Science & Ciencias de la computación \\
+CS & Computer Science & Ciencias de la computación  \\
 CTRL & Conditional Transformer Language Model & Modelo de lenguaje Transformer condicional \\
 CV & Computer Vision & Visión artificial \\
 DAPS & Decoupled Annealing Posterior Sampling & Muestreo a posteriori mediante recocido desacoplado \\
@@ -40,25 +44,107 @@ DDPM & Denoising Diffusion Probabilistic Model & Modelo probabilístico de difus
 DINO & Distillation with No labels & Destilación sin etiquetas \\
 DiT & Diffusion Image Transformer & Transformer de imagen de difusión \\
 DL & Dictionary Learning & Aprendizaje de diccionarios \\
-DMS & & \\
-DNA & & \\
+DMS & NSF Data Management and Sharing Plan & Plan NSF de Gestión y Compartición de Datos \\
+DNA & Deoxyribonucleic acid & Ácido desoxirribonucleico \\
 DNN & Deep Neural Network & Red neuronal profunda \\
-DNN & Diiffusion Posterior Sampling & Muestreo a posteriori de difusión \\
-DPS & Diffusion Posterior Sampling & Muestreo a posteriori de difusión \\
+DPS & Diiffusion Posterior Sampling & Muestreo a posteriori de difusión \\
 ELBO & Evidence Lower Bound & Cota inferior de evidencia \\
-EM & Earth Mover & \\
+EM & Earth Mover’s Distance (EMD) & Distancia del transportista de tierra, también Distancia de Wasserstein \\
 EMA & Exponential Moving Average & Media móvil exponencial \\
 FID & Fréchet Inception Distance & Distancia de inicio de Fréchet \\
-FM & Flow Matching & Coincidencia de flujo \\
+FM & Flow Matching & Coincidencias de flujo \\
 FPS & Farthest Point Sampling & Muestreo del punto más lejano \\
 GAN & Generative Adversarial Network & Red generativa adversativa \\
 GCN & Graph Convolutional Network & Red gráfica convolucional \\
-GD & Gradient Descent & Descenso por gradiente \\
+GD & Gradient Descent & Descenso de gradiente \\
+GDA & Gradient Descent-Ascent & Descenso-ascenso de gradiente \\
+GELU & Gaussian Error Linear Unit & Unidad lineal de error gaussiano \\
+GMM & Gaussian Mixture Model & Modelo de mezcla gaussiana \\
+GPCA & Generalized Principal Component Analysis & Análisis  de componentes principales generalizado \\
+GPU & Graphics Processing Unit & Unidad de procesamiento gráfico \\
+HaMeR & Hand Mesh Recovery & Recuperación de malla de mano \\
+HMD & Head Mounted Device/Display & Dispositivo/Visor montado en la cabeza \\
+IB & Information Bottleneck & Cuello de botella de la información \\
+ICA & Independent Component Analysis & Análisis  de componentes independientes \\
+IoU & Intersection over Union & Intersección sobre unión \\
+ISTA & Iterative Shrinkage-Thresholding Algorithm & Algoritmo iterativo de reducción y umbralización \\
+JEPA & Joint Embedding Predictive Architecture & Arquitectura de predicción con embeddings conjuntos \\
+JS & Jensen-Shannon & de Jensen-Shannon \\
+KL & Kullback–Leibler & de Kullback–Leibler \\
+LASSO & Least Absolute Shrinkage and Selection Operator & Operador de selección y compresión absoluta mínima \\
+LDM & Latent Diffusion Model & Modelo de difusión latente \\
+LDR & Linear Discriminative Representations & Representaciones lineales discriminantes \\
+LISTA & Learned Iterative Shrinkage-Thresholding Algorithm & Algoritmo iterativo aprendido de reducción y umbralización \\
+LLM & Large Language Model & Modelo de lenguaje de gran tamaño \\
+LTI & Linear Time-Invariant & Lineal e invariante en el tiempo \\
+LUCA & Last Universal Common Ancestor & Último antepasado común universal \\
+MAE & Masked Autoencoder & Autocodificador enmascarado \\
+MAP & Maximum a posteriori  & Maximo a posteriori  \\
+MCL & Minimizing Coding Length & Minimización de la longitud del código \\
+MCR² & Maximal Coding Rate Reduction & Reducción máxima de la tasa de codificación \\
+MDL & Minimum Description Length & Longitud mínima de descripción \\
+MHSA & Multi-Head Self-Attention & Autoatención multicabezal \\
+ML & Machine Learning & Aprendizaje automático \\
+MLP & Multi Layer Perceptron & Perceptrón multicapa \\
+MML & Minimum Message Length & Longitud mínima de mensaje \\
+MMSE & Minimum Mean-Square Error & Error cuadrático medio mínimo \\
+MNIST & Modified National Institute of Standards and Technology & Instituto Nacional Modificado de Estándares y Tecnología \\
+MoE & Mixture of Experts & Mezcla de expertos \\
+MPJPE & Mean Per-Joint Position Error & Error medio de posición por articulación \\
+MRI & Magnetic Resonance Imaging & Imaginería de resonancia magnética \\
+MSE & Mean-Square Error & Error cuadrático medio \\
+MSP & Matching, Stretching, and Projection & Coincidencia, estiramiento y proyección \\
+MSSA & Multihead Subspace Self-Attention  & Autoatención multicabezal por subespacios \\
+NAS & Neural Architecture Search & Búsqueda de arquitectura neuronal \\
+NLP  & Natural Language Processing & Procesamiento del lenguaje natural \\
+NLPCA & Nonlinear Principal Component Analysis & Análisis no lineal de componentes principales \\
+NN & Neural Network & Red neuronal  \\
+ODE & Ordinary Differential Equation & Ecuación diferencial ordinaria \\
+ODL & Overcomplete Dictionary Learning & Aprendizaje de diccionarios sobrecompletos \\
+PCA & Principal Component Analysis & Análisis de componentes principales \\
+PDE & Partial Differential Equation & Ecuación diferencial parcial \\
+PDF & Probability Density Function & Función de densidad de probabilidad \\
+PPCA & Probabilistic Principal Component Analysis & Análisis probabilístico de componentes principales \\
+PSD & Positive Semi-Definite & Semidefinido positivo \\
+RAE & Representation Autoencoder & Autocodificador de representaciones \\
+RAE & Recurrent Autoencoder & Autocodificador recurrente \\
+RD & Rate-Distortion & Tasa-distorsión \\
+ReLU & Rectified Linear Unit & Unidad lineal rectificada \\
+RGB & Red, Green, Blue & Rojo, verde, azul \\
+RHS & Right Hand Side & Lado derecho (de la ecuación) \\
+RNA & Ribonucleic Acid & Ácido ribonucleico \\
+RoPE & Rotary Positional Embeddings  & Embeddings de posición rotacionales \\
+SAE & Sparse Autoencoder  & Autocodificador esparso \\
+SDF & Signed Distance Field & Campo de distancia con signo \\
+SFM & Structure From Motion & Estructura desde el movimiento \\
+SGD & Stochastic Gradient Descent & Descenso de gradiente estocástico \\
+SiLU & Sigmoid Linear Unit & Unidad lineal sigmoide \\
+SITA & Shape Image Text Aligned & Alineado Forma Imagen Texto \\
+SLAM & Simultaneous Localization And Mapping & Localización y mapeo simultáneos \\
+SMPL & Skinned Multi-Person Linear & Modelo lineal multi-persona con piel \\
+SNR & Signal to Noise Ratio & Relación señal-ruido \\
+SSA & Subspace Self-Attention & Autoatención por subespacios \\
+STFT & Short-Time Fourier Transform & Transformada de Fourier de tiempo reducido \\
+SURE & Stein's Unbiased Risk Estimator & Estimador de riesgo no sesgado de Stein \\
+SVD & Singular Value Decomposition & Descomposición en valores singulares \\
+SVM & Support Vector Machine & Máquina de vectores de soporte \\
+TDS & Twisted Diffusion Sampler & Muestreo torcido de difusión \\
+ToST & Token Statistics Transformer & Transformer de estadística de tokens \\
+TSSA & Token Statistics Self-Attention & Autoatención de estadística de tokens \\
+TTT & Test Time Training & Entrenamiento en tiempo de prueba \\
+TV & Total Variation & Variación total \\
+ULIP & unified language, image, and point cloud learning & Aprendizaje unificado de lenguaje, imagen y nubes de puntos \\
+VAE & variational autoencoder & Autocodificador variacional \\
+VE & Variance-Exploding (process) & Proceso de difusión de varianza explosiva \\
+ViT & Vision Transformer & Transformador de visión \\
+VP & Variance-Preserving (process) & Proceso de difusión de varianza constante \\
+VQ & Vector Quantization & Cuantización vectorial \\
+WLOG & without loss of generality & Sin pérdida de generalidad \\
 \hline
-\end{tabular}
+%\end{tabular}
 \caption{Acrónimos usados en este texto.}
 \label{tab:basic}
-\end{table}
+%\end{table}
+\end{longtable}
 
 \end{document}
-
